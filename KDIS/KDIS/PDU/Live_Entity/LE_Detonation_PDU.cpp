@@ -1,0 +1,893 @@
+/*********************************************************************
+KDIS is free software; you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option)
+any later version.
+
+KDIS is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with this library; if not, write to the Free Software Foundation, Inc.,
+59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+
+For Further Information Please Contact me at
+Karljj1@yahoo.com
+http://p.sf.net/kdis/UserGuide
+*********************************************************************/
+
+#include "./LE_Detonation_PDU.h"
+
+//////////////////////////////////////////////////////////////////////////
+
+using namespace KDIS;
+using namespace PDU;
+using namespace DATA_TYPE;
+using namespace ENUMS;
+using namespace UTILS;
+
+//////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::checkSiteApplicationFlags()
+{
+    // Check if the munition's's site and application values
+    // are the same, if they are we don't include them.
+    if( m_EntID.GetSiteID() == m_MunitionID.GetSiteID() &&
+            m_EntID.GetApplicationID() == m_MunitionID.GetApplicationID() )
+    {
+        // They match so don't include the fields
+        SetMunitionEntityIDSiteAppIncludedFlag( false );
+    }
+    else
+    {
+        // They don't match so we need to send these fields.
+        SetMunitionEntityIDSiteAppIncludedFlag( true );
+    }
+
+    // Now check the event's site and application values
+    if( m_EntID.GetSiteID() == m_EventID.GetSiteID() &&
+            m_EntID.GetApplicationID() == m_EventID.GetApplicationID() )
+    {
+        SetEventIDSiteAppIncludedFlag( false );
+    }
+    else
+    {
+        SetEventIDSiteAppIncludedFlag( true );
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+// public:
+//////////////////////////////////////////////////////////////////////////
+
+LE_Detonation_PDU::LE_Detonation_PDU( void ) :
+    m_ui8DetonationResult( 0 )
+{
+    m_DetonationFlag1Union.m_ui8Flag = 0;
+    m_DetonationFlag2Union.m_ui8Flag = 0;
+    m_ui8PDUType = LEDetonation_PDU_Type;
+    m_ui16PDULength = LE_DETONATION_PDU_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Detonation_PDU::LE_Detonation_PDU( const LE_EntityIdentifier & ID ) :
+    m_ui8DetonationResult( 0 )
+{
+    m_EntID = ID;
+    m_DetonationFlag1Union.m_ui8Flag = 0;
+    m_DetonationFlag2Union.m_ui8Flag = 0;
+    m_ui8PDUType = LEDetonation_PDU_Type;
+    m_ui16PDULength = LE_DETONATION_PDU_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
+{
+    try
+    {
+        Decode( stream );
+    }
+    catch ( KException & e )
+    {
+        throw e;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Detonation_PDU::~LE_Detonation_PDU( void )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetTargetEntityIDFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8TargetId )return;
+
+    m_DetonationFlag1Union.m_ui8TargetId = F;
+
+    if( F )
+    {
+        m_ui16PDULength += LE_EntityIdentifier::LE_ENTITY_IDENTIFER_SIZE;
+    }
+    else
+    {
+        m_ui16PDULength -= LE_EntityIdentifier::LE_ENTITY_IDENTIFER_SIZE;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetTargetEntityIDFlag() const
+{
+    return m_DetonationFlag1Union.m_ui8TargetId;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetMunitionEntityIDFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8MunitionId )return;
+
+    m_DetonationFlag1Union.m_ui8MunitionId = F;
+
+    if( F )
+    {
+        m_ui16PDULength += 2; // 2 = This flag only indicates the entity id field is included.
+    }
+    else
+    {
+        m_ui16PDULength -= 2;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetMunitionEntityIDFlag() const
+{
+    return m_DetonationFlag1Union.m_ui8MunitionId;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetMunitionEntityIDSiteAppIncludedFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8MunitionSiteApp )return;
+
+    m_DetonationFlag1Union.m_ui8MunitionSiteApp = F;
+
+    if( F )
+    {
+        m_ui16PDULength += 2; // 2 = This flag indicates the site and application fields are included.
+    }
+    else
+    {
+        m_ui16PDULength -= 2;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetMunitionEntityIDSiteAppIncludedFlag() const
+{
+    return m_DetonationFlag1Union.m_ui8MunitionSiteApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetEventIDSiteAppIncludedFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8EventSiteAppId )return;
+
+    m_DetonationFlag1Union.m_ui8EventSiteAppId = F;
+
+    if( F )
+    {
+        m_ui16PDULength += 2; // 2 = This flag indicates the site and application fields are included.
+    }
+    else
+    {
+        m_ui16PDULength -= 2;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetEventIDSiteAppIncludedFlag() const
+{
+    return m_DetonationFlag1Union.m_ui8EventSiteAppId;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetWarheadFuseFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8WarheadFuse )return;
+
+    m_DetonationFlag1Union.m_ui8WarheadFuse = F;
+
+    if( F )
+    {
+        m_ui16PDULength += 4; // 4 = size of warhead and fuse fields in the Munition Descriptor.
+    }
+    else
+    {
+        m_ui16PDULength -= 4;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetWarheadFuseFlag() const
+{
+    return m_DetonationFlag1Union.m_ui8WarheadFuse;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetQuantityRateFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8QuantRate )return;
+
+    m_DetonationFlag1Union.m_ui8QuantRate = F;
+
+    if( F )
+    {
+        m_ui16PDULength += 4; // 4 = size of quantity and  fields in the Munition Descriptor.
+    }
+    else
+    {
+        m_ui16PDULength -= 4;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetQuantityRateFlag() const
+{
+    return m_DetonationFlag1Union.m_ui8QuantRate;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetLocationInEntityCoordinatesFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8LocationTyp )return;
+
+    m_DetonationFlag1Union.m_ui8QuantRate = F;
+
+    if( F )
+    {
+        m_ui16PDULength -= RelativeWorldCoordinates::RELATVE_WORLD_COORDINATES_SIZE;
+        m_ui16PDULength += LE_Vector16_3::LE_VECTOR_SIZE;
+    }
+    else
+    {
+        m_ui16PDULength += RelativeWorldCoordinates::RELATVE_WORLD_COORDINATES_SIZE;
+        m_ui16PDULength -= LE_Vector16_3::LE_VECTOR_SIZE;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetLocationInEntityCoordinatesFlag() const
+{
+    return m_DetonationFlag1Union.m_ui8QuantRate;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetFlag2Flag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8Flag2 )return;
+
+    m_DetonationFlag1Union.m_ui8Flag2 = F;
+
+    if( F )
+    {
+        m_ui16PDULength += 1; // 1 = size of flag 2 field
+    }
+    else
+    {
+        m_ui16PDULength -= 1;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetFlag2Flag() const
+{
+    return m_DetonationFlag1Union.m_ui8Flag2;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetMunitionOrientationFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag2Union.m_ui8MunitionOri )return;
+
+    m_DetonationFlag1Union.m_ui8Flag2 = F;
+
+    if( F )
+    {
+        SetFlag2Flag( F );
+        m_ui16PDULength += LE_Vector16_3::LE_VECTOR_SIZE;
+    }
+    else
+    {
+        m_ui16PDULength -= LE_Vector16_3::LE_VECTOR_SIZE;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetMunitionOrientationFlag() const
+{
+    return m_DetonationFlag2Union.m_ui8MunitionOri;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetEventNumberIncludedFlag( KBOOL F )
+{
+    if( ( KUINT8 )F == m_DetonationFlag2Union.m_ui8EventNum )return;
+
+    m_DetonationFlag1Union.m_ui8Flag2 = F;
+
+    if( F )
+    {
+        SetFlag2Flag( F );
+        m_ui16PDULength += 2; // 2 = size of event number field
+    }
+    else
+    {
+        m_ui16PDULength -= 2;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::GetEventNumberIncludedFlag() const
+{
+    return m_DetonationFlag2Union.m_ui8EventNum;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetTargetEntityID( const LE_EntityIdentifier & ID )
+{
+    SetTargetEntityIDFlag( true );
+    m_TargetID = ID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const LE_EntityIdentifier & LE_Detonation_PDU::GetTargetEntityID() const
+{
+    return m_TargetID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_EntityIdentifier & LE_Detonation_PDU::GetTargetEntityID()
+{
+    return m_TargetID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetMunitionEntityID( const LE_EntityIdentifier & ID )
+{
+    SetMunitionEntityIDFlag( true );
+    m_MunitionID = ID;
+
+    // Check if the firing entity's site and application values
+    // are the same, if they are we don't include them.
+    if( m_EntID.GetSiteID() == ID.GetSiteID() &&
+            m_EntID.GetApplicationID() == ID.GetApplicationID() )
+    {
+        // They match so don't include the fields
+        SetMunitionEntityIDSiteAppIncludedFlag( false );
+    }
+    else
+    {
+        // They don't match so we need to send these fields.
+        SetMunitionEntityIDSiteAppIncludedFlag( true );
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const LE_EntityIdentifier & LE_Detonation_PDU::GetMunitionEntityID() const
+{
+    return m_MunitionID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_EntityIdentifier & LE_Detonation_PDU::GetMunitionEntityID()
+{
+    return m_MunitionID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetEventID( const LE_EntityIdentifier & ID )
+{
+    SetEventNumberIncludedFlag( true );
+    m_EventID = ID;
+
+    // Check if the id's site and application values
+    // are the same, if they are we don't include them.
+    if( m_EntID.GetSiteID() == ID.GetSiteID() &&
+            m_EntID.GetApplicationID() == ID.GetApplicationID() )
+    {
+        // They match so don't include the fields
+        SetEventIDSiteAppIncludedFlag( false );
+    }
+    else
+    {
+        // They don't match so we need to send these fields.
+        SetEventIDSiteAppIncludedFlag( true );
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const LE_EntityIdentifier & LE_Detonation_PDU::GetEventID() const
+{
+    return m_EventID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_EntityIdentifier & LE_Detonation_PDU::GetEventID()
+{
+    return m_EventID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetLocation( const LE_Vector16_3 & L  )
+{
+    SetLocationEntityCoordinates( L );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetLocation( const RelativeWorldCoordinates & L  )
+{
+    SetLocationWorldCoordinates( L );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetLocationEntityCoordinates( const LE_Vector16_3 & L )
+{
+    SetLocationInEntityCoordinatesFlag( true );
+    m_LocEntCoord = L;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const LE_Vector16_3 & LE_Detonation_PDU::GetLocationEntityCoordinates() const
+{
+    return m_LocEntCoord;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Vector16_3 & LE_Detonation_PDU::GetLocationEntityCoordinates()
+{
+    return m_LocEntCoord;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetLocationWorldCoordinates( const RelativeWorldCoordinates & L )
+{
+    SetLocationInEntityCoordinatesFlag( false );
+    m_LocWrldCoord = L;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const RelativeWorldCoordinates & LE_Detonation_PDU::GetLocationWorldCoordinates() const
+{
+    return m_LocWrldCoord;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+RelativeWorldCoordinates & LE_Detonation_PDU::GetLocationWorldCoordinates()
+{
+    return m_LocWrldCoord;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetVelocity( const LE_Vector16_3 & V )
+{
+    m_Vel = V;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const LE_Vector16_3 & LE_Detonation_PDU::GetVelocity() const
+{
+    return m_Vel;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Vector16_3 & LE_Detonation_PDU::GetVelocity()
+{
+    return m_Vel;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetMunitionOrientation( const LE_EulerAngles & O )
+{
+    SetMunitionOrientationFlag( true );
+    m_Ori = O;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const LE_EulerAngles & LE_Detonation_PDU::GetMunitionOrientation() const
+{
+    return m_Ori;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_EulerAngles & LE_Detonation_PDU::GetMunitionOrientation()
+{
+    return m_Ori;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetMunitionDescriptor( const BurstDescriptor & BD )
+{
+    m_MunitionDesc = BD;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const BurstDescriptor & LE_Detonation_PDU::GetMunitionDescriptor() const
+{
+    return m_MunitionDesc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+BurstDescriptor & LE_Detonation_PDU::GetMunitionDescriptor()
+{
+    return m_MunitionDesc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::SetDetonationResult( DetonationResult DR )
+{
+    m_ui8DetonationResult = DR;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+DetonationResult LE_Detonation_PDU::GetDetonationResult() const
+{
+    return ( DetonationResult )m_ui8DetonationResult;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString LE_Detonation_PDU::GetAsString() const
+{
+    KStringStream ss;
+
+    ss << LE_Header::GetAsString()
+       << "-LE Detonation PDU-\n"
+       << "Optional Field Flags:\n"
+       << "\tTarget ID:							   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8TargetId          << "\n"
+       << "\tMunition ID:						   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8MunitionId       << "\n"
+       << "\tMunition Site & Application Included: " << ( KUINT16 )m_DetonationFlag1Union.m_ui8MunitionSiteApp << "\n"
+       << "\tEvent Site & Application Included:    " << ( KUINT16 )m_DetonationFlag1Union.m_ui8EventSiteAppId  << "\n"
+       << "\tWarhead & Fuse Included:			   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8WarheadFuse     << "\n"
+       << "\tQuantity & Rate Included:			   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8QuantRate      << "\n"
+       << "\tLocation In Entity Coordinates:	   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8LocationTyp    << "\n"
+       << "\tFlag 2:							   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8Flag2        << "\n"
+       << "\tMunition Orientation:				   " << ( KUINT16 )m_DetonationFlag2Union.m_ui8MunitionOri     << "\n"
+       << "\tEvent Number:						   " << ( KUINT16 )m_DetonationFlag2Union.m_ui8EventNum        << "\n";
+
+    if( m_DetonationFlag1Union.m_ui8TargetId )
+    {
+        ss << "Target ID: " << m_TargetID.GetAsString();
+    }
+
+    if( m_DetonationFlag1Union.m_ui8MunitionId )
+    {
+        ss << "Munition ID: " << m_MunitionID.GetAsString();
+    }
+
+    if( m_DetonationFlag2Union.m_ui8EventNum || m_DetonationFlag1Union.m_ui8EventSiteAppId )
+    {
+        ss << "Event ID: " << m_EventID.GetAsString();
+    }
+
+    ss << m_MunitionDesc.GetAsString();
+
+    if( m_DetonationFlag1Union.m_ui8LocationTyp )
+    {
+        ss << "Location(Entity Coordinates): " << m_LocEntCoord.GetAsString();
+    }
+    else
+    {
+        ss << "Location(World Coordinates):\n" << IndentString( m_LocWrldCoord.GetAsString(), 1 );
+    }
+
+    ss << "Velocity: " << m_Vel.GetAsString();
+
+    if( m_DetonationFlag2Union.m_ui8MunitionOri )
+    {
+        ss << "Munition Orienation: " << m_Ori.GetAsString();
+    }
+
+    ss << m_MunitionDesc.GetAsString()
+       << GetEnumAsStringDetonationResult( m_ui8DetonationResult )
+       << "\n";
+
+    return ss.str();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::Decode( KDataStream & stream ) throw( KException )
+{
+    if( stream.GetBufferSize() < LE_DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+
+    LE_Header::Decode( stream );
+
+    stream >> m_DetonationFlag1Union.m_ui8Flag;
+
+    if( m_DetonationFlag1Union.m_ui8Flag2 )
+    {
+        stream >> m_DetonationFlag2Union.m_ui8Flag;
+    }
+
+    if( m_DetonationFlag1Union.m_ui8TargetId )
+    {
+        stream >> KDIS_STREAM m_TargetID;
+    }
+
+    KUINT16 tmp = 0;
+
+    // Munition ID
+    if( m_DetonationFlag1Union.m_ui8MunitionId )
+    {
+        if( m_DetonationFlag1Union.m_ui8MunitionSiteApp )
+        {
+            stream >> KDIS_STREAM m_MunitionID;
+        }
+        else
+        {
+            // We cant use the standard encode/decode functions here as not all fields are included.
+
+            // The Firing Entities site and application id are the same so lets copy them over
+            m_MunitionID = m_EntID;
+
+            stream >> tmp;
+            m_MunitionID.SetEntityID( tmp );
+        }
+    }
+
+    // Event ID
+    if( m_DetonationFlag2Union.m_ui8EventNum )
+    {
+        if( m_DetonationFlag1Union.m_ui8EventSiteAppId )
+        {
+            stream >> KDIS_STREAM m_EventID;
+        }
+        else
+        {
+            // We cant use the standard encode/decode functions here as not all fields are included.
+
+            // The Firing Entities site and application id are the same so lets copy them over
+            m_EventID = m_EntID;
+
+            stream >> tmp;
+            m_EventID.SetEntityID( tmp );
+        }
+    }
+
+    // Is the location in world coordinates?
+    if( !m_DetonationFlag1Union.m_ui8LocationTyp ) // false means location is in world coords
+    {
+        stream >> KDIS_STREAM m_LocWrldCoord;
+    }
+
+    stream >> KDIS_STREAM m_Vel;
+
+    if( m_DetonationFlag2Union.m_ui8MunitionOri )
+    {
+        stream >> KDIS_STREAM m_Ori;
+    }
+
+    // Munition Descriptor
+    if( !m_DetonationFlag1Union.m_ui8WarheadFuse && !m_DetonationFlag1Union.m_ui8QuantRate )
+    {
+        stream >> KDIS_STREAM m_MunitionDesc;
+    }
+    else
+    {
+        m_MunitionDesc.SetMunition( EntityType( stream ) );
+
+        if( m_DetonationFlag1Union.m_ui8WarheadFuse )
+        {
+            stream >> tmp;
+            m_MunitionDesc.SetWarhead( ( WarheadType )tmp );
+
+            stream >> tmp;
+            m_MunitionDesc.SetFuse( ( FuseType )tmp );
+        }
+
+        if( m_DetonationFlag1Union.m_ui8QuantRate )
+        {
+            stream >> tmp;
+            m_MunitionDesc.SetQuantity( tmp );
+
+            stream >> tmp;
+            m_MunitionDesc.SetRate( tmp );
+        }
+    }
+
+    // Is the location in entity coordinates?
+    if( m_DetonationFlag1Union.m_ui8LocationTyp ) // true means location is in entity coords
+    {
+        stream >> KDIS_STREAM m_LocEntCoord;
+    }
+
+    stream >> m_ui8DetonationResult;
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+KDataStream LE_Detonation_PDU::Encode() const
+{
+    KDataStream stream;
+
+    LE_Detonation_PDU::Encode( stream );
+
+    return stream;
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+void LE_Detonation_PDU::Encode( KDataStream & stream ) const
+{
+    LE_Header::Encode( stream );
+
+    // We need to cast away the const so we can check the flag values are correct
+    LE_Detonation_PDU * self = const_cast<LE_Detonation_PDU*>( this );
+    self->checkSiteApplicationFlags();
+
+    stream << m_DetonationFlag1Union.m_ui8Flag;
+
+    if( m_DetonationFlag1Union.m_ui8Flag2 )
+    {
+        stream << m_DetonationFlag2Union.m_ui8Flag;
+    }
+
+    if( m_DetonationFlag1Union.m_ui8TargetId )
+    {
+        stream << KDIS_STREAM m_TargetID;
+    }
+
+    // Munition ID
+    if( m_DetonationFlag1Union.m_ui8MunitionId )
+    {
+        if( m_DetonationFlag1Union.m_ui8MunitionSiteApp )
+        {
+            stream << KDIS_STREAM m_MunitionID;
+        }
+        else
+        {
+            // We cant use the standard encode/decode functions here as not all fields are included.
+            stream << m_MunitionID.GetEntityID();
+        }
+    }
+
+    // Event ID
+    if( m_DetonationFlag2Union.m_ui8EventNum )
+    {
+        if( m_DetonationFlag1Union.m_ui8EventSiteAppId )
+        {
+            stream << KDIS_STREAM m_EventID;
+        }
+        else
+        {
+            // We cant use the standard encode/decode functions here as not all fields are included.
+            m_EventID.GetEntityID();
+        }
+    }
+
+    // Is the location in world coordinates?
+    if( !m_DetonationFlag1Union.m_ui8LocationTyp ) // false means location is in world coords
+    {
+        stream << KDIS_STREAM m_LocWrldCoord;
+    }
+
+    stream << KDIS_STREAM m_Vel;
+
+    if( m_DetonationFlag2Union.m_ui8MunitionOri )
+    {
+        stream << KDIS_STREAM m_Ori;
+    }
+
+    // Munition
+    if( !m_DetonationFlag1Union.m_ui8WarheadFuse && !m_DetonationFlag1Union.m_ui8QuantRate )
+    {
+        stream << KDIS_STREAM m_MunitionDesc;
+    }
+    else
+    {
+        stream << KDIS_STREAM m_MunitionDesc.GetMunition();
+
+        if( m_DetonationFlag1Union.m_ui8WarheadFuse )
+        {
+            stream << ( KUINT16 )m_MunitionDesc.GetWarhead()
+                   << ( KUINT16 )m_MunitionDesc.GetFuse();
+        }
+
+        if( m_DetonationFlag1Union.m_ui8QuantRate )
+        {
+            stream << m_MunitionDesc.GetQuantity()
+                   << m_MunitionDesc.GetRate();
+        }
+    }
+
+    // Is the location in entity coordinates?
+    if( m_DetonationFlag1Union.m_ui8LocationTyp ) // true means location is in entity coords
+    {
+        stream << KDIS_STREAM m_LocEntCoord;
+    }
+
+    stream << m_ui8DetonationResult;
+}
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::operator == ( const LE_Detonation_PDU & Value ) const
+{
+    if( LE_Header::operator              != ( Value ) )                              return false;
+    if( m_DetonationFlag1Union.m_ui8Flag != Value.m_DetonationFlag1Union.m_ui8Flag ) return false;
+    if( m_DetonationFlag2Union.m_ui8Flag != Value.m_DetonationFlag2Union.m_ui8Flag ) return false;
+    if( m_TargetID                       != Value.m_TargetID )                       return false;
+    if( m_MunitionID                     != Value.m_MunitionID )                     return false;
+    if( m_EventID                        != Value.m_EventID )                        return false;
+    if( m_LocEntCoord                    != Value.m_LocEntCoord )                    return false;
+    if( m_LocWrldCoord                   != Value.m_LocWrldCoord )                   return false;
+    if( m_Vel                            != Value.m_Vel )                            return false;
+    if( m_MunitionDesc                   != Value.m_MunitionDesc )                   return false;
+    if( m_Ori                            != Value.m_Ori )                            return false;
+    if( m_ui8DetonationResult            != Value.m_ui8DetonationResult )            return false;
+    return true;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LE_Detonation_PDU::operator != ( const LE_Detonation_PDU & Value ) const
+{
+    return !( *this == Value );
+}
+
+//////////////////////////////////////////////////////////////////////////
+

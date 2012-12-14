@@ -1,0 +1,537 @@
+/*********************************************************************
+KDIS is free software; you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option)
+any later version.
+
+KDIS is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with this library; if not, write to the Free Software Foundation, Inc.,
+59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+
+For Further Information Please Contact me at
+Karljj1@yahoo.com
+http://p.sf.net/kdis/UserGuide
+*********************************************************************/
+
+#include "./Entity_State_PDU.h"
+#include "./../../Extras/DeadReckoningCalculator.h"
+
+//////////////////////////////////////////////////////////////////////////
+
+using namespace std;
+using namespace KDIS;
+using namespace PDU;
+using namespace DATA_TYPE;
+using namespace ENUMS;
+using namespace UTILS;
+
+//////////////////////////////////////////////////////////////////////////
+// public:
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_PDU::Entity_State_PDU( void ) :
+    m_ui8NumOfArticulationParams( 0 ),
+    m_ui8ForceID( 0 ),
+    m_pDrCalc( 0 )
+{
+    m_ui8ProtocolFamily = Entity_Information_Interaction;
+    m_ui8PDUType = Entity_State_PDU_Type;
+    m_ui16PDULength = ENTITY_STATE_PDU_SIZE;
+    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_PDU::Entity_State_PDU( KDataStream & stream ) throw( KException ) :
+    m_pDrCalc( 0 )
+{
+    try
+    {
+        Decode( stream );
+    }
+    catch ( KException & e )
+    {
+        throw e;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_PDU::Entity_State_PDU( const EntityIdentifier & EI, ForceID ID, const EntityType & Type, const EntityType & AltType,
+                                    const Vector & EntityLinearVelocity, const WorldCoordinates & EntityLocation,
+                                    const EulerAngles & EntityOrientation, const EntityAppearance & EA,
+                                    const DeadReckoningParameter & DRP, const EntityMarking & EM,
+                                    const EntityCapabilities & EC ) :
+    m_EntityID( EI ),
+    m_ui8ForceID( ID ),
+    m_ui8NumOfArticulationParams( 0 ),
+    m_EntityType( Type ),
+    m_AltEntityType( AltType ),
+    m_EntityLinearVelocity( EntityLinearVelocity ),
+    m_EntityLocation( EntityLocation ),
+    m_EntityOrientation( EntityOrientation ),
+    m_EntityAppearance( EA ),
+    m_DeadReckoningParameter( DRP ),
+    m_EntityMarking( EM ),
+    m_EntityCapabilities( EC ),
+    m_pDrCalc( 0 )
+{
+    m_ui8ProtocolFamily = Entity_Information_Interaction;
+    m_ui8PDUType = Entity_State_PDU_Type;
+    m_ui16PDULength = ENTITY_STATE_PDU_SIZE;
+    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_PDU::~Entity_State_PDU( void )
+{
+    if( m_pDrCalc )
+    {
+        delete m_pDrCalc;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityIdentifier( const EntityIdentifier & EI )
+{
+    m_EntityID = EI;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityIdentifier & Entity_State_PDU::GetEntityIdentifier() const
+{
+    return m_EntityID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityIdentifier & Entity_State_PDU::GetEntityIdentifier()
+{
+    return m_EntityID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetForceID( ForceID ID )
+{
+    m_ui8ForceID = ID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ForceID Entity_State_PDU::GetForceID() const
+{
+    return ( ForceID )m_ui8ForceID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 Entity_State_PDU::GetNumberOfArticulationParams() const
+{
+    return m_ui8NumOfArticulationParams;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityType( const EntityType & Type )
+{
+    m_EntityType = Type;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityType & Entity_State_PDU::GetEntityType() const
+{
+    return m_EntityType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityType & Entity_State_PDU::GetEntityType()
+{
+    return m_EntityType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetAltEntityType( const EntityType & Type )
+{
+    m_AltEntityType = Type;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityType & Entity_State_PDU::GetAltEntityType() const
+{
+    return m_AltEntityType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityType & Entity_State_PDU::GetAltEntityType()
+{
+    return m_AltEntityType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityLinearVelocity( const Vector & ELV )
+{
+    m_EntityLinearVelocity = ELV;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const Vector & Entity_State_PDU::GetEntityLinearVelocity() const
+{
+    return m_EntityLinearVelocity;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Vector & Entity_State_PDU::GetEntityLinearVelocity()
+{
+    return m_EntityLinearVelocity;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityLocation( const WorldCoordinates & EL )
+{
+    m_EntityLocation = EL;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const WorldCoordinates & Entity_State_PDU::GetEntityLocation() const
+{
+    return m_EntityLocation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+WorldCoordinates & Entity_State_PDU::GetEntityLocation()
+{
+    return m_EntityLocation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityOrientation( const EulerAngles & EO )
+{
+    m_EntityOrientation = EO;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EulerAngles & Entity_State_PDU::GetEntityOrientation() const
+{
+    return m_EntityOrientation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EulerAngles & Entity_State_PDU::GetEntityOrientation()
+{
+    return m_EntityOrientation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityAppearance( const EntityAppearance & EA )
+{
+    m_EntityAppearance = EA;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityAppearance & Entity_State_PDU::GetEntityAppearance() const
+{
+    return m_EntityAppearance;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityAppearance & Entity_State_PDU::GetEntityAppearance()
+{
+    return m_EntityAppearance;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetDeadReckoningParameter( const DeadReckoningParameter & DRP )
+{
+    m_DeadReckoningParameter = DRP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetDeadReckoningCalculator( DeadReckoningCalculator * DR )
+{
+    m_pDrCalc = DR;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+DeadReckoningCalculator * Entity_State_PDU::GetDeadReckoningCalculator()
+{
+    return m_pDrCalc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::InitDeadReckoning()
+{
+    if( !m_pDrCalc )
+    {
+        m_pDrCalc = new DeadReckoningCalculator;
+    }
+
+    ResetDeadReckoning();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::ApplyDeadReckoning( KFLOAT64 totalTimeSinceDrReset ) throw( KException )
+{
+    if( !m_pDrCalc )throw KException( __FUNCTION__, INVALID_OPERATION, "You must call InitDeadReckoning() first." );
+    m_pDrCalc->RunAlgorithm( totalTimeSinceDrReset, m_EntityLocation, m_EntityOrientation );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const DeadReckoningParameter & Entity_State_PDU::GetDeadReckoningParameter() const
+{
+    return m_DeadReckoningParameter;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+DeadReckoningParameter & Entity_State_PDU::GetDeadReckoningParameter()
+{
+    return m_DeadReckoningParameter;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::ResetDeadReckoning()
+{
+    if( m_pDrCalc )
+    {
+        m_pDrCalc->Reset( m_EntityLinearVelocity, m_DeadReckoningParameter.GetLinearAcceleration(), m_DeadReckoningParameter.GetAngularVelocity(),
+                          m_EntityLocation, m_EntityOrientation, m_DeadReckoningParameter.GetQuatAxis(), m_DeadReckoningParameter.GetDeadReckoningAlgorithm() );
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityMarking( const EntityMarking & EM )
+{
+    m_EntityMarking = EM;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityMarking & Entity_State_PDU::GetEntityMarking() const
+{
+    return m_EntityMarking;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityMarking & Entity_State_PDU::GetEntityMarking()
+{
+    return m_EntityMarking;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetEntityCapabilities( const EntityCapabilities & EC )
+{
+    m_EntityCapabilities = EC;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityCapabilities & Entity_State_PDU::GetEntityCapabilities() const
+{
+    return m_EntityCapabilities;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityCapabilities & Entity_State_PDU::GetEntityCapabilities()
+{
+    return m_EntityCapabilities;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::AddArticulationParameter( const ArticulationParameters & AP )
+{
+    m_vArticulationParameters.push_back( AP );
+    ++m_ui8NumOfArticulationParams;
+    m_ui16PDULength+= ArticulationParameters::ARTICULATION_PARAMETERS_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::SetArticulationParameter( const vector<ArticulationParameters> & AP )
+{
+    m_vArticulationParameters = AP;
+    m_ui8NumOfArticulationParams = m_vArticulationParameters.size();
+    m_ui16PDULength = ENTITY_STATE_PDU_SIZE + ( m_ui8NumOfArticulationParams * ArticulationParameters::ARTICULATION_PARAMETERS_SIZE );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const vector<ArticulationParameters> & Entity_State_PDU::GetArticulationParameters() const
+{
+    return m_vArticulationParameters;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::ClearArticulationParameters()
+{
+    m_vArticulationParameters.clear();
+    m_ui8NumOfArticulationParams = 0;
+    m_ui16PDULength = ENTITY_STATE_PDU_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Entity_State_PDU::GetAsString() const
+{
+    KStringStream ss;
+
+    ss << Header::GetAsString()
+       << "-Entity State PDU-\n"
+       << "Entity ID:\n"
+       << IndentString( m_EntityID.GetAsString(), 1 )
+       << "Force ID:                       " << GetEnumAsStringForceID( m_ui8ForceID )  << "\n"
+       << "Number Of Articulation Params:  " << ( KUINT16 )m_ui8NumOfArticulationParams << "\n"
+       << "Entity Type:                    " << m_EntityType.GetAsString()
+       << "Alternative Entity Type:        " << m_AltEntityType.GetAsString()
+       << "Linear Velocity:                " << m_EntityLinearVelocity.GetAsString()
+       << "Entity Location:                " << m_EntityLocation.GetAsString()
+       << "Entity Orientation:             " << m_EntityOrientation.GetAsString()
+       << m_EntityAppearance.GetAsString( m_EntityType )
+       << m_DeadReckoningParameter.GetAsString()
+       << m_EntityMarking.GetAsString()
+       << m_EntityCapabilities.GetAsString();
+
+    // Add the articulated parts
+    vector<ArticulationParameters>::const_iterator citr = m_vArticulationParameters.begin();
+    vector<ArticulationParameters>::const_iterator citrEnd = m_vArticulationParameters.end();
+    for( ; citr != citrEnd; ++ citr )
+    {
+        ss << citr->GetAsString();
+    }
+    return ss.str();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::Decode( KDataStream & stream ) throw( KException )
+{
+    if( stream.GetBufferSize() < ENTITY_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+
+    m_vArticulationParameters.clear();
+
+    Header::Decode( stream );
+
+    stream >> KDIS_STREAM m_EntityID
+           >> m_ui8ForceID
+           >> m_ui8NumOfArticulationParams
+           >> KDIS_STREAM m_EntityType
+           >> KDIS_STREAM m_AltEntityType
+           >> KDIS_STREAM m_EntityLinearVelocity
+           >> KDIS_STREAM m_EntityLocation
+           >> KDIS_STREAM m_EntityOrientation
+           >> KDIS_STREAM m_EntityAppearance
+           >> KDIS_STREAM m_DeadReckoningParameter
+           >> KDIS_STREAM m_EntityMarking
+           >> KDIS_STREAM m_EntityCapabilities;
+
+    for( KUINT8 i = 0; i < m_ui8NumOfArticulationParams; ++i )
+    {
+        m_vArticulationParameters.push_back( ArticulationParameters( stream ) );
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KDataStream Entity_State_PDU::Encode() const
+{
+    KDataStream stream;
+
+    Entity_State_PDU::Encode( stream );
+
+    return stream;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_PDU::Encode( KDataStream & stream ) const
+{
+    Header::Encode( stream );
+    stream << KDIS_STREAM m_EntityID
+           << m_ui8ForceID
+           << m_ui8NumOfArticulationParams
+           << KDIS_STREAM m_EntityType
+           << KDIS_STREAM m_AltEntityType
+           << KDIS_STREAM m_EntityLinearVelocity
+           << KDIS_STREAM m_EntityLocation
+           << KDIS_STREAM m_EntityOrientation
+           << KDIS_STREAM m_EntityAppearance
+           << KDIS_STREAM m_DeadReckoningParameter
+           << KDIS_STREAM m_EntityMarking
+           << KDIS_STREAM m_EntityCapabilities;
+
+    // Add the articulated parts
+    vector<ArticulationParameters>::const_iterator citr = m_vArticulationParameters.begin();
+    vector<ArticulationParameters>::const_iterator citrEnd = m_vArticulationParameters.end();
+    for( ; citr != citrEnd; ++ citr )
+    {
+        citr->Encode( stream );
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Entity_State_PDU::operator == ( const Entity_State_PDU & Value ) const
+{
+    if( Header::operator              !=( Value ) )                              return false;
+    if( m_EntityID                    != Value.m_EntityID )                      return false;
+    if( m_ui8ForceID                  != Value.m_ui8ForceID )                    return false;
+    if( m_ui8NumOfArticulationParams  != Value.m_ui8NumOfArticulationParams )    return false;
+    if( m_EntityType                  != Value.m_EntityType )                    return false;
+    if( m_AltEntityType               != Value.m_AltEntityType )                 return false;
+    if( m_EntityLinearVelocity        != Value.m_EntityLinearVelocity )          return false;
+    if( m_EntityLocation              != Value.m_EntityLocation )                return false;
+    if( m_EntityOrientation           != Value.m_EntityOrientation )             return false;
+    if( m_EntityAppearance            != Value.m_EntityAppearance )              return false;
+    if( m_DeadReckoningParameter      != Value.m_DeadReckoningParameter )        return false;
+    if( m_EntityMarking               != Value.m_EntityMarking )                 return false;
+    if( m_EntityCapabilities          != Value.m_EntityCapabilities )            return false;
+    if( m_vArticulationParameters     != Value.m_vArticulationParameters )       return false;
+    return true;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Entity_State_PDU::operator != ( const Entity_State_PDU & Value ) const
+{
+    return !( *this == Value );
+}
+
+//////////////////////////////////////////////////////////////////////////

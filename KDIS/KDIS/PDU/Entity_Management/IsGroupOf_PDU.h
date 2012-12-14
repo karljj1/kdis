@@ -1,0 +1,199 @@
+/*********************************************************************
+KDIS is free software; you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option)
+any later version.
+
+KDIS is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with this library; if not, write to the Free Software Foundation, Inc.,
+59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+
+For Further Information Please Contact me at
+Karljj1@yahoo.com
+http://p.sf.net/kdis/UserGuide
+*********************************************************************/
+
+/********************************************************************
+    class:      IsGroupOf_PDU
+    DIS:        (6) 1278.1A - 1998
+    created:    13:05:2009
+    author:     Karl Jones
+
+    purpose:    Contains information about a particular group of
+                entities (grouped together for the purposes of
+                network bandwidth reduction or aggregation).
+    size:       320 bits / 40 octets - min size
+*********************************************************************/
+
+#pragma once
+
+#include "./../Header.h"
+#include "./../../DataTypes/EntityIdentifier.h"
+#include "./../../DataTypes/GED.h"
+#include "./../../Extras/KRef_Ptr.h"
+#include "./../../DataTypes/GED_BasicGroundCombatVehicle.h"
+#include "./../../DataTypes/GED_EnhancedGroundCombatVehicle.h"
+#include "./../../DataTypes/GED_BasicGroundCombatSoldier.h"
+#include "./../../DataTypes/GED_EnhancedGroundCombatSoldier.h"
+#include "./../../DataTypes/GED_BasicRotorWingAircraft.h"
+#include "./../../DataTypes/GED_EnhancedRotaryWingAircraft.h"
+#include "./../../DataTypes/GED_BasicFixedWingAircraft.h"
+#include "./../../DataTypes/GED_EnhancedFixedWingAircraft.h"
+#include "./../../DataTypes/GED_GroundLogisticsVehicle.h"
+
+namespace KDIS {
+
+namespace DATA_TYPE {
+
+// Some PDU specific data types.
+typedef KDIS::UTILS::KRef_Ptr<GED> GEDItem;
+typedef std::vector<GEDItem> GEDList;
+
+}; // End namespace DATA_TYPE
+
+namespace PDU {
+
+using KDIS::DATA_TYPE::EntityIdentifier;
+using KDIS::DATA_TYPE::GED;
+using KDIS::DATA_TYPE::GEDItem;
+using KDIS::DATA_TYPE::GEDList;
+using KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory;
+
+class KDIS_EXPORT IsGroupOf_PDU : public Header
+{
+protected:
+
+    EntityIdentifier m_GroupedEntityID;
+
+    KUINT8 m_ui8GrpdEntCat;
+
+    KUINT8 m_ui8NumOfGroupedEnts;
+
+    KUINT32 m_ui32Padding1;
+
+    KFLOAT64 m_f64GrpLat;
+
+    KFLOAT64 m_f64GrpLon;
+
+    GEDList m_vpGED;
+
+public:
+
+    static const KUINT16 IS_GROUP_OF_PDU_SIZE = 40; // Min size
+
+    IsGroupOf_PDU( void );
+
+    IsGroupOf_PDU( KDataStream & stream ) throw( KException );
+
+    IsGroupOf_PDU( const EntityIdentifier & EI, GroupedEntityCategory GED, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude );
+
+    IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const GEDList & GED ) throw( KException );
+
+    virtual ~IsGroupOf_PDU( void );
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::SetGroupedEntityID
+    //              KDIS::PDU::IsGroupOf_PDU::GetGroupedEntityID
+    // Description: The entity that represents the group of entities.
+    // Parameter:   const EntityIdentifier & EI, void
+    //************************************
+    void SetGroupedEntityID( const EntityIdentifier & EI );
+    const EntityIdentifier & GetGroupedEntityID() const;
+    EntityIdentifier & GetGroupedEntityID();
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::SetGroupedEntityCategory
+    //              KDIS::PDU::IsGroupOf_PDU::GetGroupedEntityCategory
+    // Description: Describes the type of entities constituting a group.
+    // Parameter:   const GroupedEntityCategor GED, void
+    //************************************
+    void SetGroupedEntityCategory( GroupedEntityCategory GED );
+    GroupedEntityCategory GetGroupedEntityCategory() const;
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::GetNumberOfGroupedEntities
+    // Description: Specifies the number of individual entities
+    //              constituting the group.
+    //************************************
+    KUINT8 GetNumberOfGroupedEntities() const;
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::SetGroupReferencePoint
+    //              KDIS::PDU::IsGroupOf_PDU::SetGroupReferencePointLatitude
+    //              KDIS::PDU::IsGroupOf_PDU::SetGroupReferencePointLongitude
+    //              KDIS::PDU::IsGroupOf_PDU::GetGroupReferencePointLatitude
+    //              KDIS::PDU::IsGroupOf_PDU::GetGroupReferencePointLongitude
+    // Description: Specifies the location of the group that will be used as
+    //              the reference point from which the locations of all other grouped
+    //              entities are based.
+    //              Note: The third coordinate of the Reference Point, which will not be transmitted in the IsGroupOf
+    //              PDU, is defined to be 100 m below Adjusted Mean Sea Level to compensate for the lowest surface
+    //              point on the earth.
+    // Parameter:   KFLOAT64 Latitude, void
+    // Parameter:   KFLOAT64 Longitude, void
+    //************************************
+    void SetGroupReferencePoint( KFLOAT64 Latitude, KFLOAT64 Longitude );
+    void SetGroupReferencePointLatitude( KFLOAT64 L );
+    void SetGroupReferencePointLongitude( KFLOAT64 L );
+    KFLOAT64 GetGroupReferencePointLatitude() const;
+    KFLOAT64 GetGroupReferencePointLongitude() const;
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::AddGED
+    //              KDIS::PDU::IsGroupOf_PDU::SetGED
+    //              KDIS::PDU::IsGroupOf_PDU::GetGED
+    // Description: Grouped Entity Descriptions (GEDs). This field consists of GED records
+    //              that specify information about each individual entity's within
+    //              the group. A GED record must be of the type specified by GroupedEntityCategory, if not an
+    //              INVALID_DATA exception is thrown.
+    //              Calling SetGED will change the GroupedEntityCategory to the new GED type, if the GED vector
+    //              contains multiple types an INVALID_DATA exception will be thrown.
+    //              Available GED are:
+    //                  GED_BasicGroundCombatVehicle
+    //                  GED_EnhancedGroundCombatVehicle
+    //                  GED_BasicGroundCombatSoldier
+    //                  GED_EnhancedGroundCombatSoldier
+    //                  GED_BasicRotorWingAircraft
+    //                  GED_EnhancedRotaryWingAircraft
+    //                  GED_BasicFixedWingAircraft
+    //                  GED_EnhancedFixedWingAircraft
+    //                  GED_GroundLogisticsVehicle
+    // Parameter:   const GEDItem & GED, const GEDList & GED, void
+    //************************************
+    void AddGED( const GEDItem & GED ) throw( KException );
+    void SetGED( const GEDList & GED ) throw( KException );
+    const GEDList & GetGED() const;
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::GetAsString
+    // Description: Returns a string representation
+    //              of the PDU.
+    //************************************
+    virtual KString GetAsString() const;
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::Decode
+    // Description: Convert From Network Data.
+    // Parameter:   KDataStream & stream
+    //************************************
+    virtual void Decode( KDataStream & stream ) throw( KException );
+
+    //************************************
+    // FullName:    KDIS::PDU::IsGroupOf_PDU::Encode
+    // Description: Convert To Network Data.
+    // Parameter:   KDataStream & stream
+    //************************************
+    virtual KDataStream Encode() const;
+    virtual void Encode( KDataStream & stream ) const;
+
+    KBOOL operator == ( const IsGroupOf_PDU & Value ) const;
+    KBOOL operator != ( const IsGroupOf_PDU & Value ) const;
+};
+
+}; // END namespace PDU
+}; // END namespace KDIS
