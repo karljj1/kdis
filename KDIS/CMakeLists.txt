@@ -435,9 +435,12 @@ SET(PDU_BASE_DIR ${BASE_DIR}/PDU)
 
 SET(KDIS_SRC_PDU_BASE_H ${PDU_BASE_DIR}/Header.h
 						${PDU_BASE_DIR}/Header6.h
+						${PDU_BASE_DIR}/Bundle.h
 )
 
-SET(KDIS_SRC_PDU_BASE_CPP ${PDU_BASE_DIR}/Header6.cpp)
+SET(KDIS_SRC_PDU_BASE_CPP ${PDU_BASE_DIR}/Header6.cpp
+					      ${PDU_BASE_DIR}/Bundle.cpp
+)
 
 # DIS 7
 IF(DIS_VERSION GREATER 6)

@@ -78,6 +78,10 @@ protected:
 
     PDU_Factory * m_pPduFact;
 
+	// Allows us to handle pdu bundles
+	KDataStream m_stream;
+	KString m_sLastIP;
+
     //************************************
     // FullName:    KDIS::NETWORK::Connection::startup
     // Description: Setup the socket.
@@ -200,10 +204,11 @@ public:
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::GetNextPDU
-    // Description: Checks the network for new data using Receive, then decodes the data
-    //              using the PDU factory and finally returns the decoded PDU.
+    // Description: Checks the network for new data using Receive if not curently handling a pdu bundle,
+	//				then decodes the data using the PDU factory and finally returns the decoded PDU.
     //              If the connection is none blocking then a NULL ptr will be returned if no data is available.
     //              Note: This function DOES fire subscriber events.
+	//				Note: This function supports PDU Bundles. 
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
     auto_ptr<Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );

@@ -576,38 +576,52 @@ KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderI
 //////////////////////////////////////////////////////////////////////////
 
 auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( KException )
-{
-    KString sIp;
+{  
+	// Are we currently dealing with a PDU Bundle, if so then dont read any new data.
+	if( m_stream.GetBufferSize() == 0 )
+	{	
+		// Get some new data from the network
+		// Create a buffer to store network data
+		KOCTET Buffer[MAX_PDU_SIZE];
+		KINT32 iSz = Receive( Buffer, MAX_PDU_SIZE, &m_sLastIP );
 
-    // Create a buffer to store network data
-    KOCTET Buffer[MAX_PDU_SIZE];
-    KINT32 iSz = Receive( Buffer, MAX_PDU_SIZE, &sIp );
-
-    if( iSz )
-    {
-		// Fire the first event, this event can also be used to inform us if we should stop
-		vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
-		vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
-		for( ; itr != itrEnd; ++itr )
+		if( iSz )
 		{
-			if( !( *itr )->OnDataReceived( Buffer, iSz, sIp ) )
+			// Fire the first event, this event can also be used to inform us if we should stop
+			vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
+			vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
+			for( ; itr != itrEnd; ++itr )
 			{
-				// We should quit
-				return auto_ptr<Header>( 0 );
+				if( !( *itr )->OnDataReceived( Buffer, iSz, m_sLastIP ) )
+				{
+					// We should quit
+					return auto_ptr<Header>( 0 );
+				}
 			}
+		
+			// Create a new data stream
+			m_stream.Clear();
+			m_stream.CopyFromBuffer( Buffer, iSz );
 		}
+	}
+	
+	// Now process the stream
+	if( m_stream.GetBufferSize() > 0 )
+	{
+		// Do they want the IP address returned?
+		if( SenderIp )
+		{
+			*SenderIp = m_sLastIP;
+	    }
 
-        // Do they want the IP address returned?
-        if( SenderIp )
-        {
-            *SenderIp = sIp;
-        }
-
-        auto_ptr<Header> pdu = m_pPduFact->Decode( Buffer, iSz );
+		// Get the next/only PDU from the stream
+		auto_ptr<Header> pdu = m_pPduFact->Decode( m_stream );
 
         // If the PDU was decoded successfully then fire the next event
         if( pdu.get() )
         {
+			vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
+			vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
             itr = m_vpSubscribers.begin();
             itrEnd = m_vpSubscribers.end();
             for( ; itr != itrEnd; ++itr )
@@ -618,9 +632,9 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
             // Now return the decoded pdu
             return pdu;
         }
-    }
-
-    return auto_ptr<Header>( 0 ); // No data so Null ptr
+	}
+	
+	return auto_ptr<Header>( 0 ); // No data so Null ptr     
 }
 
 //////////////////////////////////////////////////////////////////////////
