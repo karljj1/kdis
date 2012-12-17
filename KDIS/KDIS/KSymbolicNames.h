@@ -58,34 +58,107 @@ http://p.sf.net/kdis/UserGuide
 #define EE_PRF_THRSH                                1                                   // Hz
 #define EE_PW_THRSH                                 1                                   // µs
 #define ENTITY_ID_UNKNOWN                           NO_SITE , NO_APPLIC , NO_ENTITY
-
-// TODO: You are here
-
-
-#define HRT_BEAT_MOVE_TIMER                         2
-#define HRT_BEAT_MPLIER                             2.4f
-#define HRT_BEAT_TIMER                              5
-#define MUNITION_NOT_TRACKED                        NO_SITE , NO_APPLIC , NO_ENTITY
+#define EP_DIMENSION_THRSH                          1                                   // m
+#define EP_NO_SEQUENCE                              0xffff                           
+#define EP_POS_THRSH                                1                                   // m
+#define EP_STATE_THRSH Variable                     10                                  // ±%
+#define GD_GEOMETRY_CHANGE                          10                                  // ±%
+#define GD_STATE_CHANGE                             10                                  // ±%
+#define HBT_ESPDU_KIND_CULTURAL_FEATURE             1                                   // min Tolerance: ±10%
+#define HBT_ESPDU_KIND_ENVIRONMENTAL                1                                   // min Tolerance: ±10%
+#define HBT_ESPDU_KIND_EXPENDABLE                   5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_KIND_LIFE_FORM                    1                                   // min Tolerance: ±10%
+#define HBT_ESPDU_KIND_MUNITION                     5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_KIND_RADIO Variable               5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_KIND_SENSOR_EMITTER Variable      5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_KIND_SUPPLY                       5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_PLATFORM_AIR                      5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_PLATFORM_LAND                     55                                  // s Tolerance: ±10%
+#define HBT_ESPDU_PLATFORM_SPACE                    5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_PLATFORM_SUBSURFACE               55                                  // s Tolerance: ±10%
+#define HBT_ESPDU_PLATFORM_SURFACE                  55                                  // s Tolerance: ±10%
+#define HBT_PDU_AGGREGATE_STATE                     30                                  // s Tolerance: ±10%
+#define HBT_PDU_APPEARANCE                          60                                  // s Tolerance: ±10%
+#define HBT_PDU_DE_FIRE                             0.5f                                // s Tolerance: ±10%
+#define HBT_PDU_DESIGNATOR                          5                                   // s Tolerance: ±10%
+#define HBT_PDU_EE                                  10                                  // s Tolerance: ±10% 
+#define HBT_PDU_ENTITY_DAMAGE                       10                                  // s Tolerance: ±10% 
+#define HBT_PDU_ENVIRONMENTAL_PROCESS               15                                  // s Tolerance: ±10% 
+#define HBT_PDU_GRIDDED_DATA                        15                                  // min Tolerance: ±10% 
+#define HBT_PDU_IFF                                 10                                  // s Tolerance: ±10% 
+#define HBT_PDU_ISGROUPOF                           1                                   // min Tolerance: ±10% 
+#define HBT_PDU_MINEFIELD_DATA                      5                                   // s Tolerance: ±10%
+#define HBT_PDU_MINEFIELD_STATE                     5                                   // s Tolerance: ±10%
+#define HBT_PDU_RECEIVER                            1                                   // min Tolerance: ±10% 
+#define HBT_PDU_SEES                                3                                   // min Tolerance: ±10% 
+#define HBT_PDU_TRANSMITTER                         2                                   // s Tolerance: ±10% 
+#define HBT_PDU_TSPI                                30                                  // s Tolerance: ±10% 
+#define HBT_PDU_UA                                  3                                   // min Tolerance: ±10% 
+#define HBT_STATIONARY                              1                                   // min Tolerance: ±10% 
+#define HBT_TIMEOUT_MPLIER                          2.4f                                // NOTE - The entity timeout parameter is based on taking the specific entity heartbeat parameter and multiplying it by the HBT_TIMEOUT_MPLIER. 
+#define HQ_TOD_DIFF_THRSH                           20                                  // ms
+#define IFF_CHG_LATENCY                             2                                   // s
+#define IFF_AZ_THRSH                                3                                   // deg
+#define IFF_EL_THRSH                                3                                   // deg
+#define IFF_PDU_FINAL                               10                                  // s
+#define IFF_PDU_RESUME                              10                                  // s
+#define MAX_PDU_SIZE_BITS                           65536
+#define MAX_PDU_SIZE_OCTETS                         8192
+#define MINEFIELD_CHANGE                            2.5f                                // s
+#define MINEFIELD_RESPONSE_TIMER                    1                                   // s Tolerance: ±10% 
+#define MULTIPLES_PRESENT                           0
+#define NO_AGG                                      0
 #define NO_APPLIC                                   0
+#define NO_BEAM                                     0
+#define NO_CATEGORY                                 0
+#define NO_EMITTER                                  0
 #define NO_ENTITY                                   0
 #define NO_ENTITY_IMPACTED                          NO_SITE , NO_APPLIC , NO_ENTITY
 #define NO_FIRE_MISSION                             0
+#define NO_KIND                                     0
 #define NO_LOCATION                                 NO_SITE , NO_APPLIC , NO_ENTITY
+#define NO_OBJECT                                   0
+#define NO_PATTERN                                  0
+#define NO_REF_NUMBER                               0
 #define NO_SITE                                     0
+#define NO_SPECIFIC                                 0
 #define NO_SPECIFIC_ENTITY                          NO_SITE , NO_APPLIC , NO_ENTITY
-#define REPAR_REC_T1_DFLT                           5
-#define REPAR_SUP_T1_DFLT                           12
-#define REPAR_SUP_T2_DFLT                           12
-#define RESUP_REC_T1_DFLT                           5
-#define RESUP_REC_T2_DFLT                           55
-#define RESUP_SUP_T1_DFLT                           1
+#define NO_SUBCAT                                   0
+#define NO_VALUE                                    0
+#define NON_SYNC_THRSH                              1                                   // min 
+#define REPAR_REC_T1_DFLT                           5                                   // s
+#define REPAR_SUP_T1_DFLT                           12                                  // s
+#define REPAR_SUP_T2_DFLT                           12                                  // s
+#define RESUP_REC_T1_DFLT                           5                                   // s
+#define RESUP_REC_T2_DFLT                           55                                  // s
+#define RESUP_SUP_T1_DFLT                           1                                   // min
 #define RQST_ASSIGN_ID                              0xffff
+#define SEES_NDA_THRSH                              2                                   // ±° in the axis of deflection
+#define SEES_PS_THRSH                               10                                  // ±% of the maximum value of the Power 
+#define SEES_RPM_THRSH                              5                                   // ±% of the maximum speed in RPM
+#define SMALLEST_MTU_OCTETS                         1400                                // Octets for Internet Protocol Version 4 networks
+#define SM_REL_RETRY_CNT                            3
+#define SM_REL_RETRY_DELAY                          2                                   // s
 #define TARGET_ID_UNKNOWN                           NO_SITE , NO_APPLIC , NO_ENTITY
-#define TARGET_IN_TJ_FIELD_DFLT                     10
-#define TRANS_ORIENT_THRSH_DFLT                     180
-#define TRANS_POS_THRSH_DFLT                        500
-#define EP_NO_SEQUENCE                              0xffff
-
-// DIS 7
+#define TIMESTAMP_AHEAD                             5                                   // s
+#define TIMESTAMP_BEHIND                            5                                   // s
+#define TI_TIMER1                                   2                                   // s
+#define TI_TIMER2                                   12                                  // s
+#define TO_AUTO_RESPONSE_TIMER                      5                                   // s
+#define TO_MAN_RESPONSE_TIMER                       120                                 // s
+#define TR_TIMER1                                   5                                   // s
+#define TR_TIMER2                                   60                                  // s
+#define TRANS_ORIENT_THRSH_DFLT                     180                                 // deg
+#define TRANS_POS_THRSH_DFLT                        500                                 // m
+#define UA_ORIENT_THRSH                             2                                   // deg
+#define UA_POS_THRSH                                10                                  // m
+#define UA_SRPM_ROC_THRSH                           10                                  // ±% of maximum rate of change
+#define UA_SRPM_THRSH                               5                                   // ±% of maximum shaft rate in RPM
 #define UNTIL_FURTHER_NOTICE                        65535
+#define MUNITION_NOT_TRACKED                        NO_SITE , NO_APPLIC , NO_ENTITY
+#define TARGET_IN_TJ_FIELD_DFLT                     10
 
+// Deprecated Symbolic Values
+#define HRT_BEAT_MOVE_TIMER                         2
+#define HRT_BEAT_MPLIER                             2.4f
+#define HRT_BEAT_TIMER                              5

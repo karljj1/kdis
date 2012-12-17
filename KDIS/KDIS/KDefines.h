@@ -36,7 +36,7 @@ http://p.sf.net/kdis/UserGuide
 
 #define KDIS_VERSION "v2-4-0"
 
-#define MAX_PDU_SIZE 8192 // Taken from 1278.1-200X
+#define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS 
 
 // Comment out the following line to enable Enum descriptors or declare KDIS_USE_ENUM_DESCRIPTORS
 // in your project pre-processor definitions (-D KDIS_USE_ENUM_DESCRIPTORS).
