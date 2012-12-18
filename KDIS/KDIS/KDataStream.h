@@ -94,7 +94,7 @@ public:
     // Parameter:   KUINT16 DataSize
     // Parameter:   Endian NetworkEndian = Big_Endian
     //************************************
-    void CopyFromBuffer( KOCTET * SerialData, KUINT16 DataSize, Endian NetworkEndian = Big_Endian );
+    void CopyFromBuffer( const KOCTET * SerialData, KUINT16 DataSize, Endian NetworkEndian = Big_Endian );
 
     //************************************
     // FullName:    KDIS::KDataStream::GetBufferPtr
@@ -179,6 +179,9 @@ public:
     // Read from stream
     template<class Type>
     KDataStream & operator >> ( Type & T );
+
+    KBOOL operator == ( const KDataStream & Value ) const;
+    KBOOL operator != ( const KDataStream & Value ) const;
 };
 
 //////////////////////////////////////////////////////////////////////////

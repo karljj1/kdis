@@ -310,7 +310,7 @@ inline Type DMSToDecimal( Type Deg, Type Min, Type Sec )
 
 //************************************
 // FullName:    KDIS::UTILS<Type>::GeodeticToGeocentric
-// Description: Converts Geodetic coords to Geocentric.
+// Description: Converts Geodetic coords to Geocentric Cartesian.
 // Parameter:   Type GeodeticLat - in degrees
 // Parameter:   Type GeodeticLon - in degrees
 // Parameter:   Type GeodeticHeight - in meters
@@ -344,7 +344,7 @@ inline void GeodeticToGeocentric( Type GeodeticLat, Type GeodeticLon, Type Geode
 
 //************************************
 // FullName:    KDIS::UTILS<Type>::GeocentricToGeodetic
-// Description: Converts Geocentric coord to Geodetic.
+// Description: Converts Geocentric Cartesian coords to Geodetic.
 // Parameter:   Type x - in radians
 // Parameter:   Type y - in radians
 // Parameter:   Type z - in radians

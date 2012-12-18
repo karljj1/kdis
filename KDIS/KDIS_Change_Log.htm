@@ -57,17 +57,23 @@
 
 
 
-<!-- Version x-x-x !-->
+<!-- Version 2-5-1 !-->
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table2">
 	<tr>
-		<td><b>Version x-x-x </b></td>
-		<td><b>x x x</b></td>
+		<td><b>Version 2-6-0 </b></td>
+		<td><b>18 Dec 2012</b></td>
 	</tr>
 </table>
 <hr>
 <ul>	
+	<div style="color: blue">
 	<li>Added KDIS::PDU::Bundle class to support sending PDU Bundles.</li>
-	<li>Added support to the Connection class to handle PDU Bundles, use the function GetNextPDU.</li>
+	</div>
+	<li>Added Example_Bundle to show how to send PDU Bundles.</li>
+	<li>Added support to the Connection class to handle PDU Bundles, use the function GetNextPDU. Example_PDUFactory2 supports PDU Bundles.</li>
+	<li>Added operators == & != to KDataStream.</li>
+	<li>Added Connection::Send( const KDataStream & stream ).<li>
+	<li>Changed CopyFromBuffer parameter SerialData to const.</li>
 	<li>Added comment to SetProtocolVersion to clear up some common questions about how KDIS sets the ProtocolVersion</li>	
 	<li>Fixed bug in Transmitter_PDU::Encode().</li>
 </ul>

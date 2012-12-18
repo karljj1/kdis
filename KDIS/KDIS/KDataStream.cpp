@@ -115,7 +115,7 @@ KUINT16 KDataStream::CopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize,  KUINT
 
 //////////////////////////////////////////////////////////////////////////
 
-void KDataStream::CopyFromBuffer( KOCTET * SerialData, KUINT16 DataSize, Endian NetworkEndian /*= Big_Endian*/ )
+void KDataStream::CopyFromBuffer( const KOCTET * SerialData, KUINT16 DataSize, Endian NetworkEndian /*= Big_Endian*/ )
 {
     // Copy Data into vector
     for( KUINT16 i = 0; i < DataSize; ++i )
@@ -243,6 +243,21 @@ KDataStream & KDataStream::operator << ( KDataStream val )
     }
 
     return *this;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL KDataStream::operator == ( const KDataStream & Value ) const
+{    
+	if( m_vBuffer != Value.m_vBuffer ) return false;	
+    return true;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL KDataStream::operator != ( const KDataStream & Value ) const
+{
+    return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////

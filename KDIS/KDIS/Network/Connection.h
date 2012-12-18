@@ -177,10 +177,11 @@ public:
     // FullName:    KDIS::NETWORK::Connection::Send
     // Description: Send data over the network. Returns number of bytes sent.
     //              Note: This function does NOT fire subscriber events.
-    // Parameter:   const KOCTET * Data
+    // Parameter:   const KOCTET * Data, KDataStream & stream
     // Parameter:   KUINT32 DataSz
     //************************************
     KINT32 Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KException );
+	KINT32 Send( const KDataStream & stream ) throw ( KException );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SendPDU

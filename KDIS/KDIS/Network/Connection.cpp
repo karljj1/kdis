@@ -505,6 +505,13 @@ KINT32 Connection::Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KExceptio
 
 //////////////////////////////////////////////////////////////////////////
 
+KINT32 Connection::Send( const KDataStream & stream ) throw ( KException )
+{
+	return Send( stream.GetBufferPtr(), stream.GetBufferSize() );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KINT32 Connection::SendPDU( Header * H ) throw ( KException )
 {
     // First lets fire the events, then send the PDU.

@@ -34,7 +34,7 @@ http://p.sf.net/kdis/UserGuide
 #include <sstream>
 #include <exception>
 
-#define KDIS_VERSION "v2-4-0"
+#define KDIS_VERSION "v2-6-0"
 
 #define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS 
 
@@ -127,7 +127,8 @@ enum ErrorCodes
     OUT_OF_BOUNDS                                       = 7,
     INVALID_DATA                                        = 8,
     UNSUPPORTED_DATATYPE                                = 9,
-    INVALID_OPERATION                                   = 10
+    INVALID_OPERATION                                   = 10,
+	PDU_TOO_LARGE                                       = 11
 };
 
 /************************************************************************/
@@ -160,6 +161,8 @@ static KString GetErrorText( KUINT16 ErrorCode )
 			return "Unsupported Data Type, Can Not Decode. ";
 		case INVALID_OPERATION:
 			return "Invalid Operation. ";
+		case PDU_TOO_LARGE:
+			return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes.";			
 		default:
 			return "Unknown KDIS Error. ";
     }

@@ -70,7 +70,8 @@ int main()
         {
             try
             {
-                conn.GetNextPDU( );
+				// Note: GetNextPDU supports PDU Bundling, which Receive does not.
+                conn.GetNextPDU();
             }
             catch( exception & e )
             {

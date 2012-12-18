@@ -64,7 +64,7 @@ class KDIS_EXPORT Bundle
 {
 protected:
 
-	vector<Header> m_vHeaders;
+	vector<KDataStream> m_vStreams;
 
 	vector<PduPtr> m_vRefHeaders;
 
@@ -84,27 +84,29 @@ public:
 	
     //************************************
     // FullName:    KDIS::PDU::Bundle::AddPDU
-    // Description: Adds a PDU to the bundle.
+    // Description: Adds a PDU stream or referenced PDU to the bundle.	
+	//              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
     // Parameter:   const Header & H, PduPtr H.
     //************************************
-	void AddPDU( const Header & H );
-	void AddPDU( PduPtr H );
+	void AddPDU( const KDataStream & K ) throw( KException );
+	void AddPDU( PduPtr H ) throw( KException );
 
 	//************************************
     // FullName:    KDIS::PDU::Bundle::SetPDUs
-    // Description: Set multiple PDU.
-    // Parameter:   const vector<Header> & P, const vector<PduPtr> & P
+    // Description: Set multiple PDU. 
+	//              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
+    // Parameter:   const vector<KDataStream> & P, const vector<PduPtr> & P
     //************************************
-    void SetPDUs( const vector<Header> & P );
-	void SetPDUs( const vector<PduPtr> & P );
-	void SetPDUs( const vector<Header> & Objects, const vector<PduPtr> & References );
+    void SetPDUs( const vector<KDataStream> & P ) throw( KException );
+	void SetPDUs( const vector<PduPtr> & P ) throw( KException );
+	void SetPDUs( const vector<KDataStream> & Streams, const vector<PduPtr> & References ) throw( KException );
 
 	//************************************
-    // FullName:    KDIS::PDU::Bundle::GetPDUs
+    // FullName:    KDIS::PDU::Bundle::GetPDUStreams
 	//				KDIS::PDU::Bundle::GetRefPDUs
-    // Description: Gets the stored PDU.    
+    // Description: Gets the stored PDU stremas or referenced PDUs.  
     //************************************
-	const vector<Header> & GetPDUs() const;
+	const vector<KDataStream> & GetPDUStreams() const;
 	const vector<PduPtr> & GetRefPDUs() const;
 
 	//************************************

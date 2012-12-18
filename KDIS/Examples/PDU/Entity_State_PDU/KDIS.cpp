@@ -58,7 +58,7 @@ int main()
     try
     {
         // Note: This address will probably be different for your network.
-        Connection myConnection( "192.168.86.255" );
+        Connection myConnection( "192.168.3.255" );
 
         // Encode the PDU contents into network data
         KDataStream stream;
@@ -68,6 +68,7 @@ int main()
         {
             // Send the data on the network.
             myConnection.Send( stream.GetBufferPtr(), stream.GetBufferSize() );
+			Sleep( 1000 );
             cout << "Sent the PDU" << endl;
         }
     }
