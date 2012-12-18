@@ -114,7 +114,7 @@ KBOOL CulturalFeatureAppearance::IsEntityStateActive() const
 
 void CulturalFeatureAppearance::SetEntityExteriorLights( KBOOL EL )
 {
-	m_ExteriorLights = SL;
+	m_ExteriorLights = EL;
 }
 
 //////////////////////////////////////////////////////////////////////////

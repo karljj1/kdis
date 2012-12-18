@@ -68,7 +68,6 @@ int main()
         {
             // Send the data on the network.
             myConnection.Send( stream.GetBufferPtr(), stream.GetBufferSize() );
-			Sleep( 1000 );
             cout << "Sent the PDU" << endl;
         }
     }

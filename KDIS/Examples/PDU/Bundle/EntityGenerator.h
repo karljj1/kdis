@@ -2,7 +2,6 @@
 
 #include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.h" 
 #include "KDIS/PDU/Bundle.h"
-#include <math.h>
 
 using namespace std;
 using namespace KDIS;
@@ -13,6 +12,10 @@ using namespace UTILS;
 
 class EntityGenerator
 {
+private:
+
+	static int id;
+
 public:
 
 	//************************************
@@ -21,8 +24,8 @@ public:
 	//************************************
 	static Entity_State_PDU GenerateEntity()
 	{
-		// Generate a random value to use for our entity. Id, name, pos etc.
-		KUINT16 randomValue = rand();
+		// Generate a new value to use for our entity. Id, name, pos etc.
+		KUINT16 randomValue = ++id;
 
 		// First create the PDU we are going to send, for this example I will use a
 		// Entity_State_PDU, When this PDU is sent most DIS applications should then show a new entity
@@ -63,8 +66,8 @@ public:
 	//************************************
 	static PduPtr GenerateEntityRef()
 	{
-		// Generate a random value to use for our entity. Id, name, pos etc.
-		KUINT16 randomValue = rand();
+		// Generate a new value to use for our entity. Id, name, pos etc.
+		KUINT16 randomValue = ++id;
 
 		// First create the PDU we are going to send, for this example I will use a
 		// Entity_State_PDU, When this PDU is sent most DIS applications should then show a new entity
@@ -99,3 +102,6 @@ public:
 		return pEntity;
 	}
 };
+
+// Init id variable
+int EntityGenerator::id = 0;
