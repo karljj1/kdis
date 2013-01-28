@@ -37,7 +37,7 @@ const EnumDescriptor ProtocolVersionDescriptor[] =
     { 4 , "DIS_PDU_Version_2_Fourth_Draft" },
     { 5 , "IEEE_1278_1_1995" },
     { 6 , "IEEE_1278_1A_1998" },
-    { 7 , "IEEE_1278_1_200x" }
+    { 7 , "IEEE_1278_1_2012" }
 };
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )

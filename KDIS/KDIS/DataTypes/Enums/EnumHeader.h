@@ -50,7 +50,7 @@ enum ProtocolVersion
     DIS_PDU_Version_2_Fourth_Draft                                    = 4,
     IEEE_1278_1_1995                                                  = 5,
     IEEE_1278_1A_1998                                                 = 6,
-    IEEE_1278_1_200x                                                  = 7  //   Taken from 'IEEE 1278.1-200X Draft' SISO-REF-010 PCR Changes
+    IEEE_1278_1_2012                                                  = 7  
 };
 
 KString GetEnumAsStringProtocolVersion( KINT32 Value );
