@@ -55,7 +55,6 @@ protected:
         struct
         {
             KUINT16 m_VariantLowBits;
-
             KUINT16 m_VariantHighBits;
         };
 

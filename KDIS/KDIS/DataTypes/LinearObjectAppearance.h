@@ -48,10 +48,10 @@ protected:
     {
         struct
         {
-            KUINT32 m_ui32Breach        : 2;
-            KUINT32 m_ui32Unused        : 14;
-            KUINT32 m_ui32BreachLength  : 8;
-            KUINT32 m_ui32BreachLoc     : 8;
+            KUINT32 m_ui32Breach       : 2;
+            KUINT32 m_ui32Unused       : 14;
+            KUINT32 m_ui32BreachLength : 8;
+            KUINT32 m_ui32BreachLoc    : 8;
         } m_TankDitchConcertinaWire;
 
         struct

@@ -82,10 +82,10 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16Mode1NotUsed1     : 13;
-            KUINT16 m_ui16Mode1Status       : 1;
-            KUINT16 m_ui16Mode1Dmg          : 1;
-            KUINT16 m_ui16Mode1Malfunction  : 1;
+            KUINT16 m_ui16Mode1NotUsed1    : 13;
+            KUINT16 m_ui16Mode1Status      : 1;
+            KUINT16 m_ui16Mode1Dmg         : 1;
+            KUINT16 m_ui16Mode1Malfunction : 1;
         };
 
         KUINT16 m_ui16Param1; // Mode 1 Interrogator Status
@@ -95,10 +95,10 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16Mode2NotUsed1     : 13;
-            KUINT16 m_ui16Mode2Status       : 1;
-            KUINT16 m_ui16Mode2Dmg          : 1;
-            KUINT16 m_ui16Mode2Malfunction  : 1;
+            KUINT16 m_ui16Mode2NotUsed1    : 13;
+            KUINT16 m_ui16Mode2Status      : 1;
+            KUINT16 m_ui16Mode2Dmg         : 1;
+            KUINT16 m_ui16Mode2Malfunction : 1;
         };
 
         KUINT16 m_ui16Param2; // Mode 2 Interrogator Status
@@ -108,10 +108,10 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16Mode3NotUsed1     : 13;
-            KUINT16 m_ui16Mode3Status       : 1;
-            KUINT16 m_ui16Mode3Dmg          : 1;
-            KUINT16 m_ui16Mode3Malfunction  : 1;
+            KUINT16 m_ui16Mode3NotUsed1    : 13;
+            KUINT16 m_ui16Mode3Status      : 1;
+            KUINT16 m_ui16Mode3Dmg         : 1;
+            KUINT16 m_ui16Mode3Malfunction : 1;
         };
 
         KUINT16 m_ui16Param3; // Mode 3 Interrogator Status
@@ -135,10 +135,10 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16ModeCNotUsed1         : 13;
-            KUINT16 m_ui16ModeCStatus           : 1;
-            KUINT16 m_ui16ModeCDmg              : 1;
-            KUINT16 m_ui16ModeCMalfunction      : 1;
+            KUINT16 m_ui16ModeCNotUsed1    : 13;
+            KUINT16 m_ui16ModeCStatus      : 1;
+            KUINT16 m_ui16ModeCDmg         : 1;
+            KUINT16 m_ui16ModeCMalfunction : 1;
         };
 
         KUINT16 m_ui16Param5; // Mode C Interrogator Status

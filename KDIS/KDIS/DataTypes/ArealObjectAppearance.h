@@ -46,9 +46,9 @@ protected:
     {
         struct
         {
-            KUINT32 m_ui32Breach        : 2;
-            KUINT32 m_ui32Unused        : 14;
-            KUINT32 m_ui32Mines         : 16;
+            KUINT32 m_ui32Breach : 2;
+			KUINT32 m_ui32Unused : 14;
+            KUINT32 m_ui32Mines  : 16;
         } m_Minefield;
 
         KUINT32 m_ui32SpecificAppearance;

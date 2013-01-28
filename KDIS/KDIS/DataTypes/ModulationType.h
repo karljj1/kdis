@@ -53,9 +53,9 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16FreqHop       : 1;
-            KUINT16 m_ui16PseudoNoise   : 1;
-            KUINT16 m_ui16TimeHop       : 1;
+            KUINT16 m_ui16FreqHop     : 1;
+            KUINT16 m_ui16PseudoNoise : 1;
+            KUINT16 m_ui16TimeHop     : 1;
             // Bits 3 - 15 TBD
         };
         KUINT16 m_ui16SpreadSpectrum;

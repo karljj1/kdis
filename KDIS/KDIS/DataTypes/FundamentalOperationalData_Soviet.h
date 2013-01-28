@@ -122,7 +122,7 @@ protected:
             KUINT16 m_ui16Param4NotUsed1    : 13;
             KUINT16 m_ui16Param4Status      : 1;
             KUINT16 m_ui16Param4Dmg         : 1;
-            KUINT16 m_ui16Param4Malfunction  : 1;
+            KUINT16 m_ui16Param4Malfunction : 1;
         };
 
         KUINT16 m_ui16Param4; // Parameter 4
@@ -132,10 +132,10 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16Param5NotUsed1        : 13;
-            KUINT16 m_ui16Param5Status          : 1;
-            KUINT16 m_ui16Param5Dmg             : 1;
-            KUINT16 m_ui16Param5Malfunction     : 1;
+            KUINT16 m_ui16Param5NotUsed1    : 13;
+            KUINT16 m_ui16Param5Status      : 1;
+            KUINT16 m_ui16Param5Dmg         : 1;
+            KUINT16 m_ui16Param5Malfunction : 1;
         };
 
         KUINT16 m_ui16Param5; // Parameter 5
@@ -145,10 +145,10 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16Param6NotUsed1        : 13;
-            KUINT16 m_ui16Param6Status          : 1;
-            KUINT16 m_ui16Param6Dmg             : 1;
-            KUINT16 m_ui16Param6Malfunction     : 1;
+            KUINT16 m_ui16Param6NotUsed1    : 13;
+            KUINT16 m_ui16Param6Status      : 1;
+            KUINT16 m_ui16Param6Dmg         : 1;
+            KUINT16 m_ui16Param6Malfunction : 1;
         };
 
         KUINT16 m_ui16Param6; // Parameter 6

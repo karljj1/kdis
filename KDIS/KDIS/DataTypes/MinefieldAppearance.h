@@ -44,17 +44,12 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16Type          : 2;
-
-            KUINT16 m_ui16ActiveStatus  : 1;
-
-            KUINT16 m_ui16Lane          : 1;
-
-            KUINT16 m_ui16Unused1       : 9;
-
-            KUINT16 m_ui16State         : 1;
-
-            KUINT16 m_ui16Unused        : 2;
+            KUINT16 m_ui16Type         : 2;
+            KUINT16 m_ui16ActiveStatus : 1;
+            KUINT16 m_ui16Lane         : 1;
+            KUINT16 m_ui16Unused1      : 9;
+            KUINT16 m_ui16State        : 1;
+            KUINT16 m_ui16Unused       : 2;
         };
         KUINT16 m_ui16App;
     } m_ui16BitUnion;
