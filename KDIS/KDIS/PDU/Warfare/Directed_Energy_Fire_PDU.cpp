@@ -58,7 +58,7 @@ Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( void ) :
 	m_ui8PDUType = DirectedEnergyFire_PDU_Type;
     m_ui16PDULength = DIRECTED_ENERGY_PDU_SIZE;
 	m_ui8ProtocolFamily = Warfare;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 	m_DeUnion.m_ui16Flags = 0;
 }
 
@@ -90,7 +90,7 @@ Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( const EntityIdentifier & Fir
 	m_ui8PDUType = DirectedEnergyFire_PDU_Type;
     m_ui16PDULength = DIRECTED_ENERGY_PDU_SIZE;
 	m_ui8ProtocolFamily = Warfare;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 	m_DeUnion.m_ui16WeaponState = WeaponState;
 	m_DeUnion.m_ui16StateUpdate = UpdateState;
 }

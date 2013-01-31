@@ -44,7 +44,7 @@ using namespace UTILS;
 IO_Header::IO_Header( void )
 {
     m_ui8ProtocolFamily = Information_Operations;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ IO_Header::IO_Header( const EntityIdentifier & OrigID ) :
     m_OriginatingEntityID( OrigID )
 {
     m_ui8ProtocolFamily = Information_Operations;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////

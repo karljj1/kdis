@@ -49,7 +49,7 @@ Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( void ) :
 	m_ui8PDUType = Acknowledge_R_PDU_Type;
     m_ui16PDULength = ENTITY_DAMAGE_STATE_PDU;
 	m_ui8ProtocolFamily = Warfare;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const EntityIdentifier & Dam
 	m_ui8PDUType = Acknowledge_R_PDU_Type;
     m_ui16PDULength = ENTITY_DAMAGE_STATE_PDU;
 	m_ui8ProtocolFamily = Warfare;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////

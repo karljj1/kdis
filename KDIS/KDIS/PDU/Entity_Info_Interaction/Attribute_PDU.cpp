@@ -54,7 +54,7 @@ Attribute_PDU::Attribute_PDU( void ) :
     m_ui8ProtocolFamily = Entity_Information_Interaction;
     m_ui8PDUType = Attribute_PDU_Type;
     m_ui16PDULength = ATTRIBUTE_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ Attribute_PDU::Attribute_PDU( const SimulationIdentifier & OriginatingID, PDUTyp
     m_ui8ProtocolFamily = Entity_Information_Interaction;
     m_ui8PDUType = Attribute_PDU_Type;
     m_ui16PDULength = ATTRIBUTE_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1_200x;
+    m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////
