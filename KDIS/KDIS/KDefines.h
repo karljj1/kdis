@@ -151,7 +151,7 @@ static KString GetErrorText( KUINT16 ErrorCode )
 		case NO_ERRORS:
 			return "No Errors. ";
 		case BUFFER_TOO_SMALL:
-			return "Buffer Is To Small. ";
+			return "Buffer Is Too Small. ";
 		case NOT_ENOUGH_DATA_IN_BUFFER:
 			return "Buffer Does Not Contain Enough Information To Decode. ";
 		case STRING_PDU_SIZE_TOO_BIG:
