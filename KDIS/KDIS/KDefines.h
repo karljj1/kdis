@@ -43,8 +43,6 @@ http://p.sf.net/kdis/UserGuide
 #include <sstream>
 #include <exception>
 
-#define KDIS_VERSION "v2-6-0"
-
 #define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS 
 
 // Comment out the following line to enable Enum descriptors or declare KDIS_USE_ENUM_DESCRIPTORS

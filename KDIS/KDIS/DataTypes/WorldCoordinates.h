@@ -32,7 +32,12 @@ http://p.sf.net/kdis/UserGuide
     created:    18/08/2008
     author:     Karl Jones
 
-    purpose:    Stores a location vector. WGS84, geocentric
+    purpose:    World coordinate system.     
+				Using a right-handed, geocentric Cartesian coordinate system.
+				The origin of the coordinate system is the centroid of the World 
+				Geodetic System 1984 (WGS 84) reference frame.
+				Scale is 1 unit equals 1m.
+
     size:       192 bits / 24 octets
 *********************************************************************/
 
@@ -92,6 +97,15 @@ public:
     //************************************
     void SetZ( KFLOAT64 Z );
     KFLOAT64 GetZ() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Set  
+    // Description: Sets x,y and z.
+    // Parameter:   KFLOAT64 X
+	// Parameter:   KFLOAT64 Y
+	// Parameter:   KFLOAT64 Z
+    //************************************
+	void Set( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetDistance

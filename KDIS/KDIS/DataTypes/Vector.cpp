@@ -110,6 +110,15 @@ KFLOAT32 Vector::GetZ() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void Vector::Set( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z )
+{
+	m_f32X = X;
+	m_f32Y = Y;
+	m_f32Z = Z;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KFLOAT32 Vector::GetMagnitude() const
 {
 	return sqrt( ( m_f32X * m_f32X ) + ( m_f32Y * m_f32Y ) + ( m_f32Z * m_f32Z ) );

@@ -109,6 +109,15 @@ KFLOAT64 WorldCoordinates::GetZ() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void WorldCoordinates::Set( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z )
+{
+	m_f64X = X;
+	m_f64Y = Y;
+	m_f64Z = Z;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KFLOAT64 WorldCoordinates::GetDistance( const WorldCoordinates & Other )
 {
 	WorldCoordinates w = *this - Other;

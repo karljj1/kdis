@@ -118,10 +118,18 @@ public:
     KFLOAT32 GetZ() const;
 
     //************************************
+    // FullName:    KDIS::DATA_TYPE::Vector::Set  
+    // Description: Sets x,y and z.
+    // Parameter:   KFLOAT32 X
+	// Parameter:   KFLOAT32 Y
+	// Parameter:   KFLOAT32 Z
+    //************************************
+	void Set( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z );
+
+    //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::GetMagnitude
     // Description: Calculates and returns the magnitude or length.
-	//				E.G If the vector represented a velocity then this would be the speed.
-    // Parameter:   KFLOAT32 Z, void
+	//				E.G If the vector represented a velocity then this would be the speed.    
     //************************************
 	KFLOAT32 GetMagnitude() const;
 
