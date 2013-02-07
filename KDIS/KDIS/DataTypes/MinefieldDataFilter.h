@@ -74,7 +74,7 @@ public:
 
     static const KUINT16 MINEFIELD_DATA_FILTER_SIZE = 4;
 
-    MinefieldDataFilter( void );
+    MinefieldDataFilter();
 
     MinefieldDataFilter( KDataStream & stream ) throw( KException );
 
@@ -82,7 +82,7 @@ public:
                          KBOOL MineOrientation, KBOOL ThermalContrast, KBOOL Reflectance, KBOOL MineEmplacementAge,
                          KBOOL TripDetonationWire, KBOOL Fusing, KBOOL ScalarDetectionCoefficient, KBOOL PaintScheme );
 
-    virtual ~MinefieldDataFilter( void );
+    virtual ~MinefieldDataFilter();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinefieldDataFilter::SetGroundBurialDepthOffset
@@ -219,5 +219,5 @@ public:
     KBOOL operator != ( const MinefieldDataFilter & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

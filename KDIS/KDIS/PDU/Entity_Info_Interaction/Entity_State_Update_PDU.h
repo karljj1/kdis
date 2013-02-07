@@ -87,7 +87,7 @@ public:
     // Min Size not including variable articulation parameters field
     static const KUINT16 ENTITY_STATE_UPDATE_PDU_SIZE = 72;
 
-    Entity_State_Update_PDU( void );
+    Entity_State_Update_PDU();
 
     Entity_State_Update_PDU( KDataStream & stream ) throw( KException );
 
@@ -95,7 +95,7 @@ public:
                              const WorldCoordinates & EntityLocation, const EulerAngles & EntityOrientation,
                              const EntityAppearance & EA );
 
-    virtual ~Entity_State_Update_PDU( void );
+    virtual ~Entity_State_Update_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityIdentifier
@@ -193,5 +193,5 @@ public:
     KBOOL operator != ( const Entity_State_Update_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

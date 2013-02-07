@@ -78,7 +78,7 @@ public:
     // set to 0 to load all data.
     DIS_Logger_Playback( const KString & FileName, KUINT16 BufferSz );
 
-    ~DIS_Logger_Playback( void );
+    ~DIS_Logger_Playback();
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Playback::Record
@@ -121,6 +121,6 @@ KBOOL DIS_Logger_Playback::GetNext( Type & Stamp, KDataStream & Stream ) throw( 
 
 //////////////////////////////////////////////////////////////////////////
 
-}; // End namespace UTILS
-}; // End namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS
 

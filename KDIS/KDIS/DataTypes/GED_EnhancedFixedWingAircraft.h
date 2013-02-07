@@ -62,7 +62,7 @@ public:
 
     static const KUINT16 GED_ENHANCED_FIXED_WING_AIRCRAFT_SIZE = 24;
 
-    GED_EnhancedFixedWingAircraft( void );
+    GED_EnhancedFixedWingAircraft();
 
     GED_EnhancedFixedWingAircraft( KDataStream & stream )throw( KException );
 
@@ -72,7 +72,7 @@ public:
 
     GED_EnhancedFixedWingAircraft( const GED_BasicFixedWingAircraft & BFWA,  KUINT8 SupFuelStatus, KUINT8 AirMaintenanceStatus, KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
 
-    virtual ~GED_EnhancedFixedWingAircraft( void );
+    virtual ~GED_EnhancedFixedWingAircraft();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedFixedWingAircraft::GetGroupedEntityCategory
@@ -152,6 +152,6 @@ public:
     KBOOL operator != ( const GED_EnhancedFixedWingAircraft & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

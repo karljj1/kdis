@@ -65,13 +65,13 @@ public:
 
     static const KUINT16 RESUPPLY_RECEIVED_PDU_SIZE = 28; // Does not include supply size
 
-    Resupply_Received_PDU( void );
+    Resupply_Received_PDU();
 
     Resupply_Received_PDU( KDataStream & stream ) throw( KException );
 
     Resupply_Received_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );
 
-    virtual ~Resupply_Received_PDU( void );
+    virtual ~Resupply_Received_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Resupply_Received_PDU::SetNumberOfSupplyTypes
@@ -123,5 +123,5 @@ public:
     KBOOL operator != ( const Resupply_Received_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

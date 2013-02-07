@@ -67,7 +67,7 @@ public:
 
     static const KUINT16 ENCODING_SCHEME_SIZE = 4;
 
-    EncodingScheme( void );
+    EncodingScheme();
 
     EncodingScheme( KDataStream & stream ) throw( KException );
 
@@ -75,7 +75,7 @@ public:
 
     EncodingScheme( EncodingType Audio, TDLType T );
 
-    virtual ~EncodingScheme( void );
+    virtual ~EncodingScheme();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EncodingScheme::SetEncodingClass
@@ -135,6 +135,6 @@ public:
     KBOOL operator != ( const EncodingScheme & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

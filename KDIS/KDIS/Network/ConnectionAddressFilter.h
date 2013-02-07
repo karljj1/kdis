@@ -65,7 +65,7 @@ public:
 
 	ConnectionAddressFilter( FilterMode FM = AllowAddressesInFilterList );
 
-	~ConnectionAddressFilter( void );
+	~ConnectionAddressFilter();
 
 	//************************************
 	// FullName:    KDIS::NETWORK::ConnectionAddressFilter::SetFilterMode
@@ -112,5 +112,5 @@ public:
 	virtual KBOOL OnDataReceived( const KOCTET * Data, KUINT32 DataLength, const KString & SenderIp );
 };
 
-}; // End namespace NETWORK
-}; // End namespace KDIS
+} // END namespace NETWORK
+} // END namespace KDIS

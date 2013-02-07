@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Record_Query_R_PDU::Record_Query_R_PDU( void ) :
+Record_Query_R_PDU::Record_Query_R_PDU() :
     m_ui32RqId( 0 ),
     m_ui16EvntTyp( 0 ),
     m_ui32Time( 0 ),
@@ -80,7 +80,7 @@ Record_Query_R_PDU::Record_Query_R_PDU( const EntityIdentifier & OriginatingEnti
 
 //////////////////////////////////////////////////////////////////////////
 
-Record_Query_R_PDU::~Record_Query_R_PDU( void )
+Record_Query_R_PDU::~Record_Query_R_PDU()
 {
     m_vui32RecID.clear();
 }

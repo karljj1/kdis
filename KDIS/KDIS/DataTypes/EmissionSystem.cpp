@@ -41,7 +41,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EmissionSystem::EmissionSystem( void ) :
+EmissionSystem::EmissionSystem() :
     m_ui8SystemDataLength( EMISSION_SYSTEM_SIZE ),
     m_ui16Padding( 0 ),
     m_ui8NumberOfBeams( 0 )
@@ -68,7 +68,7 @@ EmissionSystem::EmissionSystem( const EmitterSystem & ESR, const Vector & Locati
 
 //////////////////////////////////////////////////////////////////////////
 
-EmissionSystem::~EmissionSystem( void )
+EmissionSystem::~EmissionSystem()
 {
     m_vEmitterBeams.clear();
 }

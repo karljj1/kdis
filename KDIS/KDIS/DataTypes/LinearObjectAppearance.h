@@ -84,11 +84,11 @@ public:
 
     static const KUINT16 LINEAR_OBJECT_APPEARANCE_SIZE = 6;
 
-    LinearObjectAppearance( void );
+    LinearObjectAppearance();
 
     LinearObjectAppearance( KDataStream & stream ) throw( KException );
 
-    virtual ~LinearObjectAppearance( void );
+    virtual ~LinearObjectAppearance();
 
     /************************************************************************/
     /* The following appearance values are only for linear's of the type:   */
@@ -204,5 +204,5 @@ public:
     KBOOL operator != ( const LinearObjectAppearance & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

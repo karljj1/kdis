@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPlumeRecord::GaussianPlumeRecord( void ) :
+GaussianPlumeRecord::GaussianPlumeRecord() :
     m_ui32Padding( 0 )
 {
     m_ui32EnvRecTyp = GaussianPlumeRecordType;
@@ -53,7 +53,7 @@ GaussianPlumeRecord::GaussianPlumeRecord( KDataStream & stream )throw( KExceptio
 
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPlumeRecord::~GaussianPlumeRecord( void )
+GaussianPlumeRecord::~GaussianPlumeRecord()
 {
 }
 

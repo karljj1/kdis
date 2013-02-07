@@ -62,7 +62,7 @@ public:
 
     static const KUINT16 GED_ENHANCED_GROUND_COMBAT_VEHICLE_SIZE = 24;
 
-    GED_EnhancedGroundCombatVehicle( void );
+    GED_EnhancedGroundCombatVehicle();
 
     GED_EnhancedGroundCombatVehicle( KDataStream & stream )throw( KException );
 
@@ -74,7 +74,7 @@ public:
     GED_EnhancedGroundCombatVehicle( const GED_BasicGroundCombatVehicle & BGCV, KUINT8 FuelStatus, KUINT8 GroundMaintenanceStatus,
                                      KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
 
-    virtual ~GED_EnhancedGroundCombatVehicle( void );
+    virtual ~GED_EnhancedGroundCombatVehicle();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetGroupedEntityCategory
@@ -155,6 +155,6 @@ public:
     KBOOL operator != ( const GED_EnhancedGroundCombatVehicle & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

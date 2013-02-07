@@ -65,14 +65,14 @@ public:
 
     static const KUINT16 RECORD_SET_SIZE = 12; // Min size
 
-    RecordSet( void );
+    RecordSet();
 
     RecordSet( KDataStream & stream )throw( KException );
 
     RecordSet( RecordID ID, KUINT32 SerialNum, const vector<KUINT8> & RecordValue,
                KUINT16 RecordCount );
 
-    virtual ~RecordSet( void );
+    virtual ~RecordSet();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RecordSet::SetRecordID
@@ -147,5 +147,5 @@ public:
     KBOOL operator != ( const RecordSet & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

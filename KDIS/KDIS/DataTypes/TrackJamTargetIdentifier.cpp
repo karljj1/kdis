@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-TrackJamTargetIdentifier::TrackJamTargetIdentifier( void ) :
+TrackJamTargetIdentifier::TrackJamTargetIdentifier() :
     m_ui8EmitterID( 0 ),
     m_ui8BeamID( 0 )
 {
@@ -70,7 +70,7 @@ TrackJamTargetIdentifier::TrackJamTargetIdentifier( KUINT16 SiteID, KUINT16 Appl
 
 //////////////////////////////////////////////////////////////////////////
 
-TrackJamTargetIdentifier::~TrackJamTargetIdentifier( void )
+TrackJamTargetIdentifier::~TrackJamTargetIdentifier()
 {
 }
 

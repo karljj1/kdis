@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::Repair_Complete_PDU( void ) :
+Repair_Complete_PDU::Repair_Complete_PDU() :
     m_ui16Padding( 0 )
 {
     m_ui8PDUType = Repair_Complete_PDU_Type;
@@ -70,7 +70,7 @@ Repair_Complete_PDU::Repair_Complete_PDU( const EntityIdentifier & ReceivingEnti
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::~Repair_Complete_PDU( void )
+Repair_Complete_PDU::~Repair_Complete_PDU()
 {
 }
 

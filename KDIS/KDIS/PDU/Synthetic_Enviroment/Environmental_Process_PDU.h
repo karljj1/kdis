@@ -128,7 +128,7 @@ public:
 
     static const KUINT16 ENVIROMENTAL_PROCESS_PDU_SIZE = 32; // Min size
 
-    Environmental_Process_PDU( void );
+    Environmental_Process_PDU();
 
     Environmental_Process_PDU( KDataStream & stream ) throw( KException );
 
@@ -140,7 +140,7 @@ public:
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
                                KUINT16 SequenceNumber, const vector<EnviromentRecordPtr> & ERL );
 
-    virtual ~Environmental_Process_PDU( void );
+    virtual ~Environmental_Process_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::SetEnvironmentalProcessID
@@ -293,5 +293,5 @@ public:
     KBOOL operator != ( const Environmental_Process_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

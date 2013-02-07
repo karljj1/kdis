@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Reliability_Header::Reliability_Header( void ) :
+Reliability_Header::Reliability_Header() :
     m_ui8ReqRelSrv( 0 ),
     m_ui16Padding1( 0 ),
     m_ui8Padding( 0 )
@@ -67,7 +67,7 @@ Reliability_Header::Reliability_Header( RequiredReliabilityService RRS ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Reliability_Header::~Reliability_Header( void )
+Reliability_Header::~Reliability_Header()
 {
 }
 

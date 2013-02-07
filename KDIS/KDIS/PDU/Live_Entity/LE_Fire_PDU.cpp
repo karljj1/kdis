@@ -73,7 +73,7 @@ void LE_Fire_PDU::checkSiteApplicationFlags()
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LE_Fire_PDU::LE_Fire_PDU( void ) :
+LE_Fire_PDU::LE_Fire_PDU() :
     m_ui16Range( 0 )
 {
     m_FireFlagUnion.m_ui8Flag = 0;
@@ -108,7 +108,7 @@ LE_Fire_PDU::LE_Fire_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Fire_PDU::~LE_Fire_PDU( void )
+LE_Fire_PDU::~LE_Fire_PDU()
 {
 }
 

@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Cancel_PDU::Resupply_Cancel_PDU( void )
+Resupply_Cancel_PDU::Resupply_Cancel_PDU()
 {
     m_ui8PDUType = Resupply_Cancel_PDU_Type;
     m_ui16PDULength = RESUPPLY_CANCEL_PDU_SIZE;
@@ -67,7 +67,7 @@ Resupply_Cancel_PDU::Resupply_Cancel_PDU( KDataStream & stream ) throw( KExcepti
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Cancel_PDU::~Resupply_Cancel_PDU( void )
+Resupply_Cancel_PDU::~Resupply_Cancel_PDU()
 {
 }
 

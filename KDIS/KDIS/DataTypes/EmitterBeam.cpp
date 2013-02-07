@@ -41,7 +41,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EmitterBeam::EmitterBeam( void )  :
+EmitterBeam::EmitterBeam()  :
     m_ui8Padding( 0 ),
     m_ui8BeamDataLength( EMITTER_BEAM_SIZE / 4  ),
     m_ui8NumTargetInTrackJamField( 0 )
@@ -74,7 +74,7 @@ EmitterBeam::EmitterBeam( KUINT8 BeamID, KUINT16 BeamParamIndex, const Fundament
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterBeam::~EmitterBeam( void )
+EmitterBeam::~EmitterBeam()
 {
     m_vTrackJamTargets.clear();
 }

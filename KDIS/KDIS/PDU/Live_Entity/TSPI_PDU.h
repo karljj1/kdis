@@ -106,13 +106,13 @@ public:
 
     static const KUINT16 TSPI_PDU_SIZE = 25; // Min size, not including optional fields
 
-    TSPI_PDU( void );
+    TSPI_PDU();
 
     TSPI_PDU( const LE_EntityIdentifier & ID );
 
     TSPI_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~TSPI_PDU( void );
+    virtual ~TSPI_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::SetEntityLinearVelocityFlag
@@ -286,5 +286,5 @@ public:
     KBOOL operator != ( const TSPI_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

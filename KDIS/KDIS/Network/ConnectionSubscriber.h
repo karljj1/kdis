@@ -103,5 +103,5 @@ public:
     };
 };
 
-}; // End namespace NETWORK
-}; // End namespace KDIS
+} // END namespace NETWORK
+} // END namespace KDIS

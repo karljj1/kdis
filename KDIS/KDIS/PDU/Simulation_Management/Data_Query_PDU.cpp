@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_PDU::Data_Query_PDU( void ) :
+Data_Query_PDU::Data_Query_PDU() :
 	m_ui32RequestID( 0 ),
 	m_ui32NumFixedDatum( 0 ),
 	m_ui32NumVariableDatum( 0 )
@@ -80,7 +80,7 @@ Data_Query_PDU::Data_Query_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_PDU::~Data_Query_PDU( void )
+Data_Query_PDU::~Data_Query_PDU()
 {
 }
 

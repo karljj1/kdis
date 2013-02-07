@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MineFusing::MineFusing( void )
+MineFusing::MineFusing()
 {
     m_FuseUnion.m_ui16Fusing = 0;
 }
@@ -61,7 +61,7 @@ MineFusing::MineFusing( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-MineFusing::~MineFusing( void )
+MineFusing::~MineFusing()
 {
 }
 

@@ -62,7 +62,7 @@ public:
 
     static const KUINT16 GED_ENHANCED_ROTARY_WING_AIRCRAFT_SIZE = 28;
 
-    GED_EnhancedRotaryWingAircraft( void );
+    GED_EnhancedRotaryWingAircraft();
 
     GED_EnhancedRotaryWingAircraft( KDataStream & stream )throw( KException );
 
@@ -74,7 +74,7 @@ public:
     GED_EnhancedRotaryWingAircraft( const GED_BasicRotorWingAircraft & BRWA, KUINT8 SupFuelStatus, KUINT8 AirMaintenanceStatus, KUINT8 PrimaryAmmunition,
                                     KUINT8 SecondaryAmmunition );
 
-    virtual ~GED_EnhancedRotaryWingAircraft( void );
+    virtual ~GED_EnhancedRotaryWingAircraft();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetGroupedEntityCategory
@@ -154,6 +154,6 @@ public:
     KBOOL operator != ( const GED_EnhancedRotaryWingAircraft & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

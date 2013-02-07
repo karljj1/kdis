@@ -59,13 +59,13 @@ public:
 
     static const KUINT16 SECONDARY_OPERATIONAL_DATA_SIZE = 4;
 
-    SecondaryOperationalData( void );
+    SecondaryOperationalData();
 
     SecondaryOperationalData( KDataStream & stream ) throw( KException );
 
     SecondaryOperationalData( KUINT8 Param1, KUINT8 Param2, KUINT16 NumFundParamSets );
 
-    virtual ~SecondaryOperationalData( void );
+    virtual ~SecondaryOperationalData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SecondaryOperationalData::SetParameter1
@@ -121,6 +121,6 @@ public:
     KBOOL operator != ( const SecondaryOperationalData & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

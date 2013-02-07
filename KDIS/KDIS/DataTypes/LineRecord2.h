@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      LineRecord2
-    created:    17:08:2009
+    created:    17/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a moving line.
@@ -56,14 +56,14 @@ public:
 
     static const KUINT16 LINE_RECORD_2_SIZE = 80;
 
-    LineRecord2( void );
+    LineRecord2();
 
     LineRecord2( KDataStream & stream ) throw( KException );
 
     LineRecord2( KUINT8 Index, const WorldCoordinates & StartLoc, const WorldCoordinates & EndLoc,
                  const Vector & StartVel, const Vector & EndVel );
 
-    virtual ~LineRecord2( void );
+    virtual ~LineRecord2();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LineRecord2::SetVelocity
@@ -121,5 +121,5 @@ public:
     KBOOL operator != ( const LineRecord2 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

@@ -88,7 +88,7 @@ public:
     // called.
     DIS_Logger_Record( const KString & FileName, KBOOL WriteToFile );
 
-    ~DIS_Logger_Record( void );
+    ~DIS_Logger_Record();
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Record::Record
@@ -142,6 +142,6 @@ void DIS_Logger_Record::Record( Type Stamp, const KDataStream & Stream ) throw( 
 
 //////////////////////////////////////////////////////////////////////////
 
-}; // End namespace UTILS
-}; // End namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS
 

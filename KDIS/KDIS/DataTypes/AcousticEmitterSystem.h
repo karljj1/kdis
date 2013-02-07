@@ -60,13 +60,13 @@ public:
 
     static const KUINT16 ACOUSTIC_EMITTER_SYSTEM_SIZE = 4;
 
-    AcousticEmitterSystem( void );
+    AcousticEmitterSystem();
 
     AcousticEmitterSystem( KDataStream & stream ) throw( KException );
 
     AcousticEmitterSystem( AcousticSystemName ASN, AcousticSystemFunction ASF, KUINT8 ID );
 
-    virtual ~AcousticEmitterSystem( void );
+    virtual ~AcousticEmitterSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AcousticEmitterSystem::SetName
@@ -121,6 +121,6 @@ public:
     KBOOL operator != ( const AcousticEmitterSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

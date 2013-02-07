@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedRotaryWingAircraft::GED_EnhancedRotaryWingAircraft( void ) :
+GED_EnhancedRotaryWingAircraft::GED_EnhancedRotaryWingAircraft() :
     m_ui8SupFuelStatus( 0 ),
     m_ui8AirMaintStatus( 0 ),
     m_ui8PriAmmun( 0 ),
@@ -82,7 +82,7 @@ GED_EnhancedRotaryWingAircraft::GED_EnhancedRotaryWingAircraft( const GED_BasicR
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedRotaryWingAircraft::~GED_EnhancedRotaryWingAircraft( void )
+GED_EnhancedRotaryWingAircraft::~GED_EnhancedRotaryWingAircraft()
 {
 }
 

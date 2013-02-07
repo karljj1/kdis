@@ -79,14 +79,14 @@ public:
 
     static const KUINT16 IO_REPORT_PDU_SIZE = 40;
 
-    IO_Report_PDU( void );
+    IO_Report_PDU();
 
     IO_Report_PDU( const EntityIdentifier & OrigID, KUINT16 SimSrc, IOReportType RT,
                    const EntityIdentifier & AtkID, const EntityIdentifier & TgtID );
 
     IO_Report_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~IO_Report_PDU( void );
+    virtual ~IO_Report_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::IO_Report_PDU::SetSimulationSource
@@ -178,5 +178,5 @@ public:
     KBOOL operator != ( const IO_Report_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

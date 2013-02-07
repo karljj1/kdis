@@ -68,7 +68,7 @@ public:
 
     static const KUINT16 MINEFIELD_RESPONSE_NACK_SIZE = 26; // Min size
 
-    Minefield_Response_NACK_PDU( void );
+    Minefield_Response_NACK_PDU();
 
     Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
                                  KUINT8 ReqID );
@@ -78,7 +78,7 @@ public:
 
     Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Minefield_Response_NACK_PDU( void );
+    virtual ~Minefield_Response_NACK_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::SetRequestingSimulationID
@@ -149,5 +149,5 @@ public:
     KBOOL operator != ( const Minefield_Response_NACK_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

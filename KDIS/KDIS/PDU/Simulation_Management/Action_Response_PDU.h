@@ -57,14 +57,14 @@ public:
 
     static const KUINT16 ACTION_RESPONSE_PDU_SIZE = 40;
 
-    Action_Response_PDU( void );
+    Action_Response_PDU();
 
     Action_Response_PDU( KDataStream & stream ) throw( KException );
 
     // Generate a response from a PDU.
     Action_Response_PDU( const Action_Request_PDU & pdu, RequestStatus RS );
 
-    virtual ~Action_Response_PDU( void );
+    virtual ~Action_Response_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Action_Response_PDU::SetRequestStatus
@@ -101,6 +101,6 @@ public:
     KBOOL operator != ( const Action_Response_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

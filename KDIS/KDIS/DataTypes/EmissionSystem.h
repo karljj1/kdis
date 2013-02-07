@@ -70,13 +70,13 @@ public:
 
     static const KUINT16 EMISSION_SYSTEM_SIZE = 20; // Min Size
 
-    EmissionSystem( void );
+    EmissionSystem();
 
     EmissionSystem( KDataStream & stream )throw( KException );
 
     EmissionSystem( const EmitterSystem & ESR, const Vector & Location );
 
-    virtual ~EmissionSystem( void );
+    virtual ~EmissionSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmissionSystem::GetSystemDataLength
@@ -142,5 +142,5 @@ public:
     KBOOL operator != ( const EmissionSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

@@ -62,9 +62,9 @@ class KDIS_EXPORT GED : public DataTypeBase
 {
 public:
 
-    GED( void ) {};
+    GED() {};
 
-    virtual ~GED( void ) {};
+    virtual ~GED() {};
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED::GetGroupedEntityCategory
@@ -81,6 +81,6 @@ public:
     virtual KUINT8 GetLength() const = 0;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

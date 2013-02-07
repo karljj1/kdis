@@ -38,7 +38,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EulerAngles::EulerAngles( void ) :
+EulerAngles::EulerAngles() :
     m_f32Psi( 0 ),
     m_f32Theta( 0 ),
     m_f32Phi( 0 )
@@ -63,7 +63,7 @@ EulerAngles::EulerAngles( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-EulerAngles::~EulerAngles( void )
+EulerAngles::~EulerAngles()
 {
 }
 

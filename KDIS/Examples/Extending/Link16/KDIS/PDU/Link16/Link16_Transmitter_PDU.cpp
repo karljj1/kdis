@@ -44,7 +44,7 @@ using namespace ENUMS::LINK16;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Link16_Transmitter_PDU::Link16_Transmitter_PDU( void ) :
+Link16_Transmitter_PDU::Link16_Transmitter_PDU() :
 	m_ui8TSAM( 0 ),
 	m_ui8TTPM( 0 ),
 	m_ui8TTSM( 0 ),
@@ -87,7 +87,7 @@ Link16_Transmitter_PDU::Link16_Transmitter_PDU( const RadioEntityType & Type, Tr
 
 //////////////////////////////////////////////////////////////////////////
 
-Link16_Transmitter_PDU::~Link16_Transmitter_PDU( void )
+Link16_Transmitter_PDU::~Link16_Transmitter_PDU()
 {
 }
 

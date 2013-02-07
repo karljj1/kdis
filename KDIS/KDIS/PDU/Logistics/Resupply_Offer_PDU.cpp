@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::Resupply_Offer_PDU( void )
+Resupply_Offer_PDU::Resupply_Offer_PDU()
 {
     m_ui8PDUType = Resupply_Offer_PDU_Type;
     m_ui16PDULength = RESUPPLY_OFFER_PDU_SIZE;
@@ -66,7 +66,7 @@ Resupply_Offer_PDU::Resupply_Offer_PDU( KDataStream & stream ) throw( KException
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::~Resupply_Offer_PDU( void )
+Resupply_Offer_PDU::~Resupply_Offer_PDU()
 {
 }
 

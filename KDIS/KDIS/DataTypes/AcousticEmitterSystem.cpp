@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem::AcousticEmitterSystem( void ) :
+AcousticEmitterSystem::AcousticEmitterSystem() :
     m_ui16EmitterName( 0 ),
     m_ui8Function( 0 ),
     m_ui8EmitterIDNumber( 0 )
@@ -62,7 +62,7 @@ AcousticEmitterSystem::AcousticEmitterSystem( AcousticSystemName ASN, AcousticSy
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem::~AcousticEmitterSystem( void )
+AcousticEmitterSystem::~AcousticEmitterSystem()
 {
 }
 

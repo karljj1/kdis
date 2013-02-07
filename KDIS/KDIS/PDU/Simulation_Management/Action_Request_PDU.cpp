@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Action_Request_PDU::Action_Request_PDU( void )
+Action_Request_PDU::Action_Request_PDU()
 {
     m_ui8PDUType = Action_Request_PDU_Type;
     m_ui16PDULength = ACTION_REQUEST_PDU_SIZE;
@@ -68,7 +68,7 @@ Action_Request_PDU::Action_Request_PDU( const EntityIdentifier & OriginatingEnti
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Request_PDU::~Action_Request_PDU( void )
+Action_Request_PDU::~Action_Request_PDU()
 {
 }
 

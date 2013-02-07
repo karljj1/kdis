@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( void ) :
+Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU() :
 	m_f32CumulativeShotTime( 0 ),
 	m_f32AperDiameter( 0 ),
 	m_f32Wavelength( 0 ),
@@ -104,7 +104,7 @@ Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( KDataStream & stream ) throw
 
 //////////////////////////////////////////////////////////////////////////
 
-Directed_Energy_Fire_PDU::~Directed_Energy_Fire_PDU( void )
+Directed_Energy_Fire_PDU::~Directed_Energy_Fire_PDU()
 {
 }
 

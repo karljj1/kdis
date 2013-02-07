@@ -85,14 +85,14 @@ public:
 
     static const KUINT16 ATTRIBUTE_PDU_SIZE = 32; // Min size
 
-    Attribute_PDU( void );
+    Attribute_PDU();
 
     Attribute_PDU( KDataStream & stream ) throw( KException );
 
 	Attribute_PDU( const SimulationIdentifier & OriginatingID, PDUType T, 
 				   ProtocolVersion PV, AttributeID MART, ActionCode AC );
 
-    virtual ~Attribute_PDU( void );
+    virtual ~Attribute_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::SetOriginatingSimulationAddress
@@ -187,6 +187,6 @@ public:
     KBOOL operator != ( const Attribute_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

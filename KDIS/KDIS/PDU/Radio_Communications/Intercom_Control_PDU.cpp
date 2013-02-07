@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Control_PDU::Intercom_Control_PDU( void ) :
+Intercom_Control_PDU::Intercom_Control_PDU() :
     m_ui8Command( 0 )
 {
     m_ui8PDUType = IntercomControl_PDU_Type;
@@ -58,7 +58,7 @@ Intercom_Control_PDU::Intercom_Control_PDU( KDataStream & stream ) throw( KExcep
 
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Control_PDU::~Intercom_Control_PDU( void )
+Intercom_Control_PDU::~Intercom_Control_PDU()
 {
     m_vICP.clear();
 }

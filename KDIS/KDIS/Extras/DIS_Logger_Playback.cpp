@@ -40,7 +40,7 @@ DIS_Logger_Playback::DIS_Logger_Playback(  const KString & FileName, KUINT16 Buf
 
 //////////////////////////////////////////////////////////////////////////
 
-DIS_Logger_Playback::~DIS_Logger_Playback( void )
+DIS_Logger_Playback::~DIS_Logger_Playback()
 {
     m_qLog.empty();
     m_File.close();

@@ -76,14 +76,14 @@ public:
 
     static const KUINT16 SYSTEM_IDENTIFER_SIZE = 6;
 
-    SystemIdentifier( void );
+    SystemIdentifier();
 
     SystemIdentifier( SystemType T, SystemName N, SystemMode M, KBOOL ChangeIndicator,
                       KBOOL AltMode4 = false, KBOOL AltModeC = false );
 
     SystemIdentifier( KDataStream & stream ) throw( KException );
 
-    virtual ~SystemIdentifier( void );
+    virtual ~SystemIdentifier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemType
@@ -157,6 +157,6 @@ public:
     KBOOL operator != ( const SystemIdentifier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

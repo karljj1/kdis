@@ -58,13 +58,13 @@ public:
 
     static const KUINT16 CLOCK_TIME_SIZE = 8;
 
-    ClockTime( void );
+    ClockTime();
 
     ClockTime( KINT32 Hour, KUINT32 TimePastHour );
 
     ClockTime( KDataStream & stream ) throw( KException );
 
-    virtual ~ClockTime( void );
+    virtual ~ClockTime();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ClockTime::SetHour
@@ -110,6 +110,6 @@ public:
     KBOOL operator  < ( const ClockTime & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

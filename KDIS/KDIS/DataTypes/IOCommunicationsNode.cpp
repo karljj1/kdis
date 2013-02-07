@@ -39,7 +39,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-IOCommunicationsNode::IOCommunicationsNode( void ) :
+IOCommunicationsNode::IOCommunicationsNode() :
     m_ui8CommNodeTyp( 0 ),
     m_ui8Padding( 0 )
 {
@@ -67,7 +67,7 @@ IOCommunicationsNode::IOCommunicationsNode( IOCommunicationsNodeType T, const Co
 
 //////////////////////////////////////////////////////////////////////////
 
-IOCommunicationsNode::~IOCommunicationsNode( void )
+IOCommunicationsNode::~IOCommunicationsNode()
 {
 }
 

@@ -63,14 +63,14 @@ public:
 
     static const KUINT16 LE_DEAD_RECKONING_PARAMETER_SIZE = 7;
 
-    LE_DeadReckoningParameter( void );
+    LE_DeadReckoningParameter();
 
     LE_DeadReckoningParameter( KDataStream & stream ) throw( KException );
 
     LE_DeadReckoningParameter( DeadReckoningAlgorithm DRA, const LE_Vector8_3 & LinearAcceleration,
                                const LE_Vector8_3 & AngularVelocity );
 
-    virtual ~LE_DeadReckoningParameter( void );
+    virtual ~LE_DeadReckoningParameter();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_DeadReckoningParameter::SetDeadReckoningAlgorithm
@@ -126,5 +126,5 @@ public:
     KBOOL operator != ( const LE_DeadReckoningParameter & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

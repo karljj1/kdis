@@ -40,7 +40,7 @@ using namespace std;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityType::EntityType( void ) :
+EntityType::EntityType() :
     m_ui8EntityKind( 0 ),
     m_ui8Domain( 0 ),
     m_ui16Country( 0 ),
@@ -88,7 +88,7 @@ EntityType::EntityType( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityType::~EntityType( void )
+EntityType::~EntityType()
 {
 }
 

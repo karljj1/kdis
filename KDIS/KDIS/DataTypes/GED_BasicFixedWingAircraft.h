@@ -60,14 +60,14 @@ public:
 
     static const KUINT16 GED_BASIC_FIXED_WING_AIRCRAFT_SIZE = 20;
 
-    GED_BasicFixedWingAircraft( void );
+    GED_BasicFixedWingAircraft();
 
     GED_BasicFixedWingAircraft( KDataStream & stream )throw( KException );
 
     GED_BasicFixedWingAircraft( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA, KINT8 Psi, KINT8 Theta,
                                 KINT8 Phi, KUINT8 FuelStatus, KINT8 HorizontalDeviation, KINT8 VerticalDeviation, KINT8 Speed );
 
-    virtual ~GED_BasicFixedWingAircraft( void );
+    virtual ~GED_BasicFixedWingAircraft();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_BasicFixedWingAircraft::GetGroupedEntityCategory
@@ -136,6 +136,6 @@ public:
     KBOOL operator != ( const GED_BasicFixedWingAircraft & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Data_R_PDU::Data_R_PDU( void )
+Data_R_PDU::Data_R_PDU()
 {
     m_ui8PDUType = Data_R_PDU_Type;
     m_ui16PDULength = DATA_R_PDU_SIZE;
@@ -72,7 +72,7 @@ Data_R_PDU::Data_R_PDU( const EntityIdentifier & OriginatingEntityID, const Enti
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_R_PDU::~Data_R_PDU( void )
+Data_R_PDU::~Data_R_PDU()
 {
 }
 

@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( void )
+Acknowledge_PDU::Acknowledge_PDU()
 {
     m_ui8PDUType = Acknowledge_PDU_Type;
     m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
@@ -138,7 +138,7 @@ Acknowledge_PDU::Acknowledge_PDU( const Stop_Freeze_PDU & pdu, AcknowledgeRespon
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::~Acknowledge_PDU( void )
+Acknowledge_PDU::~Acknowledge_PDU()
 {
 }
 

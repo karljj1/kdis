@@ -60,13 +60,13 @@ public:
 
     static const KUINT16 PROPULSION_SYSTEM_SIZE = 8;
 
-    PropulsionSystem( void );
+    PropulsionSystem();
 
     PropulsionSystem( KDataStream & stream ) throw( KException );
 
     PropulsionSystem( KFLOAT32 PowerSetting, KFLOAT32 EngineRPM );
 
-    virtual ~PropulsionSystem( void );
+    virtual ~PropulsionSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PropulsionSystem::SetPowerSetting
@@ -114,6 +114,6 @@ public:
     KBOOL operator != ( const PropulsionSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

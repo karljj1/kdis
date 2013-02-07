@@ -80,7 +80,7 @@ public:
 
 #define GRID_AXIS_REGULAR 24
 
-    GridAxisRegular( void );
+    GridAxisRegular();
 
     GridAxisRegular( KDataStream & stream ) throw( KException );
 
@@ -92,7 +92,7 @@ public:
     GridAxisRegular( KFLOAT64 InitialXi, KFLOAT64 FinalXi, KUINT16 PointsXi, KUINT8 InterleafFactor,
                      KUINT8 AxisType, KUINT16 NumPoints, KUINT16 InitialIndexXi );
 
-    virtual ~GridAxisRegular( void );
+    virtual ~GridAxisRegular();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridAxisRegular::SetDomainInitialXi
@@ -208,6 +208,6 @@ public:
     KBOOL operator != ( const GridAxisRegular & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

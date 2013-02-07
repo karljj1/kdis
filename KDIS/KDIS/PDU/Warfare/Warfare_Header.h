@@ -63,12 +63,12 @@ public:
 
     static const KUINT16 WARFARE_HEADER_SIZE = 36;
 
-    Warfare_Header( void );
+    Warfare_Header();
 
     Warfare_Header( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
                     const EntityIdentifier & MunitionID, const EntityIdentifier & EventID );
 
-    virtual ~Warfare_Header( void );
+    virtual ~Warfare_Header();
 
     //************************************
     // FullName:    KDIS::PDU::Warfare_Header::SetFiringEntityID
@@ -140,5 +140,5 @@ public:
     KBOOL operator != ( const Warfare_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

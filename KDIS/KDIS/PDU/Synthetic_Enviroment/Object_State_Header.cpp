@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Object_State_Header::Object_State_Header( void ) :
+Object_State_Header::Object_State_Header() :
     m_ui16UpdateNum( 0 ),
     m_ui8ForceID( 0 )
 {
@@ -78,7 +78,7 @@ Object_State_Header::Object_State_Header( const EntityIdentifier & ObjID, const 
 
 //////////////////////////////////////////////////////////////////////////
 
-Object_State_Header::~Object_State_Header( void )
+Object_State_Header::~Object_State_Header()
 {
 }
 

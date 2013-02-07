@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-RectangularVolumeRecord2::RectangularVolumeRecord2( void ) :
+RectangularVolumeRecord2::RectangularVolumeRecord2() :
     m_f32Padding( 0 )
 {
     m_ui32EnvRecTyp = RectangularVolumeRecord2Type;
@@ -68,7 +68,7 @@ RectangularVolumeRecord2::RectangularVolumeRecord2( KUINT8 Index, const WorldCoo
 
 //////////////////////////////////////////////////////////////////////////
 
-RectangularVolumeRecord2::~RectangularVolumeRecord2( void )
+RectangularVolumeRecord2::~RectangularVolumeRecord2()
 {
 }
 

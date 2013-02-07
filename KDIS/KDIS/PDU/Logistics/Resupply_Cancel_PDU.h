@@ -52,13 +52,13 @@ public:
 
     static const KUINT16 RESUPPLY_CANCEL_PDU_SIZE = 24;
 
-    Resupply_Cancel_PDU( void );
+    Resupply_Cancel_PDU();
 
     Resupply_Cancel_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );
 
     Resupply_Cancel_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Resupply_Cancel_PDU( void );
+    virtual ~Resupply_Cancel_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Resupply_Cancel_PDU::GetAsString
@@ -71,5 +71,5 @@ public:
     KBOOL operator != ( const Resupply_Cancel_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

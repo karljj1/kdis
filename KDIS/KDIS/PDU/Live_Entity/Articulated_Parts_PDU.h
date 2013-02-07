@@ -62,13 +62,13 @@ public:
 
     static const KUINT16 ARTICULATED_PARTS_PDU_SIZE = 17; // Min size
 
-    Articulated_Parts_PDU( void );
+    Articulated_Parts_PDU();
 
     Articulated_Parts_PDU( const LE_EntityIdentifier & ID );
 
     Articulated_Parts_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Articulated_Parts_PDU( void );
+    virtual ~Articulated_Parts_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Articulated_Parts_PDU::GetNumberOfArticulationParams
@@ -116,5 +116,5 @@ public:
     KBOOL operator != ( const Articulated_Parts_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

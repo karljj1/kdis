@@ -68,13 +68,13 @@ public:
 
     static const KUINT16 MINE_FUSING_SIZE = 2;
 
-    MineFusing( void );
+    MineFusing();
 
     MineFusing( MineFuse Primary, MineFuse Secondary, KBOOL AntiHandlingDevice );
 
     MineFusing( KDataStream & stream ) throw( KException );
 
-    virtual ~MineFusing( void );
+    virtual ~MineFusing();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MineFusing::SetPrimaryFuse
@@ -130,6 +130,6 @@ public:
     KBOOL operator != ( const MineFusing & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

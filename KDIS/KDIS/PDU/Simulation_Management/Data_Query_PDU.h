@@ -66,14 +66,14 @@ public:
 
     static const KUINT16 DATA_QUERY_PDU_SIZE = 40;
 
-    Data_Query_PDU( void );
+    Data_Query_PDU();
 
     Data_Query_PDU( KDataStream & stream ) throw( KException );
 
     Data_Query_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                     KUINT32 RequestID );
 
-    virtual ~Data_Query_PDU( void );
+    virtual ~Data_Query_PDU();
 	
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::SetRequestID
@@ -157,6 +157,6 @@ public:
     KBOOL operator != ( const Data_Query_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

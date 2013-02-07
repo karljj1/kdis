@@ -62,13 +62,13 @@ public:
 
     static const KUINT16 GROUP_DESTINATION_RECORD_SIZE = 8;
 
-    GroupDestinationRecord( void );
+    GroupDestinationRecord();
 
     GroupDestinationRecord( KDataStream & stream )throw( KException );
 
     GroupDestinationRecord( KUINT32 GroupBitField, KUINT8 Priority, LineStateCommand LSC );
 
-    virtual ~GroupDestinationRecord( void );
+    virtual ~GroupDestinationRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GroupDestinationRecord::SetGroupBitField
@@ -132,5 +132,5 @@ public:
     KBOOL operator != ( const GroupDestinationRecord & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

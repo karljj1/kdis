@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Supplies
-    created:    2008/09/22
+    created:    22/09/2008
     author:     Karl Jones
 
     purpose:    Represents a supply and its quantity
@@ -53,7 +53,7 @@ public:
 
     static const KUINT16 SUPPLIES_SIZE = 12;
 
-    Supplies( void );
+    Supplies();
 
     Supplies( EntityKind Kind, KUINT8 Domain, Country Country, KUINT8 Categoy,
               KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra,
@@ -63,7 +63,7 @@ public:
 
     Supplies( KDataStream & stream ) throw( KException );
 
-    virtual ~Supplies( void );
+    virtual ~Supplies();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Supplies::SetQuantity
@@ -99,5 +99,5 @@ public:
     KBOOL operator != ( const Supplies & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

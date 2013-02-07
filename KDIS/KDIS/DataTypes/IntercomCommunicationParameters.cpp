@@ -40,7 +40,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IntercomCommunicationParameters::IntercomCommunicationParameters( void ) :
+IntercomCommunicationParameters::IntercomCommunicationParameters() :
     m_ui16Length( 0 ),
     m_ui16Type( 0 ),
     m_pRecord( NULL ),
@@ -87,7 +87,7 @@ IntercomCommunicationParameters::IntercomCommunicationParameters( GroupAssignmen
 
 //////////////////////////////////////////////////////////////////////////
 
-IntercomCommunicationParameters::~IntercomCommunicationParameters( void )
+IntercomCommunicationParameters::~IntercomCommunicationParameters()
 {
     if( m_pRecord && m_bMemoryManage )delete m_pRecord;
 }

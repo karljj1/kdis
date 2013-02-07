@@ -59,13 +59,13 @@ public:
 
     static const KUINT16 LE_ENTITY_IDENTIFER_SIZE = 4;
 
-    LE_EntityIdentifier( void );
+    LE_EntityIdentifier();
 
     LE_EntityIdentifier( KUINT8 SiteID, KUINT8 ApplicatonID, KUINT16 EntityID );
 
     LE_EntityIdentifier( KDataStream & stream ) throw( KException );
 
-    virtual ~LE_EntityIdentifier( void );
+    virtual ~LE_EntityIdentifier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_EntityIdentifier::SetSiteID
@@ -121,6 +121,6 @@ public:
     KBOOL operator <  ( const LE_EntityIdentifier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

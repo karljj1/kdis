@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Set_Record_R_PDU::Set_Record_R_PDU( void ) :
+Set_Record_R_PDU::Set_Record_R_PDU() :
     m_ui32RqId( 0 ),
     m_ui32NumRecSets( 0 )
 {
@@ -76,7 +76,7 @@ Set_Record_R_PDU::Set_Record_R_PDU( const EntityIdentifier & OriginatingEntityID
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Record_R_PDU::~Set_Record_R_PDU( void )
+Set_Record_R_PDU::~Set_Record_R_PDU()
 {
     m_vRecs.clear();
 }

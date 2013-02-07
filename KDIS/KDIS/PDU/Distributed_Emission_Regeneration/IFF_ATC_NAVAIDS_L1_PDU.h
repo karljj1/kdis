@@ -91,14 +91,14 @@ public:
 
     static const KUINT16 IFF_ATC_NAVAIDS_L1_PDU_SIZE = 60;
 
-    IFF_ATC_NAVAIDS_L1_PDU( void );
+    IFF_ATC_NAVAIDS_L1_PDU();
 
     IFF_ATC_NAVAIDS_L1_PDU( KDataStream & stream ) throw( KException );
 
     IFF_ATC_NAVAIDS_L1_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID, const Vector & Location,
                             const SystemIdentifier & ID, const FundamentalOperationalData & FOD );
 
-    virtual ~IFF_ATC_NAVAIDS_L1_PDU( void );
+    virtual ~IFF_ATC_NAVAIDS_L1_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetEmittingEntityID
@@ -178,5 +178,5 @@ public:
     KBOOL operator != ( const IFF_ATC_NAVAIDS_L1_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -39,7 +39,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Logistics_Header::Logistics_Header( void )
+Logistics_Header::Logistics_Header()
 {
     m_ui8ProtocolFamily = Logistics;
     m_ui8ProtocolVersion = IEEE_1278_1_1995;
@@ -56,7 +56,7 @@ Logistics_Header::Logistics_Header( const EntityIdentifier & ReceivingEntityID, 
 
 //////////////////////////////////////////////////////////////////////////
 
-Logistics_Header::~Logistics_Header( void )
+Logistics_Header::~Logistics_Header()
 {
 }
 

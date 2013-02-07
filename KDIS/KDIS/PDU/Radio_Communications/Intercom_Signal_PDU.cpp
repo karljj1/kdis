@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Signal_PDU::Intercom_Signal_PDU( void )
+Intercom_Signal_PDU::Intercom_Signal_PDU()
 {
     m_ui8PDUType = IntercomSignal_PDU_Type;
     m_ui8ProtocolVersion = IEEE_1278_1A_1998;
@@ -68,7 +68,7 @@ Intercom_Signal_PDU::Intercom_Signal_PDU( const EntityIdentifier & ID, KUINT16 R
 
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Signal_PDU::~Intercom_Signal_PDU( void )
+Intercom_Signal_PDU::~Intercom_Signal_PDU()
 {
 }
 

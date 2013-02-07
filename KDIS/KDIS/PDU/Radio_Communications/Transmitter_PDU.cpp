@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Transmitter_PDU::Transmitter_PDU( void ) :
+Transmitter_PDU::Transmitter_PDU() :
     m_ui16Padding1( 0 ),
     m_ui16AntennaPatternLength( 0 ),
     m_ui8LengthOfModulationParam( 0 ),
@@ -90,7 +90,7 @@ Transmitter_PDU::Transmitter_PDU( const RadioEntityType & Type, TransmitState TS
 
 //////////////////////////////////////////////////////////////////////////
 
-Transmitter_PDU::~Transmitter_PDU( void )
+Transmitter_PDU::~Transmitter_PDU()
 {
     m_vModulationParams.clear();
     m_vAntennaPattern.clear();

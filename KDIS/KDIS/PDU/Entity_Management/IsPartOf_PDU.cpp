@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IsPartOf_PDU::IsPartOf_PDU( void )
+IsPartOf_PDU::IsPartOf_PDU()
 {
     m_ui8ProtocolVersion = IEEE_1278_1A_1998;
     m_ui8ProtocolFamily = EntityManagement;
@@ -80,7 +80,7 @@ IsPartOf_PDU::IsPartOf_PDU( const RelationshipRecord & RR, const Vector & Locati
 
 //////////////////////////////////////////////////////////////////////////
 
-IsPartOf_PDU::~IsPartOf_PDU( void )
+IsPartOf_PDU::~IsPartOf_PDU()
 {
 }
 

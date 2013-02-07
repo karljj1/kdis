@@ -38,7 +38,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicRotorWingAircraft::GED_BasicRotorWingAircraft( void ) :
+GED_BasicRotorWingAircraft::GED_BasicRotorWingAircraft() :
     m_i8TrrtAz( 0 ),
     m_i8GnElv( 0 ),
     m_i8TrrtSlwRt( 0 ),
@@ -68,7 +68,7 @@ GED_BasicRotorWingAircraft::GED_BasicRotorWingAircraft( KUINT16 ID, KINT16 XOffs
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicRotorWingAircraft::~GED_BasicRotorWingAircraft( void )
+GED_BasicRotorWingAircraft::~GED_BasicRotorWingAircraft()
 {
 }
 

@@ -39,7 +39,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::IOEffect( void ) :
+IOEffect::IOEffect() :
     m_ui8Status( 0 ),
     m_ui8LnkTyp( 0 ),
     m_ui8Eff( 0 ),
@@ -80,7 +80,7 @@ IOEffect::IOEffect( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::~IOEffect( void )
+IOEffect::~IOEffect()
 {
 }
 

@@ -55,14 +55,14 @@ public:
 
     static const KUINT16 EVENT_REPORT_R_PDU_SIZE = 40;
 
-    Event_Report_R_PDU( void );
+    Event_Report_R_PDU();
 
     Event_Report_R_PDU( KDataStream & stream ) throw( KException );
 
     Event_Report_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                         EventType ET );
 
-    virtual ~Event_Report_R_PDU( void );
+    virtual ~Event_Report_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Event_Report_R_PDU::GetAsString
@@ -75,5 +75,5 @@ public:
     KBOOL operator != ( const Event_Report_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

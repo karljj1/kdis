@@ -65,13 +65,13 @@ public:
 
 #define COMM_CHANNEL_TYPE 1
 
-    CommunicationsChannelType( void );
+    CommunicationsChannelType();
 
     CommunicationsChannelType( KDataStream & stream ) throw( KException );
 
     CommunicationsChannelType( ChannelType CT, ChannelClass CC );
 
-    virtual ~CommunicationsChannelType( void );
+    virtual ~CommunicationsChannelType();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::SetType
@@ -116,6 +116,6 @@ public:
     KBOOL operator != ( const CommunicationsChannelType & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

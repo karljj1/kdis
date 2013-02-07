@@ -57,7 +57,7 @@ public:
 
     static const KUINT16 COMMUNICATIONS_NODE_ID_SIZE = 8;
 
-    CommunicationsNodeID( void );
+    CommunicationsNodeID();
 
     CommunicationsNodeID( KDataStream & stream ) throw( KException );
 
@@ -67,7 +67,7 @@ public:
 
     CommunicationsNodeID( const EntityIdentifier & EntID, KUINT16 Element );
 
-    virtual ~CommunicationsNodeID( void );
+    virtual ~CommunicationsNodeID();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::SetElementID
@@ -107,5 +107,5 @@ public:
     KBOOL operator != ( const CommunicationsNodeID & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

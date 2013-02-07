@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Detonation_PDU::Detonation_PDU( void ) :
+Detonation_PDU::Detonation_PDU() :
     m_ui8NumOfArticulationParams( 0 )
 {
     m_ui8PDUType = Detonation_PDU_Type;
@@ -96,7 +96,7 @@ Detonation_PDU::Detonation_PDU( const Warfare_Header & WarfareHeader, const Vect
 
 //////////////////////////////////////////////////////////////////////////
 
-Detonation_PDU::~Detonation_PDU( void )
+Detonation_PDU::~Detonation_PDU()
 {
 }
 

@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::EntityCapabilities( void ) :
+EntityCapabilities::EntityCapabilities() :
     m_ui16Data( 0 )
 {
 }
@@ -70,7 +70,7 @@ EntityCapabilities::EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply,
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::~EntityCapabilities( void )
+EntityCapabilities::~EntityCapabilities()
 {
 }
 

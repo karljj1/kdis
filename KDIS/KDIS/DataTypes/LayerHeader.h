@@ -50,13 +50,13 @@ public:
 
     static const KUINT16 LAYER_HEADER_SIZE = 4;
 
-    LayerHeader( void );
+    LayerHeader();
 
     LayerHeader( KDataStream & stream ) throw( KException );
 
     LayerHeader( KUINT8 LayerNumber, KUINT8 LayerSpecificInfo, KUINT16 LayerLength );
 
-    virtual ~LayerHeader( void );
+    virtual ~LayerHeader();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LayerHeader::SetLayerNumber
@@ -111,6 +111,6 @@ public:
     KBOOL operator != ( const LayerHeader & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

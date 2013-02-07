@@ -38,7 +38,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicFixedWingAircraft::GED_BasicFixedWingAircraft( void ) :
+GED_BasicFixedWingAircraft::GED_BasicFixedWingAircraft() :
     m_i8HoriDevi( 0 ),
     m_i8VertDevi( 0 )
 {
@@ -69,7 +69,7 @@ GED_BasicFixedWingAircraft::GED_BasicFixedWingAircraft( KUINT16 ID, KINT16 XOffs
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicFixedWingAircraft::~GED_BasicFixedWingAircraft( void )
+GED_BasicFixedWingAircraft::~GED_BasicFixedWingAircraft()
 {
 }
 

@@ -84,7 +84,7 @@ public:
 
     static const KUINT16 DETONATION_PDU_SIZE = 104;
 
-    Detonation_PDU( void );
+    Detonation_PDU();
 
     Detonation_PDU( KDataStream & stream ) throw( KException );
 
@@ -98,7 +98,7 @@ public:
                     const WorldCoordinates & LocationWorldCoords, const BurstDescriptor & Burst ,
                     const Vector & LocationEntityCoords, DetonationResult DetonationResult );
 
-    virtual ~Detonation_PDU( void );
+    virtual ~Detonation_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetVelocity
@@ -195,5 +195,5 @@ public:
     KBOOL operator != ( const Detonation_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

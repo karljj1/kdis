@@ -118,13 +118,13 @@ public:
 
     static const KUINT16 LE_DETONATION_PDU_SIZE = 40; // Min size, not including optional fields
 
-    LE_Detonation_PDU( void );
+    LE_Detonation_PDU();
 
     LE_Detonation_PDU( const LE_EntityIdentifier & ID );
 
     LE_Detonation_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~LE_Detonation_PDU( void );
+    virtual ~LE_Detonation_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetTargetEntityIDFlag
@@ -311,5 +311,5 @@ public:
     KBOOL operator != ( const LE_Detonation_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

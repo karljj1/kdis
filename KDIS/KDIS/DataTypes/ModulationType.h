@@ -80,7 +80,7 @@ public:
 
     static const KUINT16 MODULATION_TYPE_SIZE = 8;
 
-    ModulationType( void );
+    ModulationType();
 
     ModulationType( KDataStream & stream )throw( KException );
 
@@ -88,7 +88,7 @@ public:
                     KUINT16 MajorModulation, KUINT16 Detail,
                     KUINT16 System );
 
-    virtual ~ModulationType( void );
+    virtual ~ModulationType();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModulationType::SetSpreadSpectrum
@@ -183,5 +183,5 @@ public:
     KBOOL operator != ( const ModulationType & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

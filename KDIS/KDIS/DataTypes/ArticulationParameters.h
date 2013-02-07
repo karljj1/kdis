@@ -76,14 +76,14 @@ public:
 
     static const KUINT16 ARTICULATION_PARAMETERS_SIZE = 16;
 
-    ArticulationParameters( void );
+    ArticulationParameters();
 
     ArticulationParameters( KDataStream & stream ) throw( KException );
 
     ArticulationParameters( ArticulationType AT, KUINT8 ParamChangeIndicator,
                             KUINT16 AttachID, KUINT32 TypeVariant, KUINT64 Value );
 
-    virtual ~ArticulationParameters( void );
+    virtual ~ArticulationParameters();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetArticulationType
@@ -177,5 +177,5 @@ public:
     KBOOL operator != ( const ArticulationParameters & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

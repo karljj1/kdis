@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Response_PDU::Repair_Response_PDU( void ) :
+Repair_Response_PDU::Repair_Response_PDU() :
     m_ui8Padding( 0 ),
     m_ui16Padding( 0 )
 {
@@ -72,7 +72,7 @@ Repair_Response_PDU::Repair_Response_PDU( const EntityIdentifier & ReceivingEnti
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Response_PDU::~Repair_Response_PDU( void )
+Repair_Response_PDU::~Repair_Response_PDU()
 {
 }
 

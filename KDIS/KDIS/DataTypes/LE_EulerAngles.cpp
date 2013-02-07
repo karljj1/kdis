@@ -38,7 +38,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-LE_EulerAngles::LE_EulerAngles( void )
+LE_EulerAngles::LE_EulerAngles()
 {
 }
 
@@ -60,7 +60,7 @@ LE_EulerAngles::LE_EulerAngles( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_EulerAngles::~LE_EulerAngles( void )
+LE_EulerAngles::~LE_EulerAngles()
 {
 }
 

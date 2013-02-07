@@ -59,14 +59,14 @@ public:
 
     static const KUINT16 ELIPSOID_RECORD_1_SIZE = 56;
 
-    EllipsoidRecord1( void );
+    EllipsoidRecord1();
 
     EllipsoidRecord1( KDataStream & stream ) throw( KException );
 
     EllipsoidRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation,
                       const Vector & Sigma, const EulerAngles & Orientation );
 
-    virtual ~EllipsoidRecord1( void );
+    virtual ~EllipsoidRecord1();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::SetCentroidLocation
@@ -123,5 +123,5 @@ public:
     KBOOL operator != ( const EllipsoidRecord1 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

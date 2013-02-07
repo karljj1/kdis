@@ -55,14 +55,14 @@ protected:
 
 public:
 
-    Intercom_Signal_PDU( void );
+    Intercom_Signal_PDU();
 
     Intercom_Signal_PDU( KDataStream & stream ) throw( KException );
 
     Intercom_Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
                          KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
 
-    virtual ~Intercom_Signal_PDU( void );
+    virtual ~Intercom_Signal_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Signal_PDU::GetAsString
@@ -75,6 +75,6 @@ public:
     KBOOL operator != ( const Intercom_Signal_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

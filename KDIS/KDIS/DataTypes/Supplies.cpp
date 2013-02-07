@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::Supplies( void ) :
+Supplies::Supplies() :
     m_f32Quantity( 0 )
 {
 }
@@ -68,7 +68,7 @@ Supplies::Supplies( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::~Supplies( void )
+Supplies::~Supplies()
 {
 }
 

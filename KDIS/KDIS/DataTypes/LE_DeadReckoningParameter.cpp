@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-LE_DeadReckoningParameter::LE_DeadReckoningParameter( void ) :
+LE_DeadReckoningParameter::LE_DeadReckoningParameter() :
     m_ui8DeadRecknoningAlgorithm( 0 )
 {
 }
@@ -61,7 +61,7 @@ LE_DeadReckoningParameter::LE_DeadReckoningParameter( DeadReckoningAlgorithm DRA
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_DeadReckoningParameter::~LE_DeadReckoningParameter( void )
+LE_DeadReckoningParameter::~LE_DeadReckoningParameter()
 {
 }
 

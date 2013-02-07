@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ConeRecord2::ConeRecord2( void ) :
+ConeRecord2::ConeRecord2() :
     m_f32ddtHeight( 0 ),
     m_f32ddtPeak( 0 )
 {
@@ -69,7 +69,7 @@ ConeRecord2::ConeRecord2( KUINT8 Index, const WorldCoordinates & VertexLocation,
 
 //////////////////////////////////////////////////////////////////////////
 
-ConeRecord2::~ConeRecord2( void )
+ConeRecord2::~ConeRecord2()
 {
 }
 

@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-RelativeWorldCoordinates::RelativeWorldCoordinates ( void ) :
+RelativeWorldCoordinates::RelativeWorldCoordinates () :
     m_ui16RefPnt( 0 )
 {
 }
@@ -60,7 +60,7 @@ RelativeWorldCoordinates::RelativeWorldCoordinates ( KDataStream & stream ) thro
 
 //////////////////////////////////////////////////////////////////////////
 
-RelativeWorldCoordinates::~RelativeWorldCoordinates ( void )
+RelativeWorldCoordinates::~RelativeWorldCoordinates ()
 {
 }
 

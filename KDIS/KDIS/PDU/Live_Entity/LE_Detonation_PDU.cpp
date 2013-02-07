@@ -73,7 +73,7 @@ void LE_Detonation_PDU::checkSiteApplicationFlags()
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LE_Detonation_PDU::LE_Detonation_PDU( void ) :
+LE_Detonation_PDU::LE_Detonation_PDU() :
     m_ui8DetonationResult( 0 )
 {
     m_DetonationFlag1Union.m_ui8Flag = 0;
@@ -110,7 +110,7 @@ LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Detonation_PDU::~LE_Detonation_PDU( void )
+LE_Detonation_PDU::~LE_Detonation_PDU()
 {
 }
 

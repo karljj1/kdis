@@ -60,7 +60,7 @@ public:
 
     static const KUINT16 CONE_RECORD_2_SIZE = 88;
 
-    ConeRecord2( void );
+    ConeRecord2();
 
     ConeRecord2( KDataStream & stream ) throw( KException );
 
@@ -68,7 +68,7 @@ public:
                  const Vector & Velocity, const Vector & AngularVelocity, KFLOAT32 Height,
                  KFLOAT32 PeakAngle, KFLOAT32 DHeightOverDt, KFLOAT32 DPeakAngleOverDt );
 
-    virtual ~ConeRecord2( void );
+    virtual ~ConeRecord2();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetVelocity
@@ -135,5 +135,5 @@ public:
     KBOOL operator != ( const ConeRecord2 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

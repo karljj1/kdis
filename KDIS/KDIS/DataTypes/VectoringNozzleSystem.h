@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      VectoringNozzleSystem
-    created:    2009/01/15
+    created:    15/01/2009
     author:     Karl Jones
 
     purpose:    Contains infomation describin the propulsion system
@@ -56,13 +56,13 @@ public:
 
     static const KUINT16 VECTORING_NOZZLE_SYSTEM_SIZE = 8;
 
-    VectoringNozzleSystem( void );
+    VectoringNozzleSystem();
 
     VectoringNozzleSystem( KDataStream & stream ) throw( KException );
 
     VectoringNozzleSystem( KFLOAT32 HorizontalDeflectionAngle, KFLOAT32 VerticalDeflectionAngle );
 
-    virtual ~VectoringNozzleSystem( void );
+    virtual ~VectoringNozzleSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::SetHorizontalDeflectionAngle
@@ -109,6 +109,6 @@ public:
     KBOOL operator != ( const VectoringNozzleSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

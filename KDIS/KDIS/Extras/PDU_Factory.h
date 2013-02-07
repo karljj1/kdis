@@ -66,9 +66,9 @@ protected:
 
 public:
 
-    PDU_Factory( void );
+    PDU_Factory();
 
-    ~PDU_Factory( void );
+    ~PDU_Factory();
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::AddFilter
@@ -118,5 +118,5 @@ public:
     virtual auto_ptr<Header> Decode( const Header & H, KDataStream & Stream )throw( KException );
 };
 
-}; // End namespace UTILS
-}; // End namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS

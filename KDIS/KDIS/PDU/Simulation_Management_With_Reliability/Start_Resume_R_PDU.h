@@ -56,7 +56,7 @@ public:
 
     static const KUINT16 START_RESUME_R_PDU_SIZE = 48;
 
-    Start_Resume_R_PDU( void );
+    Start_Resume_R_PDU();
 
     Start_Resume_R_PDU( KDataStream & stream ) throw( KException );
 
@@ -66,7 +66,7 @@ public:
     Start_Resume_R_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
                         const ClockTime & SimTime, KUINT32 ReqID, RequiredReliabilityService RRS  );
 
-    virtual ~Start_Resume_R_PDU( void );
+    virtual ~Start_Resume_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_R_PDU::GetAsString
@@ -93,5 +93,5 @@ public:
     KBOOL operator != ( const Start_Resume_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

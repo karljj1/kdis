@@ -101,6 +101,6 @@ KBOOL GetEnumFromStringBeamSpotShape( const KString & Value, KINT32 & ValueOut )
 
 #endif
 
-}; // END namespace ENUMS
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace ENUMS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

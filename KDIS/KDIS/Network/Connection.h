@@ -224,5 +224,5 @@ public:
     auto_ptr<Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
 };
 
-}; // End namespace NETWORK
-}; // End namespace KDIS
+} // END namespace NETWORK
+} // END namespace KDIS

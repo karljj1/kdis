@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Signal_PDU::Signal_PDU( void ) :
+Signal_PDU::Signal_PDU() :
 	m_ui32SampleRate( 0 ),
     m_ui16DataLength( 0 ),
 	m_ui16Samples( 0 )
@@ -74,7 +74,7 @@ Signal_PDU::Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const Enco
 
 //////////////////////////////////////////////////////////////////////////
 
-Signal_PDU::~Signal_PDU( void )
+Signal_PDU::~Signal_PDU()
 {
     m_vData.clear();
 }

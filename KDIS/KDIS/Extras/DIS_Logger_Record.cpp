@@ -34,7 +34,7 @@ DIS_Logger_Record::DIS_Logger_Record( const KString & FileName, KBOOL WriteToFil
 
 //////////////////////////////////////////////////////////////////////////
 
-DIS_Logger_Record::~DIS_Logger_Record( void )
+DIS_Logger_Record::~DIS_Logger_Record()
 {
     m_vsLog.clear();
 }

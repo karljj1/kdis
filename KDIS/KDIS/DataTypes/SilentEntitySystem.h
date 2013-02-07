@@ -65,11 +65,11 @@ public:
 
     static const KUINT16 SILENT_ENTITY_SYSTEM_SIZE = 12; // Min Size
 
-    SilentEntitySystem( void );
+    SilentEntitySystem();
 
     SilentEntitySystem( KDataStream & stream ) throw( KException );
 
-    virtual ~SilentEntitySystem( void );
+    virtual ~SilentEntitySystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::SetNumberOfEntities
@@ -143,6 +143,6 @@ public:
     KBOOL operator != ( const SilentEntitySystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

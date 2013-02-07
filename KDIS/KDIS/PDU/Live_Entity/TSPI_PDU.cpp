@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-TSPI_PDU::TSPI_PDU( void ) :
+TSPI_PDU::TSPI_PDU() :
     m_ui8SSDLen( 0 )
 {
     m_ui8PDUType = TSPI_PDU_Type;
@@ -77,7 +77,7 @@ TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-TSPI_PDU::~TSPI_PDU( void )
+TSPI_PDU::~TSPI_PDU()
 {
 }
 

@@ -38,7 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::GridDataType0( void ) :
+GridDataType0::GridDataType0() :
     m_ui16NumBytes( 0 ),
     m_ui8Padding( 0 )
 {
@@ -92,7 +92,7 @@ GridDataType0::GridDataType0( KUINT16 SampleType, KUINT8 * Data, KUINT16 NumByte
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::~GridDataType0( void )
+GridDataType0::~GridDataType0()
 {
 }
 

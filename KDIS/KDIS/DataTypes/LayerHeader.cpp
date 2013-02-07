@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-LayerHeader::LayerHeader( void ) :
+LayerHeader::LayerHeader() :
     m_ui8LayerNumber( 0 ),
     m_ui8LayerSpecificInfo( 0 ),
     m_ui16LayerLength( LAYER_HEADER_SIZE )
@@ -61,7 +61,7 @@ LayerHeader::LayerHeader( KUINT8 LayerNumber, KUINT8 LayerSpecificInfo, KUINT16 
 
 //////////////////////////////////////////////////////////////////////////
 
-LayerHeader::~LayerHeader( void )
+LayerHeader::~LayerHeader()
 {
 }
 

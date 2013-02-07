@@ -74,9 +74,9 @@ public:
 
     static const KUINT16 ENVIRONMENT_RECORD_SIZE = 8;
 
-    EnvironmentRecord( void );
+    EnvironmentRecord();
 
-    virtual ~EnvironmentRecord( void );
+    virtual ~EnvironmentRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetEnvironmentRecordType
@@ -120,5 +120,5 @@ public:
     KBOOL operator != ( const EnvironmentRecord & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

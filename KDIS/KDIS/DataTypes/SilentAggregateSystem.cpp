@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SilentAggregateSystem::SilentAggregateSystem( void ) :
+SilentAggregateSystem::SilentAggregateSystem() :
     m_ui16NumAggregates( 0 )
 {
 }
@@ -58,7 +58,7 @@ SilentAggregateSystem::SilentAggregateSystem( KUINT16 NumAggregates, const Aggre
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentAggregateSystem::~SilentAggregateSystem( void )
+SilentAggregateSystem::~SilentAggregateSystem()
 {
 }
 

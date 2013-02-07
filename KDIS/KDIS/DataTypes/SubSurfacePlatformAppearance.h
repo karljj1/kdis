@@ -181,6 +181,6 @@ public:
     KBOOL operator != ( const SubSurfacePlatformAppearance & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

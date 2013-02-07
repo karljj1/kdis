@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_State_PDU::Minefield_State_PDU( void ) :
+Minefield_State_PDU::Minefield_State_PDU() :
     m_ui8ForceID( 0 ),
     m_ui8NumPerimPoints( 0 ),
     m_ui16NumMineTypes( 0 )
@@ -89,7 +89,7 @@ Minefield_State_PDU::Minefield_State_PDU( KDataStream & stream ) throw( KExcepti
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_State_PDU::~Minefield_State_PDU( void )
+Minefield_State_PDU::~Minefield_State_PDU()
 {
 }
 

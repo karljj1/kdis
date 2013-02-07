@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam( void )  :
+UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam()  :
     m_ui8BeamDataLength( UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE / 4 ),
     m_ui8BeamIDNumber( 0 ),
     m_ui16Padding1( 0 )
@@ -62,7 +62,7 @@ UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam( KUINT8 ID, const U
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterBeam::~UnderwaterAcousticEmitterBeam( void )
+UnderwaterAcousticEmitterBeam::~UnderwaterAcousticEmitterBeam()
 {
 }
 

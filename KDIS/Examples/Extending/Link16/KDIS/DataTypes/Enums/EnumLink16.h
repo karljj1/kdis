@@ -142,7 +142,7 @@ KString GetEnumAsStringLink16MessageType( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringLink16MessageType( const KString & Value, KINT32 & ValueOut ); 
 
-}; // END namespace ENUMS
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
-}; // END namespace LINK16
+} // END namespace ENUMS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
+} // END namespace LINK16

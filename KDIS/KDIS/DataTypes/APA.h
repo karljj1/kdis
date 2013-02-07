@@ -66,13 +66,13 @@ public:
 
     static const KUINT16 APA_SIZE = 4;
 
-    APA( void );
+    APA();
 
     APA( KDataStream & stream ) throw( KException );
 
     APA( AdditionalPassiveParameterIndex APPI, KBOOL Val1, KBOOL Val2, KINT16 Value );
 
-    virtual ~APA( void );
+    virtual ~APA();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::APA::SetAPPI
@@ -143,6 +143,6 @@ public:
     KBOOL operator != ( const APA & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

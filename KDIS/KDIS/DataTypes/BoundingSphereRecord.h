@@ -58,13 +58,13 @@ public:
 
     static const KUINT16 BOUNDING_SPHERE_RECORD_SIZE = 40;
 
-    BoundingSphereRecord( void );
+    BoundingSphereRecord();
 
     BoundingSphereRecord( KDataStream & stream ) throw( KException );
 
     BoundingSphereRecord( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius );
 
-    virtual ~BoundingSphereRecord( void );
+    virtual ~BoundingSphereRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::BoundingSphereRecord::SetCentroidLocation
@@ -110,5 +110,5 @@ public:
     KBOOL operator != ( const BoundingSphereRecord & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

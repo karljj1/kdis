@@ -63,7 +63,7 @@ namespace DATA_TYPE {
 typedef KDIS::UTILS::KRef_Ptr<GED> GEDItem;
 typedef std::vector<GEDItem> GEDList;
 
-}; // End namespace DATA_TYPE
+} // END namespace DATA_TYPE
 
 namespace PDU {
 
@@ -95,7 +95,7 @@ public:
 
     static const KUINT16 IS_GROUP_OF_PDU_SIZE = 40; // Min size
 
-    IsGroupOf_PDU( void );
+    IsGroupOf_PDU();
 
     IsGroupOf_PDU( KDataStream & stream ) throw( KException );
 
@@ -103,7 +103,7 @@ public:
 
     IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const GEDList & GED ) throw( KException );
 
-    virtual ~IsGroupOf_PDU( void );
+    virtual ~IsGroupOf_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::IsGroupOf_PDU::SetGroupedEntityID
@@ -204,5 +204,5 @@ public:
     KBOOL operator != ( const IsGroupOf_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

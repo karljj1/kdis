@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::Set_Data_PDU( void )
+Set_Data_PDU::Set_Data_PDU()
 {
     m_ui8PDUType = Set_Data_PDU_Type;
     m_ui16PDULength = SET_DATA_PDU_SIZE;
@@ -67,7 +67,7 @@ Set_Data_PDU::Set_Data_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::~Set_Data_PDU( void )
+Set_Data_PDU::~Set_Data_PDU()
 {
 }
 

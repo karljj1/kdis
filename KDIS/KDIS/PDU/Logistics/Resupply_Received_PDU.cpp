@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Received_PDU::Resupply_Received_PDU( void ) :
+Resupply_Received_PDU::Resupply_Received_PDU() :
     m_ui16Padding1( 0 ),
     m_ui8Padding2( 0 ),
     m_ui8NumSupplyTypes( 0 )
@@ -72,7 +72,7 @@ Resupply_Received_PDU::Resupply_Received_PDU( const EntityIdentifier & Receiving
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Received_PDU::~Resupply_Received_PDU( void )
+Resupply_Received_PDU::~Resupply_Received_PDU()
 {
     m_vSupplies.clear();
 }

@@ -53,14 +53,14 @@ public:
 
     static const KUINT16 SET_DATA_R_PDU_SIZE = 44;
 
-    Set_Data_R_PDU( void );
+    Set_Data_R_PDU();
 
     Set_Data_R_PDU( KDataStream & stream ) throw( KException );
 
     Set_Data_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                     KUINT32 RequestID, RequiredReliabilityService RRS );
 
-    virtual ~Set_Data_R_PDU( void );
+    virtual ~Set_Data_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Set_Data_R_PDU::GetAsString
@@ -88,6 +88,6 @@ public:
     KBOOL operator != ( const Set_Data_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

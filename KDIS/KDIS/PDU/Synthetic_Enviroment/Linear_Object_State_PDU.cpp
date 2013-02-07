@@ -42,7 +42,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU( void ) :
+Linear_Object_State_PDU::Linear_Object_State_PDU() :
     m_ui8NumSegment( 0 )
 {
     m_ui8PDUType = LinearObjectState_PDU_Type;
@@ -96,7 +96,7 @@ Linear_Object_State_PDU::Linear_Object_State_PDU( const EntityIdentifier & ObjID
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::~Linear_Object_State_PDU( void )
+Linear_Object_State_PDU::~Linear_Object_State_PDU()
 {
 }
 

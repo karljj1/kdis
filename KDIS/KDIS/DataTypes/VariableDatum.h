@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      VariableDatum
-    created:    2008/09/18
+    created:    18/09/2008
     author:     Karl Jones
 
     purpose:    Stores variable data types and their values. Such as strings.
@@ -75,7 +75,7 @@ protected:
     {
         KOCTET Buffer[8];
 
-        DatumEntry( void )
+        DatumEntry()
         {
             memset( Buffer, 0x00, 8 );
         };
@@ -88,7 +88,7 @@ public:
 
     static const KUINT16 VARIABLE_DATUM_SIZE = 8; // Min Size
 
-    VariableDatum( void );
+    VariableDatum();
 
     VariableDatum( DatumID ID, const KString & Value );
 
@@ -96,7 +96,7 @@ public:
 
     VariableDatum( KDataStream & stream ) throw( KException );
 
-	virtual ~VariableDatum( void );
+	virtual ~VariableDatum();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableDatum::SetDatumID
@@ -174,5 +174,5 @@ public:
     KBOOL operator != ( const VariableDatum & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

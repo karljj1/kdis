@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Comment_PDU::Comment_PDU( void ) :
+Comment_PDU::Comment_PDU() :
     m_ui32NumFixedDatum( 0 ),
     m_ui32NumVariableDatum( 0 )
 {
@@ -70,7 +70,7 @@ Comment_PDU::Comment_PDU( const EntityIdentifier & OriginatingEntityID, const En
 
 //////////////////////////////////////////////////////////////////////////
 
-Comment_PDU::~Comment_PDU( void )
+Comment_PDU::~Comment_PDU()
 {
 }
 

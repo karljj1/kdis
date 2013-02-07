@@ -39,7 +39,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::CommunicationsNodeID( void ) :
+CommunicationsNodeID::CommunicationsNodeID() :
     m_ui16ElementID( 0 )
 {
 }
@@ -77,7 +77,7 @@ CommunicationsNodeID::CommunicationsNodeID( const EntityIdentifier & EntID, KUIN
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::~CommunicationsNodeID( void )
+CommunicationsNodeID::~CommunicationsNodeID()
 {
 }
 

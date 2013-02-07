@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_Update_PDU::Entity_State_Update_PDU( void ) :
+Entity_State_Update_PDU::Entity_State_Update_PDU() :
     m_ui8Padding1( 0 ),
     m_ui8NumOfArticulationParams( 0 )
 {
@@ -87,7 +87,7 @@ Entity_State_Update_PDU::Entity_State_Update_PDU( const EntityIdentifier & EI, c
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_Update_PDU::~Entity_State_Update_PDU( void )
+Entity_State_Update_PDU::~Entity_State_Update_PDU()
 {
 }
 

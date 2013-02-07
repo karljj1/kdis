@@ -40,7 +40,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-BurstDescriptor::BurstDescriptor( void ) :
+BurstDescriptor::BurstDescriptor() :
     m_ui16Warhead( 0 ),
     m_ui16Fuse( 0 ),
     m_ui16Quantity( 0 ),
@@ -69,7 +69,7 @@ BurstDescriptor::BurstDescriptor( const EntityType & M, WarheadType WT, FuseType
 
 //////////////////////////////////////////////////////////////////////////
 
-BurstDescriptor::~BurstDescriptor( void )
+BurstDescriptor::~BurstDescriptor()
 {
 }
 

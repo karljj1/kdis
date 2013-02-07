@@ -38,7 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType1::GridDataType1( void ) :
+GridDataType1::GridDataType1() :
     m_f32FieldScale( 0 ),
     m_f32FieldOffset( 0 ),
     m_ui16NumValues( 0 ),
@@ -94,7 +94,7 @@ GridDataType1::GridDataType1( KUINT16 SampleType, KFLOAT32 FieldScale, KFLOAT32 
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType1::~GridDataType1( void )
+GridDataType1::~GridDataType1()
 {
 }
 

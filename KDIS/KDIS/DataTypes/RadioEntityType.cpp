@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-RadioEntityType::RadioEntityType( void ) :
+RadioEntityType::RadioEntityType() :
     m_ui8EntityKind( 0 ),
     m_ui8Domain( 0 ),
     m_ui16Country( 0 ),
@@ -82,7 +82,7 @@ RadioEntityType::RadioEntityType( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-RadioEntityType::~RadioEntityType( void )
+RadioEntityType::~RadioEntityType()
 {
 }
 

@@ -91,11 +91,11 @@ public:
 
     static const KUINT16 UNDERWATER_ACOUSTIC_PDU_SIZE = 34; // Min Size
 
-    Underwater_Acoustic_PDU( void );
+    Underwater_Acoustic_PDU();
 
     Underwater_Acoustic_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Underwater_Acoustic_PDU( void );
+    virtual ~Underwater_Acoustic_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::SetEmittingEntityID
@@ -230,5 +230,5 @@ public:
     KBOOL operator != ( const Underwater_Acoustic_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

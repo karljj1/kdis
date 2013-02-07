@@ -59,14 +59,14 @@ public:
 
     static const KUINT16 REPAIR_COMPLETE_PDU_SIZE = 28;
 
-    Repair_Complete_PDU( void );
+    Repair_Complete_PDU();
 
     Repair_Complete_PDU( KDataStream & stream ) throw( KException );
 
     Repair_Complete_PDU( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID,
                          RepairTypePerformed RTP );
 
-    virtual ~Repair_Complete_PDU( void );
+    virtual ~Repair_Complete_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Repair_Complete_PDU::SetRepairTypePerformed
@@ -103,5 +103,5 @@ public:
     KBOOL operator != ( const Repair_Complete_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

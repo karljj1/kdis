@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier::EntityIdentifier( void ) :
+EntityIdentifier::EntityIdentifier() :
     m_ui16EntityID( 0 )
 {
 }
@@ -66,7 +66,7 @@ EntityIdentifier::EntityIdentifier( const SimulationIdentifier & SimID, KUINT16 
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier::~EntityIdentifier( void )
+EntityIdentifier::~EntityIdentifier()
 {
 }
 

@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      PointRecord2
-    created:    17:08:2009
+    created:    17/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a moving point.
@@ -56,13 +56,13 @@ public:
 
     static const KUINT16 POINT_RECORD_2_SIZE = 48;
 
-    PointRecord2( void );
+    PointRecord2();
 
     PointRecord2( KDataStream & stream ) throw( KException );
 
     PointRecord2( KUINT8 Index, const WorldCoordinates & Location, const Vector & Velocity );
 
-    virtual ~PointRecord2( void );
+    virtual ~PointRecord2();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PointRecord2::SetVelocity
@@ -100,5 +100,5 @@ public:
     KBOOL operator != ( const PointRecord2 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

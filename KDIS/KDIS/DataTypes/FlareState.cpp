@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-FlareState::FlareState( void ) :
+FlareState::FlareState() :
     m_ui32TSC( 0 ),
     m_ui32NumInt( 0 ),
     m_ui32NumSrcs( 0 ),
@@ -73,7 +73,7 @@ FlareState::FlareState( KUINT8 Index, KUINT32 TimeSinceCreation, const EntityTyp
 
 //////////////////////////////////////////////////////////////////////////
 
-FlareState::~FlareState( void )
+FlareState::~FlareState()
 {
 }
 

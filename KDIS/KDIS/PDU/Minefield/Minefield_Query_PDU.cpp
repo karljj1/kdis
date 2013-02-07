@@ -69,7 +69,7 @@ void Minefield_Query_PDU::calcPadding()
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Query_PDU::Minefield_Query_PDU( void ) :
+Minefield_Query_PDU::Minefield_Query_PDU() :
     m_ui8ReqID( 0 ),
     m_ui8NumPerimPoints( 0 ),
     m_ui8Padding1( 0 ),
@@ -116,7 +116,7 @@ Minefield_Query_PDU::Minefield_Query_PDU( KDataStream & stream ) throw( KExcepti
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Query_PDU::~Minefield_Query_PDU( void )
+Minefield_Query_PDU::~Minefield_Query_PDU()
 {
 }
 

@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-PerimeterPointCoordinate::PerimeterPointCoordinate( void ) :
+PerimeterPointCoordinate::PerimeterPointCoordinate() :
     m_f32X( 0 ),
     m_f32Y( 0 )
 {
@@ -59,7 +59,7 @@ PerimeterPointCoordinate::PerimeterPointCoordinate( KDataStream & stream ) throw
 
 //////////////////////////////////////////////////////////////////////////
 
-PerimeterPointCoordinate::~PerimeterPointCoordinate( void )
+PerimeterPointCoordinate::~PerimeterPointCoordinate()
 {
 }
 

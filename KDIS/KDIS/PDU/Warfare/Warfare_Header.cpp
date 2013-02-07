@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Warfare_Header::Warfare_Header( void )
+Warfare_Header::Warfare_Header()
 {
     m_ui8ProtocolFamily = Warfare;
     m_ui8ProtocolVersion = IEEE_1278_1_1995;
@@ -62,7 +62,7 @@ Warfare_Header::Warfare_Header( const EntityIdentifier & FiringEntID, const Enti
 
 //////////////////////////////////////////////////////////////////////////
 
-Warfare_Header::~Warfare_Header( void )
+Warfare_Header::~Warfare_Header()
 {
 }
 

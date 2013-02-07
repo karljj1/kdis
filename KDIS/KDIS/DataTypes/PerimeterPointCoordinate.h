@@ -55,13 +55,13 @@ public:
 
     static const KUINT16 PERIMETER_POINT_COORDINATE_SIZE = 8;
 
-    PerimeterPointCoordinate( void );
+    PerimeterPointCoordinate();
 
     PerimeterPointCoordinate( KFLOAT32 X, KFLOAT32 Y );
 
     PerimeterPointCoordinate( KDataStream & stream ) throw( KException );
 
-    virtual ~PerimeterPointCoordinate( void );
+    virtual ~PerimeterPointCoordinate();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::SetX
@@ -110,5 +110,5 @@ public:
     const KFLOAT32 & operator[]  ( KUINT16 i ) const throw( KException );
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

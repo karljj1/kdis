@@ -57,13 +57,13 @@ public:
 
     static const KUINT16 POSITION_ERROR_SIZE = 4;
 
-    PositionError( void );
+    PositionError();
 
     PositionError( KFIXED16_8 Horizontal, KFIXED16_8 Vertical );
 
     PositionError( KDataStream & stream ) throw( KException );
 
-    virtual ~PositionError( void );
+    virtual ~PositionError();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PositionError::SetHorizontalError
@@ -112,6 +112,6 @@ public:
     KBOOL operator != ( const PositionError & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

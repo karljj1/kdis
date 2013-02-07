@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Event_Report_R_PDU::Event_Report_R_PDU( void )
+Event_Report_R_PDU::Event_Report_R_PDU()
 {
     m_ui8PDUType = EventReport_R_PDU_Type;
     m_ui16PDULength = EVENT_REPORT_R_PDU_SIZE;
@@ -71,7 +71,7 @@ Event_Report_R_PDU::Event_Report_R_PDU( const EntityIdentifier & OriginatingEnti
 
 //////////////////////////////////////////////////////////////////////////
 
-Event_Report_R_PDU::~Event_Report_R_PDU( void )
+Event_Report_R_PDU::~Event_Report_R_PDU()
 {
 }
 

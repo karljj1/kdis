@@ -100,13 +100,13 @@ public:
 
     static const KUINT16 LE_FIRE_PDU_SIZE = 35; // Min size, not including optional fields
 
-    LE_Fire_PDU( void );
+    LE_Fire_PDU();
 
     LE_Fire_PDU( const LE_EntityIdentifier & ID );
 
     LE_Fire_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~LE_Fire_PDU( void );
+    virtual ~LE_Fire_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetTargetEntityIDFlag
@@ -266,5 +266,5 @@ public:
     KBOOL operator != ( const LE_Fire_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

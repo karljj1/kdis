@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Appearance_PDU::Appearance_PDU( void )
+Appearance_PDU::Appearance_PDU()
 {
     m_AppearanceFlag1Union.m_ui8Flag = 0;
     m_AppearanceFlag2Union.m_ui8Flag = 0;
@@ -76,7 +76,7 @@ Appearance_PDU::Appearance_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-Appearance_PDU::~Appearance_PDU( void )
+Appearance_PDU::~Appearance_PDU()
 {
 }
 

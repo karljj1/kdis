@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-BeamData::BeamData( void ) :
+BeamData::BeamData() :
     m_f32AziCtr( 0 ),
     m_f32AziSwp( 0 ),
     m_f32EleCtr( 0 ),
@@ -66,7 +66,7 @@ BeamData::BeamData( KFLOAT32 AziCtr, KFLOAT32 AziSwp, KFLOAT32 EleCtr,
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamData::~BeamData( void )
+BeamData::~BeamData()
 {
 }
 

@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Environmental_Process_PDU::Environmental_Process_PDU( void ) :
+Environmental_Process_PDU::Environmental_Process_PDU() :
     m_ui8ModelType( 0 ),
     m_ui8EnvStatus( 0 ),
     m_ui16NumEnvRec( 0 ),
@@ -109,7 +109,7 @@ Environmental_Process_PDU::Environmental_Process_PDU( const EntityIdentifier & E
 
 //////////////////////////////////////////////////////////////////////////
 
-Environmental_Process_PDU::~Environmental_Process_PDU( void )
+Environmental_Process_PDU::~Environmental_Process_PDU()
 {
     m_vEnvRecords.clear();
 }

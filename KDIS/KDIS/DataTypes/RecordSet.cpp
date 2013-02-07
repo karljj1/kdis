@@ -40,7 +40,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-RecordSet::RecordSet( void ) :
+RecordSet::RecordSet() :
     m_ui32RecID( 0 ),
     m_ui32RecSetSerialNum( 0 ),
     m_ui16RecLen( RECORD_SET_SIZE ),
@@ -67,7 +67,7 @@ RecordSet::RecordSet( RecordID ID, KUINT32 SerialNum, const vector<KUINT8> & Rec
 
 //////////////////////////////////////////////////////////////////////////
 
-RecordSet::~RecordSet( void )
+RecordSet::~RecordSet()
 {
     m_vui8RecVals.clear();
 }

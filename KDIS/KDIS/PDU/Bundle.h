@@ -87,9 +87,9 @@ protected:
 
 public:
 
-    Bundle( void );
+    Bundle();
 
-    virtual ~Bundle( void );
+    virtual ~Bundle();
 	
     //************************************
     // FullName:    KDIS::PDU::Bundle::AddPDU
@@ -148,6 +148,6 @@ public:
     KBOOL operator != ( const Bundle & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

@@ -78,7 +78,7 @@ public:
 
     static const KUINT16 EMITTER_BEAM_SIZE = 52; // Min Size
 
-    EmitterBeam( void );
+    EmitterBeam();
 
     EmitterBeam( KDataStream & stream )throw( KException );
 
@@ -86,7 +86,7 @@ public:
                  EmitterFunction EBF, HighDensityTrackJam HDTJ,
                  KUINT32 JammingModeSequence );
 
-    virtual ~EmitterBeam( void );
+    virtual ~EmitterBeam();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmitterBeam::GetSystemDataLength
@@ -201,5 +201,5 @@ public:
     KBOOL operator != ( const EmitterBeam & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

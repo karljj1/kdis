@@ -68,7 +68,7 @@ public:
 
 #define GRID_AXIS_IRREGULAR 40 // Min size
 
-    GridAxisIrregular( void );
+    GridAxisIrregular();
 
     GridAxisIrregular( KDataStream & stream ) throw( KException );
 
@@ -81,7 +81,7 @@ public:
                        KUINT8 AxisType, KUINT16 InitialIndexXi, KFLOAT64 CoordinateScaleXi,
                        KFLOAT64 CoordinateOffsetXi, const vector<KUINT16> & XiValues );
 
-    virtual ~GridAxisIrregular( void );
+    virtual ~GridAxisIrregular();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridAxisIrregular::SetCoordinateScaleXi
@@ -158,6 +158,6 @@ public:
     KBOOL operator != ( const GridAxisIrregular & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

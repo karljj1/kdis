@@ -92,11 +92,11 @@ public:
 
     static const KUINT16 INTERCOM_CONTROL_PDU_SIZE = 40; // Min Size
 
-    Intercom_Control_PDU( void );
+    Intercom_Control_PDU();
 
     Intercom_Control_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Intercom_Control_PDU( void );
+    virtual ~Intercom_Control_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetControlType
@@ -264,6 +264,6 @@ public:
     KBOOL operator != ( const Intercom_Control_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

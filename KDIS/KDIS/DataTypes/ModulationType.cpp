@@ -40,7 +40,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ModulationType::ModulationType( void ) :
+ModulationType::ModulationType() :
     m_ui16SpreadSpectrum( 0 ),
     m_ui16Detail( 0 ),
     m_ui16MajorModulationType( 0 ),
@@ -71,7 +71,7 @@ ModulationType::ModulationType( KBOOL FreqHop, KBOOL PseudoNoise, KBOOL TimeHop,
 
 //////////////////////////////////////////////////////////////////////////
 
-ModulationType::~ModulationType( void )
+ModulationType::~ModulationType()
 {
 }
 

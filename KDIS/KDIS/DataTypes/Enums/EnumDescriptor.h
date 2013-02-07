@@ -71,6 +71,6 @@ KString GetEnumAsString( const EnumDescriptor * pArray, KUINT32 NumElements, KIN
 //************************************
 KBOOL GetEnumFromString( const EnumDescriptor * pArray, KUINT32 NumElements, const KString & Value, KINT32 & ValueOut );
 
-}; // END namespace ENUMS
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace ENUMS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

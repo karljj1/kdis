@@ -67,14 +67,14 @@ public:
 
     static const KUINT16 GROUP_ASSIGNMENT_RECORD_SIZE = 16;
 
-    GroupAssignmentRecord( void );
+    GroupAssignmentRecord();
 
     GroupAssignmentRecord( KDataStream & stream )throw( KException );
 
     GroupAssignmentRecord( KUINT32 GroupBitField, const EntityIdentifier & ID,
                            KUINT8 DeviceID, KUINT8 LineID );
 
-    virtual ~GroupAssignmentRecord( void );
+    virtual ~GroupAssignmentRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GroupAssignmentRecord::SetGroupBitField
@@ -147,5 +147,5 @@ public:
     KBOOL operator != ( const GroupAssignmentRecord & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

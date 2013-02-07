@@ -72,7 +72,7 @@ KUINT8 Minefield_Data_PDU::calcPaddingVertices() const
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Data_PDU::Minefield_Data_PDU( void ) :
+Minefield_Data_PDU::Minefield_Data_PDU() :
     m_ui8ReqID( 0 ),
     m_ui8PduSeqNum( 0 ),
     m_ui8NumPdus( 0 ),
@@ -122,7 +122,7 @@ Minefield_Data_PDU::Minefield_Data_PDU( KDataStream & stream ) throw( KException
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Data_PDU::~Minefield_Data_PDU( void )
+Minefield_Data_PDU::~Minefield_Data_PDU()
 {
 }
 

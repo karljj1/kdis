@@ -60,7 +60,7 @@ public:
 
     static const KUINT16 ACKNOWLEDGE_R_PDU_SIZE = 32;
 
-    Acknowledge_R_PDU( void );
+    Acknowledge_R_PDU();
 
     Acknowledge_R_PDU( KDataStream & stream ) throw( KException );
 
@@ -77,7 +77,7 @@ public:
     Acknowledge_R_PDU( const Stop_Freeze_R_PDU   & pdu, AcknowledgeResponseFlag ARF );
     Acknowledge_R_PDU( const Transfer_Control_Request_PDU & pdu, AcknowledgeResponseFlag ARF );
 
-    virtual ~Acknowledge_R_PDU( void );
+    virtual ~Acknowledge_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Acknowledge_R_PDU::GetAsString
@@ -90,5 +90,5 @@ public:
     KBOOL operator != ( const Acknowledge_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

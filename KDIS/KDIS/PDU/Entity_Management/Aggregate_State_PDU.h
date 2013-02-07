@@ -128,7 +128,7 @@ public:
 
     static const KUINT16 AGGREGATE_STATE_PDU_SIZE = 136; // Min size
 
-    Aggregate_State_PDU( void );
+    Aggregate_State_PDU();
 
     Aggregate_State_PDU( KDataStream & stream ) throw( KException );
 
@@ -137,7 +137,7 @@ public:
                          const Vector & Dimensions, const EulerAngles & Orientation,
                          const WorldCoordinates & CenterOfMass, const Vector & Velocity );
 
-    virtual ~Aggregate_State_PDU( void );
+    virtual ~Aggregate_State_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateIdentifier
@@ -372,5 +372,5 @@ public:
     KBOOL operator != ( const Aggregate_State_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

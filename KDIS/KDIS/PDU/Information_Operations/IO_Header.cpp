@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header( void )
+IO_Header::IO_Header()
 {
     m_ui8ProtocolFamily = Information_Operations;
     m_ui8ProtocolVersion = IEEE_1278_1_2012;
@@ -65,7 +65,7 @@ IO_Header::IO_Header( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::~IO_Header( void )
+IO_Header::~IO_Header()
 {
 }
 

@@ -61,14 +61,14 @@ public:
 
     static const KUINT16 LE_EULER_ANGLES_SIZE = 3;
 
-    LE_EulerAngles( void );
+    LE_EulerAngles();
 
     // In Radians
     LE_EulerAngles( KFIXED8_3 Psi, KFIXED8_3 Theta, KFIXED8_3 Phi );
 
     LE_EulerAngles( KDataStream & stream ) throw( KException );
 
-    virtual ~LE_EulerAngles( void );
+    virtual ~LE_EulerAngles();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_EulerAngles::SetPsi
@@ -138,6 +138,6 @@ public:
     const KFIXED8_3 & operator[] ( KUINT16 i ) const throw( KException );
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

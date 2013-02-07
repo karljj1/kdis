@@ -116,7 +116,7 @@ public:
 
     static const KUINT16 DIRECTED_ENERGY_PDU_SIZE = 88; // Min size
 
-    Directed_Energy_Fire_PDU( void );
+    Directed_Energy_Fire_PDU();
 
 	Directed_Energy_Fire_PDU( const EntityIdentifier & FireID, const EntityIdentifier & EventID,
                               const EntityType & MunitionType, const ClockTime & ShotStartTime, 
@@ -127,7 +127,7 @@ public:
 
     Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Directed_Energy_Fire_PDU( void );
+    virtual ~Directed_Energy_Fire_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetFiringEntityID
@@ -308,5 +308,5 @@ public:
     KBOOL operator != ( const Directed_Energy_Fire_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

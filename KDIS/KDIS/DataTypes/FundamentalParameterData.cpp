@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalParameterData::FundamentalParameterData( void ) :
+FundamentalParameterData::FundamentalParameterData() :
     m_f32Freq( 0 ),
     m_f32FreqRange( 0 ),
     m_f32EffectiveRadiatedPower( 0 ),
@@ -78,7 +78,7 @@ FundamentalParameterData::FundamentalParameterData( KFLOAT32 Freq, KFLOAT32 Freq
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalParameterData::~FundamentalParameterData( void )
+FundamentalParameterData::~FundamentalParameterData()
 {
 }
 

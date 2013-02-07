@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-OrientationError::OrientationError( void )
+OrientationError::OrientationError()
 {
 }
 
@@ -58,7 +58,7 @@ OrientationError::OrientationError( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-OrientationError::~OrientationError( void )
+OrientationError::~OrientationError()
 {
 }
 

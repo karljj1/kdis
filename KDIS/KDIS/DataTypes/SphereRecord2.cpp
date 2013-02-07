@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord2::SphereRecord2( void )
+SphereRecord2::SphereRecord2()
 {
     m_ui32EnvRecTyp = SphereRecord2Type;
     m_ui16Length = ( SPHERE_RECORD_2_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
@@ -65,7 +65,7 @@ SphereRecord2::SphereRecord2( KUINT8 Index, const WorldCoordinates & CentroidLoc
 
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord2::~SphereRecord2( void )
+SphereRecord2::~SphereRecord2()
 {
 }
 

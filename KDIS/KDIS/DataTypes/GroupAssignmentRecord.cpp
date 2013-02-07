@@ -40,7 +40,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-GroupAssignmentRecord::GroupAssignmentRecord( void ) :
+GroupAssignmentRecord::GroupAssignmentRecord() :
     m_ui32GrpBtField( 0 ),
     m_ui16DstCommsDvcID( 0 ),
     m_ui8DstLineID( 0 ),
@@ -71,7 +71,7 @@ GroupAssignmentRecord::GroupAssignmentRecord( KUINT32 GroupBitField, const Entit
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupAssignmentRecord::~GroupAssignmentRecord( void )
+GroupAssignmentRecord::~GroupAssignmentRecord()
 {
 }
 

@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_PDU::Action_Response_PDU( void )
+Action_Response_PDU::Action_Response_PDU()
 {
     m_ui8PDUType = Action_Response_PDU_Type;
     m_ui16PDULength = ACTION_RESPONSE_PDU_SIZE;
@@ -75,7 +75,7 @@ Action_Response_PDU::Action_Response_PDU( const Action_Request_PDU & pdu, Reques
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_PDU::~Action_Response_PDU( void )
+Action_Response_PDU::~Action_Response_PDU()
 {
 }
 

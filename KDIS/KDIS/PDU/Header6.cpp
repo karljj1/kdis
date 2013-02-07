@@ -38,7 +38,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Header6::Header6( void ) :
+Header6::Header6() :
     m_ui8ProtocolVersion( 0 ),
     m_ui8ExerciseID( 0 ),
     m_ui8PDUType( 0 ),
@@ -72,7 +72,7 @@ Header6::Header6( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFam
 
 //////////////////////////////////////////////////////////////////////////
 
-Header6::~Header6( void )
+Header6::~Header6()
 {
 }
 

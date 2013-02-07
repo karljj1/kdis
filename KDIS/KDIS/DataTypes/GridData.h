@@ -59,11 +59,11 @@ public:
 
     static const KUINT16 GRID_DATA_SIZE = 4;
 
-    GridData( void );
+    GridData();
 
     GridData( KDataStream & stream ) throw( KException );
 
-    virtual ~GridData( void );
+    virtual ~GridData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridData::SetSampleType
@@ -116,6 +116,6 @@ public:
     KBOOL operator != ( const GridData & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

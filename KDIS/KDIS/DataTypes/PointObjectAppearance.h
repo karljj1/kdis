@@ -88,11 +88,11 @@ public:
 
     static const KUINT16 POINT_OBJECT_APPEARANCE_SIZE = 6;
 
-    PointObjectAppearance( void );
+    PointObjectAppearance();
 
     PointObjectAppearance( KDataStream & stream ) throw( KException );
 
-    virtual ~PointObjectAppearance( void );
+    virtual ~PointObjectAppearance();
 
     /************************************************************************/
     /* The following appearance values are only for points of the type:     */
@@ -224,5 +224,5 @@ public:
     KBOOL operator != ( const PointObjectAppearance & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

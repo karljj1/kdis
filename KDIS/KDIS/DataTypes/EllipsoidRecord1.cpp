@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-EllipsoidRecord1::EllipsoidRecord1( void )
+EllipsoidRecord1::EllipsoidRecord1()
 {
     m_ui32EnvRecTyp = EllipsoidRecord1Type;
     m_ui16Length = ( ELIPSOID_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
@@ -64,7 +64,7 @@ EllipsoidRecord1::EllipsoidRecord1( KUINT8 Index, const WorldCoordinates & Centr
 
 //////////////////////////////////////////////////////////////////////////
 
-EllipsoidRecord1::~EllipsoidRecord1( void )
+EllipsoidRecord1::~EllipsoidRecord1()
 {
 }
 

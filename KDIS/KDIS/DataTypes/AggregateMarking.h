@@ -59,13 +59,13 @@ public:
 
     static const KUINT16 AGGREGATE_MARKING_SIZE = 32;
 
-    AggregateMarking( void );
+    AggregateMarking();
 
     AggregateMarking( KDataStream & stream ) throw( KException );
 
     AggregateMarking( const EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) throw( KException );
 
-    virtual ~AggregateMarking( void );
+    virtual ~AggregateMarking();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateMarking::SetAggregateMarkingCharacterSet
@@ -111,6 +111,6 @@ public:
     KBOOL operator != ( const AggregateMarking & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

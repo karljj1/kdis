@@ -66,13 +66,13 @@ public:
 
     static const KUINT16 MINE_PAINT_SCHEME_SIZE = 1;
 
-    MinePaintScheme( void );
+    MinePaintScheme();
 
     MinePaintScheme( MineAlgae A, PaintScheme PS );
 
     MinePaintScheme( KDataStream & stream ) throw( KException );
 
-    virtual ~MinePaintScheme( void );
+    virtual ~MinePaintScheme();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinePaintScheme::SetAlgae
@@ -117,6 +117,6 @@ public:
     KBOOL operator != ( const MinePaintScheme & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

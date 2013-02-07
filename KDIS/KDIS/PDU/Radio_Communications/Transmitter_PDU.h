@@ -102,7 +102,7 @@ public:
 
     static const KUINT16 TRANSMITTER_PDU_SIZE = 104; // Min Size
 
-    Transmitter_PDU( void );
+    Transmitter_PDU();
 
     Transmitter_PDU( KDataStream & stream ) throw( KException );
 
@@ -113,7 +113,7 @@ public:
                      KUINT8 ModulationParamsLength, const KOCTET * AntennaPattern,
                      KUINT8 AntennaPatternLength );
 
-    virtual ~Transmitter_PDU( void );
+    virtual ~Transmitter_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::SetRadioEntityType
@@ -281,6 +281,6 @@ public:
     KBOOL operator != ( const Transmitter_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

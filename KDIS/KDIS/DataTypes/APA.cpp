@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-APA::APA( void ) :
+APA::APA() :
     m_i16Value( 0 )
 {
 	m_ApaUnion.m_ui16ParamIndex = 0;
@@ -63,7 +63,7 @@ APA::APA( AdditionalPassiveParameterIndex APPI, KBOOL Val1, KBOOL Val2, KINT16 V
 
 //////////////////////////////////////////////////////////////////////////
 
-APA::~APA( void )
+APA::~APA()
 {
 }
 

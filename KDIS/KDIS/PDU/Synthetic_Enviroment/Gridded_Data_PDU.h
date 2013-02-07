@@ -60,7 +60,7 @@ namespace DATA_TYPE {
 typedef KDIS::UTILS::KRef_Ptr<GridAxisRegular> GridAxisDescriptor;
 typedef KDIS::UTILS::KRef_Ptr<GridData> GridDataPtr;
 
-}; // End namespace DATA_TYPE
+} // END namespace DATA_TYPE
 
 namespace PDU {
 
@@ -115,7 +115,7 @@ public:
 
     static const KUINT16 GRIDDED_DATA_PDU_SIZE = 64; // Min size
 
-    Gridded_Data_PDU( void );
+    Gridded_Data_PDU();
 
     Gridded_Data_PDU( KDataStream & stream ) throw( KException );
 
@@ -123,7 +123,7 @@ public:
                       KUINT16 PduTotal, CoordinateSystem CS, ConstantGrid CG, const EnvironmentType & ET,
                       const EulerAngles & Ori, KUINT64 SampleTime );
 
-    virtual ~Gridded_Data_PDU( void );
+    virtual ~Gridded_Data_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::SetEnvironmentalProcessID
@@ -301,5 +301,5 @@ public:
     KBOOL operator != ( const Gridded_Data_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -58,14 +58,14 @@ public:
 
     static const KUINT16 SPHERE_RECORD_2_SIZE = 64;
 
-    SphereRecord2( void );
+    SphereRecord2();
 
     SphereRecord2( KDataStream & stream ) throw( KException );
 
     SphereRecord2( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius,
                    KFLOAT32 DDT, const Vector & Velocity, const Vector & AngularVelocity );
 
-    virtual ~SphereRecord2( void );
+    virtual ~SphereRecord2();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SphereRecord2::SetDOverDt
@@ -123,5 +123,5 @@ public:
     KBOOL operator != ( const SphereRecord2 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

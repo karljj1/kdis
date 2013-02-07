@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-SEES_PDU::SEES_PDU( void ) :
+SEES_PDU::SEES_PDU() :
     m_ui16NumPropulsionSys( 0 ),
     m_ui16NumVectoringNozzleSys( 0 )
 {
@@ -85,7 +85,7 @@ SEES_PDU::SEES_PDU( const EntityIdentifier & OriginatingEnt, KUINT16 IrSigIndex,
 
 //////////////////////////////////////////////////////////////////////////
 
-SEES_PDU::~SEES_PDU( void )
+SEES_PDU::~SEES_PDU()
 {
     m_vPropSys.clear();
     m_vVecNozzleSys.clear();

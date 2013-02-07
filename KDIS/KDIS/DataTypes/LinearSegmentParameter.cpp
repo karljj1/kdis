@@ -37,7 +37,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LinearSegmentParameter::LinearSegmentParameter( void ) :
+LinearSegmentParameter::LinearSegmentParameter() :
     m_ui8SegNum( 0 ),
     m_ui16Length( 0 ),
     m_ui16Width( 0 ),
@@ -75,7 +75,7 @@ LinearSegmentParameter::LinearSegmentParameter( KUINT8 SegNum, KUINT8 Mod, const
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearSegmentParameter::~LinearSegmentParameter( void )
+LinearSegmentParameter::~LinearSegmentParameter()
 {
 }
 

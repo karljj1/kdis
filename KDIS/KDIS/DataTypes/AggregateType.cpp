@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateType::AggregateType( void ) :
+AggregateType::AggregateType() :
     m_ui8Kind( 0 ),
     m_ui8Domain( 0 ),
     m_ui16Country( 0 ),
@@ -85,7 +85,7 @@ AggregateType::AggregateType( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateType::~AggregateType( void )
+AggregateType::~AggregateType()
 {
 }
 

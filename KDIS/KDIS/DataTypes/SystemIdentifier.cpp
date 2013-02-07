@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::SystemIdentifier( void ) :
+SystemIdentifier::SystemIdentifier() :
     m_ui16SystemType( 0 ),
     m_ui16SystemName( 0 ),
     m_ui8SystemMode( 0 ),
@@ -69,7 +69,7 @@ SystemIdentifier::SystemIdentifier( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::~SystemIdentifier( void )
+SystemIdentifier::~SystemIdentifier()
 {
 }
 

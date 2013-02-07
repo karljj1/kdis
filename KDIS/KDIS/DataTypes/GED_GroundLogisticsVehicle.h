@@ -65,14 +65,14 @@ public:
 
     static const KUINT16 GED_GROUND_LOGISTICS_VEHICLE_SIZE = 16;
 
-    GED_GroundLogisticsVehicle( void );
+    GED_GroundLogisticsVehicle();
 
     GED_GroundLogisticsVehicle( KDataStream & stream )throw( KException );
 
     GED_GroundLogisticsVehicle( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA,
                                 KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed );
 
-    virtual ~GED_GroundLogisticsVehicle( void );
+    virtual ~GED_GroundLogisticsVehicle();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::GetGroupedEntityCategory
@@ -189,6 +189,6 @@ public:
     KBOOL operator != ( const GED_GroundLogisticsVehicle & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

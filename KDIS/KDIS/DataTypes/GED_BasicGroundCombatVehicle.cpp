@@ -38,7 +38,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicGroundCombatVehicle::GED_BasicGroundCombatVehicle( void ) :
+GED_BasicGroundCombatVehicle::GED_BasicGroundCombatVehicle() :
     m_ui16EntityID( 0 ),
     m_i8Spd( 0 ),
     m_i8TrrtAz( 0 ),
@@ -83,7 +83,7 @@ GED_BasicGroundCombatVehicle::GED_BasicGroundCombatVehicle( KUINT16 ID, KINT16 X
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicGroundCombatVehicle::~GED_BasicGroundCombatVehicle( void )
+GED_BasicGroundCombatVehicle::~GED_BasicGroundCombatVehicle()
 {
 }
 

@@ -71,14 +71,14 @@ public:
 
     static const KUINT16 IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE = 40;
 
-    IFF_ATC_NAVAIDS_FundamentalParameterData( void );
+    IFF_ATC_NAVAIDS_FundamentalParameterData();
 
     IFF_ATC_NAVAIDS_FundamentalParameterData( KDataStream & stream )throw( KException );
 
     IFF_ATC_NAVAIDS_FundamentalParameterData( KFLOAT32 ERP, KFLOAT32 Freq, KFLOAT32 PgRF, KFLOAT32 PulseWidth,
             KUINT32 BurstLength, SystemMode M );
 
-    virtual ~IFF_ATC_NAVAIDS_FundamentalParameterData( void );
+    virtual ~IFF_ATC_NAVAIDS_FundamentalParameterData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetEffectiveRadiatedPower
@@ -160,5 +160,5 @@ public:
     KBOOL operator != ( const IFF_ATC_NAVAIDS_FundamentalParameterData & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

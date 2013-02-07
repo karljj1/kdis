@@ -39,7 +39,7 @@ using namespace std;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AttributeRecordSet::AttributeRecordSet( void ) :
+AttributeRecordSet::AttributeRecordSet() :
     m_ui16NumAttrRecs( 0 )
 {
 }
@@ -61,7 +61,7 @@ AttributeRecordSet::AttributeRecordSet( const EntityIdentifier & EI ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-AttributeRecordSet::~AttributeRecordSet( void )
+AttributeRecordSet::~AttributeRecordSet()
 {
 }
 

@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      PointRecord1
-    created:    17:08:2009
+    created:    17/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a point.
@@ -54,13 +54,13 @@ public:
 
     static const KUINT16 POINT_RECORD_1_SIZE = 32;
 
-    PointRecord1( void );
+    PointRecord1();
 
     PointRecord1( KDataStream & stream ) throw( KException );
 
     PointRecord1( KUINT8 Index, const WorldCoordinates & Location );
 
-    virtual ~PointRecord1( void );
+    virtual ~PointRecord1();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PointRecord1::SetLocation
@@ -97,5 +97,5 @@ public:
     KBOOL operator != ( const PointRecord1 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

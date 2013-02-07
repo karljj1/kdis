@@ -78,7 +78,7 @@ public:
 
     static const KUINT16 ENTITY_APPEARANCE_SIZE = 4;
 
-    EntityAppearance( void );
+    EntityAppearance();
 
     EntityAppearance( KDataStream & stream ) throw( KException );
 
@@ -102,7 +102,7 @@ public:
 
 	EntityAppearance( const SensorEmitterAppearance & A );
 
-    virtual ~EntityAppearance( void );
+    virtual ~EntityAppearance();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetData
@@ -250,5 +250,5 @@ public:
     KBOOL operator != ( const EntityAppearance & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

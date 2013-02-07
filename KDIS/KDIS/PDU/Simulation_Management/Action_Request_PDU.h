@@ -58,14 +58,14 @@ public:
 
     static const KUINT16 ACTION_REQUEST_PDU_SIZE = 40;
 
-    Action_Request_PDU( void );
+    Action_Request_PDU();
 
     Action_Request_PDU( KDataStream & stream ) throw( KException );
 
     Action_Request_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                         KUINT32 RequestID, KUINT32 ActionID );
 
-    virtual ~Action_Request_PDU( void );
+    virtual ~Action_Request_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Action_Request_PDU::SetActionID
@@ -103,6 +103,6 @@ public:
     KBOOL operator != ( const Action_Request_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

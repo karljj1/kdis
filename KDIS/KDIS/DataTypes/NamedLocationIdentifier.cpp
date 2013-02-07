@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier::NamedLocationIdentifier( void ) :
+NamedLocationIdentifier::NamedLocationIdentifier() :
     m_ui16StnName( 0 ),
     m_ui16StnNum( 0 )
 {
@@ -60,7 +60,7 @@ NamedLocationIdentifier::NamedLocationIdentifier( KDataStream & stream ) throw( 
 
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier::~NamedLocationIdentifier( void )
+NamedLocationIdentifier::~NamedLocationIdentifier()
 {
 }
 

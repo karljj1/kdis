@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Fire_PDU::Fire_PDU( void )
+Fire_PDU::Fire_PDU()
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;
@@ -88,7 +88,7 @@ Fire_PDU::Fire_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier
 
 //////////////////////////////////////////////////////////////////////////
 
-Fire_PDU::~Fire_PDU( void )
+Fire_PDU::~Fire_PDU()
 {
 }
 

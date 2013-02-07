@@ -60,13 +60,13 @@ public:
 
     static const KUINT16 RELATVE_WORLD_COORDINATES_SIZE = 8;
 
-    RelativeWorldCoordinates( void );
+    RelativeWorldCoordinates();
 
     RelativeWorldCoordinates( KUINT16 RefPnt, KFIXED16_3 DelX, KFIXED16_3 DelY, KFIXED16_3 DelZ );
 
     RelativeWorldCoordinates( KDataStream & stream ) throw( KException );
 
-    virtual ~RelativeWorldCoordinates( void );
+    virtual ~RelativeWorldCoordinates();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RelativeWorldCoordinates::SetReferencePoint
@@ -117,6 +117,6 @@ public:
     KBOOL operator != ( const RelativeWorldCoordinates  & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

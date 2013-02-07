@@ -50,9 +50,9 @@ class KDIS_EXPORT DataTypeBase
 {
 public:
 
-    DataTypeBase( void );
+    DataTypeBase();
 
-    virtual ~DataTypeBase( void );
+    virtual ~DataTypeBase();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::DataTypeBase::GetAsString
@@ -91,5 +91,5 @@ public:
 #define KDIS_STREAM ( DataTypeBase * ) &
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

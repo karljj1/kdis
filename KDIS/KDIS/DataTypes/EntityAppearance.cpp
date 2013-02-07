@@ -38,7 +38,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityAppearance::EntityAppearance( void )
+EntityAppearance::EntityAppearance()
 {
 	m_AppearanceUnion.m_ui326Data = 0;
 }
@@ -122,7 +122,7 @@ EntityAppearance::EntityAppearance( const SensorEmitterAppearance & A )
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityAppearance::~EntityAppearance( void )
+EntityAppearance::~EntityAppearance()
 {
 }
 

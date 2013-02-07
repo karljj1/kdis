@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L2_PDU::IFF_ATC_NAVAIDS_L2_PDU( void ) :
+IFF_ATC_NAVAIDS_L2_PDU::IFF_ATC_NAVAIDS_L2_PDU() :
     m_LyrHdr( 2, 0, IFF_ATC_NAVAIDS_L2_PDU_SIZE - IFF_ATC_NAVAIDS_L1_PDU_SIZE )
 {
     m_ui16PDULength = IFF_ATC_NAVAIDS_L2_PDU_SIZE;
@@ -82,7 +82,7 @@ IFF_ATC_NAVAIDS_L2_PDU::IFF_ATC_NAVAIDS_L2_PDU( const IFF_ATC_NAVAIDS_L1_PDU & P
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L2_PDU::~IFF_ATC_NAVAIDS_L2_PDU( void )
+IFF_ATC_NAVAIDS_L2_PDU::~IFF_ATC_NAVAIDS_L2_PDU()
 {
     m_vFPD.clear();
 }

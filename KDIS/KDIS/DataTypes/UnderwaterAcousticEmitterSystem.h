@@ -68,11 +68,11 @@ public:
 
     static const KUINT16 UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE = 20; // Min Size
 
-    UnderwaterAcousticEmitterSystem( void );
+    UnderwaterAcousticEmitterSystem();
 
     UnderwaterAcousticEmitterSystem( KDataStream & stream ) throw( KException );
 
-    virtual ~UnderwaterAcousticEmitterSystem( void );
+    virtual ~UnderwaterAcousticEmitterSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem::GetEmitterSystemDataLength
@@ -147,6 +147,6 @@ public:
     KBOOL operator != ( const UnderwaterAcousticEmitterSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

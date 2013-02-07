@@ -95,7 +95,7 @@ public:
 
     static const KUINT16 POINT_OBJECT_STATE_PDU_SIZE = 88;
 
-    Point_Object_State_PDU( void );
+    Point_Object_State_PDU();
 
     Point_Object_State_PDU( KDataStream & stream ) throw( KException );
 
@@ -104,7 +104,7 @@ public:
                             const PointObjectAppearance & P, const SimulationIdentifier & ReqID,
                             const SimulationIdentifier & RecvID );
 
-    virtual ~Point_Object_State_PDU( void );
+    virtual ~Point_Object_State_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::SetModification
@@ -213,5 +213,5 @@ public:
     KBOOL operator != ( const Point_Object_State_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

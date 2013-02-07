@@ -71,14 +71,14 @@ public:
 
     static const KUINT16 IS_PART_OF_PDU_SIZE = 52;
 
-    IsPartOf_PDU( void );
+    IsPartOf_PDU();
 
     IsPartOf_PDU( KDataStream & stream ) throw( KException );
 
     IsPartOf_PDU( const RelationshipRecord & RR, const Vector & LocationOfPart,
                   const NamedLocationIdentifier & NLI, const EntityType & PartType );
 
-    virtual ~IsPartOf_PDU( void );
+    virtual ~IsPartOf_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::IsPartOf_PDU::SetRelationshipRecord
@@ -154,5 +154,5 @@ public:
     KBOOL operator != ( const IsPartOf_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

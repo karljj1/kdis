@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LE_Header::LE_Header( void )
+LE_Header::LE_Header()
 {
     m_ui8ProtocolFamily = LiveEntity;
     m_ui8ProtocolVersion = IEEE_1278_1A_1998;
@@ -63,7 +63,7 @@ LE_Header::LE_Header( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Header::~LE_Header( void )
+LE_Header::~LE_Header()
 {
 }
 

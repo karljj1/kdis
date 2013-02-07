@@ -78,7 +78,7 @@ public:
 
     static const KUINT16 FUNDAMENTAL_OPERATIONAL_DATA_SIZE = 16;
 
-    FundamentalOperationalData( void );
+    FundamentalOperationalData();
 
     FundamentalOperationalData( KDataStream & stream ) throw( KException );
 
@@ -90,7 +90,7 @@ public:
 
     FundamentalOperationalData( const FundamentalOperationalData_RRB & FOD );
 
-    virtual ~FundamentalOperationalData( void );
+    virtual ~FundamentalOperationalData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::SetFundamentalOperationalData
@@ -136,6 +136,6 @@ public:
     KBOOL operator != ( const FundamentalOperationalData & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

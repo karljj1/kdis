@@ -68,7 +68,7 @@ public:
 
     static const KUINT16 ENVIROMENT_TYPE_SIZE = 8;
 
-    EnvironmentType( void );
+    EnvironmentType();
 
     EnvironmentType( KUINT8 Kind, EntityDomain Domain, KUINT16 Class, KUINT8 Categoy,
                      EnvironmentSubcategory SubCategory, KUINT8 Specific, KUINT8 Extra );
@@ -78,7 +78,7 @@ public:
 
     EnvironmentType( KDataStream & stream ) throw( KException );
 
-    virtual ~EnvironmentType( void );
+    virtual ~EnvironmentType();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateType::SetKind
@@ -170,6 +170,6 @@ public:
     KBOOL operator  < ( const EnvironmentType & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

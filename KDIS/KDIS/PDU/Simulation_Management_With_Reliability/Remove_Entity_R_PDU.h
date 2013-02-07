@@ -53,7 +53,7 @@ public:
 
     static const KUINT16 REMOVE_ENTITY_R_PDU_SIZE = 32;
 
-    Remove_Entity_R_PDU( void );
+    Remove_Entity_R_PDU();
 
     Remove_Entity_R_PDU( KDataStream & stream ) throw( KException );
 
@@ -63,7 +63,7 @@ public:
     Remove_Entity_R_PDU( const Simulation_Management_Header & SimMgrHeader,
                          KUINT32 RequestID, RequiredReliabilityService RRS );
 
-    virtual ~Remove_Entity_R_PDU( void );
+    virtual ~Remove_Entity_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Remove_Entity_R_PDU::GetAsString
@@ -76,5 +76,5 @@ public:
     KBOOL operator != ( const Remove_Entity_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

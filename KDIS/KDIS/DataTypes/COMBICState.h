@@ -79,7 +79,7 @@ public:
 
     static const KUINT16 COMBIC_STATE_SIZE = 64;
 
-    COMBICState( void );
+    COMBICState();
 
     COMBICState( KDataStream & stream ) throw( KException );
 
@@ -88,7 +88,7 @@ public:
                  KFLOAT32 BarrageRate, KFLOAT32 BarrageDuration, KFLOAT32 BarrageCrosswindLength,
                  KFLOAT32 BarrageDownwindLength, const EulerAngles & DetonationVelocity );
 
-    virtual ~COMBICState( void );
+    virtual ~COMBICState();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::COMBICState::SetTimeSinceCreation
@@ -207,5 +207,5 @@ public:
     KBOOL operator != ( const COMBICState & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

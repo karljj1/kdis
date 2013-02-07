@@ -80,7 +80,7 @@ union NetToDataType
 
     //////////////////////////////////////////////////////
 
-    NetToDataType( void )
+    NetToDataType()
     {
     };
 

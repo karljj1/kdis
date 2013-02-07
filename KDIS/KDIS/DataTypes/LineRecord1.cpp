@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LineRecord1::LineRecord1( void )
+LineRecord1::LineRecord1()
 {
     m_ui32EnvRecTyp = LineRecord1Type;
     m_ui16Length = ( LINE_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
@@ -63,7 +63,7 @@ LineRecord1::LineRecord1( KUINT8 Index, const WorldCoordinates & Start, const Wo
 
 //////////////////////////////////////////////////////////////////////////
 
-LineRecord1::~LineRecord1( void )
+LineRecord1::~LineRecord1()
 {
 }
 

@@ -72,7 +72,7 @@ public:
 
     static const KUINT16 FUNDAMENTAL_PARAMETER_SIZE = 40;
 
-    FundamentalParameterData( void );
+    FundamentalParameterData();
 
     FundamentalParameterData( KDataStream & stream )throw( KException );
 
@@ -81,7 +81,7 @@ public:
                               KFLOAT32 BeamAzimuthSweep, KFLOAT32 BeamElevationCenter, KFLOAT32 BeamElevationSweep,
                               KFLOAT32 BeamSweepSync );
 
-    virtual ~FundamentalParameterData( void );
+    virtual ~FundamentalParameterData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FundamentalParameterData::SetFrequency
@@ -200,5 +200,5 @@ public:
     KBOOL operator != ( const FundamentalParameterData & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

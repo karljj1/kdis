@@ -88,7 +88,7 @@ public:
 
     static const KUINT16 AREAL_OBJECT_STATE_PDU_SIZE = 48;
 
-    Areal_Object_State_PDU( void );
+    Areal_Object_State_PDU();
 
     Areal_Object_State_PDU( KDataStream & stream ) throw( KException );
 
@@ -99,7 +99,7 @@ public:
                             const SimulationIdentifier & RequestorID, const SimulationIdentifier & ReceivingID,
                             const vector<WorldCoordinates> & Points );
 
-    virtual ~Areal_Object_State_PDU( void );
+    virtual ~Areal_Object_State_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetModification
@@ -200,5 +200,5 @@ public:
     KBOOL operator != ( const Areal_Object_State_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

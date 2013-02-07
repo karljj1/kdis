@@ -60,13 +60,13 @@ public:
 
     static const KUINT16 EMITTER_SYSTEM_SIZE = 4;
 
-    EmitterSystem( void );
+    EmitterSystem();
 
     EmitterSystem( KDataStream & stream )throw( KException );
 
     EmitterSystem( EmitterName EN, EmitterFunction F, KUINT8 ID );
 
-    virtual ~EmitterSystem( void );
+    virtual ~EmitterSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmitterSystem::SetEmitterName
@@ -120,5 +120,5 @@ public:
     KBOOL operator != ( const EmitterSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

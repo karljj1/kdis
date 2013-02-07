@@ -63,13 +63,13 @@ public:
 
     static const KUINT16 ORIENTATION_ERROR_SIZE = 6;
 
-    OrientationError( void );
+    OrientationError();
 
     OrientationError( KFIXED16_8 Azimuth, KFIXED16_8 Elevation, KFIXED16_8 Rotation );
 
     OrientationError( KDataStream & stream ) throw( KException );
 
-    virtual ~OrientationError( void );
+    virtual ~OrientationError();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::OrientationError::SetAzimuthError
@@ -123,6 +123,6 @@ public:
     KBOOL operator != ( const OrientationError & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

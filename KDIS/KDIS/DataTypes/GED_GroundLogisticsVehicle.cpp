@@ -38,7 +38,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_GroundLogisticsVehicle::GED_GroundLogisticsVehicle( void ) :
+GED_GroundLogisticsVehicle::GED_GroundLogisticsVehicle() :
     m_ui16EntityID( 0 ),
     m_i8Spd( 0 )
 {
@@ -74,7 +74,7 @@ GED_GroundLogisticsVehicle::GED_GroundLogisticsVehicle( KUINT16 ID, KINT16 XOffs
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_GroundLogisticsVehicle::~GED_GroundLogisticsVehicle( void )
+GED_GroundLogisticsVehicle::~GED_GroundLogisticsVehicle()
 {
 }
 

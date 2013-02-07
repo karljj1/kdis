@@ -55,7 +55,7 @@ void GridAxisIrregular::calculatePadding()
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridAxisIrregular::GridAxisIrregular( void ) :
+GridAxisIrregular::GridAxisIrregular() :
     m_f64CoordScaleXi( 0 ),
     m_f64CoordOffsetXi( 0 )
 {
@@ -108,7 +108,7 @@ GridAxisIrregular::GridAxisIrregular( KFLOAT64 InitialXi, KFLOAT64 FinalXi, KUIN
 
 //////////////////////////////////////////////////////////////////////////
 
-GridAxisIrregular::~GridAxisIrregular( void )
+GridAxisIrregular::~GridAxisIrregular()
 {
 }
 

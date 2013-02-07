@@ -89,7 +89,7 @@ public:
 
     Type Data[cols][rows];
 
-    Matrix( void )
+    Matrix()
     {
         for( KUINT16 i = 0; i < cols; ++i )
         {
@@ -313,9 +313,9 @@ protected:
 
 public:
 
-    DeadReckoningCalculator( void );
+    DeadReckoningCalculator();
 
-    ~DeadReckoningCalculator( void );
+    ~DeadReckoningCalculator();
 
     //************************************
     // FullName:    KDIS::UTILS::DeadReckoningCalculator::Reset
@@ -376,6 +376,6 @@ public:
     void GenerateSmoothingPoints( const WorldCoordinates & StartPosition, const WorldCoordinates & EndPosition, KUINT32 NumberOfPoints, vector<WorldCoordinates> & v );
 };
 
-}; // END namespace UTILS
-}; // END namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS
 

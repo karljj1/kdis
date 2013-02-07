@@ -73,7 +73,7 @@ public:
 
     static const KUINT16 FIRE_PDU_SIZE = 96;
 
-    Fire_PDU( void );
+    Fire_PDU();
 
     Fire_PDU( KDataStream & stream ) throw( KException );
 
@@ -85,7 +85,7 @@ public:
               KUINT32 FireMissionIndex, const WorldCoordinates & Location,
               const BurstDescriptor & BurstDesc, const Vector & Velocity, KFLOAT32 Range );
 
-    virtual ~Fire_PDU( void );
+    virtual ~Fire_PDU();
 
 #if DIS_VERSION > 6
     //************************************
@@ -176,5 +176,5 @@ public:
     KBOOL operator != ( const Fire_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-PointRecord1::PointRecord1( void )
+PointRecord1::PointRecord1()
 {
     m_ui32EnvRecTyp = PointRecord1Type;
     m_ui16Length = ( POINT_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
@@ -62,7 +62,7 @@ PointRecord1::PointRecord1( KUINT8 Index, const WorldCoordinates & Location ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-PointRecord1::~PointRecord1( void )
+PointRecord1::~PointRecord1()
 {
 }
 

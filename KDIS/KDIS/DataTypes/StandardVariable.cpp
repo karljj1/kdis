@@ -43,7 +43,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-StandardVariable::StandardVariable( void ) :
+StandardVariable::StandardVariable() :
     m_ui32Type( 0 ),
     m_ui16Length( STANDARD_VARIABLE_SIZE )
 {
@@ -58,7 +58,7 @@ StandardVariable::StandardVariable( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-StandardVariable::~StandardVariable( void )
+StandardVariable::~StandardVariable()
 {
 }
 

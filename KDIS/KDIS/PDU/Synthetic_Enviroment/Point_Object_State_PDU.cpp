@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Point_Object_State_PDU::Point_Object_State_PDU( void ) :
+Point_Object_State_PDU::Point_Object_State_PDU() :
     m_ui16Padding( 0 ),
     m_ui32Padding1( 0 )
 {
@@ -87,7 +87,7 @@ Point_Object_State_PDU::Point_Object_State_PDU( const EntityIdentifier & ObjID, 
 
 //////////////////////////////////////////////////////////////////////////
 
-Point_Object_State_PDU::~Point_Object_State_PDU( void )
+Point_Object_State_PDU::~Point_Object_State_PDU()
 {
 }
 

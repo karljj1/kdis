@@ -63,13 +63,13 @@ public:
 
     static const KUINT16 WORLD_COORDINATES_SIZE = 24;
 
-    WorldCoordinates( void );
+    WorldCoordinates();
 
     WorldCoordinates( KDataStream & stream ) throw( KException );
 
     WorldCoordinates( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z );
 
-    virtual ~WorldCoordinates( void );
+    virtual ~WorldCoordinates();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetX
@@ -113,6 +113,20 @@ public:
     //************************************
 	KFLOAT64 GetDistance( const WorldCoordinates & Other );
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Lerp
+    // Description: Linearly interpolate between From and To by T. 
+	//              T should be between 0 and 1(its not checked).
+	//              T 0 = From
+	//              1 = to 
+	//              0.5 = halfway between From and To.
+    // Parameter:   const WorldCoordinates & From
+	// Parameter:   const WorldCoordinates & To
+	// Parameter:   KFLOAT32 T  
+    //************************************
+	static WorldCoordinates Lerp( const WorldCoordinates & From, const WorldCoordinates & To, KFLOAT32 T );
+	void Lerp( const WorldCoordinates & To, KFLOAT32 T );
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetAsString
     // Description: Returns a string representation
@@ -138,6 +152,7 @@ public:
     KBOOL operator != ( const WorldCoordinates & Value ) const;
     WorldCoordinates operator * ( const WorldCoordinates & Value ) const;
     WorldCoordinates operator * ( KFLOAT64 Value ) const;
+	WorldCoordinates operator * ( KFLOAT32 Value ) const;
     WorldCoordinates operator + ( const WorldCoordinates & Value ) const;
     WorldCoordinates operator + ( const Vector & Value ) const;
     WorldCoordinates & operator += ( const Vector & Value );
@@ -150,6 +165,6 @@ public:
     const KFLOAT64 & operator[] ( KUINT16 i ) const throw( KException );
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

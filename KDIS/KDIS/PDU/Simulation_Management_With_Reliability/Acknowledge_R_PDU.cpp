@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( void )
+Acknowledge_R_PDU::Acknowledge_R_PDU()
 {
     m_ui8PDUType = Acknowledge_R_PDU_Type;
     m_ui16PDULength = ACKNOWLEDGE_R_PDU_SIZE;
@@ -145,7 +145,7 @@ Acknowledge_R_PDU::Acknowledge_R_PDU( const Transfer_Control_Request_PDU & pdu, 
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::~Acknowledge_R_PDU( void )
+Acknowledge_R_PDU::~Acknowledge_R_PDU()
 {
 }
 

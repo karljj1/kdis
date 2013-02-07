@@ -74,14 +74,14 @@ public:
 
     static const KUINT16 FIXED_DATUM_SIZE = 8;
 
-    FixedDatum( void );
+    FixedDatum();
 
     template<class Type>
     FixedDatum( DatumID ID, Type Value ) throw( KException );
 
     FixedDatum( KDataStream & stream ) throw( KException );
 
-    virtual ~FixedDatum( void );
+    virtual ~FixedDatum();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FixedDatum::SetDatumID
@@ -200,5 +200,5 @@ void FixedDatum::SetDatumValue( Type val ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

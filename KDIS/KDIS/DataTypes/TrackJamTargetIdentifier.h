@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      TrackJamTargetIdentifier
-    created:    2008/10/19
+    created:    19/10/2008
     author:     Karl Jones
 
     purpose:    Contains information about a tracked/jammed target
@@ -57,7 +57,7 @@ public:
 
     static const KUINT16 TRACK_JAM_TARGET_SIZE = 8; // Min Size
 
-    TrackJamTargetIdentifier( void );
+    TrackJamTargetIdentifier();
 
     TrackJamTargetIdentifier( KDataStream & stream )throw( KException );
 
@@ -66,7 +66,7 @@ public:
     TrackJamTargetIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID, KUINT16 EntityID,
                               KUINT8 EmitterID = 0, KUINT8 BeamID = 0 );
 
-    virtual ~TrackJamTargetIdentifier( void );
+    virtual ~TrackJamTargetIdentifier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::TrackJamTargetIdentifier::SetEmitterID
@@ -115,5 +115,5 @@ public:
     KBOOL operator != ( const TrackJamTargetIdentifier & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

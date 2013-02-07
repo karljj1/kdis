@@ -60,13 +60,13 @@ public:
 
     static const KUINT16 UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE = 24;
 
-    UnderwaterAcousticEmitterBeam( void );
+    UnderwaterAcousticEmitterBeam();
 
     UnderwaterAcousticEmitterBeam( KDataStream & stream )throw( KException );
 
     UnderwaterAcousticEmitterBeam( KUINT8 ID, const UnderwaterAcousticFundamentalParameterData & UAFPD );
 
-    virtual ~UnderwaterAcousticEmitterBeam( void );
+    virtual ~UnderwaterAcousticEmitterBeam();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetSystemDataLength
@@ -120,5 +120,5 @@ public:
     KBOOL operator != ( const UnderwaterAcousticEmitterBeam & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
