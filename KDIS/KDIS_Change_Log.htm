@@ -61,6 +61,7 @@
 </table>
 <hr>
 <ul>			
+	<li>Fixed bug with padding in Signal_PDU. Data Length was including the padding, it should not. Decode was not reading padding.</li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Added namespace KDIS::UTILS::Math, all math related functions are now here.</li>
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>

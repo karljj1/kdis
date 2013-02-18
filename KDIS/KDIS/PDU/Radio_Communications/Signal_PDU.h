@@ -126,9 +126,9 @@ public:
     //              KDIS::PDU::Signal_PDU::GetData
     // Description: The data being sent. set function will add
     //              padding so the PDU size up to a multiple of 32 bits.
-    //              copy data over.
+    //              copy data over. 
     // Parameter:   KOCTET * D - buffer for writing/reading
-    // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be this / 8)
+    // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be at least the size GetDataLength)
     //************************************
     void SetData( const KOCTET * D, KUINT16 Length );
     void GetData( KOCTET * D, KUINT16 Length ) const throw( KException );
