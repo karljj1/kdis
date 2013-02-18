@@ -157,7 +157,7 @@ void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
 
 	// Do we need to apply padding, the PDU size should be a multiple
     // of 32 bits / 4 octets.
-    KUINT8 ui8PaddingNeeded = m_vData.size() % 4;
+    KUINT8 ui8PaddingNeeded = m_vData.size() % 4 == 0 ? 0 : (4 - m_vData.size() % 4); // Add padding;
     for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
     {
         m_vData.push_back( 0 );
@@ -216,7 +216,7 @@ void Signal_PDU::Decode( KDataStream & stream ) throw( KException )
            >> m_ui16Samples;
 
     KUINT16 dl =  m_ui16DataLength / 8;
-	dl += dl % 4; // Add padding
+	dl += ( dl % 4 == 0 ? 0 : (4 - dl % 4) ); // Add padding
     for( KUINT16 i = 0; i < dl; ++i )
     {
         KOCTET o;
