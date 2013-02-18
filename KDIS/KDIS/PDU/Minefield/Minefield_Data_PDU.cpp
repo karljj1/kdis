@@ -475,9 +475,9 @@ void Minefield_Data_PDU::Decode( KDataStream & stream ) throw( KException )
 
     if( m_DataFilter.IsPaintScheme() ) MINE_DECODE_CLASS( MinePaintScheme, SetPaintSchemeValue )
 
-        // Do we need to add padding?
-        // Padding — 8{[4 – N(2 F(8) + M F(9) + F(10) + 2)] mod4} bits unused
-        KUINT8 ui8PaddingNeeded2 = calcPaddingPaintScheme();
+    // Do we need to add padding?
+    // Padding — 8{[4 – N(2 F(8) + M F(9) + F(10) + 2)] mod4} bits unused
+    KUINT8 ui8PaddingNeeded2 = calcPaddingPaintScheme();
     KUINT8 ui8Pad = 0;
     for( KUINT8 i = 0; i < ui8PaddingNeeded2; ++i )
     {
@@ -513,8 +513,8 @@ void Minefield_Data_PDU::Decode( KDataStream & stream ) throw( KException )
             vNumVerts.push_back( ui8Tmp );
         }
 
-        // More padding?
-        ui8PaddingNeeded = vNumVerts.size() % 4;
+        // More padding?	
+        ui8PaddingNeeded = ( vNumVerts.size() % 4 == 0 ? 0 : ( 4 - vNumVerts.size() % 4 ) );
         for( i = 0; i < ui8PaddingNeeded; ++i )
         {
             stream >> ui8Pad;
