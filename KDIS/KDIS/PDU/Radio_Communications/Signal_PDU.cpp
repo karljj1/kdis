@@ -141,11 +141,12 @@ KUINT16 Signal_PDU::GetSamples() const
 void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
 {
     // If we already have data clear it first.
-    m_ui16PDULength -= m_vData.size();
-    m_vData.clear();
+    m_ui16PDULength = SIGNAL_PDU_SIZE;
+    m_vData.clear();	
 
     // Copy data into the vector
     KUINT16 uiDataSz = Length / 8;
+	m_vData.reserve( uiDataSz );
     for( KUINT16 i = 0; i < uiDataSz; ++i, ++D )
     {
         m_vData.push_back( *D );
@@ -156,13 +157,13 @@ void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
 
 	// Do we need to apply padding, the PDU size should be a multiple
     // of 32 bits / 4 octets.
-    KUINT8 ui8PaddingNeeded = m_ui16PDULength % 4;
+    KUINT8 ui8PaddingNeeded = m_vData.size() % 4;
     for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
     {
         m_vData.push_back( 0 );
     }
 
-    // Update lengths    
+	// Update lengths    
     m_ui16PDULength += m_vData.size();
 }
 
@@ -223,7 +224,7 @@ void Signal_PDU::Decode( KDataStream & stream ) throw( KException )
     }
 	
 	// Do we need to read any padding?    
-    KUINT8 ui8PaddingNeeded = m_ui16PDULength % 4;
+    KUINT8 ui8PaddingNeeded = m_vData.size() % 4;
     for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
     {
         KOCTET o;
