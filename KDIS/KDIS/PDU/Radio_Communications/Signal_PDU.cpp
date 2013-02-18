@@ -216,20 +216,13 @@ void Signal_PDU::Decode( KDataStream & stream ) throw( KException )
            >> m_ui16Samples;
 
     KUINT16 dl =  m_ui16DataLength / 8;
+	dl += dl % 4; // Add padding
     for( KUINT16 i = 0; i < dl; ++i )
     {
         KOCTET o;
         stream >> o;
         m_vData.push_back( o );
-    }
-	
-	// Do we need to read any padding?    
-    KUINT8 ui8PaddingNeeded = m_vData.size() % 4;
-    for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
-    {
-        KOCTET o;
-        stream >> o;
-    }
+    }	
 }
 
 //////////////////////////////////////////////////////////////////////////
