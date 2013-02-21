@@ -764,7 +764,7 @@ KBOOL GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOu
 /* R_V_W    -   Similar to F_V_W but where orientation is required      */
 /*              (e.g. visual simulation).                               */
 /* F_V_W    -   High speed or manoeuvring  at any speed (e.g. TBM,      */
-/*              ICBM, SAM, SSM, and ASM weapons.                        */
+/*              ICBM, SAM, SSM, and ASM weapons.)                       */
 /* F_P_B    -   Similar to R_P_W but when body-centred calculation is   */
 /*              preferred.                                              */
 /* R_P_B    -   Similar to R_V_W but when body-centred calculation is   */

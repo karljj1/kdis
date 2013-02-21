@@ -76,7 +76,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetDeadReckoningAlgorithm
     //              KDIS::DATA_TYPE::DeadReckoningParameter::GetDeadReckoningAlgorithm
     // Description: Dead Reckoning Algorithm
-    // Parameter:   DeadReckoningAlgorithm DRA, void
+    // Parameter:   DeadReckoningAlgorithm DRA
     //************************************
     void SetDeadReckoningAlgorithm( DeadReckoningAlgorithm DRA );
     DeadReckoningAlgorithm GetDeadReckoningAlgorithm() const;
@@ -85,7 +85,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetLinearAcceleration
     //              KDIS::DATA_TYPE::DeadReckoningParameter::GetLinearAcceleration
     // Description: Linear Acceleration in m/s.
-    // Parameter:   const Vector & LA, void
+    // Parameter:   const Vector & LA
     //************************************
     void SetLinearAcceleration( const Vector & LA );
     const Vector & GetLinearAcceleration() const;
