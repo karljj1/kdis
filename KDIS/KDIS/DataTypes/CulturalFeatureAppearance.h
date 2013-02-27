@@ -135,7 +135,7 @@ public:
 	//************************************
     // FullName:    KDIS::DATA_TYPE::CulturalFeatureAppearance::SetEntityExteriorLights
     //              KDIS::DATA_TYPE::CulturalFeatureAppearance::IsEntityExteriorLightsOn
-    // Description: Are the vehicles exterior lights turned on? True = On, False = Off.
+    // Description: Are the exterior lights turned on? True = On, False = Off.
     // Parameter:   KBOOL EL
     //************************************
     void SetEntityExteriorLights( KBOOL EL );

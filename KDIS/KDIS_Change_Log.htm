@@ -43,8 +43,7 @@
 		<ul>
 			<li>Implement DIS Version 7 changes and PDU's.</li>
 			<li>Dead Reckoning - verify all algorithms work correctly.</li>
-			<li>Examine V-DIS standard for potential KDIS extension..</li>
-			<li>Updated KSynmbolicNames.h. Renamed COLLISION_THRSH_DFLT to COLLISION_THRSH, EE_EL_THRSH_DFLT to EE_EL_THRSH</li>
+			<li>Examine V-DIS standard for potential KDIS extension..</li>			
 			<li>Conversions for multiple datum's and orientation representations.</li>
 			<li>Improve GetAsString formatting.</li>	
 			<li>Finish Link 16 integration</li>
@@ -52,20 +51,22 @@
 <br>
 <br>
 
-<!--Version x-x-x !-->
-
-
+<!--Version 3-0-0 !-->
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table2">
 	<tr>
-		<td><b>Version 2-7-0 </b></td>
-		<td><b>31 Jan 2013</b></td>
+		<td><b>Version 3-0-0 </b></td>
+		<td><b>xx xx 2013</b></td>
 	</tr>
 </table>
 <hr>
 <ul>		
+	<div style="color: red">
+	<li>DIS 7 is now fully implmented.
+	</div>
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>
 	<li>Added Vector::Set to set all values in one call.</li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
+	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>
 </ul>
 
 <!-- Version 2-7-0 !-->
@@ -80,6 +81,7 @@
 	<div style="color: blue">
 	<li>Changed license from LGPL to FreeBSD.</li>
 	</div>
+	<li>Updated KSynmbolicNames.h. Renamed COLLISION_THRSH_DFLT to COLLISION_THRSH, EE_EL_THRSH_DFLT to EE_EL_THRSH</li>
 	<li>Default DIS version is now 7 when using cmake.</li>
 	<li>Changed EnumHeader.h ProtocolVersion IEEE_1278_1_200x to IEEE_1278_1_2012</li>
 </ul>

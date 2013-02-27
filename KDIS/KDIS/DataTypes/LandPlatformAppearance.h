@@ -203,7 +203,7 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::LandPlatformAppearance::SetEntityCamouflage
     //              KDIS::DATA_TYPE::LandPlatformAppearance::GetEntityCamouflage
-    // Description: camouflage type worn.
+    // Description: Camouflage type worn.
     // Parameter:   EntityCamouflage EC
     //************************************
     void SetEntityCamouflage( EntityCamouflage EC );

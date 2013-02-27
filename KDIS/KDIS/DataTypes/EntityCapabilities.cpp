@@ -46,7 +46,6 @@ EntityCapabilities::EntityCapabilities( void ) :
 
 EntityCapabilities::EntityCapabilities( KDataStream & stream ) throw( KException )
 {
-    m_Unused = 0;
     try
     {
         Decode( stream );
@@ -66,6 +65,19 @@ EntityCapabilities::EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply,
     m_FuelSupply = FuelSupply;
     m_RecoveryService = RecoveryService;
     m_RepairService = RepairService;
+	m_ADSB = 0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityCapabilities::EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply, KBOOL RecoveryService, KBOOL RepairService, KBOOL ADSB )
+{
+    m_Unused = 0;
+    m_AmmunitionSupply = AmunitionSupply;
+    m_FuelSupply = FuelSupply;
+    m_RecoveryService = RecoveryService;
+    m_RepairService = RepairService;
+	m_ADSB = ADSB;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -132,6 +144,20 @@ KBOOL EntityCapabilities::HasRepairService() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void EntityCapabilities::SetHasAutomaticDependentSurveillanceBroadcast( KBOOL ADSB )
+{
+	m_ADSB = ADSB;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL EntityCapabilities::HasAutomaticDependentSurveillanceBroadcast() const
+{
+	return m_ADSB;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void EntityCapabilities::SetAllFields( KUINT32 All )
 {
     m_ui16Data = All;
@@ -155,6 +181,7 @@ KString EntityCapabilities::GetAsString() const
        << "\n\tFuel Supply:          " << m_FuelSupply
        << "\n\tRecovery Service:     " << m_RecoveryService
        << "\n\tRepair Service:       " << m_RepairService
+	   << "\n\tADS-B Service:        " << m_ADSB
        << "\n";
 
     return ss.str();

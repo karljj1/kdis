@@ -51,11 +51,12 @@ protected:
     {
         struct
         {
-            KUINT32   m_AmmunitionSupply : 1;
-            KUINT32   m_FuelSupply       : 1;
-            KUINT32   m_RecoveryService  : 1;
-            KUINT32   m_RepairService    : 1;
-            KUINT32   m_Unused           : 28;
+            KUINT32 m_AmmunitionSupply : 1;
+            KUINT32 m_FuelSupply       : 1;
+            KUINT32 m_RecoveryService  : 1;
+            KUINT32 m_RepairService    : 1;
+			KUINT32 m_ADSB             : 1;
+            KUINT32 m_Unused           : 27;
         };
         KUINT32 m_ui16Data;
     };
@@ -70,13 +71,15 @@ public:
 
     EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply, KBOOL RecoveryService, KBOOL RepairService );
 
+	EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply, KBOOL RecoveryService, KBOOL RepairService, KBOOL ADSB );
+
     virtual ~EntityCapabilities( void );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasAmmunitionSupply
     //              KDIS::DATA_TYPE::EntityCapabilities::HasAmmunitionSupply
     // Description: Does the entity have a ammunition supply
-    // Parameter:   KBOOL HAS, void
+    // Parameter:   KBOOL HAS
     //************************************
     void SetHasAmmunitionSupply( KBOOL HAS );
     KBOOL HasAmmunitionSupply() const;
@@ -85,7 +88,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasFuelSupply
     //              KDIS::DATA_TYPE::EntityCapabilities::HasFuelSupply
     // Description: Does the entity have a fuel supply
-    // Parameter:   KBOOL HAS, void
+    // Parameter:   KBOOL HAS
     //************************************
     void SetHasFuelSupply( KBOOL HAS );
     KBOOL HasFuelSupply() const;
@@ -94,7 +97,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasRecoveryService
     //              KDIS::DATA_TYPE::EntityCapabilities::HasRecoveryService
     // Description: Does the entity have a recovery service, such as towing
-    // Parameter:   KBOOL HAS, void
+    // Parameter:   KBOOL HAS
     //************************************
     void SetHasRecoveryService( KBOOL HAS );
     KBOOL HasRecoveryService() const;
@@ -103,16 +106,25 @@ public:
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasRepairService
     //              KDIS::DATA_TYPE::EntityCapabilities::HasRepairService
     // Description: Does the entity have a repair service
-    // Parameter:   KBOOL HAS, void
+    // Parameter:   KBOOL HAS
     //************************************
     void SetHasRepairService( KBOOL HAS );
     KBOOL HasRepairService() const;
 
     //************************************
+    // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasAutomaticDependentSurveillanceBroadcast
+    //              KDIS::DATA_TYPE::EntityCapabilities::HasAutomaticDependentSurveillanceBroadcast
+    // Description: Is the entity capable of Automatic Dependent Surveillance - Broadcast (ADS-B)?
+    // Parameter:   KBOOL ADSB
+    //************************************
+	void SetHasAutomaticDependentSurveillanceBroadcast( KBOOL ADSB );
+	KBOOL HasAutomaticDependentSurveillanceBroadcast() const;
+
+    //************************************
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetAllFields
     //              KDIS::DATA_TYPE::EntityCapabilities::GetAllFields
-    // Description: 4 octet length field with all the bits set
-    // Parameter:   KUINT32 All, void
+    // Description: 4 octet length field with all the bits set.
+    // Parameter:   KUINT32 All
     //************************************
     void SetAllFields( KUINT32 All );
     KUINT32 GetAllFields() const;
