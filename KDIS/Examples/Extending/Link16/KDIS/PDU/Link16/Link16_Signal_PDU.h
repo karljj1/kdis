@@ -96,7 +96,7 @@ public:
 	    
 	static const KUINT16 LINK16_SIGNAL_PDU_SIZE = 52;
 
-	Link16_Signal_PDU( void );	
+	Link16_Signal_PDU();	
 
 	Link16_Signal_PDU( KDataStream & stream ) throw( KException );
 
@@ -105,7 +105,7 @@ public:
 					   KUINT16 NPG, KUINT8 NN, KUINT8 TSEC, KUINT8 MSEC, Link16MessageType MT,
 					   KUINT32 TSN, KUINT32 Epoch, KUINT32 TTInteger, KUINT32 TTFraction );
 	
-	virtual ~Link16_Signal_PDU( void );
+	virtual ~Link16_Signal_PDU();
 
 	//************************************
 	// Method:      SetNetworkParticipationGroup, GetNetworkParticipationGroup
@@ -242,6 +242,6 @@ public:
     KBOOL operator != ( const Link16_Signal_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
-}; // END namespace Link16
+} // END namespace PDU
+} // END namespace KDIS
+} // END namespace Link16

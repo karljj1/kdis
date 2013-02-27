@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem::EmitterSystem( void ) :
+EmitterSystem::EmitterSystem() :
     m_ui16EmitterName( 0 ),
     m_ui8Function( 0 ),
     m_ui8EmitterIDNumber( 0 )
@@ -62,7 +62,7 @@ EmitterSystem::EmitterSystem( EmitterName EN, EmitterFunction F, KUINT8 ID ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem::~EmitterSystem( void )
+EmitterSystem::~EmitterSystem()
 {
 }
 

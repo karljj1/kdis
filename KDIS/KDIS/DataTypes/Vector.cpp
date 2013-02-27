@@ -37,7 +37,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Vector::Vector( void ) :
+Vector::Vector() :
     m_f32X( 0 ),
     m_f32Y( 0 ),
     m_f32Z( 0 )
@@ -62,7 +62,7 @@ Vector::Vector( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector::~Vector( void )
+Vector::~Vector()
 {
 }
 
@@ -130,6 +130,20 @@ KFLOAT32 Vector::GetDistance( const Vector & Other )
 {
 	Vector v = *this - Other;
 	return v.GetMagnitude();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Vector Vector::Lerp( const Vector & From, const Vector & To, KFLOAT32 T )
+{
+	return From + ( ( To - From ) * T );	
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Vector::Lerp( const Vector & To, KFLOAT32 T )
+{
+	*this = Lerp( *this, To, T );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -217,6 +231,17 @@ Vector Vector::operator * ( KFLOAT64 Value ) const
 
 //////////////////////////////////////////////////////////////////////////
 
+Vector Vector::operator * ( KFLOAT32 Value ) const
+{
+    Vector tmp = *this;
+    tmp.m_f32X *= Value;
+    tmp.m_f32Y *= Value;
+    tmp.m_f32Z *= Value;
+    return tmp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Vector Vector::operator + ( const Vector & Value ) const
 {
     Vector tmp = *this;
@@ -263,14 +288,10 @@ KFLOAT32 & Vector::operator [] ( KUINT16 i ) throw( KException )
 {
     switch( i )
     {
-    case 0:
-        return m_f32X;
-    case 1:
-        return m_f32Y;
-    case 2:
-        return m_f32Z;
-    default:
-        throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+		case 0: 	return m_f32X;
+		case 1:		return m_f32Y;
+		case 2:		return m_f32Z;
+		default:	throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 
@@ -280,14 +301,10 @@ const KFLOAT32 & Vector::operator [] ( KUINT16 i ) const throw( KException )
 {
     switch( i )
     {
-    case 0:
-        return m_f32X;
-    case 1:
-        return m_f32Y;
-    case 2:
-        return m_f32Z;
-    default:
-        throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+		case 0:		return m_f32X;
+		case 1:		return m_f32Y;
+		case 2:		return m_f32Z;
+		default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 

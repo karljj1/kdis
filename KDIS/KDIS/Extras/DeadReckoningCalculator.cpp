@@ -509,7 +509,7 @@ void DeadReckoningCalculator::RunAlgorithm( const KFLOAT32 totalTimeSinceReset, 
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-DeadReckoningCalculator::DeadReckoningCalculator( void ) :
+DeadReckoningCalculator::DeadReckoningCalculator() :
     m_f64Magnitude( 0 ),
     m_DRA( Other_DRA )
 {
@@ -517,7 +517,7 @@ DeadReckoningCalculator::DeadReckoningCalculator( void ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-DeadReckoningCalculator::~DeadReckoningCalculator( void )
+DeadReckoningCalculator::~DeadReckoningCalculator()
 {
 }
 

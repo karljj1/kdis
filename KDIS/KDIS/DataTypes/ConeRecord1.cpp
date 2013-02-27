@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ConeRecord1::ConeRecord1( void ) :
+ConeRecord1::ConeRecord1() :
     m_ui32Padding( 0 )
 {
     m_ui32EnvRecTyp = ConeRecord1Type;
@@ -68,7 +68,7 @@ ConeRecord1::ConeRecord1( KUINT8 Index, const WorldCoordinates & VertexLocation,
 
 //////////////////////////////////////////////////////////////////////////
 
-ConeRecord1::~ConeRecord1( void )
+ConeRecord1::~ConeRecord1()
 {
 }
 

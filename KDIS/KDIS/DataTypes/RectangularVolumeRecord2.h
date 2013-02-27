@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      RectangularVolumeRecord2
-    created:    21:08:2009
+    created:    21/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a moving rectangular volume.
@@ -59,7 +59,7 @@ public:
 
     static const KUINT16 RECTANGLE_VOLUME_RECORD_2_SIZE = 88;
 
-    RectangularVolumeRecord2( void );
+    RectangularVolumeRecord2();
 
     RectangularVolumeRecord2( KDataStream & stream ) throw( KException );
 
@@ -67,7 +67,7 @@ public:
                               const Vector & DDT, const EulerAngles & Orientation, const Vector & Velocity,
                               const Vector & AngularVelocity );
 
-    virtual ~RectangularVolumeRecord2( void );
+    virtual ~RectangularVolumeRecord2();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::SetDOverDt
@@ -126,5 +126,5 @@ public:
     KBOOL operator != ( const RectangularVolumeRecord2 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

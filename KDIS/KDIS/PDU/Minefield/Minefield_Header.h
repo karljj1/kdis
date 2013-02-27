@@ -58,11 +58,11 @@ public:
 
     static const KUINT16 MINEFIELD_HEADER_SIZE = 18;
 
-    Minefield_Header( void );
+    Minefield_Header();
 
     Minefield_Header( KDataStream & stream ) throw( KException );
 
-    virtual ~Minefield_Header( void );
+    virtual ~Minefield_Header();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Header::SetMinefieldID
@@ -100,5 +100,5 @@ public:
     KBOOL operator != ( const Minefield_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

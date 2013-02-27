@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Record_R_PDU::Record_R_PDU( void ) :
+Record_R_PDU::Record_R_PDU() :
     m_ui16EvntTyp( 0 ),
     m_ui32SrlNm( 0 )
 {
@@ -71,7 +71,7 @@ Record_R_PDU::Record_R_PDU( const EntityIdentifier & OriginatingEntityID, const 
 
 //////////////////////////////////////////////////////////////////////////
 
-Record_R_PDU::~Record_R_PDU( void )
+Record_R_PDU::~Record_R_PDU()
 {
 }
 

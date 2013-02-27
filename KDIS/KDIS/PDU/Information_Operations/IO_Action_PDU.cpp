@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IO_Action_PDU::IO_Action_PDU( void ) :
+IO_Action_PDU::IO_Action_PDU() :
     m_ui32ReqId( 0 ),
     m_ui16WrTyp( 0 ),
     m_ui16SimSrc( 0 ),
@@ -86,7 +86,7 @@ IO_Action_PDU::IO_Action_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Action_PDU::~IO_Action_PDU( void )
+IO_Action_PDU::~IO_Action_PDU()
 {
 }
 

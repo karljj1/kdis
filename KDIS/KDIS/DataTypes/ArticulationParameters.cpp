@@ -40,7 +40,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ArticulationParameters::ArticulationParameters( void ) :
+ArticulationParameters::ArticulationParameters() :
     m_ui8ArticulationType( 0 ),
     m_ui8ParmeterChange( 0 ),
     m_ui16AttachementID( 0 ),
@@ -77,7 +77,7 @@ ArticulationParameters::ArticulationParameters( ArticulationType AT, KUINT8 Para
 
 //////////////////////////////////////////////////////////////////////////
 
-ArticulationParameters::~ArticulationParameters( void )
+ArticulationParameters::~ArticulationParameters()
 {
 }
 

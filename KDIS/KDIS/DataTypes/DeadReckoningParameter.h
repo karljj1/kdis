@@ -63,20 +63,20 @@ public:
 
     static const KUINT16 DEAD_RECKONING_PARAMETER_SIZE = 40;
 
-    DeadReckoningParameter( void );
+    DeadReckoningParameter();
 
     DeadReckoningParameter( KDataStream & stream ) throw( KException );
 
     DeadReckoningParameter( DeadReckoningAlgorithm DRA, const Vector & LinearAcceleration,
                             const Vector & AngularVelocity );
 
-    virtual ~DeadReckoningParameter( void );
+    virtual ~DeadReckoningParameter();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetDeadReckoningAlgorithm
     //              KDIS::DATA_TYPE::DeadReckoningParameter::GetDeadReckoningAlgorithm
     // Description: Dead Reckoning Algorithm
-    // Parameter:   DeadReckoningAlgorithm DRA, void
+    // Parameter:   DeadReckoningAlgorithm DRA
     //************************************
     void SetDeadReckoningAlgorithm( DeadReckoningAlgorithm DRA );
     DeadReckoningAlgorithm GetDeadReckoningAlgorithm() const;
@@ -85,7 +85,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetLinearAcceleration
     //              KDIS::DATA_TYPE::DeadReckoningParameter::GetLinearAcceleration
     // Description: Linear Acceleration in m/s.
-    // Parameter:   const Vector & LA, void
+    // Parameter:   const Vector & LA
     //************************************
     void SetLinearAcceleration( const Vector & LA );
     const Vector & GetLinearAcceleration() const;
@@ -110,7 +110,6 @@ public:
     void SetQuatAxis( const Vector & QA );
     const Vector GetQuatAxis() const;
     Vector GetQuatAxis();
-
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::GetAsString
@@ -137,5 +136,5 @@ public:
     KBOOL operator != ( const DeadReckoningParameter & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

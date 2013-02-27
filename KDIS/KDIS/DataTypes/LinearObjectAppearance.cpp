@@ -38,7 +38,7 @@ using namespace std;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-LinearObjectAppearance::LinearObjectAppearance( void )
+LinearObjectAppearance::LinearObjectAppearance()
 {
     m_SpecificAppearanceUnion.m_ui32SpecificAppearance = 0;
 }
@@ -52,7 +52,7 @@ LinearObjectAppearance::LinearObjectAppearance( KDataStream & stream ) throw( KE
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearObjectAppearance::~LinearObjectAppearance( void )
+LinearObjectAppearance::~LinearObjectAppearance()
 {
 }
 

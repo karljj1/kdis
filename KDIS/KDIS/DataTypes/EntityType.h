@@ -69,7 +69,7 @@ public:
 
     static const KUINT16 ENTITY_TYPE_SIZE = 8;
 
-    EntityType( void );
+    EntityType();
 
     EntityType( EntityKind Kind, KUINT8 Domain, Country Country, KUINT8 Categoy,
                 KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra );
@@ -79,7 +79,7 @@ public:
 
     EntityType( KDataStream & stream ) throw( KException );
 
-    virtual ~EntityType( void );
+    virtual ~EntityType();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetEntityKind
@@ -182,6 +182,6 @@ public:
     KBOOL operator  < ( const EntityType & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

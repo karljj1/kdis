@@ -37,7 +37,7 @@ using namespace DATA_TYPE;
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-LE_Vector<Type>::LE_Vector( void )
+LE_Vector<Type>::LE_Vector()
 {
 }
 
@@ -62,7 +62,7 @@ LE_Vector<Type>::LE_Vector( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-LE_Vector<Type>::~LE_Vector( void )
+LE_Vector<Type>::~LE_Vector()
 {
 }
 

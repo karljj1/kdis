@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( void ) :
+Transfer_Control_Request_PDU::Transfer_Control_Request_PDU() :
     m_ui32ReqID( 0 ),
     m_ui8ReqRelSrv( 0 ),
     m_ui8TrnTyp( 0 ),
@@ -86,7 +86,7 @@ Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( KUINT32 ReqID, Requi
 
 //////////////////////////////////////////////////////////////////////////
 
-Transfer_Control_Request_PDU::~Transfer_Control_Request_PDU( void )
+Transfer_Control_Request_PDU::~Transfer_Control_Request_PDU()
 {
     m_vRecs.clear();
 }

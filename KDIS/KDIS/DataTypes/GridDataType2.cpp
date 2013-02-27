@@ -38,7 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType2::GridDataType2( void ) :
+GridDataType2::GridDataType2() :
     m_ui16NumValues( 0 ),
     m_ui16Padding( 0 )
 {
@@ -84,7 +84,7 @@ GridDataType2::GridDataType2( KUINT16 SampleType, const std::vector<KFLOAT32> & 
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType2::~GridDataType2( void )
+GridDataType2::~GridDataType2()
 {
 }
 

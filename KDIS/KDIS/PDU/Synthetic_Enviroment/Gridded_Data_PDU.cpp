@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Gridded_Data_PDU::Gridded_Data_PDU( void ) :
+Gridded_Data_PDU::Gridded_Data_PDU() :
     m_ui16FieldNum( 0 ),
     m_ui16PDUNum( 0 ),
     m_ui16PDUTotal( 0 ),
@@ -103,7 +103,7 @@ Gridded_Data_PDU::Gridded_Data_PDU( const EntityIdentifier & EnvironmentalProces
 
 //////////////////////////////////////////////////////////////////////////
 
-Gridded_Data_PDU::~Gridded_Data_PDU( void )
+Gridded_Data_PDU::~Gridded_Data_PDU()
 {
 }
 

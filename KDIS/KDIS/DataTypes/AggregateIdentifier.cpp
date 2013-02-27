@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::AggregateIdentifier( void ) :
+AggregateIdentifier::AggregateIdentifier() :
     m_ui16AggregateID( 0 )
 {
 }
@@ -66,7 +66,7 @@ AggregateIdentifier::AggregateIdentifier( KDataStream & stream ) throw( KExcepti
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::~AggregateIdentifier( void )
+AggregateIdentifier::~AggregateIdentifier()
 {
 }
 

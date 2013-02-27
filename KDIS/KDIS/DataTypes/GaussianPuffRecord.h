@@ -70,7 +70,7 @@ public:
 
     static const KUINT16 GAUSSIAN_PUFF_RECORD_SIZE = 120;
 
-    GaussianPuffRecord( void );
+    GaussianPuffRecord();
 
     GaussianPuffRecord( KDataStream & stream ) throw( KException );
 
@@ -78,7 +78,7 @@ public:
                         const Vector & Sigma, const Vector & DDT, const EulerAngles & Orientation, const Vector & Velocity,
                         const Vector & AngularVelocity, KFLOAT32 CentroidHeight );
 
-    virtual ~GaussianPuffRecord( void );
+    virtual ~GaussianPuffRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GaussianPuffRecord::SetPuffLocation
@@ -186,5 +186,5 @@ public:
     KBOOL operator != ( const GaussianPuffRecord & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

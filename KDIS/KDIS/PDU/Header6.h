@@ -81,14 +81,14 @@ public:
 
     static const KUINT16 HEADER6_PDU_SIZE = 12;
 
-    Header6( void );
+    Header6();
 
     Header6( KDataStream & stream ) throw( KException );
 
     Header6( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFamily PF,
              const TimeStamp & TS, KUINT16 PDULength );
 
-    virtual ~Header6( void );
+    virtual ~Header6();
 
     //************************************
     // FullName:    KDIS::PDU::Header6::SetProtocolVersion
@@ -193,5 +193,5 @@ public:
     KBOOL operator != ( const Header6 & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

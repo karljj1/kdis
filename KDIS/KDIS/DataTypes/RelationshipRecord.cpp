@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-RelationshipRecord::RelationshipRecord( void ) :
+RelationshipRecord::RelationshipRecord() :
     m_ui16Nature( 0 ),
     m_ui16Pos( 0 )
 {
@@ -60,7 +60,7 @@ RelationshipRecord::RelationshipRecord( RelationshipNature N, RelationshipPositi
 
 //////////////////////////////////////////////////////////////////////////
 
-RelationshipRecord::~RelationshipRecord( void )
+RelationshipRecord::~RelationshipRecord()
 {
 }
 

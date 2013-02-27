@@ -59,7 +59,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-EnvironmentRecord::EnvironmentRecord( void ) :
+EnvironmentRecord::EnvironmentRecord() :
     m_ui32EnvRecTyp( 0 ),
     m_ui16Length( 0 ),
     m_ui8Index( 0 ),
@@ -69,7 +69,7 @@ EnvironmentRecord::EnvironmentRecord( void ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-EnvironmentRecord::~EnvironmentRecord( void )
+EnvironmentRecord::~EnvironmentRecord()
 {
 }
 

@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FundamentalParameterData( void ) :
+IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FundamentalParameterData() :
     m_f32ERP( 0 ),
     m_f32Freq( 0 ),
     m_f32PgRF( 0 ),
@@ -73,7 +73,7 @@ IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FundamentalParameterDa
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_FundamentalParameterData::~IFF_ATC_NAVAIDS_FundamentalParameterData( void )
+IFF_ATC_NAVAIDS_FundamentalParameterData::~IFF_ATC_NAVAIDS_FundamentalParameterData()
 {
 }
 

@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldAppearance::MinefieldAppearance( void )
+MinefieldAppearance::MinefieldAppearance()
 {
     m_ui16BitUnion.m_ui16App = 0;
 }
@@ -62,7 +62,7 @@ MinefieldAppearance::MinefieldAppearance( KDataStream & stream ) throw( KExcepti
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldAppearance::~MinefieldAppearance( void )
+MinefieldAppearance::~MinefieldAppearance()
 {
 }
 

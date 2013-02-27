@@ -43,7 +43,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-TimeStamp::TimeStamp( void ) :
+TimeStamp::TimeStamp() :
     m_bAutoCalcRel( false )
 {
     m_TimeStampUnion.m_ui32TimeStamp = 0;
@@ -67,7 +67,7 @@ TimeStamp::TimeStamp( TimeStampType T, KUINT32 Time, KBOOL AutoCalcRelative /*= 
 
 //////////////////////////////////////////////////////////////////////////
 
-TimeStamp::~TimeStamp( void )
+TimeStamp::~TimeStamp()
 {
 }
 

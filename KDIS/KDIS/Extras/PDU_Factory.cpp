@@ -119,13 +119,13 @@ auto_ptr<Header> PDU_Factory::applyFilters( Header * H )
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-PDU_Factory::PDU_Factory( void )
+PDU_Factory::PDU_Factory()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PDU_Factory::~PDU_Factory( void )
+PDU_Factory::~PDU_Factory()
 {
     // Delete the filters
     vector<PDU_Factory_Filter*>::iterator itr = m_vFilters.begin();

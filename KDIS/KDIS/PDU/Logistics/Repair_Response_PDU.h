@@ -63,14 +63,14 @@ public:
 
     static const KUINT16 REPAIR_RESPONSE_PDU_SIZE = 28;
 
-    Repair_Response_PDU( void );
+    Repair_Response_PDU();
 
     Repair_Response_PDU( KDataStream & stream ) throw( KException );
 
     Repair_Response_PDU( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID,
                          RepairResult RR );
 
-    virtual ~Repair_Response_PDU( void );
+    virtual ~Repair_Response_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Repair_Response_PDU::SetRepairResult
@@ -107,5 +107,5 @@ public:
     KBOOL operator != ( const Repair_Response_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

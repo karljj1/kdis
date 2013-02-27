@@ -67,7 +67,7 @@ public:
 
     static const KUINT16 RADIO_ENTITY_TYPE_SIZE = 8;
 
-    RadioEntityType( void );
+    RadioEntityType();
 
     RadioEntityType( EntityKind Kind, KUINT8  Domain, Country Country, KUINT8  Categoy,
                      KUINT8  NomenclatureVersion, KUINT16 Nomenclature );
@@ -77,7 +77,7 @@ public:
 
     RadioEntityType( KDataStream & stream ) throw( KException );
 
-    virtual ~RadioEntityType( void );
+    virtual ~RadioEntityType();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetEntityKind
@@ -158,6 +158,6 @@ public:
     KBOOL operator != ( const RadioEntityType & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

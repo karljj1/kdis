@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData( void ) :
+FundamentalOperationalData::FundamentalOperationalData() :
     m_ui8SystemStatus( 0 ),
     m_ui8AltParam4( 0 ),
     m_ui8InfoLayers( 0 ),
@@ -87,7 +87,7 @@ FundamentalOperationalData::FundamentalOperationalData( const FundamentalOperati
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::~FundamentalOperationalData( void )
+FundamentalOperationalData::~FundamentalOperationalData()
 {
 }
 

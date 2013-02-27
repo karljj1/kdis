@@ -56,7 +56,7 @@ public:
 
     static const KUINT16 ENTITY_IDENTIFER_SIZE = 6;
 
-    EntityIdentifier( void );
+    EntityIdentifier();
 
     EntityIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID, KUINT16 EntityID );
 
@@ -64,7 +64,7 @@ public:
 
     EntityIdentifier( KDataStream & stream ) throw( KException );
 
-    virtual ~EntityIdentifier( void );
+    virtual ~EntityIdentifier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityIdentifier::SetEntityID
@@ -101,6 +101,6 @@ public:
     KBOOL operator <  ( const EntityIdentifier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

@@ -228,6 +228,6 @@ KString GetEnumAsStringPaintScheme( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringPaintScheme( const KString & Value, KINT32 & ValueOut );
 
-}; // END namespace ENUMS
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace ENUMS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

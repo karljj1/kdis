@@ -117,7 +117,7 @@ public:
 
     static const KUINT16 MINEFIELD_DATA_PDU_SIZE = 44; // Min size
 
-    Minefield_Data_PDU( void );
+    Minefield_Data_PDU();
 
     Minefield_Data_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
                         KUINT16 SeqNum, KUINT8 RequestID, KUINT8 PduSeqNum, KUINT8 NumPdus,
@@ -125,7 +125,7 @@ public:
 
     Minefield_Data_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Minefield_Data_PDU( void );
+    virtual ~Minefield_Data_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::SetRequestingSimulationID
@@ -274,5 +274,5 @@ public:
     KBOOL operator != ( const Minefield_Data_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

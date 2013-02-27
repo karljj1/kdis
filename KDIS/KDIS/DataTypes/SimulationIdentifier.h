@@ -60,13 +60,13 @@ public:
 
     static const KUINT16 SIMULATION_IDENTIFIER_SIZE = 4;
 
-    SimulationIdentifier( void );
+    SimulationIdentifier();
 
     SimulationIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID );
 
     SimulationIdentifier( KDataStream & stream ) throw( KException );
 
-    virtual ~SimulationIdentifier( void );
+    virtual ~SimulationIdentifier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SimulationIdentifier::SetSiteID
@@ -127,6 +127,6 @@ public:
     KBOOL operator <  ( const SimulationIdentifier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

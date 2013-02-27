@@ -58,13 +58,13 @@ public:
     // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
     static const KUINT16 SERVICE_REQUEST_PDU_SIZE = 28; // Does not include supply size
 
-    Service_Request_PDU( void );
+    Service_Request_PDU();
 
     Service_Request_PDU( KDataStream & stream ) throw( KException );
 
     Service_Request_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, ServiceTypeRequested STR );
 
-    virtual ~Service_Request_PDU( void );
+    virtual ~Service_Request_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Service_Request_PDU::SetServiceTypeRequested
@@ -101,5 +101,5 @@ public:
     KBOOL operator != ( const Service_Request_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

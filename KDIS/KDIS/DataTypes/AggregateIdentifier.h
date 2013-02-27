@@ -55,7 +55,7 @@ public:
 
     static const KUINT16 AGGREGATE_IDENTIFER_SIZE = 6;
 
-    AggregateIdentifier( void );
+    AggregateIdentifier();
 
     AggregateIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID, KUINT16 AggregateID );
 
@@ -63,7 +63,7 @@ public:
 
     AggregateIdentifier( KDataStream & stream ) throw( KException );
 
-    virtual ~AggregateIdentifier( void );
+    virtual ~AggregateIdentifier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::SetAggregateID
@@ -100,6 +100,6 @@ public:
     KBOOL operator  < ( const AggregateIdentifier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

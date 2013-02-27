@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::EntityMarking( void ) :
+EntityMarking::EntityMarking() :
     m_ui8EntityMarkingCharacterSet( 0 )
 {
     memset( m_sEntityMarkingString, 0x00, sizeof( m_sEntityMarkingString ) );
@@ -74,7 +74,7 @@ EntityMarking::EntityMarking( const EntityMarkingCharacterSet MarkingCharSet, co
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::~EntityMarking( void )
+EntityMarking::~EntityMarking()
 {
 }
 

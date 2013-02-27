@@ -53,13 +53,13 @@ public:
 
     static const KUINT16 COMMENT_R_PDU_SIZE = 32; // Min size
 
-    Comment_R_PDU( void );
+    Comment_R_PDU();
 
     Comment_R_PDU( KDataStream & stream ) throw( KException );
 
     Comment_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
 
-    virtual ~Comment_R_PDU( void );
+    virtual ~Comment_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Comment_R_PDU::GetAsString
@@ -72,5 +72,5 @@ public:
     KBOOL operator != ( const Comment_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

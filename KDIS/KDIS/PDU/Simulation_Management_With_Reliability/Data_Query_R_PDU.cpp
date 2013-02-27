@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_R_PDU::Data_Query_R_PDU( void )
+Data_Query_R_PDU::Data_Query_R_PDU()
 {
     m_ui8PDUType = DataQuery_R_PDU_Type;
     m_ui16PDULength = DATA_QUERY_R_PDU_SIZE;
@@ -66,7 +66,7 @@ Data_Query_R_PDU::Data_Query_R_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_R_PDU::~Data_Query_R_PDU( void )
+Data_Query_R_PDU::~Data_Query_R_PDU()
 {
 }
 

@@ -41,7 +41,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityDestinationRecord::EntityDestinationRecord( void ) :
+EntityDestinationRecord::EntityDestinationRecord() :
     m_ui16DstCommsDvcID( 0 ),
     m_ui8DstLineID( 0 ),
     m_ui8DstPriority( 0 ),
@@ -72,7 +72,7 @@ EntityDestinationRecord::EntityDestinationRecord( const EntityIdentifier & ID, K
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDestinationRecord::~EntityDestinationRecord( void )
+EntityDestinationRecord::~EntityDestinationRecord()
 {
 }
 

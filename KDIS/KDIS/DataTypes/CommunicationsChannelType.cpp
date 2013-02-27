@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsChannelType::CommunicationsChannelType( void ) :
+CommunicationsChannelType::CommunicationsChannelType() :
     m_ui8Type( 0 ),
     m_ui8Class( 0 )
 {
@@ -59,7 +59,7 @@ CommunicationsChannelType::CommunicationsChannelType( ChannelType CT, ChannelCla
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsChannelType::~CommunicationsChannelType( void )
+CommunicationsChannelType::~CommunicationsChannelType()
 {
 }
 

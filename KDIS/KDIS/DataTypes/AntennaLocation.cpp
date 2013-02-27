@@ -39,7 +39,7 @@ using namespace DATA_TYPE;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-AntennaLocation::AntennaLocation( void )
+AntennaLocation::AntennaLocation()
 {
 }
 
@@ -60,7 +60,7 @@ AntennaLocation::AntennaLocation( const WorldCoordinates & Location, const Vecto
 
 //////////////////////////////////////////////////////////////////////////
 
-AntennaLocation::~AntennaLocation( void )
+AntennaLocation::~AntennaLocation()
 {
 }
 

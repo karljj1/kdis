@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      LineRecord1
-    created:    17:08:2009
+    created:    17/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a line.
@@ -56,13 +56,13 @@ public:
 
     static const KUINT16 LINE_RECORD_1_SIZE = 56;
 
-    LineRecord1( void );
+    LineRecord1();
 
     LineRecord1( KDataStream & stream ) throw( KException );
 
     LineRecord1( KUINT8 Index, const WorldCoordinates & Start, const WorldCoordinates & End  );
 
-    virtual ~LineRecord1( void );
+    virtual ~LineRecord1();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LineRecord1::SetLocation
@@ -117,5 +117,5 @@ public:
     KBOOL operator != ( const LineRecord1 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

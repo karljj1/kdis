@@ -67,13 +67,13 @@ public:
 
     static const KUINT16 MINEFIELD_APPEARANCE_SIZE = 2;
 
-    MinefieldAppearance( void );
+    MinefieldAppearance();
 
     MinefieldAppearance( MinefieldType T, KBOOL IsStatusActive, KBOOL IsLaneActive, KBOOL IsStateActive );
 
     MinefieldAppearance( KDataStream & stream ) throw( KException );
 
-    virtual ~MinefieldAppearance( void );
+    virtual ~MinefieldAppearance();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinefieldAppearance::SetMinefieldType
@@ -142,6 +142,6 @@ public:
     KBOOL operator != ( const MinefieldAppearance & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

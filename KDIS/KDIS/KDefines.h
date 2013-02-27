@@ -208,7 +208,7 @@ public:
         m_sErrorText = ss.str();
     };
 
-    virtual ~KException( void ) throw()
+    virtual ~KException() throw()
     {
     };
 
@@ -228,7 +228,7 @@ enum Endian
     Big_Endian     = 1
 };
 
-}; // END namespace KDIS
+} // END namespace KDIS
 
 
 

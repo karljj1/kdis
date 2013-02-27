@@ -97,7 +97,7 @@ public:
 
     static const KUINT16 IO_ACTION_PDU_SIZE = 56;
 
-    IO_Action_PDU( void );
+    IO_Action_PDU();
 
     IO_Action_PDU( const EntityIdentifier & OrigID, const EntityIdentifier & RecvID, KUINT32 ReqID,
                    WarfareType WT, KUINT16 SimSrc, ActionType AT, ActionPhase AP,
@@ -105,7 +105,7 @@ public:
 
     IO_Action_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~IO_Action_PDU( void );
+    virtual ~IO_Action_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::SetReceivingEntityID
@@ -236,5 +236,5 @@ public:
     KBOOL operator != ( const IO_Action_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

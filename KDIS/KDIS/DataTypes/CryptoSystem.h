@@ -67,13 +67,13 @@ public:
 
     static const KUINT16 CRYPTO_SYSTEM_SIZE = 4;
 
-    CryptoSystem( void );
+    CryptoSystem();
 
     CryptoSystem( KDataStream & stream )throw( KException );
 
     CryptoSystem( CryptoSystemType CST, EncryptionMode EM, KUINT16 Key );
 
-    virtual ~CryptoSystem( void );
+    virtual ~CryptoSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetCryptoSystemType
@@ -130,5 +130,5 @@ public:
     KBOOL operator != ( const CryptoSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

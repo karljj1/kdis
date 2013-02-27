@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-PropulsionSystem::PropulsionSystem( void ) :
+PropulsionSystem::PropulsionSystem() :
     m_f32PowerSetting( 0 ),
     m_f32EngineRPM( 0 )
 {
@@ -60,7 +60,7 @@ PropulsionSystem::PropulsionSystem( KFLOAT32 PowerSetting, KFLOAT32 EngineRPM ) 
 
 //////////////////////////////////////////////////////////////////////////
 
-PropulsionSystem::~PropulsionSystem( void )
+PropulsionSystem::~PropulsionSystem()
 {
 }
 

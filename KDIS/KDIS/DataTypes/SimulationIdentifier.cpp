@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier::SimulationIdentifier( void ) :
+SimulationIdentifier::SimulationIdentifier() :
     m_ui16SiteID( 0 ),
     m_ui16ApplicationID( 0 )
 {
@@ -59,7 +59,7 @@ SimulationIdentifier::SimulationIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID
 
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier::~SimulationIdentifier( void )
+SimulationIdentifier::~SimulationIdentifier()
 {
 }
 

@@ -43,7 +43,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_PDU::Entity_State_PDU( void ) :
+Entity_State_PDU::Entity_State_PDU() :
     m_ui8NumOfArticulationParams( 0 ),
     m_ui8ForceID( 0 ),
     m_pDrCalc( 0 )
@@ -98,7 +98,7 @@ Entity_State_PDU::Entity_State_PDU( const EntityIdentifier & EI, ForceID ID, con
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_PDU::~Entity_State_PDU( void )
+Entity_State_PDU::~Entity_State_PDU()
 {
     if( m_pDrCalc )
     {

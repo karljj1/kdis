@@ -69,7 +69,7 @@ public:
 
     static const KUINT16 AGGREGATE_TYPE_SIZE = 8;
 
-    AggregateType( void );
+    AggregateType();
 
     AggregateType( AggregateKind Kind, KUINT8  Domain, Country Country, KUINT8  Categoy,
                    KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );
@@ -79,7 +79,7 @@ public:
 
     AggregateType( KDataStream & stream ) throw( KException );
 
-    virtual ~AggregateType( void );
+    virtual ~AggregateType();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateType::SetEntityKind
@@ -170,6 +170,6 @@ public:
     KBOOL operator  < ( const AggregateType & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

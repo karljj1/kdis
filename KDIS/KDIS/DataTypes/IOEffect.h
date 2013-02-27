@@ -72,11 +72,11 @@ public:
     IOEffect( IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
               KUINT16 Duration, KUINT16 Process ) throw( KException );
 
-    IOEffect( void );
+    IOEffect();
 
     IOEffect( KDataStream & stream ) throw( KException );
 
-    virtual ~IOEffect( void );
+    virtual ~IOEffect();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOEffect::SetStatus
@@ -165,5 +165,5 @@ public:
     KBOOL operator != ( const IOEffect & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

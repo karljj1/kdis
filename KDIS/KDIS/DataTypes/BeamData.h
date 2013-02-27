@@ -61,14 +61,14 @@ public:
 
     static const KUINT16 BEAM_DATA_SIZE = 20;
 
-    BeamData( void );
+    BeamData();
 
     BeamData( KDataStream & stream ) throw( KException );
 
     BeamData( KFLOAT32 AziCtr, KFLOAT32 AziSwp, KFLOAT32 EleCtr,
               KFLOAT32 EleSwp, KFLOAT32 SwpSyn );
 
-    virtual ~BeamData( void );
+    virtual ~BeamData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::BeamData::SetAzimuthCenter
@@ -152,6 +152,6 @@ public:
     KBOOL operator != ( const BeamData & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

@@ -65,14 +65,14 @@ public:
 
     static const KUINT16 FLARE_STATE_SIZE = 32;
 
-    FlareState( void );
+    FlareState();
 
     FlareState( KDataStream & stream ) throw( KException );
 
     FlareState( KUINT8 Index, KUINT32 TimeSinceCreation, const EntityType & MunitionSource,
                 KUINT32 NumberIntensity, KUINT32 NumberOfSources, KUINT16 GeometryIndex );
 
-    virtual ~FlareState( void );
+    virtual ~FlareState();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FlareState::SetTimeSinceCreation
@@ -145,5 +145,5 @@ public:
     KBOOL operator != ( const FlareState & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

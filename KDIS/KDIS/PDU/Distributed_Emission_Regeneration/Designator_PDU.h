@@ -88,7 +88,7 @@ public:
 
     static const KUINT16 DESIGNATOR_PDU_SIZE = 88;
 
-    Designator_PDU( void );
+    Designator_PDU();
 
     Designator_PDU( KDataStream & stream ) throw( KException );
 
@@ -98,7 +98,7 @@ public:
                     const WorldCoordinates & SpotLocation, DeadReckoningAlgorithm DRA,
                     const Vector & EntityLinearAcceleration );
 
-    virtual ~Designator_PDU( void );
+    virtual ~Designator_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetDesignatingEntityID
@@ -227,5 +227,5 @@ public:
     KBOOL operator != ( const Designator_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -59,13 +59,13 @@ public:
 
     static const KUINT16 ANTENNA_LOCATION_SIZE = 36;
 
-    AntennaLocation( void );
+    AntennaLocation();
 
     AntennaLocation( KDataStream & stream )throw( KException );
 
     AntennaLocation( const WorldCoordinates & Location, const Vector & RelativeLocation );
 
-    virtual ~AntennaLocation( void );
+    virtual ~AntennaLocation();
 
     //************************************
     // FullName:    KDIS::DataTypes::AntennaLocation::SetAntennaLocation
@@ -112,5 +112,5 @@ public:
     KBOOL operator != ( const AntennaLocation & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

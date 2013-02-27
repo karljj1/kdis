@@ -41,7 +41,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Attribute_PDU::Attribute_PDU( void ) :
+Attribute_PDU::Attribute_PDU() :
     m_ui32Padding( 0 ),
     m_ui16Padding( 0 ),
     m_ui8ExtPDUType( 0 ),
@@ -86,7 +86,7 @@ Attribute_PDU::Attribute_PDU( const SimulationIdentifier & OriginatingID, PDUTyp
 
 //////////////////////////////////////////////////////////////////////////
 
-Attribute_PDU::~Attribute_PDU( void )
+Attribute_PDU::~Attribute_PDU()
 {
 }
 

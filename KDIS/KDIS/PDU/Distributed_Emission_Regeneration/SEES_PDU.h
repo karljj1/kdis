@@ -79,14 +79,14 @@ public:
 
     static const KUINT16 SEES_PDU_SIZE = 28; // Min size
 
-    SEES_PDU( void );
+    SEES_PDU();
 
     SEES_PDU( KDataStream & stream ) throw( KException );
 
     SEES_PDU( const EntityIdentifier & OriginatingEnt, KUINT16 IrSigIndex, KUINT16 AcousticSigIndex,
               KUINT16 RadarCrossSectionSigIndex );
 
-    virtual ~SEES_PDU( void );
+    virtual ~SEES_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::SEES_PDU::SetOriginatingEntityID
@@ -192,5 +192,5 @@ public:
     KBOOL operator != ( const SEES_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

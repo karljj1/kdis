@@ -93,11 +93,11 @@ public:
 
     static const KUINT16 COLLISION_ELASTIC_PDU_SIZE = 100;
 
-    Collision_Elastic_PDU( void );
+    Collision_Elastic_PDU();
 
     Collision_Elastic_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Collision_Elastic_PDU( void );
+    virtual ~Collision_Elastic_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetIssuingEntityID
@@ -238,5 +238,5 @@ public:
     KBOOL operator != ( const Collision_Elastic_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

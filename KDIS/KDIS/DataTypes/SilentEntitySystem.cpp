@@ -39,7 +39,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SilentEntitySystem::SilentEntitySystem( void ) :
+SilentEntitySystem::SilentEntitySystem() :
     m_ui16NumEnts( 0 )
 {
 }
@@ -53,7 +53,7 @@ SilentEntitySystem::SilentEntitySystem( KDataStream & stream ) throw( KException
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentEntitySystem::~SilentEntitySystem( void )
+SilentEntitySystem::~SilentEntitySystem()
 {
     m_vEA.clear();
 }

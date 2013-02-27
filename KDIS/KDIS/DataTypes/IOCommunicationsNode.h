@@ -61,13 +61,13 @@ public:
 
     static const KUINT16 IO_COMMUNICATIONS_NODE_SIZE = 16;
 
-    IOCommunicationsNode( void );
+    IOCommunicationsNode();
 
     IOCommunicationsNode( KDataStream & stream ) throw( KException );
 
     IOCommunicationsNode( IOCommunicationsNodeType T, const CommunicationsNodeID & ID );
 
-    virtual ~IOCommunicationsNode( void );
+    virtual ~IOCommunicationsNode();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::SetIOCommunicationsNodeType
@@ -113,5 +113,5 @@ public:
     KBOOL operator != ( const IOCommunicationsNode & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

@@ -66,7 +66,7 @@ public:
 
     static const KUINT16 GRID_DATA_TYPE0_SIZE = 8; // Min size
 
-    GridDataType0( void );
+    GridDataType0();
 
     GridDataType0( KDataStream & stream ) throw( KException );
 
@@ -76,7 +76,7 @@ public:
 
     GridDataType0( KUINT16 SampleType, KUINT8 * Data, KUINT16 NumBytes );
 
-    virtual ~GridDataType0( void );
+    virtual ~GridDataType0();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridDataType0::Encode
@@ -136,6 +136,6 @@ public:
     KBOOL operator != ( const GridDataType0 & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

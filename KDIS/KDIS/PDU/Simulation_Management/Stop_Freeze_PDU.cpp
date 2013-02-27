@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( void )
+Stop_Freeze_PDU::Stop_Freeze_PDU()
 {
     m_ui8PDUType = Stop_Freeze_PDU_Type;
     m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
@@ -94,7 +94,7 @@ Stop_Freeze_PDU::Stop_Freeze_PDU( const Simulation_Management_Header & SimMgrHea
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::~Stop_Freeze_PDU( void )
+Stop_Freeze_PDU::~Stop_Freeze_PDU()
 {
 }
 

@@ -58,11 +58,11 @@ public:
 
     static const KUINT16 LE_HEADER_SIZE = 16;
 
-    LE_Header( void );
+    LE_Header();
 
     LE_Header( KDataStream & stream ) throw( KException );
 
-    virtual ~LE_Header( void );
+    virtual ~LE_Header();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Header::SetLiveEntityID
@@ -109,5 +109,5 @@ public:
     KBOOL operator != ( const LE_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

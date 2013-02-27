@@ -42,7 +42,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-VariableDatum::VariableDatum( void ) :
+VariableDatum::VariableDatum() :
     m_ui32DatumLength( 0 ),
     m_ui32DatumID( 0 )
 {
@@ -75,7 +75,7 @@ VariableDatum::VariableDatum( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableDatum::~VariableDatum( void )
+VariableDatum::~VariableDatum()
 {
 }
 

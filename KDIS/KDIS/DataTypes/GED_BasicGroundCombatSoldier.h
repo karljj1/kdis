@@ -73,7 +73,7 @@ public:
 
     static const KUINT16 GED_BASIC_GROUND_COMBAT_SOLDIER_SIZE = 20;
 
-    GED_BasicGroundCombatSoldier( void );
+    GED_BasicGroundCombatSoldier();
 
     GED_BasicGroundCombatSoldier( KDataStream & stream )throw( KException );
 
@@ -81,7 +81,7 @@ public:
                                   KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed, KINT8 HeadAzimuth, KINT8 HeadElevation,
                                   KINT8 HeadScanRate, KINT8 HeadElevationRate );
 
-    virtual ~GED_BasicGroundCombatSoldier( void );
+    virtual ~GED_BasicGroundCombatSoldier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_BasicGroundCombatSoldier::GetGroupedEntityCategory
@@ -233,6 +233,6 @@ public:
     KBOOL operator != ( const GED_BasicGroundCombatSoldier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

@@ -62,13 +62,13 @@ public:
 
     static const KUINT16 OBJECT_TYPE_SIZE = 4;
 
-    ObjectType( void );
+    ObjectType();
 
     ObjectType( KUINT8 Domain, KUINT8 Kind, KUINT8  Categoy, KUINT8 SubCategory );
 
     ObjectType( KDataStream & stream ) throw( KException );
 
-    virtual ~ObjectType( void );
+    virtual ~ObjectType();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ObjectType::SetDomain
@@ -132,6 +132,6 @@ public:
     KBOOL operator  < ( const ObjectType & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

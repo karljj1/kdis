@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridData::GridData( void ) :
+GridData::GridData() :
     m_ui16SmpTyp( 0 ),
     m_ui16DtRep( 0 )
 {
@@ -52,7 +52,7 @@ GridData::GridData( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-GridData::~GridData( void )
+GridData::~GridData()
 {
 }
 

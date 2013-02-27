@@ -67,11 +67,11 @@ public:
 
     static const KUINT16 AREAL_OBJECT_APPEARANCE_SIZE = 6;
 
-    ArealObjectAppearance( void );
+    ArealObjectAppearance();
 
     ArealObjectAppearance( KDataStream & stream ) throw( KException );
 
-    virtual ~ArealObjectAppearance( void );
+    virtual ~ArealObjectAppearance();
 
     /************************************************************************/
     /* The following appearance values are only for areal's of the type:    */
@@ -122,5 +122,5 @@ public:
     KBOOL operator != ( const ArealObjectAppearance & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

@@ -39,7 +39,7 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicGroundCombatSoldier::GED_BasicGroundCombatSoldier( void ) :
+GED_BasicGroundCombatSoldier::GED_BasicGroundCombatSoldier() :
     m_ui16EntityID( 0 ),
     m_i8Spd( 0 ),
     m_i8HdAz( 0 ),
@@ -84,7 +84,7 @@ GED_BasicGroundCombatSoldier::GED_BasicGroundCombatSoldier( KUINT16 ID, KINT16 X
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicGroundCombatSoldier::~GED_BasicGroundCombatSoldier( void )
+GED_BasicGroundCombatSoldier::~GED_BasicGroundCombatSoldier()
 {
 }
 

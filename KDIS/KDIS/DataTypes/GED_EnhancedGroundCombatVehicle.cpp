@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatVehicle::GED_EnhancedGroundCombatVehicle( void ) :
+GED_EnhancedGroundCombatVehicle::GED_EnhancedGroundCombatVehicle() :
     m_ui8FuelStatus( 0 ),
     m_ui8GrndMaintStatus( 0 ),
     m_ui8PriAmmun( 0 ),
@@ -81,7 +81,7 @@ GED_EnhancedGroundCombatVehicle::GED_EnhancedGroundCombatVehicle( const GED_Basi
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatVehicle::~GED_EnhancedGroundCombatVehicle( void )
+GED_EnhancedGroundCombatVehicle::~GED_EnhancedGroundCombatVehicle()
 {
 }
 

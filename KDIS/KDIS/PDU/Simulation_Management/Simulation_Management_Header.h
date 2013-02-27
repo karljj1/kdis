@@ -59,13 +59,13 @@ public:
 
     static const KUINT16 SIMULATION_MANAGEMENT_HEADER_SIZE = 24;
 
-    Simulation_Management_Header( void );
+    Simulation_Management_Header();
 
     Simulation_Management_Header( KDataStream & stream ) throw( KException );
 
     Simulation_Management_Header( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
 
-    virtual ~Simulation_Management_Header( void );
+    virtual ~Simulation_Management_Header();
 
     //************************************
     // FullName:    KDIS::PDU::Simulation_Management_Header::SetOriginatingEntityID
@@ -113,5 +113,5 @@ public:
     KBOOL operator != ( const Simulation_Management_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Areal_Object_State_PDU::Areal_Object_State_PDU( void ) :
+Areal_Object_State_PDU::Areal_Object_State_PDU() :
     m_ui16NumPoints( 0 )
 {
     m_ui8PDUType = ArealObjectState_PDU_Type;
@@ -99,7 +99,7 @@ Areal_Object_State_PDU::Areal_Object_State_PDU( KUINT8 Modification, const Objec
 
 //////////////////////////////////////////////////////////////////////////
 
-Areal_Object_State_PDU::~Areal_Object_State_PDU( void )
+Areal_Object_State_PDU::~Areal_Object_State_PDU()
 {
 }
 

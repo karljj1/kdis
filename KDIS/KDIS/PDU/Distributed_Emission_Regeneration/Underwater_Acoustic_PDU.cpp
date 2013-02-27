@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Underwater_Acoustic_PDU::Underwater_Acoustic_PDU( void ) :
+Underwater_Acoustic_PDU::Underwater_Acoustic_PDU() :
     m_ui8Padding1( 0 ),
     m_ui8NumAPA( 0 ),
     m_ui8NumEmitterSys( 0 ),
@@ -63,7 +63,7 @@ Underwater_Acoustic_PDU::Underwater_Acoustic_PDU( KDataStream & stream ) throw( 
 
 //////////////////////////////////////////////////////////////////////////
 
-Underwater_Acoustic_PDU::~Underwater_Acoustic_PDU( void )
+Underwater_Acoustic_PDU::~Underwater_Acoustic_PDU()
 {
     m_vShafts.clear();
     m_vAPA.clear();

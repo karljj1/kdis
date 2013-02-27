@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-FixedDatum::FixedDatum( void ) :
+FixedDatum::FixedDatum() :
     m_ui32DatumID( 0 )
 {
     memset( m_cDatumValue, 0, 4 );
@@ -52,7 +52,7 @@ FixedDatum::FixedDatum( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-FixedDatum::~FixedDatum( void )
+FixedDatum::~FixedDatum()
 {
 }
 

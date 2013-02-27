@@ -90,14 +90,14 @@ public:
 
     static const KUINT16 MINEFIELD_QUERY_PDU_SIZE = 40; // Min size
 
-    Minefield_Query_PDU( void );
+    Minefield_Query_PDU();
 
     Minefield_Query_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
                          KUINT8 RequestID, const MinefieldDataFilter & DF, const EntityType & MineTypeFilter );
 
     Minefield_Query_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Minefield_Query_PDU( void );
+    virtual ~Minefield_Query_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::SetRequestingSimulationID
@@ -213,5 +213,5 @@ public:
     KBOOL operator != ( const Minefield_Query_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

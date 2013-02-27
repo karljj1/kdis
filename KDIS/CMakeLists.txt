@@ -875,6 +875,7 @@ SET(KDIS_SRC_EX_H
     ${EX_DIR}/KRef_Ptr.h
     ${EX_DIR}/DeadReckoningCalculator.h
 	${EX_DIR}/PDU_Factory_Filters.h
+	${EX_DIR}/Math.h
 )
 
 SET(KDIS_SRC_EX_CPP 

@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header( void )
+Minefield_Header::Minefield_Header()
 {
     m_ui8ProtocolFamily = Minefield;
     m_ui8ProtocolVersion = IEEE_1278_1A_1998;
@@ -63,7 +63,7 @@ Minefield_Header::Minefield_Header( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::~Minefield_Header( void )
+Minefield_Header::~Minefield_Header()
 {
 }
 

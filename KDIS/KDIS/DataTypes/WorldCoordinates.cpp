@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates::WorldCoordinates( void ) :
+WorldCoordinates::WorldCoordinates() :
     m_f64X( 0 ),
     m_f64Y( 0 ),
     m_f64Z( 0 )
@@ -61,7 +61,7 @@ WorldCoordinates::WorldCoordinates( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates::~WorldCoordinates( void )
+WorldCoordinates::~WorldCoordinates()
 {
 }
 
@@ -123,6 +123,20 @@ KFLOAT64 WorldCoordinates::GetDistance( const WorldCoordinates & Other )
 	WorldCoordinates w = *this - Other;
 	KFLOAT64 f = ( w.m_f64X * w.m_f64X ) + ( w.m_f64Y * w.m_f64Y ) + ( w.m_f64Z * w.m_f64Z );
 	return sqrt( f );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+WorldCoordinates WorldCoordinates::Lerp( const WorldCoordinates & From, const WorldCoordinates & To, KFLOAT32 T )
+{
+	return From + ( ( To - From ) * T );	
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void WorldCoordinates::Lerp( const WorldCoordinates & To, KFLOAT32 T )
+{
+	*this = Lerp( *this, To, T );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -210,6 +224,17 @@ WorldCoordinates WorldCoordinates::operator * ( KFLOAT64 Value ) const
 
 //////////////////////////////////////////////////////////////////////////
 
+WorldCoordinates WorldCoordinates::operator * ( KFLOAT32 Value ) const
+{
+    WorldCoordinates tmp = *this;
+    tmp.m_f64X *= Value;
+    tmp.m_f64Y *= Value;
+    tmp.m_f64Z *= Value;
+    return tmp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 WorldCoordinates WorldCoordinates::operator + ( const WorldCoordinates & Value ) const
 {
     WorldCoordinates tmp = *this;
@@ -277,14 +302,10 @@ KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) throw( KException )
 {
     switch( i )
     {
-    case 0:
-        return m_f64X;
-    case 1:
-        return m_f64Y;
-    case 2:
-        return m_f64Z;
-    default:
-        throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+		case 0:		return m_f64X;
+		case 1:     return m_f64Y;
+		case 2:     return m_f64Z;
+		default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 
@@ -294,14 +315,10 @@ const KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) const throw( KExcepti
 {
     switch( i )
     {
-    case 0:
-        return m_f64X;
-    case 1:
-        return m_f64Y;
-    case 2:
-        return m_f64Z;
-    default:
-        throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+		case 0:		return m_f64X;
+		case 1:		return m_f64Y;
+		case 2:		return m_f64Z;
+		default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 

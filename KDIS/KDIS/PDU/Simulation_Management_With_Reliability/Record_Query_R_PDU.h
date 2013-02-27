@@ -69,14 +69,14 @@ public:
 
     static const KUINT16 RECORD_QUERY_R_PDU_SIZE = 40;
 
-    Record_Query_R_PDU( void );
+    Record_Query_R_PDU();
 
     Record_Query_R_PDU( KDataStream & stream ) throw( KException );
 
     Record_Query_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
                         RequiredReliabilityService RRS, EventType ET, KUINT32 Time );
 
-    virtual ~Record_Query_R_PDU( void );
+    virtual ~Record_Query_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Record_Query_R_PDU::SetRequestID
@@ -152,5 +152,5 @@ public:
     KBOOL operator != ( const Record_Query_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

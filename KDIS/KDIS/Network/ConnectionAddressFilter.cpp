@@ -15,7 +15,7 @@ ConnectionAddressFilter::ConnectionAddressFilter( FilterMode FM /* = AllowAddres
 
 //////////////////////////////////////////////////////////////////////////
 
-ConnectionAddressFilter::~ConnectionAddressFilter( void )
+ConnectionAddressFilter::~ConnectionAddressFilter()
 {
 }
 

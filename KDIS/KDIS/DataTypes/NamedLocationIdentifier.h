@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      NamedLocationIdentifier
-    created:    27:06:2008
+    created:    27/06/2008
     author:     Karl Jones
 
     purpose:    Contaiins information about the discrete positional relationship of the part
@@ -58,13 +58,13 @@ public:
 
     static const KUINT16 NAMED_LOCATION_ID_SIZE = 4;
 
-    NamedLocationIdentifier( void );
+    NamedLocationIdentifier();
 
     NamedLocationIdentifier( KDataStream & stream )throw( KException );
 
     NamedLocationIdentifier( StationName SN,  KUINT16 StationNumber );
 
-    virtual ~NamedLocationIdentifier( void );
+    virtual ~NamedLocationIdentifier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::SetStationName
@@ -112,5 +112,5 @@ public:
     KBOOL operator != ( const NamedLocationIdentifier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

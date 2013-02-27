@@ -51,11 +51,11 @@ public:
 
     static const KUINT16 DATA_QUERY_R_PDU_SIZE = 44;
 
-    Data_Query_R_PDU( void );
+    Data_Query_R_PDU();
 
     Data_Query_R_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Data_Query_R_PDU( void );
+    virtual ~Data_Query_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_R_PDU::GetAsString
@@ -83,6 +83,6 @@ public:
     KBOOL operator != ( const Data_Query_R_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

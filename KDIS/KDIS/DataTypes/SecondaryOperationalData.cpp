@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData::SecondaryOperationalData( void ) :
+SecondaryOperationalData::SecondaryOperationalData() :
     m_ui8Param1( 0 ),
     m_ui8Param2( 0 ),
     m_ui16NumFundParamSets( 0 )
@@ -61,7 +61,7 @@ SecondaryOperationalData::SecondaryOperationalData( KUINT8 Param1, KUINT8 Param2
 
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData::~SecondaryOperationalData( void )
+SecondaryOperationalData::~SecondaryOperationalData()
 {
 }
 

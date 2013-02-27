@@ -73,14 +73,14 @@ public:
 
     static const KUINT16 SIGNAL_PDU_SIZE = 32; // Min Size
 
-    Signal_PDU( void );
+    Signal_PDU();
 
     Signal_PDU( KDataStream & stream ) throw( KException );
 
     Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
                 KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
 
-    virtual ~Signal_PDU( void );
+    virtual ~Signal_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Signal_PDU::SetEncodingScheme
@@ -126,9 +126,9 @@ public:
     //              KDIS::PDU::Signal_PDU::GetData
     // Description: The data being sent. set function will add
     //              padding so the PDU size up to a multiple of 32 bits.
-    //              copy data over.
+    //              copy data over. 
     // Parameter:   KOCTET * D - buffer for writing/reading
-    // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be this / 8)
+    // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be at least the size GetDataLength)
     //************************************
     void SetData( const KOCTET * D, KUINT16 Length );
     void GetData( KOCTET * D, KUINT16 Length ) const throw( KException );
@@ -159,6 +159,6 @@ public:
     KBOOL operator != ( const Signal_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

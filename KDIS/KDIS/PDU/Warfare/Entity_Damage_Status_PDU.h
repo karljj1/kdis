@@ -74,13 +74,13 @@ public:
 
     static const KUINT16 ENTITY_DAMAGE_STATE_PDU = 24; // Min size
 
-    Entity_Damage_Status_PDU( void );
+    Entity_Damage_Status_PDU();
 
 	Entity_Damage_Status_PDU( const EntityIdentifier & DamagedEntityID );
 
     Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Entity_Damage_Status_PDU( void );
+    virtual ~Entity_Damage_Status_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::SetDamagedEntityID
@@ -137,5 +137,5 @@ public:
     KBOOL operator != ( const Entity_Damage_Status_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

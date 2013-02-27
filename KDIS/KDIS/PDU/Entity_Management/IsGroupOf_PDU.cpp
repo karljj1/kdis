@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IsGroupOf_PDU::IsGroupOf_PDU( void ) :
+IsGroupOf_PDU::IsGroupOf_PDU() :
     m_ui8GrpdEntCat( 0 ),
     m_ui8NumOfGroupedEnts( 0 ),
     m_ui32Padding1( 0 ),
@@ -109,7 +109,7 @@ IsGroupOf_PDU::IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude,
 
 //////////////////////////////////////////////////////////////////////////
 
-IsGroupOf_PDU::~IsGroupOf_PDU( void )
+IsGroupOf_PDU::~IsGroupOf_PDU()
 {
     m_vpGED.clear();
 }

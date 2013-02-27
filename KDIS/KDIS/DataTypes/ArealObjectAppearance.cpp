@@ -38,7 +38,7 @@ using namespace std;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ArealObjectAppearance::ArealObjectAppearance( void )
+ArealObjectAppearance::ArealObjectAppearance()
 {
     m_SpecificAppearanceUnion.m_ui32SpecificAppearance = 0;
 }
@@ -52,7 +52,7 @@ ArealObjectAppearance::ArealObjectAppearance( KDataStream & stream ) throw( KExc
 
 //////////////////////////////////////////////////////////////////////////
 
-ArealObjectAppearance::~ArealObjectAppearance( void )
+ArealObjectAppearance::~ArealObjectAppearance()
 {
 }
 

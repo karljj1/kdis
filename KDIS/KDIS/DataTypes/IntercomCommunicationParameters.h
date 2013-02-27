@@ -64,7 +64,7 @@ public:
 
     static const KUINT16 INTERCOM_COMMS_PARAM_SIZE = 4;
 
-    IntercomCommunicationParameters( void );
+    IntercomCommunicationParameters();
 
     IntercomCommunicationParameters( KDataStream & stream )throw( KException );
 
@@ -74,7 +74,7 @@ public:
 
     IntercomCommunicationParameters( GroupAssignmentRecord * GAR );
 
-    virtual ~IntercomCommunicationParameters( void );
+    virtual ~IntercomCommunicationParameters();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetRecordType
@@ -127,5 +127,5 @@ public:
     KBOOL operator != ( const IntercomCommunicationParameters & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-PointObjectAppearance::PointObjectAppearance( void )
+PointObjectAppearance::PointObjectAppearance()
 {
     m_SpecificAppearanceUnion.m_ui32SpecificAppearance = 0;
 }
@@ -51,7 +51,7 @@ PointObjectAppearance::PointObjectAppearance( KDataStream & stream ) throw( KExc
 
 //////////////////////////////////////////////////////////////////////////
 
-PointObjectAppearance::~PointObjectAppearance( void )
+PointObjectAppearance::~PointObjectAppearance()
 {
 }
 

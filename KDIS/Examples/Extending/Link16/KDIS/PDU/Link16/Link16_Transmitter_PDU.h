@@ -99,7 +99,7 @@ public:
 
 	static const KUINT16 LINK16_TRANSMITTER_PDU_SIZE = 112; // Min Size
 
-	Link16_Transmitter_PDU( void );
+	Link16_Transmitter_PDU();
 
 	Link16_Transmitter_PDU( KDataStream & stream ) throw( KException );
 
@@ -112,7 +112,7 @@ public:
 							TransmittingTerminalPrimaryMode TTPM, TransmittingTerminalSecondaryMode TTSM,
 							KUINT32 NetSyncID );
 	
-	virtual ~Link16_Transmitter_PDU( void );
+	virtual ~Link16_Transmitter_PDU();
 
 	//************************************
 	// Method:      SetTimeSlotAllocationMode, GetTimeSlotAllocationMode
@@ -195,7 +195,7 @@ public:
     KBOOL operator != ( const Link16_Transmitter_PDU & Value ) const;
 };
 
-}; // END namespace Link16
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace Link16
+} // END namespace PDU
+} // END namespace KDIS
 

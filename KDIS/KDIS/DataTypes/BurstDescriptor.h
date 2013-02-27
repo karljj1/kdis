@@ -67,14 +67,14 @@ public:
 
     static const KUINT16 BURST_DESCRIPTOR_SIZE = 16;
 
-    BurstDescriptor( void );
+    BurstDescriptor();
 
     BurstDescriptor( KDataStream & stream )throw( KException );
 
     BurstDescriptor( const EntityType & M, WarheadType WT, FuseType FT,
                      KUINT16 Quantity, KUINT16 Rate );
 
-    virtual ~BurstDescriptor( void );
+    virtual ~BurstDescriptor();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::BurstDescriptor::SetMunition
@@ -147,5 +147,5 @@ public:
     KBOOL operator != ( const BurstDescriptor & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

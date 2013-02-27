@@ -70,13 +70,13 @@ public:
 
     static const KUINT16 COMMENT_PDU_SIZE = 32; // Min size
 
-    Comment_PDU( void );
+    Comment_PDU();
 
     Comment_PDU( KDataStream & stream ) throw( KException );
 
     Comment_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
 
-    virtual ~Comment_PDU( void );
+    virtual ~Comment_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Comment_PDU::GetNumberFIxedDatum
@@ -136,5 +136,5 @@ public:
     KBOOL operator != ( const Comment_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

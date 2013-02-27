@@ -68,13 +68,13 @@ public:
 
     static const KUINT16 IO_HEADER_SIZE = 18;
 
-    IO_Header( void );
+    IO_Header();
 
     IO_Header( const EntityIdentifier & OrigID );
 
     IO_Header( KDataStream & stream ) throw( KException );
 
-    virtual ~IO_Header( void );
+    virtual ~IO_Header();
 
     //************************************
     // FullName:    KDIS::PDU::IO_Header::SetOriginatingEntityID
@@ -112,5 +112,5 @@ public:
     KBOOL operator != ( const IO_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

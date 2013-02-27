@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      RelationshipRecord
-    created:    26:06:2008
+    created:    26/06/2008
     author:     Karl Jones
 
     purpose:    Specifies the relationship of the part entity to its host entity.
@@ -58,13 +58,13 @@ public:
 
     static const KUINT16 RELATIONSHIP_RECORD_SIZE = 4;
 
-    RelationshipRecord( void );
+    RelationshipRecord();
 
     RelationshipRecord( KDataStream & stream )throw( KException );
 
     RelationshipRecord( RelationshipNature N, RelationshipPosition P );
 
-    virtual ~RelationshipRecord( void );
+    virtual ~RelationshipRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RelationshipRecord::SetNature
@@ -111,5 +111,5 @@ public:
     KBOOL operator != ( const RelationshipRecord & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

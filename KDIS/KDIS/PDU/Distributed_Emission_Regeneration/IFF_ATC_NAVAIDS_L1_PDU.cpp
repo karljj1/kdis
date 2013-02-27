@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( void ) :
+IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU() :
     m_ui16Padding( 0 )
 {
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
@@ -77,7 +77,7 @@ IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const EntityIdentifier & Emittin
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::~IFF_ATC_NAVAIDS_L1_PDU( void )
+IFF_ATC_NAVAIDS_L1_PDU::~IFF_ATC_NAVAIDS_L1_PDU()
 {
 }
 

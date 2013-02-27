@@ -66,14 +66,14 @@ public:
 
     static const KUINT16 ENTITY_DESTINATION_RECORD_SIZE = 12;
 
-    EntityDestinationRecord( void );
+    EntityDestinationRecord();
 
     EntityDestinationRecord( KDataStream & stream )throw( KException );
 
     EntityDestinationRecord( const EntityIdentifier & ID, KUINT16 CommDeviceID, KUINT8 LineID,
                              KUINT8 Priority, LineStateCommand LSC );
 
-    virtual ~EntityDestinationRecord( void );
+    virtual ~EntityDestinationRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityDestinationRecord::SetDestinationEntityID
@@ -155,5 +155,5 @@ public:
     KBOOL operator != ( const EntityDestinationRecord & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

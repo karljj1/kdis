@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType::ObjectType( void ) :
+ObjectType::ObjectType() :
     m_ui8Domain( 0 ),
     m_ui8EntityKind( 0 ),
     m_ui8Category( 0 ),
@@ -64,7 +64,7 @@ ObjectType::ObjectType( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType::~ObjectType( void )
+ObjectType::~ObjectType()
 {
 }
 

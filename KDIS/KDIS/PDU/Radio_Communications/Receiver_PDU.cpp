@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Receiver_PDU::Receiver_PDU( void ) :
+Receiver_PDU::Receiver_PDU() :
 	m_ui16ReceiverState( 0 ),    
 	m_ui16Padding1( 0 ),
 	m_f32RecPwr( 0 ),
@@ -77,7 +77,7 @@ Receiver_PDU::Receiver_PDU( const EntityIdentifier & ID, KUINT16 RadioID, Transm
 
 //////////////////////////////////////////////////////////////////////////
 
-Receiver_PDU::~Receiver_PDU( void )
+Receiver_PDU::~Receiver_PDU()
 {
 }
 

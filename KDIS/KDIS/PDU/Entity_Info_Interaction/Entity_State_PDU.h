@@ -107,7 +107,7 @@ public:
     // Min Size not including variable articulation parameters field
     static const KUINT16 ENTITY_STATE_PDU_SIZE = 144;
 
-    Entity_State_PDU( void );
+    Entity_State_PDU();
 
     Entity_State_PDU( KDataStream & stream ) throw( KException );
 
@@ -117,7 +117,7 @@ public:
                       const DeadReckoningParameter & DRP, const EntityMarking & EM,
                       const EntityCapabilities & EC );
 
-    virtual ~Entity_State_PDU( void );
+    virtual ~Entity_State_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityIdentifier
@@ -325,5 +325,5 @@ public:
     KBOOL operator != ( const Entity_State_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

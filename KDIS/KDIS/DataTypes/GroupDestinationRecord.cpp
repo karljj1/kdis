@@ -39,7 +39,7 @@ using namespace DATA_TYPE;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-GroupDestinationRecord::GroupDestinationRecord( void ) :
+GroupDestinationRecord::GroupDestinationRecord() :
     m_ui32GrpBtField( 0 ),
     m_ui8DstPriority( 0 ),
     m_ui8LnStCmd( 0 ),
@@ -100,7 +100,7 @@ KBOOL GroupDestinationRecord::IsGroupBitSet( KUINT8 Group ) const throw( KExcept
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupDestinationRecord::~GroupDestinationRecord( void )
+GroupDestinationRecord::~GroupDestinationRecord()
 {
 }
 

@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      UnderwaterAcousticFundamentalParameterData
-    created:    2009/01/15
+    created:    15/01/2009
     author:     Karl Jones
 
     purpose:    Contains regeneration parameters for active emission systems
@@ -67,14 +67,14 @@ public:
 
     static const KUINT16 UNDERWATER_ACOUSTIC_FUNDAMENTAL_PARAMETER_SIZE_SIZE = 20;
 
-    UnderwaterAcousticFundamentalParameterData( void );
+    UnderwaterAcousticFundamentalParameterData();
 
     UnderwaterAcousticFundamentalParameterData( KDataStream & stream )throw( KException );
 
     UnderwaterAcousticFundamentalParameterData( ActiveEmissionParameterIndex AEPI, ScanPattern SP, KFLOAT32 BeamCenterAzimuth,
             KFLOAT32 AzimuthalBeamwidth, KFLOAT32 BeamCenter, KFLOAT32 BeamWidth );
 
-    virtual ~UnderwaterAcousticFundamentalParameterData( void );
+    virtual ~UnderwaterAcousticFundamentalParameterData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData::SetActiveEmissionParameterIndex
@@ -172,5 +172,5 @@ public:
     KBOOL operator != ( const UnderwaterAcousticFundamentalParameterData & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

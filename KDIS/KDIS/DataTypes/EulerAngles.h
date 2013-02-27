@@ -57,14 +57,14 @@ public:
 
     static const KUINT16 EULER_ANGLES_SIZE = 12;
 
-    EulerAngles( void );
+    EulerAngles();
 
     // In Radians
     EulerAngles( KFLOAT32 Psi, KFLOAT32 Theta, KFLOAT32 Phi );
 
     EulerAngles( KDataStream & stream ) throw( KException );
 
-    virtual ~EulerAngles( void );
+    virtual ~EulerAngles();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EulerAngles::SetPsi
@@ -134,6 +134,6 @@ public:
     const KFLOAT32 & operator[] ( KUINT16 i ) const throw( KException );
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

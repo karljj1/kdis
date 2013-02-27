@@ -17,14 +17,14 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 
 #else
 
-void __attribute__ ( ( constructor ) ) my_load( void );
-void __attribute__ ( ( destructor ) ) my_unload( void );
+void __attribute__ ( ( constructor ) ) my_load();
+void __attribute__ ( ( destructor ) ) my_unload();
 
-void my_load( void )
+void my_load()
 {
 }
 
-void my_unload( void )
+void my_unload()
 {
 }
 

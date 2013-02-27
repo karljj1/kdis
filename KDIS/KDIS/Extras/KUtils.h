@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
                 KUtils
-    created:    23:9:2008
+    created:    23/9/2008
     author:     Karl Jones
 
     purpose:    Utility Features
@@ -104,5 +104,5 @@ static inline KBOOL IsMachineBigEndian()
     }
 };
 
-}; // END namespace UTILS
-}; // END namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS

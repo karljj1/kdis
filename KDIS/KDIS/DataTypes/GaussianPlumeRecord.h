@@ -68,14 +68,14 @@ public:
 
     static const KUINT16 GAUSSIAN_PLUME_RECORD_SIZE = 88;
 
-    GaussianPlumeRecord( void );
+    GaussianPlumeRecord();
 
     GaussianPlumeRecord( KDataStream & stream ) throw( KException );
 
     GaussianPlumeRecord( KUINT8 Index, const WorldCoordinates & Location, const EulerAngles & Orientation,
                          const Vector & LWH, const Vector & DDT, KFLOAT32 LECH, const Vector & LEV );
 
-    virtual ~GaussianPlumeRecord( void );
+    virtual ~GaussianPlumeRecord();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetSourceLocation
@@ -166,5 +166,5 @@ public:
     KBOOL operator != ( const GaussianPlumeRecord & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

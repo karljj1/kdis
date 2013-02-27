@@ -59,7 +59,7 @@ public:
 
     static const KUINT16 ENTITY_MARKING_SIZE = 12;
 
-    EntityMarking( void );
+    EntityMarking();
 
     EntityMarking( KDataStream & stream ) throw( KException );
 
@@ -67,7 +67,7 @@ public:
 
 	EntityMarking( const EntityMarkingCharacterSet MarkingCharSet, const KString & MarkingText ) throw( KException );
 
-    virtual ~EntityMarking( void );
+    virtual ~EntityMarking();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityMarking::SetEntityMarkingCharacterSet
@@ -114,6 +114,6 @@ public:
     KBOOL operator != ( const EntityMarking & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

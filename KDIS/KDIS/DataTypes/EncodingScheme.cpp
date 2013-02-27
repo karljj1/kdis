@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::EncodingScheme( void )
+EncodingScheme::EncodingScheme()
 {
     m_EncodingSchemeUnion.m_ui16EncodingScheme = 0;
 }
@@ -69,7 +69,7 @@ EncodingScheme::EncodingScheme( EncodingType Audio, TDLType T ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::~EncodingScheme( void )
+EncodingScheme::~EncodingScheme()
 {
 }
 

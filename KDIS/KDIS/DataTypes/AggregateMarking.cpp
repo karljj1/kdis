@@ -38,7 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking( void )
+AggregateMarking::AggregateMarking()
 {
     memset( m_sAggregateMarkingString, 0x00, 32 );
 }
@@ -61,7 +61,7 @@ AggregateMarking::AggregateMarking( EntityMarkingCharacterSet MarkingCharSet, co
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::~AggregateMarking( void )
+AggregateMarking::~AggregateMarking()
 {
 }
 

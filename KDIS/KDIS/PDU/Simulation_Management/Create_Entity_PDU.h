@@ -56,7 +56,7 @@ public:
 
     static const KUINT16 CREATE_ENTITY_PDU_SIZE = 28;
 
-    Create_Entity_PDU( void );
+    Create_Entity_PDU();
 
     Create_Entity_PDU( KDataStream & stream ) throw( KException );
 
@@ -64,7 +64,7 @@ public:
 
     Create_Entity_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID );
 
-    virtual ~Create_Entity_PDU( void );
+    virtual ~Create_Entity_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Create_Entity_PDU::SetRequestID
@@ -101,5 +101,5 @@ public:
     KBOOL operator != ( const Create_Entity_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

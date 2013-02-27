@@ -67,7 +67,7 @@ Type KFIXED<Type, BinaryPoint>::convert( KFLOAT64 V ) const
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::KFIXED( void ) :
+KFIXED<Type, BinaryPoint>::KFIXED() :
     m_Val( 0 )
 {
 }
@@ -107,7 +107,7 @@ KFIXED<Type, BinaryPoint>::KFIXED( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::~KFIXED( void )
+KFIXED<Type, BinaryPoint>::~KFIXED()
 {
 }
 

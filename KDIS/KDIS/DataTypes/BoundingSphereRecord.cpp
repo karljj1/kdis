@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-BoundingSphereRecord::BoundingSphereRecord( void ) :
+BoundingSphereRecord::BoundingSphereRecord() :
     m_f32Rad( 0 ),
     m_ui32Padding( 0 )
 {
@@ -66,7 +66,7 @@ BoundingSphereRecord::BoundingSphereRecord( KUINT8 Index, const WorldCoordinates
 
 //////////////////////////////////////////////////////////////////////////
 
-BoundingSphereRecord::~BoundingSphereRecord( void )
+BoundingSphereRecord::~BoundingSphereRecord()
 {
 }
 

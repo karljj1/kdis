@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU( void )
+Service_Request_PDU::Service_Request_PDU()
 {
     m_ui8PDUType = Service_Request_PDU_Type;
     m_ui16PDULength = SERVICE_REQUEST_PDU_SIZE;
@@ -67,7 +67,7 @@ Service_Request_PDU::Service_Request_PDU( const EntityIdentifier & ReceivingEnti
 
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::~Service_Request_PDU( void )
+Service_Request_PDU::~Service_Request_PDU()
 {
 }
 

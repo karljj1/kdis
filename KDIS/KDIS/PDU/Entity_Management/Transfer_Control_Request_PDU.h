@@ -75,14 +75,14 @@ public:
 
     static const KUINT16 TRANSFER_CONTROL_REQUEST_PDU_SIZE = 40; // Min size
 
-    Transfer_Control_Request_PDU( void );
+    Transfer_Control_Request_PDU();
 
     Transfer_Control_Request_PDU( KDataStream & stream ) throw( KException );
 
     Transfer_Control_Request_PDU( KUINT32 ReqID, RequiredReliabilityService RRS, TransferType TT,
                                   const EntityIdentifier & TrnsEntID );
 
-    virtual ~Transfer_Control_Request_PDU( void );
+    virtual ~Transfer_Control_Request_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::SetRequestID
@@ -166,5 +166,5 @@ public:
     KBOOL operator != ( const Transfer_Control_Request_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

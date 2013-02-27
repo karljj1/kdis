@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::Data_PDU( void ) :
+Data_PDU::Data_PDU() :
     m_ui32Padding( 0 )
 {
     m_ui8PDUType = Data_PDU_Type;
@@ -69,7 +69,7 @@ Data_PDU::Data_PDU(  const EntityIdentifier & OriginatingEntityID, const EntityI
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::~Data_PDU( void )
+Data_PDU::~Data_PDU()
 {
 }
 

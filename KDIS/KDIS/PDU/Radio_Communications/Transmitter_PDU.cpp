@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Transmitter_PDU::Transmitter_PDU( void ) :
+Transmitter_PDU::Transmitter_PDU() :
     m_ui16Padding1( 0 ),
     m_ui16AntennaPatternLength( 0 ),
     m_ui8LengthOfModulationParam( 0 ),
@@ -90,7 +90,7 @@ Transmitter_PDU::Transmitter_PDU( const RadioEntityType & Type, TransmitState TS
 
 //////////////////////////////////////////////////////////////////////////
 
-Transmitter_PDU::~Transmitter_PDU( void )
+Transmitter_PDU::~Transmitter_PDU()
 {
     m_vModulationParams.clear();
     m_vAntennaPattern.clear();
@@ -294,8 +294,8 @@ void Transmitter_PDU::SetModulationParameters( const KOCTET * MP, KUINT8 Length 
 
     // Check if we need to add any padding, the length should be a
     // multiple of 8.
-    KUINT8 ui8PaddingNeeded = Length % 8;
-
+    KUINT8 ui8PaddingNeeded = ( Length % 8 == 0 ? 0 : ( 8 - Length % 8 ) );
+	
     // Add the padding, if needed.
     for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
     {

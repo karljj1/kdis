@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MinePaintScheme::MinePaintScheme( void )
+MinePaintScheme::MinePaintScheme()
 {
     m_PntScmUnion.m_ui8PntSchm = 0;
 }
@@ -59,7 +59,7 @@ MinePaintScheme::MinePaintScheme( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-MinePaintScheme::~MinePaintScheme( void )
+MinePaintScheme::~MinePaintScheme()
 {
 }
 

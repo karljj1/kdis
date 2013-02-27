@@ -69,7 +69,7 @@ void Aggregate_State_PDU::calcPadding()
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Aggregate_State_PDU::Aggregate_State_PDU( void ) :
+Aggregate_State_PDU::Aggregate_State_PDU() :
     m_ui8ForceID( 0 ),
     m_ui8AggState( 0 ),
     m_ui32Formation( 0 ),
@@ -134,7 +134,7 @@ Aggregate_State_PDU::Aggregate_State_PDU( const AggregateIdentifier & AI, ForceI
 
 //////////////////////////////////////////////////////////////////////////
 
-Aggregate_State_PDU::~Aggregate_State_PDU( void )
+Aggregate_State_PDU::~Aggregate_State_PDU()
 {
     m_vAI.clear();
     m_vEI.clear();

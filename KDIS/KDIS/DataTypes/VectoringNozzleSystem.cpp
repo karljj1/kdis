@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-VectoringNozzleSystem::VectoringNozzleSystem( void ) :
+VectoringNozzleSystem::VectoringNozzleSystem() :
     m_f32HDeflAngle( 0 ),
     m_f32VDeflAngle( 0 )
 {
@@ -60,7 +60,7 @@ VectoringNozzleSystem::VectoringNozzleSystem( KFLOAT32 HorizontalDeflectionAngle
 
 //////////////////////////////////////////////////////////////////////////
 
-VectoringNozzleSystem::~VectoringNozzleSystem( void )
+VectoringNozzleSystem::~VectoringNozzleSystem()
 {
 }
 

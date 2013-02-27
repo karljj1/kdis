@@ -71,7 +71,7 @@ public:
 
     static const KUINT16 IFF_ATC_NAVAIDS_L2_PDU_SIZE = 92; // Min size
 
-    IFF_ATC_NAVAIDS_L2_PDU( void );
+    IFF_ATC_NAVAIDS_L2_PDU();
 
     IFF_ATC_NAVAIDS_L2_PDU( KDataStream & stream ) throw( KException );
 
@@ -82,7 +82,7 @@ public:
     IFF_ATC_NAVAIDS_L2_PDU( const IFF_ATC_NAVAIDS_L1_PDU & PDU, const LayerHeader & LH,const BeamData & BD, const SecondaryOperationalData & SOD,
                             const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
 
-    virtual ~IFF_ATC_NAVAIDS_L2_PDU( void );
+    virtual ~IFF_ATC_NAVAIDS_L2_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::SetLayerHeader
@@ -160,5 +160,5 @@ public:
     KBOOL operator != ( const IFF_ATC_NAVAIDS_L2_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

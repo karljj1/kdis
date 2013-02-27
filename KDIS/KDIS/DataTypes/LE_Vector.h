@@ -59,13 +59,13 @@ public:
 
     static const KUINT16 LE_VECTOR_SIZE = sizeof( Type ) * 3;
 
-    LE_Vector( void );
+    LE_Vector();
 
     LE_Vector( Type X, Type Y, Type Z );
 
     LE_Vector( KDataStream & stream ) throw( KException );
 
-    virtual ~LE_Vector( void );
+    virtual ~LE_Vector();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_Vector::SetX
@@ -136,5 +136,5 @@ public:
 typedef LE_Vector<KFIXED16_3> LE_Vector8_3;
 typedef LE_Vector<KFIXED8_3> LE_Vector16_3;
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

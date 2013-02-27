@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-LE_EntityIdentifier::LE_EntityIdentifier( void ) :
+LE_EntityIdentifier::LE_EntityIdentifier() :
     m_ui8SiteID( 0 ),
     m_ui8ApplicationID( 0 ),
     m_ui16EntityID( 0 )
@@ -61,7 +61,7 @@ LE_EntityIdentifier::LE_EntityIdentifier( KDataStream & stream ) throw( KExcepti
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_EntityIdentifier::~LE_EntityIdentifier( void )
+LE_EntityIdentifier::~LE_EntityIdentifier()
 {
 }
 

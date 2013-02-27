@@ -68,7 +68,7 @@ public:
 
     static const KUINT16 STOP_FREEZE_PDU_SIZE = 40;
 
-    Stop_Freeze_PDU( void );
+    Stop_Freeze_PDU();
 
     Stop_Freeze_PDU( KDataStream & stream ) throw( KException );
 
@@ -78,7 +78,7 @@ public:
     Stop_Freeze_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
                      StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID );
 
-    virtual ~Stop_Freeze_PDU( void );
+    virtual ~Stop_Freeze_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetRealWorldTime
@@ -145,5 +145,5 @@ public:
     KBOOL operator != ( const Stop_Freeze_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -39,7 +39,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem( void ) :
+UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem() :
     m_ui8EmitterSystemDataLength( UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE / 4 ),
     m_ui8NumBeams( 0 ),
     m_ui16Padding1( 0 )
@@ -55,7 +55,7 @@ UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem( KDataStream & 
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterSystem::~UnderwaterAcousticEmitterSystem( void )
+UnderwaterAcousticEmitterSystem::~UnderwaterAcousticEmitterSystem()
 {
     m_vUAEB.clear();
 }

@@ -74,7 +74,7 @@ public:
 
     static const KUINT16 ELECTROMAGNETIC_EMISSION_PDU_SIZE = 28; // Min Size
 
-    Electromagnetic_Emission_PDU( void );
+    Electromagnetic_Emission_PDU();
 
     Electromagnetic_Emission_PDU( KDataStream & stream ) throw( KException );
 
@@ -84,7 +84,7 @@ public:
     Electromagnetic_Emission_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID,
                                   StateUpdateIndicator SUI, const vector<EmissionSystem> & EmissionSystems );
 
-    virtual ~Electromagnetic_Emission_PDU( void );
+    virtual ~Electromagnetic_Emission_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetEmittingEntityID
@@ -162,5 +162,5 @@ public:
     KBOOL operator != ( const Electromagnetic_Emission_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

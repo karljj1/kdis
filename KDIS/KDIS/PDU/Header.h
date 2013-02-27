@@ -50,5 +50,5 @@ namespace PDU {
 	typedef Header6 Header;
 #endif
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

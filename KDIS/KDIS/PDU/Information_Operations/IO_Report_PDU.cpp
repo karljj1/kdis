@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IO_Report_PDU::IO_Report_PDU( void ) :
+IO_Report_PDU::IO_Report_PDU() :
     m_ui16SimSrc( 0 ),
     m_ui8RptTyp( 0 ),
     m_ui32Padding( 0 ),
@@ -76,7 +76,7 @@ IO_Report_PDU::IO_Report_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Report_PDU::~IO_Report_PDU( void )
+IO_Report_PDU::~IO_Report_PDU()
 {
 }
 

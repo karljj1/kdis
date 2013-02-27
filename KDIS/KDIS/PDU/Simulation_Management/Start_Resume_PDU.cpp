@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_PDU::Start_Resume_PDU( void )
+Start_Resume_PDU::Start_Resume_PDU()
 {
     m_ui8PDUType = Start_Resume_PDU_Type;
     m_ui16PDULength = START_RESUME_PDU_SIZE;
@@ -90,7 +90,7 @@ Start_Resume_PDU::Start_Resume_PDU( const Simulation_Management_Header & SimMgrH
 
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_PDU::~Start_Resume_PDU( void )
+Start_Resume_PDU::~Start_Resume_PDU()
 {
 }
 

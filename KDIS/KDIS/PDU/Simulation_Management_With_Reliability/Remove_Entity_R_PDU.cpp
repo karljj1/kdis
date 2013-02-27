@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_R_PDU::Remove_Entity_R_PDU( void )
+Remove_Entity_R_PDU::Remove_Entity_R_PDU()
 {
     m_ui8PDUType = RemoveEntity_R_PDU_Type;
     m_ui16PDULength = REMOVE_ENTITY_R_PDU_SIZE;
@@ -80,7 +80,7 @@ Remove_Entity_R_PDU::Remove_Entity_R_PDU( const Simulation_Management_Header & S
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_R_PDU::~Remove_Entity_R_PDU( void )
+Remove_Entity_R_PDU::~Remove_Entity_R_PDU()
 {
 }
 

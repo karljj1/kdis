@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Collision_Elastic_PDU::Collision_Elastic_PDU( void ) :
+Collision_Elastic_PDU::Collision_Elastic_PDU() :
     m_ui16Padding1( 0 )
 {
     m_ui8ProtocolFamily = Entity_Information_Interaction;
@@ -60,7 +60,7 @@ Collision_Elastic_PDU::Collision_Elastic_PDU( KDataStream & stream ) throw( KExc
 
 //////////////////////////////////////////////////////////////////////////
 
-Collision_Elastic_PDU::~Collision_Elastic_PDU( void )
+Collision_Elastic_PDU::~Collision_Elastic_PDU()
 {
 }
 

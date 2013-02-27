@@ -73,7 +73,7 @@ protected:
 
 public:
 
-    KFIXED( void );
+    KFIXED();
 
     KFIXED( KFLOAT32 V );
 
@@ -83,7 +83,7 @@ public:
 
     KFIXED( KDataStream & stream )throw( KException );
 
-    virtual ~KFIXED( void );
+    virtual ~KFIXED();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::KFIXED::Set
@@ -189,5 +189,5 @@ typedef KFIXED<KINT8, 3> KFIXED8_3;
 typedef KFIXED<KINT16, 3> KFIXED16_3;
 typedef KFIXED<KINT16, 8> KFIXED16_8;
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

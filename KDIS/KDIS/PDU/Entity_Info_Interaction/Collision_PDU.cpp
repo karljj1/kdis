@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Collision_PDU::Collision_PDU( void ) :
+Collision_PDU::Collision_PDU() :
     m_ui8Padding( 0 )
 {
     m_ui8ProtocolFamily = Entity_Information_Interaction;
@@ -80,7 +80,7 @@ Collision_PDU::Collision_PDU( const EntityIdentifier & IssuingID, const EntityId
 
 //////////////////////////////////////////////////////////////////////////
 
-Collision_PDU::~Collision_PDU( void )
+Collision_PDU::~Collision_PDU()
 {
 }
 

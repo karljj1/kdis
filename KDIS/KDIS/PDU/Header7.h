@@ -176,14 +176,14 @@ protected:
 
 public:
 
-    Header7( void );
+    Header7();
 
     Header7( KDataStream & stream ) throw( KException );
 
     Header7( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFamily PF,
              const TimeStamp & TS, KUINT16 PDULength );
 
-    virtual ~Header7( void );
+    virtual ~Header7();
 
     //************************************
     // FullName:    KDIS::PDU::Header7::SetPDUStatus
@@ -315,6 +315,6 @@ public:
     KBOOL operator != ( const Header7 & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

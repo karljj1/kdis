@@ -63,7 +63,7 @@ public:
 
     static const KUINT16 GED_BASIC_ROTOR_WING_AIRCRAFT_SIZE = 24;
 
-    GED_BasicRotorWingAircraft( void );
+    GED_BasicRotorWingAircraft();
 
     GED_BasicRotorWingAircraft( KDataStream & stream )throw( KException );
 
@@ -71,7 +71,7 @@ public:
                                 KINT8 Theta, KINT8 Phi, KUINT8 FuelStatus, KINT8 HorizontalDeviation, KINT8 VerticalDeviation,
                                 KINT8 Speed, KINT8 TurretAzimuth, KINT8 GunElevation, KINT8 TurretSlewRate, KINT8 GunElevationRate );
 
-    virtual ~GED_BasicRotorWingAircraft( void );
+    virtual ~GED_BasicRotorWingAircraft();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_BasicRotorWingAircraft::GetGroupedEntityCategory
@@ -148,6 +148,6 @@ public:
     KBOOL operator != ( const GED_BasicRotorWingAircraft & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticFundamentalParameterData::UnderwaterAcousticFundamentalParameterData( void ) :
+UnderwaterAcousticFundamentalParameterData::UnderwaterAcousticFundamentalParameterData() :
     m_ui16AEPI( 0 ),
     m_ui16ScanPattern( 0 ),
     m_f32BeamCenterAzimuth( 0 ),
@@ -69,7 +69,7 @@ UnderwaterAcousticFundamentalParameterData::UnderwaterAcousticFundamentalParamet
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticFundamentalParameterData::~UnderwaterAcousticFundamentalParameterData( void )
+UnderwaterAcousticFundamentalParameterData::~UnderwaterAcousticFundamentalParameterData()
 {
 }
 

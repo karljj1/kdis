@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      RectangularVolumeRecord3
-    created:    27:08:2009
+    created:    27/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a rectangular volume.
@@ -60,14 +60,14 @@ public:
 
     static const KUINT16 RECTANGLE_VOLUME_RECORD_3_SIZE = 56;
 
-    RectangularVolumeRecord3( void );
+    RectangularVolumeRecord3();
 
     RectangularVolumeRecord3( KDataStream & stream ) throw( KException );
 
     RectangularVolumeRecord3( KUINT8 Index, const WorldCoordinates & CenterLocation, const Vector & RectangleLength,
                               const EulerAngles & Orientation );
 
-    virtual ~RectangularVolumeRecord3( void );
+    virtual ~RectangularVolumeRecord3();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord3::SetCenterLocation
@@ -124,5 +124,5 @@ public:
     KBOOL operator != ( const RectangularVolumeRecord3 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

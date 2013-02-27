@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridAxisRegular::GridAxisRegular( void ) :
+GridAxisRegular::GridAxisRegular() :
     m_f64DomainInitialXi( 0 ),
     m_f64DomainFinalXi( 0 ),
     m_ui16DomainPointsXi( 0 ),
@@ -85,7 +85,7 @@ GridAxisRegular::GridAxisRegular( KFLOAT64 InitialXi, KFLOAT64 FinalXi, KUINT16 
 
 //////////////////////////////////////////////////////////////////////////
 
-GridAxisRegular::~GridAxisRegular( void )
+GridAxisRegular::~GridAxisRegular()
 {
 }
 

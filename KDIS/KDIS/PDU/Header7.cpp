@@ -38,7 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Header7::Header7( void )
+Header7::Header7()
 {
 	m_PDUStatusUnion.m_ui8PDUStatus = 0;
 }
@@ -60,7 +60,7 @@ Header7::Header7( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFam
 
 //////////////////////////////////////////////////////////////////////////
 
-Header7::~Header7( void )
+Header7::~Header7()
 {
 }
 

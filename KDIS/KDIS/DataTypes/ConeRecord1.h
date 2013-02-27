@@ -63,14 +63,14 @@ public:
 
     static const KUINT16 CONE_RECORD_1_SIZE = 56;
 
-    ConeRecord1( void );
+    ConeRecord1();
 
     ConeRecord1( KDataStream & stream ) throw( KException );
 
     ConeRecord1( KUINT8 Index, const WorldCoordinates & VertexLocation, const EulerAngles & Orientation,
                  KFLOAT32 Height, KFLOAT32 PeakAngle );
 
-    virtual ~ConeRecord1( void );
+    virtual ~ConeRecord1();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetVertexLocation
@@ -136,5 +136,5 @@ public:
     KBOOL operator != ( const ConeRecord1 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

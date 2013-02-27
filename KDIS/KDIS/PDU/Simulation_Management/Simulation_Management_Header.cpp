@@ -41,7 +41,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::Simulation_Management_Header( void )
+Simulation_Management_Header::Simulation_Management_Header()
 {
     m_ui8ProtocolFamily = Simulation_Management;
     m_ui8ProtocolVersion = IEEE_1278_1_1995;
@@ -73,7 +73,7 @@ Simulation_Management_Header::Simulation_Management_Header( const EntityIdentifi
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::~Simulation_Management_Header( void )
+Simulation_Management_Header::~Simulation_Management_Header()
 {
 }
 

@@ -74,7 +74,7 @@ public:
 
     static const KUINT16 LINEAR_OBJECT_STATE_PDU_SIZE = 40;
 
-    Linear_Object_State_PDU( void );
+    Linear_Object_State_PDU();
 
     Linear_Object_State_PDU( KDataStream & stream ) throw( KException );
 
@@ -86,7 +86,7 @@ public:
                              ForceID FI, const SimulationIdentifier & ReqID, const SimulationIdentifier & RecvID,
                              const ObjectType & O, vector<LinearSegmentParameter> & Segments );
 
-    virtual ~Linear_Object_State_PDU( void );
+    virtual ~Linear_Object_State_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Linear_Object_State_PDU::GetNumberOfSegments
@@ -160,5 +160,5 @@ public:
     KBOOL operator != ( const Linear_Object_State_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

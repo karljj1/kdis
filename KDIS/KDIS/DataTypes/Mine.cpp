@@ -50,7 +50,7 @@ map< KUINT16, vector<Vector> >::iterator Mine::getWire( KUINT16 Index ) throw( K
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Mine::Mine( void ) :
+Mine::Mine() :
     m_ui16ID( 0 ),
     m_f32GrndOffset( 0 ),
     m_f32WtrOffset( 0 ),
@@ -79,7 +79,7 @@ Mine::Mine( const Vector & Location, KUINT16 ID ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Mine::~Mine( void )
+Mine::~Mine()
 {
 }
 

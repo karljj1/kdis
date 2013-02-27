@@ -112,13 +112,13 @@ public:
 
     static const KUINT16 APPEARANCE_PDU_SIZE = 17; // Min size, not including optional fields
 
-    Appearance_PDU( void );
+    Appearance_PDU();
 
     Appearance_PDU( const LE_EntityIdentifier & ID );
 
     Appearance_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Appearance_PDU( void );
+    virtual ~Appearance_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetForceIDFlag
@@ -296,5 +296,5 @@ public:
     KBOOL operator != ( const Appearance_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

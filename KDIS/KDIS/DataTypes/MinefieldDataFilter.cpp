@@ -38,7 +38,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::MinefieldDataFilter( void )
+MinefieldDataFilter::MinefieldDataFilter()
 {
     m_FilterUnion.m_ui32Filter = 0;
 }
@@ -72,7 +72,7 @@ MinefieldDataFilter::MinefieldDataFilter( KDataStream & stream ) throw( KExcepti
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::~MinefieldDataFilter( void )
+MinefieldDataFilter::~MinefieldDataFilter()
 {
 }
 

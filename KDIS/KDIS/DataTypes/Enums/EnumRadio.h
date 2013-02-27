@@ -565,6 +565,6 @@ KBOOL GetEnumFromStringAttachedIndicator( const KString & Value, KINT32 & ValueO
 
 #endif
 
-}; // END namespace ENUMS
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace ENUMS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

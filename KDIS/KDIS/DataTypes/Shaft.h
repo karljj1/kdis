@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Shaft
-    created:    2009/01/04
+    created:    04/01/2009
     author:     Karl Jones
 
     purpose:    Represents a shaft on a platform.
@@ -57,13 +57,13 @@ public:
 
     static const KUINT16 SHAFT_SIZE = 8;
 
-    Shaft( void );
+    Shaft();
 
     Shaft( KDataStream & stream ) throw( KException );
 
     Shaft( KINT16 CurrentRPM, KINT16 OrderedRPM, KINT32 RateOfChange );
 
-    virtual ~Shaft( void );
+    virtual ~Shaft();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Shaft::SetCurrentRPM
@@ -126,6 +126,6 @@ public:
     KBOOL operator != ( const Shaft & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

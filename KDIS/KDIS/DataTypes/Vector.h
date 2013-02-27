@@ -82,13 +82,13 @@ public:
 
     static const KUINT16 VECTOR_SIZE = 12;
 
-    Vector( void );
+    Vector();
 
     Vector( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z );
 
     Vector( KDataStream & stream ) throw( KException );
 
-    virtual ~Vector( void );
+    virtual ~Vector();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::SetX
@@ -136,9 +136,23 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::GetDistance
     // Description: Calculates the distance from this vector to an other. 
-    // Parameter:   KFLOAT32 Z, void
+    // Parameter:   KFLOAT32 Z
     //************************************
 	KFLOAT32 GetDistance( const Vector & Other );
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Vector::Lerp
+    // Description: Linearly interpolate between From and To by T. 
+	//              T should be between 0 and 1(its not checked).
+	//              T 0 = From
+	//              1 = to 
+	//              0.5 = halfway between From and To.
+    // Parameter:   const Vector & From
+	// Parameter:   const Vector & To
+	// Parameter:   KFLOAT32 T  
+    //************************************
+	static Vector Lerp( const Vector & From, const Vector & To, KFLOAT32 T );
+	void Lerp( const Vector & To, KFLOAT32 T );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::GetAsString
@@ -165,6 +179,7 @@ public:
     KBOOL operator != ( const Vector & Value ) const;
     Vector operator * ( const Vector & Value ) const;
     Vector operator * ( KFLOAT64 Value ) const;
+	Vector operator * ( KFLOAT32 Value ) const;
     Vector operator + ( const Vector & Value ) const;
     Vector & operator += ( const Vector & Value );
     Vector operator - ( const Vector & Value ) const;
@@ -175,5 +190,5 @@ public:
     const KFLOAT32 & operator[]  ( KUINT16 i ) const throw( KException );
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

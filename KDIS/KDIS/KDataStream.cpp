@@ -75,7 +75,7 @@ KDataStream::KDataStream( KOCTET * SerialData, KUINT16 DataSize, Endian Network_
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream::~KDataStream( void )
+KDataStream::~KDataStream()
 {
 }
 

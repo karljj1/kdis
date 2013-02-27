@@ -38,7 +38,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystem::CryptoSystem( void ) :
+CryptoSystem::CryptoSystem() :
     m_ui16CryptoSystemType( 0 ),
     m_ui16EncryptionMode( 0 ),
     m_ui16KeyID( 0 )
@@ -63,7 +63,7 @@ CryptoSystem::CryptoSystem( CryptoSystemType CST, EncryptionMode EM, KUINT16 Key
 
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystem::~CryptoSystem( void )
+CryptoSystem::~CryptoSystem()
 {
 }
 

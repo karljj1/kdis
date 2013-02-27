@@ -65,14 +65,14 @@ public:
 
     static const KUINT16 OBJECT_STATE_HEADER_SIZE = 27;
 
-    Object_State_Header( void );
+    Object_State_Header();
 
     Object_State_Header( KDataStream & stream ) throw( KException );
 
     Object_State_Header( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID ,
                          KUINT16 UpdateNum, ForceID FI );
 
-    virtual ~Object_State_Header( void );
+    virtual ~Object_State_Header();
 
     //************************************
     // FullName:    KDIS::PDU::Object_State_Header::SetObjectID
@@ -139,5 +139,5 @@ public:
     KBOOL operator != ( const Object_State_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-COMBICState::COMBICState( void ) :
+COMBICState::COMBICState() :
     m_ui32TSC( 0 ),
     m_ui32NumSrcs( 0 ),
     m_ui16GeometryIndex( 0 ),
@@ -86,7 +86,7 @@ COMBICState::COMBICState( KUINT8 Index, KUINT32 TimeSinceCreation, const EntityT
 
 //////////////////////////////////////////////////////////////////////////
 
-COMBICState::~COMBICState( void )
+COMBICState::~COMBICState()
 {
 }
 

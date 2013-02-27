@@ -73,11 +73,11 @@ public:
 
     static const KUINT16 STANDARD_VARIABLE_SIZE = 6;
 
-    StandardVariable( void );
+    StandardVariable();
 
     StandardVariable( KDataStream & stream ) throw( KException );
 
-    virtual ~StandardVariable( void );
+    virtual ~StandardVariable();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::StandardVariable::GetStandardVariableType
@@ -131,5 +131,5 @@ public:
     KBOOL operator != ( const StandardVariable & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

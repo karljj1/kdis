@@ -41,7 +41,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( void ) :
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU() :
     m_ui8ReqID( 0 ),
     m_ui8NumMisPdus( 0 )
 {
@@ -91,7 +91,7 @@ Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( KDataStream & stream )
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::~Minefield_Response_NACK_PDU( void )
+Minefield_Response_NACK_PDU::~Minefield_Response_NACK_PDU()
 {
 }
 

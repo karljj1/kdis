@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      TimeStamp
-    created:    2008/10/16
+    created:    16/10/2008
     author:     Karl Jones
 
     purpose:    Stores absolute/ relative timestamps.
@@ -87,13 +87,13 @@ public:
 
     static const KUINT16 TIME_STAMP_SIZE = 4;
 
-    TimeStamp( void );
+    TimeStamp();
 
     TimeStamp( KDataStream & stream )throw( KException );
 
     TimeStamp( TimeStampType T, KUINT32 Time, KBOOL AutoCalcRelative = false);
 
-    virtual ~TimeStamp( void );
+    virtual ~TimeStamp();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::TimeStamp::SetTimeStampType
@@ -162,5 +162,5 @@ public:
     KBOOL operator < ( const TimeStamp & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

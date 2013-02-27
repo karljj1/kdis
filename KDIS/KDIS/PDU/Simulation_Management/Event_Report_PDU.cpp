@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Event_Report_PDU::Event_Report_PDU( void ) :
+Event_Report_PDU::Event_Report_PDU() :
     m_ui32Padding( 0 )
 {
     m_ui8PDUType = Event_Report_PDU_Type;
@@ -70,7 +70,7 @@ Event_Report_PDU::Event_Report_PDU( const EntityIdentifier & OriginatingEntityID
 
 //////////////////////////////////////////////////////////////////////////
 
-Event_Report_PDU::~Event_Report_PDU( void )
+Event_Report_PDU::~Event_Report_PDU()
 {
 }
 

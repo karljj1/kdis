@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Articulated_Parts_PDU::Articulated_Parts_PDU( void ) :
+Articulated_Parts_PDU::Articulated_Parts_PDU() :
     m_ui8NumOfArticulationParams( 0 )
 {
     m_ui8PDUType = ArticulatedParts_PDU_Type;
@@ -75,7 +75,7 @@ Articulated_Parts_PDU::Articulated_Parts_PDU( KDataStream & stream ) throw( KExc
 
 //////////////////////////////////////////////////////////////////////////
 
-Articulated_Parts_PDU::~Articulated_Parts_PDU( void )
+Articulated_Parts_PDU::~Articulated_Parts_PDU()
 {
 }
 

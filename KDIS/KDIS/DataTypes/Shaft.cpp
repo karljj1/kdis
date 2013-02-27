@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Shaft::Shaft( void ) :
+Shaft::Shaft() :
     m_i16CurrentRPM( 0 ),
     m_i16OrderedRPM( 0 ),
     m_i32RPMRateOfChange( 0 )
@@ -61,7 +61,7 @@ Shaft::Shaft( KINT16 CurrentRPM, KINT16 OrderedRPM, KINT32 RateOfChange ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Shaft::~Shaft( void )
+Shaft::~Shaft()
 {
 }
 

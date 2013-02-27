@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Signal_PDU::Signal_PDU( void ) :
+Signal_PDU::Signal_PDU() :
 	m_ui32SampleRate( 0 ),
     m_ui16DataLength( 0 ),
 	m_ui16Samples( 0 )
@@ -74,7 +74,7 @@ Signal_PDU::Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const Enco
 
 //////////////////////////////////////////////////////////////////////////
 
-Signal_PDU::~Signal_PDU( void )
+Signal_PDU::~Signal_PDU()
 {
     m_vData.clear();
 }
@@ -141,27 +141,29 @@ KUINT16 Signal_PDU::GetSamples() const
 void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
 {
     // If we already have data clear it first.
-    m_ui16PDULength -= m_vData.size();
-    m_vData.clear();
+    m_ui16PDULength = SIGNAL_PDU_SIZE;
+    m_vData.clear();	
 
     // Copy data into the vector
     KUINT16 uiDataSz = Length / 8;
+	m_vData.reserve( uiDataSz );
     for( KUINT16 i = 0; i < uiDataSz; ++i, ++D )
     {
         m_vData.push_back( *D );
     }
 
-    // Do we need to apply padding, the PDU size should be a multiple
-    // of 32 bits / 4 octets.
-    KUINT8 ui8PaddingNeeded = m_ui16PDULength % 4;
+	// Data length does not include the padding
+	m_ui16DataLength = m_vData.size() * 8;
 
+	// Do we need to apply padding, the PDU size should be a multiple
+    // of 32 bits / 4 octets.
+    KUINT8 ui8PaddingNeeded = m_vData.size() % 4 == 0 ? 0 : (4 - m_vData.size() % 4); // Add padding;
     for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
     {
         m_vData.push_back( 0 );
     }
 
-    // Update lengths
-    m_ui16DataLength = m_vData.size() * 8;
+	// Update lengths    
     m_ui16PDULength += m_vData.size();
 }
 
@@ -213,12 +215,14 @@ void Signal_PDU::Decode( KDataStream & stream ) throw( KException )
            >> m_ui16DataLength
            >> m_ui16Samples;
 
-    for( KUINT16 i = 0; i < ( m_ui16DataLength / 8 ); ++i )
+    KUINT16 dl =  m_ui16DataLength / 8;
+	dl += ( dl % 4 == 0 ? 0 : (4 - dl % 4) ); // Add padding
+    for( KUINT16 i = 0; i < dl; ++i )
     {
         KOCTET o;
         stream >> o;
         m_vData.push_back( o );
-    }
+    }	
 }
 
 //////////////////////////////////////////////////////////////////////////

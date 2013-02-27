@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      SphereRecord1
-    created:    18:08:2009
+    created:    18/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a sphere.
@@ -47,17 +47,17 @@ class KDIS_EXPORT SphereRecord1 : public BoundingSphereRecord
 {
 public:
 
-    SphereRecord1( void );
+    SphereRecord1();
 
     SphereRecord1( KDataStream & stream ) throw( KException );
 
     SphereRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius  );
 
-    virtual ~SphereRecord1( void );
+    virtual ~SphereRecord1();
 
     KBOOL operator == ( const SphereRecord1 & Value )const;
     KBOOL operator != ( const SphereRecord1 & Value )const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

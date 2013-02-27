@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ClockTime::ClockTime( void ) :
+ClockTime::ClockTime() :
     m_i32Hour( 0 ),
     m_ui32TimePastHour( 0 )
 {
@@ -59,7 +59,7 @@ ClockTime::ClockTime( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-ClockTime::~ClockTime( void )
+ClockTime::~ClockTime()
 {
 }
 

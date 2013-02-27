@@ -70,14 +70,14 @@ public:
 
     static const KUINT16 OBJECT_APPEARANCE_SIZE = 2;
 
-    ObjectAppearance( void );
+    ObjectAppearance();
 
     ObjectAppearance( KDataStream & stream ) throw( KException );
 
     ObjectAppearance( KUINT8 PerCent, ObjectDamage OD, KBOOL Predist, KBOOL State,
                       KBOOL Smoking, KBOOL Flaming ) throw( KException );
 
-    virtual ~ObjectAppearance( void );
+    virtual ~ObjectAppearance();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ObjectAppearance::SetGeneralAppearance
@@ -177,5 +177,5 @@ public:
     KBOOL operator != ( const ObjectAppearance & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

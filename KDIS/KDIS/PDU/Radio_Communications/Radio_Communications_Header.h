@@ -59,13 +59,13 @@ public:
 
     static const KUINT16 RADIO_COMMUNICATIONS_HEADER_SIZE = 20;
 
-    Radio_Communications_Header( void );
+    Radio_Communications_Header();
 
     Radio_Communications_Header( KDataStream & stream ) throw( KException );
 
     Radio_Communications_Header( const EntityIdentifier & ID, KUINT16 RadioID );
 
-    virtual ~Radio_Communications_Header( void );
+    virtual ~Radio_Communications_Header();
 
     //************************************
     // FullName:    KDIS::PDU::Radio_Communications_Header::SetEntityID
@@ -112,5 +112,5 @@ public:
     KBOOL operator != ( const Radio_Communications_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

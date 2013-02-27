@@ -64,7 +64,7 @@ public:
 
     KDataStream( KOCTET * SerialData, KUINT16 DataSize, Endian NetworkEndian = Big_Endian );
 
-    ~KDataStream( void );
+    ~KDataStream();
 
     //************************************
     // FullName:    KDIS::KDataStream::GetMachineEndian
@@ -252,5 +252,6 @@ KDataStream & KDataStream::operator>>( Type & T )
 }
 
 //////////////////////////////////////////////////////////////////////////
-}; // END namespace KDIS
+
+} // END namespace KDIS
 

@@ -73,7 +73,7 @@ public:
 
     static const KUINT16 GED_BASIC_GROUND_COMBAT_VEHICLE_SIZE = 20;
 
-    GED_BasicGroundCombatVehicle( void );
+    GED_BasicGroundCombatVehicle();
 
     GED_BasicGroundCombatVehicle( KDataStream & stream )throw( KException );
 
@@ -81,7 +81,7 @@ public:
                                   KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed, KINT8 TurretAzimuth, KINT8 GunElevation,
                                   KINT8 TurretSlewRate, KINT8 GunElevationRate );
 
-    virtual ~GED_BasicGroundCombatVehicle( void );
+    virtual ~GED_BasicGroundCombatVehicle();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_BasicGroundCombatVehicle::GetGroupedEntityCategory
@@ -232,6 +232,6 @@ public:
     KBOOL operator != ( const GED_BasicGroundCombatVehicle & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

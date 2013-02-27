@@ -37,7 +37,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPuffRecord::GaussianPuffRecord( void ) :
+GaussianPuffRecord::GaussianPuffRecord() :
     m_f32CentHeight( 0 )
 {
     m_ui32EnvRecTyp = GaussianPuffRecordType;
@@ -72,7 +72,7 @@ GaussianPuffRecord::GaussianPuffRecord( KUINT8 Index, const WorldCoordinates & P
 
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPuffRecord::~GaussianPuffRecord( void )
+GaussianPuffRecord::~GaussianPuffRecord()
 {
 }
 

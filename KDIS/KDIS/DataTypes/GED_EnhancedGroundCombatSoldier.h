@@ -63,7 +63,7 @@ public:
 
     static const KUINT16 GED_ENHANCED_GROUND_COMBAT_SOLDIER_SIZE = 24;
 
-    GED_EnhancedGroundCombatSoldier( void );
+    GED_EnhancedGroundCombatSoldier();
 
     GED_EnhancedGroundCombatSoldier( KDataStream & stream )throw( KException );
 
@@ -75,7 +75,7 @@ public:
     GED_EnhancedGroundCombatSoldier( const GED_BasicGroundCombatSoldier & BGCS, KUINT8 WaterStatus, RestStatus R,
                                      KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
 
-    virtual ~GED_EnhancedGroundCombatSoldier( void );
+    virtual ~GED_EnhancedGroundCombatSoldier();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetGroupedEntityCategory
@@ -155,6 +155,6 @@ public:
     KBOOL operator != ( const GED_EnhancedGroundCombatSoldier & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

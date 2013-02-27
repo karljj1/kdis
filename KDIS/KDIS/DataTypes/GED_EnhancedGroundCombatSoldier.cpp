@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier( void ) :
+GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier() :
     m_ui8WaterStatus( 0 ),
     m_ui8RestStatus( 0 ),
     m_ui8PriAmmun( 0 ),
@@ -81,7 +81,7 @@ GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier( const GED_Basi
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatSoldier::~GED_EnhancedGroundCombatSoldier( void )
+GED_EnhancedGroundCombatSoldier::~GED_EnhancedGroundCombatSoldier()
 {
 }
 

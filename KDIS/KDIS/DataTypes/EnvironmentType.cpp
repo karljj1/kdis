@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EnvironmentType::EnvironmentType( void ) :
+EnvironmentType::EnvironmentType() :
     m_ui8EntityKind( Environmental ),
     m_ui8Domain( 0 ),
     m_ui16Class( 0 ),
@@ -85,7 +85,7 @@ EnvironmentType::EnvironmentType( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-EnvironmentType::~EnvironmentType( void )
+EnvironmentType::~EnvironmentType()
 {
 }
 

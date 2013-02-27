@@ -53,13 +53,13 @@ public:
     // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
     static const KUINT16 RESUPPLY_OFFER_PDU_SIZE = 28; // Does not include supply size
 
-    Resupply_Offer_PDU( void );
+    Resupply_Offer_PDU();
 
     Resupply_Offer_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );
 
     Resupply_Offer_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Resupply_Offer_PDU( void );
+    virtual ~Resupply_Offer_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Resupply_Offer_PDU::GetAsString
@@ -72,5 +72,5 @@ public:
     KBOOL operator != ( const Resupply_Offer_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

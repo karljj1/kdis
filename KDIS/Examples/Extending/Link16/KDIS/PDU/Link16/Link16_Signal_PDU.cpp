@@ -42,7 +42,7 @@ using namespace ENUMS::LINK16;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Link16_Signal_PDU::Link16_Signal_PDU( void ) :
+Link16_Signal_PDU::Link16_Signal_PDU() :
 	m_ui16NPG( 0 ),
 	m_ui8NetNumber( 0 ),
 	m_ui8TSEC( 0 ),
@@ -89,7 +89,7 @@ Link16_Signal_PDU::Link16_Signal_PDU( const EntityIdentifier & ID, KUINT16 Radio
 
 //////////////////////////////////////////////////////////////////////////
 
-Link16_Signal_PDU::~Link16_Signal_PDU( void )
+Link16_Signal_PDU::~Link16_Signal_PDU()
 {
 }
 

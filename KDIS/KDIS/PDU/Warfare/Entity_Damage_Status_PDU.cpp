@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( void ) : 
+Entity_Damage_Status_PDU::Entity_Damage_Status_PDU() : 
 	m_ui32Padding( 0 ),
 	m_ui16NumDmgDescRecs( 0 )
 {
@@ -73,7 +73,7 @@ Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( KDataStream & stream ) throw
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_Damage_Status_PDU::~Entity_Damage_Status_PDU( void )
+Entity_Damage_Status_PDU::~Entity_Damage_Status_PDU()
 {
 }
 

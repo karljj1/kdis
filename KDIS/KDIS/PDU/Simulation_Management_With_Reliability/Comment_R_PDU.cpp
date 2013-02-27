@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Comment_R_PDU::Comment_R_PDU( void )
+Comment_R_PDU::Comment_R_PDU()
 {
     m_ui8PDUType = Comment_R_PDU_Type;
     m_ui16PDULength = COMMENT_R_PDU_SIZE;
@@ -70,7 +70,7 @@ Comment_R_PDU::Comment_R_PDU( const EntityIdentifier & OriginatingEntityID, cons
 
 //////////////////////////////////////////////////////////////////////////
 
-Comment_R_PDU::~Comment_R_PDU( void )
+Comment_R_PDU::~Comment_R_PDU()
 {
 }
 

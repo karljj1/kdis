@@ -78,7 +78,7 @@ public:
 
     static const KUINT16 COLLISION_PDU_SIZE = 60;
 
-    Collision_PDU( void );
+    Collision_PDU();
 
     Collision_PDU( KDataStream & stream ) throw( KException );
 
@@ -86,7 +86,7 @@ public:
                    const EntityIdentifier & EventID, CollisionType CT,const Vector & Velocity,
                    KFLOAT32 Mass, const Vector & Location );
 
-    virtual ~Collision_PDU( void );
+    virtual ~Collision_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::SetIssuingEntityID
@@ -189,5 +189,5 @@ public:
     KBOOL operator != ( const Collision_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

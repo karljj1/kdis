@@ -109,7 +109,7 @@ public:
 
     static const KUINT16 MINEFIELD_STATE_PDU_SIZE = 72; // Min size
 
-    Minefield_State_PDU( void );
+    Minefield_State_PDU();
 
     Minefield_State_PDU( const EntityIdentifier & ID, KUINT16 SequenceNumber, ForceID FID, const EntityType & Type,
                          const WorldCoordinates & Loc, const EulerAngles & Ori, const MinefieldAppearance & MA,
@@ -117,7 +117,7 @@ public:
 
     Minefield_State_PDU( KDataStream & stream ) throw( KException );
 
-    virtual ~Minefield_State_PDU( void );
+    virtual ~Minefield_State_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::SetSequenceNumber
@@ -255,5 +255,5 @@ public:
     KBOOL operator != ( const Minefield_State_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

@@ -36,7 +36,7 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-PositionError::PositionError( void )
+PositionError::PositionError()
 {
 }
 
@@ -57,7 +57,7 @@ PositionError::PositionError( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-PositionError::~PositionError( void )
+PositionError::~PositionError()
 {
 }
 

@@ -78,9 +78,9 @@ class FactoryDecoder
 {
 public:
 	
-	FactoryDecoder( void ){};
+	FactoryDecoder(){};
 
-	virtual ~FactoryDecoder( void ){};
+	virtual ~FactoryDecoder(){};
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FactoryDecoder::FactoryDecode
@@ -178,6 +178,6 @@ public:
 template<class DecoderBaseTyp>
 map<KINT32, FactoryDecoder<DecoderBaseTyp>* > FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders = map<KINT32, FactoryDecoder<DecoderBaseTyp>* >();
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

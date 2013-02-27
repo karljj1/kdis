@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::Radio_Communications_Header( void ) :
+Radio_Communications_Header::Radio_Communications_Header() :
 	m_ui16RadioID( 0 )
 {
     m_ui8ProtocolFamily = Radio_Communications;
@@ -75,7 +75,7 @@ Radio_Communications_Header::Radio_Communications_Header( const EntityIdentifier
 
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::~Radio_Communications_Header( void )
+Radio_Communications_Header::~Radio_Communications_Header()
 {
 }
 

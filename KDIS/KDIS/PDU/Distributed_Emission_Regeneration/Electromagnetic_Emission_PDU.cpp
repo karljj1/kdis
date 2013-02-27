@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU( void ) :
+Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU() :
     m_ui16Padding( 0 )
 {
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
@@ -93,7 +93,7 @@ Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU( const EntityIdentifi
 
 //////////////////////////////////////////////////////////////////////////
 
-Electromagnetic_Emission_PDU::~Electromagnetic_Emission_PDU( void )
+Electromagnetic_Emission_PDU::~Electromagnetic_Emission_PDU()
 {
     m_vEmissionSystem.clear();
 }

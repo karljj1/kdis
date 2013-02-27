@@ -65,7 +65,7 @@ public:
 
     static const KUINT16 ENTITY_CAPABILITIES_SIZE = 4;
 
-    EntityCapabilities( void );
+    EntityCapabilities();
 
     EntityCapabilities( KDataStream & stream ) throw( KException );
 
@@ -73,7 +73,7 @@ public:
 
 	EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply, KBOOL RecoveryService, KBOOL RepairService, KBOOL ADSB );
 
-    virtual ~EntityCapabilities( void );
+    virtual ~EntityCapabilities();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasAmmunitionSupply
@@ -154,6 +154,6 @@ public:
     KBOOL operator != ( const EntityCapabilities & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

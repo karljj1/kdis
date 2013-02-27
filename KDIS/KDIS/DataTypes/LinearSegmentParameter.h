@@ -85,7 +85,7 @@ public:
 
     static const KUINT16 LINEAR_SEGMENT_PARAMETER_SIZE = 56;
 
-    LinearSegmentParameter( void );
+    LinearSegmentParameter();
 
     LinearSegmentParameter( KDataStream & stream )throw( KException );
 
@@ -93,7 +93,7 @@ public:
                             const WorldCoordinates & Loc, const EulerAngles & Ori,
                             KUINT16 Length, KUINT16 Width, KUINT16 Height, KUINT16 Depth );
 
-    virtual ~LinearSegmentParameter( void );
+    virtual ~LinearSegmentParameter();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LinearSegmentParameter::SetLinearSegmentParameterType
@@ -219,5 +219,5 @@ public:
     KBOOL operator != ( const LinearSegmentParameter & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

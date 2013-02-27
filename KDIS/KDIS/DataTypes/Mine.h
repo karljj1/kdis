@@ -105,11 +105,11 @@ protected:
 
 public:
 
-    Mine( void );
+    Mine();
 
     Mine( const Vector & Location, KUINT16 ID );
 
-    virtual ~Mine( void );
+    virtual ~Mine();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mine::SetLocation
@@ -382,5 +382,5 @@ public:
     KBOOL operator != ( const Mine & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS

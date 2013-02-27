@@ -61,13 +61,13 @@ public:
 
     static const KUINT16 ATTRIBUTE_RECORD_SET_SIZE = 8; // Min size
 
-    AttributeRecordSet( void );
+    AttributeRecordSet();
 
     AttributeRecordSet( KDataStream & stream ) throw( KException );
 
 	AttributeRecordSet( const EntityIdentifier & EI );
 	
-    virtual ~AttributeRecordSet( void );
+    virtual ~AttributeRecordSet();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::AttributeRecordSet::SetEntityIdentifier
@@ -131,6 +131,6 @@ public:
     KBOOL operator != ( const AttributeRecordSet & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

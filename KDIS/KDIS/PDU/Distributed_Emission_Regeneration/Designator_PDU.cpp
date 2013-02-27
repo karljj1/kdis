@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Designator_PDU::Designator_PDU( void ) :
+Designator_PDU::Designator_PDU() :
     m_ui16Padding1( 0 ),
     m_ui8Padding2( 0 )
 {
@@ -94,7 +94,7 @@ Designator_PDU::Designator_PDU( const EntityIdentifier & DesignatingEntityID, De
 
 //////////////////////////////////////////////////////////////////////////
 
-Designator_PDU::~Designator_PDU( void )
+Designator_PDU::~Designator_PDU()
 {
 }
 

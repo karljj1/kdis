@@ -58,13 +58,13 @@ public:
 
     static const KUINT16 SILENT_AGGREGATE_SYSTEM_SIZE = 12;
 
-    SilentAggregateSystem( void );
+    SilentAggregateSystem();
 
     SilentAggregateSystem( KDataStream & stream ) throw( KException );
 
     SilentAggregateSystem( KUINT16 NumAggregates, const AggregateType & T );
 
-    virtual ~SilentAggregateSystem( void );
+    virtual ~SilentAggregateSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SilentAggregateSystem::SetNumberOfAggregates
@@ -110,6 +110,6 @@ public:
     KBOOL operator != ( const SilentAggregateSystem & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 

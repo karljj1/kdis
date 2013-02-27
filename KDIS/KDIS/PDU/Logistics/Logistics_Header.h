@@ -59,11 +59,11 @@ public:
 
     static const KUINT16 LOGISTICS_HEADER_SIZE = 24;
 
-    Logistics_Header( void );
+    Logistics_Header();
 
     Logistics_Header( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID );
 
-    virtual ~Logistics_Header( void );
+    virtual ~Logistics_Header();
 
     //************************************
     // FullName:    KDIS::PDU::Logistics_Header::SetReceivingEntity
@@ -111,5 +111,5 @@ public:
     KBOOL operator != ( const Logistics_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

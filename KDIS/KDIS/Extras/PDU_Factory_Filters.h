@@ -55,9 +55,9 @@ class PDU_Factory_Filter
 {
 public:
 
-    PDU_Factory_Filter( void ) {};
+    PDU_Factory_Filter() {};
 
-    ~PDU_Factory_Filter( void ) {};
+    ~PDU_Factory_Filter() {};
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilter
@@ -86,7 +86,7 @@ public:
     {
     };
 
-    ~FactoryFilterExerciseID( void ) {};
+    ~FactoryFilterExerciseID() {};
 
     //************************************
     // FullName:    KDIS::UTILS::FactoryFilterExerciseID::ApplyFilter
@@ -103,5 +103,5 @@ public:
     };
 };
 
-}; // End namespace UTILS
-}; // End namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS

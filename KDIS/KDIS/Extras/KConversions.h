@@ -582,5 +582,5 @@ void EulerToHeadingPitchRoll( Type Lat, Type Lon, Type Psi, Type Theta, Type Phi
     R = atan2(  Dot( Y3 , z2 ) , Dot( Y3 , y2 ) );
 }
 
-}; // END namespace UTILS
-}; // END namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS

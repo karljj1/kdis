@@ -63,13 +63,13 @@ public:
 
     static const KUINT16 RELIABILITY_SIZE = 4;
 
-    Reliability_Header( void );
+    Reliability_Header();
 
     Reliability_Header( KDataStream & stream ) throw( KException );
 
     Reliability_Header( RequiredReliabilityService RRS );
 
-    virtual ~Reliability_Header( void );
+    virtual ~Reliability_Header();
 
     //************************************
     // FullName:    KDIS::PDU::Reliability_Header::SetRequiredReliabilityService
@@ -107,5 +107,5 @@ public:
     KBOOL operator != ( const Reliability_Header & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS

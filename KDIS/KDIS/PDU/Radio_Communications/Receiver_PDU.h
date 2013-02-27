@@ -71,7 +71,7 @@ public:
 
     static const KUINT16 RECEIVER_PDU_SIZE = 36;
 
-    Receiver_PDU( void );
+    Receiver_PDU();
 
     Receiver_PDU( KDataStream & stream ) throw( KException );
 
@@ -79,7 +79,7 @@ public:
                   KFLOAT32 ReceivingPower, const EntityIdentifier & TransmitterID,
                   KUINT16 TransmitterRadioID );
 
-    virtual ~Receiver_PDU( void );
+    virtual ~Receiver_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Receiver_PDU::SetReceiverState
@@ -147,6 +147,6 @@ public:
     KBOOL operator != ( const Receiver_PDU & Value ) const;
 };
 
-}; // END namespace PDU
-}; // END namespace KDIS
+} // END namespace PDU
+} // END namespace KDIS
 

@@ -109,7 +109,7 @@ private:
 
 public:
 
-    KRef_Ptr( void ) :
+    KRef_Ptr() :
         m_pRef( NULL ),
         m_piCount( NULL )
     {
@@ -130,7 +130,7 @@ public:
         ref();
     };
 
-    virtual ~KRef_Ptr( void )
+    virtual ~KRef_Ptr()
     {
         unRef();
     };
@@ -315,5 +315,5 @@ public:
 };
 
 
-}; // End namespace UTILS
-}; // End namespace KDIS
+} // END namespace UTILS
+} // END namespace KDIS

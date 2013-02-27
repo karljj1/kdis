@@ -37,7 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ObjectAppearance::ObjectAppearance( void )
+ObjectAppearance::ObjectAppearance()
 {
     m_GeneralAppearanceUnion.m_ui16GeneralAppearance = 0;
 }
@@ -66,7 +66,7 @@ ObjectAppearance::ObjectAppearance( KUINT8 PerCent, ObjectDamage OD, KBOOL Predi
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectAppearance::~ObjectAppearance( void )
+ObjectAppearance::~ObjectAppearance()
 {
 }
 

@@ -68,7 +68,7 @@ public:
 
     static const KUINT16 GRID_DATA_TYPE1_SIZE = 16; // Min size
 
-    GridDataType1( void );
+    GridDataType1();
 
     GridDataType1( KDataStream & stream ) throw( KException );
 
@@ -79,7 +79,7 @@ public:
     GridDataType1( KUINT16 SampleType, KFLOAT32 FieldScale, KFLOAT32 FieldOffset,
                    const vector<KUINT16> & Values );
 
-    virtual ~GridDataType1( void );
+    virtual ~GridDataType1();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridDataType1::SetFieldScale
@@ -154,6 +154,6 @@ public:
     KBOOL operator != ( const GridDataType1 & Value ) const;
 };
 
-}; // END namespace DATA_TYPES
-}; // END namespace KDIS
+} // END namespace DATA_TYPES
+} // END namespace KDIS
 
