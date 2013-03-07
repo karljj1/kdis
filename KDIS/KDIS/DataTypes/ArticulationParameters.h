@@ -110,6 +110,14 @@ public:
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantMetric
     //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantMetric
     // Description: Identifies the transformation to be applied to the articulated part.
+	//              Recommended type of metric:
+	//			       Horizontal control surfaces  -  Elevation
+	//                 Vertical control surfaces    -  Azimuth
+	//                 Extendible items             -  Extension
+	//                 Fixed path items             -  Position
+	//                 Turrets                      -  Azimuth
+	//                 Guns                         -  Elevation
+	//                 Movable missile launcher     -  Azimuth and elevation
     // Parameter:   ArticulatedPartsMetric M
     //************************************
     void SetTypeVariantMetric( ArticulatedPartsMetric M );
@@ -137,7 +145,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetValue
     //              KDIS::DATA_TYPE::ArticulationParameters::GetValue
     // Description: Value.
-    // Parameter:   KUINT64 val, void
+    // Parameter:   KUINT64 val
     //************************************
     void SetValue( KUINT64 val );
     KUINT64 GetValue() const;

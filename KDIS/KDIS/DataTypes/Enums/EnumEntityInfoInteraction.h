@@ -394,22 +394,47 @@ KBOOL GetEnumFromStringArticulationType( const KString & Value, KINT32 & ValueOu
 
 enum ArticulatedPartsMetric
 {	
-    Position                                                          = 1,
-    ZRate                                                             = 10,
-    Azimuth                                                           = 11,
-    AzimuthRate                                                       = 12,
-    Elevation                                                         = 13,
-    ElevationRate                                                     = 14,
-    Rotation                                                          = 15,
-    RotationRate                                                      = 16,
-    PositionRate                                                      = 2,
-    Extension                                                         = 3,
-    ExtensionRate                                                     = 4,
-    XValue                                                            = 5,
-    XRate                                                             = 6,
-    YValue                                                            = 7,
-    YRate                                                             = 8,
-    ZValue                                                            = 9
+        // Position shall specify the location of an articulated part along a particular path to which its movement is
+        // constrained. The path may be any three-space curve. 
+        // The value zero shall represent fully retracted, and one shall represent fully extended. Intermediate
+        // positions are represented as a fraction of the path traveled. One path may be associated with each articulated
+        // part on each entity type.
+        Position                                                          = 1,
+
+        // Position rate shall specify the rate of change of position in units of fraction of entire path per second. For
+        // example, a position rate of one indicates that the articulated part has traversed the entire path in 1 s.
+        PositionRate                                                      = 2,
+
+        // Extension shall specify the linear extension of the part in one direction in meters. The value zero shall
+        // represent fully retracted. 
+        Extension                                                         = 3,
+
+        // Extension rate shall specify the rate of change of extension in units of meters per second.
+        ExtensionRate                                                     = 4,
+
+        // The  x,  y, and  z shall specify the translation from the articulated parts reference coordinate system to the
+        // current location of the articulated parts coordinate system. 
+        XValue                                                            = 5,
+        XRate                                                             = 6,
+        YValue                                                            = 7,
+
+        // The  x, y, and  z rates shall specify the rate of change of the position of the articulated coordinate system
+        // expressed in meters per second.
+        YRate                                                             = 8,
+        ZValue                                                            = 9,
+        ZRate                                                             = 10,
+
+        // Azimuth shall specify the rotation of an articulated part with respect to its reference z-axis. Measured in radians.
+        Azimuth                                                           = 11,
+        AzimuthRate                                                       = 12,
+
+        // Elevation shall specify the rotation of an articulated part with respect to its reference y-axis. Measured in radians.
+        Elevation                                                         = 13,
+        ElevationRate                                                     = 14,
+
+        // Rotation shall specify the rotation of an articulated part with respect to its reference x-axis. Measured in radians.
+        Rotation                                                          = 15,
+        RotationRate                                                      = 16
 };
 
 KString GetEnumAsStringArticulatedPartsMetric( KINT32 Value );
