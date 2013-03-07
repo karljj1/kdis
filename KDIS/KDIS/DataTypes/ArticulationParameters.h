@@ -109,7 +109,7 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantMetric
     //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantMetric
-    // Description: Set the low bits value to the entity.
+    // Description: Identifies the transformation to be applied to the articulated part.
     // Parameter:   ArticulatedPartsMetric M
     //************************************
     void SetTypeVariantMetric( ArticulatedPartsMetric M );
@@ -118,7 +118,7 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantClass
     //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantClass
-    // Description: Set the class of the articulated type.
+    // Description: Identifies a particular articulated part on a given entity type.
     // Parameter:   ArticulatedPartsClass C
     //************************************
     void SetTypeVariantClass( ArticulatedPartsClass C );

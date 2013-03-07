@@ -393,7 +393,7 @@ KString GetEnumAsStringArticulationType( KINT32 Value );
 KBOOL GetEnumFromStringArticulationType( const KString & Value, KINT32 & ValueOut ); 
 
 enum ArticulatedPartsMetric
-{
+{	
     Position                                                          = 1,
     ZRate                                                             = 10,
     Azimuth                                                           = 11,
