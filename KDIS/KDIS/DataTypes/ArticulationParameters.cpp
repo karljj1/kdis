@@ -44,9 +44,9 @@ ArticulationParameters::ArticulationParameters() :
     m_ui8ArticulationType( 0 ),
     m_ui8ParmeterChange( 0 ),
     m_ui16AttachementID( 0 ),
+	m_ui32ParamTypeVariant( 0 ),
     m_ui64ParamValue( 0 )
-{
-    m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant = 0;
+{    
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,9 +70,9 @@ ArticulationParameters::ArticulationParameters( ArticulationType AT, KUINT8 Para
     m_ui8ArticulationType( AT ),
     m_ui8ParmeterChange( ParamChangeIndicator ),
     m_ui16AttachementID( AttachID ),
+	m_ui32ParamTypeVariant( TypeVariant ),
     m_ui64ParamValue( Value )
 {
-    m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant = TypeVariant;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -125,44 +125,44 @@ KUINT16 ArticulationParameters::GetAttachementID() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ArticulationParameters::SetTypeVariantLowBits( ArticulatedPartsLowBits VLB )
+void ArticulationParameters::SetTypeVariantMetric( ArticulatedPartsMetric M )
 {
-    m_ui32ParamTypeVariantUnion.m_VariantLowBits = VLB;
+	m_ui32ParamTypeVariant = m_ui32ParamTypeVariant - ( m_ui32ParamTypeVariant % 32 ) + M;    
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ArticulatedPartsLowBits ArticulationParameters::GetTypeVariantLowBits() const
+ArticulatedPartsMetric ArticulationParameters::GetTypeVariantMetric() const
 {
-    return ( ArticulatedPartsLowBits )m_ui32ParamTypeVariantUnion.m_VariantLowBits;
+    return ( ArticulatedPartsMetric )( m_ui32ParamTypeVariant % 32 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ArticulationParameters::SetTypeVariantHighBits( ArticulatedPartsHighBits VHB )
+void ArticulationParameters::SetTypeVariantClass( ArticulatedPartsClass C )
 {
-    m_ui32ParamTypeVariantUnion.m_VariantHighBits = VHB;
+    m_ui32ParamTypeVariant = C + ( m_ui32ParamTypeVariant % 32 );    
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ArticulatedPartsHighBits ArticulationParameters::GetTypeVariantHighBits() const
+ArticulatedPartsClass ArticulationParameters::GetTypeVariantClass() const
 {
-    return ( ArticulatedPartsHighBits )m_ui32ParamTypeVariantUnion.m_VariantHighBits;
+    return ( ArticulatedPartsClass )( m_ui32ParamTypeVariant - ( m_ui32ParamTypeVariant % 32 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void ArticulationParameters::SetTypeVariant( KUINT32 TV )
 {
-    m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant = TV;
+    m_ui32ParamTypeVariant = TV;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KUINT32 ArticulationParameters::GetTypeVariant() const
 {
-    return m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant;
+    return m_ui32ParamTypeVariant;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -189,8 +189,8 @@ KString ArticulationParameters::GetAsString() const
        << "\n\tType:                 " << GetEnumAsStringArticulationType( m_ui8ArticulationType )
        << "\n\tParameter Change:     " << ( KUINT16 )m_ui8ParmeterChange
        << "\n\tAttachement ID:       " << m_ui16AttachementID
-       << "\n\tType Low Bits:        " << GetEnumAsStringArticulatedPartsLowBits( m_ui32ParamTypeVariantUnion.m_VariantLowBits )
-       << "\n\tType High Bits:       " << GetEnumAsStringArticulatedPartsHighBits( m_ui32ParamTypeVariantUnion.m_VariantHighBits )
+       << "\n\tType Metric:          " << GetEnumAsStringArticulatedPartsMetric( GetTypeVariantMetric() )
+       << "\n\tType High Bits:       " << GetEnumAsStringArticulatedPartsClass( GetTypeVariantClass() )
        << "\n\tValue:                " << m_ui64ParamValue
        << "\n";
 
@@ -206,7 +206,7 @@ void ArticulationParameters::Decode( KDataStream & stream ) throw( KException )
     stream >> m_ui8ArticulationType
            >> m_ui8ParmeterChange
            >> m_ui16AttachementID
-           >> m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant
+           >> m_ui32ParamTypeVariant
            >> m_ui64ParamValue;
 }
 
@@ -228,7 +228,7 @@ void ArticulationParameters::Encode( KDataStream & stream ) const
     stream << m_ui8ArticulationType
            << m_ui8ParmeterChange
            << m_ui16AttachementID
-           << m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant
+           << m_ui32ParamTypeVariant
            << m_ui64ParamValue;
 }
 
@@ -239,7 +239,7 @@ KBOOL ArticulationParameters::operator == ( const ArticulationParameters & Value
     if( m_ui8ArticulationType   != Value.m_ui8ArticulationType )  return false;
     if( m_ui8ParmeterChange     != Value.m_ui8ParmeterChange )    return false;
     if( m_ui16AttachementID     != Value.m_ui16AttachementID )    return false;
-    if( m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant != Value.m_ui32ParamTypeVariantUnion.m_ui32ParamTypeVariant ) return false;
+    if( m_ui32ParamTypeVariant  != Value.m_ui32ParamTypeVariant ) return false;
     if( m_ui64ParamValue        != Value.m_ui64ParamValue )       return false;
     return true;
 }

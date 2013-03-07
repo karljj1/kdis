@@ -78,7 +78,7 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasAmmunitionSupply
     //              KDIS::DATA_TYPE::EntityCapabilities::HasAmmunitionSupply
-    // Description: Does the entity have a ammunition supply
+    // Description: Does the entity have an ammunition supply
     // Parameter:   KBOOL HAS
     //************************************
     void SetHasAmmunitionSupply( KBOOL HAS );

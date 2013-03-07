@@ -35,7 +35,7 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Specification of articulation parameters for moving
                 and attached parts.
                 In DIS version 7 onwards this data type is known as "Variable Parameters".
-    size:       128 bits / 16
+    size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
@@ -46,8 +46,8 @@ namespace KDIS {
 namespace DATA_TYPE {
 
 using KDIS::DATA_TYPE::ENUMS::ArticulationType;
-using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsHighBits;
-using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsLowBits;
+using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass;
+using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric;
 
 class KDIS_EXPORT ArticulationParameters :  public DataTypeBase
 {
@@ -59,17 +59,8 @@ protected:
 
     KUINT16 m_ui16AttachementID;
 
-    union
-    {
-        struct
-        {
-            KUINT16 m_VariantLowBits;
-            KUINT16 m_VariantHighBits;
-        };
-
-        KUINT32 m_ui32ParamTypeVariant;
-    } m_ui32ParamTypeVariantUnion;
-
+    KUINT32 m_ui32ParamTypeVariant;
+  
     KUINT64 m_ui64ParamValue;
 
 public:
@@ -89,7 +80,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetArticulationType
     //              KDIS::DATA_TYPE::ArticulationParameters::GetArticulationType
     // Description: Type.
-    // Parameter:   ArticulationType AT, void
+    // Parameter:   ArticulationType AT
     //************************************
     void SetArticulationType( ArticulationType AT );
     ArticulationType GetArticulationType() const;
@@ -99,7 +90,7 @@ public:
     //              KDIS::DATA_TYPE::ArticulationParameters::GetParameterChangeIndicator
     // Description: Stores change to any articulated part. Set to 0 at sim start and incremented
     //              each time a change occurs, if value > 255 it should be set back to 0.
-    // Parameter:   KUINT8 PCI, void
+    // Parameter:   KUINT8 PCI
     //************************************
     void SetParameterChangeIndicator( KUINT8 PCI );
     KUINT8 GetParameterChangeIndicator() const;
@@ -110,35 +101,34 @@ public:
     // Description: ID field of the articulated part to which the articulation parameter
     //              is attached. Field shall be 0 if the part is attached directly
     //              to the entity.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetAttachementID( KUINT16 ID );
     KUINT16 GetAttachementID() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantLowBits
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantLowBits
+    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantMetric
+    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantMetric
     // Description: Set the low bits value to the entity.
-    // Parameter:   ArticulatedPartsLowBits VLB, void
+    // Parameter:   ArticulatedPartsMetric M
     //************************************
-    void SetTypeVariantLowBits( ArticulatedPartsLowBits VLB );
-    ArticulatedPartsLowBits GetTypeVariantLowBits() const;
+    void SetTypeVariantMetric( ArticulatedPartsMetric M );
+    ArticulatedPartsMetric GetTypeVariantMetric() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantHighBits
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantHighBits
-    // Description: Set the high bits value to the entity.
-    // Parameter:   ArticulatedPartsHighBits VHB, void
+    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantClass
+    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantClass
+    // Description: Set the class of the articulated type.
+    // Parameter:   ArticulatedPartsClass C
     //************************************
-    void SetTypeVariantHighBits( ArticulatedPartsHighBits VHB );
-    ArticulatedPartsHighBits GetTypeVariantHighBits() const;
+    void SetTypeVariantClass( ArticulatedPartsClass C );
+    ArticulatedPartsClass GetTypeVariantClass() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariant
     //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariant
-    // Description: Depends on Part type, only applies to Articulated parts.
-    //              Not used for Attached parts.
-    // Parameter:   KUINT32 TV, void
+    // Description: TV = Metric + Class. 
+    // Parameter:   KUINT32 TV
     //************************************
     void SetTypeVariant( KUINT32 TV );
     KUINT32 GetTypeVariant() const;

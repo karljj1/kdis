@@ -497,11 +497,11 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulationType( const KString &
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for ArticulatedPartsLowBits
+// Implementation of string values for ArticulatedPartsMetric
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor ArticulatedPartsLowBitsDescriptor[] =
+const EnumDescriptor ArticulatedPartsMetricDescriptor[] =
 {
     { 1 , "Position" },
     { 2 , "PositionRate" },
@@ -521,26 +521,26 @@ const EnumDescriptor ArticulatedPartsLowBitsDescriptor[] =
     { 16 , "RotationRate" }
 };
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsLowBits( KINT32 Value )
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsMetric( KINT32 Value )
 {
-    return GetEnumAsString( ArticulatedPartsLowBitsDescriptor, sizeof( ArticulatedPartsLowBitsDescriptor ) / sizeof( EnumDescriptor ), Value );
+    return GetEnumAsString( ArticulatedPartsMetricDescriptor, sizeof( ArticulatedPartsMetricDescriptor ) / sizeof( EnumDescriptor ), Value );
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsLowBits( const KString & Value, KINT32 & ValueOut )
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ArticulatedPartsLowBitsDescriptor, sizeof( ArticulatedPartsLowBitsDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+	return GetEnumFromString( ArticulatedPartsMetricDescriptor, sizeof( ArticulatedPartsMetricDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsLowBits( KINT32 Value )
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsMetric( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
 };
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsLowBits( const KString & Value, KINT32 & ValueOut )
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut )
 {
 	return false; // Maybe throw an exception?
 }
@@ -549,11 +549,11 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsLowBits( const KS
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for ArticulatedPartsHighBits
+// Implementation of string values for ArticulatedPartsClass
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor ArticulatedPartsHighBitsDescriptor[] =
+const EnumDescriptor ArticulatedPartsClassDescriptor[] =
 {
     { 1024 , "Rudder" },
     { 1056 , "LeftFlap" },
@@ -685,26 +685,26 @@ const EnumDescriptor ArticulatedPartsHighBitsDescriptor[] =
     { 7264 , "SecondaryRadar10" }
 };
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsHighBits( KINT32 Value )
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsClass( KINT32 Value )
 {
-    return GetEnumAsString( ArticulatedPartsHighBitsDescriptor, sizeof( ArticulatedPartsHighBitsDescriptor ) / sizeof( EnumDescriptor ), Value );
+    return GetEnumAsString( ArticulatedPartsClassDescriptor, sizeof( ArticulatedPartsClassDescriptor ) / sizeof( EnumDescriptor ), Value );
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsHighBits( const KString & Value, KINT32 & ValueOut )
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ArticulatedPartsHighBitsDescriptor, sizeof( ArticulatedPartsHighBitsDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+	return GetEnumFromString( ArticulatedPartsClassDescriptor, sizeof( ArticulatedPartsClassDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsHighBits( KINT32 Value )
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsClass( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
 };
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsHighBits( const KString & Value, KINT32 & ValueOut )
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut )
 {
 	return false; // Maybe throw an exception?
 }

@@ -392,7 +392,7 @@ KString GetEnumAsStringArticulationType( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringArticulationType( const KString & Value, KINT32 & ValueOut ); 
 
-enum ArticulatedPartsLowBits
+enum ArticulatedPartsMetric
 {
     Position                                                          = 1,
     ZRate                                                             = 10,
@@ -412,12 +412,12 @@ enum ArticulatedPartsLowBits
     ZValue                                                            = 9
 };
 
-KString GetEnumAsStringArticulatedPartsLowBits( KINT32 Value );
+KString GetEnumAsStringArticulatedPartsMetric( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringArticulatedPartsLowBits( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut ); 
 
-enum ArticulatedPartsHighBits
+enum ArticulatedPartsClass
 {
     Rudder                                                            = 1024,
     LeftFlap                                                          = 1056,
@@ -549,10 +549,10 @@ enum ArticulatedPartsHighBits
     SecondaryRadar10                                                  = 7264
 };
 
-KString GetEnumAsStringArticulatedPartsHighBits( KINT32 Value );
+KString GetEnumAsStringArticulatedPartsClass( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringArticulatedPartsHighBits( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut ); 
 
 /************************************************************************/
 /* General Appearance Fields                                            */
