@@ -64,12 +64,15 @@
 	</div>
 	<div style="color: blue">
 	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Migration_Guide">migration</a> guide for more details.
+	<li>Renamed ArticulationParamaters to ArticulatedPart.</li>
 	</div>	
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>
 	<li>Added Vector::Set to set all values in one call.</li>
 	<li>Added Vector::Lerp.</li>
 	<li>Added WorldCoordinates::Lerp</li>
-	<li>Fixed ArticulationParameters Parameter type variant field. The high and low bits method was incorrect. TypeVariantHighBits is now TypeVariantClass and TypeVariantLowBits is TypeVariantMetric.</li>
+	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type variant field. The high and low bits method was incorrect. TypeVariantHighBits is now TypeVariantClass and TypeVariantLowBits is TypeVariantMetric.</li>
+	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type value field. Should have been a KFLOAT32 not KUINT64.</li>
+	<li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>	
 </ul>

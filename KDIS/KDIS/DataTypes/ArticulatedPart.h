@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      ArticulationParameters
+    class:      ArticulatedPart
     updated:    08/03/2013
     author:     Karl Jones
 
@@ -52,7 +52,7 @@ using KDIS::DATA_TYPE::ENUMS::VariableParameterType;
 using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass;
 using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric;
 
-class KDIS_EXPORT ArticulationParameters : public VariableParameter
+class KDIS_EXPORT ArticulatedPart : public VariableParameter
 {
 protected:
 
@@ -62,24 +62,26 @@ protected:
 
     KUINT32 m_ui32ParamTypeVariant;
   
-    KUINT64 m_ui64ParamValue;
+    KFLOAT32 m_f32ParamValue;
+
+	KUINT32 m_ui32Padding;
 
 public:
 
-    ArticulationParameters();
+    ArticulatedPart();
 
-    ArticulationParameters( KDataStream & stream ) throw( KException );
+    ArticulatedPart( KDataStream & stream ) throw( KException );
 
-	ArticulationParameters( KUINT8 ParamChangeIndicator, KUINT16 AttachID, ArticulatedPartsClass C, 
-		                    ArticulatedPartsMetric M, KUINT64 Value );
+	ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, ArticulatedPartsClass C, 
+		             ArticulatedPartsMetric M, KFLOAT32 Value );
 
-    ArticulationParameters( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KUINT32 TypeVariant, KUINT64 Value );
+    ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KUINT32 TypeVariant, KFLOAT32 Value );
 
-    virtual ~ArticulationParameters();
+    virtual ~ArticulatedPart();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetParameterChangeIndicator
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetParameterChangeIndicator
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetParameterChangeIndicator
+    //              KDIS::DATA_TYPE::ArticulatedPart::GetParameterChangeIndicator
     // Description: Stores change to any articulated part. Set to 0 at sim start and incremented
     //              each time a change occurs, if value > 255 it should be set back to 0.
     // Parameter:   KUINT8 PCI
@@ -88,8 +90,8 @@ public:
     KUINT8 GetParameterChangeIndicator() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetAttachementID
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetAttachementID
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetAttachementID
+    //              KDIS::DATA_TYPE::ArticulatedPart::GetAttachementID
     // Description: ID field of the articulated part to which the articulation parameter
     //              is attached. Field shall be 0 if the part is attached directly
     //              to the entity.
@@ -99,8 +101,8 @@ public:
     KUINT16 GetAttachementID() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantClass
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantClass
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariantClass
+    //              KDIS::DATA_TYPE::ArticulatedPart::GetTypeVariantClass
     // Description: Identifies a particular articulated part on a given entity type.
     // Parameter:   ArticulatedPartsClass C
     //************************************
@@ -108,8 +110,8 @@ public:
     ArticulatedPartsClass GetTypeVariantClass() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantMetric
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantMetric
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariantMetric
+    //              KDIS::DATA_TYPE::ArticulatedPart::GetTypeVariantMetric
     // Description: Identifies the transformation to be applied to the articulated part.
 	//              Recommended type of metric:
 	//			       Horizontal control surfaces  -  Elevation
@@ -125,8 +127,8 @@ public:
     ArticulatedPartsMetric GetTypeVariantMetric() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariant
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariant
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariant
+    //              KDIS::DATA_TYPE::ArticulatedPart::GetTypeVariant
     // Description: TV = Metric + Class. 
     // Parameter:   KUINT32 TV
     //************************************
@@ -134,37 +136,37 @@ public:
     KUINT32 GetTypeVariant() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetValue
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetValue
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetValue
+    //              KDIS::DATA_TYPE::ArticulatedPart::GetValue
     // Description: Value.
-    // Parameter:   KUINT64 val
+    // Parameter:   KFLOAT32 val
     //************************************
-    void SetValue( KUINT64 val );
-    KUINT64 GetValue() const;
+    void SetValue( KFLOAT32 val );
+    KFLOAT32 GetValue() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::GetAsString
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::GetAsString
     // Description: Returns a string representation.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::Decode
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::Encode
+    // FullName:    KDIS::DATA_TYPE::ArticulatedPart::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const ArticulationParameters & Value ) const;
-    KBOOL operator != ( const ArticulationParameters & Value ) const;
+    KBOOL operator == ( const ArticulatedPart & Value ) const;
+    KBOOL operator != ( const ArticulatedPart & Value ) const;
 };
 
 } // END namespace DATA_TYPES

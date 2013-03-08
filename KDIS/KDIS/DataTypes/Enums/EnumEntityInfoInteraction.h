@@ -380,8 +380,8 @@ KBOOL GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut );
 
 enum VariableParameterType
 {
-    ArticulatedPart                                                   = 0,
-    AttachedPart                                                      = 1
+    ArticulatedPartType                                               = 0,
+    AttachedPartType                                                  = 1
 };
 
 KString GetEnumAsStringVariableParameterType( KINT32 Value );

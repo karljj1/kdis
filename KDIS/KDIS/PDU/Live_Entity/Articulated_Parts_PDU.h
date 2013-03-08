@@ -41,7 +41,7 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./LE_Header.h"
-#include "./../../DataTypes/ArticulationParameters.h"
+#include "./../../DataTypes/ArticulatedPart.h"
 #include <vector>
 
 namespace KDIS {
@@ -49,7 +49,7 @@ namespace PDU {
 
 using KDIS::DATA_TYPE::VariableParameter;
 using KDIS::DATA_TYPE::VarPrmPtr;
-using KDIS::DATA_TYPE::ArticulationParameters;
+using KDIS::DATA_TYPE::ArticulatedPart;
 using std::vector;
 
 class KDIS_EXPORT Articulated_Parts_PDU : public LE_Header

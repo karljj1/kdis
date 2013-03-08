@@ -49,7 +49,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./../../DataTypes/DeadReckoningParameter.h"
 #include "./../../DataTypes/EntityMarking.h"
 #include "./../../DataTypes/EntityCapabilities.h"
-#include "./../../DataTypes/ArticulationParameters.h"
+#include "./../../DataTypes/ArticulatedPart.h"
 #include "./../../Extras/DeadReckoningCalculator.h"
 #include <vector>
 
@@ -67,7 +67,7 @@ using KDIS::DATA_TYPE::EntityMarking;
 using KDIS::DATA_TYPE::EntityCapabilities;
 using KDIS::DATA_TYPE::VariableParameter;
 using KDIS::DATA_TYPE::VarPrmPtr;
-using KDIS::DATA_TYPE::ArticulationParameters;
+using KDIS::DATA_TYPE::ArticulatedPart;
 using KDIS::DATA_TYPE::ENUMS::ForceID;
 using KDIS::UTILS::DeadReckoningCalculator;
 using std::vector;

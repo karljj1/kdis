@@ -308,11 +308,11 @@ void Detonation_PDU::Decode( KDataStream & stream ) throw( KException )
 			// Default internals
 			switch( paramTyp )
 			{
-				case ArticulatedPart:				
-					m_vVariableParameters.push_back( VarPrmPtr( new ArticulationParameters( stream ) ) );
+				case ArticulatedPartType:				
+					m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
 					break;
 
-				//case AttachedPart:
+				//case AttachedPartType:
 				//	// TODO:
 				//	break
 

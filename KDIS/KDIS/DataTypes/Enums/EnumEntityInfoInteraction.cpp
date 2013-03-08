@@ -465,8 +465,8 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCountry( const KString & Value, K
 
 const EnumDescriptor VariableParameterTypeDescriptor[] =
 {
-    { 0 , "ArticulatedPart" },
-    { 1 , "AttachedPart" }
+    { 0 , "ArticulatedPartType" },
+    { 1 , "AttachedPartType" }
 };
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Value )
