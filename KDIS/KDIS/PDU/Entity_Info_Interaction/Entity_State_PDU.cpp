@@ -59,14 +59,7 @@ Entity_State_PDU::Entity_State_PDU() :
 Entity_State_PDU::Entity_State_PDU( KDataStream & stream ) throw( KException ) :
     m_pDrCalc( 0 )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

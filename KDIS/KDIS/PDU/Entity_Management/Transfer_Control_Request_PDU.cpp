@@ -58,14 +58,7 @@ Transfer_Control_Request_PDU::Transfer_Control_Request_PDU() :
 
 Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

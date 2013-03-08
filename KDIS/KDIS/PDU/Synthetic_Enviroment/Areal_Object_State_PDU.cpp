@@ -54,14 +54,7 @@ Areal_Object_State_PDU::Areal_Object_State_PDU() :
 
 Areal_Object_State_PDU::Areal_Object_State_PDU( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

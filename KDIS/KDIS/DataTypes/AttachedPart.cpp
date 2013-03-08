@@ -27,120 +27,141 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Minefield_Header.h"
+#include "./AttachedPart.h"
 
 //////////////////////////////////////////////////////////////////////////
 
+using namespace std;
 using namespace KDIS;
-using namespace PDU;
 using namespace DATA_TYPE;
 using namespace ENUMS;
-using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
-// public:
+// Public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header()
-{
-    m_ui8ProtocolFamily = Minefield;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+AttachedPart::AttachedPart() :
+    m_ui8DetachedIndicator( 0 ),
+    m_ui16PartAttachedToID( 0 ),
+	m_ui32ParamTypeVariant( 0 )
+{    
+	m_ui8VarParamType = AttachedPartType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header( KDataStream & stream ) throw( KException )
+AttachedPart::AttachedPart( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+	Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::~Minefield_Header()
+AttachedPart::~AttachedPart()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Header::SetMinefieldID( const EntityIdentifier & ID )
+void AttachedPart::SetDetachedIndicator( KUINT8 DI )
 {
-    m_MinefieldID = ID;
+	m_ui8DetachedIndicator = DI;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Minefield_Header::GetMinefieldID() const
+KUINT8 AttachedPart::GetDetachedIndicator() const
 {
-    return m_MinefieldID;
+	return m_ui8DetachedIndicator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Minefield_Header::GetMinefieldID()
+void AttachedPart::SetPartAttachedToID( KUINT16 ID )
 {
-    return m_MinefieldID;
+	m_ui16PartAttachedToID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Minefield_Header::GetAsString() const
+KUINT16 AttachedPart::GetPartAttachedToID() const
+{
+	return m_ui16PartAttachedToID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString AttachedPart::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "Minefield ID:\n"
-       << IndentString( m_MinefieldID.GetAsString(), 1 )
-       << "\n";
+    //ss << "Articulation Parameters:"
+    //   << "\n\tType:                 " << GetEnumAsStringVariableParameterType( m_ui8VarParamType )
+    //   << "\n\tParameter Change:     " << ( KUINT16 )m_ui8ParmeterChange
+    //   << "\n\tAttachement ID:       " << m_ui16AttachementID
+    //   << "\n\tType Metric:          " << GetEnumAsStringArticulatedPartsMetric( GetTypeVariantMetric() )
+    //   << "\n\tType High Bits:       " << GetEnumAsStringArticulatedPartsClass( GetTypeVariantClass() )
+    //   << "\n\tValue:                " << m_f32ParamValue
+    //   << "\n";
 
     return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Header::Decode( KDataStream & stream ) throw( KException )
+void AttachedPart::Decode( KDataStream & stream ) throw( KException )
 {
-    if( stream.GetBufferSize() < MINEFIELD_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
-
-    stream >> KDIS_STREAM m_MinefieldID;
+    //stream >> m_ui8VarParamType
+    //       >> m_ui8ParmeterChange
+    //       >> m_ui16AttachementID
+    //       >> m_ui32ParamTypeVariant
+    //       >> m_f32ParamValue
+		  // >> m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Minefield_Header::Encode() const
+KDataStream AttachedPart::Encode() const
 {
     KDataStream stream;
 
-    Minefield_Header::Encode( stream );
+    AttachedPart::Encode( stream );
 
     return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Header::Encode( KDataStream & stream ) const
+void AttachedPart::Encode( KDataStream & stream ) const
 {
-    Header::Encode( stream );
-
-    stream << KDIS_STREAM m_MinefieldID;
+    //stream << m_ui8VarParamType
+    //       << m_ui8ParmeterChange
+    //       << m_ui16AttachementID
+    //       << m_ui32ParamTypeVariant
+    //       << m_f32ParamValue
+		  // << m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Minefield_Header::operator == ( const Minefield_Header & Value ) const
+KBOOL AttachedPart::operator == ( const AttachedPart & Value ) const
 {
-    if( Header::operator  != ( Value ) )           return false;
-    if( m_MinefieldID     != Value.m_MinefieldID ) return false;
+    //if( m_ui8VarParamType   != Value.m_ui8VarParamType )  return false;
+    //if( m_ui8ParmeterChange     != Value.m_ui8ParmeterChange )    return false;
+    //if( m_ui16AttachementID     != Value.m_ui16AttachementID )    return false;
+    //if( m_ui32ParamTypeVariant  != Value.m_ui32ParamTypeVariant ) return false;
+    //if( m_f32ParamValue        != Value.m_f32ParamValue )       return false;
     return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Minefield_Header::operator != ( const Minefield_Header & Value ) const
+KBOOL AttachedPart::operator != ( const AttachedPart & Value ) const
 {
     return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////
-
 

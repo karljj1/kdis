@@ -63,14 +63,7 @@ Articulated_Parts_PDU::Articulated_Parts_PDU( const LE_EntityIdentifier & ID ) :
 
 Articulated_Parts_PDU::Articulated_Parts_PDU( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

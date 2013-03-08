@@ -54,14 +54,7 @@ ArticulatedPart::ArticulatedPart() :
 
 ArticulatedPart::ArticulatedPart( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -237,11 +230,11 @@ void ArticulatedPart::Encode( KDataStream & stream ) const
 
 KBOOL ArticulatedPart::operator == ( const ArticulatedPart & Value ) const
 {
-    if( m_ui8VarParamType   != Value.m_ui8VarParamType )  return false;
-    if( m_ui8ParmeterChange     != Value.m_ui8ParmeterChange )    return false;
-    if( m_ui16AttachementID     != Value.m_ui16AttachementID )    return false;
-    if( m_ui32ParamTypeVariant  != Value.m_ui32ParamTypeVariant ) return false;
-    if( m_f32ParamValue        != Value.m_f32ParamValue )       return false;
+    if( m_ui8VarParamType      != Value.m_ui8VarParamType )      return false;
+    if( m_ui8ParmeterChange    != Value.m_ui8ParmeterChange )    return false;
+    if( m_ui16AttachementID    != Value.m_ui16AttachementID )    return false;
+    if( m_ui32ParamTypeVariant != Value.m_ui32ParamTypeVariant ) return false;
+    if( m_f32ParamValue        != Value.m_f32ParamValue )        return false;
     return true;
 }
 

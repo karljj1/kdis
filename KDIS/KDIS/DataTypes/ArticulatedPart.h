@@ -48,7 +48,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::VariableParameterType;
 using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass;
 using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric;
 

@@ -58,14 +58,7 @@ Environmental_Process_PDU::Environmental_Process_PDU() :
 
 Environmental_Process_PDU::Environmental_Process_PDU( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

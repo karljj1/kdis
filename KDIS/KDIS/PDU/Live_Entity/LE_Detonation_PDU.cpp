@@ -98,14 +98,7 @@ LE_Detonation_PDU::LE_Detonation_PDU( const LE_EntityIdentifier & ID ) :
 
 LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

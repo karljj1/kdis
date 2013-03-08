@@ -104,14 +104,7 @@ Minefield_Query_PDU::Minefield_Query_PDU( const EntityIdentifier & MinefieldID, 
 
 Minefield_Query_PDU::Minefield_Query_PDU( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

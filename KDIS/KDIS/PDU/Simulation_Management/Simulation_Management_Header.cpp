@@ -51,14 +51,7 @@ Simulation_Management_Header::Simulation_Management_Header()
 
 Simulation_Management_Header::Simulation_Management_Header( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

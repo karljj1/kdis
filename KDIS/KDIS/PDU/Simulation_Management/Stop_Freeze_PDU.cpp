@@ -52,14 +52,7 @@ Stop_Freeze_PDU::Stop_Freeze_PDU()
 
 Stop_Freeze_PDU::Stop_Freeze_PDU( KDataStream & stream ) throw( KException )
 {
-    try
-    {
-        Decode( stream );
-    }
-    catch ( KException & e )
-    {
-        throw e;
-    }
+    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
