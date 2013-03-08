@@ -108,7 +108,6 @@ public:
 	virtual ~Link16_Signal_PDU();
 
 	//************************************
-	// Method:      SetNetworkParticipationGroup, GetNetworkParticipationGroup
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetNetworkParticipationGroup
 	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetNetworkParticipationGroup
 	// Description: Network Participation Group 
@@ -121,7 +120,6 @@ public:
 	KUINT16 GetNetworkParticipationGroup() const;
 
 	//************************************
-	// Method:      SetNetworkParticipationGroup, GetNetworkParticipationGroup
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetNetworkParticipationGroup
 	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetNetworkParticipationGroup
 	// Description: Network Number. Used to create virtual sub-circuits 
@@ -132,8 +130,7 @@ public:
 	void SetNetNumber( KUINT8 NN );
 	KUINT8 GetNetNumber() const;
 
-	//************************************
-	// Method:      SetTransmissionSecurity, GetTransmissionSecurity
+	//************************************	
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetTransmissionSecurity
 	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetTransmissionSecurity
 	// Description: Identification of the crypto variable used for
@@ -146,7 +143,6 @@ public:
 	KUINT8 GetTransmissionSecurity() const;
 
 	//************************************
-	// Method:      SetMessageSecurity, GetMessageSecurity
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetMessageSecurity
 	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetMessageSecurity
 	// Description: Identification of the crypto variable used for
@@ -159,7 +155,6 @@ public:
 	KUINT8 GetMessageSecurity() const;
 
 	//************************************
-	// Method:      GetMessageType, GetMessageType
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetMessageType
 	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetMessageType
 	// Description: Link 16 message type. 
@@ -169,7 +164,6 @@ public:
 	Link16MessageType GetMessageType() const;
 
 	//************************************
-	// Method:      SetTimeSlotNumber, GetTimeSlotNumber
 	// FullName:    KDIS::DATA_TYPE::Link16_Signal_PDU::SetTimeSlotNumber
 	//				KDIS::DATA_TYPE::Link16_Signal_PDU::GetTimeSlotNumber
 	// Description: 0 value represents time slot A-1,
@@ -183,7 +177,6 @@ public:
 	KUINT32 GetTimeSlotNumber() const;
 
 	//************************************
-	// Method:      SetEpoch, GetEpoch
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetEpoch
 	//			    KDIS::PDU::Link16::Link16_Signal_PDU::GetEpoch
 	// Description: An epoch is 12.8 minutes long, 112.5
@@ -195,7 +188,6 @@ public:
 	KUINT32 GetEpoch() const;
 
 	//************************************
-	// Method:      SetPerceivedTransmitTime, GetPerceivedTransmitTime
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetPerceivedTransmitTime
 	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetPerceivedTransmitTime
 	// Description: NTP timestamp format-- NTP timestamps
@@ -215,14 +207,12 @@ public:
 	void SetPerceivedTransmitTime( KUINT32 Integer, KUINT32 Fraction );
 
 	//************************************
-	// Method:      GetString
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::GetAsString
 	// Description: Returns a string representation of the PDU.
 	//************************************
 	virtual KString GetAsString() const;
 
 	//************************************
-	// Method:      Decode
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::Decode
 	// Description: Convert From Network Data. 
 	// Parameter:   KDataStream & stream
@@ -230,7 +220,6 @@ public:
 	virtual void Decode( KDataStream & stream ) throw( KException );	
 
 	//************************************
-	// Method:      Encode
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::Encode
 	// Description: Convert To Network Data. 
 	// Parameter:   KDataStream & stream

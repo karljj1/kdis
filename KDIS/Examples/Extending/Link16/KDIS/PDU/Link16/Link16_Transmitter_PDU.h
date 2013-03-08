@@ -115,7 +115,6 @@ public:
 	virtual ~Link16_Transmitter_PDU();
 
 	//************************************
-	// Method:      SetTimeSlotAllocationMode, GetTimeSlotAllocationMode
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTimeSlotAllocationMode
 	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTimeSlotAllocationMode
 	// Description: TSA Level.
@@ -125,7 +124,6 @@ public:
 	TimeSlotAllocationMode GetTimeSlotAllocationMode() const;
 
 	//************************************
-	// Method:      SetTransmittingTerminalPrimaryMode, GetTransmittingTerminalPrimaryMode
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTransmittingTerminalPrimaryMode
 	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTransmittingTerminalPrimaryMode
 	// Description: Primary mode of operation of the transmitting terminal.
@@ -135,7 +133,6 @@ public:
 	TransmittingTerminalPrimaryMode GetTransmittingTerminalPrimaryMode() const;
 
 	//************************************
-	// Method:      SetTransmittingTerminalSecondaryMode, GetTransmittingTerminalSecondaryMode
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTransmittingTerminalSecondaryMode
 	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTransmittingTerminalSecondaryMode
 	// Description: Secondary mode of operation of the transmitting terminal.
@@ -145,7 +142,6 @@ public:
 	TransmittingTerminalSecondaryMode GetTransmittingTerminalSecondaryMode() const;
 
 	//************************************
-	// Method:      GetSynchronizationState
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::GetSynchronizationState
 	// Description: Synchronization state. For TSA level 0-3 this shall be
 	//              set to 3 for fine synchronization. For TSA level 4, 
@@ -155,7 +151,6 @@ public:
 	SynchronizationState GetSynchronizationState() const;
 
 	//************************************
-	// Method:      SetNetworkSyncID, GetNetworkSyncID
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetNetworkSyncID
 	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetNetworkSyncID
 	// Description: Set automatically when the TSA level is set.
@@ -168,14 +163,12 @@ public:
 	KUINT32 GetNetworkSyncID() const;
 
 	//************************************
-	// Method:      GetString
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::GetAsString
 	// Description: Returns a string representation	of the PDU.
 	//************************************
 	virtual KString GetAsString() const;
 
 	//************************************
-	// Method:      Decode
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::Decode
 	// Description: Convert From Network Data. 
 	// Parameter:   KDataStream & stream
@@ -183,7 +176,6 @@ public:
 	virtual void Decode( KDataStream & stream ) throw( KException );	
 
 	//************************************
-	// Method:      Encode
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::Encode
 	// Description: Convert To Network Data. 
 	// Parameter:   KDataStream & stream
