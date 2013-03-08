@@ -43,7 +43,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./../../DataTypes/WorldCoordinates.h"
 #include "./../../DataTypes/Vector.h"
 #include "./../../DataTypes/BurstDescriptor.h"
-#include "./../../DataTypes/ArticulatedPart.h"
+#include "./../../DataTypes/VariableParameter.h"
 
 namespace KDIS {
 namespace PDU {
@@ -53,7 +53,6 @@ using KDIS::DATA_TYPE::WorldCoordinates;
 using KDIS::DATA_TYPE::BurstDescriptor;
 using KDIS::DATA_TYPE::VariableParameter;
 using KDIS::DATA_TYPE::VarPrmPtr;
-using KDIS::DATA_TYPE::ArticulatedPart;
 using KDIS::DATA_TYPE::ENUMS::DetonationResult;
 
 #if DIS_VERSION > 6

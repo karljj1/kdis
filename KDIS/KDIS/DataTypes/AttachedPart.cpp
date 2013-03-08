@@ -43,7 +43,29 @@ using namespace ENUMS;
 AttachedPart::AttachedPart() :
     m_ui8DetachedIndicator( 0 ),
     m_ui16PartAttachedToID( 0 ),
-	m_ui32ParamTypeVariant( 0 )
+	m_ui32APPT( 0 )
+{    
+	m_ui8VarParamType = AttachedPartType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+AttachedPart::AttachedPart( KUINT8 DetachedIndicator, KUINT16 PartAttachedToID, AttachedPartParameterType APPT, const EntityType & Type ) :
+    m_ui8DetachedIndicator( DetachedIndicator ),
+    m_ui16PartAttachedToID( PartAttachedToID ),
+	m_ui32APPT( APPT ),
+	m_AttachedPartType( Type )
+{    
+	m_ui8VarParamType = AttachedPartType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+AttachedPart::AttachedPart( KUINT8 DetachedIndicator, KUINT16 PartAttachedToID, KUINT32 APPT, const EntityType & Type ) :
+    m_ui8DetachedIndicator( DetachedIndicator ),
+    m_ui16PartAttachedToID( PartAttachedToID ),
+	m_ui32APPT( APPT ),
+	m_AttachedPartType( Type )
 {    
 	m_ui8VarParamType = AttachedPartType;
 }
@@ -91,18 +113,64 @@ KUINT16 AttachedPart::GetPartAttachedToID() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void AttachedPart::SetAttachedPartParameterType( AttachedPartParameterType APPT )
+{
+	m_ui32APPT = APPT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AttachedPart::SetAttachedPartParameterType( KUINT32 APPT )
+{
+	m_ui32APPT = APPT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+AttachedPartParameterType AttachedPart::GetAttachedPartParameterType() const
+{
+	return ( AttachedPartParameterType )m_ui32APPT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT32 AttachedPart::GetAttachedPartParameterTypeInt() const
+{
+	return m_ui32APPT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AttachedPart::SetAttachedPartType( const EntityType & Type )
+{
+	m_AttachedPartType = Type;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityType & AttachedPart::GetAttachedPartType() const
+{
+	return m_AttachedPartType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityType & AttachedPart::GetAttachedPartType()
+{
+	return m_AttachedPartType;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString AttachedPart::GetAsString() const
 {
     KStringStream ss;
 
-    //ss << "Articulation Parameters:"
-    //   << "\n\tType:                 " << GetEnumAsStringVariableParameterType( m_ui8VarParamType )
-    //   << "\n\tParameter Change:     " << ( KUINT16 )m_ui8ParmeterChange
-    //   << "\n\tAttachement ID:       " << m_ui16AttachementID
-    //   << "\n\tType Metric:          " << GetEnumAsStringArticulatedPartsMetric( GetTypeVariantMetric() )
-    //   << "\n\tType High Bits:       " << GetEnumAsStringArticulatedPartsClass( GetTypeVariantClass() )
-    //   << "\n\tValue:                " << m_f32ParamValue
-    //   << "\n";
+    ss << "Attached Part:"
+       << "\n\tDetached:             " << ( m_ui8DetachedIndicator == 0 ? "False" : "True" )
+       << "\n\tPart Attached To ID:  " << m_ui16PartAttachedToID
+       << "\n\tParameter Type:       " << GetEnumAsStringAttachedPartParameterType( m_ui32APPT )
+	   << "\n\tType:                 " << m_AttachedPartType.GetAsString();
 
     return ss.str();
 }
@@ -113,12 +181,10 @@ void AttachedPart::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    //stream >> m_ui8VarParamType
-    //       >> m_ui8ParmeterChange
-    //       >> m_ui16AttachementID
-    //       >> m_ui32ParamTypeVariant
-    //       >> m_f32ParamValue
-		  // >> m_ui32Padding;
+    stream >> m_ui8DetachedIndicator
+           >> m_ui16PartAttachedToID
+           >> m_ui32APPT
+           >> KDIS_STREAM m_AttachedPartType;           
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -136,23 +202,20 @@ KDataStream AttachedPart::Encode() const
 
 void AttachedPart::Encode( KDataStream & stream ) const
 {
-    //stream << m_ui8VarParamType
-    //       << m_ui8ParmeterChange
-    //       << m_ui16AttachementID
-    //       << m_ui32ParamTypeVariant
-    //       << m_f32ParamValue
-		  // << m_ui32Padding;
+    stream << m_ui8DetachedIndicator
+           << m_ui16PartAttachedToID
+           << m_ui32APPT
+           << KDIS_STREAM m_AttachedPartType;   
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL AttachedPart::operator == ( const AttachedPart & Value ) const
 {
-    //if( m_ui8VarParamType   != Value.m_ui8VarParamType )  return false;
-    //if( m_ui8ParmeterChange     != Value.m_ui8ParmeterChange )    return false;
-    //if( m_ui16AttachementID     != Value.m_ui16AttachementID )    return false;
-    //if( m_ui32ParamTypeVariant  != Value.m_ui32ParamTypeVariant ) return false;
-    //if( m_f32ParamValue        != Value.m_f32ParamValue )       return false;
+    if( m_ui8DetachedIndicator != Value.m_ui8DetachedIndicator ) return false;
+    if( m_ui16PartAttachedToID != Value.m_ui16PartAttachedToID ) return false;
+    if( m_ui32APPT             != Value.m_ui32APPT )             return false;
+    if( m_AttachedPartType     != Value.m_AttachedPartType )     return false;
     return true;
 }
 

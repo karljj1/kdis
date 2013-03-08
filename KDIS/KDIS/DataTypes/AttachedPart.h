@@ -32,7 +32,8 @@ http://p.sf.net/kdis/UserGuide
     updated:    08/03/2013
     author:     Karl Jones
 
-    purpose:    
+    purpose:    Specification of removable parts that may be attached to an entity.
+				E.G A missile attached to an aircraft wing.
 
     size:       128 bits / 16 octets
 *********************************************************************/
@@ -45,6 +46,8 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
+using KDIS::DATA_TYPE::ENUMS::AttachedPartParameterType;
+	
 class KDIS_EXPORT AttachedPart : public VariableParameter
 {
 protected:
@@ -53,13 +56,17 @@ protected:
 	
 	KUINT16 m_ui16PartAttachedToID;
 
-    KUINT32 m_ui32ParamTypeVariant;
+    KUINT32 m_ui32APPT;
 
 	EntityType m_AttachedPartType;
 
 public:
 
     AttachedPart();
+
+	AttachedPart( KUINT8 DetachedIndicator, KUINT16 PartAttachedToID, AttachedPartParameterType APPT, const EntityType & Type );
+
+	AttachedPart( KUINT8 DetachedIndicator, KUINT16 PartAttachedToID, KUINT32 APPT, const EntityType & Type );
 
     AttachedPart( KDataStream & stream ) throw( KException );
 
@@ -88,24 +95,30 @@ public:
 	void SetPartAttachedToID( KUINT16 ID );
 	KUINT16 GetPartAttachedToID() const;
 
-
-
-
-
-
-
-
-
-
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::AttachedPart::SetAttachedPartParameterType
+    //              KDIS::DATA_TYPE::AttachedPart::GetAttachedPartParameterType
+	//              KDIS::DATA_TYPE::AttachedPart::GetAttachedPartParameterTypeInt
+    // Description: The location (or station) to which the part is attached. 
+	//              See AttachedPartParameterType for further details.
+    // Parameter:   AttachedPartParameterType APPT, KUINT32 APPT
     //************************************
-    // FullName:    KDIS::DATA_TYPE::AttachedPart::SetTypeVariant
-    //              KDIS::DATA_TYPE::AttachedPart::GetTypeVariant
-    // Description: 
-    // Parameter:   KUINT32 TV
-    //************************************
-    void SetTypeVariant( KUINT32 TV );
-    KUINT32 GetTypeVariant() const;
+	void SetAttachedPartParameterType( AttachedPartParameterType APPT );
+	void SetAttachedPartParameterType( KUINT32 APPT );
+	AttachedPartParameterType GetAttachedPartParameterType() const;
+	KUINT32 GetAttachedPartParameterTypeInt() const;
 
+	//************************************
+    // FullName:    KDIS::PDU::AttachedPart::SetAttachedPartType
+    //              KDIS::PDU::AttachedPart::GetAttachedPartType
+    // Description: Entity Type record enumeration of the attached part.
+	//              E.G This could be the type of missile that is attached to an entity wing.
+    // Parameter:   const EntityType & Type
+    //************************************
+    void SetAttachedPartType( const EntityType & Type );
+    const EntityType & GetAttachedPartType() const;
+    EntityType & GetAttachedPartType();
+	
     //************************************
     // FullName:    KDIS::DATA_TYPE::AttachedPart::GetAsString
     // Description: Returns a string representation.

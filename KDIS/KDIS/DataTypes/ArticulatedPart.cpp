@@ -178,7 +178,6 @@ KString ArticulatedPart::GetAsString() const
     KStringStream ss;
 
     ss << "Articulation Parameters:"
-       << "\n\tType:                 " << GetEnumAsStringVariableParameterType( m_ui8VarParamType )
        << "\n\tParameter Change:     " << ( KUINT16 )m_ui8ParmeterChange
        << "\n\tAttachement ID:       " << m_ui16AttachementID
        << "\n\tType Metric:          " << GetEnumAsStringArticulatedPartsMetric( GetTypeVariantMetric() )

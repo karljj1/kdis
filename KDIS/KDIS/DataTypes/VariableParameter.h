@@ -36,6 +36,7 @@ http://p.sf.net/kdis/UserGuide
                 for in a PDU.
                 Currently implemented types:
 					ArticulatedParts
+					AttachedPart
 
 				Note: See FactoryDecoder for a guide to adding support for using your own VariableParameters. 
 

@@ -48,7 +48,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./../../DataTypes/EntityType.h"
 #include "./../../DataTypes/EulerAngles.h"
 #include "./../../DataTypes/EntityAppearance.h"
-#include "./../../DataTypes/ArticulatedPart.h"
+#include "./../../DataTypes/VariableParameter.h"
 #include <vector>
 
 namespace KDIS {
@@ -61,7 +61,6 @@ using KDIS::DATA_TYPE::EulerAngles;
 using KDIS::DATA_TYPE::EntityAppearance;
 using KDIS::DATA_TYPE::VariableParameter;
 using KDIS::DATA_TYPE::VarPrmPtr;
-using KDIS::DATA_TYPE::ArticulatedPart;
 using std::vector;
 
 class KDIS_EXPORT Entity_State_Update_PDU : public Header

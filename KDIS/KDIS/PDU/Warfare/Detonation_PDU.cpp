@@ -28,6 +28,8 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "./Detonation_PDU.h"
+#include "./../../DataTypes/ArticulatedPart.h"
+#include "./../../DataTypes/AttachedPart.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -312,9 +314,9 @@ void Detonation_PDU::Decode( KDataStream & stream ) throw( KException )
 					m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
 					break;
 
-				//case AttachedPartType:
-				//	// TODO:
-				//	break
+				case AttachedPartType:
+					m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
+					break;
 
 				default:
 					m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );

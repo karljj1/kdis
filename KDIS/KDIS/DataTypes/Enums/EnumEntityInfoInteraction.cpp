@@ -713,7 +713,64 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsClass( const KStr
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for EntityPaKINT32Scheme
+// Implementation of string values for AttachedPartParameterType
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor AttachedPartParameterTypeDescriptor[] =
+{
+    { 1   , "ModelSpecificStations" },
+    { 512 , "FuselageStations" },
+	{ 640 , "LeftWingStations" },
+	{ 768 , "RightWingStations" },
+	{ 896 , "M16A42Rifle" },
+	{ 897 , "M249SAW" },
+	{ 898 , "M60MachineGun" },
+	{ 899 , "M203GrenadeLauncher" },
+	{ 900 , "M136AT4" },
+	{ 901 , "M47Dragon" },
+	{ 902 , "AAWSMJavelin" },
+	{ 903 , "M18A1ClaymoreMine" },
+	{ 904 , "MK19GrenadeLauncher" },
+	{ 905 , "M2MachineGun" }
+};
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedPartParameterType( KINT32 Value )
+{
+    return GetEnumAsString( AttachedPartParameterTypeDescriptor, sizeof( AttachedPartParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString( AttachedPartParameterTypeDescriptor, sizeof( AttachedPartParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedPartParameterType( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+};
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for EntityPaintScheme
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
