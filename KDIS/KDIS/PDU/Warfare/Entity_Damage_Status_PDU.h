@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Entity_Damage_Status_PDU
-    DIS:        (7) 1278.1-200x
+    DIS:        (7) 1278.1-2012
     created:    27/07/2011
     author:     Karl Jones
 

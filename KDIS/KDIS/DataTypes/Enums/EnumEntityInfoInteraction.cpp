@@ -459,24 +459,24 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCountry( const KString & Value, K
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for ArticulationType
+// Implementation of string values for VariableParameterType
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor ArticulationTypeDescriptor[] =
+const EnumDescriptor VariableParameterTypeDescriptor[] =
 {
     { 0 , "ArticulatedPart" },
     { 1 , "AttachedPart" }
 };
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulationType( KINT32 Value )
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Value )
 {
-    return GetEnumAsString( ArticulationTypeDescriptor, sizeof( ArticulationTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
+    return GetEnumAsString( VariableParameterTypeDescriptor, sizeof( VariableParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulationType( const KString & Value, KINT32 & ValueOut )
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ArticulationTypeDescriptor, sizeof( ArticulationTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+	return GetEnumFromString( VariableParameterTypeDescriptor, sizeof( VariableParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else

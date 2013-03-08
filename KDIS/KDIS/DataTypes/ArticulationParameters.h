@@ -29,31 +29,32 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      ArticulationParameters
-    created:    24/09/2008
+    updated:    08/03/2013
     author:     Karl Jones
 
-    purpose:    Specification of articulation parameters for moving
-                and attached parts.
-                In DIS version 7 onwards this data type is known as "Variable Parameters".
+    purpose:    The Articulated Part VP record is used to represent the state of the movable parts of an entity. 
+				Examples of movable parts include the turret on a tank and the periscope on a submarine.
+				An Articulated Part VP record shall represent the value of only one parameter of a movable, 
+				or articulated, part. Thus, it may require multiple Articulated Part VP records to describe  
+				the state of a single articulated part. 
+
     size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "./VariableParameter.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::ArticulationType;
+using KDIS::DATA_TYPE::ENUMS::VariableParameterType;
 using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass;
 using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric;
 
-class KDIS_EXPORT ArticulationParameters :  public DataTypeBase
+class KDIS_EXPORT ArticulationParameters : public VariableParameter
 {
 protected:
-
-    KUINT8 m_ui8ArticulationType;
 
     KUINT8 m_ui8ParmeterChange;
 
@@ -65,25 +66,16 @@ protected:
 
 public:
 
-    static const KUINT16 ARTICULATION_PARAMETERS_SIZE = 16;
-
     ArticulationParameters();
 
     ArticulationParameters( KDataStream & stream ) throw( KException );
 
-    ArticulationParameters( ArticulationType AT, KUINT8 ParamChangeIndicator,
-                            KUINT16 AttachID, KUINT32 TypeVariant, KUINT64 Value );
+	ArticulationParameters( KUINT8 ParamChangeIndicator, KUINT16 AttachID, ArticulatedPartsClass C, 
+		                    ArticulatedPartsMetric M, KUINT64 Value );
+
+    ArticulationParameters( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KUINT32 TypeVariant, KUINT64 Value );
 
     virtual ~ArticulationParameters();
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetArticulationType
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetArticulationType
-    // Description: Type.
-    // Parameter:   ArticulationType AT
-    //************************************
-    void SetArticulationType( ArticulationType AT );
-    ArticulationType GetArticulationType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetParameterChangeIndicator
@@ -107,6 +99,15 @@ public:
     KUINT16 GetAttachementID() const;
 
     //************************************
+    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantClass
+    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantClass
+    // Description: Identifies a particular articulated part on a given entity type.
+    // Parameter:   ArticulatedPartsClass C
+    //************************************
+    void SetTypeVariantClass( ArticulatedPartsClass C );
+    ArticulatedPartsClass GetTypeVariantClass() const;
+
+    //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantMetric
     //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantMetric
     // Description: Identifies the transformation to be applied to the articulated part.
@@ -122,15 +123,6 @@ public:
     //************************************
     void SetTypeVariantMetric( ArticulatedPartsMetric M );
     ArticulatedPartsMetric GetTypeVariantMetric() const;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariantClass
-    //              KDIS::DATA_TYPE::ArticulationParameters::GetTypeVariantClass
-    // Description: Identifies a particular articulated part on a given entity type.
-    // Parameter:   ArticulatedPartsClass C
-    //************************************
-    void SetTypeVariantClass( ArticulatedPartsClass C );
-    ArticulatedPartsClass GetTypeVariantClass() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulationParameters::SetTypeVariant

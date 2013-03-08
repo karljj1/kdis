@@ -59,6 +59,7 @@ SET(DATATYPES_DIR ${BASE_DIR}/DataTypes)
 SET(KDIS_SRC_DATATYPES_H 
     ${DATATYPES_DIR}/AirPlatformAppearance.h
     ${DATATYPES_DIR}/ArticulationParameters.h
+	${DATATYPES_DIR}/VariableParameter.h
     ${DATATYPES_DIR}/BurstDescriptor.h
     ${DATATYPES_DIR}/ClockTime.h
     ${DATATYPES_DIR}/CryptoSystem.h
@@ -213,6 +214,7 @@ SET(KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/AirPlatformAppearance.cpp
     ${DATATYPES_DIR}/AntennaLocation.cpp
     ${DATATYPES_DIR}/ArticulationParameters.cpp
+	${DATATYPES_DIR}/VariableParameter.cpp
     ${DATATYPES_DIR}/BurstDescriptor.cpp
     ${DATATYPES_DIR}/ClockTime.cpp
     ${DATATYPES_DIR}/CryptoSystem.cpp

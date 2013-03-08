@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Attribute_PDU
-    DIS:        (7) 1278.1-200x
+    DIS:        (7) 1278.1-2012
     created:    27/01/2011
     author:     Karl Jones
 

@@ -43,7 +43,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Detonation_PDU::Detonation_PDU() :
-    m_ui8NumOfArticulationParams( 0 )
+    m_ui8NumOfVariableParams( 0 )
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;
@@ -69,7 +69,7 @@ Detonation_PDU::Detonation_PDU( const EntityIdentifier & FiringEntID, const Enti
     m_BurstDescriptor( Burst ),
     m_LocationEntityCoords( LocationEntityCoords ),
     m_ui8DetonationResult( DetonationResult ),
-    m_ui8NumOfArticulationParams( 0 ),
+    m_ui8NumOfVariableParams( 0 ),
     m_ui16Padding1( 0 )
 {
     m_ui8PDUType = Detonation_PDU_Type;
@@ -87,7 +87,7 @@ Detonation_PDU::Detonation_PDU( const Warfare_Header & WarfareHeader, const Vect
     m_BurstDescriptor( Burst ),
     m_LocationEntityCoords( LocationEntityCoords ),
     m_ui8DetonationResult( DetonationResult ),
-    m_ui8NumOfArticulationParams( 0 ),
+    m_ui8NumOfVariableParams( 0 ),
     m_ui16Padding1( 0 )
 {
     m_ui8PDUType = Detonation_PDU_Type;
@@ -200,34 +200,43 @@ DetonationResult Detonation_PDU::GetDetonationResult() const
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Detonation_PDU::GetNumberOfArticulationParams() const
+KUINT8 Detonation_PDU::GetNumberOfVariableParams() const
 {
-    return m_ui8NumOfArticulationParams;
+    return m_ui8NumOfVariableParams;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Detonation_PDU::AddArticulationParameter( const ArticulationParameters & AP )
+void Detonation_PDU::AddVariableParameter( VarPrmPtr VP )
 {
-    m_vArticulationParameters.push_back( AP );
-    ++m_ui8NumOfArticulationParams;
-    m_ui16PDULength += ArticulationParameters::ARTICULATION_PARAMETERS_SIZE;
+    m_vVariableParameters.push_back( VP );
+    ++m_ui8NumOfVariableParams;
+	m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Detonation_PDU::SetArticulationParameter( const vector<ArticulationParameters> & AP )
+void Detonation_PDU::SetVariableParameters( const vector<VarPrmPtr> & VP )
 {
-    m_vArticulationParameters = AP;
-    m_ui8NumOfArticulationParams = m_vArticulationParameters.size();
-    m_ui16PDULength = DETONATION_PDU_SIZE + ( m_ui8NumOfArticulationParams * ArticulationParameters::ARTICULATION_PARAMETERS_SIZE );
+    m_vVariableParameters = VP;
+    m_ui8NumOfVariableParams = m_vVariableParameters.size();
+    m_ui16PDULength = DETONATION_PDU_SIZE + ( m_ui8NumOfVariableParams * VariableParameter::VARIABLE_PARAMETER_SIZE );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<ArticulationParameters> & Detonation_PDU::GetArticulationParameters() const
+const vector<VarPrmPtr> & Detonation_PDU::GetVariableParameters() const
 {
-    return m_vArticulationParameters;
+    return m_vVariableParameters;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Detonation_PDU::ClearVariableParameters()
+{
+    m_vVariableParameters.clear();
+    m_ui8NumOfVariableParams = 0;
+    m_ui16PDULength = DETONATION_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -244,15 +253,15 @@ KString Detonation_PDU::GetAsString() const
        << m_BurstDescriptor.GetAsString()
        << "Entity Location:          " << m_LocationEntityCoords.GetAsString()
        << "Detonation Result:        " << GetEnumAsStringDetonationResult( m_ui8DetonationResult ) << "\n"
-       << "Num Articulation Params:  " << ( KUINT16 )m_ui8NumOfArticulationParams
+       << "Num Articulation Params:  " << ( KUINT16 )m_ui8NumOfVariableParams
        << "\n";
 
     // Add the articulated parts
-    vector<ArticulationParameters>::const_iterator citr = m_vArticulationParameters.begin();
-    vector<ArticulationParameters>::const_iterator citrEnd = m_vArticulationParameters.end();
+    vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
+    vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
     for( ; citr != citrEnd; ++ citr )
     {
-        ss << IndentString( citr->GetAsString(), 1 );
+        ss << IndentString( ( *citr )->GetAsString(), 1 );
     }
 
     return ss.str();
@@ -264,6 +273,8 @@ void Detonation_PDU::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
+	m_vVariableParameters.clear();
+
     Warfare_Header::Decode( stream );
 
     stream >> KDIS_STREAM m_Velocity
@@ -271,15 +282,46 @@ void Detonation_PDU::Decode( KDataStream & stream ) throw( KException )
            >> KDIS_STREAM m_BurstDescriptor
            >> KDIS_STREAM m_LocationEntityCoords
            >> m_ui8DetonationResult
-           >> m_ui8NumOfArticulationParams
+           >> m_ui8NumOfVariableParams
            >> m_ui16Padding1;
 
-    for( KUINT16 i = 0; i < m_ui8NumOfArticulationParams; ++i )
-    {
-        ArticulationParameters ap;
-        stream >> KDIS_STREAM ap;
-        m_vArticulationParameters.push_back( ap );
-    }
+	for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
+	{
+		// Save the current write position so we can peek.
+		KUINT16 pos = stream.GetCurrentWritePosition();
+		KUINT8 paramTyp;
+
+		// Extract the  type then reset the stream.
+		stream >> paramTyp;
+		stream.SetCurrentWritePosition( pos );
+
+		// Use the factory decoder. 
+		VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
+
+		// Did we find a custom decoder? if not then use the default.
+		if( p )
+		{
+			m_vVariableParameters.push_back( VarPrmPtr( p ) );
+		}
+		else
+		{
+			// Default internals
+			switch( paramTyp )
+			{
+				case ArticulatedPart:				
+					m_vVariableParameters.push_back( VarPrmPtr( new ArticulationParameters( stream ) ) );
+					break;
+
+				//case AttachedPart:
+				//	// TODO:
+				//	break
+
+				default:
+					m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
+					break;
+			}
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -304,16 +346,15 @@ void Detonation_PDU::Encode( KDataStream & stream ) const
            << KDIS_STREAM m_BurstDescriptor
            << KDIS_STREAM m_LocationEntityCoords
            << m_ui8DetonationResult
-           << m_ui8NumOfArticulationParams
+           << m_ui8NumOfVariableParams
            << m_ui16Padding1;
 
-    // Add the articulated parts
-    vector<ArticulationParameters>::const_iterator citr = m_vArticulationParameters.begin();
-    vector<ArticulationParameters>::const_iterator citrEnd = m_vArticulationParameters.end();
-
+    // Add the variable params
+    vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
+    vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
     for( ; citr != citrEnd; ++ citr )
     {
-        citr->Encode( stream );
+        ( *citr )->Encode( stream );
     }
 }
 
@@ -321,14 +362,14 @@ void Detonation_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Detonation_PDU::operator == ( const Detonation_PDU & Value ) const
 {
-    if( Warfare_Header::operator     !=( Value ) )                           return false;
-    if( m_Velocity                   != Value.m_Velocity )                   return false;
-    if( m_LocationWorldCoords        != Value.m_LocationWorldCoords )        return false;
-    if( m_BurstDescriptor            != Value.m_BurstDescriptor )            return false;
-    if( m_LocationEntityCoords       != Value.m_LocationEntityCoords )       return false;
-    if( m_ui8DetonationResult        != Value.m_ui8DetonationResult )        return false;
-    if( m_ui8NumOfArticulationParams != Value.m_ui8NumOfArticulationParams ) return false;
-    if( m_vArticulationParameters    != Value.m_vArticulationParameters )    return false;
+    if( Warfare_Header::operator !=( Value ) )                       return false;
+    if( m_Velocity               != Value.m_Velocity )               return false;
+    if( m_LocationWorldCoords    != Value.m_LocationWorldCoords )    return false;
+    if( m_BurstDescriptor        != Value.m_BurstDescriptor )        return false;
+    if( m_LocationEntityCoords   != Value.m_LocationEntityCoords )   return false;
+    if( m_ui8DetonationResult    != Value.m_ui8DetonationResult )    return false;
+    if( m_ui8NumOfVariableParams != Value.m_ui8NumOfVariableParams ) return false;
+    if( m_vVariableParameters    != Value.m_vVariableParameters )    return false;
     return true;
 }
 

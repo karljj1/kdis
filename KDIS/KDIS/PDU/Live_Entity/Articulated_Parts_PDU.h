@@ -47,6 +47,8 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
+using KDIS::DATA_TYPE::VariableParameter;
+using KDIS::DATA_TYPE::VarPrmPtr;
 using KDIS::DATA_TYPE::ArticulationParameters;
 using std::vector;
 
@@ -54,9 +56,9 @@ class KDIS_EXPORT Articulated_Parts_PDU : public LE_Header
 {
 protected:
 
-    KUINT8 m_ui8NumOfArticulationParams;
+    KUINT8 m_ui8NumOfVariableParams;
 
-    vector<ArticulationParameters> m_vArticulationParameters;
+    vector<VarPrmPtr> m_vVariableParameters;
 
 public:
 
@@ -71,25 +73,25 @@ public:
     virtual ~Articulated_Parts_PDU();
 
     //************************************
-    // FullName:    KDIS::PDU::Articulated_Parts_PDU::GetNumberOfArticulationParams
-    // Description: Number of articulation parameters
+    // FullName:    KDIS::PDU::Articulated_Parts_PDU::GetNumberOfVariableParams
+    // Description: Number of variable parameters.
     //************************************
-    KUINT8 GetNumberOfArticulationParams() const;
+    KUINT8 GetNumberOfVariableParams() const;
 
     //************************************
-    // FullName:    KDIS::PDU::Articulated_Parts_PDU::AddArticulationParameter
-    //              KDIS::PDU::Articulated_Parts_PDU::SetArticulationParameter
-    //              KDIS::PDU::Articulated_Parts_PDU::GetArticulationParameters
-    //              KDIS::PDU::Articulated_Parts_PDU::ClearArticulationParameters
-    // Description: Add a articulation parameter / Get vector or params
-    //              Adding will update the Number Of Articulation Params
-    //              field.
-    // Parameter:   const ArticulationParameters & AP, const vector<ArticulationParameters> & AP
+    // FullName:    KDIS::PDU::Articulated_Parts_PDU::AddVariableParameter
+    //              KDIS::PDU::Articulated_Parts_PDU::SetVariableParameter
+    //              KDIS::PDU::Articulated_Parts_PDU::GetVariableParameters
+    //              KDIS::PDU::Articulated_Parts_PDU::ClearVariableParameters
+    // Description: Information associated with an entity or detonation, not otherwise accounted
+    //	            for in a PDU such as Articulated and Attached Parts.
+    //              See VariableParameter for supported/implemented types.
+    // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddArticulationParameter( const ArticulationParameters & AP );
-    void SetArticulationParameters( const vector<ArticulationParameters> & AP );
-    const vector<ArticulationParameters> & GetArticulationParameters() const;
-    void ClearArticulationParameters();
+    void AddVariableParameter( VarPrmPtr VP );
+    void SetVariableParameters( const vector<VarPrmPtr> & VP );
+    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void ClearVariableParameters();
 
     //************************************
     // FullName:    KDIS::PDU::Articulated_Parts_PDU::GetAsString

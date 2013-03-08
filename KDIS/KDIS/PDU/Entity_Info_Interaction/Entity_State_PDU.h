@@ -29,12 +29,12 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Entity_State_PDU
-    DIS:        (5) 1278.1 - 1995 & (7) 1278.1 - 200x draft 14
-    created:    22/09/2008
+    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012
+    updated:    08/03/2013
     author:     Karl Jones
 
     purpose:    Contains information about a particular entity.
-    size:       1152 bits / 144 octets + 128/16 * Num Art Params
+    size:       1152 bits / 144 octets + 128/16 * Num var Params
 *********************************************************************/
 
 #pragma once
@@ -65,6 +65,8 @@ using KDIS::DATA_TYPE::EntityAppearance;
 using KDIS::DATA_TYPE::DeadReckoningParameter;
 using KDIS::DATA_TYPE::EntityMarking;
 using KDIS::DATA_TYPE::EntityCapabilities;
+using KDIS::DATA_TYPE::VariableParameter;
+using KDIS::DATA_TYPE::VarPrmPtr;
 using KDIS::DATA_TYPE::ArticulationParameters;
 using KDIS::DATA_TYPE::ENUMS::ForceID;
 using KDIS::UTILS::DeadReckoningCalculator;
@@ -78,7 +80,7 @@ protected:
 
     KUINT8 m_ui8ForceID;
 
-    KUINT8 m_ui8NumOfArticulationParams;
+    KUINT8 m_ui8NumOfVariableParams;
 
     EntityType m_EntityType;
 
@@ -98,13 +100,13 @@ protected:
 
     EntityCapabilities m_EntityCapabilities;
 
-    vector<ArticulationParameters> m_vArticulationParameters;
+    vector<VarPrmPtr> m_vVariableParameters;
 
     DeadReckoningCalculator * m_pDrCalc;
 
 public:
 
-    // Min Size not including variable articulation parameters field
+    // Min Size not including variable parameters field
     static const KUINT16 ENTITY_STATE_PDU_SIZE = 144;
 
     Entity_State_PDU();
@@ -141,10 +143,10 @@ public:
     ForceID GetForceID() const;
 
     //************************************
-    // FullName:    KDIS::PDU::Entity_State_PDU::GetNumberOfArticulationParams
-    // Description: Number of articulation parameters.
+    // FullName:    KDIS::PDU::Entity_State_PDU::GetNumberOfVariableParams
+    // Description: Number of variable parameters.
     //************************************
-    KUINT8 GetNumberOfArticulationParams() const;
+    KUINT8 GetNumberOfVariableParams() const;
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityType
@@ -287,18 +289,19 @@ public:
     EntityCapabilities & GetEntityCapabilities();
 
     //************************************
-    // FullName:    KDIS::PDU::Entity_State_PDU::AddArticulationParameter
-    //              KDIS::PDU::Entity_State_PDU::SetArticulationParameter
-    //              KDIS::PDU::Entity_State_PDU::GetArticulationParameters
-    //              KDIS::PDU::Entity_State_PDU::ClearArticulationParameters
-    // Description: Add a articulation parameter / Get vector or params
-    //              Adding will update the Number Of Articulation Params and the PDU length field.
-    // Parameter:   const ArticulationParameters & AP, vector<ArticulationParameters> & AP, void
+    // FullName:    KDIS::PDU::Entity_State_PDU::AddVariableParameter
+    //              KDIS::PDU::Entity_State_PDU::SetVariableParameter
+    //              KDIS::PDU::Entity_State_PDU::GetVariableParameters
+    //              KDIS::PDU::Entity_State_PDU::ClearVariableParameters
+    // Description: Information associated with an entity or detonation, not otherwise accounted
+    //	            for in a PDU such as Articulated and Attached Parts.
+    //              See VariableParameter for supported/implemented types.
+    // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddArticulationParameter( const ArticulationParameters & AP );
-    void SetArticulationParameter( const vector<ArticulationParameters> & AP );
-    const vector<ArticulationParameters> & GetArticulationParameters() const;
-    void ClearArticulationParameters();
+    void AddVariableParameter( VarPrmPtr VP );
+    void SetVariableParameters( const vector<VarPrmPtr> & VP );
+    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void ClearVariableParameters();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::GetAsString

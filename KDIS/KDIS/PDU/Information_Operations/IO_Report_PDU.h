@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      IO_Report_PDU
-    DIS:        (7) 1278.1-200x
+    DIS:        (7) 1278.1-2012
     created:    20/01/2011
     author:     Karl Jones
 
@@ -69,7 +69,7 @@ protected:
 
     EntityIdentifier m_TgtEntityID;
 
-    KUINT32 m_ui32Padding; // 2 * KUINT16 padding in 1278.1-200x standard.
+    KUINT32 m_ui32Padding; // 2 * KUINT16 padding in 1278.1-2012 standard.
 
     KUINT16 m_ui16NumStdVarRec;
 

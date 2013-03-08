@@ -41,7 +41,6 @@
 <b>Future Releases</b>
 		<hr>Plans for future releases are currently:
 		<ul>
-			<li>Implement DIS Version 7 changes and PDU's.</li>
 			<li>Dead Reckoning - verify all algorithms work correctly.</li>
 			<li>Examine V-DIS standard for potential KDIS extension..</li>			
 			<li>Conversions for multiple datum's and orientation representations.</li>
@@ -61,8 +60,11 @@
 <hr>
 <ul>		
 	<div style="color: red">
-	<li>DIS 7 is now fully implmented.
+	<li>DIS 7 is now fully implemented.
 	</div>
+	<div style="color: blue">
+	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Migration_Guide">migration</a> guide for more details.
+	</div>	
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>
 	<li>Added Vector::Set to set all values in one call.</li>
 	<li>Added Vector::Lerp.</li>

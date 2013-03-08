@@ -113,7 +113,7 @@ public:
     //              KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem::GetUnderwaterAcousticEmitterBeam
     //              KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem::ClearUnderwaterAcousticEmitterBeams
     // Description: Add a articulation parameter / Get vector or params
-    //              Adding will update the Number Of Articulation Params
+    //              Adding will update the Number Of Variable Params
     //              field.
     // Parameter:   const UnderwaterAcousticEmitterBeam & UAEB, void
     //************************************

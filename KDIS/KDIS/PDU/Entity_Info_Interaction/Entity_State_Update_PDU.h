@@ -29,14 +29,14 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Entity_State_Update_PDU
-    DIS:        (6) 1278.1a - 1998 & (7) 1278.1 - 200x draft 14
+    DIS:        (6) 1278.1a - 1998 & (7) 1278.1-2012
     created:    09/11/2008
     author:     Karl Jones
 
     purpose:    Communicates nonstatic infomation about a particular
                 entity. Only used when a simulation application is using
                 first order dead reckoning.
-    size:       576 bits / 72 octets + ( 128/16 * Num Art Params )
+    size:       576 bits / 72 octets + ( 128/16 * Num var Params )
 *********************************************************************/
 
 #pragma once
@@ -59,6 +59,8 @@ using KDIS::DATA_TYPE::Vector;
 using KDIS::DATA_TYPE::WorldCoordinates;
 using KDIS::DATA_TYPE::EulerAngles;
 using KDIS::DATA_TYPE::EntityAppearance;
+using KDIS::DATA_TYPE::VariableParameter;
+using KDIS::DATA_TYPE::VarPrmPtr;
 using KDIS::DATA_TYPE::ArticulationParameters;
 using std::vector;
 
@@ -70,7 +72,7 @@ protected:
 
     KUINT8 m_ui8Padding1;
 
-    KUINT8 m_ui8NumOfArticulationParams;
+    KUINT8 m_ui8NumOfVariableParams;
 
     Vector m_EntityLinearVelocity;
 
@@ -79,12 +81,12 @@ protected:
     EulerAngles m_EntityOrientation;
 
     EntityAppearance m_EntityAppearance;
-
-    vector<ArticulationParameters> m_vArticulationParameters;
+				      
+    vector<VarPrmPtr> m_vVariableParameters;
 
 public:
 
-    // Min Size not including variable articulation parameters field
+    // Min Size not including variable variable parameters field
     static const KUINT16 ENTITY_STATE_UPDATE_PDU_SIZE = 72;
 
     Entity_State_Update_PDU();
@@ -108,10 +110,10 @@ public:
     EntityIdentifier & GetEntityIdentifier();
 
     //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetNumberOfArticulationParams
-    // Description: Number of articulation parameters
+    // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetNumberOfVariableParams
+    // Description: Number of variable parameters.
     //************************************
-    KUINT8 GetNumberOfArticulationParams() const;
+    KUINT8 GetNumberOfVariableParams() const;
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityLinearVelocity
@@ -153,19 +155,19 @@ public:
     EntityAppearance & GetEntityAppearance();
 
     //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::AddArticulationParameter
-    //              KDIS::PDU::Entity_State_Update_PDU::SetArticulationParameter
-    //              KDIS::PDU::Entity_State_Update_PDU::GetArticulationParameters
-    //              KDIS::PDU::Entity_State_Update_PDU::ClearArticulationParameters
-    // Description: Add a articulation parameter / Get vector or params
-    //              Adding will update the Number Of Articulation Params
-    //              field.
-    // Parameter:   const ArticulationParameters & AP, const vector<ArticulationParameters> & AP
+    // FullName:    KDIS::PDU::Entity_State_Update_PDU::AddVariableParameter
+    //              KDIS::PDU::Entity_State_Update_PDU::SetVariableParameter
+    //              KDIS::PDU::Entity_State_Update_PDU::GetVariableParameters
+    //              KDIS::PDU::Entity_State_Update_PDU::ClearVariableParameters
+    // Description: Information associated with an entity or detonation, not otherwise accounted
+    //	            for in a PDU such as Articulated and Attached Parts.
+    //              See VariableParameter for supported/implemented types.
+    // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddArticulationParameter( const ArticulationParameters & AP );
-    void SetArticulationParameters( const vector<ArticulationParameters> & AP );
-    const vector<ArticulationParameters> & GetArticulationParameters() const;
-    void ClearArticulationParameters();
+    void AddVariableParameter( VarPrmPtr VP );
+    void SetVariableParameters( const vector<VarPrmPtr> & VP );
+    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void ClearVariableParameters();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetAsString

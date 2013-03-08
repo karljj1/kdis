@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Directed_Energy_Fire_PDU
-    DIS:        (7) 1278.1-200x
+    DIS:        (7) 1278.1-2012
     created:    04/07/2011
     author:     Karl Jones
 

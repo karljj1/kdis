@@ -375,22 +375,19 @@ KString GetEnumAsStringCountry( KINT32 Value );
 KBOOL GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut ); 
 
 /************************************************************************/
-/* Articulation Params                                                  */
-/* Contains articulation parameters                                     */
-/* Used In:                                                             */
-/*  Articulation Parameters                                             */
+/* Variable Params                                                      */
 /************************************************************************/
 
-enum ArticulationType
+enum VariableParameterType
 {
     ArticulatedPart                                                   = 0,
     AttachedPart                                                      = 1
 };
 
-KString GetEnumAsStringArticulationType( KINT32 Value );
-
+KString GetEnumAsStringVariableParameterType( KINT32 Value );
+		
 // Returns true if a value was found.
-KBOOL GetEnumFromStringArticulationType( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut ); 
 
 enum ArticulatedPartsMetric
 {	

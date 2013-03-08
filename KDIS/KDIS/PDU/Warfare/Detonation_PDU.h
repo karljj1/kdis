@@ -51,6 +51,8 @@ namespace PDU {
 using KDIS::DATA_TYPE::Vector;
 using KDIS::DATA_TYPE::WorldCoordinates;
 using KDIS::DATA_TYPE::BurstDescriptor;
+using KDIS::DATA_TYPE::VariableParameter;
+using KDIS::DATA_TYPE::VarPrmPtr;
 using KDIS::DATA_TYPE::ArticulationParameters;
 using KDIS::DATA_TYPE::ENUMS::DetonationResult;
 
@@ -74,11 +76,11 @@ protected:
 
     KUINT8 m_ui8DetonationResult;
 
-    KUINT8 m_ui8NumOfArticulationParams;
+    KUINT8 m_ui8NumOfVariableParams;
 
     KUINT16 m_ui16Padding1;
 
-    vector<ArticulationParameters> m_vArticulationParameters;
+    vector<VarPrmPtr> m_vVariableParameters;
 
 public:
 
@@ -152,22 +154,25 @@ public:
     DetonationResult GetDetonationResult() const;
 
     //************************************
-    // FullName:    KDIS::PDU::Detonation_PDU::GetNumberOfArticulationParams
-    // Description: Number of articulation parameters
+    // FullName:    KDIS::PDU::Detonation_PDU::GetNumberOfVariableParams
+    // Description: Number of variable parameters.
     //************************************
-    KUINT8 GetNumberOfArticulationParams() const;
+    KUINT8 GetNumberOfVariableParams() const;
 
     //************************************
-    // FullName:    KDIS::PDU::Detonation_PDU::AddArticulationParameter
-    //              KDIS::PDU::Detonation_PDU::GetArticulationParameters
-    // Description: Add a articulation parameter / Get vector or params
-    //              Adding will update the Number Of Articulation Params
-    //              field.
-    // Parameter:   const ArticulationParameters & AP, const vector<ArticulationParameters> & AP
+    // FullName:    KDIS::PDU::Detonation_PDU::AddVariableParameter
+    //              KDIS::PDU::Detonation_PDU::SetVariableParameter
+    //              KDIS::PDU::Detonation_PDU::GetVariableParameters
+    //              KDIS::PDU::Detonation_PDU::ClearVariableParameters
+    // Description: Information associated with an entity or detonation, not otherwise accounted
+    //	            for in a PDU such as Articulated and Attached Parts.
+    //              See VariableParameter for supported/implemented types.
+    // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddArticulationParameter( const ArticulationParameters & AP );
-    void SetArticulationParameter( const vector<ArticulationParameters> & AP );
-    const vector<ArticulationParameters> & GetArticulationParameters() const;
+    void AddVariableParameter( VarPrmPtr VP );
+    void SetVariableParameters( const vector<VarPrmPtr> & VP );
+    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void ClearVariableParameters();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::GetAsString

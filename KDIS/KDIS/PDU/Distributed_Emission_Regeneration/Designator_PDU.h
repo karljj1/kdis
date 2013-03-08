@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Designator_PDU
-    DIS:        (5) 1278.1 - 1995 & (7) 1278.1 - 200x draft 14
+    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012
     created:    2008/10/21
     author:     Karl Jones
 

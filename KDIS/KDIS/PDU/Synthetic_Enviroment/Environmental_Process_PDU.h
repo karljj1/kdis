@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Environmental_Process_PDU
-    DIS:        (6) 1278.1a - 1998 & (7) 1278.1 - 200x draft 14
+    DIS:        (6) 1278.1a - 1998 & (7) 1278.1-2012
     created:    10/08/2009
     author:     Karl Jones
 

@@ -44,7 +44,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Entity_State_PDU::Entity_State_PDU() :
-    m_ui8NumOfArticulationParams( 0 ),
+    m_ui8NumOfVariableParams( 0 ),
     m_ui8ForceID( 0 ),
     m_pDrCalc( 0 )
 {
@@ -78,7 +78,7 @@ Entity_State_PDU::Entity_State_PDU( const EntityIdentifier & EI, ForceID ID, con
                                     const EntityCapabilities & EC ) :
     m_EntityID( EI ),
     m_ui8ForceID( ID ),
-    m_ui8NumOfArticulationParams( 0 ),
+    m_ui8NumOfVariableParams( 0 ),
     m_EntityType( Type ),
     m_AltEntityType( AltType ),
     m_EntityLinearVelocity( EntityLinearVelocity ),
@@ -143,9 +143,9 @@ ForceID Entity_State_PDU::GetForceID() const
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Entity_State_PDU::GetNumberOfArticulationParams() const
+KUINT8 Entity_State_PDU::GetNumberOfVariableParams() const
 {
-    return m_ui8NumOfArticulationParams;
+    return m_ui8NumOfVariableParams;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -384,35 +384,35 @@ EntityCapabilities & Entity_State_PDU::GetEntityCapabilities()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_PDU::AddArticulationParameter( const ArticulationParameters & AP )
+void Entity_State_PDU::AddVariableParameter( VarPrmPtr VP )
 {
-    m_vArticulationParameters.push_back( AP );
-    ++m_ui8NumOfArticulationParams;
-    m_ui16PDULength+= ArticulationParameters::ARTICULATION_PARAMETERS_SIZE;
+    m_vVariableParameters.push_back( VP );
+    ++m_ui8NumOfVariableParams;
+	m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_PDU::SetArticulationParameter( const vector<ArticulationParameters> & AP )
+void Entity_State_PDU::SetVariableParameters( const vector<VarPrmPtr> & VP )
 {
-    m_vArticulationParameters = AP;
-    m_ui8NumOfArticulationParams = m_vArticulationParameters.size();
-    m_ui16PDULength = ENTITY_STATE_PDU_SIZE + ( m_ui8NumOfArticulationParams * ArticulationParameters::ARTICULATION_PARAMETERS_SIZE );
+    m_vVariableParameters = VP;
+    m_ui8NumOfVariableParams = m_vVariableParameters.size();
+    m_ui16PDULength = ENTITY_STATE_PDU_SIZE + ( m_ui8NumOfVariableParams * VariableParameter::VARIABLE_PARAMETER_SIZE );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<ArticulationParameters> & Entity_State_PDU::GetArticulationParameters() const
+const vector<VarPrmPtr> & Entity_State_PDU::GetVariableParameters() const
 {
-    return m_vArticulationParameters;
+    return m_vVariableParameters;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_PDU::ClearArticulationParameters()
+void Entity_State_PDU::ClearVariableParameters()
 {
-    m_vArticulationParameters.clear();
-    m_ui8NumOfArticulationParams = 0;
+    m_vVariableParameters.clear();
+    m_ui8NumOfVariableParams = 0;
     m_ui16PDULength = ENTITY_STATE_PDU_SIZE;
 }
 
@@ -427,7 +427,7 @@ KString Entity_State_PDU::GetAsString() const
        << "Entity ID:\n"
        << IndentString( m_EntityID.GetAsString(), 1 )
        << "Force ID:                       " << GetEnumAsStringForceID( m_ui8ForceID )  << "\n"
-       << "Number Of Articulation Params:  " << ( KUINT16 )m_ui8NumOfArticulationParams << "\n"
+       << "Number Of Variable Params:  " << ( KUINT16 )m_ui8NumOfVariableParams << "\n"
        << "Entity Type:                    " << m_EntityType.GetAsString()
        << "Alternative Entity Type:        " << m_AltEntityType.GetAsString()
        << "Linear Velocity:                " << m_EntityLinearVelocity.GetAsString()
@@ -439,12 +439,13 @@ KString Entity_State_PDU::GetAsString() const
        << m_EntityCapabilities.GetAsString();
 
     // Add the articulated parts
-    vector<ArticulationParameters>::const_iterator citr = m_vArticulationParameters.begin();
-    vector<ArticulationParameters>::const_iterator citrEnd = m_vArticulationParameters.end();
+    vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
+    vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
     for( ; citr != citrEnd; ++ citr )
     {
-        ss << citr->GetAsString();
+		ss << ( *citr )->GetAsString();
     }
+
     return ss.str();
 }
 
@@ -454,13 +455,13 @@ void Entity_State_PDU::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < ENTITY_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    m_vArticulationParameters.clear();
+    m_vVariableParameters.clear();
 
     Header::Decode( stream );
 
     stream >> KDIS_STREAM m_EntityID
            >> m_ui8ForceID
-           >> m_ui8NumOfArticulationParams
+           >> m_ui8NumOfVariableParams
            >> KDIS_STREAM m_EntityType
            >> KDIS_STREAM m_AltEntityType
            >> KDIS_STREAM m_EntityLinearVelocity
@@ -471,9 +472,42 @@ void Entity_State_PDU::Decode( KDataStream & stream ) throw( KException )
            >> KDIS_STREAM m_EntityMarking
            >> KDIS_STREAM m_EntityCapabilities;
 
-    for( KUINT8 i = 0; i < m_ui8NumOfArticulationParams; ++i )
+    for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
     {
-        m_vArticulationParameters.push_back( ArticulationParameters( stream ) );
+		// Save the current write position so we can peek.
+		KUINT16 pos = stream.GetCurrentWritePosition();
+		KUINT8 paramTyp;
+
+		// Extract the  type then reset the stream.
+		stream >> paramTyp;
+		stream.SetCurrentWritePosition( pos );
+
+		// Use the factory decoder. 
+		VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
+
+		// Did we find a custom decoder? if not then use the default.
+		if( p )
+		{
+			m_vVariableParameters.push_back( VarPrmPtr( p ) );
+		}
+		else
+		{
+			// Default internals
+			switch( paramTyp )
+			{
+				case ArticulatedPart:				
+					m_vVariableParameters.push_back( VarPrmPtr( new ArticulationParameters( stream ) ) );
+					break;
+
+				//case AttachedPart:
+				//	// TODO:
+				//	break
+
+				default:
+					m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
+					break;
+			}
+		}
     }
 }
 
@@ -495,7 +529,7 @@ void Entity_State_PDU::Encode( KDataStream & stream ) const
     Header::Encode( stream );
     stream << KDIS_STREAM m_EntityID
            << m_ui8ForceID
-           << m_ui8NumOfArticulationParams
+           << m_ui8NumOfVariableParams
            << KDIS_STREAM m_EntityType
            << KDIS_STREAM m_AltEntityType
            << KDIS_STREAM m_EntityLinearVelocity
@@ -507,11 +541,11 @@ void Entity_State_PDU::Encode( KDataStream & stream ) const
            << KDIS_STREAM m_EntityCapabilities;
 
     // Add the articulated parts
-    vector<ArticulationParameters>::const_iterator citr = m_vArticulationParameters.begin();
-    vector<ArticulationParameters>::const_iterator citrEnd = m_vArticulationParameters.end();
+    vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
+    vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
     for( ; citr != citrEnd; ++ citr )
     {
-        citr->Encode( stream );
+        ( *citr )->Encode( stream );
     }
 }
 
@@ -522,7 +556,7 @@ KBOOL Entity_State_PDU::operator == ( const Entity_State_PDU & Value ) const
     if( Header::operator              !=( Value ) )                              return false;
     if( m_EntityID                    != Value.m_EntityID )                      return false;
     if( m_ui8ForceID                  != Value.m_ui8ForceID )                    return false;
-    if( m_ui8NumOfArticulationParams  != Value.m_ui8NumOfArticulationParams )    return false;
+    if( m_ui8NumOfVariableParams  != Value.m_ui8NumOfVariableParams )            return false;
     if( m_EntityType                  != Value.m_EntityType )                    return false;
     if( m_AltEntityType               != Value.m_AltEntityType )                 return false;
     if( m_EntityLinearVelocity        != Value.m_EntityLinearVelocity )          return false;
@@ -532,7 +566,7 @@ KBOOL Entity_State_PDU::operator == ( const Entity_State_PDU & Value ) const
     if( m_DeadReckoningParameter      != Value.m_DeadReckoningParameter )        return false;
     if( m_EntityMarking               != Value.m_EntityMarking )                 return false;
     if( m_EntityCapabilities          != Value.m_EntityCapabilities )            return false;
-    if( m_vArticulationParameters     != Value.m_vArticulationParameters )       return false;
+    if( m_vVariableParameters         != Value.m_vVariableParameters )           return false;
     return true;
 }
 

@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      IO_Header
-    DIS:        (7) 1278.1-200x
+    DIS:        (7) 1278.1-2012
     created:    12/11/2010
     author:     Karl Jones
 
