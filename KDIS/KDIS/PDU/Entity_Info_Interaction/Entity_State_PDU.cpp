@@ -61,7 +61,16 @@ Entity_State_PDU::Entity_State_PDU() :
 Entity_State_PDU::Entity_State_PDU( KDataStream & stream ) throw( KException ) :
     m_pDrCalc( 0 )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_PDU::Entity_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H ),
+	m_pDrCalc( 0 )
+{
+	Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -446,13 +455,13 @@ KString Entity_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_PDU::Decode( KDataStream & stream ) throw( KException )
+void Entity_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
     if( stream.GetBufferSize() < ENTITY_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vVariableParameters.clear();
-
-    Header::Decode( stream );
+	
+	Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EntityID
            >> m_ui8ForceID

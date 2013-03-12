@@ -186,18 +186,21 @@ KString Header6::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Header6::Decode( KDataStream & stream ) throw( KException )
+void Header6::Decode( KDataStream & stream, bool ignoreHeader /*= false*/  ) throw( KException )
 {
-    if( stream.GetBufferSize() < HEADER6_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+	if( !ignoreHeader )
+	{
+		if( stream.GetBufferSize() < HEADER6_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    stream >> m_ui8ProtocolVersion
-           >> m_ui8ExerciseID
-           >> m_ui8PDUType
-           >> m_ui8ProtocolFamily
-           >> KDIS_STREAM m_TimeStamp
-           >> m_ui16PDULength
-           >> m_ui8Padding1
-           >> m_ui8Padding2;
+		stream >> m_ui8ProtocolVersion
+			   >> m_ui8ExerciseID
+			   >> m_ui8PDUType
+			   >> m_ui8ProtocolFamily
+			   >> KDIS_STREAM m_TimeStamp
+			   >> m_ui16PDULength
+			   >> m_ui8Padding1
+			   >> m_ui8Padding2;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

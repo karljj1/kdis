@@ -166,8 +166,9 @@ public:
     // FullName:    KDIS::PDU::Header6::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+	// Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Header6::Encode
