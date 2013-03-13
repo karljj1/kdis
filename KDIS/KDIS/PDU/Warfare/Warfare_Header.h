@@ -65,6 +65,8 @@ public:
 
     Warfare_Header();
 
+	Warfare_Header( const Header & H );
+
     Warfare_Header( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
                     const EntityIdentifier & MunitionID, const EntityIdentifier & EventID );
 
@@ -125,8 +127,9 @@ public:
     // FullName:    KDIS::PDU::Warfare_Header::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Warfare_Header::Encode

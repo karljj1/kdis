@@ -93,7 +93,11 @@ public:
 
     IFF_ATC_NAVAIDS_L1_PDU();
 
+	IFF_ATC_NAVAIDS_L1_PDU( const Header & H );
+
     IFF_ATC_NAVAIDS_L1_PDU( KDataStream & stream ) throw( KException );
+
+	IFF_ATC_NAVAIDS_L1_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     IFF_ATC_NAVAIDS_L1_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID, const Vector & Location,
                             const SystemIdentifier & ID, const FundamentalOperationalData & FOD );
@@ -163,8 +167,9 @@ public:
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::Encode

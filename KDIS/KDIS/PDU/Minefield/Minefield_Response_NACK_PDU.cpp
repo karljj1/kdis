@@ -51,6 +51,21 @@ Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Minefield_Header( H )
+{
+    Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
         KUINT8 ReqID ) :
     m_ReqID( RequestingSimulationID ),
@@ -73,13 +88,6 @@ Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( const EntityIdentifier
     m_ui8PDUType = MinefieldResponseNAK_PDU_Type;
     m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
     SetMissingPDUSequenceNumbers( MissingSeqNums );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -192,13 +200,13 @@ KString Minefield_Response_NACK_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Response_NACK_PDU::Decode( KDataStream & stream ) throw( KException )
+void Minefield_Response_NACK_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < MINEFIELD_RESPONSE_NACK_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_RESPONSE_NACK_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vSeqNums.clear();
 
-    Minefield_Header::Decode( stream );
+    Minefield_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_ReqID
            >> m_ui8ReqID

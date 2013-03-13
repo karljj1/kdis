@@ -56,6 +56,8 @@ public:
 
     Remove_Entity_PDU( KDataStream & stream ) throw( KException );
 
+	Remove_Entity_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Remove_Entity_PDU( const EntityIdentifier & OrigintatingID, const EntityIdentifier & ReceivingID, KUINT32 RequestID );
 
     Remove_Entity_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID );

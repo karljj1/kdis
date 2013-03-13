@@ -59,6 +59,8 @@ public:
 
     Intercom_Signal_PDU( KDataStream & stream ) throw( KException );
 
+	Intercom_Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Intercom_Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
                          KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
 

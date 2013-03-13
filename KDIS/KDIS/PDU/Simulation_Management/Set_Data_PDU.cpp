@@ -50,19 +50,27 @@ Set_Data_PDU::Set_Data_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
+Set_Data_PDU::Set_Data_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Set_Data_PDU::Set_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Data_PDU( H )
+{
+    Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Set_Data_PDU::Set_Data_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                             KUINT32 RequestID ) :
     Data_PDU( OriginatingEntityID, ReceivingEntityID, RequestID )
 {
     m_ui8PDUType = Set_Data_PDU_Type;
     m_ui16PDULength = SET_DATA_PDU_SIZE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Set_Data_PDU::Set_Data_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

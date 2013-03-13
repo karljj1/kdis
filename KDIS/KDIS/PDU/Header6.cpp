@@ -53,7 +53,7 @@ Header6::Header6() :
 
 Header6::Header6( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////

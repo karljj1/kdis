@@ -118,14 +118,16 @@ public:
 
     Directed_Energy_Fire_PDU();
 
+	Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException );
+
+	Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
 	Directed_Energy_Fire_PDU( const EntityIdentifier & FireID, const EntityIdentifier & EventID,
                               const EntityType & MunitionType, const ClockTime & ShotStartTime, 
 	                          KFLOAT32 CumulativeShotTime, const Vector & EmitterLocation, 
                               KFLOAT32 ApertureDiameter, KFLOAT32 Wavelength, KFLOAT32 PeakIrradiance, 
 	                          KFLOAT32 PulseRepetitionFrequency, KFLOAT32 PulseWidth, 
                               KBOOL WeaponState, KBOOL UpdateState, BeamSpotShape PS );
-
-    Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException );
 
     virtual ~Directed_Energy_Fire_PDU();
 
@@ -293,8 +295,9 @@ public:
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::Encode

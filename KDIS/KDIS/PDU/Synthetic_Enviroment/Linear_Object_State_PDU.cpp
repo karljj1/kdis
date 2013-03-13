@@ -53,7 +53,15 @@ Linear_Object_State_PDU::Linear_Object_State_PDU() :
 
 Linear_Object_State_PDU::Linear_Object_State_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Linear_Object_State_PDU::Linear_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Object_State_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -214,13 +222,13 @@ KString Linear_Object_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::Decode( KDataStream & stream ) throw( KException )
+void Linear_Object_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < LINEAR_OBJECT_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LINEAR_OBJECT_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vSegments.clear();
 
-    Object_State_Header::Decode( stream );
+    Object_State_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui8NumSegment
            >> KDIS_STREAM m_ReqID

@@ -54,7 +54,15 @@ Data_Query_R_PDU::Data_Query_R_PDU()
 
 Data_Query_R_PDU::Data_Query_R_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Data_Query_R_PDU::Data_Query_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Data_Query_PDU( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -101,11 +109,11 @@ KString Data_Query_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_Query_R_PDU::Decode( KDataStream & stream ) throw( KException )
+void Data_Query_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < DATA_QUERY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DATA_QUERY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
     Reliability_Header::Decode( stream );
 
 	stream >> m_ui32RequestID

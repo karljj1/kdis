@@ -54,7 +54,15 @@ Areal_Object_State_PDU::Areal_Object_State_PDU() :
 
 Areal_Object_State_PDU::Areal_Object_State_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Areal_Object_State_PDU::Areal_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Object_State_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -269,13 +277,13 @@ KString Areal_Object_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Areal_Object_State_PDU::Decode( KDataStream & stream ) throw( KException )
+void Areal_Object_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < AREAL_OBJECT_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < AREAL_OBJECT_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vPoints.clear();
 
-    Object_State_Header::Decode( stream );
+    Object_State_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ModificationUnion.m_ui8Modifications
            >> KDIS_STREAM m_ObjTyp

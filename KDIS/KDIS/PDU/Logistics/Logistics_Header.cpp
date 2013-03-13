@@ -47,6 +47,13 @@ Logistics_Header::Logistics_Header()
 
 //////////////////////////////////////////////////////////////////////////
 
+Logistics_Header::Logistics_Header( const Header & H ) :
+	Header( H )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Logistics_Header::Logistics_Header( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID ) :
     m_ReceivingEntity( ReceivingEntityID ),
     m_SupplyingEntity( SupplyingEntityID )
@@ -118,11 +125,11 @@ KString Logistics_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Logistics_Header::Decode( KDataStream & stream ) throw( KException )
+void Logistics_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < LOGISTICS_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LOGISTICS_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_ReceivingEntity
            >> KDIS_STREAM m_SupplyingEntity;

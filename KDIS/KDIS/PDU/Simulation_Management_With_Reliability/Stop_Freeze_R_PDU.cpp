@@ -54,7 +54,15 @@ Stop_Freeze_R_PDU::Stop_Freeze_R_PDU()
 
 Stop_Freeze_R_PDU::Stop_Freeze_R_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Stop_Freeze_R_PDU::Stop_Freeze_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Stop_Freeze_PDU( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -111,11 +119,11 @@ KString Stop_Freeze_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Stop_Freeze_R_PDU::Decode( KDataStream & stream ) throw( KException )
+void Stop_Freeze_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < STOP_FREEZE_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < STOP_FREEZE_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_RealWorldTime
            >> m_ui8Reason

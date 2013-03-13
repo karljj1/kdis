@@ -92,6 +92,8 @@ public:
 
     Areal_Object_State_PDU( KDataStream & stream ) throw( KException );
 
+	Areal_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Areal_Object_State_PDU( KUINT8 Modification, const ObjectType & T, const ArealObjectAppearance & A,
                             const SimulationIdentifier & RequestorID, const SimulationIdentifier & ReceivingID );
 
@@ -185,8 +187,9 @@ public:
     // FullName:    KDIS::PDU::Areal_Object_State_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Areal_Object_State_PDU::Encode

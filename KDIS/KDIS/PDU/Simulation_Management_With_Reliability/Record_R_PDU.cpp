@@ -54,7 +54,15 @@ Record_R_PDU::Record_R_PDU() :
 
 Record_R_PDU::Record_R_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Record_R_PDU::Record_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Set_Record_R_PDU( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -131,11 +139,11 @@ KString Record_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Record_R_PDU::Decode( KDataStream & stream ) throw( KException )
+void Record_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < RECORD_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RECORD_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32RqId
            >> m_ui8ReqRelSrv

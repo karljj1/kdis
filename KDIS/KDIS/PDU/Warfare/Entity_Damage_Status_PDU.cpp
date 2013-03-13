@@ -54,6 +54,21 @@ Entity_Damage_Status_PDU::Entity_Damage_Status_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const EntityIdentifier & DamagedEntityID ) :
 	m_DmgEnt( DamagedEntityID ),
 	m_ui16NumDmgDescRecs( 0 )
@@ -62,13 +77,6 @@ Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const EntityIdentifier & Dam
     m_ui16PDULength = ENTITY_DAMAGE_STATE_PDU;
 	m_ui8ProtocolFamily = Warfare;
     m_ui8ProtocolVersion = IEEE_1278_1_2012;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -172,13 +180,13 @@ KString Entity_Damage_Status_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_Damage_Status_PDU::Decode( KDataStream & stream ) throw( KException )
+void Entity_Damage_Status_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < ENTITY_DAMAGE_STATE_PDU )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENTITY_DAMAGE_STATE_PDU )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
 	m_vDdRec.clear();
 
-	Header::Decode( stream );
+	Header::Decode( stream, ignoreHeader );	
 
 	stream >> KDIS_STREAM m_DmgEnt
 		   >> m_ui16NumDmgDescRecs;

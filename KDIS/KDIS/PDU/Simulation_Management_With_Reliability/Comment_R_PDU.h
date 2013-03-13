@@ -57,6 +57,8 @@ public:
 
     Comment_R_PDU( KDataStream & stream ) throw( KException );
 
+	Comment_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Comment_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
 
     virtual ~Comment_R_PDU();

@@ -104,7 +104,15 @@ Minefield_Query_PDU::Minefield_Query_PDU( const EntityIdentifier & MinefieldID, 
 
 Minefield_Query_PDU::Minefield_Query_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Minefield_Query_PDU::Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Minefield_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -304,14 +312,14 @@ KString Minefield_Query_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Query_PDU::Decode( KDataStream & stream ) throw( KException )
+void Minefield_Query_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < MINEFIELD_QUERY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_QUERY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vPoints.clear();
     m_vui16SensorTypes.clear();
 
-    Minefield_Header::Decode( stream );
+    Minefield_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_ReqID
            >> m_ui8ReqID

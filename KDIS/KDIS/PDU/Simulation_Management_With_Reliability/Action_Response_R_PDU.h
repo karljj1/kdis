@@ -57,6 +57,8 @@ public:
 
     Action_Response_R_PDU( KDataStream & stream ) throw( KException );
 
+	Action_Response_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     // Generate a response from a PDU.
     Action_Response_R_PDU( const Action_Request_R_PDU & pdu, RequestStatus RS );
 

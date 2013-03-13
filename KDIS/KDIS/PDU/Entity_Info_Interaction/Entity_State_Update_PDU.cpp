@@ -58,7 +58,15 @@ Entity_State_Update_PDU::Entity_State_Update_PDU() :
 
 Entity_State_Update_PDU::Entity_State_Update_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_Update_PDU::Entity_State_Update_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -177,13 +185,13 @@ KString Entity_State_Update_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_Update_PDU::Decode( KDataStream & stream ) throw( KException )
+void Entity_State_Update_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < ENTITY_STATE_UPDATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENTITY_STATE_UPDATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vVariableParameters.clear();
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EntityID
            >> m_ui8NumOfVariableParams

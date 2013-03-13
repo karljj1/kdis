@@ -107,8 +107,7 @@ public:
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::Decode
     // Description: Converts data stream into the correct PDU.
-    //              This version takes a known PDU and decodes the body.
-    //              Note: The data stream must still contain the header for propper decoding.
+    //              This version takes a known PDU and decodes just the body.
     //              Note: If you wanted to add support for your own PDU this would be a great
     //              place to add it, just override this function and check for your PDU first,
     //              if the PDU is not yours then call the parent function.

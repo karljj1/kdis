@@ -63,6 +63,8 @@ public:
 
     Repair_Complete_PDU( KDataStream & stream ) throw( KException );
 
+	Repair_Complete_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Repair_Complete_PDU( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID,
                          RepairTypePerformed RTP );
 
@@ -88,8 +90,9 @@ public:
     // FullName:    KDIS::PDU::Repair_Complete_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Repair_Complete_PDU::Encode

@@ -53,7 +53,15 @@ IsPartOf_PDU::IsPartOf_PDU()
 
 IsPartOf_PDU::IsPartOf_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+IsPartOf_PDU::IsPartOf_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Simulation_Management_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -180,11 +188,11 @@ KString IsPartOf_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IsPartOf_PDU::Decode( KDataStream & stream ) throw( KException )
+void IsPartOf_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < IS_PART_OF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IS_PART_OF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_RelRec
            >> KDIS_STREAM m_LocPrt

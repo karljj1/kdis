@@ -99,11 +99,13 @@ public:
 
     IO_Action_PDU();
 
+	IO_Action_PDU( KDataStream & stream ) throw( KException );
+
+	IO_Action_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     IO_Action_PDU( const EntityIdentifier & OrigID, const EntityIdentifier & RecvID, KUINT32 ReqID,
                    WarfareType WT, KUINT16 SimSrc, ActionType AT, ActionPhase AP,
                    const EntityIdentifier & AtkID, const EntityIdentifier & TgtID );
-
-    IO_Action_PDU( KDataStream & stream ) throw( KException );
 
     virtual ~IO_Action_PDU();
 
@@ -221,8 +223,9 @@ public:
     // FullName:    KDIS::PDU::IO_Action_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::Encode

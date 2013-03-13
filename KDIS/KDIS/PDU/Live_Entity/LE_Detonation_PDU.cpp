@@ -81,6 +81,21 @@ LE_Detonation_PDU::LE_Detonation_PDU() :
     m_ui8PDUType = LEDetonation_PDU_Type;
     m_ui16PDULength = LE_DETONATION_PDU_SIZE;
 }
+	
+//////////////////////////////////////////////////////////////////////////
+
+LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Detonation_PDU::LE_Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	LE_Header( H )
+{
+    Decode( stream, true );
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -92,13 +107,6 @@ LE_Detonation_PDU::LE_Detonation_PDU( const LE_EntityIdentifier & ID ) :
     m_DetonationFlag2Union.m_ui8Flag = 0;
     m_ui8PDUType = LEDetonation_PDU_Type;
     m_ui16PDULength = LE_DETONATION_PDU_SIZE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -653,11 +661,11 @@ KString LE_Detonation_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Detonation_PDU::Decode( KDataStream & stream ) throw( KException )
+void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < LE_DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LE_DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    LE_Header::Decode( stream );
+    LE_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_DetonationFlag1Union.m_ui8Flag;
 

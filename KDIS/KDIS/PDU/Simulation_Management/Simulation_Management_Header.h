@@ -63,6 +63,10 @@ public:
 
     Simulation_Management_Header( KDataStream & stream ) throw( KException );
 
+	Simulation_Management_Header( const Header & H );
+
+	Simulation_Management_Header( const Header & H, KDataStream & stream ) throw( KException );
+
     Simulation_Management_Header( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
 
     virtual ~Simulation_Management_Header();
@@ -98,8 +102,9 @@ public:
     // FullName:    KDIS::PDU::Simulation_Management_Header::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Simulation_Management_Header::Encode

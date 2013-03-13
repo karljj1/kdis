@@ -58,7 +58,15 @@ Environmental_Process_PDU::Environmental_Process_PDU() :
 
 Environmental_Process_PDU::Environmental_Process_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Environmental_Process_PDU::Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -310,13 +318,13 @@ KString Environmental_Process_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Environmental_Process_PDU::Decode( KDataStream & stream ) throw( KException )
+void Environmental_Process_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < ENVIROMENTAL_PROCESS_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENVIROMENTAL_PROCESS_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vEnvRecords.clear();
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EnvProcID
            >> KDIS_STREAM m_EnvType

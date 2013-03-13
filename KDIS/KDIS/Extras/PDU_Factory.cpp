@@ -170,11 +170,8 @@ auto_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )throw
 //////////////////////////////////////////////////////////////////////////
 
 auto_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )throw( KException )
-{
-	KUINT16 currentWritePos = Stream.GetCurrentWritePosition();
-    Header h( Stream );
-    Stream.SetCurrentWritePosition(currentWritePos);
-	return Decode( h, Stream );
+{    
+	return Decode( Header( Stream ), Stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -184,215 +181,215 @@ auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )th
     switch( H.GetPDUType() )
     {
     case Entity_State_PDU_Type:
-        return applyFilters( new Entity_State_PDU( Stream ) );
+        return applyFilters( new Entity_State_PDU( H, Stream ) );
 
     case Fire_PDU_Type:
-        return applyFilters( new Fire_PDU( Stream ) );
+        return applyFilters( new Fire_PDU( H, Stream ) );
 
     case Detonation_PDU_Type:
-        return applyFilters( new Detonation_PDU( Stream ) );
+        return applyFilters( new Detonation_PDU( H, Stream ) );
 
     case Collision_PDU_Type:
-        return applyFilters( new Collision_PDU( Stream ) );
+        return applyFilters( new Collision_PDU( H, Stream ) );
 
     case Service_Request_PDU_Type:
-        return applyFilters( new Service_Request_PDU( Stream ) );
+        return applyFilters( new Service_Request_PDU( H, Stream ) );
 
     case Resupply_Offer_PDU_Type:
-        return applyFilters( new Resupply_Offer_PDU( Stream ) );
+        return applyFilters( new Resupply_Offer_PDU( H, Stream ) );
 
     case Resupply_Received_PDU_Type:
-        return applyFilters( new Resupply_Received_PDU( Stream ) );
+        return applyFilters( new Resupply_Received_PDU( H, Stream ) );
 
     case Resupply_Cancel_PDU_Type:
-        return applyFilters( new Resupply_Cancel_PDU( Stream ) );
+        return applyFilters( new Resupply_Cancel_PDU( H, Stream ) );
 
     case Repair_Complete_PDU_Type:
-        return applyFilters( new Repair_Complete_PDU( Stream ) );
+        return applyFilters( new Repair_Complete_PDU( H, Stream ) );
 
     case Repair_Response_PDU_Type:
-        return applyFilters( new Repair_Response_PDU( Stream ) );
+        return applyFilters( new Repair_Response_PDU( H, Stream ) );
 
     case Create_Entity_PDU_Type:
-        return applyFilters( new Create_Entity_PDU( Stream ) );
+        return applyFilters( new Create_Entity_PDU( H, Stream ) );
 
     case Remove_Entity_PDU_Type:
-        return applyFilters( new Remove_Entity_PDU( Stream ) );
+        return applyFilters( new Remove_Entity_PDU( H, Stream ) );
 
     case Start_Resume_PDU_Type:
-        return applyFilters( new Start_Resume_PDU( Stream ) );
+        return applyFilters( new Start_Resume_PDU( H, Stream ) );
 
     case Stop_Freeze_PDU_Type:
-        return applyFilters( new Stop_Freeze_PDU( Stream ) );
+        return applyFilters( new Stop_Freeze_PDU( H, Stream ) );
 
     case Acknowledge_PDU_Type:
-        return applyFilters( new Acknowledge_PDU( Stream ) );
+        return applyFilters( new Acknowledge_PDU( H, Stream ) );
 
     case Action_Request_PDU_Type:
-        return applyFilters( new Action_Request_PDU( Stream ) );
+        return applyFilters( new Action_Request_PDU( H, Stream ) );
 
     case Action_Response_PDU_Type:
-        return applyFilters( new Action_Response_PDU( Stream ) );
+        return applyFilters( new Action_Response_PDU( H, Stream ) );
 
     case Data_Query_PDU_Type:
-        return applyFilters( new Data_Query_PDU( Stream ) );
+        return applyFilters( new Data_Query_PDU( H, Stream ) );
 
     case Set_Data_PDU_Type:
-        return applyFilters( new Set_Data_PDU( Stream ) );
+        return applyFilters( new Set_Data_PDU( H, Stream ) );
 
     case Data_PDU_Type:
-        return applyFilters( new Data_PDU( Stream ) );
+        return applyFilters( new Data_PDU( H, Stream ) );
 
     case Event_Report_PDU_Type:
-        return applyFilters( new Event_Report_PDU( Stream ) );
+        return applyFilters( new Event_Report_PDU( H, Stream ) );
 
     case Message_PDU_Type:
-        return applyFilters( new Comment_PDU( Stream ) );
+        return applyFilters( new Comment_PDU( H, Stream ) );
 
     case Electromagnetic_Emission_PDU_Type:
-        return applyFilters( new Electromagnetic_Emission_PDU( Stream ) );
+        return applyFilters( new Electromagnetic_Emission_PDU( H, Stream ) );
 
     case Designator_PDU_Type:
-        return applyFilters( new Designator_PDU( Stream ) );
+        return applyFilters( new Designator_PDU( H, Stream ) );
 
     case Transmitter_PDU_Type:
-        return applyFilters( new Transmitter_PDU( Stream ) );
+        return applyFilters( new Transmitter_PDU( H, Stream ) );
 
     case Signal_PDU_Type:
-        return applyFilters( new Signal_PDU( Stream ) );
+        return applyFilters( new Signal_PDU( H, Stream ) );
 
     case Receiver_PDU_Type:
-        return applyFilters( new Receiver_PDU( Stream ) );
+        return applyFilters( new Receiver_PDU( H, Stream ) );
 
 // The following are DIS version 6 PDUs.
 #if DIS_VERSION >= 6
 
     case Collision_Elastic_PDU_Type:
-        return applyFilters( new Collision_Elastic_PDU( Stream ) );
+        return applyFilters( new Collision_Elastic_PDU( H, Stream ) );
 
     case IFF_ATC_NAVAIDS_PDU_Type:
         if( Stream.GetBufferSize() > IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU_SIZE )
         {
-            return applyFilters( new IFF_ATC_NAVAIDS_L2_PDU( Stream ) );
+            return applyFilters( new IFF_ATC_NAVAIDS_L2_PDU( H, Stream ) );
         }
         else
         {
-            return applyFilters( new IFF_ATC_NAVAIDS_L1_PDU( Stream ) );
+            return applyFilters( new IFF_ATC_NAVAIDS_L1_PDU( H, Stream ) );
         }
 
     case UnderwaterAcoustic_PDU_Type:
-        return applyFilters( new Underwater_Acoustic_PDU( Stream ) );
+        return applyFilters( new Underwater_Acoustic_PDU( H, Stream ) );
 
     case SupplementalEmission_EntityState_PDU_Type:
-        return applyFilters( new SEES_PDU( Stream ) );
+        return applyFilters( new SEES_PDU( H, Stream ) );
 
     case IntercomSignal_PDU_Type:
-        return applyFilters( new Intercom_Signal_PDU( Stream ) );
+        return applyFilters( new Intercom_Signal_PDU( H, Stream ) );
 
     case IntercomControl_PDU_Type:
-        return applyFilters( new Intercom_Control_PDU( Stream ) );
+        return applyFilters( new Intercom_Control_PDU( H, Stream ) );
 
     case AggregateState_PDU_Type:
-        return applyFilters( new Aggregate_State_PDU( Stream ) );
+        return applyFilters( new Aggregate_State_PDU( H, Stream ) );
 
     case IsGroupOf_PDU_Type:
-        return applyFilters( new IsGroupOf_PDU( Stream ) );
+        return applyFilters( new IsGroupOf_PDU( H, Stream ) );
 
     case TransferControl_PDU_Type:
-        return applyFilters( new Transfer_Control_Request_PDU( Stream ) );
+        return applyFilters( new Transfer_Control_Request_PDU( H, Stream ) );
 
     case IsPartOf_PDU_Type:
-        return applyFilters( new IsPartOf_PDU( Stream ) );
+        return applyFilters( new IsPartOf_PDU( H, Stream ) );
 
     case MinefieldState_PDU_Type:
-        return applyFilters( new Minefield_State_PDU( Stream ) );
+        return applyFilters( new Minefield_State_PDU( H, Stream ) );
 
     case MinefieldQuery_PDU_Type:
-        return applyFilters( new Minefield_Query_PDU( Stream ) );
+        return applyFilters( new Minefield_Query_PDU( H, Stream ) );
 
     case MinefieldData_PDU_Type:
-        return applyFilters( new Minefield_Data_PDU( Stream ) );
+        return applyFilters( new Minefield_Data_PDU( H, Stream ) );
 
     case MinefieldResponseNAK_PDU_Type:
-        return applyFilters( new Minefield_Response_NACK_PDU( Stream ) );
+        return applyFilters( new Minefield_Response_NACK_PDU( H, Stream ) );
 
     case EnvironmentalProcess_PDU_Type:
-        return applyFilters( new Environmental_Process_PDU( Stream ) );
+        return applyFilters( new Environmental_Process_PDU( H, Stream ) );
 
     case GriddedData_PDU_Type:
-        return applyFilters( new Gridded_Data_PDU( Stream ) );
+        return applyFilters( new Gridded_Data_PDU( H, Stream ) );
 
     case PointObjectState_PDU_Type:
-        return applyFilters( new Point_Object_State_PDU( Stream ) );
+        return applyFilters( new Point_Object_State_PDU( H, Stream ) );
 
     case LinearObjectState_PDU_Type:
-        return applyFilters( new Linear_Object_State_PDU( Stream ) );
+        return applyFilters( new Linear_Object_State_PDU( H, Stream ) );
 
     case ArealObjectState_PDU_Type:
-        return applyFilters( new Areal_Object_State_PDU( Stream ) );
+        return applyFilters( new Areal_Object_State_PDU( H, Stream ) );
 
     case TSPI_PDU_Type:
-        return applyFilters( new TSPI_PDU( Stream ) );
+        return applyFilters( new TSPI_PDU( H, Stream ) );
 
     case Appearance_PDU_Type:
-        return applyFilters( new Appearance_PDU( Stream ) );
+        return applyFilters( new Appearance_PDU( H, Stream ) );
 
     case ArticulatedParts_PDU_Type:
-        return applyFilters( new Articulated_Parts_PDU( Stream ) );
+        return applyFilters( new Articulated_Parts_PDU( H, Stream ) );
 
     case LEFire_PDU_Type:
-        return applyFilters( new LE_Fire_PDU( Stream ) );
+        return applyFilters( new LE_Fire_PDU( H, Stream ) );
 
     case LEDetonation_PDU_Type:
-        return applyFilters( new LE_Detonation_PDU( Stream ) );
+        return applyFilters( new LE_Detonation_PDU( H, Stream ) );
 
     case CreateEntity_R_PDU_Type:
-        return applyFilters( new Create_Entity_R_PDU( Stream ) );
+        return applyFilters( new Create_Entity_R_PDU( H, Stream ) );
 
     case RemoveEntity_R_PDU_Type:
-        return applyFilters( new Remove_Entity_R_PDU( Stream ) );
+        return applyFilters( new Remove_Entity_R_PDU( H, Stream ) );
 
     case Start_Resume_R_PDU_Type:
-        return applyFilters( new Start_Resume_R_PDU( Stream ) );
+        return applyFilters( new Start_Resume_R_PDU( H, Stream ) );
 
     case Stop_Freeze_R_PDU_Type:
-        return applyFilters( new Stop_Freeze_R_PDU( Stream ) );
+        return applyFilters( new Stop_Freeze_R_PDU( H, Stream ) );
 
     case Acknowledge_R_PDU_Type:
-        return applyFilters( new Acknowledge_R_PDU( Stream ) );
+        return applyFilters( new Acknowledge_R_PDU( H, Stream ) );
 
     case ActionRequest_R_PDU_Type:
-        return applyFilters( new Action_Request_R_PDU( Stream ) );
+        return applyFilters( new Action_Request_R_PDU( H, Stream ) );
 
     case ActionResponse_R_PDU_Type:
-        return applyFilters( new Action_Response_R_PDU( Stream ) );
+        return applyFilters( new Action_Response_R_PDU( H, Stream ) );
 
     case DataQuery_R_PDU_Type:
-        return applyFilters( new Data_Query_R_PDU( Stream ) );
+        return applyFilters( new Data_Query_R_PDU( H, Stream ) );
 
     case SetData_R_PDU_Type:
-        return applyFilters( new Set_Data_R_PDU( Stream ) );
+        return applyFilters( new Set_Data_R_PDU( H, Stream ) );
 
     case Data_R_PDU_Type:
-        return applyFilters( new Data_R_PDU( Stream ) );
+        return applyFilters( new Data_R_PDU( H, Stream ) );
 
     case EventReport_R_PDU_Type:
-        return applyFilters( new Event_Report_R_PDU( Stream ) );
+        return applyFilters( new Event_Report_R_PDU( H, Stream ) );
 
     case Comment_R_PDU_Type:
-        return applyFilters( new Comment_R_PDU( Stream ) );
+        return applyFilters( new Comment_R_PDU( H, Stream ) );
 
     case Record_R_PDU_Type:
-        return applyFilters( new Record_R_PDU( Stream ) );
+        return applyFilters( new Record_R_PDU( H, Stream ) );
 
     case SetRecord_R_PDU_Type:
-        return applyFilters( new Set_Record_R_PDU( Stream ) );
+        return applyFilters( new Set_Record_R_PDU( H, Stream ) );
 
     case RecordQuery_R_PDU_Type:
-        return applyFilters( new Record_Query_R_PDU( Stream ) );
+        return applyFilters( new Record_Query_R_PDU( H, Stream ) );
 
     case EntityStateUpdate_PDU_Type:
-        return applyFilters( new Entity_State_Update_PDU( Stream ) );
+        return applyFilters( new Entity_State_Update_PDU( H, Stream ) );
 
 	#endif
 
@@ -400,19 +397,19 @@ auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )th
 	#if DIS_VERSION >= 7
 
 	case DirectedEnergyFire_PDU_Type:
-		return applyFilters( new Directed_Energy_Fire_PDU( Stream ) );
+		return applyFilters( new Directed_Energy_Fire_PDU( H, Stream ) );
 		
 	case EntityDamageStatus_PDU_Type:
-		return applyFilters( new Entity_Damage_Status_PDU( Stream ) );
+		return applyFilters( new Entity_Damage_Status_PDU( H, Stream ) );
 
 	case IO_Action_PDU_Type:
-		return applyFilters( new IO_Action_PDU( Stream ) );
+		return applyFilters( new IO_Action_PDU( H, Stream ) );
 
 	case IO_Report_PDU_Type:
-		return applyFilters( new IO_Report_PDU( Stream ) );
+		return applyFilters( new IO_Report_PDU( H, Stream ) );
 
 	case Attribute_PDU_Type:
-		return applyFilters( new Attribute_PDU( Stream ) );
+		return applyFilters( new Attribute_PDU( H, Stream ) );
 
 	#endif
     }

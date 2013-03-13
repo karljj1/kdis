@@ -57,6 +57,8 @@ public:
 
     Remove_Entity_R_PDU( KDataStream & stream ) throw( KException );
 
+	Remove_Entity_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Remove_Entity_R_PDU( const EntityIdentifier & OrigintatingID, const EntityIdentifier & ReceivingID,
                          KUINT32 RequestID, RequiredReliabilityService RRS );
 

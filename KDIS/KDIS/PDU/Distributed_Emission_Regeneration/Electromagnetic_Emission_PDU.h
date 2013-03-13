@@ -78,6 +78,8 @@ public:
 
     Electromagnetic_Emission_PDU( KDataStream & stream ) throw( KException );
 
+	Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Electromagnetic_Emission_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID,
                                   StateUpdateIndicator SUI );
 
@@ -147,8 +149,9 @@ public:
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::Encode

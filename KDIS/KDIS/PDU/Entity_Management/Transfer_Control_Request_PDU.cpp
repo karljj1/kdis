@@ -58,7 +58,15 @@ Transfer_Control_Request_PDU::Transfer_Control_Request_PDU() :
 
 Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Simulation_Management_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -217,13 +225,13 @@ KString Transfer_Control_Request_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Transfer_Control_Request_PDU::Decode( KDataStream & stream ) throw( KException )
+void Transfer_Control_Request_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < TRANSFER_CONTROL_REQUEST_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < TRANSFER_CONTROL_REQUEST_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vRecs.clear();
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32ReqID
            >> m_ui8ReqRelSrv

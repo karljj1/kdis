@@ -54,7 +54,15 @@ Event_Report_R_PDU::Event_Report_R_PDU()
 
 Event_Report_R_PDU::Event_Report_R_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Event_Report_R_PDU::Event_Report_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Event_Report_PDU( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////

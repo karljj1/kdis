@@ -119,6 +119,8 @@ public:
 
     Gridded_Data_PDU( KDataStream & stream ) throw( KException );
 
+	Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Gridded_Data_PDU( const EntityIdentifier & EnvironmentalProcessID, KUINT16 FieldNumber, KUINT16 PduNum,
                       KUINT16 PduTotal, CoordinateSystem CS, ConstantGrid CG, const EnvironmentType & ET,
                       const EulerAngles & Ori, KUINT64 SampleTime );
@@ -286,8 +288,9 @@ public:
     // FullName:    KDIS::PDU::Gridded_Data_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::Encode

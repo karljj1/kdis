@@ -52,7 +52,7 @@ using KDIS::DATA_TYPE::ENUMS::FrozenBehavior;
 using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
 
 class KDIS_EXPORT Stop_Freeze_R_PDU : public Stop_Freeze_PDU,
-    public Reliability_Header
+                                      public Reliability_Header
 {
 public:
 
@@ -61,6 +61,8 @@ public:
     Stop_Freeze_R_PDU();
 
     Stop_Freeze_R_PDU( KDataStream & stream ) throw( KException );
+
+	Stop_Freeze_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Stop_Freeze_R_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, const ClockTime & RealWorldTime,
                        StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID, RequiredReliabilityService RRS );
@@ -81,8 +83,9 @@ public:
     // FullName:    KDIS::PDU::Stop_Freeze_R_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Stop_Freeze_R_PDU::Encode

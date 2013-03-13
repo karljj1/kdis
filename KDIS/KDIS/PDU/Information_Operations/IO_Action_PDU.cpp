@@ -54,6 +54,21 @@ IO_Action_PDU::IO_Action_PDU() :
     m_ui8PDUType = IO_Action_PDU_Type;
     m_ui16PDULength = IO_ACTION_PDU_SIZE;
 }
+	
+//////////////////////////////////////////////////////////////////////////
+
+IO_Action_PDU::IO_Action_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+IO_Action_PDU::IO_Action_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	IO_Header( H )
+{
+    Decode( stream, true );
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -75,13 +90,6 @@ IO_Action_PDU::IO_Action_PDU( const EntityIdentifier & OrigID, const EntityIdent
 {
     m_ui8PDUType = IO_Action_PDU_Type;
     m_ui16PDULength = IO_ACTION_PDU_SIZE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IO_Action_PDU::IO_Action_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -313,13 +321,13 @@ KString IO_Action_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Action_PDU::Decode( KDataStream & stream ) throw( KException )
+void IO_Action_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < IO_ACTION_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IO_ACTION_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vStdVarRecs.clear();
 
-    IO_Header::Decode( stream );
+    IO_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_RecEntityID
            >> m_ui32ReqId

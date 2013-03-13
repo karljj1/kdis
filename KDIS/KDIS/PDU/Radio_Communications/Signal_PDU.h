@@ -75,7 +75,11 @@ public:
 
     Signal_PDU();
 
+	Signal_PDU( const Header & H );
+
     Signal_PDU( KDataStream & stream ) throw( KException );
+
+	Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
                 KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
@@ -144,8 +148,9 @@ public:
     // FullName:    KDIS::PDU::Signal_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Signal_PDU::Encode

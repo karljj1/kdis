@@ -99,7 +99,15 @@ Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( const EntityIdentifier & Fir
 
 Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -428,13 +436,13 @@ KString Directed_Energy_Fire_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Directed_Energy_Fire_PDU::Decode( KDataStream & stream ) throw( KException )
+void Directed_Energy_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < DIRECTED_ENERGY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DIRECTED_ENERGY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
 	m_vDeRec.clear();
 
-	Header::Decode( stream );
+	Header::Decode( stream, ignoreHeader );	
 
 	stream >> KDIS_STREAM m_FiringEntityID
 		   >> KDIS_STREAM m_EventID

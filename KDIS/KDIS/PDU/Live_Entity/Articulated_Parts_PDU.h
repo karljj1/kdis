@@ -65,9 +65,11 @@ public:
 
     Articulated_Parts_PDU();
 
-    Articulated_Parts_PDU( const LE_EntityIdentifier & ID );
+	Articulated_Parts_PDU( KDataStream & stream ) throw( KException );
 
-    Articulated_Parts_PDU( KDataStream & stream ) throw( KException );
+	Articulated_Parts_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
+    Articulated_Parts_PDU( const LE_EntityIdentifier & ID );
 
     virtual ~Articulated_Parts_PDU();
 
@@ -102,8 +104,9 @@ public:
     // FullName:    KDIS::PDU::Articulated_Parts_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Articulated_Parts_PDU::Encode

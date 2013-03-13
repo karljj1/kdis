@@ -52,9 +52,26 @@ Comment_PDU::Comment_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Comment_PDU::Comment_PDU( const Header & H ) :
+	Simulation_Management_Header( H ),
+    m_ui32NumFixedDatum( 0 ),
+    m_ui32NumVariableDatum( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Comment_PDU::Comment_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Comment_PDU::Comment_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Simulation_Management_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -191,11 +208,11 @@ KString Comment_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Comment_PDU::Decode( KDataStream & stream ) throw( KException )
+void Comment_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < COMMENT_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < COMMENT_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32NumFixedDatum
            >> m_ui32NumVariableDatum;

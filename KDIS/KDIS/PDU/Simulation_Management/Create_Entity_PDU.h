@@ -58,7 +58,11 @@ public:
 
     Create_Entity_PDU();
 
+	Create_Entity_PDU( const Header & H );
+
     Create_Entity_PDU( KDataStream & stream ) throw( KException );
+
+	Create_Entity_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Create_Entity_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, KUINT32 RequestID );
 
@@ -86,8 +90,9 @@ public:
     // FullName:    KDIS::PDU::Create_Entity_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Create_Entity_PDU::Encode

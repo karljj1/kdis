@@ -83,6 +83,8 @@ public:
 
     SEES_PDU( KDataStream & stream ) throw( KException );
 
+	SEES_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     SEES_PDU( const EntityIdentifier & OriginatingEnt, KUINT16 IrSigIndex, KUINT16 AcousticSigIndex,
               KUINT16 RadarCrossSectionSigIndex );
 
@@ -178,8 +180,9 @@ public:
     // FullName:    KDIS::PDU::SEES_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::SEES_PDU::Encode

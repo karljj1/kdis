@@ -91,7 +91,15 @@ Aggregate_State_PDU::Aggregate_State_PDU() :
 
 Aggregate_State_PDU::Aggregate_State_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Aggregate_State_PDU::Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -606,11 +614,11 @@ KString Aggregate_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Aggregate_State_PDU::Decode( KDataStream & stream ) throw( KException )
+void Aggregate_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < AGGREGATE_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < AGGREGATE_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     m_bNeedsPadding = false;
     m_vAI.clear();

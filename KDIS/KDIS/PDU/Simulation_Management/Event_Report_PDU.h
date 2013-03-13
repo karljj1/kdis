@@ -62,7 +62,11 @@ public:
 
     Event_Report_PDU();
 
+	Event_Report_PDU( const Header & H );
+
     Event_Report_PDU( KDataStream & stream ) throw( KException );
+
+	Event_Report_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Event_Report_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                       EventType ET );
@@ -89,8 +93,9 @@ public:
     // FullName:    KDIS::PDU::Event_Report_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Event_Report_PDU::Encode

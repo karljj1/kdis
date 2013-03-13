@@ -99,6 +99,8 @@ public:
 
     Point_Object_State_PDU( KDataStream & stream ) throw( KException );
 
+	Point_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Point_Object_State_PDU( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID , KUINT16 UpdateNum,
                             ForceID FI, const ObjectType & O, const WorldCoordinates & Loc, const EulerAngles & Ori,
                             const PointObjectAppearance & P, const SimulationIdentifier & ReqID,
@@ -198,8 +200,9 @@ public:
     // FullName:    KDIS::PDU::Point_Object_State_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::Encode

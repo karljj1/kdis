@@ -92,6 +92,8 @@ public:
 
     Entity_State_Update_PDU( KDataStream & stream ) throw( KException );
 
+	Entity_State_Update_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Entity_State_Update_PDU( const EntityIdentifier & EI, const Vector & EntityLinearVelocity,
                              const WorldCoordinates & EntityLocation, const EulerAngles & EntityOrientation,
                              const EntityAppearance & EA );
@@ -179,8 +181,9 @@ public:
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::Encode

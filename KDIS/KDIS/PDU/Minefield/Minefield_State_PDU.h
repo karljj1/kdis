@@ -111,11 +111,13 @@ public:
 
     Minefield_State_PDU();
 
+	Minefield_State_PDU( KDataStream & stream ) throw( KException );
+
+	Minefield_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Minefield_State_PDU( const EntityIdentifier & ID, KUINT16 SequenceNumber, ForceID FID, const EntityType & Type,
                          const WorldCoordinates & Loc, const EulerAngles & Ori, const MinefieldAppearance & MA,
                          MinefieldProtocolMode MPM );
-
-    Minefield_State_PDU( KDataStream & stream ) throw( KException );
 
     virtual ~Minefield_State_PDU();
 
@@ -240,8 +242,9 @@ public:
     // FullName:    KDIS::PDU::Minefield_State_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::Encode

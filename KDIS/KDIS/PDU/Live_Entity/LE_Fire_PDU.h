@@ -101,10 +101,12 @@ public:
     static const KUINT16 LE_FIRE_PDU_SIZE = 35; // Min size, not including optional fields
 
     LE_Fire_PDU();
+	
+    LE_Fire_PDU( KDataStream & stream ) throw( KException );
+
+	LE_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     LE_Fire_PDU( const LE_EntityIdentifier & ID );
-
-    LE_Fire_PDU( KDataStream & stream ) throw( KException );
 
     virtual ~LE_Fire_PDU();
 
@@ -251,8 +253,9 @@ public:
     // FullName:    KDIS::PDU::LE_Fire_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::Encode

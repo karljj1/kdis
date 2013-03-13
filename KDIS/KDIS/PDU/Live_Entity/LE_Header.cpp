@@ -49,9 +49,24 @@ LE_Header::LE_Header()
 
 //////////////////////////////////////////////////////////////////////////
 
+LE_Header::LE_Header( const Header & H ) :
+	Header( H )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 LE_Header::LE_Header( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Header::LE_Header( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -110,11 +125,11 @@ KString LE_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Header::Decode( KDataStream & stream ) throw( KException )
+void LE_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < LE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EntID;
 }

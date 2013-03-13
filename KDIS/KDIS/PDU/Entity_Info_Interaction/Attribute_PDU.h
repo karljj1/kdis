@@ -89,6 +89,8 @@ public:
 
     Attribute_PDU( KDataStream & stream ) throw( KException );
 
+	Attribute_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
 	Attribute_PDU( const SimulationIdentifier & OriginatingID, PDUType T, 
 				   ProtocolVersion PV, AttributeID MART, ActionCode AC );
 
@@ -172,8 +174,9 @@ public:
     // FullName:    KDIS::PDU::Attribute_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::Encode

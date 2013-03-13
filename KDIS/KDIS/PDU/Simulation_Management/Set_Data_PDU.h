@@ -56,6 +56,8 @@ public:
 
     Set_Data_PDU( KDataStream & stream ) throw( KException );
 
+	Set_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Set_Data_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                   KUINT32 RequestID );
 

@@ -85,6 +85,22 @@ Minefield_Data_PDU::Minefield_Data_PDU() :
     m_SeqNumUnion.m_ui16SeqNum = 0;
 }
 
+	
+//////////////////////////////////////////////////////////////////////////
+
+Minefield_Data_PDU::Minefield_Data_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Minefield_Data_PDU::Minefield_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Minefield_Header( H )
+{
+    Decode( stream, true );
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 Minefield_Data_PDU::Minefield_Data_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
@@ -104,13 +120,6 @@ Minefield_Data_PDU::Minefield_Data_PDU( const EntityIdentifier & MinefieldID, co
     m_ui16PDULength = MINEFIELD_DATA_PDU_SIZE;
     m_SeqNumUnion.m_ui16SeqNum15 = SeqNum;
     m_MinefieldID = MinefieldID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Minefield_Data_PDU::Minefield_Data_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -393,14 +402,14 @@ KString Minefield_Data_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Data_PDU::Decode( KDataStream & stream ) throw( KException )
+void Minefield_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < MINEFIELD_DATA_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_DATA_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vui16SensorTypes.clear();
     m_vMines.clear();
 
-    Minefield_Header::Decode( stream );
+    Minefield_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_ReqID
            >> m_SeqNumUnion.m_ui16SeqNum

@@ -52,6 +52,21 @@ TSPI_PDU::TSPI_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+TSPI_PDU::TSPI_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	LE_Header( H )
+{
+    Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 TSPI_PDU::TSPI_PDU( const LE_EntityIdentifier & ID ) :
     m_ui8SSDLen( 0 )
 {
@@ -59,13 +74,6 @@ TSPI_PDU::TSPI_PDU( const LE_EntityIdentifier & ID ) :
     m_ui8PDUType = TSPI_PDU_Type;
     m_ui16PDULength = TSPI_PDU_SIZE;
     m_TSPIFlagUnion.m_ui8Data = 0;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -520,13 +528,13 @@ KString TSPI_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void TSPI_PDU::Decode( KDataStream & stream ) throw( KException )
+void TSPI_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < TSPI_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < TSPI_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vSSD.clear();
 
-    LE_Header::Decode( stream );
+    LE_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_TSPIFlagUnion.m_ui8Flag
            >> KDIS_STREAM m_Loc;

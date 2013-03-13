@@ -49,9 +49,24 @@ Simulation_Management_Header::Simulation_Management_Header()
 
 //////////////////////////////////////////////////////////////////////////
 
+Simulation_Management_Header::Simulation_Management_Header( const Header & H ) :
+	Header( H )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Simulation_Management_Header::Simulation_Management_Header( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Simulation_Management_Header::Simulation_Management_Header( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -128,11 +143,11 @@ KString Simulation_Management_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Simulation_Management_Header::Decode( KDataStream & stream ) throw( KException )
+void Simulation_Management_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < SIMULATION_MANAGEMENT_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SIMULATION_MANAGEMENT_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_OriginatingEntityID
            >> KDIS_STREAM m_ReceivingEntityID;

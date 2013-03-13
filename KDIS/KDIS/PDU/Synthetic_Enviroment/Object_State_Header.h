@@ -66,8 +66,12 @@ public:
     static const KUINT16 OBJECT_STATE_HEADER_SIZE = 27;
 
     Object_State_Header();
+	
+	Object_State_Header( const Header & H );
 
     Object_State_Header( KDataStream & stream ) throw( KException );
+
+	Object_State_Header( const Header & H, KDataStream & stream ) throw( KException );
 
     Object_State_Header( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID ,
                          KUINT16 UpdateNum, ForceID FI );
@@ -124,8 +128,9 @@ public:
     // FullName:    KDIS::PDU::Object_State_Header::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Object_State_Header::Encode

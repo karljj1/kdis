@@ -71,7 +71,15 @@ IO_Report_PDU::IO_Report_PDU( const EntityIdentifier & OrigID, KUINT16 SimSrc, I
 
 IO_Report_PDU::IO_Report_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+IO_Report_PDU::IO_Report_PDU( const Header & H, KDataStream & stream ) throw( KException ) 
+{
+	( ( Header )*this ) = H;
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -221,13 +229,13 @@ KString IO_Report_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Report_PDU::Decode( KDataStream & stream ) throw( KException )
+void IO_Report_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < IO_REPORT_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IO_REPORT_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vStdVarRecs.clear();
 
-    IO_Header::Decode( stream );
+    IO_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui16SimSrc
            >> m_ui8RptTyp

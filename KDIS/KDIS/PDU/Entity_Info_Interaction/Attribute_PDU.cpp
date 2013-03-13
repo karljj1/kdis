@@ -61,7 +61,15 @@ Attribute_PDU::Attribute_PDU() :
 
 Attribute_PDU::Attribute_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Attribute_PDU::Attribute_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -245,13 +253,13 @@ KString Attribute_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Attribute_PDU::Decode( KDataStream & stream ) throw( KException )
+void Attribute_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < ATTRIBUTE_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ATTRIBUTE_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
 	m_vAttributeRecordSets.clear();
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
 	stream >> KDIS_STREAM m_OrigSimAddr
 		   >> m_ui32Padding

@@ -132,6 +132,8 @@ public:
 
     Aggregate_State_PDU( KDataStream & stream ) throw( KException );
 
+	Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Aggregate_State_PDU( const AggregateIdentifier & AI, ForceID FID, AggregateState AS,
                          const AggregateType & AT, Formation F, const AggregateMarking & AM,
                          const Vector & Dimensions, const EulerAngles & Orientation,
@@ -357,8 +359,9 @@ public:
     // FullName:    KDIS::PDU::Aggregate_State_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::Encode

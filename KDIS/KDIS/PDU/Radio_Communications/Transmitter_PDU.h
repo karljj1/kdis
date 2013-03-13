@@ -106,6 +106,8 @@ public:
 
     Transmitter_PDU( KDataStream & stream ) throw( KException );
 
+	Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Transmitter_PDU( const RadioEntityType & Type, TransmitState TS, RadioInputSource IS,
                      const AntennaLocation & AL, AntennaPatternType APT, KUINT64 Freq,
                      KFLOAT32 FreqBW, KFLOAT32 Power, const ModulationType & MT,
@@ -266,8 +268,9 @@ public:
     // FullName:    KDIS::PDU::Transmitter_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::Encode

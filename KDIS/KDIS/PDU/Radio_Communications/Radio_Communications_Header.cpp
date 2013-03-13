@@ -51,9 +51,25 @@ Radio_Communications_Header::Radio_Communications_Header() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Radio_Communications_Header::Radio_Communications_Header( const Header & H ) :
+	Header( H ),
+	m_ui16RadioID( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Radio_Communications_Header::Radio_Communications_Header( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Radio_Communications_Header::Radio_Communications_Header( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -123,11 +139,11 @@ KString Radio_Communications_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Radio_Communications_Header::Decode( KDataStream & stream ) throw( KException )
+void Radio_Communications_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < RADIO_COMMUNICATIONS_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RADIO_COMMUNICATIONS_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EntityID
            >> m_ui16RadioID;

@@ -96,7 +96,15 @@ LE_Fire_PDU::LE_Fire_PDU( const LE_EntityIdentifier & ID ) :
 
 LE_Fire_PDU::LE_Fire_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Fire_PDU::LE_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	LE_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -490,11 +498,11 @@ KString LE_Fire_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Fire_PDU::Decode( KDataStream & stream ) throw( KException )
+void LE_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < LE_FIRE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LE_FIRE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    LE_Header::Decode( stream );
+    LE_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_FireFlagUnion.m_ui8Flag;
 

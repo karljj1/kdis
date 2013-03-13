@@ -53,9 +53,25 @@ IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const Header & H ) :
+	Header( H ),
+    m_ui16Padding( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -207,11 +223,11 @@ KString IFF_ATC_NAVAIDS_L1_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::Decode( KDataStream & stream ) throw( KException )
+void IFF_ATC_NAVAIDS_L1_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < IFF_ATC_NAVAIDS_L1_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IFF_ATC_NAVAIDS_L1_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EmittingEntityID
            >> KDIS_STREAM m_EventID

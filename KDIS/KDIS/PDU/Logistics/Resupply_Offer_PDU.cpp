@@ -50,18 +50,26 @@ Resupply_Offer_PDU::Resupply_Offer_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
+Resupply_Offer_PDU::Resupply_Offer_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Resupply_Offer_PDU::Resupply_Offer_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Resupply_Received_PDU( H )
+{
+    Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Resupply_Offer_PDU::Resupply_Offer_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity ) :
     Resupply_Received_PDU( ReceivingEntity, SupplyingEntity )
 {
     m_ui8PDUType = Resupply_Offer_PDU_Type;
     m_ui16PDULength = RESUPPLY_OFFER_PDU_SIZE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Resupply_Offer_PDU::Resupply_Offer_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

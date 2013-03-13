@@ -55,9 +55,11 @@ public:
 
     Resupply_Offer_PDU();
 
-    Resupply_Offer_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );
+	Resupply_Offer_PDU( KDataStream & stream ) throw( KException );
 
-    Resupply_Offer_PDU( KDataStream & stream ) throw( KException );
+	Resupply_Offer_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
+    Resupply_Offer_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );    
 
     virtual ~Resupply_Offer_PDU();
 

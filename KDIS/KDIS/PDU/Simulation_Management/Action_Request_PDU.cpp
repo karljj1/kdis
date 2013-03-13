@@ -50,9 +50,24 @@ Action_Request_PDU::Action_Request_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
+Action_Request_PDU::Action_Request_PDU( const Header & H ) :
+	Data_PDU( H )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Action_Request_PDU::Action_Request_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Action_Request_PDU::Action_Request_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Data_PDU( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -122,11 +137,11 @@ KString Action_Request_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Action_Request_PDU::Decode( KDataStream & stream ) throw( KException )
+void Action_Request_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < ACTION_REQUEST_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ACTION_REQUEST_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32RequestID
            >> m_ui32ActionID

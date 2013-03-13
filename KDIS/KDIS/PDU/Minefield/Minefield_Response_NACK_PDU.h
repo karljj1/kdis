@@ -70,13 +70,16 @@ public:
 
     Minefield_Response_NACK_PDU();
 
+	Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException );
+
+	Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
                                  KUINT8 ReqID );
 
     Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
                                  KUINT8 ReqID, const vector<KUINT8> & MissingSeqNums );
-
-    Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException );
+   
 
     virtual ~Minefield_Response_NACK_PDU();
 
@@ -134,8 +137,9 @@ public:
     // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Encode

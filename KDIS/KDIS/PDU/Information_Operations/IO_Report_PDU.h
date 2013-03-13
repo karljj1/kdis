@@ -81,10 +81,12 @@ public:
 
     IO_Report_PDU();
 
+	IO_Report_PDU( KDataStream & stream ) throw( KException );
+
+	IO_Report_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     IO_Report_PDU( const EntityIdentifier & OrigID, KUINT16 SimSrc, IOReportType RT,
                    const EntityIdentifier & AtkID, const EntityIdentifier & TgtID );
-
-    IO_Report_PDU( KDataStream & stream ) throw( KException );
 
     virtual ~IO_Report_PDU();
 
@@ -163,8 +165,9 @@ public:
     // FullName:    KDIS::PDU::IO_Report_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::IO_Report_PDU::Encode

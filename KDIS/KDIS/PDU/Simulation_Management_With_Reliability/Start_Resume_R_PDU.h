@@ -50,7 +50,7 @@ using KDIS::DATA_TYPE::ClockTime;
 using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
 
 class KDIS_EXPORT Start_Resume_R_PDU : public Start_Resume_PDU,
-    public Reliability_Header
+                                       public Reliability_Header
 {
 public:
 
@@ -59,6 +59,8 @@ public:
     Start_Resume_R_PDU();
 
     Start_Resume_R_PDU( KDataStream & stream ) throw( KException );
+
+	Start_Resume_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Start_Resume_R_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, const ClockTime & RealWorldTime,
                         const ClockTime & SimTime, KUINT32 ReqID, RequiredReliabilityService RRS );
@@ -79,8 +81,9 @@ public:
     // FullName:    KDIS::PDU::Start_Resume_R_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_R_PDU::Encode

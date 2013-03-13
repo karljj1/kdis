@@ -50,19 +50,27 @@ Resupply_Cancel_PDU::Resupply_Cancel_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
+Resupply_Cancel_PDU::Resupply_Cancel_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Resupply_Cancel_PDU::Resupply_Cancel_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Logistics_Header( H )
+{
+    Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Resupply_Cancel_PDU::Resupply_Cancel_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity )
 {
     m_ui8PDUType = Resupply_Cancel_PDU_Type;
     m_ui16PDULength = RESUPPLY_CANCEL_PDU_SIZE;
     m_ReceivingEntity = ReceivingEntity;
     m_SupplyingEntity = SupplyingEntity;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Resupply_Cancel_PDU::Resupply_Cancel_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////

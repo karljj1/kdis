@@ -52,6 +52,21 @@ Minefield_State_PDU::Minefield_State_PDU() :
     m_SeqNumUnion.m_ui16SeqNum = 0;
     m_ui16ProtocolModeUnion.m_ui16ProtocolMode16 = 0;
 }
+	
+//////////////////////////////////////////////////////////////////////////
+
+Minefield_State_PDU::Minefield_State_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Minefield_State_PDU::Minefield_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Minefield_Header( H )
+{
+    Decode( stream, true );
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -71,13 +86,6 @@ Minefield_State_PDU::Minefield_State_PDU( const EntityIdentifier & ID, KUINT16 S
     m_SeqNumUnion.m_ui16SeqNum = SequenceNumber;
     m_ui16ProtocolModeUnion.m_ui16ProtocolMode16 = MPM;
     m_MinefieldID = ID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Minefield_State_PDU::Minefield_State_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -327,14 +335,14 @@ KString Minefield_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_State_PDU::Decode( KDataStream & stream ) throw( KException )
+void Minefield_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < MINEFIELD_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vPoints.clear();
     m_vMineTypes.clear();
 
-    Minefield_Header::Decode( stream );
+    Minefield_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_SeqNumUnion.m_ui16SeqNum
            >> m_ui8ForceID

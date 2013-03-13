@@ -76,9 +76,11 @@ public:
 
     Entity_Damage_Status_PDU();
 
-	Entity_Damage_Status_PDU( const EntityIdentifier & DamagedEntityID );
+	Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException );
 
-    Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException );
+	Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
+	Entity_Damage_Status_PDU( const EntityIdentifier & DamagedEntityID );
 
     virtual ~Entity_Damage_Status_PDU();
 
@@ -122,8 +124,9 @@ public:
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Encode

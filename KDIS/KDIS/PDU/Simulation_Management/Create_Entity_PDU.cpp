@@ -47,11 +47,27 @@ Create_Entity_PDU::Create_Entity_PDU()
     m_ui8PDUType = Create_Entity_PDU_Type;
     m_ui16PDULength = CREATE_ENTITY_PDU_SIZE;
 }
+
+//////////////////////////////////////////////////////////////////////////
+
+Create_Entity_PDU::Create_Entity_PDU( const Header & H ) :
+	Simulation_Management_Header( H )
+{
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 Create_Entity_PDU::Create_Entity_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Create_Entity_PDU::Create_Entity_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Simulation_Management_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -111,11 +127,11 @@ KString Create_Entity_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Create_Entity_PDU::Decode( KDataStream & stream ) throw( KException )
+void Create_Entity_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < CREATE_ENTITY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < CREATE_ENTITY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32RequestID;
 }

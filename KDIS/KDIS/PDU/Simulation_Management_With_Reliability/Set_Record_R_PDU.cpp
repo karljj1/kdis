@@ -54,9 +54,26 @@ Set_Record_R_PDU::Set_Record_R_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Set_Record_R_PDU::Set_Record_R_PDU( const Header & H ) :
+	Simulation_Management_Header( H ),
+	m_ui32RqId( 0 ),
+    m_ui32NumRecSets( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Set_Record_R_PDU::Set_Record_R_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Set_Record_R_PDU::Set_Record_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Simulation_Management_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -169,13 +186,13 @@ KString Set_Record_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Set_Record_R_PDU::Decode( KDataStream & stream ) throw( KException )
+void Set_Record_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < SET_RECORD_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SET_RECORD_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vRecs.clear();
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32RqId
            >> m_ui8ReqRelSrv

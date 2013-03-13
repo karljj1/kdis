@@ -47,7 +47,7 @@ namespace PDU {
 
 
 class KDIS_EXPORT Data_R_PDU : public Data_PDU,
-    public Reliability_Header
+                               public Reliability_Header
 {
 public:
 
@@ -55,7 +55,11 @@ public:
 
     Data_R_PDU();
 
+	Data_R_PDU( const Header & H );
+
     Data_R_PDU( KDataStream & stream ) throw( KException );
+
+	Data_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Data_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                 KUINT32 RequestID, RequiredReliabilityService RRS );
@@ -73,8 +77,9 @@ public:
     // FullName:    KDIS::PDU::Data_R_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Data_R_PDU::Encode

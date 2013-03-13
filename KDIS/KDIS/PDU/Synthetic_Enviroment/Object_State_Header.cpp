@@ -51,9 +51,26 @@ Object_State_Header::Object_State_Header() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Object_State_Header::Object_State_Header( const Header & H ) :
+	Header( H ),
+	m_ui16UpdateNum( 0 ),
+    m_ui8ForceID( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Object_State_Header::Object_State_Header( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Object_State_Header::Object_State_Header( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -165,11 +182,11 @@ KString Object_State_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Object_State_Header::Decode( KDataStream & stream ) throw( KException )
+void Object_State_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < OBJECT_STATE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < OBJECT_STATE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_ObjID
            >> KDIS_STREAM m_RefObjID

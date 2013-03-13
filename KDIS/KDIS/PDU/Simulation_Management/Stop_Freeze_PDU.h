@@ -70,7 +70,11 @@ public:
 
     Stop_Freeze_PDU();
 
+	Stop_Freeze_PDU( const Header & H );
+
     Stop_Freeze_PDU( KDataStream & stream ) throw( KException );
+
+	Stop_Freeze_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Stop_Freeze_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity,
                      const ClockTime & RealWorldTime, StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID );
@@ -131,8 +135,9 @@ public:
     // FullName:    KDIS::PDU::Stop_Freeze_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Stop_Freeze_PDU::Encode

@@ -70,9 +70,13 @@ public:
 
     IO_Header();
 
-    IO_Header( const EntityIdentifier & OrigID );
+	IO_Header( const Header & H );
 
-    IO_Header( KDataStream & stream ) throw( KException );
+	IO_Header( KDataStream & stream ) throw( KException );
+
+	IO_Header( const Header & H, KDataStream & stream ) throw( KException );
+
+    IO_Header( const EntityIdentifier & OrigID );
 
     virtual ~IO_Header();
 
@@ -97,8 +101,9 @@ public:
     // FullName:    KDIS::PDU::IO_Header::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::IO_Header::Encode

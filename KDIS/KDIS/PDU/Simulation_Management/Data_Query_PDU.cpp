@@ -53,6 +53,16 @@ Data_Query_PDU::Data_Query_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Data_Query_PDU::Data_Query_PDU( const Header & H ) :
+	Simulation_Management_Header( H ),
+	m_ui32RequestID( 0 ),
+	m_ui32NumFixedDatum( 0 ),
+	m_ui32NumVariableDatum( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Data_Query_PDU::Data_Query_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                                 KUINT32 RequestID ):
 	Simulation_Management_Header( OriginatingEntityID, ReceivingEntityID ),
@@ -68,7 +78,15 @@ Data_Query_PDU::Data_Query_PDU( const EntityIdentifier & OriginatingEntityID, co
 
 Data_Query_PDU::Data_Query_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Data_Query_PDU::Data_Query_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Simulation_Management_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -212,14 +230,14 @@ KString Data_Query_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_Query_PDU::Decode( KDataStream & stream ) throw( KException )
+void Data_Query_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < DATA_QUERY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DATA_QUERY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
 	m_vFixedDatum.clear();
 	m_vVariableDatum.clear();
 	
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
 	stream >> m_ui32RequestID
            >> KDIS_STREAM m_TimeInterval

@@ -52,7 +52,15 @@ Fire_PDU::Fire_PDU()
 
 Fire_PDU::Fire_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Fire_PDU::Fire_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Warfare_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -203,11 +211,11 @@ KString Fire_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Fire_PDU::Decode( KDataStream & stream ) throw( KException )
+void Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < FIRE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < FIRE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Warfare_Header::Decode( stream );
+    Warfare_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32FireMissionIndex
            >> KDIS_STREAM m_Location

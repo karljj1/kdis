@@ -92,10 +92,12 @@ public:
 
     Minefield_Query_PDU();
 
+	Minefield_Query_PDU( KDataStream & stream ) throw( KException );
+
+	Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Minefield_Query_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
                          KUINT8 RequestID, const MinefieldDataFilter & DF, const EntityType & MineTypeFilter );
-
-    Minefield_Query_PDU( KDataStream & stream ) throw( KException );
 
     virtual ~Minefield_Query_PDU();
 
@@ -103,7 +105,7 @@ public:
     // FullName:    KDIS::PDU::Minefield_Query_PDU::SetRequestingSimulationID
     //              KDIS::PDU::Minefield_Query_PDU::GetRequestingSimulationID
     // Description: The simulation that is requesting the information.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
     void SetRequestingSimulationID( const EntityIdentifier & ID );
     const EntityIdentifier & GetRequestingSimulationID() const;
@@ -113,7 +115,7 @@ public:
     // FullName:    KDIS::PDU::Minefield_Query_PDU::SetRequestID
     //              KDIS::PDU::Minefield_Query_PDU::GetRequestID
     // Description: Identifies the minefield query request.
-    // Parameter:   KUINT8 ID, void
+    // Parameter:   KUINT8 ID
     //************************************
     void SetRequestID( KUINT8 ID );
     KUINT8 GetRequestID() const;
@@ -137,7 +139,7 @@ public:
     //              KDIS::PDU::Minefield_Query_PDU::GetDataFilter
     // Description: The data filter is used to identify which of the optional
     //              fields are being requested.
-    // Parameter:   const MinefieldDataFilter & DF, void
+    // Parameter:   const MinefieldDataFilter & DF
     //************************************
     void SetDataFilter( const MinefieldDataFilter & DF );
     const MinefieldDataFilter & GetDataFilter() const;
@@ -151,7 +153,7 @@ public:
     //              If a subfield within the Requested Minefield Type filter record (e.g., the country
     //              field) contains the value –1 (all bits set), then all subfield values shall match the filter
     //              (e.g., all countries are allowed).
-    // Parameter:   const EntityType & MT, void
+    // Parameter:   const EntityType & MT
     //************************************
     void SetMineTypeFilter( const EntityType & MT );
     const EntityType & GetMineTypeFilter() const;
@@ -182,7 +184,7 @@ public:
     //              subcategory within the specified category.
     //              The enum SensorType(EnumMinefield.h) provides all sensor types from SISO-REF-10-2006 which have all the bits set
     //              correctly for each sensor type.
-    // Parameter:   SensorType ST, vector<KUINT16> & ST, void
+    // Parameter:   SensorType ST, vector<KUINT16> & ST
     //************************************
     void AddSensorType( SensorType ST );
     void SetSensorTypes( const vector<KUINT16> & ST );
@@ -198,8 +200,9 @@ public:
     // FullName:    KDIS::PDU::Minefield_Query_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::Encode

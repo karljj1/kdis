@@ -132,6 +132,8 @@ public:
 
     Environmental_Process_PDU( KDataStream & stream ) throw( KException );
 
+	Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     Environmental_Process_PDU( const EntityIdentifier & EnvironmentalProcessID, const EnvironmentType & ET,
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
                                KUINT16 SequenceNumber );
@@ -278,8 +280,9 @@ public:
     // FullName:    KDIS::PDU::Environmental_Process_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::Encode

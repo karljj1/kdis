@@ -56,7 +56,15 @@ Receiver_PDU::Receiver_PDU() :
 
 Receiver_PDU::Receiver_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Receiver_PDU::Receiver_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Radio_Communications_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -163,11 +171,11 @@ KString Receiver_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Receiver_PDU::Decode( KDataStream & stream ) throw( KException )
+void Receiver_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < RECEIVER_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RECEIVER_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Radio_Communications_Header::Decode( stream );
+    Radio_Communications_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui16ReceiverState
            >> m_ui16Padding1

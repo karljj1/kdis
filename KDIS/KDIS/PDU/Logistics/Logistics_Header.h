@@ -61,6 +61,8 @@ public:
 
     Logistics_Header();
 
+	Logistics_Header( const Header & H );
+
     Logistics_Header( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID );
 
     virtual ~Logistics_Header();
@@ -96,8 +98,9 @@ public:
     // FullName:    KDIS::PDU::Logistics_Header::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Logistics_Header::Encode

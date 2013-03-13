@@ -69,7 +69,11 @@ public:
 
     Acknowledge_PDU();
 
+	Acknowledge_PDU( const Header & H );
+
     Acknowledge_PDU( KDataStream & stream ) throw( KException );
+
+	Acknowledge_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Acknowledge_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                      AcknowledgeFlag AF, AcknowledgeResponseFlag ARF, KUINT32 RequestID );
@@ -123,8 +127,9 @@ public:
     // FullName:    KDIS::PDU::Acknowledge_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Acknowledge_PDU::Encode

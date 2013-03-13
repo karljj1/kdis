@@ -51,9 +51,25 @@ Event_Report_PDU::Event_Report_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Event_Report_PDU::Event_Report_PDU( const Header & H ) :	
+	Comment_PDU( H ),
+	m_ui32Padding( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Event_Report_PDU::Event_Report_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Event_Report_PDU::Event_Report_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Comment_PDU( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -123,11 +139,11 @@ KString Event_Report_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Event_Report_PDU::Decode( KDataStream & stream ) throw( KException )
+void Event_Report_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < EVENT_REPORT_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < EVENT_REPORT_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32EventType
            >> m_ui32Padding

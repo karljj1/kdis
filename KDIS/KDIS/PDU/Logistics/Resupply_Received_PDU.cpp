@@ -53,9 +53,27 @@ Resupply_Received_PDU::Resupply_Received_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Resupply_Received_PDU::Resupply_Received_PDU( const Header & H ) :
+	Logistics_Header( H ),
+    m_ui16Padding1( 0 ),
+    m_ui8Padding2( 0 ),
+    m_ui8NumSupplyTypes( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Resupply_Received_PDU::Resupply_Received_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Resupply_Received_PDU::Resupply_Received_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Logistics_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -152,16 +170,16 @@ KString Resupply_Received_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Resupply_Received_PDU::Decode( KDataStream & stream ) throw( KException )
+void Resupply_Received_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < RESUPPLY_RECEIVED_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RESUPPLY_RECEIVED_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Logistics_Header::Decode( stream );
+    Logistics_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui8NumSupplyTypes;
 
     // Now recheck the size of the packet as we now know the number of supply types.
-    if( stream.GetBufferSize() < RESUPPLY_RECEIVED_PDU_SIZE + ( m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE ) )throw KException( __FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RESUPPLY_RECEIVED_PDU_SIZE + ( m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE ) )throw KException( __FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE );
 
     stream >> m_ui16Padding1
            >> m_ui8Padding2;

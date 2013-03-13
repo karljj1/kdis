@@ -50,6 +50,21 @@ Articulated_Parts_PDU::Articulated_Parts_PDU() :
     m_ui8PDUType = ArticulatedParts_PDU_Type;
     m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
 }
+	
+//////////////////////////////////////////////////////////////////////////
+
+Articulated_Parts_PDU::Articulated_Parts_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Articulated_Parts_PDU::Articulated_Parts_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	LE_Header( H )
+{
+    Decode( stream, true );
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -61,12 +76,6 @@ Articulated_Parts_PDU::Articulated_Parts_PDU( const LE_EntityIdentifier & ID ) :
     m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
 }
 
-//////////////////////////////////////////////////////////////////////////
-
-Articulated_Parts_PDU::Articulated_Parts_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
-}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -138,13 +147,13 @@ KString Articulated_Parts_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Articulated_Parts_PDU::Decode( KDataStream & stream ) throw( KException )
+void Articulated_Parts_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < ARTICULATED_PARTS_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ARTICULATED_PARTS_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vVariableParameters.clear();
 
-    LE_Header::Decode( stream );
+    LE_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui8NumOfVariableParams;
 

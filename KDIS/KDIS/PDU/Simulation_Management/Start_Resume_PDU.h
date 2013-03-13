@@ -64,7 +64,11 @@ public:
 
     Start_Resume_PDU();
 
+	Start_Resume_PDU( const Header & H );
+
     Start_Resume_PDU( KDataStream & stream ) throw( KException );
+
+	Start_Resume_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Start_Resume_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity,
                       const ClockTime & RealWorldTime, const ClockTime & SimTime, KUINT32 ReqID );
@@ -116,8 +120,9 @@ public:
     // FullName:    KDIS::PDU::Start_Resume_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_PDU::Encode

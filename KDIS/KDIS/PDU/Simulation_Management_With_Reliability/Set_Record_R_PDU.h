@@ -52,7 +52,7 @@ using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
 using std::vector;
 
 class KDIS_EXPORT Set_Record_R_PDU : public Simulation_Management_Header,
-    public Reliability_Header
+                                     public Reliability_Header
 {
 protected:
 
@@ -68,7 +68,11 @@ public:
 
     Set_Record_R_PDU();
 
+	Set_Record_R_PDU( const Header & H );
+
     Set_Record_R_PDU( KDataStream & stream ) throw( KException );
+
+	Set_Record_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Set_Record_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                       KUINT32 RequestID, RequiredReliabilityService RRS );
@@ -112,8 +116,9 @@ public:
     // FullName:    KDIS::PDU::Set_Record_R_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Set_Record_R_PDU::Encode

@@ -47,7 +47,7 @@ Header7::Header7()
 
 Header7::Header7( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -59,8 +59,12 @@ public:
     static const KUINT16 MINEFIELD_HEADER_SIZE = 18;
 
     Minefield_Header();
+	
+	Minefield_Header( const Header & H );
 
     Minefield_Header( KDataStream & stream ) throw( KException );
+
+	Minefield_Header( const Header & H, KDataStream & stream ) throw( KException );
 
     virtual ~Minefield_Header();
 
@@ -85,8 +89,9 @@ public:
     // FullName:    KDIS::PDU::Minefield_Header::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Header::Encode

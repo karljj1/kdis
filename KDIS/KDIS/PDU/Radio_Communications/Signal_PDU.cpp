@@ -53,9 +53,27 @@ Signal_PDU::Signal_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Signal_PDU::Signal_PDU( const Header & H ) :
+	Radio_Communications_Header( H ),
+	m_ui32SampleRate( 0 ),
+    m_ui16DataLength( 0 ),
+	m_ui16Samples( 0 )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Signal_PDU::Signal_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Signal_PDU::Signal_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Radio_Communications_Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -204,11 +222,11 @@ KString Signal_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Signal_PDU::Decode( KDataStream & stream ) throw( KException )
+void Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < SIGNAL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SIGNAL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Radio_Communications_Header::Decode( stream );
+    Radio_Communications_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EncodingScheme
            >> m_ui32SampleRate

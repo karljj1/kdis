@@ -50,19 +50,27 @@ Set_Data_R_PDU::Set_Data_R_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
+Set_Data_R_PDU::Set_Data_R_PDU( KDataStream & stream ) throw( KException )
+{
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Set_Data_R_PDU::Set_Data_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Data_R_PDU( H )
+{
+    Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Set_Data_R_PDU::Set_Data_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                                 KUINT32 RequestID, RequiredReliabilityService RRS ) :
     Data_R_PDU( OriginatingEntityID, ReceivingEntityID, RequestID, RRS )
 {
     m_ui8PDUType = SetData_R_PDU_Type;
     m_ui16PDULength = SET_DATA_R_PDU_SIZE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Set_Data_R_PDU::Set_Data_R_PDU( KDataStream & stream ) throw( KException )
-{
-    Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -107,11 +115,11 @@ KString Set_Data_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Set_Data_R_PDU::Decode( KDataStream & stream ) throw( KException )
+void Set_Data_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < SET_DATA_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SET_DATA_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
     Reliability_Header::Decode( stream );
 
     stream >> m_ui32RequestID

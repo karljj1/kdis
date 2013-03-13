@@ -58,7 +58,15 @@ IsGroupOf_PDU::IsGroupOf_PDU() :
 
 IsGroupOf_PDU::IsGroupOf_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+IsGroupOf_PDU::IsGroupOf_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -266,13 +274,13 @@ KString IsGroupOf_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IsGroupOf_PDU::Decode( KDataStream & stream ) throw( KException )
+void IsGroupOf_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < IS_GROUP_OF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IS_GROUP_OF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vpGED.clear();
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_GroupedEntityID
            >> m_ui8GrpdEntCat

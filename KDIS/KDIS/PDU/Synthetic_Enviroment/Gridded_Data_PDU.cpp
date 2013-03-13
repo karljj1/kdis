@@ -65,7 +65,15 @@ Gridded_Data_PDU::Gridded_Data_PDU() :
 
 Gridded_Data_PDU::Gridded_Data_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Gridded_Data_PDU::Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -414,14 +422,14 @@ KString Gridded_Data_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Gridded_Data_PDU::Decode( KDataStream & stream ) throw( KException )
+void Gridded_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < GRIDDED_DATA_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < GRIDDED_DATA_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vpGridAxisDesc.clear();
     m_vGridData.clear();
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EnvProcID
            >> m_ui16FieldNum

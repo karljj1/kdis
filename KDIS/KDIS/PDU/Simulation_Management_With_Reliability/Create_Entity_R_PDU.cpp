@@ -49,11 +49,27 @@ Create_Entity_R_PDU::Create_Entity_R_PDU()
     m_ui8ProtocolVersion = IEEE_1278_1A_1998;
     m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
+
+//////////////////////////////////////////////////////////////////////////
+
+Create_Entity_R_PDU::Create_Entity_R_PDU( const Header & H ) :
+	Create_Entity_PDU( H )
+{
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 Create_Entity_R_PDU::Create_Entity_R_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Create_Entity_R_PDU::Create_Entity_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Create_Entity_PDU( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -105,11 +121,11 @@ KString Create_Entity_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Create_Entity_R_PDU::Decode( KDataStream & stream ) throw( KException )
+void Create_Entity_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < CREATE_ENTITY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < CREATE_ENTITY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream );
+    Simulation_Management_Header::Decode( stream, ignoreHeader );	
 
     Reliability_Header::Decode( stream );
 

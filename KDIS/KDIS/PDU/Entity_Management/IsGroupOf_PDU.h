@@ -99,6 +99,8 @@ public:
 
     IsGroupOf_PDU( KDataStream & stream ) throw( KException );
 
+	IsGroupOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
+
     IsGroupOf_PDU( const EntityIdentifier & EI, GroupedEntityCategory GED, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude );
 
     IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const GEDList & GED ) throw( KException );
@@ -189,8 +191,9 @@ public:
     // FullName:    KDIS::PDU::IsGroupOf_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::IsGroupOf_PDU::Encode

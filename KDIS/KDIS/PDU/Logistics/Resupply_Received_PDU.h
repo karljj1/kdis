@@ -67,7 +67,11 @@ public:
 
     Resupply_Received_PDU();
 
+	Resupply_Received_PDU( const Header & H );
+
     Resupply_Received_PDU( KDataStream & stream ) throw( KException );
+
+	Resupply_Received_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Resupply_Received_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );
 
@@ -108,8 +112,9 @@ public:
     // FullName:    KDIS::PDU::Resupply_Received_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Resupply_Received_PDU::Encode

@@ -50,6 +50,13 @@ Warfare_Header::Warfare_Header()
 
 //////////////////////////////////////////////////////////////////////////
 
+Warfare_Header::Warfare_Header( const Header & H ) :
+	Header( H )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Warfare_Header::Warfare_Header( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID, const EntityIdentifier & MunitionID, const EntityIdentifier & EventID ) :
     m_FiringEntityID( FiringEntID ),
     m_TargetEntityID( TargetEntID ),
@@ -170,11 +177,11 @@ KString Warfare_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Warfare_Header::Decode( KDataStream & stream ) throw( KException )
+void Warfare_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < WARFARE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < WARFARE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
     stream >> KDIS_STREAM m_FiringEntityID
            >> KDIS_STREAM m_TargetEntityID
            >> KDIS_STREAM m_MunitionID

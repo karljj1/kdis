@@ -55,7 +55,15 @@ Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU() :
 
 Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU( KDataStream & stream ) throw( KException )
 {
-    Decode( stream );
+    Decode( stream, false );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Header( H )
+{
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -236,11 +244,11 @@ KString Electromagnetic_Emission_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Electromagnetic_Emission_PDU::Decode( KDataStream & stream ) throw( KException )
+void Electromagnetic_Emission_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < ELECTROMAGNETIC_EMISSION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ELECTROMAGNETIC_EMISSION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EmittingEntityID
            >> KDIS_STREAM m_EventID
