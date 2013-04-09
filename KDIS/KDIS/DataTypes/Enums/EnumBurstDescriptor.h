@@ -55,7 +55,7 @@ enum WarheadType
     OtherWarhead                                                      = 0,
     Cargo_VariableSubmunitions_Warhead                                = 10,
     Fuel_AirExplosiveWarhead                                          = 20,
-    GlassBladsWarhead                                                 = 30,
+    GlassBeadsWarhead                                                 = 30,
     _1umWarhead                                                       = 31,
     _5umWarhead                                                       = 32,
     _10umWarhead                                                      = 33,
