@@ -152,7 +152,7 @@ protected:
 		struct
 		{
 			KUINT8 m_ui8PDUStatusTEI : 1;                   // Bit  0.
-			KUINT8 m_ui8PDUStatusLVC : 2;                   // Bits 0-2.
+			KUINT8 m_ui8PDUStatusLVC : 2;                   // Bits 1-2.
 			KUINT8 m_ui8PDUStatusCEI : 1;                   // Bit  3. 
 
 			union
