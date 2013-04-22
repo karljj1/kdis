@@ -61,7 +61,8 @@ SET(KDIS_SRC_DATATYPES_H
     ${DATATYPES_DIR}/ArticulatedPart.h
 	${DATATYPES_DIR}/AttachedPart.h
 	${DATATYPES_DIR}/VariableParameter.h
-    ${DATATYPES_DIR}/BurstDescriptor.h
+	${DATATYPES_DIR}/Descriptor.h
+	${DATATYPES_DIR}/MunitionDescriptor.h	
     ${DATATYPES_DIR}/ClockTime.h
     ${DATATYPES_DIR}/CryptoSystem.h
 	${DATATYPES_DIR}/CulturalFeatureAppearance.h
@@ -204,6 +205,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
 	${DATATYPES_DIR}/CommunicationsNodeID.h
 	${DATATYPES_DIR}/IOEffect.h
 	${DATATYPES_DIR}/AttributeRecordSet.h
+	${DATATYPES_DIR}/ExplosionDescriptor.h
 )
 
 ENDIF(DIS_VERSION GREATER 6)
@@ -217,7 +219,8 @@ SET(KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/ArticulatedPart.cpp
 	${DATATYPES_DIR}/AttachedPart.cpp
 	${DATATYPES_DIR}/VariableParameter.cpp
-    ${DATATYPES_DIR}/BurstDescriptor.cpp
+	${DATATYPES_DIR}/Descriptor.cpp
+	${DATATYPES_DIR}/MunitionDescriptor.cpp	
     ${DATATYPES_DIR}/ClockTime.cpp
     ${DATATYPES_DIR}/CryptoSystem.cpp
 	${DATATYPES_DIR}/CulturalFeatureAppearance.cpp
@@ -357,6 +360,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/CommunicationsNodeID.cpp
 	${DATATYPES_DIR}/IOEffect.cpp
 	${DATATYPES_DIR}/AttributeRecordSet.cpp
+	${DATATYPES_DIR}/ExplosionDescriptor.cpp
 )
 
 ENDIF(DIS_VERSION GREATER 6)
