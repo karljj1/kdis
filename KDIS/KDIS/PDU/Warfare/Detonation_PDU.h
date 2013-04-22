@@ -42,7 +42,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./Warfare_Header.h"
 #include "./../../DataTypes/WorldCoordinates.h"
 #include "./../../DataTypes/Vector.h"
-#include "./../../DataTypes/BurstDescriptor.h"
+#include "./../../DataTypes/MunitionDescriptor.h"
 #include "./../../DataTypes/VariableParameter.h"
 
 namespace KDIS {
@@ -50,7 +50,7 @@ namespace PDU {
 
 using KDIS::DATA_TYPE::Vector;
 using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::BurstDescriptor;
+using KDIS::DATA_TYPE::DescPtr;
 using KDIS::DATA_TYPE::VariableParameter;
 using KDIS::DATA_TYPE::VarPrmPtr;
 using KDIS::DATA_TYPE::ENUMS::DetonationResult;
@@ -69,7 +69,7 @@ protected:
 
     WorldCoordinates m_LocationWorldCoords;
 
-    BurstDescriptor m_BurstDescriptor;
+    DescPtr m_pDescriptor;
 
     Vector m_LocationEntityCoords;
 
@@ -94,20 +94,31 @@ public:
     Detonation_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
                     const EntityIdentifier & MunitionID, const EntityIdentifier & EventID,
                     const Vector & Velocity, const WorldCoordinates & LocationWorldCoords,
-                    const BurstDescriptor & Burst, const Vector & LocationEntityCoords,
+                    DescPtr Desc, const Vector & LocationEntityCoords,
                     DetonationResult DetonationResult );
 
     Detonation_PDU( const Warfare_Header & WarfareHeader, const Vector & Velocity,
-                    const WorldCoordinates & LocationWorldCoords, const BurstDescriptor & Burst ,
+                    const WorldCoordinates & LocationWorldCoords, DescPtr Desc,
                     const Vector & LocationEntityCoords, DetonationResult DetonationResult );
 
     virtual ~Detonation_PDU();
+
+	#if DIS_VERSION > 6
+    //************************************
+    // FullName:    KDIS::PDU::Detonation_PDU::SetPDUStatusDetonationType
+    //              KDIS::PDU::Detonation_PDU::GetPDUStatusDetonationType
+    // Description: Indicates the descriptor type used.
+    // Parameter:   DetonationType FT
+    //************************************
+    void SetPDUStatusDetonationType( DetonationType DT );
+    DetonationType GetPDUStatusDetonationType() const;
+	#endif
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetVelocity
     //              KDIS::PDU::Detonation_PDU::GetVelocity
     // Description: Velocity of fire munition.
-    // Parameter:   const Vector & V, void
+    // Parameter:   const Vector & V
     //************************************
     void SetVelocity( const Vector & V );
     const Vector & GetVelocity() const;
@@ -118,21 +129,27 @@ public:
     //              KDIS::PDU::Detonation_PDU::GetLocationInWorldCoords
     // Description: Location of detonation event in world
     //              coordinates.
-    // Parameter:   const WorldCoordinates & L, void
+    // Parameter:   const WorldCoordinates & L
     //************************************
     void SetLocationInWorldCoords( const WorldCoordinates & L );
     const WorldCoordinates & GetLocationInWorldCoords() const;
     WorldCoordinates & GetLocationInWorldCoords();
 
     //************************************
-    // FullName:    KDIS::PDU::Detonation_PDU::SetBurstDescriptor
-    //              KDIS::PDU::Detonation_PDU::GetBurstDescriptor
-    // Description: Burst descriptor, describes type of munition.
-    // Parameter:   const BurstDescriptor & BD, void
+    // FullName:    KDIS::PDU::Detonation_PDU::SetDescriptor
+    //              KDIS::PDU::Detonation_PDU::GetDescriptor
+    // Description: Descriptor, describes type of detonation. 
+	//              Pre DIS 7 this will always be a MunitionDescriptor. 
+	//              In DIS 7 a Detonation PDU can send a Munition, Expendable or an Explosion descriptor.
+	//              Setting this in DIS 7 will automatically set the DTI (PDUStatusDetonationType) field and will 
+	//              cause the protocol version to change to 7 if the type is Expendable or Explosion.
+	//              I leave it as default if the type is Munition.
+	//              Note: By default this value will be a MunitionDescriptor, it is not null by default.
+	//              Example usage in DIS 7: SetDescriptor( DescPtr( new MunitionDescriptor() ) );
+    // Parameter:   DescPtr D
     //************************************
-    void SetBurstDescriptor( const BurstDescriptor & BD );
-    const BurstDescriptor & GetBurstDescriptor() const;
-    BurstDescriptor & GetBurstDescriptor();
+    void SetDescriptor( DescPtr D );
+    DescPtr GetDescriptor();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetLocationInEntityCoords

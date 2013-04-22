@@ -80,6 +80,7 @@
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Renamed enum WarheadType::GlassBladsWarhead to WarheadType::GlassBeadsWarhead.</li>
 	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>	
+	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>
 	<li>Lots of improvements to comments. More details etc.</li>
 </ul>
 

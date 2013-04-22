@@ -94,30 +94,6 @@ KString GetEnumAsStringDetonationResult( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringDetonationResult( const KString & Value, KINT32 & ValueOut ); 
 
-#if DIS_VERSION > 6
-
-/************************************************************************/
-/* Detonation Type                                                      */
-/* Indicates whether the type of object that detonated, exploded or     */
-/* burst was a munition, expendable, or non-munition explosion.         */
-/* Used In:                                                             */
-/*  PDU Header 7                                                        */
-/************************************************************************/
-
-enum DetonationType
-{
-    MunitionDetonationType                                            = 0,
-    ExpendableDetonationType                                          = 1,
-	NonMunitionExplosionDetonationType                                = 2
-};
-
-KString GetEnumAsStringDetonationType( KINT32 Value );
-
-// Returns true if a value was found.
-KBOOL GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut ); 
-
-#endif // DIS 7
-
 } // END namespace ENUMS
 } // END namespace DATA_TYPES
 } // END namespace KDIS

@@ -42,13 +42,13 @@ http://p.sf.net/kdis/UserGuide
 #include "./Warfare_Header.h"
 #include "./../../DataTypes/WorldCoordinates.h"
 #include "./../../DataTypes/Vector.h"
-#include "./../../DataTypes/BurstDescriptor.h"
+#include "./../../DataTypes/MunitionDescriptor.h"
 
 namespace KDIS {
 namespace PDU {
 
 using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::BurstDescriptor;
+using KDIS::DATA_TYPE::DescPtr;
 using KDIS::DATA_TYPE::Vector;
 
 #if DIS_VERSION > 6
@@ -63,7 +63,7 @@ protected:
 
     WorldCoordinates m_Location;
 
-    BurstDescriptor m_BurstDescriptor;
+	DescPtr m_pDescriptor;
 
     Vector m_Velocity;
 
@@ -80,33 +80,32 @@ public:
 	Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Fire_PDU( const Warfare_Header & WarfareHeader, KUINT32 FireMissionIndex, const WorldCoordinates & Location,
-              const BurstDescriptor & BurstDesc, const Vector & Velocity, KFLOAT32 Range );
+              DescPtr Desc, const Vector & Velocity, KFLOAT32 Range );
 
     Fire_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
               const EntityIdentifier & MunitionID, const EntityIdentifier & EventID,
               KUINT32 FireMissionIndex, const WorldCoordinates & Location,
-              const BurstDescriptor & BurstDesc, const Vector & Velocity, KFLOAT32 Range );
+              DescPtr Desc, const Vector & Velocity, KFLOAT32 Range );
 
     virtual ~Fire_PDU();
 
-#if DIS_VERSION > 6
+	#if DIS_VERSION > 6
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetPDUStatusFireType
     //              KDIS::PDU::Fire_PDU::GetPDUStatusFireType
-    // Description: Indicates whether the type of object fired was
-    //              a munition or an expendable.
-    // Parameter:   FireType FT, void
+    // Description: Indicates the descriptor type used.
+    // Parameter:   FireType FT
     //************************************
     void SetPDUStatusFireType( FireType FT );
     FireType GetPDUStatusFireType() const;
-#endif
+	#endif
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetFireMissionIndex
     //              KDIS::PDU::Fire_PDU::GetFireMissionIndex
     // Description: Identifies the fire mission. If unknown value will
     //              be symbolic value: NO_FIRE_MISSION
-    // Parameter:   KUINT32 FMI, void
+    // Parameter:   KUINT32 FMI
     //************************************
     void SetFireMissionIndex( KUINT32 FMI );
     KUINT32 GetFireMissionIndex() const;
@@ -116,27 +115,33 @@ public:
     //              KDIS::PDU::Fire_PDU::GetLocation
     // Description: Location of fire event in world
     //              coordinates.
-    // Parameter:   const WorldCoordinates & L, void
+    // Parameter:   const WorldCoordinates & L
     //************************************
     void SetLocation( const WorldCoordinates & L );
     const WorldCoordinates & GetLocation() const;
     WorldCoordinates & GetLocation();
 
     //************************************
-    // FullName:    KDIS::PDU::Fire_PDU::SetBurstDescriptor
-    //              KDIS::PDU::Fire_PDU::GetBurstDescriptor
-    // Description: Burst descriptor, describes type of munition.
-    // Parameter:   const BurstDescriptor & BD, void
+    // FullName:    KDIS::PDU::Fire_PDU::SetDescriptor
+    //              KDIS::PDU::Fire_PDU::GetDescriptor
+    // Description: Descriptor, describes type of munition. 
+	//              Pre DIS 7 this will always be a MunitionDescriptor. 
+	//              In DIS 7 a Fire PDU can send a Munition Descriptor or an Expendable
+	//              Descriptor. Setting this in DIS 7 will automatically set the 
+	//              FTI (PDUStatusFireType) field and will cause the protocol version to change to
+	//              7 if the type is Expendable. I leave it as default if the type is Munition.
+	//              Note: By default this value will be a MunitionDescriptor, it is not null by default.
+	//              Example usage in DIS 7: SetDescriptor( DescPtr( new ExplosionDescriptor() ) );
+    // Parameter:   DescPtr D
     //************************************
-    void SetBurstDescriptor( const BurstDescriptor & BD );
-    const BurstDescriptor & GetBurstDescriptor() const;
-    BurstDescriptor & GetBurstDescriptor();
+    void SetDescriptor( DescPtr D );
+    DescPtr GetDescriptor();
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetVelocity
     //              KDIS::PDU::Fire_PDU::GetVelocity
     // Description: Velocity of fire munition.
-    // Parameter:   const Vector & V, void
+    // Parameter:   const Vector & V
     //************************************
     void SetVelocity( const Vector & V );
     const Vector & GetVelocity() const;
@@ -147,7 +152,7 @@ public:
     //              KDIS::PDU::Fire_PDU::GetRange
     // Description: Range. Range that firing entity has
     //              calculated target to be.
-    // Parameter:   KFLOAT32 R, void
+    // Parameter:   KFLOAT32 R
     //************************************
     void SetRange( KFLOAT32 R );
     KFLOAT32 GetRange() const;

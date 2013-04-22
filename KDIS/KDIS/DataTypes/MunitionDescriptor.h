@@ -28,20 +28,20 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      BurstDescriptor
-    created:    09/10/2008
+    class:      MunitionDescriptor
+    created:    22/04/2013
     author:     Karl Jones
 
     purpose:    Represents the firing of a a round or a burst of ammunition
-                This data type is also referred to as a Munition Descriptor in newer versions
-                of DIS the standard.
+                This data type is also referred to as a Burst Descriptor in older versions of DIS.
+                This descriptor is applicable to the Fire PDU and Detonation PDU.
+
     size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./EntityType.h"
+#include "./Descriptor.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -49,11 +49,9 @@ namespace DATA_TYPE {
 using KDIS::DATA_TYPE::ENUMS::WarheadType;
 using KDIS::DATA_TYPE::ENUMS::FuseType;
 
-class KDIS_EXPORT BurstDescriptor : public DataTypeBase
+class KDIS_EXPORT MunitionDescriptor : public Descriptor
 {
 protected:
-
-    EntityType m_Munition;
 
     KUINT16 m_ui16Warhead;
 
@@ -65,86 +63,74 @@ protected:
 
 public:
 
-    static const KUINT16 BURST_DESCRIPTOR_SIZE = 16;
+    MunitionDescriptor();
 
-    BurstDescriptor();
+    MunitionDescriptor( KDataStream & stream )throw( KException );
 
-    BurstDescriptor( KDataStream & stream )throw( KException );
+    MunitionDescriptor( const EntityType & T, WarheadType WT, FuseType FT,
+                        KUINT16 Quantity, KUINT16 Rate );
 
-    BurstDescriptor( const EntityType & M, WarheadType WT, FuseType FT,
-                     KUINT16 Quantity, KUINT16 Rate );
-
-    virtual ~BurstDescriptor();
+    virtual ~MunitionDescriptor();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::SetMunition
-    //              KDIS::DATA_TYPE::BurstDescriptor::GetMunition
-    // Description: Entity DIS enum for the Munition Type.
-    // Parameter:   const EntityType & M, void
-    //************************************
-    void SetMunition( const EntityType & M );
-    const EntityType & GetMunition() const;
-    EntityType & GetMunition();
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::SetWarhead
-    //              KDIS::DATA_TYPE::BurstDescriptor::GetWarhead
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::SetWarhead
+    //              KDIS::DATA_TYPE::MunitionDescriptor::GetWarhead
     // Description: Warhead type enumeration.
-    // Parameter:   WarheadType WT, void
+    // Parameter:   WarheadType WT
     //************************************
     void SetWarhead( WarheadType WT );
     WarheadType GetWarhead() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::SetFuse
-    //              KDIS::DATA_TYPE::BurstDescriptor::GetFuse
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::SetFuse
+    //              KDIS::DATA_TYPE::MunitionDescriptor::GetFuse
     // Description: Fuse type enumeration.
-    // Parameter:   FuseType FT, void
+    // Parameter:   FuseType FT
     //************************************
     void SetFuse( FuseType FT );
     FuseType GetFuse() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::SetQuantity
-    //              KDIS::DATA_TYPE::BurstDescriptor::GetQuantity
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::SetQuantity
+    //              KDIS::DATA_TYPE::MunitionDescriptor::GetQuantity
     // Description: Number of rounds fired in the burst.
-    // Parameter:   KUINT16 Q, void
+    // Parameter:   KUINT16 Q
     //************************************
     void SetQuantity( KUINT16 Q );
     KUINT16 GetQuantity() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::SetRate
-    //              KDIS::DATA_TYPE::BurstDescriptor::GetRate
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::SetRate
+    //              KDIS::DATA_TYPE::MunitionDescriptor::GetRate
     // Description: Rounds per minute.
-    // Parameter:   KUINT16 R, void
+    // Parameter:   KUINT16 R
     //************************************
     void SetRate( KUINT16 R );
     KUINT16 GetRate() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::GetAsString
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::GetAsString
     // Description: Returns a string representation.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::Decode
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::BurstDescriptor::Encode
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const BurstDescriptor & Value ) const;
-    KBOOL operator != ( const BurstDescriptor & Value ) const;
+    KBOOL operator == ( const MunitionDescriptor & Value ) const;
+    KBOOL operator != ( const MunitionDescriptor & Value ) const;
 };
 
 } // END namespace DATA_TYPES

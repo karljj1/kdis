@@ -32,7 +32,7 @@ http://p.sf.net/kdis/UserGuide
     created:    17/09/2009
     author:     Karl Jones
 
-    purpose:    Enums used for Burst Descriptor params
+    purpose:    Enums used for Descriptor params.
 *********************************************************************/
 
 #pragma once
@@ -261,14 +261,101 @@ KBOOL GetEnumFromStringFuseType( const KString & Value, KINT32 & ValueOut );
 
 enum FireType
 {
-    MunitionFireType                                                  = 0,
-    ExpendableFireType                                                = 1
+    MunitionFTI                                                       = 0,
+    ExpendableFTI                                                     = 1
 };
 
 KString GetEnumAsStringFireType( KINT32 Value );
 
 // Returns true if a value was found.
 KBOOL GetEnumFromStringFireType( const KString & Value, KINT32 & ValueOut ); 
+
+/************************************************************************/
+/* Detonation Type                                                      */
+/* Indicates whether the type of object that detonated, exploded or     */
+/* burst was a munition, expendable, or non-munition explosion.         */
+/* Used In:                                                             */
+/*  Detonation PDU                                                      */
+/************************************************************************/
+
+enum DetonationType
+{
+    MunitionDTI                                                       = 0,
+    ExpendableDTI                                                     = 1,
+	NonMunitionExplosionDTI                                           = 2
+};
+
+KString GetEnumAsStringDetonationType( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut ); 
+
+/************************************************************************/
+/* Explosive Material                                                   */
+/* Indicates the material that exploded.                                */
+/* These values were taken from CR02668.                                */
+/* Used In:                                                             */
+/*  Explosive Descriptor                                                */
+/************************************************************************/
+
+enum ExplosiveMaterial 
+{
+    GeneralExplosiveMaterial                                          = 0,                
+    LiquidAviationMissileFuels                                        = 1,
+    LiquidOtherFuels                                                  = 2,
+    LiquidExplosiveMaterial                                           = 3,
+    Solid                                                             = 4,
+    Gaseous                                                           = 5,
+    DustMaterial                                                      = 6,
+    AVGAS_AviationGas                                                 = 10,
+    JetFuelUnspecified                                                = 11, 
+    JP4_F40JETB                                                       = 12,
+    JP5_F44JETA                                                       = 13,
+    JP7                                                               = 14,
+    JP8F_34JETA1                                                      = 15,
+    JP10MissileFuel                                                   = 16,
+    JPTS                                                              = 17,
+    JetA                                                              = 18,
+    JetA1                                                             = 19,
+    JetB                                                              = 20,
+    JetBiofuel                                                        = 21,
+    GasolinePetrol_UnspecifiedOctane                                  = 151,
+	Ethanol                                                           = 153,
+	E85Ethanol                                                        = 154,    	        
+    FuelOil                                                           = 155,
+    Kerosene                                                          = 156,
+    CrudeOil_Unspecified                                              = 157,
+    LightCrudeOil                                                     = 158,
+    LiquidPetroleumGas                                                = 159,
+    RP1RocketFuel                                                     = 160,
+    LH2RocketFuel                                                     = 161,
+    LOXRocketFuel                                                     = 162,    
+    Alcohol                                                           = 164,
+	HydrogenLiquid                                                    = 166,
+    Nitroglycerin                                                     = 301,
+    ANFO                                                              = 302,
+    Dynamite                                                          = 451,
+    TNT                                                               = 452,
+    RDX                                                               = 453,
+    PETN                                                              = 454,
+    HMX                                                               = 455,
+    C4                                                                = 456,
+    CompositionC4                                                     = 457,
+    NaturalGas                                                        = 601,
+    Butane                                                            = 602,
+    Propane                                                           = 603,
+    Helium                                                            = 604,
+    HydrogenGaseous                                                   = 605,
+    DustUnspecifiedType                                               = 801, 
+    GrainDust                                                         = 802,
+    FlourDust                                                         = 803,
+    SugarDust                                                         = 804
+};
+
+KString GetEnumAsStringExplosiveMaterial( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringExplosiveMaterial( const KString & Value, KINT32 & ValueOut ); 
 
 #endif
 

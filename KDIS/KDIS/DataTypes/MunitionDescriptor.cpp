@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./BurstDescriptor.h"
+#include "./MunitionDescriptor.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,7 +40,7 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-BurstDescriptor::BurstDescriptor() :
+MunitionDescriptor::MunitionDescriptor() :
     m_ui16Warhead( 0 ),
     m_ui16Fuse( 0 ),
     m_ui16Quantity( 0 ),
@@ -50,16 +50,16 @@ BurstDescriptor::BurstDescriptor() :
 
 //////////////////////////////////////////////////////////////////////////
 
-BurstDescriptor::BurstDescriptor( KDataStream & stream )throw( KException )
+MunitionDescriptor::MunitionDescriptor( KDataStream & stream )throw( KException )
 {
     Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BurstDescriptor::BurstDescriptor( const EntityType & M, WarheadType WT, FuseType FT,
-                                  KUINT16 Quantity, KUINT16 Rate ) :
-    m_Munition( M ),
+MunitionDescriptor::MunitionDescriptor( const EntityType & T, WarheadType WT, FuseType FT,
+                                        KUINT16 Quantity, KUINT16 Rate ) :
+    Descriptor( T ),
     m_ui16Warhead( WT ),
     m_ui16Fuse( FT ),
     m_ui16Quantity( Quantity ),
@@ -69,95 +69,74 @@ BurstDescriptor::BurstDescriptor( const EntityType & M, WarheadType WT, FuseType
 
 //////////////////////////////////////////////////////////////////////////
 
-BurstDescriptor::~BurstDescriptor()
+MunitionDescriptor::~MunitionDescriptor()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BurstDescriptor::SetMunition( const EntityType & M )
-{
-    m_Munition = M;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const EntityType & BurstDescriptor::GetMunition() const
-{
-    return m_Munition;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-EntityType & BurstDescriptor::GetMunition()
-{
-    return m_Munition;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void BurstDescriptor::SetWarhead( WarheadType WT )
+void MunitionDescriptor::SetWarhead( WarheadType WT )
 {
     m_ui16Warhead = WT;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WarheadType BurstDescriptor::GetWarhead() const
+WarheadType MunitionDescriptor::GetWarhead() const
 {
     return ( WarheadType )m_ui16Warhead;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BurstDescriptor::SetFuse( FuseType FT )
+void MunitionDescriptor::SetFuse( FuseType FT )
 {
     m_ui16Fuse = FT;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FuseType BurstDescriptor::GetFuse() const
+FuseType MunitionDescriptor::GetFuse() const
 {
     return ( FuseType )m_ui16Fuse;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BurstDescriptor::SetQuantity( KUINT16 Q )
+void MunitionDescriptor::SetQuantity( KUINT16 Q )
 {
     m_ui16Quantity = Q;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 BurstDescriptor::GetQuantity() const
+KUINT16 MunitionDescriptor::GetQuantity() const
 {
     return m_ui16Quantity;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BurstDescriptor::SetRate( KUINT16 R )
+void MunitionDescriptor::SetRate( KUINT16 R )
 {
     m_ui16Rate = R;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 BurstDescriptor::GetRate() const
+KUINT16 MunitionDescriptor::GetRate() const
 {
     return m_ui16Rate;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString BurstDescriptor::GetAsString() const
+KString MunitionDescriptor::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "Burst Descriptor:"
-       << "\n\tMunition: " << m_Munition.GetAsString()
+    ss << "Descriptor:"
+       << "\n\tType:     " << m_Type.GetAsString()
        << "\tWarhead:  "   << GetEnumAsStringWarheadType( m_ui16Warhead )
        << "\n\tFuse:     " << GetEnumAsStringFuseType( m_ui16Fuse )
        << "\n\tQuantity: " << m_ui16Quantity
@@ -169,12 +148,11 @@ KString BurstDescriptor::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void BurstDescriptor::Decode( KDataStream & stream ) throw( KException )
+void MunitionDescriptor::Decode( KDataStream & stream ) throw( KException )
 {
-    if( stream.GetBufferSize() < BURST_DESCRIPTOR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+	Descriptor::Decode( stream );
 
-    stream >> KDIS_STREAM m_Munition
-           >> m_ui16Warhead
+    stream >> m_ui16Warhead
            >> m_ui16Fuse
            >> m_ui16Quantity
            >> m_ui16Rate;
@@ -182,21 +160,22 @@ void BurstDescriptor::Decode( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream BurstDescriptor::Encode() const
+KDataStream MunitionDescriptor::Encode() const
 {
     KDataStream stream;
 
-    BurstDescriptor::Encode( stream );
+    MunitionDescriptor::Encode( stream );
 
     return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BurstDescriptor::Encode( KDataStream & stream ) const
+void MunitionDescriptor::Encode( KDataStream & stream ) const
 {
-    stream << KDIS_STREAM m_Munition
-           << m_ui16Warhead
+	Descriptor::Encode( stream );
+
+    stream << m_ui16Warhead
            << m_ui16Fuse
            << m_ui16Quantity
            << m_ui16Rate;
@@ -204,19 +183,19 @@ void BurstDescriptor::Encode( KDataStream & stream ) const
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL BurstDescriptor::operator == ( const BurstDescriptor & Value ) const
+KBOOL MunitionDescriptor::operator == ( const MunitionDescriptor & Value ) const
 {
-    if( m_Munition      != Value.m_Munition )     return false;
-    if( m_ui16Warhead   != Value.m_ui16Warhead )  return false;
-    if( m_ui16Fuse      != Value.m_ui16Fuse )     return false;
-    if( m_ui16Quantity  != Value.m_ui16Quantity ) return false;
-    if( m_ui16Rate      != Value.m_ui16Rate )     return false;
+	if( Descriptor::operator != ( Value ) )            return false;
+    if( m_ui16Warhead        != Value.m_ui16Warhead )  return false;
+    if( m_ui16Fuse           != Value.m_ui16Fuse )     return false;
+    if( m_ui16Quantity       != Value.m_ui16Quantity ) return false;
+    if( m_ui16Rate           != Value.m_ui16Rate )     return false;
     return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL BurstDescriptor::operator != ( const BurstDescriptor & Value ) const
+KBOOL MunitionDescriptor::operator != ( const MunitionDescriptor & Value ) const
 {
     return !( *this == Value );
 }
