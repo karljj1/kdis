@@ -32,7 +32,7 @@ http://p.sf.net/kdis/UserGuide
     created:    17/09/2009
     author:     Karl Jones
 
-    purpose:    Enums used for Burst Descriptor params
+    purpose:    Enums used for Descriptor params.
 *********************************************************************/
 
 #pragma once
@@ -261,14 +261,34 @@ KBOOL GetEnumFromStringFuseType( const KString & Value, KINT32 & ValueOut );
 
 enum FireType
 {
-    MunitionFireType                                                  = 0,
-    ExpendableFireType                                                = 1
+    MunitionFTI                                                       = 0,
+    ExpendableFTI                                                     = 1
 };
 
 KString GetEnumAsStringFireType( KINT32 Value );
 
 // Returns true if a value was found.
 KBOOL GetEnumFromStringFireType( const KString & Value, KINT32 & ValueOut ); 
+
+/************************************************************************/
+/* Detonation Type                                                      */
+/* Indicates whether the type of object that detonated, exploded or     */
+/* burst was a munition, expendable, or non-munition explosion.         */
+/* Used In:                                                             */
+/*  Detonation PDU                                                      */
+/************************************************************************/
+
+enum DetonationType
+{
+    MunitionDTI                                                       = 0,
+    ExpendableDTI                                                     = 1,
+	NonMunitionExplosionDTI                                           = 2
+};
+
+KString GetEnumAsStringDetonationType( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut ); 
 
 #endif
 

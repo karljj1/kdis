@@ -103,6 +103,17 @@ public:
 
     virtual ~Detonation_PDU();
 
+	#if DIS_VERSION > 6
+    //************************************
+    // FullName:    KDIS::PDU::Fire_PDU::SetPDUStatusFireType
+    //              KDIS::PDU::Fire_PDU::GetPDUStatusFireType
+    // Description: Indicates the descriptor type used.
+    // Parameter:   FireType FT, void
+    //************************************
+    void SetPDUStatusDetonationType( DetonationType DT );
+    DetonationType GetPDUStatusDetonationType() const;
+	#endif
+
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetVelocity
     //              KDIS::PDU::Detonation_PDU::GetVelocity

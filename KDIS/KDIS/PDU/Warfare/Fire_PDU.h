@@ -89,17 +89,16 @@ public:
 
     virtual ~Fire_PDU();
 
-#if DIS_VERSION > 6
+	#if DIS_VERSION > 6
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetPDUStatusFireType
     //              KDIS::PDU::Fire_PDU::GetPDUStatusFireType
-    // Description: Indicates whether the type of object fired was
-    //              a munition or an expendable.
+    // Description: Indicates the descriptor type used.
     // Parameter:   FireType FT, void
     //************************************
     void SetPDUStatusFireType( FireType FT );
     FireType GetPDUStatusFireType() const;
-#endif
+	#endif
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetFireMissionIndex
@@ -121,6 +120,10 @@ public:
     void SetLocation( const WorldCoordinates & L );
     const WorldCoordinates & GetLocation() const;
     WorldCoordinates & GetLocation();
+
+
+
+
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetBurstDescriptor

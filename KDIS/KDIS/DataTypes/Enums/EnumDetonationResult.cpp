@@ -101,44 +101,4 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationResult( const KString &
 
 
 #endif
-
-#if DIS_VERSION > 6
-//////////////////////////////////////////////////////////////////////////
-
-// Implementation of string values for DetonationType
-
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
-
-const EnumDescriptor DetonationTypeDescriptor[] =
-{
-    { 0 , "MunitionDetonationType" },
-    { 1 , "ExpendableDetonationType" },
-    { 2 , "NonMunitionExplosionDetonationType" }
-};
-
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationType( KINT32 Value )
-{
-    return GetEnumAsString( DetonationTypeDescriptor, sizeof( DetonationTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
-}
-
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut )
-{
-	return GetEnumFromString( DetonationTypeDescriptor, sizeof( DetonationTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
-}
-
-#else
-
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationType( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
-};
-
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut )
-{
-	return false; // Maybe throw an exception?
-}
-
-#endif
 #endif
