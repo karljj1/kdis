@@ -30,6 +30,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./Detonation_PDU.h"
 #include "./../../DataTypes/ArticulatedPart.h"
 #include "./../../DataTypes/AttachedPart.h"
+#include "./../../DataTypes/ExplosionDescriptor.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -49,6 +50,7 @@ Detonation_PDU::Detonation_PDU() :
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;
+	SetDescriptor( DescPtr( new MunitionDescriptor() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -71,12 +73,11 @@ Detonation_PDU::Detonation_PDU( const Header & H, KDataStream & stream ) throw( 
 Detonation_PDU::Detonation_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
                                 const EntityIdentifier & MunitionID, const EntityIdentifier & EventID ,
                                 const Vector & Velocity, const WorldCoordinates & LocationWorldCoords,
-                                const BurstDescriptor & Burst, const Vector & LocationEntityCoords,
+                                DescPtr Desc, const Vector & LocationEntityCoords,
                                 DetonationResult DetonationResult ) :
     Warfare_Header( FiringEntID, TargetEntID, MunitionID, EventID ),
     m_Velocity( Velocity ),
     m_LocationWorldCoords( LocationWorldCoords ),
-    m_BurstDescriptor( Burst ),
     m_LocationEntityCoords( LocationEntityCoords ),
     m_ui8DetonationResult( DetonationResult ),
     m_ui8NumOfVariableParams( 0 ),
@@ -84,17 +85,17 @@ Detonation_PDU::Detonation_PDU( const EntityIdentifier & FiringEntID, const Enti
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;
+	SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 Detonation_PDU::Detonation_PDU( const Warfare_Header & WarfareHeader, const Vector & Velocity,
-                                const WorldCoordinates & LocationWorldCoords, const BurstDescriptor & Burst,
+                                const WorldCoordinates & LocationWorldCoords, DescPtr Desc,
                                 const Vector & LocationEntityCoords, DetonationResult DetonationResult ) :
     Warfare_Header( WarfareHeader ),
     m_Velocity( Velocity ),
     m_LocationWorldCoords( LocationWorldCoords ),
-    m_BurstDescriptor( Burst ),
     m_LocationEntityCoords( LocationEntityCoords ),
     m_ui8DetonationResult( DetonationResult ),
     m_ui8NumOfVariableParams( 0 ),
@@ -102,6 +103,7 @@ Detonation_PDU::Detonation_PDU( const Warfare_Header & WarfareHeader, const Vect
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;
+	SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -110,6 +112,22 @@ Detonation_PDU::~Detonation_PDU()
 {
 }
 
+//////////////////////////////////////////////////////////////////////////
+#if DIS_VERSION > 6
+
+void Detonation_PDU::SetPDUStatusDetonationType( DetonationType DT )
+{
+	m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = DT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+DetonationType Detonation_PDU::GetPDUStatusDetonationType() const
+{
+	return ( DetonationType )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI;
+}
+
+#endif
 //////////////////////////////////////////////////////////////////////////
 
 void Detonation_PDU::SetVelocity( const Vector & V )
@@ -154,23 +172,36 @@ WorldCoordinates & Detonation_PDU::GetLocationInWorldCoords()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Detonation_PDU::SetBurstDescriptor( const BurstDescriptor & BD )
+void Detonation_PDU::SetDescriptor( DescPtr D )
 {
-    m_BurstDescriptor = BD;
+	m_pDescriptor = D;
+
+	#if DIS_VERSION > 6 
+	
+	// Determine the FTI
+	if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+	{
+		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = MunitionDTI;
+	}
+	else if( dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
+	{
+		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = ExpendableDTI;		
+		m_ui8ProtocolVersion = 7; // Change the DIS version to 7.
+	}
+	else
+	{
+		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = NonMunitionExplosionDTI;		
+		m_ui8ProtocolVersion = 7; // Change the DIS version to 7.
+	}
+
+	#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const BurstDescriptor & Detonation_PDU::GetBurstDescriptor() const
+DescPtr Detonation_PDU::GetDescriptor()
 {
-    return m_BurstDescriptor;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-BurstDescriptor & Detonation_PDU::GetBurstDescriptor()
-{
-    return m_BurstDescriptor;
+	return m_pDescriptor;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -260,7 +291,7 @@ KString Detonation_PDU::GetAsString() const
        << Warfare_Header::GetAsString()
        << "Velocity:                 " << m_Velocity.GetAsString()
        << "World Location:           " << m_LocationWorldCoords.GetAsString()
-       << m_BurstDescriptor.GetAsString()
+	   << m_pDescriptor->GetAsString()
        << "Entity Location:          " << m_LocationEntityCoords.GetAsString()
        << "Detonation Result:        " << GetEnumAsStringDetonationResult( m_ui8DetonationResult ) << "\n"
        << "Num Articulation Params:  " << ( KUINT16 )m_ui8NumOfVariableParams
@@ -288,9 +319,57 @@ void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
     Warfare_Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_Velocity
-           >> KDIS_STREAM m_LocationWorldCoords
-           >> KDIS_STREAM m_BurstDescriptor
-           >> KDIS_STREAM m_LocationEntityCoords
+           >> KDIS_STREAM m_LocationWorldCoords;
+
+	#if DIS_VERSION < 7 
+
+	if( !m_pDescriptor.GetPtr() )
+	{
+		m_pDescriptor = DescPtr( new MunitionDescriptor() );
+	}	
+
+	#else
+
+	// If the protocol version is not 7 then treat it as a MunitionDesc
+	if( m_ui8ProtocolVersion < 7 )
+	{
+		if( !m_pDescriptor.GetPtr() )
+		{
+			m_pDescriptor = DescPtr( new MunitionDescriptor() );
+		}	
+	}
+	else // DIS 7 
+	{			
+		if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == MunitionDTI ) // Munition
+		{
+			// Create a descriptor if the desc is null or the incorrect type
+			if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+			{
+				m_pDescriptor = DescPtr( new MunitionDescriptor() );
+			}				
+		}
+		else if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == ExpendableDTI ) // Expendable
+		{
+			// Create a descriptor if the desc is null or the incorrect type
+			if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
+			{
+				m_pDescriptor = DescPtr( new ExpendableDescriptor() );
+			}
+		}
+		else // Explosion
+		{
+			// Create a descriptor if the desc is null or the incorrect type
+			if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExplosionDescriptor*>( m_pDescriptor.GetPtr() ) )
+			{
+				m_pDescriptor = DescPtr( new ExplosionDescriptor() );
+			}
+		}
+	}
+	#endif
+
+    m_pDescriptor->Decode( stream );
+
+    stream >> KDIS_STREAM m_LocationEntityCoords
            >> m_ui8DetonationResult
            >> m_ui8NumOfVariableParams
            >> m_ui16Padding1;
@@ -352,9 +431,20 @@ void Detonation_PDU::Encode( KDataStream & stream ) const
     Warfare_Header::Encode( stream );
 
     stream << KDIS_STREAM m_Velocity
-           << KDIS_STREAM m_LocationWorldCoords
-           << KDIS_STREAM m_BurstDescriptor
-           << KDIS_STREAM m_LocationEntityCoords
+           << KDIS_STREAM m_LocationWorldCoords;
+
+	if( !m_pDescriptor.GetPtr() )
+	{
+		// Create a temp to fill the buffer.
+		MunitionDescriptor md;
+		stream << KDIS_STREAM md;		
+	}		
+	else
+	{
+		m_pDescriptor->Encode( stream );
+	}	
+
+    stream << KDIS_STREAM m_LocationEntityCoords
            << m_ui8DetonationResult
            << m_ui8NumOfVariableParams
            << m_ui16Padding1;
@@ -375,7 +465,7 @@ KBOOL Detonation_PDU::operator == ( const Detonation_PDU & Value ) const
     if( Warfare_Header::operator !=( Value ) )                       return false;
     if( m_Velocity               != Value.m_Velocity )               return false;
     if( m_LocationWorldCoords    != Value.m_LocationWorldCoords )    return false;
-    if( m_BurstDescriptor        != Value.m_BurstDescriptor )        return false;
+    if( *m_pDescriptor           != *Value.m_pDescriptor )          return false;
     if( m_LocationEntityCoords   != Value.m_LocationEntityCoords )   return false;
     if( m_ui8DetonationResult    != Value.m_ui8DetonationResult )    return false;
     if( m_ui8NumOfVariableParams != Value.m_ui8NumOfVariableParams ) return false;

@@ -46,6 +46,7 @@ Fire_PDU::Fire_PDU()
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;
+	SetDescriptor( DescPtr( new MunitionDescriptor() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -66,32 +67,32 @@ Fire_PDU::Fire_PDU( const Header & H, KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Fire_PDU::Fire_PDU( const Warfare_Header & WarfareHeader, KUINT32 FireMissionIndex, const WorldCoordinates & Location,
-                    const BurstDescriptor & BurstDesc, const Vector & Velocity, KFLOAT32 Range ) :
+                    DescPtr Desc, const Vector & Velocity, KFLOAT32 Range ) :
     Warfare_Header( WarfareHeader ),
     m_ui32FireMissionIndex( FireMissionIndex ),
     m_Location( Location ),
-    m_BurstDescriptor( BurstDesc ),
     m_Velocity( Velocity ),
     m_f32Range( Range )
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;
+	SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 Fire_PDU::Fire_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID, const EntityIdentifier & MunitionID,
                     const EntityIdentifier & EventID, KUINT32 FireMissionIndex, const WorldCoordinates & Location,
-                    const BurstDescriptor & BurstDesc, const Vector & Velocity, KFLOAT32 Range ) :
+                    DescPtr Desc, const Vector & Velocity, KFLOAT32 Range ) :
     Warfare_Header( FiringEntID, TargetEntID, MunitionID, EventID ),
     m_ui32FireMissionIndex( FireMissionIndex ),
     m_Location( Location ),
-    m_BurstDescriptor( BurstDesc ),
     m_Velocity( Velocity ),
     m_f32Range( Range )
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;
+	SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -153,23 +154,31 @@ WorldCoordinates & Fire_PDU::GetLocation()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Fire_PDU::SetBurstDescriptor( const BurstDescriptor & BD )
+void Fire_PDU::SetDescriptor( DescPtr D )
 {
-    m_BurstDescriptor = BD;
+	m_pDescriptor = D;
+
+	#if DIS_VERSION > 6 
+	
+	// Determine the FTI
+	if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+	{
+		m_PDUStatusUnion.m_ui8PDUStatusFTI = MunitionFTI;
+	}
+	else
+	{
+		m_PDUStatusUnion.m_ui8PDUStatusFTI = ExpendableFTI;		
+		m_ui8ProtocolVersion = 7; // Change the DIS version to 7.
+	}
+
+	#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const BurstDescriptor & Fire_PDU::GetBurstDescriptor() const
+DescPtr Fire_PDU::GetDescriptor()
 {
-    return m_BurstDescriptor;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-BurstDescriptor & Fire_PDU::GetBurstDescriptor()
-{
-    return m_BurstDescriptor;
+	return m_pDescriptor;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -218,7 +227,7 @@ KString Fire_PDU::GetAsString() const
        << Warfare_Header::GetAsString()
        << "Fire Mission Index:  " << m_ui32FireMissionIndex  << "\n"
        << "World Location:      " << m_Location.GetAsString()
-       << m_BurstDescriptor.GetAsString()
+       << m_pDescriptor->GetAsString()
        << "Velocity:            " << m_Velocity.GetAsString()
        << "Range:               " << m_f32Range             << "\n";
 
@@ -234,9 +243,49 @@ void Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) thro
     Warfare_Header::Decode( stream, ignoreHeader );	
 
     stream >> m_ui32FireMissionIndex
-           >> KDIS_STREAM m_Location
-           >> KDIS_STREAM m_BurstDescriptor
-           >> KDIS_STREAM m_Velocity
+           >> KDIS_STREAM m_Location;
+
+	#if DIS_VERSION < 7 
+
+	if( !m_pDescriptor.GetPtr() )
+	{
+		m_pDescriptor = DescPtr( new MunitionDescriptor() );
+	}	
+
+	#else
+
+	// If the protocol version is not 7 then treat it as a MunitionDesc
+	if( m_ui8ProtocolVersion < 7 )
+	{
+		if( !m_pDescriptor.GetPtr() )
+		{
+			m_pDescriptor = DescPtr( new MunitionDescriptor() );
+		}	
+	}
+	else // DIS 7 
+	{	
+		if( m_PDUStatusUnion.m_ui8PDUStatusFTI == MunitionFTI )
+		{
+			// Create a descriptor if the desc is null or the incorrect type
+			if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+			{
+				m_pDescriptor = DescPtr( new MunitionDescriptor() );
+			}				
+		}
+		else
+		{
+			// Create a descriptor if the desc is null or the incorrect type
+			if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
+			{
+				m_pDescriptor = DescPtr( new ExpendableDescriptor() );
+			}
+		}
+	}
+	#endif
+
+    m_pDescriptor->Decode( stream );
+
+	stream >> KDIS_STREAM m_Velocity
            >> m_f32Range;
 }
 
@@ -257,9 +306,20 @@ void Fire_PDU::Encode( KDataStream & stream ) const
 {
     Warfare_Header::Encode( stream );
     stream << m_ui32FireMissionIndex
-           << KDIS_STREAM m_Location
-           << KDIS_STREAM m_BurstDescriptor
-           << KDIS_STREAM m_Velocity
+           << KDIS_STREAM m_Location;
+	
+	if( !m_pDescriptor.GetPtr() )
+	{
+		// Create a temp to fill the buffer.
+		MunitionDescriptor md;
+		stream << KDIS_STREAM md;		
+	}		
+	else
+	{
+		m_pDescriptor->Encode( stream );
+	}	
+
+    stream << KDIS_STREAM m_Velocity
            << m_f32Range;
 }
 
@@ -270,7 +330,7 @@ KBOOL Fire_PDU::operator == ( const Fire_PDU & Value ) const
     if( Warfare_Header::operator !=( Value ) )                      return false;
     if( m_ui32FireMissionIndex   != Value.m_ui32FireMissionIndex )  return false;
     if( m_Location               != Value.m_Location )              return false;
-    if( m_BurstDescriptor        != Value.m_BurstDescriptor )       return false;
+    if( *m_pDescriptor           != *Value.m_pDescriptor )          return false;
     if( m_Velocity               != Value.m_Velocity )              return false;
     if( m_f32Range               != Value.m_f32Range )              return false;
     return true;
