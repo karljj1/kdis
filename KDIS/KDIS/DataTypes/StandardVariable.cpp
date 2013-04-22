@@ -116,8 +116,12 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(  KDataStream & stream
 	// Check for a KDIS implementation of the type.
     switch( recordHeader.GetStandardVariableType() )
     {
-		case IOCommunicationsNodeRecord : return new IOCommunicationsNode( stream );
-		case IOEffectRecord             : return new IOEffect( stream );
+		case IOCommunicationsNodeRecord   : return new IOCommunicationsNode( stream );
+		case IOEffectRecord               : return new IOEffect( stream );
+
+		// TODO: DE Records
+		//case DEPrecisionAimpointRecord             : return new IOEffect( stream );
+		//case DEAreaAimpointRecord             : return new IOEffect( stream );
     }
 
     /*****************************************************************
