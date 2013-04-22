@@ -75,7 +75,7 @@ TimeStamp::~TimeStamp()
 
 void TimeStamp::SetTimeStampType( TimeStampType T )
 {
-    m_TimeStampUnion.m_ui32TimeStampType;
+    m_TimeStampUnion.m_ui32TimeStampType = T;
 }
 
 //////////////////////////////////////////////////////////////////////////

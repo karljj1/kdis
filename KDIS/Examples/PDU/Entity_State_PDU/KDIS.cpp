@@ -58,7 +58,7 @@ int main()
     try
     {
         // Note: This address will probably be different for your network.
-        Connection myConnection( "192.168.3.255" );
+        Connection myConnection( "192.168.0.255" );
 
         // Encode the PDU contents into network data
         KDataStream stream;

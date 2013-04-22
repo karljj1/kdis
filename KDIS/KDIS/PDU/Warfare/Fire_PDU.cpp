@@ -101,6 +101,22 @@ Fire_PDU::~Fire_PDU()
 }
 
 //////////////////////////////////////////////////////////////////////////
+#if DIS_VERSION > 6
+
+void Fire_PDU::SetPDUStatusFireType( FireType FT )
+{
+	m_PDUStatusUnion.m_ui8PDUStatusFTI = FT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+FireType Fire_PDU::GetPDUStatusFireType() const
+{
+	return ( FireType )m_PDUStatusUnion.m_ui8PDUStatusFTI;
+}
+
+#endif
+//////////////////////////////////////////////////////////////////////////
 
 void Fire_PDU::SetFireMissionIndex( KUINT32 FMI )
 {

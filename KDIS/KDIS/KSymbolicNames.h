@@ -70,7 +70,7 @@ http://p.sf.net/kdis/UserGuide
 #define EP_DIMENSION_THRSH                          1                                   // m
 #define EP_NO_SEQUENCE                              0xffff                           
 #define EP_POS_THRSH                                1                                   // m
-#define EP_STATE_THRSH Variable                     10                                  // ±%
+#define EP_STATE_THRSH                              10                                  // ±%
 #define GD_GEOMETRY_CHANGE                          10                                  // ±%
 #define GD_STATE_CHANGE                             10                                  // ±%
 #define HBT_ESPDU_KIND_CULTURAL_FEATURE             1                                   // min Tolerance: ±10%
@@ -78,8 +78,8 @@ http://p.sf.net/kdis/UserGuide
 #define HBT_ESPDU_KIND_EXPENDABLE                   5                                   // s Tolerance: ±10%
 #define HBT_ESPDU_KIND_LIFE_FORM                    1                                   // min Tolerance: ±10%
 #define HBT_ESPDU_KIND_MUNITION                     5                                   // s Tolerance: ±10%
-#define HBT_ESPDU_KIND_RADIO Variable               5                                   // s Tolerance: ±10%
-#define HBT_ESPDU_KIND_SENSOR_EMITTER Variable      5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_KIND_RADIO                        5                                   // s Tolerance: ±10%
+#define HBT_ESPDU_KIND_SENSOR_EMITTER               5                                   // s Tolerance: ±10%
 #define HBT_ESPDU_KIND_SUPPLY                       5                                   // s Tolerance: ±10%
 #define HBT_ESPDU_PLATFORM_AIR                      5                                   // s Tolerance: ±10%
 #define HBT_ESPDU_PLATFORM_LAND                     55                                  // s Tolerance: ±10%

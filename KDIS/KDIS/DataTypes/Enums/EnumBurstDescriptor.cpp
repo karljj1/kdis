@@ -42,7 +42,7 @@ const EnumDescriptor WarheadTypeDescriptor[] =
     { 0 , "OtherWarhead" },
     { 10 , "Cargo_VariableSubmunitions_Warhead" },
     { 20 , "Fuel_AirExplosiveWarhead" },
-    { 30 , "GlassBladsWarhead" },
+    { 30 , "GlassBeadsWarhead" },
     { 31 , "_1umWarhead" },
     { 32 , "_5umWarhead" },
     { 33 , "_10umWarhead" },
