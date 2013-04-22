@@ -344,4 +344,90 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType( const KString & V
 }
 
 #endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for ExplosiveMaterial
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor ExplosiveMaterialDescriptor[] =
+{
+    { 0 , "GeneralExplosiveMaterial" },
+    { 1 , "LiquidAviationMissileFuels" },
+	{ 2 , "LiquidOtherFuels" },
+	{ 3 , "LiquidExplosiveMaterial" },
+	{ 4 , "Solid" },
+	{ 5 , "Gaseous" },
+	{ 6 , "DustMaterial" },
+	{ 10 , "AVGAS_AviationGas" },
+	{ 11 , "JetFuelUnspecified" },
+	{ 12 , "JP4_F40JETB" },
+	{ 13 , "JP5_F44JETA" },
+	{ 14 , "JP7" },
+	{ 15 , "JP8F_34JETA1" },
+	{ 16 , "JP10MissileFuel" },
+	{ 17 , "JPTS" },
+	{ 18 , "JetA" },
+	{ 19 , "JetA1" },
+	{ 20 , "JetB" },
+	{ 21 , "JetBiofuel" },
+	{ 151 , "GasolinePetrol_UnspecifiedOctane" },
+	{ 153 , "Ethanol" },
+	{ 154 , "E85Ethanol" },	
+	{ 155 , "FuelOil" },
+	{ 156 , "Kerosene" },
+	{ 157 , "CrudeOil_Unspecified" },
+	{ 158 , "LightCrudeOil" },
+	{ 159 , "LiquidPetroleumGas" },
+	{ 160 , "RP1RocketFuel" },
+	{ 161 , "LH2RocketFuel" },
+	{ 162 , "LOXRocketFuel" },
+	{ 164 , "Alcohol" },
+	{ 166 , "HydrogenLiquid" },
+	{ 301 , "Nitroglycerin" },
+	{ 302 , "ANFO" },
+	{ 451 , "Dynamite" },
+	{ 452 , "TNT" },
+	{ 453 , "RDX" },
+	{ 454 , "PETN" },
+	{ 455 , "HMX" },
+	{ 456 , "C4" },
+	{ 457 , "CompositionC4" },
+	{ 601 , "NaturalGas" },
+	{ 602 , "Butane" },
+	{ 603 , "Propane" },
+	{ 604 , "Helium" },
+	{ 605 , "HydrogenGaseous" },
+	{ 801 , "DustUnspecifiedType" },
+	{ 802 , "GrainDust" },
+	{ 803 , "FlourDust" },
+	{ 804 , "SugarDust" }
+};
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringExplosiveMaterial( KINT32 Value )
+{
+    return GetEnumAsString( ExplosiveMaterialDescriptor, sizeof( ExplosiveMaterialDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringExplosiveMaterial( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString( ExplosiveMaterialDescriptor, sizeof( ExplosiveMaterialDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringExplosiveMaterial( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+};
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringExplosiveMaterial( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
 #endif
