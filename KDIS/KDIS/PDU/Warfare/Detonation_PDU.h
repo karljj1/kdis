@@ -107,7 +107,7 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetPDUStatusDetonationType
     //              KDIS::PDU::Detonation_PDU::GetPDUStatusDetonationType
-    // Description: Indicates the descriptor type used.
+    // Description: Indicates the descriptor type used. DTI.
     // Parameter:   DetonationType FT
     //************************************
     void SetPDUStatusDetonationType( DetonationType DT );

@@ -41,7 +41,7 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./LE_Header.h"
 #include "./../../DataTypes/RelativeWorldCoordinates.h"
-#include "./../../DataTypes/BurstDescriptor.h"
+#include "./../../DataTypes/MunitionDescriptor.h"
 #include "./../../DataTypes/RelativeWorldCoordinates.h"
 #include "./../../DataTypes/LE_Vector.h"
 
@@ -49,7 +49,7 @@ namespace KDIS {
 namespace PDU {
 
 using KDIS::DATA_TYPE::RelativeWorldCoordinates;
-using KDIS::DATA_TYPE::BurstDescriptor;
+using KDIS::DATA_TYPE::MunitionDescriptor;
 using KDIS::DATA_TYPE::RelativeWorldCoordinates;
 using KDIS::DATA_TYPE::LE_Vector16_3;
 
@@ -79,7 +79,7 @@ protected:
 
     LE_EntityIdentifier m_EventID;
 
-    BurstDescriptor m_MunitionDesc;
+    MunitionDescriptor m_MunitionDesc;
 
     RelativeWorldCoordinates m_Loc;
 
@@ -213,11 +213,11 @@ public:
     //              void SetWarheadFuseFlag( true ) - To include Warhead and fuse fields.
     //              void SetQuantityRateFlag( true ) - To include Quantity and Rate fields.
     //              This field is also known as the BurstDescriptor in older versions of the DIS standard.
-    // Parameter:   const BurstDescriptor & BD
+    // Parameter:   const MunitionDescriptor & MD
     //************************************
-    void SetMunitionDescriptor( const BurstDescriptor & BD );
-    const BurstDescriptor & GetMunitionDescriptor() const;
-    BurstDescriptor & GetMunitionDescriptor();
+    void SetMunitionDescriptor( const MunitionDescriptor & MD );
+    const MunitionDescriptor & GetMunitionDescriptor() const;
+    MunitionDescriptor & GetMunitionDescriptor();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetVelocity

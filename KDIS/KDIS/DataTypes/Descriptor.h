@@ -35,7 +35,7 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Base class for Descriptor records.  
 
 				In DIS < 7:
-				All descriptors should use the Munition Descriptor record aka Burst descriptor.
+				All descriptors should use the Munition Descriptor record AKA Burst descriptor.
 
 				In DIS  7 onwards:
 				A Fire PDU descriptor can be either a Munition(AKA Burst) or an Expendable descriptor.

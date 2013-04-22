@@ -66,6 +66,8 @@
 	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Migration_Guide">migration</a> guide for more details.
 	<li>Renamed ArticulationParamaters to ArticulatedPart.</li>
 	<li>Added AttachedPart class.</li>
+	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>
+	<li>Replaced BurstDescriptor in LE Fire & LE Detonation PDU with MunitionDescriptor. This class is the same except the Set/GetMuntion function is now named Set/GetType.</li>
 	</div>	
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>
 	<li>Added Vector::Set to set all values in one call.</li>
@@ -79,9 +81,8 @@
 	<li>Fixed bug in TimeStamp::SetTimeStampType.</li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Renamed enum WarheadType::GlassBladsWarhead to WarheadType::GlassBeadsWarhead.</li>
-	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>	
-	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>
-	<li>Lots of improvements to comments. More details etc.</li>
+	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>		
+	<li>Lots of improvements to comments. More details, fixes etc.</li>
 </ul>
 
 <!-- Version 2-7-0 !-->

@@ -93,7 +93,7 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetPDUStatusFireType
     //              KDIS::PDU::Fire_PDU::GetPDUStatusFireType
-    // Description: Indicates the descriptor type used.
+    // Description: Indicates the descriptor type used. FTI.
     // Parameter:   FireType FT
     //************************************
     void SetPDUStatusFireType( FireType FT );
