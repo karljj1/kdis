@@ -86,7 +86,7 @@ VariableParameterType VariableParameter::GetVariableParameterType() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize )
+void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize ) throw( KException )
 {
 	if( DataSize > 15 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 
