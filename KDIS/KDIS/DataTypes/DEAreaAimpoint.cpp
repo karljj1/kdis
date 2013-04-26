@@ -27,156 +27,111 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./VariableParameter.h"
-#include <math.h>
+#include "./DEAreaAimpoint.h"
+
 
 //////////////////////////////////////////////////////////////////////////
 
-using namespace std;
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
-using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::VariableParameter() :
-    m_ui8VarParamType( 0 )    
+DEAreaAimpoint::DEAreaAimpoint() :
+	m_ui16Padding( 0 ),
+	m_ui16BAPRC( 0 ),
+	m_ui16DETEDRC( 0 )
 {
-	// Clear data
-	memset( m_Data, 0, 15 );
+	m_ui32Type = DEAreaAimpointRecord;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize ) throw( KException ) :
-	m_ui8VarParamType( VPT )
-{
-	SetData( Data, DataSize );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-VariableParameter::VariableParameter( KDataStream & stream ) throw( KException )
+DEAreaAimpoint::DEAreaAimpoint( KDataStream & stream ) throw( KException )
 {
     Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::~VariableParameter()
+DEAreaAimpoint::~DEAreaAimpoint()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::SetVariableParameterType( VariableParameterType VPT )
+KUINT16 DEAreaAimpoint::GetBeamAntennaPatternCount() const
 {
-	m_ui8VarParamType = VPT;
+	return m_ui16BAPRC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameterType VariableParameter::GetVariableParameterType() const
+KUINT16 DEAreaAimpoint::GetTargetEnergyDepositionCount() const
 {
-	return ( VariableParameterType )m_ui8VarParamType;
+	return m_ui16DETEDRC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize ) throw( KException )
-{
-	if( DataSize > 15 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
-
-	// Clear data
-	memset( m_Data, 0, 15 );
-
-	// Set
-	memcpy( m_Data, D, DataSize );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const KUINT8 * VariableParameter::GetData() const
-{
-	return &m_Data[0];
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT8 * VariableParameter::GetData() 
-{
-	return &m_Data[0];
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString VariableParameter::GetAsString() const
+KString DEAreaAimpoint::GetAsString() const
 {
     KStringStream ss;
 
-    // For now we return the datum value as a string.
-    ss << "Variable Parameter:"
-       << "\n\tType:          " << GetEnumAsStringVariableParameterType( m_ui8VarParamType )
-       << "\n";
+    //ss << "Standard Variable:"
+    //   << "\n\tType:    " << GetEnumAsStringStandardVariableType( m_ui32Type )
+    //   << "\n\tLength:  " << m_ui16Length
+    //   << "\n";
 
     return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::Decode( KDataStream & stream ) throw( KException )
+void DEAreaAimpoint::Decode( KDataStream & stream ) throw( KException )
 {
-    if( stream.GetBufferSize() < VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( stream.GetBufferSize() < STANDARD_VARIABLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-	stream >> m_ui8VarParamType;
-		
-	for( KUINT8 i = 0; i < 15; ++i )
-	{
-		stream >> m_Data[i];
-	}
+    //stream >> m_ui32Type
+    //       >> m_ui16Length;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream VariableParameter::Encode() const
+KDataStream DEAreaAimpoint::Encode() const
 {
     KDataStream stream;
 
-    VariableParameter::Encode( stream );
+    DEAreaAimpoint::Encode( stream );
 
     return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::Encode( KDataStream & stream ) const
+void DEAreaAimpoint::Encode( KDataStream & stream ) const
 {
-	stream << m_ui8VarParamType;
-		
-	for( KUINT8 i = 0; i < 15; ++i )
-	{
-		stream << m_Data[i];
-	}
+    //stream << m_ui32Type
+    //       << m_ui16Length;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL VariableParameter::operator == ( const VariableParameter & Value ) const
+KBOOL DEAreaAimpoint::operator == ( const DEAreaAimpoint & Value ) const
 {
-    if( m_ui8VarParamType != Value.m_ui8VarParamType ) return false;
-    if( memcmp( m_Data, Value.m_Data, 15 ) != 0 ) return false;
+    //if( m_ui32Type   != Value.m_ui32Type )   return false;
+    //if( m_ui16Length != Value.m_ui16Length ) return false;
     return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL VariableParameter::operator != ( const VariableParameter & Value ) const
+KBOOL DEAreaAimpoint::operator != ( const DEAreaAimpoint & Value ) const
 {
     return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////
-

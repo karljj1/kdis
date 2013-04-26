@@ -29,8 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Fire_PDU
-    DIS:        (5) 1278.1 - 1995
-    created:    2008/09/17
+    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012(when using descriptors that are not MunitionDescriptors)    
+	updated:    22/04/2013
     author:     Karl Jones
 
     purpose:    Communicates firing of munitions. 
@@ -93,7 +93,7 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetPDUStatusFireType
     //              KDIS::PDU::Fire_PDU::GetPDUStatusFireType
-    // Description: Indicates the descriptor type used.
+    // Description: Indicates the descriptor type used. FTI.
     // Parameter:   FireType FT
     //************************************
     void SetPDUStatusFireType( FireType FT );

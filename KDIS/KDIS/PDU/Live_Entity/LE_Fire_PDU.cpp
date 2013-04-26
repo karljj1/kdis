@@ -405,21 +405,21 @@ RelativeWorldCoordinates & LE_Fire_PDU::GetLocation()
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Fire_PDU::SetMunitionDescriptor( const BurstDescriptor & BD )
+void LE_Fire_PDU::SetMunitionDescriptor( const MunitionDescriptor & MD )
 {
-    m_MunitionDesc = BD;
+    m_MunitionDesc = MD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const BurstDescriptor & LE_Fire_PDU::GetMunitionDescriptor() const
+const MunitionDescriptor & LE_Fire_PDU::GetMunitionDescriptor() const
 {
     return m_MunitionDesc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BurstDescriptor & LE_Fire_PDU::GetMunitionDescriptor()
+MunitionDescriptor & LE_Fire_PDU::GetMunitionDescriptor()
 {
     return m_MunitionDesc;
 }
@@ -468,13 +468,13 @@ KString LE_Fire_PDU::GetAsString() const
     ss << LE_Header::GetAsString()
        << "-LE Fire PDU-\n"
        << "Optional Field Flags:\n"
-       << "\tTarget ID:							   " << ( KUINT16 )m_FireFlagUnion.m_ui8TargetId       << "\n"
-       << "\tMunition ID:						   " << ( KUINT16 )m_FireFlagUnion.m_ui8MunitionId        << "\n"
+       << "\tTarget ID:							   " << ( KUINT16 )m_FireFlagUnion.m_ui8TargetId         << "\n"
+       << "\tMunition ID:						   " << ( KUINT16 )m_FireFlagUnion.m_ui8MunitionId       << "\n"
        << "\tMunition Site & Application Included: " << ( KUINT16 )m_FireFlagUnion.m_ui8MunitionSiteApp  << "\n"
        << "\tEvent Site & Application Included:    " << ( KUINT16 )m_FireFlagUnion.m_ui8EventSiteAppId   << "\n"
        << "\tWarhead & Fuse Included:			   " << ( KUINT16 )m_FireFlagUnion.m_ui8WarheadFuse      << "\n"
-       << "\tQuantity & Rate Included:			   " << ( KUINT16 )m_FireFlagUnion.m_ui8QuantRate       << "\n"
-       << "\tLocation:							   " << ( KUINT16 )m_FireFlagUnion.m_ui8Location        << "\n";
+       << "\tQuantity & Rate Included:			   " << ( KUINT16 )m_FireFlagUnion.m_ui8QuantRate        << "\n"
+       << "\tLocation:							   " << ( KUINT16 )m_FireFlagUnion.m_ui8Location         << "\n";
 
     if( m_FireFlagUnion.m_ui8TargetId )
     {
@@ -561,7 +561,7 @@ void LE_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) t
     }
     else
     {
-        m_MunitionDesc.SetMunition( EntityType( stream ) );
+		m_MunitionDesc.SetType( EntityType( stream ) );
 
         if( m_FireFlagUnion.m_ui8WarheadFuse )
         {
@@ -652,7 +652,7 @@ void LE_Fire_PDU::Encode( KDataStream & stream ) const
     }
     else
     {
-        stream << KDIS_STREAM m_MunitionDesc.GetMunition();
+		stream << KDIS_STREAM m_MunitionDesc.GetType();
 
         if( m_FireFlagUnion.m_ui8WarheadFuse )
         {

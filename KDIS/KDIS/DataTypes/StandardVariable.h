@@ -81,7 +81,7 @@ public:
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::StandardVariable::GetStandardVariableType
-    // Description: TODO: The record type for this StandardVariable.
+    // Description: The record type for this StandardVariable.
     //************************************
     StandardVariableType GetStandardVariableType() const;
 

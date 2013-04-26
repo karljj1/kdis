@@ -29,8 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Detonation_PDU
-    DIS:        (5) 1278.1 - 1995
-    updated:    31/03/2010
+    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012(when using descriptors that are not MunitionDescriptors)    
+	updated:    22/04/2013
     author:     Karl Jones
 
     purpose:    Communicates detonation or impact of munitions.
@@ -107,7 +107,7 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetPDUStatusDetonationType
     //              KDIS::PDU::Detonation_PDU::GetPDUStatusDetonationType
-    // Description: Indicates the descriptor type used.
+    // Description: Indicates the descriptor type used. DTI.
     // Parameter:   DetonationType FT
     //************************************
     void SetPDUStatusDetonationType( DetonationType DT );

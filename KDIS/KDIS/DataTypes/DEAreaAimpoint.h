@@ -28,96 +28,83 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      Descriptor
+    class:      DEAreaAimpoint
     created:    22/04/2013
     author:     Karl Jones
 
-    purpose:    Base class for Descriptor records.  
+    purpose:   
 
-				In DIS < 7:
-				All descriptors should use the Munition Descriptor record AKA Burst descriptor.
-
-				In DIS  7 onwards:
-				A Fire PDU descriptor can be either a Munition(AKA Burst) or an Expendable descriptor.
-				A Detonation PDU descriptor can be either a Munition(AKA Burst), Expendable or an Explosion descriptor.
-				
-    size:       128 bits / 16 octets
+    size:       xx bits / x octets - xx
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./EntityType.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "./StandardVariable.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-/************************************************************************/
-// Define the type of pointer we are using for Descriptor Records,
-// do we want a weak reference or a ref counter?
-// By default we use a ref pointer, however if you want to use a standard
-// pointer or one of your own then simply change it below.
-/************************************************************************/
-class Descriptor;
-typedef KDIS::UTILS::KRef_Ptr<Descriptor> DescPtr; // Ref counter
-//typedef Descriptor* DescPtr; // Weak ref
+using KDIS::DATA_TYPE::ENUMS::StandardVariableType;
 
-#if DIS_VERSION > 6 
-typedef Descriptor ExpendableDescriptor;
-#endif
-
-class KDIS_EXPORT Descriptor : public DataTypeBase
+class KDIS_EXPORT DEAreaAimpoint : public StandardVariable
 {
 protected:
 
-    EntityType m_Type;
+	KUINT16 m_ui16Padding;
 
+	KUINT16 m_ui16BAPRC;
+
+	KUINT16 m_ui16DETEDRC;
+
+	// TODO: Beam Ant Pattern
+
+	// TODO: DE Target Energy Dep Rec
+	
 public:
 
-    static const KUINT16 DESCRIPTOR_SIZE = 16;
+    static const KUINT16 DE_AREA_AIMPOINT_SIZE = 00000000000;
 
-    Descriptor();
+    DEAreaAimpoint();
 
-    Descriptor( KDataStream & stream )throw( KException );
+    DEAreaAimpoint( KDataStream & stream ) throw( KException );
 
-    Descriptor( const EntityType & T );
+    virtual ~DEAreaAimpoint();
 
-    virtual ~Descriptor();
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetBeamAntennaPatternCount
+    // Description: The count of Beam Antenna Pattern records that are included as part of this record.
+    //************************************
+	KUINT16 GetBeamAntennaPatternCount() const;
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetTargetEnergyDepositionCount
+    // Description: The count of DE Target Energy Deposition records that are included as part of this record. 
+    //************************************
+	KUINT16 GetTargetEnergyDepositionCount() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::SetMunition
-    //              KDIS::DATA_TYPE::Descriptor::GetMunition
-    // Description: Munition, Explosion or Expendable Type.
-    // Parameter:   const EntityType & T
-    //************************************
-    void SetType( const EntityType & T );
-    const EntityType & GetType() const;
-    EntityType & GetType();
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::GetAsString
+    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetAsString
     // Description: Returns a string representation.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::Decode
+    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::Encode
+    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const Descriptor & Value ) const;
-    KBOOL operator != ( const Descriptor & Value ) const;
+    KBOOL operator == ( const DEAreaAimpoint & Value ) const;
+    KBOOL operator != ( const DEAreaAimpoint & Value ) const;
 };
 
 } // END namespace DATA_TYPES
