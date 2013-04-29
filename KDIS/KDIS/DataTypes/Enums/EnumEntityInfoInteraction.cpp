@@ -481,14 +481,14 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVariableParameterType( const KStr
 
 #else
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulationType( KINT32 Value )
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
 };
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulationType( const KString & Value, KINT32 & ValueOut )
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut )
 {
 	return false; // Maybe throw an exception?
 }
