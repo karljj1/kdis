@@ -52,8 +52,8 @@ namespace ENUMS {
 
 enum CollisionType
 {
-    ElasticCollision                                                  = 0,
-    InelasticCollision                                                = 1,
+	InelasticCollision                                                = 0,
+    ElasticCollision                                                  = 1,    
     OtherCollision                                                    = 2
 };
 

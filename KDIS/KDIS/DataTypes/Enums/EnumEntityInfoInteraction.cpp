@@ -39,8 +39,8 @@ using namespace ENUMS;
 
 const EnumDescriptor CollisionTypeDescriptor[] =
 {
-    { 0 , "ElasticCollision" },
-    { 1 , "InelasticCollision" },
+    { 0 , "InelasticCollision" },
+    { 1 , "ElasticCollision" },
     { 2 , "OtherCollision" }
 };
 
