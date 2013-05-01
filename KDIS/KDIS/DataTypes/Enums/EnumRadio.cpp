@@ -655,6 +655,10 @@ const EnumDescriptor EncodingTypeDescriptor[] =
     { 4 , "_16_bit_linear_PCM" },
     { 5 , "_8_bit_linear_PCM" },
     { 6 , "VQ_VectorQuantization" }
+	{ 8 , "GSM_FullRate" },
+    { 9 , "GSM_HalfRate" },
+    { 10 , "SpeexNarrowBand" },
+    { 100 , "_16_bit_linear_PCM2sComplementLittleEndian" }
 };
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEncodingType( KINT32 Value )

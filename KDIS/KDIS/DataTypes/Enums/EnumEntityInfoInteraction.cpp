@@ -40,8 +40,7 @@ using namespace ENUMS;
 const EnumDescriptor CollisionTypeDescriptor[] =
 {
     { 0 , "InelasticCollision" },
-    { 1 , "ElasticCollision" },
-    { 2 , "OtherCollision" }
+    { 1 , "ElasticCollision" }
 };
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCollisionType( KINT32 Value )

@@ -37,7 +37,6 @@ http://p.sf.net/kdis/UserGuide
 				This content may be digitized audio, binary data, or an index 
 				into a database that defines the signal.
 				A Signal PDU shall be issued whenever voice or data is being transmitted.
-				See 5.8.4.3.1 for further details.
 	
     size:       256 bits / 32 - min size
 *********************************************************************/

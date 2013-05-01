@@ -45,7 +45,7 @@ namespace ENUMS {
 
 /************************************************************************/
 /* Collision Type                                                       */
-/* Contains collision type information                                  */
+/* Contains collision type information.                                 */
 /* Used In:                                                             */
 /*  Collision PDU                                                       */
 /************************************************************************/
@@ -53,8 +53,7 @@ namespace ENUMS {
 enum CollisionType
 {
 	InelasticCollision                                                = 0,
-    ElasticCollision                                                  = 1,    
-    OtherCollision                                                    = 2
+    ElasticCollision                                                  = 1
 };
 
 KString GetEnumAsStringCollisionType( KINT32 Value );

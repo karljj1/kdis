@@ -32,7 +32,8 @@ http://p.sf.net/kdis/UserGuide
     created:    18/09/2008
     author:     Karl Jones
 
-    purpose:    Scheme used to encode a set of data
+    purpose:    Scheme used to encode a set of data.
+
     size:       32 bits / 4 octets
 *********************************************************************/
 
@@ -81,19 +82,21 @@ public:
     // FullName:    KDIS::DATA_TYPE::EncodingScheme::SetEncodingClass
     //              KDIS::DATA_TYPE::EncodingScheme::GetEncodingClass
     // Description: Encoding Class
-    // Parameter:   EncodingClass EC, void
+    // Parameter:   EncodingClass EC
     //************************************
     void SetEncodingClass( EncodingClass EC );
     EncodingClass GetEncodingClass() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::EncodingScheme::SetHour
-    //              KDIS::DATA_TYPE::EncodingScheme::GetHour
+    // FullName:    KDIS::DATA_TYPE::EncodingScheme::SetEncodingTypeAudio
+    //              KDIS::DATA_TYPE::EncodingScheme::SetEncodingType
+	//              KDIS::DATA_TYPE::EncodingScheme::GetEncodingTypeAudio
+	//              KDIS::DATA_TYPE::EncodingScheme::GetEncodingType
     // Description: When using encoded audio use an encoding type.
     //              Can also be used to represent the number of TDL
     //              (Tactical Data Links). If encoded class is not audio
     //              and the TDL type is 0 then this value should also be 0.
-    // Parameter:   EncodingType T, KUINT16, void, void
+    // Parameter:   EncodingType T, KUINT16 T
     //************************************
     void SetEncodingTypeAudio( EncodingType T );
     void SetEncodingType( KUINT16 T );
@@ -105,7 +108,7 @@ public:
     //              KDIS::DATA_TYPE::EncodingScheme::GetTDLType
     // Description: Tactical Data Link Type if the encoding class is
     //              representing a TDL type, if not then set to 0.
-    // Parameter:   TDLType T, void
+    // Parameter:   TDLType T
     //************************************
     void SetTDLType( TDLType T );
     TDLType GetTDLType() const;

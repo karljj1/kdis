@@ -74,7 +74,13 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Radio_Communications_Header::SetEntityID
     //              KDIS::PDU::Radio_Communications_Header::GetEntityID
-    // Description: Entity that is the source of the radio transmission
+    // Description: For attached radios, this field should identify the Entity Identifier record 
+	//              or Object Identifier record to which the radio is attached. 
+	//              For unattached radios, this field should contain the Unattached Identifier record.
+	//              Also known as Radio Reference ID in DIS 7.
+	//              Note: The combination of the Radio Reference ID and the Radio Number field uniquely identifies a
+	//              particular radio within a simulation exercise. This combination is referred to as the Radio Identifier.
+	//              The Radio Identifier is used to associate Transmitter, Signal, and Receiver PDUs with the same radio.
     // Parameter:   const EntityIdentifier & ID
     //************************************
     void SetEntityID ( const EntityIdentifier & ID );
@@ -86,6 +92,10 @@ public:
     //              KDIS::PDU::Radio_Communications_Header::GetRadioID
     // Description: Identifies a radio/communications device belonging to the entity.
     //              IDs should be assigned sequentially to entities, starting with 1.
+	//              Also known as Radio Number in DIS 7.
+	//              Note: The combination of the Radio Reference ID and the Radio Number field uniquely identifies a
+	//              particular radio within a simulation exercise. This combination is referred to as the Radio Identifier.
+	//              The Radio Identifier is used to associate Transmitter, Signal, and Receiver PDUs with the same radio.
     // Parameter:   KUINT16 ID
     //************************************
     void SetRadioID( KUINT16 ID );
