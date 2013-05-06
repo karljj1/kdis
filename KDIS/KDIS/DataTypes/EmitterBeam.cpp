@@ -139,7 +139,7 @@ FundamentalParameterData & EmitterBeam::GetFundamentalParameterData()
 
 void EmitterBeam::SetEmitterBeamFunction( EmitterFunction EBF )
 {
-    m_ui8BeamFunction;
+    m_ui8BeamFunction = EBF;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -216,7 +216,7 @@ void EmitterBeam::ClearTrackedJammedTargets()
 {
     m_vTrackJamTargets.clear();
     m_ui8NumTargetInTrackJamField = 0;
-    m_ui8BeamDataLength = EMITTER_BEAM_SIZE;
+    m_ui8BeamDataLength = EMITTER_BEAM_SIZE / 4; 
 }
 
 //////////////////////////////////////////////////////////////////////////

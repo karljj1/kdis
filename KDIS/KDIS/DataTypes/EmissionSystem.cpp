@@ -42,7 +42,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 EmissionSystem::EmissionSystem() :
-    m_ui8SystemDataLength( EMISSION_SYSTEM_SIZE ),
+    m_ui8SystemDataLength( EMISSION_SYSTEM_SIZE / 4 ),
     m_ui16Padding( 0 ),
     m_ui8NumberOfBeams( 0 )
 {
@@ -58,7 +58,7 @@ EmissionSystem::EmissionSystem( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 EmissionSystem::EmissionSystem( const EmitterSystem & ESR, const Vector & Location ) :
-    m_ui8SystemDataLength( EMISSION_SYSTEM_SIZE ),
+    m_ui8SystemDataLength( EMISSION_SYSTEM_SIZE / 4 ),
     m_ui16Padding( 0 ),
     m_ui8NumberOfBeams( 0 ),
     m_EmitterSystemRecord( ESR ),
@@ -132,7 +132,7 @@ void EmissionSystem::SetEmitterBeams( const vector<EmitterBeam> & Beams )
     m_ui8NumberOfBeams = m_vEmitterBeams.size();
 
     // Re-Calculate the System Data Length
-    m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE;
+    m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE / 4;
 
     vector<EmitterBeam>::const_iterator citr = m_vEmitterBeams.begin();
     vector<EmitterBeam>::const_iterator citrEnd = m_vEmitterBeams.end();
@@ -156,7 +156,7 @@ void EmissionSystem::ClearEmitterBeams()
 {
     m_vEmitterBeams.clear();
     m_ui8NumberOfBeams = 0;
-    m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE;
+    m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE / 4;
 }
 
 //////////////////////////////////////////////////////////////////////////

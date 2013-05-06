@@ -654,7 +654,7 @@ const EnumDescriptor EncodingTypeDescriptor[] =
     { 3 , "ADPCM_per_CCITT_G_721" },
     { 4 , "_16_bit_linear_PCM" },
     { 5 , "_8_bit_linear_PCM" },
-    { 6 , "VQ_VectorQuantization" }
+    { 6 , "VQ_VectorQuantization" },
 	{ 8 , "GSM_FullRate" },
     { 9 , "GSM_HalfRate" },
     { 10 , "SpeexNarrowBand" },
