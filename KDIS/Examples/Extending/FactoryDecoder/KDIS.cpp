@@ -34,10 +34,10 @@ private:
 
 public:
 
-	MyCustomClass( KUINT64 Val ) 
+	MyCustomClass( KUINT64 Val ) 	  
 	{
 		m_ui32DatumID = 500123; // Our custom DatumID.
-		m_ui32DatumLength += 64; // The length is already set by VariableDatum so we just add our extra field/s length on(In bits).
+		m_ui32DatumLength = 64; // The Datum length is the size in bits of our custom data
 		m_ui64OurTestValue = Val;
 	};
 
