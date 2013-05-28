@@ -89,7 +89,7 @@ public:
     // FullName:    KDIS::PDU::Signal_PDU::SetEncodingScheme
     //              KDIS::PDU::Signal_PDU::GetEncodingScheme
     // Description: Encoding scheme used for the data.
-    // Parameter:   const EncodingScheme & ES, void
+    // Parameter:   const EncodingScheme & ES
     //************************************
     void SetEncodingScheme( const EncodingScheme & ES );
     const EncodingScheme & GetEncodingScheme() const;
@@ -103,7 +103,7 @@ public:
     //              per second for data transmissions.
     //              If the Encoding Class is database index,
     //              this field shall be zero.
-    // Parameter:   KUINT32 SR, void
+    // Parameter:   KUINT32 SR
     //************************************
     void SetSampleRate( KUINT32 SR );
     KUINT32 GetSampleRate() const;
@@ -119,7 +119,7 @@ public:
     // FullName:    KDIS::PDU::Signal_PDU::SetSamples
     //              KDIS::PDU::Signal_PDU::GetSamples
     // Description: Number of samples in PDU
-    // Parameter:   KUINT16 S, void
+    // Parameter:   KUINT16 S
     //************************************
     void SetSamples( KUINT16 S );
     KUINT16 GetSamples() const;
@@ -128,8 +128,7 @@ public:
     // FullName:    KDIS::PDU::Signal_PDU::SetData
     //              KDIS::PDU::Signal_PDU::GetData
     // Description: The data being sent. set function will add
-    //              padding so the PDU size up to a multiple of 32 bits.
-    //              copy data over. 
+    //              padding so the PDU size is a multiple of 32 bits.
     // Parameter:   KOCTET * D - buffer for writing/reading
     // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be at least the size GetDataLength)
     //************************************

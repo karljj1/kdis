@@ -179,7 +179,7 @@ void EncodingScheme::Encode( KDataStream & stream ) const
 KBOOL EncodingScheme::operator == ( const EncodingScheme & Value ) const
 {
     if( m_EncodingSchemeUnion.m_ui16EncodingScheme != Value.m_EncodingSchemeUnion.m_ui16EncodingScheme ) return false;
-    if( m_ui16TDLType        != Value.m_ui16TDLType )        return false;
+    if( m_ui16TDLType != Value.m_ui16TDLType ) return false;
     return true;
 }
 
