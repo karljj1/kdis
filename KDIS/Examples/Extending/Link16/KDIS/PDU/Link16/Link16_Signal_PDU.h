@@ -59,7 +59,7 @@ namespace Link16 {
 
 using KDIS::DATA_TYPE::ENUMS::LINK16::Link16MessageType;
 
-class KDIS_EXPORT Link16_Signal_PDU : public Signal_PDU
+class Link16_Signal_PDU : public Signal_PDU
 {
 protected:
 

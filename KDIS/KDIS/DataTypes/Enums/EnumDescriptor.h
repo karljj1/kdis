@@ -58,7 +58,7 @@ public:
 // Parameter:   KUINT32 NumElements
 // Parameter:   KINT32 Value
 //************************************
-KString GetEnumAsString( const EnumDescriptor * pArray, KUINT32 NumElements, KINT32 Value );
+KDIS_EXPORT KString GetEnumAsString( const EnumDescriptor * pArray, KUINT32 NumElements, KINT32 Value );
 
 //************************************
 // FullName:    KDIS::DATA_TYPE::ENUMS::GetEnumFromString
@@ -69,7 +69,7 @@ KString GetEnumAsString( const EnumDescriptor * pArray, KUINT32 NumElements, KIN
 // Parameter:   const KString & Value
 // Parameter:   KINT32 & ValueOut - The returned value if search found one.
 //************************************
-KBOOL GetEnumFromString( const EnumDescriptor * pArray, KUINT32 NumElements, const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromString( const EnumDescriptor * pArray, KUINT32 NumElements, const KString & Value, KINT32 & ValueOut );
 
 } // END namespace ENUMS
 } // END namespace DATA_TYPES

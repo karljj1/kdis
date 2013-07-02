@@ -81,7 +81,7 @@ using KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalPrimaryMode;
 using KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalSecondaryMode;
 using KDIS::DATA_TYPE::ENUMS::LINK16::SynchronizationState;
 
-class KDIS_EXPORT Link16_Transmitter_PDU : public Transmitter_PDU
+class Link16_Transmitter_PDU : public Transmitter_PDU
 {
 protected:
 	
