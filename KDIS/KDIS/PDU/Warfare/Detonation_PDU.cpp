@@ -30,7 +30,10 @@ http://p.sf.net/kdis/UserGuide
 #include "./Detonation_PDU.h"
 #include "./../../DataTypes/ArticulatedPart.h"
 #include "./../../DataTypes/AttachedPart.h"
+
+#if DIS_VERSION > 6
 #include "./../../DataTypes/ExplosionDescriptor.h"
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 
