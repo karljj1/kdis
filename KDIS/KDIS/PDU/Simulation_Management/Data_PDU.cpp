@@ -43,6 +43,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Data_PDU::Data_PDU() :
+    m_ui32RequestID( 0 ),
     m_ui32Padding( 0 )
 {
     m_ui8PDUType = Data_PDU_Type;
@@ -53,6 +54,7 @@ Data_PDU::Data_PDU() :
 
 Data_PDU::Data_PDU( const Header & H ) :
 	Comment_PDU( H ),
+        m_ui32RequestID( 0 ),
 	m_ui32Padding( 0 )
 {
 }
