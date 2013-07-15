@@ -110,8 +110,9 @@ int main()
 	try
 	{
 		// 1
-		// Register our factory decode function. 		
-		VariableDatum::RegisterFactoryDecoder( 500123, new MyDecoderClass );
+		// Register our factory decode function. 			
+		VariableDatum::FacDecPtr decoder( new MyDecoderClass() ); 
+		VariableDatum::RegisterFactoryDecoder( 500123, decoder );
 
 		// 2
 		// Create an instance of our data type.		

@@ -86,6 +86,7 @@
 	<li>Fixed bug compiling Link 16 example when using a dll version of KDIS.</li>
 	<li>Fixed Data_PDU::RequestID was not set to 0 by default causing junk values.</li>
     <li>Fixed bug in Directed_Energy_Fire_PDU Encode/Decode. Was not including padding.</li>
+	<li>Fixed bug in FactoryDecoder when calling the clear function. If a single object was used to handle more than 1 enum it would attempt to delete it multiple times(one per enum). The FactoryDecoder now uses the KRef_Ptr class.</li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Renamed enum WarheadType::GlassBladsWarhead to WarheadType::GlassBeadsWarhead.</li>
 	<li>Renamed enum EncodingType::_16_bit_linear_PCM to EncodingType::_16_bit_linear_PCM2sComplementBigEndian.</li>

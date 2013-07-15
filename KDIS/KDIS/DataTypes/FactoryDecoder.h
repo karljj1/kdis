@@ -66,12 +66,14 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./../KDataStream.h"
+#include "./../Extras/KRef_Ptr.h"
 #include <map>
 
 namespace KDIS {
 namespace DATA_TYPE {
 
 using std::map;
+using KDIS::UTILS::KRef_Ptr;
 
 template<class DecoderBaseTyp>
 class FactoryDecoder 
@@ -104,10 +106,14 @@ public:
 template<class DecoderBaseTyp>
 class FactoryDecoderUser
 {
+public:
+	
+	typedef KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > FacDecPtr;
+
 protected:
 
-	static map<KINT32, FactoryDecoder<DecoderBaseTyp>* > m_mDecoders;
-
+	static map<KINT32, FacDecPtr> m_mDecoders;
+	
 public:
 
     //************************************
@@ -117,9 +123,9 @@ public:
 	//              E.G DatumID enum for VariableDatum.
 	//              Exception thrown if a decoder already exists for this enum.
     // Parameter:   KINT32 EnumVal
-	// Parameter:   FactoryDecoder<DecoderBaseTyp> * Decoder
+	// Parameter:   FacDecPtr Decoder
     //************************************
-	static void RegisterFactoryDecoder( KINT32 EnumVal, FactoryDecoder<DecoderBaseTyp> * Decoder ) throw( KException )
+	static void RegisterFactoryDecoder( KINT32 EnumVal, FacDecPtr Decoder ) throw( KException )
 	{
 		if( m_mDecoders.find( EnumVal ) != m_mDecoders.end() )
 		{
@@ -142,7 +148,7 @@ public:
 	static DecoderBaseTyp * FactoryDecode( KINT32 EnumVal, KDataStream & stream ) throw( KException )
 	{
 		// Try to find a decoder
-		typename map<KINT32, FactoryDecoder<DecoderBaseTyp>* >::iterator itr = m_mDecoders.find( EnumVal );
+		typename map<KINT32, FacDecPtr>::iterator itr = m_mDecoders.find( EnumVal );
 		if( itr != m_mDecoders.end() )
 		{
 			return itr->second->FactoryDecode( EnumVal, stream );
@@ -154,29 +160,17 @@ public:
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FactoryDecoderUser::FactoryDecode
-    // Description: Removes all factory decoders. If AutoDelete is set they 
-	//              will be deleted in the process.
-    // Parameter:   bool AutoDelete = true 
+    // Description: Removes all factory decoders. 
     //************************************
-	static void ClearFactoryDecoders( bool AutoDelete = true )
+	static void ClearFactoryDecoders()
 	{
-		if( AutoDelete )
-		{
-			typename map<KINT32, FactoryDecoder<DecoderBaseTyp>* >::iterator itr = m_mDecoders.begin();
-			typename map<KINT32, FactoryDecoder<DecoderBaseTyp>* >::iterator itrEnd = m_mDecoders.end();
-			for( ; itr != itrEnd; ++itr )
-			{
-				delete itr->second;
-			}
-		}
-
 		m_mDecoders.clear();
 	}
 };
 
 // Init static map variable.
 template<class DecoderBaseTyp>
-map<KINT32, FactoryDecoder<DecoderBaseTyp>* > FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders = map<KINT32, FactoryDecoder<DecoderBaseTyp>* >();
+map<KINT32, KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > > FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders = map<KINT32, KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > >();
 
 } // END namespace DATA_TYPES
 } // END namespace KDIS

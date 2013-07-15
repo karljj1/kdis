@@ -124,7 +124,7 @@ int main()
 	{
 		// 1
 		// Register our factory decode function, KDIS will use this deocoder when it encounters a VariableDatum record that has this DatumID
-		VariableDatum::RegisterFactoryDecoder( 12345, new TargetPositionDecoderClass );
+		VariableDatum::RegisterFactoryDecoder( 12345, VariableDatum::FacDecPtr( new TargetPositionDecoderClass ) );
 
 		// 2
 		// Create an instance of our data type.		
