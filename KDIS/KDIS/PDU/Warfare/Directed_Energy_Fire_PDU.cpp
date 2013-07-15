@@ -457,6 +457,9 @@ void Directed_Energy_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /
 		   >> m_f32PulseWidth
 		   >> m_DeUnion.m_ui16Flags
 		   >> m_ui8PulseShp
+		   >> m_ui8Padding1
+		   >> m_ui32Padding2
+		   >> m_ui16Padding3
 		   >> m_ui16NumDERecs;
 
 	for( KUINT16 i = 0; i < m_ui16NumDERecs; ++i )
@@ -515,6 +518,9 @@ void Directed_Energy_Fire_PDU::Encode( KDataStream & stream ) const
 		   << m_f32PulseWidth
 		   << m_DeUnion.m_ui16Flags
 		   << m_ui8PulseShp
+		   << m_ui8Padding1
+		   << m_ui32Padding2
+		   << m_ui16Padding3
 		   << m_ui16NumDERecs;
 
 	vector<StdVarPtr>::const_iterator citr = m_vDeRec.begin();
