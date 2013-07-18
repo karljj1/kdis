@@ -54,7 +54,7 @@ using KDIS::DATA_TYPE::ENUMS::EntityDamage;
 using KDIS::DATA_TYPE::ENUMS::EntitySmoke;
 using KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect;
 
-struct GuidedMunitionsAppearance
+struct KDIS_EXPORT GuidedMunitionsAppearance
 {
 protected:
 
