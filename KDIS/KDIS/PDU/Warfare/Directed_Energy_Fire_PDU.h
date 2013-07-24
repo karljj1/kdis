@@ -57,29 +57,21 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EntityType;
-using KDIS::DATA_TYPE::ClockTime;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::ENUMS::BeamSpotShape;
-using KDIS::DATA_TYPE::StandardVariable;
-using KDIS::DATA_TYPE::StdVarPtr;
-
 class KDIS_EXPORT Directed_Energy_Fire_PDU : public Header
 {
 protected:
 
-	EntityIdentifier m_FiringEntityID;
+	KDIS::DATA_TYPE::EntityIdentifier m_FiringEntityID;
 
-	EntityIdentifier m_EventID;
+	KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
-	EntityType m_MunTyp;
+	KDIS::DATA_TYPE::EntityType m_MunTyp;
 
-	ClockTime m_ShotStartTime;
+	KDIS::DATA_TYPE::ClockTime m_ShotStartTime;
 
 	KFLOAT32 m_f32CumulativeShotTime;
 
-	Vector m_EmitterLoc;
+	KDIS::DATA_TYPE::Vector m_EmitterLoc;
 
 	KFLOAT32 m_f32AperDiameter;
 
@@ -110,7 +102,7 @@ protected:
 
 	KUINT16 m_ui16NumDERecs;
 
-	vector<StdVarPtr> m_vDeRec;
+	std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDeRec;
 
 public:
 
@@ -122,12 +114,12 @@ public:
 
 	Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Directed_Energy_Fire_PDU( const EntityIdentifier & FireID, const EntityIdentifier & EventID,
-                              const EntityType & MunitionType, const ClockTime & ShotStartTime, 
-	                          KFLOAT32 CumulativeShotTime, const Vector & EmitterLocation, 
+	Directed_Energy_Fire_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FireID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
+                              const KDIS::DATA_TYPE::EntityType & MunitionType, const KDIS::DATA_TYPE::ClockTime & ShotStartTime, 
+	                          KFLOAT32 CumulativeShotTime, const KDIS::DATA_TYPE::Vector & EmitterLocation, 
                               KFLOAT32 ApertureDiameter, KFLOAT32 Wavelength, KFLOAT32 PeakIrradiance, 
 	                          KFLOAT32 PulseRepetitionFrequency, KFLOAT32 PulseWidth, 
-                              KBOOL WeaponState, KBOOL UpdateState, BeamSpotShape PS );
+							  KBOOL WeaponState, KBOOL UpdateState, KDIS::DATA_TYPE::ENUMS::BeamSpotShape PS );
 
     virtual ~Directed_Energy_Fire_PDU();
 
@@ -137,9 +129,9 @@ public:
     // Description: The Firing Entity.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetFiringEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetFiringEntityID() const;
-    EntityIdentifier & GetFiringEntityID();
+    void SetFiringEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetFiringEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetFiringEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetEventID
@@ -149,9 +141,9 @@ public:
     //              by a firing event then the value shall be 0 (e.g land mines)
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEventID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEventID() const;
-    EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetMunitionType
@@ -159,9 +151,9 @@ public:
     // Description: Identifies the munition type enumeration for the DE weapon beam.
     // Parameter:   const EntityType & MT
     //************************************
-    void SetMunitionType( const EntityType & MT );
-    const EntityType & GetMunitionType() const;
-    EntityType & GetMunitionType();
+    void SetMunitionType( const KDIS::DATA_TYPE::EntityType & MT );
+    const KDIS::DATA_TYPE::EntityType & GetMunitionType() const;
+    KDIS::DATA_TYPE::EntityType & GetMunitionType();
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetShotStartTime
@@ -169,9 +161,9 @@ public:
     // Description: The simulation time at start of the shot.
     // Parameter:   const ClockTime & SST
     //************************************
-    void SetShotStartTime( const ClockTime & SST );
-    const ClockTime & GetShotStartTime() const;
-    ClockTime & GetShotStartTime();
+    void SetShotStartTime( const KDIS::DATA_TYPE::ClockTime & SST );
+    const KDIS::DATA_TYPE::ClockTime & GetShotStartTime() const;
+    KDIS::DATA_TYPE::ClockTime & GetShotStartTime();
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetCumulativeShotTime
@@ -189,9 +181,9 @@ public:
 	//				Represented by an Entity Coordinate Vector.
     // Parameter:   const Vector & EL
     //************************************
-    void SetEmitterLocation( const Vector & EL );
-    const Vector & GetEmitterLocation() const;
-    Vector & GetEmitterLocation();
+    void SetEmitterLocation( const KDIS::DATA_TYPE::Vector & EL );
+    const KDIS::DATA_TYPE::Vector & GetEmitterLocation() const;
+    KDIS::DATA_TYPE::Vector & GetEmitterLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetApertureDiameter
@@ -262,8 +254,8 @@ public:
     // Description: Identifies the pulse shape .
     // Parameter:   BeamSpotShape PS
     //************************************
-	void SetPulseShape( BeamSpotShape PS );
-	BeamSpotShape GetPulseShape() const;
+	void SetPulseShape( KDIS::DATA_TYPE::ENUMS::BeamSpotShape PS );
+	KDIS::DATA_TYPE::ENUMS::BeamSpotShape GetPulseShape() const;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::GetNumberOfDirectedEnergyRecords    
@@ -280,9 +272,9 @@ public:
 	//				other Standard Variable records.
     // Parameter:   StdVarPtr DE, const vector<StdVarPtr> & DE
 	//************************************    
-    void AddDirectedEnergyRecord( StdVarPtr DE );
-    void SetDirectedEnergyRecords( const vector<StdVarPtr> & DE );
-    const vector<StdVarPtr> & GetDirectedEnergyRecords() const;
+    void AddDirectedEnergyRecord( KDIS::DATA_TYPE::StdVarPtr DE );
+    void SetDirectedEnergyRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DE );
+    const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDirectedEnergyRecords() const;
 	void ClearDirectedEnergyRecords();
 
     //************************************

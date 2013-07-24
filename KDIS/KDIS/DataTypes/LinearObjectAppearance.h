@@ -44,11 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::Breach2bit;
-using KDIS::DATA_TYPE::ENUMS::VisibleSide;
-using KDIS::DATA_TYPE::ENUMS::Chemical;
-using std::bitset;
-
 class KDIS_EXPORT LinearObjectAppearance : public ObjectAppearance
 {
 protected:
@@ -99,16 +94,16 @@ public:
     // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreach
     //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreach
     // Description: Describes the breached appearance of the object.
-    // Parameter:   Breach2bit B, void
+    // Parameter:   Breach2bit B
     //************************************
-    void SetBreach( Breach2bit B );
-    Breach2bit GetBreach() const;
+    void SetBreach( KDIS::DATA_TYPE::ENUMS::Breach2bit B );
+    KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreachLength
     //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreachLength
     // Description: Integer indicating the fixed length in meters of a breached segment.
-    // Parameter:   KUINT8 L, void
+    // Parameter:   KUINT8 L
     //************************************
     void SetBreachLength( KUINT8 L );
     KUINT8 GetBreachLength() const;
@@ -124,12 +119,12 @@ public:
     //              For each bit:
     //              0  Associated portion of segment is not breached
     //              1  Associated portion of segment is breached
-    // Parameter:   const bitset<8> & L, KUINT8 L, void, void
+    // Parameter:   const bitset<8> & L, KUINT8 L
     //************************************
-    void SetBreachLocation( const bitset<8> & L );
+	void SetBreachLocation( const std::bitset<8> & L );
     void SetBreachLocation( KUINT8 L );
     KUINT8 GetBreachLocation() const;
-    bitset<8> GetBreachLocationAsBitset();
+	std::bitset<8> GetBreachLocationAsBitset();
 
     /************************************************************************/
     /* The following appearance values are only for linears of the type:    */
@@ -141,7 +136,7 @@ public:
     //              KDIS::DATA_TYPE::LinearObjectAppearance::GetOpacity
     // Description: The percent opacity of the smoke, ranging from 0% opacity to 100%.
     //              Acceptable values are 0 - 100 else throws INVALID_DATA exception.
-    // Parameter:   KUINT8 O, void
+    // Parameter:   KUINT8 O
     //************************************
     void SetOpacity( KUINT8 O ) throw( KException );
     KUINT8 GetOpacity() const;
@@ -150,7 +145,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetAttached
     //              KDIS::DATA_TYPE::LinearObjectAppearance::IsAttached
     // Description: Describes whether the smoke is attached to the vehicle.
-    // Parameter:   KBOOL A, void
+    // Parameter:   KBOOL A
     //************************************
     void SetAttached( KBOOL A );
     KBOOL IsAttached() const;
@@ -159,10 +154,10 @@ public:
     // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetChemical
     //              KDIS::DATA_TYPE::LinearObjectAppearance::GetChemical
     // Description: The chemical content of the smoke.
-    // Parameter:   Chemical C, void
+    // Parameter:   Chemical C
     //************************************
-    void SetChemical( Chemical C );
-    Chemical GetChemical() const;
+    void SetChemical( KDIS::DATA_TYPE::ENUMS::Chemical C );
+    KDIS::DATA_TYPE::ENUMS::Chemical GetChemical() const;
 
     /************************************************************************/
     /* The following appearance values are only for linears of the type:    */
@@ -173,10 +168,10 @@ public:
     // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetVisibleSide
     //              KDIS::DATA_TYPE::LinearObjectAppearance::GetVisibleSide
     // Description: Describes the side of the lane marker which is visible.
-    // Parameter:   VisibleSide V, void
+    // Parameter:   VisibleSide V
     //************************************
-    void SetVisibleSide( VisibleSide V );
-    VisibleSide GetVisibleSide() const;
+    void SetVisibleSide( KDIS::DATA_TYPE::ENUMS::VisibleSide V );
+    KDIS::DATA_TYPE::ENUMS::VisibleSide GetVisibleSide() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::GetAsString

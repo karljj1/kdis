@@ -45,12 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ClockTime;
-using KDIS::DATA_TYPE::ENUMS::StopFreezeReason;
-using KDIS::DATA_TYPE::ENUMS::FrozenBehavior;
-using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
-
 class KDIS_EXPORT Stop_Freeze_R_PDU : public Stop_Freeze_PDU,
                                       public Reliability_Header
 {
@@ -64,11 +58,13 @@ public:
 
 	Stop_Freeze_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Stop_Freeze_R_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, const ClockTime & RealWorldTime,
-                       StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID, RequiredReliabilityService RRS );
+    Stop_Freeze_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, 
+		               const KDIS::DATA_TYPE::ClockTime & RealWorldTime, KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR, 
+					   KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
-    Stop_Freeze_R_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
-                       StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID, RequiredReliabilityService RRS );
+    Stop_Freeze_R_PDU( const Simulation_Management_Header & SimMgrHeader, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
+		               KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR, KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID, 
+					   KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
     virtual ~Stop_Freeze_R_PDU();
 

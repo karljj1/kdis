@@ -50,13 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityPaintScheme;
-using KDIS::DATA_TYPE::ENUMS::EntityDamage;
-using KDIS::DATA_TYPE::ENUMS::EntityCompliance;
-using KDIS::DATA_TYPE::ENUMS::EntityLifeformAppearance;
-using KDIS::DATA_TYPE::ENUMS::EntityLifeformWeapon;
-using DATA_TYPE::ENUMS::EntityCamouflage;
-
 struct KDIS_EXPORT LifeFormAppearance
 {
 protected:
@@ -87,8 +80,8 @@ public:
     // Description: Describes the paint scheme of an entity.
     // Parameter:   EntityPaintScheme EPS
     //************************************
-    void SetEntityPaintScheme( EntityPaintScheme EPS );
-    EntityPaintScheme GetEntityPaintScheme() const;
+    void SetEntityPaintScheme( KDIS::DATA_TYPE::ENUMS::EntityPaintScheme EPS );
+    KDIS::DATA_TYPE::ENUMS::EntityPaintScheme GetEntityPaintScheme() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityDamage
@@ -96,8 +89,8 @@ public:
     // Description: Entity Damage/Health State.
     // Parameter:   EntityDamage ED
     //************************************
-    void SetEntityDamage( EntityDamage ED );
-    EntityDamage GetEntityDamage() const;
+    void SetEntityDamage( KDIS::DATA_TYPE::ENUMS::EntityDamage ED );
+    KDIS::DATA_TYPE::ENUMS::EntityDamage GetEntityDamage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityEntityCompliance
@@ -105,8 +98,8 @@ public:
     // Description: Describes compliance of life form.
     // Parameter:   EntityCompliance EC
     //************************************
-    void SetEntityEntityCompliance( EntityCompliance EC );
-    EntityCompliance GetEntityEntityCompliance() const;
+    void SetEntityEntityCompliance( KDIS::DATA_TYPE::ENUMS::EntityCompliance EC );
+    KDIS::DATA_TYPE::ENUMS::EntityCompliance GetEntityEntityCompliance() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityFlashLights
@@ -123,8 +116,8 @@ public:
     // Description: Entities state/appearance. I.E Posture.
     // Parameter:   EntityLifeformAppearance EA
     //************************************
-    void SetEntityLifeformState( EntityLifeformAppearance EA );
-    EntityLifeformAppearance GetEntityLifeformState() const;
+    void SetEntityLifeformState( KDIS::DATA_TYPE::ENUMS::EntityLifeformAppearance EA );
+    KDIS::DATA_TYPE::ENUMS::EntityLifeformAppearance GetEntityLifeformState() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityFrozenStatus
@@ -151,10 +144,10 @@ public:
     // Description: Weapon Status. E.G Stowed.
     // Parameter:   EntityLifeformWeapon ELW
     //************************************
-    void SetEntityLifeformWeapon1( EntityLifeformWeapon ELW );
-    EntityLifeformWeapon GetEntityLifeformWeapon1() const;
-    void SetEntityLifeformWeapon2( EntityLifeformWeapon ELW );
-    EntityLifeformWeapon GetEntityLifeformWeapon2() const;
+    void SetEntityLifeformWeapon1( KDIS::DATA_TYPE::ENUMS::EntityLifeformWeapon ELW );
+    KDIS::DATA_TYPE::ENUMS::EntityLifeformWeapon GetEntityLifeformWeapon1() const;
+    void SetEntityLifeformWeapon2( KDIS::DATA_TYPE::ENUMS::EntityLifeformWeapon ELW );
+    KDIS::DATA_TYPE::ENUMS::EntityLifeformWeapon GetEntityLifeformWeapon2() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityCamouflage
@@ -162,8 +155,8 @@ public:
     // Description: camouflage type worn.
     // Parameter:   EntityCamouflage EC
     //************************************
-    void SetEntityCamouflage( EntityCamouflage EC );
-    EntityCamouflage GetEntityCamouflage() const;
+    void SetEntityCamouflage( KDIS::DATA_TYPE::ENUMS::EntityCamouflage EC );
+    KDIS::DATA_TYPE::ENUMS::EntityCamouflage GetEntityCamouflage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetConcealedStationary

@@ -31,6 +31,7 @@ http://p.sf.net/kdis/UserGuide
 
 //////////////////////////////////////////////////////////////////////////
 
+using namespace std;
 using namespace KDIS;
 using namespace PDU;
 using namespace DATA_TYPE;

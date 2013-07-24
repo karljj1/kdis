@@ -34,6 +34,7 @@ http://p.sf.net/kdis/UserGuide
 using namespace std;
 using namespace KDIS;
 using namespace DATA_TYPE;
+using namespace ENUMS;
 
 //////////////////////////////////////////////////////////////////////////
 // public:

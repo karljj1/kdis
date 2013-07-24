@@ -49,22 +49,15 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::ENUMS::DesignatorCode;
-using KDIS::DATA_TYPE::ENUMS::DesignatorCodeName;
-using KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm;
-
 class KDIS_EXPORT Designator_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_DesignatingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_DesignatingEntityID;
 
     KUINT16 m_ui16CodeName;
 
-    EntityIdentifier m_DesignatedEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_DesignatedEntityID;
 
     KUINT16 m_ui16Code;
 
@@ -72,9 +65,9 @@ protected:
 
     KFLOAT32 m_f32WaveLength;
 
-    Vector m_SpotRegardsToEntity;
+    KDIS::DATA_TYPE::Vector m_SpotRegardsToEntity;
 
-    WorldCoordinates m_SpotLocation;
+    KDIS::DATA_TYPE::WorldCoordinates m_SpotLocation;
 
     KUINT8 m_ui8DeadReckoningAlgorithm;
 
@@ -82,7 +75,7 @@ protected:
 
     KUINT8 m_ui8Padding2;
 
-    Vector m_EntityLinearAcceleration;
+    KDIS::DATA_TYPE::Vector m_EntityLinearAcceleration;
 
 public:
 
@@ -94,11 +87,11 @@ public:
 
 	Designator_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Designator_PDU( const EntityIdentifier & DesignatingEntityID, DesignatorCodeName CodeName,
-                    const EntityIdentifier & DesignatedEntityID, DesignatorCode Code, KFLOAT32 Power,
-                    KFLOAT32 WaveLength, const Vector & SpotLocationRegardsToEntity,
-                    const WorldCoordinates & SpotLocation, DeadReckoningAlgorithm DRA,
-                    const Vector & EntityLinearAcceleration );
+    Designator_PDU( const KDIS::DATA_TYPE::EntityIdentifier & DesignatingEntityID, KDIS::DATA_TYPE::ENUMS::DesignatorCodeName CodeName,
+                    const KDIS::DATA_TYPE::EntityIdentifier & DesignatedEntityID, KDIS::DATA_TYPE::ENUMS::DesignatorCode Code, KFLOAT32 Power,
+                    KFLOAT32 WaveLength, const KDIS::DATA_TYPE::Vector & SpotLocationRegardsToEntity,
+                    const KDIS::DATA_TYPE::WorldCoordinates & SpotLocation, KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA,
+                    const KDIS::DATA_TYPE::Vector & EntityLinearAcceleration );
 
     virtual ~Designator_PDU();
 
@@ -106,46 +99,46 @@ public:
     // FullName:    KDIS::PDU::Designator_PDU::SetDesignatingEntityID
     //              KDIS::PDU::Designator_PDU::GetDesignatingEntityID
     // Description: Entity that is positioning the designator.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetDesignatingEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetDesignatingEntityID() const;
-    EntityIdentifier & GetDesignatingEntityID();
+    void SetDesignatingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetDesignatingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetDesignatingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetDesignatorCodeName
     //              KDIS::PDU::Designator_PDU::GetDesignatorCodeName
     // Description: Code name for designator
-    // Parameter:   DesignatorCodeName CN, void
+    // Parameter:   DesignatorCodeName CN
     //************************************
-    void SetDesignatorCodeName( DesignatorCodeName CN );
-    DesignatorCodeName GetDesignatorCodeName() const;
+    void SetDesignatorCodeName( KDIS::DATA_TYPE::ENUMS::DesignatorCodeName CN );
+    KDIS::DATA_TYPE::ENUMS::DesignatorCodeName GetDesignatorCodeName() const;
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetDesignatedEntityID
     //              KDIS::PDU::Designator_PDU::GetDesignatedEntityID
     // Description: Object that is being designated, if not an entity
     //              the value shall be set to the symbolic name: D_SPOT_NO_ENTITY
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetDesignatedEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetDesignatedEntityID() const;
-    EntityIdentifier & GetDesignatedEntityID();
+    void SetDesignatedEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetDesignatedEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetDesignatedEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetDesignatorCode
     //              KDIS::PDU::Designator_PDU::GetDesignatorCode
     // Description: Code used by designator
-    // Parameter:   DesignatorCode C, void
+    // Parameter:   DesignatorCode C
     //************************************
-    void SetDesignatorCode( DesignatorCode C );
-    DesignatorCode GetDesignatorCode() const;
+    void SetDesignatorCode( KDIS::DATA_TYPE::ENUMS::DesignatorCode C );
+    KDIS::DATA_TYPE::ENUMS::DesignatorCode GetDesignatorCode() const;
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetDesignatingPower
     //              KDIS::PDU::Designator_PDU::GetDesignatingPower
     // Description: Output power in Watts
-    // Parameter:   KFLOAT32 DP, void
+    // Parameter:   KFLOAT32 DP
     //************************************
     void SetDesignatingPower( KFLOAT32 DP );
     KFLOAT32 GetDesignatingPower() const;
@@ -154,7 +147,7 @@ public:
     // FullName:    KDIS::PDU::Designator_PDU::SetDesignatingWaveLength
     //              KDIS::PDU::Designator_PDU::GetDesignatingWaveLength
     // Description: Wave Length in units of microns
-    // Parameter:   KFLOAT32 WL, void
+    // Parameter:   KFLOAT32 WL
     //************************************
     void SetDesignatingWaveLength( KFLOAT32 WL );
     KFLOAT32 GetDesignatingWaveLength() const;
@@ -167,21 +160,21 @@ public:
     //              object is not an entity (I.E the Designated Entity ID contains
     //              the symbolic value D_SPOT_NO_ENTITY) then the field shall contain
     //              [0.0, 0.0, 0.0]. Represented as Entity Coordinate Vector
-    // Parameter:   const Vector & DPL, void
+    // Parameter:   const Vector & DPL
     //************************************
-    void SetDesignatorSpotRespectToDesignatedEntity( const Vector & DPL );
-    const Vector & GetDesignatorSpotRespectToDesignatedEntity() const;
-    Vector & GetDesignatorSpotRespectToDesignatedEntity();
+    void SetDesignatorSpotRespectToDesignatedEntity( const KDIS::DATA_TYPE::Vector & DPL );
+    const KDIS::DATA_TYPE::Vector & GetDesignatorSpotRespectToDesignatedEntity() const;
+    KDIS::DATA_TYPE::Vector & GetDesignatorSpotRespectToDesignatedEntity();
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetSpotLocation
     //              KDIS::PDU::Designator_PDU::GetSpotLocation
     // Description: Location of designator spot in world coordinates
-    // Parameter:   const WorldCoordinates & SL, void
+    // Parameter:   const WorldCoordinates & SL
     //************************************
-    void SetSpotLocation( const WorldCoordinates & SL );
-    const WorldCoordinates & GetSpotLocation() const;
-    WorldCoordinates & GetSpotLocation();
+    void SetSpotLocation( const KDIS::DATA_TYPE::WorldCoordinates & SL );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetSpotLocation() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetSpotLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetDeadReckoningAlgorithm
@@ -189,20 +182,20 @@ public:
     // Description: Used for dead reckoning the designator spot, also uses
     //              entity linear acceleration in order to perform the dead
     //              reckoning task.
-    // Parameter:   const WorldCoordinates & SL, void
+    // Parameter:   DeadReckoningAlgorithm DRA
     //************************************
-    void SetDeadReckoningAlgorithm( DeadReckoningAlgorithm DRA );
-    DeadReckoningAlgorithm GetDeadReckoningAlgorithm() const;
+    void SetDeadReckoningAlgorithm( KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA );
+    KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm GetDeadReckoningAlgorithm() const;
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::SetEntityLinearAcceleration
     //              KDIS::PDU::Designator_PDU::GetEntityLinearAcceleration
     // Description: Entity Linear Acceleration. Represented as Linear Acceleration Vector.
-    // Parameter:   const Vector & ELA, void
+    // Parameter:   const Vector & ELA
     //************************************
-    void SetEntityLinearAcceleration( const Vector & ELA );
-    const Vector & GetEntityLinearAcceleration() const;
-    Vector & GetEntityLinearAcceleration();
+    void SetEntityLinearAcceleration( const KDIS::DATA_TYPE::Vector & ELA );
+    const KDIS::DATA_TYPE::Vector & GetEntityLinearAcceleration() const;
+    KDIS::DATA_TYPE::Vector & GetEntityLinearAcceleration();
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::GetAsString

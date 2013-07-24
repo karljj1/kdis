@@ -50,9 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::DatumID;
-using std::vector;
-
 /************************************************************************/
 // Define the type of pointer we are using for VariableDatum Records,
 // do we want a weak reference or a ref counter?
@@ -82,7 +79,7 @@ protected:
     };
 
     // Holds 64 bits, not all bits may belong to the value as padding is also added.
-    vector<DatumEntry> m_v8DatumValue;
+	std::vector<DatumEntry> m_v8DatumValue;
 
 public:
 
@@ -90,9 +87,9 @@ public:
 
     VariableDatum();
 
-    VariableDatum( DatumID ID, const KString & Value );
+    VariableDatum( KDIS::DATA_TYPE::ENUMS::DatumID ID, const KString & Value );
 
-    VariableDatum( DatumID ID, const KOCTET * data, KUINT32 sizeInBits );
+    VariableDatum( KDIS::DATA_TYPE::ENUMS::DatumID ID, const KOCTET * data, KUINT32 sizeInBits );
 
     VariableDatum( KDataStream & stream ) throw( KException );
 
@@ -105,8 +102,8 @@ public:
     //              is for and what format it should be in.
     // Parameter:   DatumID ID
     //************************************
-    virtual void SetDatumID( DatumID ID );
-    virtual DatumID GetDatumID() const;
+    virtual void SetDatumID( KDIS::DATA_TYPE::ENUMS::DatumID ID );
+    virtual KDIS::DATA_TYPE::ENUMS::DatumID GetDatumID() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumLength
@@ -138,8 +135,8 @@ public:
     //************************************
     virtual void GetDatumValueCopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize ) const throw( KException );
     virtual KString GetDatumValueAsKString() const;
-    virtual vector<KUINT64> GetDatumValueAsKUINT64() const;
-    virtual vector<KFLOAT64> GetDatumValueAsKFLOAT64() const;
+	virtual std::vector<KUINT64> GetDatumValueAsKUINT64() const;
+	virtual std::vector<KFLOAT64> GetDatumValueAsKFLOAT64() const;
     virtual void SetDatumValue( const KString & s );
     virtual void ClearDatumValue();
 

@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 /********************************************************************
     class:      Record_Query_R_PDU
     DIS:        (6) 1278.1A - 1998
-    created:    12:05:2009
+    created:    12/05/2009
     author:     Karl Jones
 
     purpose:    A request for one or more records of data from an entity.
@@ -47,9 +47,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::ENUMS::EventType;
-using std::vector;
-
 class KDIS_EXPORT Record_Query_R_PDU : public Simulation_Management_Header,
 									   public Reliability_Header
 {
@@ -63,7 +60,7 @@ protected:
 
     KUINT32 m_ui32NumRecs;
 
-    vector<KUINT32> m_vui32RecID;
+	std::vector<KUINT32> m_vui32RecID;
 
 public:
 
@@ -75,8 +72,8 @@ public:
 
 	Record_Query_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Record_Query_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
-                        RequiredReliabilityService RRS, EventType ET, KUINT32 Time );
+    Record_Query_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
+                        KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS, KDIS::DATA_TYPE::ENUMS::EventType ET, KUINT32 Time );
 
     virtual ~Record_Query_R_PDU();
 
@@ -84,7 +81,7 @@ public:
     // FullName:    KDIS::PDU::Record_Query_R_PDU::SetRequestID
     //              KDIS::PDU::Record_Query_R_PDU::GetRequestID
     // Description: Request ID
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;
@@ -93,10 +90,10 @@ public:
     // FullName:    KDIS::PDU::Record_Query_R_PDU::SetEventType
     //              KDIS::PDU::Record_Query_R_PDU::GetEventType
     // Description: Event type
-    // Parameter:   EventType ET, void
+    // Parameter:   EventType ET
     //************************************
-    void SetEventType( EventType ET );
-    EventType GetEventType() const;
+    void SetEventType( KDIS::DATA_TYPE::ENUMS::EventType ET );
+    KDIS::DATA_TYPE::ENUMS::EventType GetEventType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Record_Query_R_PDU::SetTime
@@ -105,7 +102,7 @@ public:
     //              This value may also represent a specific time for time-based reporting.
     //              A value of zero in this field shall mean that the requested data should be sent
     //              once and not at any previously specified time interval.
-    // Parameter:   KUINT32 T, void
+    // Parameter:   KUINT32 T
     //************************************
     void SetTime( KUINT32 T );
     KUINT32 GetTime() const;
@@ -122,11 +119,11 @@ public:
     //              KDIS::PDU::Record_Query_R_PDU::GetRecordIDs
     // Description: Specifies the identification of the records for which information
     //              is requested.
-    // Parameter:   vector<KUINT32> & ID, void
+    // Parameter:   vector<KUINT32> & ID
     //************************************
     void AddRecordID( const KUINT32 ID );
-    void SetRecordIDs( const vector<KUINT32> & ID );
-    const vector<KUINT32> & GetRecordIDs() const;
+	void SetRecordIDs( const std::vector<KUINT32> & ID );
+	const std::vector<KUINT32> & GetRecordIDs() const;
 
     //************************************
     // FullName:    KDIS::PDU::Record_Query_R_PDU::GetAsString

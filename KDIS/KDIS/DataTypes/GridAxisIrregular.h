@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::vector;
-
 class KDIS_EXPORT GridAxisIrregular : public GridAxisRegular
 {
 protected:
@@ -54,9 +52,9 @@ protected:
 
     KFLOAT64 m_f64CoordOffsetXi;
 
-    vector<KUINT16> m_vXiValues;
+    std::vector<KUINT16> m_vXiValues;
 
-    vector<KUINT16> m_vui16Padding; // To 64 bit boundary
+    std::vector<KUINT16> m_vui16Padding; // To 64 bit boundary
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridAxisIrregular::GetAsString
@@ -79,7 +77,7 @@ public:
 
     GridAxisIrregular( KFLOAT64 InitialXi, KFLOAT64 FinalXi, KUINT16 PointsXi, KUINT8 InterleafFactor,
                        KUINT8 AxisType, KUINT16 InitialIndexXi, KFLOAT64 CoordinateScaleXi,
-                       KFLOAT64 CoordinateOffsetXi, const vector<KUINT16> & XiValues );
+                       KFLOAT64 CoordinateOffsetXi, const std::vector<KUINT16> & XiValues );
 
     virtual ~GridAxisIrregular();
 
@@ -116,8 +114,8 @@ public:
     // Parameter:   KUINT16 Xi, const vector<KUINT16> & Xi, void
     //************************************
     void AddXiValue( KUINT16 Xi );
-    void SetXiValues( const vector<KUINT16> & Xi );
-    const vector<KUINT16> & GetXiValues() const;
+    void SetXiValues( const std::vector<KUINT16> & Xi );
+    const std::vector<KUINT16> & GetXiValues() const;
     void ClearXiValues();
 
     //************************************

@@ -46,8 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EnvironmentRecordType;
-
 /************************************************************************/
 // Define the type of pointer we are using for VariableDatum Records,
 // do we want a weak reference or a ref counter?
@@ -83,7 +81,7 @@ public:
     // Description: Specifies the record type.
     // Parameter:   EnvironmentRecordType RT, void
     //************************************
-    EnvironmentRecordType GetEnvironmentRecordType() const;
+    KDIS::DATA_TYPE::ENUMS::EnvironmentRecordType GetEnvironmentRecordType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetLength

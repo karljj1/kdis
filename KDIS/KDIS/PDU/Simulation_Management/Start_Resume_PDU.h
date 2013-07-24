@@ -45,16 +45,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ClockTime;
-
 class KDIS_EXPORT Start_Resume_PDU : public Simulation_Management_Header
 {
 protected:
 
-    ClockTime m_RealWorldTime;
+    KDIS::DATA_TYPE::ClockTime m_RealWorldTime;
 
-    ClockTime m_SimTime;
+    KDIS::DATA_TYPE::ClockTime m_SimTime;
 
     KUINT32 m_ui32RequestID;
 
@@ -70,11 +67,11 @@ public:
 
 	Start_Resume_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Start_Resume_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity,
-                      const ClockTime & RealWorldTime, const ClockTime & SimTime, KUINT32 ReqID );
+    Start_Resume_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
+                      const KDIS::DATA_TYPE::ClockTime & RealWorldTime, const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID );
 
-    Start_Resume_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
-                      const ClockTime & SimTime, KUINT32 ReqID  );
+    Start_Resume_PDU( const Simulation_Management_Header & SimMgrHeader, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
+                      const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID  );
 
     virtual ~Start_Resume_PDU();
 
@@ -83,36 +80,35 @@ public:
     //              KDIS::PDU::Start_Resume_PDU::GetRealWorldTime
     // Description: specify the real-world time at which the entity
     //              is to start/resume in the exercise.
-    // Parameter:   const ClockTime & T, void
+    // Parameter:   const ClockTime & T
     //************************************
-    void  SetRealWorldTime( const ClockTime & T );
-    const ClockTime & GetRealWorldTime() const;
-    ClockTime & GetRealWorldTime();
+    void  SetRealWorldTime( const KDIS::DATA_TYPE::ClockTime & T );
+    const KDIS::DATA_TYPE::ClockTime & GetRealWorldTime() const;
+    KDIS::DATA_TYPE::ClockTime & GetRealWorldTime();
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_PDU::SetSimulationTime
     //              KDIS::PDU::Start_Resume_PDU::GetSimulationTime
     // Description: specify the simulation time at which the entity
     //              is to start/resume in the exercies.
-    // Parameter:   const ClockTime & T, void
+    // Parameter:   const ClockTime & T
     //************************************
-    void SetSimulationTime( const ClockTime & T );
-    const ClockTime & GetSimulationTime() const;
-    ClockTime & GetSimulationTime();
+    void SetSimulationTime( const KDIS::DATA_TYPE::ClockTime & T );
+    const KDIS::DATA_TYPE::ClockTime & GetSimulationTime() const;
+    KDIS::DATA_TYPE::ClockTime & GetSimulationTime();
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_PDU::SetRequestID
     //              KDIS::PDU::Start_Resume_PDU::GetRequestID
     // Description: Request ID
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

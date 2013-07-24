@@ -49,8 +49,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::StandardVariableType;
-
 /************************************************************************/
 // Define the type of pointer we are using for StandardVariable Records,
 // do we want a weak reference or a ref counter?
@@ -83,7 +81,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::StandardVariable::GetStandardVariableType
     // Description: The record type for this StandardVariable.
     //************************************
-    StandardVariableType GetStandardVariableType() const;
+    KDIS::DATA_TYPE::ENUMS::StandardVariableType GetStandardVariableType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::StandardVariable::GetAsString

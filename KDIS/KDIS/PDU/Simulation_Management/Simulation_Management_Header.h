@@ -45,15 +45,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Simulation_Management_Header : public Header
 {
 protected:
 
-    EntityIdentifier m_OriginatingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntityID;
 
-    EntityIdentifier m_ReceivingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_ReceivingEntityID;
 
 public:
 
@@ -67,7 +65,7 @@ public:
 
 	Simulation_Management_Header( const Header & H, KDataStream & stream ) throw( KException );
 
-    Simulation_Management_Header( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
+    Simulation_Management_Header( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
 
     virtual ~Simulation_Management_Header();
 
@@ -75,26 +73,25 @@ public:
     // FullName:    KDIS::PDU::Simulation_Management_Header::SetOriginatingEntityID
     //              KDIS::PDU::Simulation_Management_Header::GetOriginatingEntityID
     // Description: Originating Entity ID
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetOriginatingEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetOriginatingEntityID() const;
-    EntityIdentifier & GetOriginatingEntityID();
+    void SetOriginatingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Simulation_Management_Header::SetReceivingEntityID
     //              KDIS::PDU::Simulation_Management_Header::GetReceivingEntityID
     // Description: Receiving Entity ID:
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetReceivingEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetReceivingEntityID() const;
-    EntityIdentifier & GetReceivingEntityID();
+    void SetReceivingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Simulation_Management_Header::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

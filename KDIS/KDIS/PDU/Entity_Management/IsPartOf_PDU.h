@@ -50,22 +50,17 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::RelationshipRecord;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::NamedLocationIdentifier;
-using KDIS::DATA_TYPE::EntityType;
-
 class KDIS_EXPORT IsPartOf_PDU : public Simulation_Management_Header
 {
 protected:
 
-    RelationshipRecord m_RelRec;
+    KDIS::DATA_TYPE::RelationshipRecord m_RelRec;
 
-    Vector  m_LocPrt;
+    KDIS::DATA_TYPE::Vector m_LocPrt;
 
-    NamedLocationIdentifier m_NmLocID;
+    KDIS::DATA_TYPE::NamedLocationIdentifier m_NmLocID;
 
-    EntityType m_PrtTyp;
+    KDIS::DATA_TYPE::EntityType m_PrtTyp;
 
 public:
 
@@ -77,8 +72,8 @@ public:
 
 	IsPartOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    IsPartOf_PDU( const RelationshipRecord & RR, const Vector & LocationOfPart,
-                  const NamedLocationIdentifier & NLI, const EntityType & PartType );
+    IsPartOf_PDU( const KDIS::DATA_TYPE::RelationshipRecord & RR, const KDIS::DATA_TYPE::Vector & LocationOfPart,
+                  const KDIS::DATA_TYPE::NamedLocationIdentifier & NLI, const KDIS::DATA_TYPE::EntityType & PartType );
 
     virtual ~IsPartOf_PDU();
 
@@ -86,11 +81,11 @@ public:
     // FullName:    KDIS::PDU::IsPartOf_PDU::SetRelationshipRecord
     //              KDIS::PDU::IsPartOf_PDU::GetRelationshipRecord
     // Description: Specifies the relationship of the part entity to its host entity.
-    // Parameter:   const RelationshipRecord & RR, void
+    // Parameter:   const RelationshipRecord & RR
     //************************************
-    void SetRelationshipRecord( const RelationshipRecord & RR );
-    const RelationshipRecord & GetRelationshipRecord() const;
-    RelationshipRecord & GetRelationshipRecord();
+    void SetRelationshipRecord( const KDIS::DATA_TYPE::RelationshipRecord & RR );
+    const KDIS::DATA_TYPE::RelationshipRecord & GetRelationshipRecord() const;
+    KDIS::DATA_TYPE::RelationshipRecord & GetRelationshipRecord();
 
     //************************************
     // FullName:    KDIS::PDU::IsPartOf_PDU::SetLocationOfPart
@@ -103,37 +98,36 @@ public:
     //              (x, y, z), the three location data fields shall represent the x, y, and z coordinates of the part. When the
     //              Station Name enumeration is other than On station (RNG/BRG) or On station (x, y, z), the three
     //              fields of the Part Location record shall contain the value zero.
-    // Parameter:   const Vector & LP, void
+    // Parameter:   const Vector & LP
     //************************************
-    void SetLocationOfPart( const Vector & LP );
-    const Vector & GetLocationOfPart() const;
-    Vector & GetLocationOfPart();
+    void SetLocationOfPart( const KDIS::DATA_TYPE::Vector & LP );
+    const KDIS::DATA_TYPE::Vector & GetLocationOfPart() const;
+    KDIS::DATA_TYPE::Vector & GetLocationOfPart();
 
     //************************************
     // FullName:    KDIS::PDU::IsPartOf_PDU::SetNamedLocationIdentifier
     //              KDIS::PDU::IsPartOf_PDU::GetNamedLocationIdentifier
     // Description: Contaiins information about the discrete positional relationship of the part
     //              entity with respect to the its host entity.
-    // Parameter:   const NamedLocationIdentifier & NLI, void
+    // Parameter:   const NamedLocationIdentifier & NLI
     //************************************
-    void SetNamedLocationIdentifier( const NamedLocationIdentifier & NLI );
-    const NamedLocationIdentifier & GetNamedLocationIdentifier() const;
-    NamedLocationIdentifier & GetNamedLocationIdentifier();
+    void SetNamedLocationIdentifier( const KDIS::DATA_TYPE::NamedLocationIdentifier & NLI );
+    const KDIS::DATA_TYPE::NamedLocationIdentifier & GetNamedLocationIdentifier() const;
+    KDIS::DATA_TYPE::NamedLocationIdentifier & GetNamedLocationIdentifier();
 
     //************************************
     // FullName:    KDIS::PDU::IsPartOf_PDU::SetPartType
     //              KDIS::PDU::IsPartOf_PDU::GetPartType
     // Description: Identifies the part type.
-    // Parameter:   const EntityType & PT, void
+    // Parameter:   const EntityType & PT
     //************************************
-    void SetPartType( const EntityType & PT );
-    const EntityType & GetPartType() const;
-    EntityType & GetPartType();
+    void SetPartType( const KDIS::DATA_TYPE::EntityType & PT );
+    const KDIS::DATA_TYPE::EntityType & GetPartType() const;
+    KDIS::DATA_TYPE::EntityType & GetPartType();
 
     //************************************
     // FullName:    KDIS::PDU::IsPartOf_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

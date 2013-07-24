@@ -45,15 +45,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Logistics_Header : public Header
 {
 protected:
 
-    EntityIdentifier m_ReceivingEntity;
+    KDIS::DATA_TYPE::EntityIdentifier m_ReceivingEntity;
 
-    EntityIdentifier m_SupplyingEntity;
+    KDIS::DATA_TYPE::EntityIdentifier m_SupplyingEntity;
 
 public:
 
@@ -63,7 +61,7 @@ public:
 
 	Logistics_Header( const Header & H );
 
-    Logistics_Header( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID );
+    Logistics_Header( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntityID );
 
     virtual ~Logistics_Header();
 
@@ -73,24 +71,23 @@ public:
     // Description: Entity Receiving the supplies/repairs
     // Parameter:   const EntityIdentifier & EI
     //************************************
-    void SetReceivingEntity( const EntityIdentifier & EI );
-    const EntityIdentifier & GetReceivingEntity() const;
-    EntityIdentifier & GetReceivingEntity();
+    void SetReceivingEntity( const KDIS::DATA_TYPE::EntityIdentifier & EI );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntity() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntity();
 
     //************************************
     // FullName:    KDIS::PDU::Logistics_Header::SetSupplyingEntity
     //              KDIS::PDU::Logistics_Header::GetSupplyingEntity
     // Description: Entity providing the supplies/repairs
-    // Parameter:   const EntityIdentifier & EI, void
+    // Parameter:   const EntityIdentifier & EI
     //************************************
-    void SetSupplyingEntity( const EntityIdentifier & EI );
-    const EntityIdentifier & GetSupplyingEntity() const;
-    EntityIdentifier & GetSupplyingEntity();
+    void SetSupplyingEntity( const KDIS::DATA_TYPE::EntityIdentifier & EI );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetSupplyingEntity() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetSupplyingEntity();
 
     //************************************
     // FullName:    KDIS::PDU::Logistics_Header::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

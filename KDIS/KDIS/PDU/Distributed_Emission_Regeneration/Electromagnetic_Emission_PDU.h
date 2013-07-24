@@ -49,18 +49,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EmissionSystem;
-using KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator;
-using std::vector;
-
 class KDIS_EXPORT Electromagnetic_Emission_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_EmittingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EmittingEntityID;
 
-    EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
     KUINT8 m_ui8StateUpdateIndicator;
 
@@ -68,7 +63,7 @@ protected:
 
     KUINT16 m_ui16Padding;
 
-    vector<EmissionSystem> m_vEmissionSystem;
+	std::vector<KDIS::DATA_TYPE::EmissionSystem> m_vEmissionSystem;
 
 public:
 
@@ -80,11 +75,11 @@ public:
 
 	Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Electromagnetic_Emission_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID,
-                                  StateUpdateIndicator SUI );
+    Electromagnetic_Emission_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
+                                  KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI );
 
-    Electromagnetic_Emission_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID,
-                                  StateUpdateIndicator SUI, const vector<EmissionSystem> & EmissionSystems );
+    Electromagnetic_Emission_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
+		                          KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI, const std::vector<KDIS::DATA_TYPE::EmissionSystem> & EmissionSystems );
 
     virtual ~Electromagnetic_Emission_PDU();
 
@@ -92,21 +87,21 @@ public:
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetEmittingEntityID
     //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEmittingEntityID
     // Description: Emitting Entity ID
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEmittingEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEmittingEntityID() const;
-    EntityIdentifier & GetEmittingEntityID();
+    void SetEmittingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetEventID
     //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEventID
     // Description: Event ID. For associated events.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEventID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEventID() const;
-    EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetStateUpdateIndicator
@@ -114,10 +109,10 @@ public:
     // Description: Indicates if the data contained in the PDU represents a state update or
     //              just data that has changed since issuance of the last Electromagnetic Emission
     //              PDU.
-    // Parameter:   StateUpdateIndicator SUI, void
+    // Parameter:   StateUpdateIndicator SUI
     //************************************
-    void SetStateUpdateIndicator( StateUpdateIndicator SUI );
-    StateUpdateIndicator GetStateUpdateIndicator() const;
+    void SetStateUpdateIndicator( KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI );
+    KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator GetStateUpdateIndicator() const;
 
     //************************************
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::GetNumberOfEmissionSystems
@@ -133,9 +128,9 @@ public:
     // Description: Emissions systems belonging to the electromagnetic emission PDU.
     // Parameter:   const EmissionSystem & ES, const vector<EmissionSystem> & ES
     //************************************
-    void AddEmissionSystem( const EmissionSystem & ES );
-    void SetEmissionSystem( const vector<EmissionSystem> & ES );
-    const vector<EmissionSystem> & GetEmissionSystems() const;
+    void AddEmissionSystem( const KDIS::DATA_TYPE::EmissionSystem & ES );
+	void SetEmissionSystem( const std::vector<KDIS::DATA_TYPE::EmissionSystem> & ES );
+	const std::vector<KDIS::DATA_TYPE::EmissionSystem> & GetEmissionSystems() const;
     void ClearEmissionSystem();
 
     //************************************

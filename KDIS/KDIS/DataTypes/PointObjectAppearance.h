@@ -43,9 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::Breach2bit;
-using KDIS::DATA_TYPE::ENUMS::Chemical;
-
 class KDIS_EXPORT PointObjectAppearance : public ObjectAppearance
 {
 protected:
@@ -103,10 +100,10 @@ public:
     // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetBreach
     //              KDIS::DATA_TYPE::PointObjectAppearance::GetBreach
     // Description: Describes the breached appearance of the object.
-    // Parameter:   Breach2bit B, void
+    // Parameter:   Breach2bit B
     //************************************
-    void SetBreach( Breach2bit B );
-    Breach2bit GetBreach() const;
+    void SetBreach( KDIS::DATA_TYPE::ENUMS::Breach2bit B );
+    KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
 
     /************************************************************************/
     /* The following appearance values are only for points of the type:     */
@@ -118,7 +115,7 @@ public:
     //              KDIS::DATA_TYPE::PointObjectAppearance::GetOpacity
     // Description: The percent opacity of the smoke, ranging from 0% opacity to 100%.
     //              Acceptable values are 0 - 100 else throws INVALID_DATA exception.
-    // Parameter:   KUINT8 O, void
+    // Parameter:   KUINT8 O
     //************************************
     void SetOpacity( KUINT8 O ) throw( KException );
     KUINT8 GetOpacity() const;
@@ -132,7 +129,7 @@ public:
     //              for individual bursts. For multiple bursts, the center
     //              bottom of each cylinder is calculated based on the model
     //              used to represent the multiple bursts.
-    // Parameter:   KUINT8 S, void
+    // Parameter:   KUINT8 S
     //************************************
     void SetBurstSize( KUINT8 S );
     KUINT8 GetBurstSize() const;
@@ -145,7 +142,7 @@ public:
     //              of the cylinder for individual bursts. For multiple bursts,
     //              the center bottom of each cylinder is calculated based on the
     //              model used to represent the multiple bursts.
-    // Parameter:   KUINT8 H, void
+    // Parameter:   KUINT8 H
     //************************************
     void SetHeight( KUINT8 H );
     KUINT8 GetHeight() const;
@@ -155,7 +152,7 @@ public:
     //              KDIS::DATA_TYPE::PointObjectAppearance::GetNumBursts
     // Description: Number of bursts in the instance of tactical smoke.
     //              Acceptable values are 0 - 63.
-    // Parameter:   KUINT8 H, void
+    // Parameter:   KUINT8 H
     //************************************
     void SetNumBursts( KUINT8 N );
     KUINT8 GetNumBursts() const;
@@ -164,10 +161,10 @@ public:
     // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetChemical
     //              KDIS::DATA_TYPE::PointObjectAppearance::GetChemical
     // Description: The chemical content of the smoke.
-    // Parameter:   Chemical C, void
+    // Parameter:   Chemical C
     //************************************
-    void SetChemical( Chemical C );
-    Chemical GetChemical() const;
+    void SetChemical( KDIS::DATA_TYPE::ENUMS::Chemical C );
+    KDIS::DATA_TYPE::ENUMS::Chemical GetChemical() const;
 
     /************************************************************************/
     /* The following appearance values are only for points of the type:     */
@@ -179,7 +176,7 @@ public:
     //              KDIS::DATA_TYPE::PointObjectAppearance::GetCraterSize
     // Description: The diameter of the crater, where the center of the
     //              crater is at the Point Object Location.
-    // Parameter:   KUINT8 S, void
+    // Parameter:   KUINT8 S
     //************************************
     void SetCraterSize( KUINT8 S );
     KUINT8 GetCraterSize() const;
@@ -193,7 +190,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetNumSegments
     //              KDIS::DATA_TYPE::PointObjectAppearance::GetNumSegments
     // Description: The number of segments composing the ribbon bridge.
-    // Parameter:   KUINT8 N, void
+    // Parameter:   KUINT8 N
     //************************************
     void SetNumSegments( KUINT8 N );
     KUINT8 GetNumSegments() const;

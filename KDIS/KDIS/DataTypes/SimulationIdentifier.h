@@ -83,7 +83,7 @@ public:
     //              entities representing live aircraft flying in a live training range. A simulation associated
     //              with a live site may issue Live Entity PDUs (e.g., the TSPI PDU) for the live objects or may
     //              issue Entity State PDUs for them.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetSiteID( KUINT16 ID );
     KUINT16 GetSiteID() const;
@@ -96,7 +96,7 @@ public:
     //              distributed simulation data including live, virtual and constructive data.
     //              Each application participating in an event (e.g., training exercise) shall be
     //              assigned a unique Application Number for the site with which the application is associated.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetApplicationID( KUINT16 ID );
     KUINT16 GetApplicationID() const;

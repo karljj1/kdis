@@ -58,8 +58,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using std::vector;
-
 /************************************************************************/
 // Define the type of pointer we are using for PDU,
 // do we want a weak reference or a ref counter?
@@ -73,9 +71,9 @@ class KDIS_EXPORT Bundle
 {
 protected:
 
-	vector<KDataStream> m_vStreams;
+	std::vector<KDataStream> m_vStreams;
 
-	vector<PduPtr> m_vRefHeaders;
+	std::vector<PduPtr> m_vRefHeaders;
 
 	KUINT16 m_ui16Length;
 
@@ -106,17 +104,17 @@ public:
 	//              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
     // Parameter:   const vector<KDataStream> & P, const vector<PduPtr> & P
     //************************************
-    void SetPDUs( const vector<KDataStream> & P ) throw( KException );
-	void SetPDUs( const vector<PduPtr> & P ) throw( KException );
-	void SetPDUs( const vector<KDataStream> & Streams, const vector<PduPtr> & References ) throw( KException );
+    void SetPDUs( const std::vector<KDataStream> & P ) throw( KException );
+	void SetPDUs( const std::vector<PduPtr> & P ) throw( KException );
+	void SetPDUs( const std::vector<KDataStream> & Streams, const std::vector<PduPtr> & References ) throw( KException );
 
 	//************************************
     // FullName:    KDIS::PDU::Bundle::GetPDUStreams
 	//				KDIS::PDU::Bundle::GetRefPDUs
     // Description: Gets the stored PDU stremas or referenced PDUs.  
     //************************************
-	const vector<KDataStream> & GetPDUStreams() const;
-	const vector<PduPtr> & GetRefPDUs() const;
+	const std::vector<KDataStream> & GetPDUStreams() const;
+	const std::vector<PduPtr> & GetRefPDUs() const;
 
 	//************************************
     // FullName:    KDIS::PDU::Bundle::ClearPDUs	

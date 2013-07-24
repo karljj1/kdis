@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      GED_EnhancedGroundCombatVehicle
-    created:    07:06:2009
+    created:    07/06/2009
     author:     Karl Jones
 
     purpose:    Contains entity state information about an individual entity
@@ -43,8 +43,6 @@ http://p.sf.net/kdis/UserGuide
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-using KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory;
 
 class KDIS_EXPORT GED_EnhancedGroundCombatVehicle : public GED_BasicGroundCombatVehicle
 {
@@ -81,7 +79,7 @@ public:
     // Description: Identifies the derived GED class.
     //              Not part of the DIS PDU.
     //************************************
-    virtual GroupedEntityCategory GetGroupedEntityCategory() const;
+    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetLength

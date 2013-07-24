@@ -44,9 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::MineAlgae;
-using KDIS::DATA_TYPE::ENUMS::PaintScheme;
-
 class KDIS_EXPORT MinePaintScheme : public DataTypeBase
 {
 protected:
@@ -68,7 +65,7 @@ public:
 
     MinePaintScheme();
 
-    MinePaintScheme( MineAlgae A, PaintScheme PS );
+    MinePaintScheme( KDIS::DATA_TYPE::ENUMS::MineAlgae A, KDIS::DATA_TYPE::ENUMS::PaintScheme PS );
 
     MinePaintScheme( KDataStream & stream ) throw( KException );
 
@@ -80,8 +77,8 @@ public:
     // Description: The algae build-up on the mine.
     // Parameter:   MineAlgae A
     //************************************
-    void SetAlgae( MineAlgae A );
-    MineAlgae GetAlgae() const;
+    void SetAlgae( KDIS::DATA_TYPE::ENUMS::MineAlgae A );
+    KDIS::DATA_TYPE::ENUMS::MineAlgae GetAlgae() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinePaintScheme::SetPaintScheme
@@ -89,8 +86,8 @@ public:
     // Description: The paint scheme of the mine.
     // Parameter:   PaintScheme PS
     //************************************
-    void SetPaintScheme( PaintScheme PS );
-    PaintScheme GetPaintScheme() const;
+    void SetPaintScheme( KDIS::DATA_TYPE::ENUMS::PaintScheme PS );
+    KDIS::DATA_TYPE::ENUMS::PaintScheme GetPaintScheme() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinePaintScheme::GetAsString

@@ -43,8 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::ObjectDamage;
-
 class KDIS_EXPORT ObjectAppearance : public DataTypeBase
 {
 protected:
@@ -74,7 +72,7 @@ public:
 
     ObjectAppearance( KDataStream & stream ) throw( KException );
 
-    ObjectAppearance( KUINT8 PerCent, ObjectDamage OD, KBOOL Predist, KBOOL State,
+    ObjectAppearance( KUINT8 PerCent, KDIS::DATA_TYPE::ENUMS::ObjectDamage OD, KBOOL Predist, KBOOL State,
                       KBOOL Smoking, KBOOL Flaming ) throw( KException );
 
     virtual ~ObjectAppearance();
@@ -93,7 +91,7 @@ public:
     //              KDIS::DATA_TYPE::ObjectAppearance::GetPercentageComplete
     // Description: Indicates the percent completion of the object.
     //              Acceptable values are 0 - 100 else throws INVALID_DATA exception.
-    // Parameter:   KUINT8 P, void
+    // Parameter:   KUINT8 P
     //************************************
     void SetPercentageComplete( KUINT8 P ) throw( KException );
     KUINT8 GetPercentageComplete() const;
@@ -102,10 +100,10 @@ public:
     // FullName:    KDIS::DATA_TYPE::ObjectAppearance::SetDamage
     //              KDIS::DATA_TYPE::ObjectAppearance::GetDamage
     // Description: Describes the damaged appearance of the object.
-    // Parameter:   ObjectDamage OD, void
+    // Parameter:   ObjectDamage OD
     //************************************
-    void SetDamage( ObjectDamage OD );
-    ObjectDamage GetDamage() const;
+    void SetDamage( KDIS::DATA_TYPE::ENUMS::ObjectDamage OD );
+    KDIS::DATA_TYPE::ENUMS::ObjectDamage GetDamage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ObjectAppearance::SetPredistributed
@@ -113,7 +111,7 @@ public:
     // Description: Describes whether the object was predistributed.
     //              false - Object created during the exercise
     //              true - Object predistributed prior to exercise start.
-    // Parameter:   KBOOL P, void
+    // Parameter:   KBOOL P
     //************************************
     void SetPredistributed( KBOOL P );
     KBOOL IsPredistributed() const;
@@ -124,7 +122,7 @@ public:
     // Description: Describes the state of the object.
     //              false - Deactivated.
     //              true - Active.
-    // Parameter:   KBOOL S, void
+    // Parameter:   KBOOL S
     //************************************
     void SetState( KBOOL S );
     KBOOL GetState() const;
@@ -135,7 +133,7 @@ public:
     // Description: Describes whether smoke is rising from an object.
     //              false - No smoke.
     //              true - Smoke present.
-    // Parameter:   KBOOL S, void
+    // Parameter:   KBOOL S
     //************************************
     void SetSmoking( KBOOL S );
     KBOOL IsSmoking() const;
@@ -146,7 +144,7 @@ public:
     // Description: Describes whether Flames are rising from an object.
     //              false - No Flames.
     //              true - Flames present.
-    // Parameter:   KBOOL F, void
+    // Parameter:   KBOOL F
     //************************************
     void SetFlaming( KBOOL F );
     KBOOL IsFlaming() const;

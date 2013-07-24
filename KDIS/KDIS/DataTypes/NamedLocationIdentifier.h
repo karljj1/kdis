@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::StationName;
-
 class KDIS_EXPORT NamedLocationIdentifier : public DataTypeBase
 {
 protected:
@@ -62,7 +60,7 @@ public:
 
     NamedLocationIdentifier( KDataStream & stream )throw( KException );
 
-    NamedLocationIdentifier( StationName SN,  KUINT16 StationNumber );
+    NamedLocationIdentifier( KDIS::DATA_TYPE::ENUMS::StationName SN,  KUINT16 StationNumber );
 
     virtual ~NamedLocationIdentifier();
 
@@ -72,17 +70,17 @@ public:
     // Description: Specifies the station name within the host at which the part entity
     //              is located. If the part entity is On Station, this field shall
     //              specify the representation of the part’s location data fields.
-    // Parameter:   StationName SN, void
+    // Parameter:   StationName SN
     //************************************
-    void SetStationName( StationName SN );
-    StationName GetStationName() const;
+    void SetStationName( KDIS::DATA_TYPE::ENUMS::StationName SN );
+    KDIS::DATA_TYPE::ENUMS::StationName GetStationName() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::SetStationNumber
     //              KDIS::DATA_TYPE::NamedLocationIdentifier::GetStationNumber
     // Description: Specifies the number of the particular wingstation, cargo hold etc, at
     //              which the part is attached.
-    // Parameter:   KUINT16 SN, void
+    // Parameter:   KUINT16 SN
     //************************************
     void SetStationNumber( KUINT16 SN );
     KUINT16 GetStationNumber() const;

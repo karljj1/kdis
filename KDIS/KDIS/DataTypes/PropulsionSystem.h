@@ -44,10 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::PowerSettingAircraft;
-using KDIS::DATA_TYPE::ENUMS::PowerSettingHelicopter;
-using KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex;
-
 class KDIS_EXPORT PropulsionSystem : public DataTypeBase
 {
 protected:
@@ -72,12 +68,12 @@ public:
     // FullName:    KDIS::DATA_TYPE::PropulsionSystem::SetPowerSetting
     //              KDIS::DATA_TYPE::PropulsionSystem::GetPowerSetting
     // Description: The power settings after any response lags have been incorprated.
-    // Parameter:   KFLOAT32  PS, PowerSetting PS
+    // Parameter:   KFLOAT32 PS, PowerSetting PS
     //************************************
     void SetPowerSetting( KFLOAT32 PS );
-    void SetPowerSetting( PowerSettingAircraft PS );
-    void SetPowerSetting( PowerSettingHelicopter PS );
-    void SetPowerSetting( ActiveEmissionParameterIndex PS );
+    void SetPowerSetting( KDIS::DATA_TYPE::ENUMS::PowerSettingAircraft PS );
+    void SetPowerSetting( KDIS::DATA_TYPE::ENUMS::PowerSettingHelicopter PS );
+    void SetPowerSetting( KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex PS );
     KFLOAT32 GetPowerSetting() const;
 
     //************************************

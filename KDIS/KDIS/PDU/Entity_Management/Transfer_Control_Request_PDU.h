@@ -65,11 +65,11 @@ protected:
 
     KUINT8 m_ui8TrnTyp;
 
-    EntityIdentifier m_TrnsEntID;
+    KDIS::DATA_TYPE::EntityIdentifier m_TrnsEntID;
 
     KUINT32 m_ui32NumRecSets;
 
-    vector<RecordSet> m_vRecs;
+	std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
 
 public:
 
@@ -81,8 +81,8 @@ public:
 
 	Transfer_Control_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Transfer_Control_Request_PDU( KUINT32 ReqID, RequiredReliabilityService RRS, TransferType TT,
-                                  const EntityIdentifier & TrnsEntID );
+    Transfer_Control_Request_PDU( KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS, KDIS::DATA_TYPE::ENUMS::TransferType TT,
+                                  const KDIS::DATA_TYPE::EntityIdentifier & TrnsEntID );
 
     virtual ~Transfer_Control_Request_PDU();
 
@@ -90,7 +90,7 @@ public:
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::SetRequestID
     //              KDIS::PDU::Transfer_Control_Request_PDU::GetRequestID
     // Description: Identifies the transfer of control request being requested.
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;
@@ -100,30 +100,30 @@ public:
     //              KDIS::PDU::Transfer_Control_Request_PDU::GetRequiredReliabilityService
     // Description: specifies the required level of reliability service to be
     //              used for this transaction/PDU.
-    // Parameter:   RequiredReliabilityService RRS, void
+    // Parameter:   RequiredReliabilityService RRS
     //************************************
-    void SetRequiredReliabilityService( RequiredReliabilityService RRS );
-    RequiredReliabilityService GetRequiredReliabilityService() const;
+    void SetRequiredReliabilityService( KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+    KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService GetRequiredReliabilityService() const;
 
     //************************************
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::SetTransferType
     //              KDIS::PDU::Transfer_Control_Request_PDU::GetTransferType
     // Description: Type of transfer desired.
-    // Parameter:   TransferType TT, void
+    // Parameter:   TransferType TT
     //************************************
-    void SetTransferType( TransferType TT );
-    TransferType GetTransferType() const;
+    void SetTransferType( KDIS::DATA_TYPE::ENUMS::TransferType TT );
+    KDIS::DATA_TYPE::ENUMS::TransferType GetTransferType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::SetTransferEntityID
     //              KDIS::PDU::Transfer_Control_Request_PDU::GetTransferEntityID
     // Description: Identifies the entity for which control is being
     //              requested to transfer.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetTransferEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetTransferEntityID() const;
-    EntityIdentifier & GetTransferEntityID();
+    void SetTransferEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetTransferEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetTransferEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::GetNumberOfRecords
@@ -138,9 +138,9 @@ public:
     // Description:
     // Parameter:   const RecordSet & RS, vector<RecordSet> & RC
     //************************************
-    void AddRecordSet( const RecordSet & RS );
-    void SetRecordSets( const vector<RecordSet> & RS );
-    const vector<RecordSet> & GetRecordSets() const;
+    void AddRecordSet( const KDIS::DATA_TYPE::RecordSet & RS );
+	void SetRecordSets( const std::vector<KDIS::DATA_TYPE::RecordSet> & RS );
+	const std::vector<KDIS::DATA_TYPE::RecordSet> & GetRecordSets() const;
 
     //************************************
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::GetAsString

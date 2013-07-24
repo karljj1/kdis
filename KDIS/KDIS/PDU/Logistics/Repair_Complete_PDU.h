@@ -44,9 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::RepairTypePerformed;
-
 class KDIS_EXPORT Repair_Complete_PDU : public Logistics_Header
 {
 protected:
@@ -65,8 +62,8 @@ public:
 
 	Repair_Complete_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Repair_Complete_PDU( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID,
-                         RepairTypePerformed RTP );
+    Repair_Complete_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntityID,
+		                 KDIS::DATA_TYPE::ENUMS::RepairTypePerformed RTP );
 
     virtual ~Repair_Complete_PDU();
 
@@ -76,8 +73,8 @@ public:
     // Description: Enumeration to describe the type of repair provided
     // Parameter:   RepairTypePerformed RTP, void
     //************************************
-    void SetRepairTypePerformed( RepairTypePerformed RTP );
-    RepairTypePerformed GetRepairTypePerformed() const;
+    void SetRepairTypePerformed( KDIS::DATA_TYPE::ENUMS::RepairTypePerformed RTP );
+    KDIS::DATA_TYPE::ENUMS::RepairTypePerformed GetRepairTypePerformed() const;
 
     //************************************
     // FullName:    KDIS::PDU::Repair_Complete_PDU::GetAsString

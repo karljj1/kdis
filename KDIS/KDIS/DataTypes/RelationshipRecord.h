@@ -43,9 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::RelationshipNature;
-using KDIS::DATA_TYPE::ENUMS::RelationshipPosition;
-
 class KDIS_EXPORT RelationshipRecord : public DataTypeBase
 {
 protected:
@@ -62,7 +59,7 @@ public:
 
     RelationshipRecord( KDataStream & stream )throw( KException );
 
-    RelationshipRecord( RelationshipNature N, RelationshipPosition P );
+    RelationshipRecord( KDIS::DATA_TYPE::ENUMS::RelationshipNature N, KDIS::DATA_TYPE::ENUMS::RelationshipPosition P );
 
     virtual ~RelationshipRecord();
 
@@ -71,20 +68,20 @@ public:
     //              KDIS::DATA_TYPE::RelationshipRecord::GetNature
     // Description: Nature or purpose for joining of the part entity to the host
     //              entity within a IsPartOf PDU.
-    // Parameter:   RelationshipNature N, void
+    // Parameter:   RelationshipNature N
     //************************************
-    void SetNature( RelationshipNature N );
-    RelationshipNature GetNature() const;
+    void SetNature( KDIS::DATA_TYPE::ENUMS::RelationshipNature N );
+    KDIS::DATA_TYPE::ENUMS::RelationshipNature GetNature() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RelationshipRecord::SetPosition
     //              KDIS::DATA_TYPE::RelationshipRecord::GetPosition
     // Description: Specifies the position of the part entity with respect to the host
     //              entity within a IsPartOf PDU.
-    // Parameter:   RelationshipPosition P, void
+    // Parameter:   RelationshipPosition P
     //************************************
-    void SetPosition( RelationshipPosition P );
-    RelationshipPosition GetPosition() const;
+    void SetPosition( KDIS::DATA_TYPE::ENUMS::RelationshipPosition P );
+    KDIS::DATA_TYPE::ENUMS::RelationshipPosition GetPosition() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RelationshipRecord::GetAsString

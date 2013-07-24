@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Comment_R_PDU : public Comment_PDU
 {
 public:
@@ -59,7 +57,7 @@ public:
 
 	Comment_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Comment_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
+    Comment_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
 
     virtual ~Comment_R_PDU();
 

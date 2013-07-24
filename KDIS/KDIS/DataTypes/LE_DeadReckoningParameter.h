@@ -47,8 +47,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm;
-
 class KDIS_EXPORT LE_DeadReckoningParameter : public DataTypeBase
 {
 protected:
@@ -67,7 +65,7 @@ public:
 
     LE_DeadReckoningParameter( KDataStream & stream ) throw( KException );
 
-    LE_DeadReckoningParameter( DeadReckoningAlgorithm DRA, const LE_Vector8_3 & LinearAcceleration,
+    LE_DeadReckoningParameter( KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA, const LE_Vector8_3 & LinearAcceleration,
                                const LE_Vector8_3 & AngularVelocity );
 
     virtual ~LE_DeadReckoningParameter();
@@ -76,16 +74,16 @@ public:
     // FullName:    KDIS::DATA_TYPE::LE_DeadReckoningParameter::SetDeadReckoningAlgorithm
     //              KDIS::DATA_TYPE::LE_DeadReckoningParameter::GetDeadReckoningAlgorithm
     // Description: Dead Reckoning Algorithm
-    // Parameter:   DeadReckoningAlgorithm DRA, void
+    // Parameter:   DeadReckoningAlgorithm DRA
     //************************************
-    void SetDeadReckoningAlgorithm( DeadReckoningAlgorithm DRA );
-    DeadReckoningAlgorithm GetDeadReckoningAlgorithm() const;
+    void SetDeadReckoningAlgorithm( KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA );
+    KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm GetDeadReckoningAlgorithm() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_DeadReckoningParameter::SetLinearAcceleration
     //              KDIS::DATA_TYPE::LE_DeadReckoningParameter::GetLinearAcceleration
     // Description: Linear acceleration in decimeters per second.
-    // Parameter:   const LE_Vector8_3 & LA, void
+    // Parameter:   const LE_Vector8_3 & LA
     //************************************
     void SetLinearAcceleration( const LE_Vector8_3 & LA );
     const LE_Vector8_3 & GetLinearAcceleration() const;

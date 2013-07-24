@@ -14,6 +14,7 @@ If you want to test this you will need an other machine generating DIS to see th
 
 using namespace std;
 using namespace KDIS;
+using namespace PDU;
 using namespace NETWORK;
 
 int main()

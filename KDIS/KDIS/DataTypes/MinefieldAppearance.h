@@ -43,8 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::MinefieldType;
-
 class KDIS_EXPORT MinefieldAppearance : public DataTypeBase
 {
 protected:
@@ -69,7 +67,7 @@ public:
 
     MinefieldAppearance();
 
-    MinefieldAppearance( MinefieldType T, KBOOL IsStatusActive, KBOOL IsLaneActive, KBOOL IsStateActive );
+    MinefieldAppearance( KDIS::DATA_TYPE::ENUMS::MinefieldType T, KBOOL IsStatusActive, KBOOL IsLaneActive, KBOOL IsStateActive );
 
     MinefieldAppearance( KDataStream & stream ) throw( KException );
 
@@ -79,10 +77,10 @@ public:
     // FullName:    KDIS::DATA_TYPE::MinefieldAppearance::SetMinefieldType
     //              KDIS::DATA_TYPE::MinefieldAppearance::GetMinefieldType
     // Description: The type of mines in the minefield. Anti personnel, anti tank or mixed.
-    // Parameter:   MinefieldType T, void
+    // Parameter:   MinefieldType T
     //************************************
-    void SetMinefieldType( MinefieldType T );
-    MinefieldType GetMinefieldType() const;
+    void SetMinefieldType( KDIS::DATA_TYPE::ENUMS::MinefieldType T );
+    KDIS::DATA_TYPE::ENUMS::MinefieldType GetMinefieldType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinefieldAppearance::SetStatusActive
@@ -90,7 +88,7 @@ public:
     // Description: Identifies the active status of the minefield.
     //              Note: The DIS standard(SISO-REF-010-2006) specifies 0 for true and 1 for false however they are
     //              flipped internally by KDIS so you can use true and false as you would expect to.
-    // Parameter:   KBOOL A, void
+    // Parameter:   KBOOL A
     //************************************
     void SetStatusActive( KBOOL A );
     KBOOL IsStatusActive() const;
@@ -101,7 +99,7 @@ public:
     // Description: Identifies whether the minefield has an active lane.
     //              Note: The DIS standard(SISO-REF-010-2006) specifies 0 for true and 1 for false however they are
     //              flipped internally by KDIS so you can use true and false as you would expect to.
-    // Parameter:   KBOOL A, void
+    // Parameter:   KBOOL A
     //************************************
     void SetLaneActive( KBOOL A );
     KBOOL IsLaneActive() const;
@@ -112,7 +110,7 @@ public:
     // Description: Describes the state of the minefield.
     //              Note: The DIS standard(SISO-REF-010-2006) specifies 0 for true and 1 for false however they are
     //              flipped internally by KDIS so you can use true and false as you would expect to.
-    // Parameter:   KBOOL A, void
+    // Parameter:   KBOOL A
     //************************************
     void SetStateActive( KBOOL A );
     KBOOL IsStateActive() const;

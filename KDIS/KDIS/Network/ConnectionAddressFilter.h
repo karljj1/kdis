@@ -43,8 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace NETWORK {
 
-using std::set;
-
 class KDIS_EXPORT ConnectionAddressFilter : public ConnectionSubscriber
 {
 public:
@@ -59,7 +57,7 @@ protected:
 
 	FilterMode m_FM;
 
-	set<KString> m_Filter;
+	std::set<KString> m_Filter;
 
 public:
 

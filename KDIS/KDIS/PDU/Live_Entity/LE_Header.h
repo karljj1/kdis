@@ -46,13 +46,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::LE_EntityIdentifier;
-
 class KDIS_EXPORT LE_Header : public Header
 {
 protected:
 
-    LE_EntityIdentifier m_EntID;
+    KDIS::DATA_TYPE::LE_EntityIdentifier m_EntID;
 
 public:
 
@@ -74,9 +72,9 @@ public:
     // Description: Identifies the entity issuing the PDU.
     // Parameter:   const LE_EntityIdentifier & ID
     //************************************
-    void SetLiveEntityID( const LE_EntityIdentifier & ID );
-    const LE_EntityIdentifier & GetLiveEntityID() const;
-    LE_EntityIdentifier & GetLiveEntityID();
+    void SetLiveEntityID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetLiveEntityID() const;
+    KDIS::DATA_TYPE::LE_EntityIdentifier & GetLiveEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Header::SetSubprotocol

@@ -50,15 +50,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EncodingScheme;
-using std::vector;
-
 class KDIS_EXPORT Signal_PDU : public Radio_Communications_Header
 {
 protected:
 
-    EncodingScheme m_EncodingScheme;
+    KDIS::DATA_TYPE::EncodingScheme m_EncodingScheme;
 
     KUINT32 m_ui32SampleRate;
 
@@ -66,7 +62,7 @@ protected:
 
     KUINT16 m_ui16Samples;
 
-    vector<KOCTET> m_vData;
+	std::vector<KOCTET> m_vData;
 
 public:
 
@@ -80,7 +76,7 @@ public:
 
 	Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
+    Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
                 KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
 
     virtual ~Signal_PDU();
@@ -91,9 +87,9 @@ public:
     // Description: Encoding scheme used for the data.
     // Parameter:   const EncodingScheme & ES
     //************************************
-    void SetEncodingScheme( const EncodingScheme & ES );
-    const EncodingScheme & GetEncodingScheme() const;
-    EncodingScheme & GetEncodingScheme();
+    void SetEncodingScheme( const KDIS::DATA_TYPE::EncodingScheme & ES );
+    const KDIS::DATA_TYPE::EncodingScheme & GetEncodingScheme() const;
+    KDIS::DATA_TYPE::EncodingScheme & GetEncodingScheme();
 
     //************************************
     // FullName:    KDIS::PDU::Signal_PDU::SetSampleRate

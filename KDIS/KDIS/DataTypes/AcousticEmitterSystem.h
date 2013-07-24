@@ -32,7 +32,7 @@ http://p.sf.net/kdis/UserGuide
     created:    06/01/2009
     author:     Karl Jones
 
-    purpose:    Contains information about a particular Underwater Acoustic emitter
+    purpose:    Contains information about a particular Underwater Acoustic emitter.
     size:       32 bits / 4 octets
 *********************************************************************/
 
@@ -42,9 +42,6 @@ http://p.sf.net/kdis/UserGuide
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-using KDIS::DATA_TYPE::ENUMS::AcousticSystemName;
-using KDIS::DATA_TYPE::ENUMS::AcousticSystemFunction;
 
 class KDIS_EXPORT AcousticEmitterSystem : public DataTypeBase
 {
@@ -64,7 +61,7 @@ public:
 
     AcousticEmitterSystem( KDataStream & stream ) throw( KException );
 
-    AcousticEmitterSystem( AcousticSystemName ASN, AcousticSystemFunction ASF, KUINT8 ID );
+    AcousticEmitterSystem( KDIS::DATA_TYPE::ENUMS::AcousticSystemName ASN, KDIS::DATA_TYPE::ENUMS::AcousticSystemFunction ASF, KUINT8 ID );
 
     virtual ~AcousticEmitterSystem();
 
@@ -74,8 +71,8 @@ public:
     // Description: Specifies the system for the particular emitter
     // Parameter:   AcousticSystemName ASN, void
     //************************************
-    void SetName( AcousticSystemName ASN );
-    AcousticSystemName GetName() const;
+    void SetName( KDIS::DATA_TYPE::ENUMS::AcousticSystemName ASN );
+    KDIS::DATA_TYPE::ENUMS::AcousticSystemName GetName() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AcousticEmitterSystem::SetFunction
@@ -83,8 +80,8 @@ public:
     // Description: Specifies the function of the emitter system
     // Parameter:   AcousticSystemFunction ASF, void
     //************************************
-    void SetFunction( AcousticSystemFunction ASF );
-    AcousticSystemFunction GetFunction() const;
+    void SetFunction( KDIS::DATA_TYPE::ENUMS::AcousticSystemFunction ASF );
+    KDIS::DATA_TYPE::ENUMS::AcousticSystemFunction GetFunction() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AcousticEmitterSystem::SetEmitterID

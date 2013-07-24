@@ -33,9 +33,10 @@ http://p.sf.net/kdis/UserGuide
 
 //////////////////////////////////////////////////////////////////////////
 
+using namespace std;
 using namespace KDIS;
 using namespace PDU;
-using namespace Link16;
+using namespace LINK16;
 using namespace DATA_TYPE;
 using namespace ENUMS;
 using namespace ENUMS::LINK16;

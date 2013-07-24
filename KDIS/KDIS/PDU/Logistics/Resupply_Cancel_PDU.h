@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Resupply_Cancel_PDU : public Logistics_Header
 {
 public:
@@ -58,7 +56,7 @@ public:
 
 	Resupply_Cancel_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Resupply_Cancel_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );
+    Resupply_Cancel_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
 
     virtual ~Resupply_Cancel_PDU();
 

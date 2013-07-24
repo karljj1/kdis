@@ -46,8 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::vector;
-
 class KDIS_EXPORT UnderwaterAcousticEmitterSystem : public DataTypeBase
 {
 protected:
@@ -62,7 +60,7 @@ protected:
 
     Vector m_Location;
 
-    vector<UnderwaterAcousticEmitterBeam> m_vUAEB;
+    std::vector<UnderwaterAcousticEmitterBeam> m_vUAEB;
 
 public:
 
@@ -90,7 +88,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem::SetAcousticEmitterSystem
     //              KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem::GetAcousticEmitterSystem
     // Description: Holds infomation about a particular Underwater Acoustic emitter.
-    // Parameter:   const AcousticEmitterSystem & AES, void
+    // Parameter:   const AcousticEmitterSystem & AES
     //************************************
     void SetAcousticEmitterSystem( const AcousticEmitterSystem & AES );
     const AcousticEmitterSystem & GetAcousticEmitterSystem() const;
@@ -115,11 +113,11 @@ public:
     // Description: Add a articulation parameter / Get vector or params
     //              Adding will update the Number Of Variable Params
     //              field.
-    // Parameter:   const UnderwaterAcousticEmitterBeam & UAEB, void
+    // Parameter:   const UnderwaterAcousticEmitterBeam & UAEB
     //************************************
     void AddUnderwaterAcousticEmitterBeam( const UnderwaterAcousticEmitterBeam & UAEB );
-    void SetUnderwaterAcousticEmitterBeams( const vector<UnderwaterAcousticEmitterBeam> & UAEB );
-    const vector<UnderwaterAcousticEmitterBeam> & GetUnderwaterAcousticEmitterBeam() const;
+    void SetUnderwaterAcousticEmitterBeams( const std::vector<UnderwaterAcousticEmitterBeam> & UAEB );
+    const std::vector<UnderwaterAcousticEmitterBeam> & GetUnderwaterAcousticEmitterBeam() const;
     void ClearUnderwaterAcousticEmitterBeams();
 
     //************************************

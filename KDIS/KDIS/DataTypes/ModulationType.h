@@ -44,16 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::RadioMajorModulation;
-using KDIS::DATA_TYPE::ENUMS::ModulationSystem;
-using KDIS::DATA_TYPE::ENUMS::DetailAmplitude;
-using KDIS::DATA_TYPE::ENUMS::DetailAmplitudeAndAngle;
-using KDIS::DATA_TYPE::ENUMS::DetailAngle;
-using KDIS::DATA_TYPE::ENUMS::DetailCombination;
-using KDIS::DATA_TYPE::ENUMS::DetailPulse;
-using KDIS::DATA_TYPE::ENUMS::DetailUnmodulated;
-using KDIS::DATA_TYPE::ENUMS::DetailCarrierPhaseShift;
-
 class KDIS_EXPORT ModulationType :  public DataTypeBase
 {
 protected:
@@ -131,7 +121,7 @@ public:
     // Description: Major classification of the modulation type.
     //              Note: This value is set automatically from the SetDetails function.
     //************************************
-    RadioMajorModulation GetMajorModulation() const;
+    KDIS::DATA_TYPE::ENUMS::RadioMajorModulation GetMajorModulation() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModulationType::GetMajorModulation
@@ -139,13 +129,13 @@ public:
     //              Provides details information.
     // Parameter:   <various>
     //************************************
-    void SetDetail( DetailAmplitude A );
-    void SetDetail( DetailAmplitudeAndAngle AA );
-    void SetDetail( DetailAngle A );
-    void SetDetail( DetailCombination C );
-    void SetDetail( DetailPulse P );
-    void SetDetail( DetailUnmodulated U );
-    void SetDetail( DetailCarrierPhaseShift CPS );
+    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailAmplitude A );
+    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailAmplitudeAndAngle AA );
+    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailAngle A );
+    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailCombination C );
+    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailPulse P );
+    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailUnmodulated U );
+    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailCarrierPhaseShift CPS );
     KUINT16 GetDetail() const;
 
     //************************************
@@ -153,10 +143,10 @@ public:
     //              KDIS::DATA_TYPE::ModulationType::GetSystem
     // Description: Specifies the interpretation of the
     //              modulation parameter field(s).
-    // Parameter:   ModulationSystem S, void
+    // Parameter:   ModulationSystem S
     //************************************
-    void SetSystem( ModulationSystem S );
-    ModulationSystem GetSystem() const;
+    void SetSystem( KDIS::DATA_TYPE::ENUMS::ModulationSystem S );
+    KDIS::DATA_TYPE::ENUMS::ModulationSystem GetSystem() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModulationType::GetAsString

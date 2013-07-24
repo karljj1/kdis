@@ -44,7 +44,6 @@ http://p.sf.net/kdis/UserGuide
 #include <vector>
 
 namespace KDIS {
-using std::vector;
 
 class KDIS_EXPORT KDataStream
 {
@@ -54,7 +53,7 @@ private:
 
     Endian m_NetEndian;
 
-    vector<KUOCTET> m_vBuffer;
+    std::vector<KUOCTET> m_vBuffer;
     KUINT16 m_ui16CurrentWritePos;
 
 public:
@@ -117,7 +116,7 @@ public:
     // Description: Returns a constant reference to the internal buffer.
     //              Useful if you need lower-level access to the data.
     //************************************
-    const vector<KUOCTET> & GetBuffer() const;
+    const std::vector<KUOCTET> & GetBuffer() const;
 
     //************************************
     // FullName:    KDIS::KDataStream::ResetWritePosition

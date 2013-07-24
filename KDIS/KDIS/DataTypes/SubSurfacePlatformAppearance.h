@@ -50,11 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityPaintScheme;
-using KDIS::DATA_TYPE::ENUMS::EntityDamage;
-using KDIS::DATA_TYPE::ENUMS::EntitySmoke;
-using KDIS::DATA_TYPE::ENUMS::EntityHatchState;
-
 struct KDIS_EXPORT SubSurfacePlatformAppearance
 {
 protected:
@@ -83,8 +78,8 @@ public:
     // Description: Describes the paint scheme of an entity.
     // Parameter:   EntityPaintScheme EPS
     //************************************
-    void SetEntityPaintScheme( EntityPaintScheme EPS );
-    EntityPaintScheme GetEntityPaintScheme() const;
+    void SetEntityPaintScheme( KDIS::DATA_TYPE::ENUMS::EntityPaintScheme EPS );
+    KDIS::DATA_TYPE::ENUMS::EntityPaintScheme GetEntityPaintScheme() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SubSurfacePlatformAppearance::SetEntityMobilityKill
@@ -101,8 +96,8 @@ public:
     // Description: Entity Damage State
     // Parameter:   EntityDamage ED
     //************************************
-    void SetEntityDamage( EntityDamage ED );
-    EntityDamage GetEntityDamage() const;
+    void SetEntityDamage( KDIS::DATA_TYPE::ENUMS::EntityDamage ED );
+    KDIS::DATA_TYPE::ENUMS::EntityDamage GetEntityDamage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SubSurfacePlatformAppearance::SetEntitySmoke,
@@ -110,8 +105,8 @@ public:
     // Description: Entity Smoke State
     // Parameter:   EntitySmoke ES
     //************************************
-    void SetEntitySmoke( EntitySmoke ES );
-    EntitySmoke GetEntitySmoke() const;
+    void SetEntitySmoke( KDIS::DATA_TYPE::ENUMS::EntitySmoke ES );
+    KDIS::DATA_TYPE::ENUMS::EntitySmoke GetEntitySmoke() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SubSurfacePlatformAppearance::SetEntityCanopyState
@@ -120,8 +115,8 @@ public:
 	//				or PrimaryHatchIsOpen are acceptable values when using aircraft.
     // Parameter:   EntityHatchState EHS
     //************************************
-    void SetEntityHatchState( EntityHatchState EHS );
-    EntityHatchState GetEntityHatchState() const;
+    void SetEntityHatchState( KDIS::DATA_TYPE::ENUMS::EntityHatchState EHS );
+    KDIS::DATA_TYPE::ENUMS::EntityHatchState GetEntityHatchState() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SubSurfacePlatformAppearance::SetEntityRunningLights

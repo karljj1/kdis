@@ -48,11 +48,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::RelativeWorldCoordinates;
-using KDIS::DATA_TYPE::MunitionDescriptor;
-using KDIS::DATA_TYPE::RelativeWorldCoordinates;
-using KDIS::DATA_TYPE::LE_Vector16_3;
-
 class KDIS_EXPORT LE_Fire_PDU : public LE_Header
 {
 protected:
@@ -73,17 +68,17 @@ protected:
         KUINT8 m_ui8Flag;
     } m_FireFlagUnion;
 
-    LE_EntityIdentifier m_TargetID;
+    KDIS::DATA_TYPE::LE_EntityIdentifier m_TargetID;
 
-    LE_EntityIdentifier m_MunitionID;
+    KDIS::DATA_TYPE::LE_EntityIdentifier m_MunitionID;
 
-    LE_EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::LE_EntityIdentifier m_EventID;
 
-    MunitionDescriptor m_MunitionDesc;
+    KDIS::DATA_TYPE::MunitionDescriptor m_MunitionDesc;
 
-    RelativeWorldCoordinates m_Loc;
+    KDIS::DATA_TYPE::RelativeWorldCoordinates m_Loc;
 
-    LE_Vector16_3 m_Vel;
+    KDIS::DATA_TYPE::LE_Vector16_3 m_Vel;
 
     KUINT16 m_ui16Range;
 
@@ -106,7 +101,7 @@ public:
 
 	LE_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    LE_Fire_PDU( const LE_EntityIdentifier & ID );
+    LE_Fire_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
     virtual ~LE_Fire_PDU();
 
@@ -152,9 +147,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const LE_EntityIdentifier & ID
     //************************************
-    void SetTargetEntityID( const LE_EntityIdentifier & ID );
-    const LE_EntityIdentifier & GetTargetEntityID() const;
-    LE_EntityIdentifier & GetTargetEntityID();
+    void SetTargetEntityID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetTargetEntityID() const;
+    KDIS::DATA_TYPE::LE_EntityIdentifier & GetTargetEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetMunitionEntityID
@@ -170,9 +165,9 @@ public:
     //              firing entity and the relevant flags are set accordingly.
     // Parameter:   const LE_EntityIdentifier & ID
     //************************************
-    void SetMunitionEntityID( const LE_EntityIdentifier & ID );
-    const LE_EntityIdentifier & GetMunitionEntityID() const;
-    LE_EntityIdentifier & GetMunitionEntityID();
+    void SetMunitionEntityID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetMunitionEntityID() const;
+    KDIS::DATA_TYPE::LE_EntityIdentifier & GetMunitionEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetEventID
@@ -186,9 +181,9 @@ public:
     //              firing entity and the relevant flags are set accordingly.
     // Parameter:   const LE_EntityIdentifier & ID
     //************************************
-    void SetEventID( const LE_EntityIdentifier & ID );
-    const LE_EntityIdentifier & GetEventID() const;
-    LE_EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::LE_EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetEntityLocation
@@ -200,9 +195,9 @@ public:
     //              shall be the current dead reckoned location of the firing entity.
     // Parameter:   const RelativeWorldCoordinates & L
     //************************************
-    void SetLocation( const RelativeWorldCoordinates & L );
-    const RelativeWorldCoordinates & GetLocation() const;
-    RelativeWorldCoordinates & GetLocation();
+    void SetLocation( const KDIS::DATA_TYPE::RelativeWorldCoordinates & L );
+    const KDIS::DATA_TYPE::RelativeWorldCoordinates & GetLocation() const;
+    KDIS::DATA_TYPE::RelativeWorldCoordinates & GetLocation();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetMunitionDescriptor
@@ -215,9 +210,9 @@ public:
     //              This field is also known as the BurstDescriptor in older versions of the DIS standard.
     // Parameter:   const MunitionDescriptor & MD
     //************************************
-    void SetMunitionDescriptor( const MunitionDescriptor & MD );
-    const MunitionDescriptor & GetMunitionDescriptor() const;
-    MunitionDescriptor & GetMunitionDescriptor();
+    void SetMunitionDescriptor( const KDIS::DATA_TYPE::MunitionDescriptor & MD );
+    const KDIS::DATA_TYPE::MunitionDescriptor & GetMunitionDescriptor() const;
+    KDIS::DATA_TYPE::MunitionDescriptor & GetMunitionDescriptor();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetVelocity
@@ -228,9 +223,9 @@ public:
     //              apparent. In decimeters per second.
     // Parameter:   const LE_Vector16_3 & V
     //************************************
-    void SetVelocity( const LE_Vector16_3 & V );
-    const LE_Vector16_3 & GetVelocity() const;
-    LE_Vector16_3 & GetVelocity();
+    void SetVelocity( const KDIS::DATA_TYPE::LE_Vector16_3 & V );
+    const KDIS::DATA_TYPE::LE_Vector16_3 & GetVelocity() const;
+    KDIS::DATA_TYPE::LE_Vector16_3 & GetVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Fire_PDU::SetRange

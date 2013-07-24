@@ -45,16 +45,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ClockTime;
-using KDIS::DATA_TYPE::ENUMS::StopFreezeReason;
-using KDIS::DATA_TYPE::ENUMS::FrozenBehavior;
-
 class KDIS_EXPORT Stop_Freeze_PDU : public Simulation_Management_Header
 {
 protected:
 
-    ClockTime m_RealWorldTime;
+    KDIS::DATA_TYPE::ClockTime m_RealWorldTime;
 
     KUINT8 m_ui8Reason;
 
@@ -76,11 +71,11 @@ public:
 
 	Stop_Freeze_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Stop_Freeze_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity,
-                     const ClockTime & RealWorldTime, StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID );
+    Stop_Freeze_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
+		const KDIS::DATA_TYPE::ClockTime & RealWorldTime, KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR, KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID );
 
-    Stop_Freeze_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
-                     StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID );
+    Stop_Freeze_PDU( const Simulation_Management_Header & SimMgrHeader, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
+                     KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR, KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID );
 
     virtual ~Stop_Freeze_PDU();
 
@@ -89,20 +84,20 @@ public:
     //              KDIS::PDU::Stop_Freeze_PDU::GetRealWorldTime
     // Description: specify the real-world time at which the entity
     //              is to start/resume in the exercise.
-    // Parameter:   const ClockTime T, void
+    // Parameter:   const ClockTime T
     //************************************
-    void  SetRealWorldTime( const ClockTime & T );
-    const ClockTime & GetRealWorldTime() const;
-    ClockTime & GetRealWorldTime();
+    void  SetRealWorldTime( const KDIS::DATA_TYPE::ClockTime & T );
+    const KDIS::DATA_TYPE::ClockTime & GetRealWorldTime() const;
+    KDIS::DATA_TYPE::ClockTime & GetRealWorldTime();
 
     //************************************
     // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetReason
     //              KDIS::PDU::Stop_Freeze_PDU::GetReason
     // Description: Reason the entity/exercise was frozen
-    // Parameter:   StopFreezeReason SFR, void
+    // Parameter:   StopFreezeReason SFR
     //************************************
-    void SetReason( StopFreezeReason SFR );
-    StopFreezeReason GetReason() const;
+    void SetReason( KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR );
+    KDIS::DATA_TYPE::ENUMS::StopFreezeReason GetReason() const;
 
     //************************************
     // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetFrozenBehavior
@@ -112,14 +107,14 @@ public:
     //              exercise
     // Parameter:   FrozenBehavior FB
     //************************************
-    void SetFrozenBehavior( FrozenBehavior FB );
-    FrozenBehavior GetFrozenBehavior() const;
+    void SetFrozenBehavior( KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB );
+    KDIS::DATA_TYPE::ENUMS::FrozenBehavior GetFrozenBehavior() const;
 
     //************************************
     // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetRequestID
     //              KDIS::PDU::Stop_Freeze_PDU::GetRequestID
     // Description: Request ID
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;

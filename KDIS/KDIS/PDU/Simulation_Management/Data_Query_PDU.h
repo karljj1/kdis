@@ -44,23 +44,21 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Data_Query_PDU : public Simulation_Management_Header
 {
 protected:
 	
     KUINT32 m_ui32RequestID;
 
-	TimeStamp m_TimeInterval;	
+	KDIS::DATA_TYPE::TimeStamp m_TimeInterval;	
 	
 	KUINT32 m_ui32NumFixedDatum;
 
     KUINT32 m_ui32NumVariableDatum;
 
-    vector<KUINT32> m_vFixedDatum;
+	std::vector<KUINT32> m_vFixedDatum;
 
-    vector<KUINT32> m_vVariableDatum;    
+	std::vector<KUINT32> m_vVariableDatum;    
 
 public:
 
@@ -74,7 +72,7 @@ public:
 
 	Data_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Data_Query_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
+    Data_Query_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                     KUINT32 RequestID );
 
     virtual ~Data_Query_PDU();
@@ -84,7 +82,7 @@ public:
     //              KDIS::PDU::Data_Query_PDU::GetRequestID
     // Description: Request ID, identifies the matching response
     //              to a Data Query PDU or Set Data PDU.
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;	
@@ -97,9 +95,9 @@ public:
     //              be sent once and not at any other time intervals.
     // Parameter:   TimeStamp TI
     //************************************
-    void SetTimeInterval( const TimeStamp & TI );
-    const TimeStamp & GetTimeInterval() const;
-	TimeStamp & GetTimeInterval();
+    void SetTimeInterval( const KDIS::DATA_TYPE::TimeStamp & TI );
+    const KDIS::DATA_TYPE::TimeStamp & GetTimeInterval() const;
+	KDIS::DATA_TYPE::TimeStamp & GetTimeInterval();
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::GetNumberFIxedDatum
@@ -121,8 +119,8 @@ public:
     // Parameter:   KUINT32 FD, const vector<KUINT32> & FD
     //************************************
     void AddFixedDatum( KUINT32 FD );
-    void SetFixedDatum( const vector<KUINT32> & FD );
-    const vector<KUINT32> & GetFixedDatum() const;
+	void SetFixedDatum( const std::vector<KUINT32> & FD );
+	const std::vector<KUINT32> & GetFixedDatum() const;
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::AddVariableDatum
@@ -132,8 +130,8 @@ public:
     // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
     //************************************
     void AddVariableDatum( KUINT32 VD );
-    void SetVariableDatum( const vector<KUINT32> & VD );
-    const vector<KUINT32> & GetVariableDatum() const;
+	void SetVariableDatum( const std::vector<KUINT32> & VD );
+	const std::vector<KUINT32> & GetVariableDatum() const;
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::GetAsString

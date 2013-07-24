@@ -45,10 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ClockTime;
-using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
-
 class KDIS_EXPORT Start_Resume_R_PDU : public Start_Resume_PDU,
                                        public Reliability_Header
 {
@@ -62,18 +58,17 @@ public:
 
 	Start_Resume_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Start_Resume_R_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, const ClockTime & RealWorldTime,
-                        const ClockTime & SimTime, KUINT32 ReqID, RequiredReliabilityService RRS );
+    Start_Resume_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
+		const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
-    Start_Resume_R_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
-                        const ClockTime & SimTime, KUINT32 ReqID, RequiredReliabilityService RRS  );
+    Start_Resume_R_PDU( const Simulation_Management_Header & SimMgrHeader, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
+		const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS  );
 
     virtual ~Start_Resume_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_R_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

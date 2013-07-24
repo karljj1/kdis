@@ -52,13 +52,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::ObjectType;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::PointObjectAppearance;
-using KDIS::DATA_TYPE::SimulationIdentifier;
-using KDIS::DATA_TYPE::ENUMS::ForceID;
-
 class KDIS_EXPORT Point_Object_State_PDU : public Object_State_Header
 {
 protected:
@@ -75,19 +68,19 @@ protected:
         KUINT8 m_ui8Modifications;
     } m_ModificationUnion;
 
-    ObjectType m_ObjTyp;
+    KDIS::DATA_TYPE::ObjectType m_ObjTyp;
 
-    WorldCoordinates m_Loc;
+    KDIS::DATA_TYPE::WorldCoordinates m_Loc;
 
-    EulerAngles m_Ori;
+    KDIS::DATA_TYPE::EulerAngles m_Ori;
 
-    PointObjectAppearance m_Apperance;
+    KDIS::DATA_TYPE::PointObjectAppearance m_Apperance;
 
     KUINT16 m_ui16Padding;
 
-    SimulationIdentifier m_ReqID;
+    KDIS::DATA_TYPE::SimulationIdentifier m_ReqID;
 
-    SimulationIdentifier m_RecvID;
+    KDIS::DATA_TYPE::SimulationIdentifier m_RecvID;
 
     KUINT32 m_ui32Padding1;
 
@@ -101,10 +94,10 @@ public:
 
 	Point_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Point_Object_State_PDU( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID , KUINT16 UpdateNum,
-                            ForceID FI, const ObjectType & O, const WorldCoordinates & Loc, const EulerAngles & Ori,
-                            const PointObjectAppearance & P, const SimulationIdentifier & ReqID,
-                            const SimulationIdentifier & RecvID );
+    Point_Object_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID , KUINT16 UpdateNum,
+		                    KDIS::DATA_TYPE::ENUMS::ForceID FI, const KDIS::DATA_TYPE::ObjectType & O, const KDIS::DATA_TYPE::WorldCoordinates & Loc, const KDIS::DATA_TYPE::EulerAngles & Ori,
+                            const KDIS::DATA_TYPE::PointObjectAppearance & P, const KDIS::DATA_TYPE::SimulationIdentifier & ReqID,
+                            const KDIS::DATA_TYPE::SimulationIdentifier & RecvID );
 
     virtual ~Point_Object_State_PDU();
 
@@ -134,61 +127,61 @@ public:
     // FullName:    KDIS::PDU::Point_Object_State_PDU::SetObjectType
     //              KDIS::PDU::Point_Object_State_PDU::GetObjectType
     // Description: The type of object. Represented as DIS enumeration(domain, kind, Category and sub category).
-    // Parameter:   const ObjectType & O, void
+    // Parameter:   const ObjectType & O
     //************************************
-    void SetObjectType( const ObjectType & O );
-    const ObjectType & GetObjectType() const;
-    ObjectType & GetObjectType();
+    void SetObjectType( const KDIS::DATA_TYPE::ObjectType & O );
+    const KDIS::DATA_TYPE::ObjectType & GetObjectType() const;
+    KDIS::DATA_TYPE::ObjectType & GetObjectType();
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::SetLocation
     //              KDIS::PDU::Point_Object_State_PDU::GetLocation
     // Description: The physical location of the object.
-    // Parameter:   const WorldCoordinates & L, void
+    // Parameter:   const WorldCoordinates & L
     //************************************
-    void SetLocation( const WorldCoordinates & L );
-    const WorldCoordinates & GetLocation() const;
-    WorldCoordinates & GetLocation();
+    void SetLocation( const KDIS::DATA_TYPE::WorldCoordinates & L );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetLocation() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::SetOrientation
     //              KDIS::PDU::Point_Object_State_PDU::GetOrientation
     // Description: The objects orientation.
-    // Parameter:   const EulerAngles & O, void
+    // Parameter:   const EulerAngles & O
     //************************************
-    void SetOrientation( const EulerAngles & O );
-    const EulerAngles & GetOrientation() const;
-    EulerAngles & GetOrientation();
+    void SetOrientation( const KDIS::DATA_TYPE::EulerAngles & O );
+    const KDIS::DATA_TYPE::EulerAngles & GetOrientation() const;
+    KDIS::DATA_TYPE::EulerAngles & GetOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::SetObjectAppearance
     //              KDIS::PDU::Point_Object_State_PDU::GetObjectAppearance
     // Description: Specifies the dynamic changes to an object’s appearance attributes.
-    // Parameter:   const PointObjectAppearance & O, void
+    // Parameter:   const PointObjectAppearance & O
     //************************************
-    void SetObjectAppearance( const PointObjectAppearance & A );
-    const PointObjectAppearance & GetObjectAppearance() const;
-    PointObjectAppearance & GetObjectAppearance();
+    void SetObjectAppearance( const KDIS::DATA_TYPE::PointObjectAppearance & A );
+    const KDIS::DATA_TYPE::PointObjectAppearance & GetObjectAppearance() const;
+    KDIS::DATA_TYPE::PointObjectAppearance & GetObjectAppearance();
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::SetRequestorSimulationID
     //              KDIS::PDU::Point_Object_State_PDU::GetRequestorSimulationID
     // Description: The simulation application sending the PDU.
-    // Parameter:   const SimulationIdentifier & ID, void
+    // Parameter:   const SimulationIdentifier & ID
     //************************************
-    void SetRequestorSimulationID( const SimulationIdentifier & ID );
-    const SimulationIdentifier & GetRequestorSimulationID() const;
-    SimulationIdentifier & GetRequestorSimulationID();
+    void SetRequestorSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
+    const KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID() const;
+    KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID();
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::SetReceivingSimulationID
     //              KDIS::PDU::Point_Object_State_PDU::GetReceivingSimulationID
     // Description: The simulation application that is to receive the PDU.
-    // Parameter:   const SimulationIdentifier & ID, void
+    // Parameter:   const SimulationIdentifier & ID
     //************************************
-    void SetReceivingSimulationID( const SimulationIdentifier & ID );
-    const SimulationIdentifier & GetReceivingSimulationID() const;
-    SimulationIdentifier & GetReceivingSimulationID();
+    void SetReceivingSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
+    const KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID() const;
+    KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID();
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::GetAsString

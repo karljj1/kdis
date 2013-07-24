@@ -49,13 +49,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::RelativeWorldCoordinates;
-using KDIS::DATA_TYPE::LE_Vector16_3;
-using KDIS::DATA_TYPE::LE_EulerAngles;
-using KDIS::DATA_TYPE::MunitionDescriptor;
-using KDIS::DATA_TYPE::ENUMS::DetonationResult;
-
 class KDIS_EXPORT LE_Detonation_PDU : public LE_Header
 {
 protected:
@@ -88,20 +81,20 @@ protected:
         KUINT8 m_ui8Flag;
     } m_DetonationFlag2Union;
 
-    LE_EntityIdentifier m_TargetID;
+    KDIS::DATA_TYPE::LE_EntityIdentifier m_TargetID;
 
-    LE_EntityIdentifier m_MunitionID;
+    KDIS::DATA_TYPE::LE_EntityIdentifier m_MunitionID;
 
-    LE_EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::LE_EntityIdentifier m_EventID;
 
-    LE_Vector16_3 m_LocEntCoord;
-    RelativeWorldCoordinates m_LocWrldCoord;
+    KDIS::DATA_TYPE::LE_Vector16_3 m_LocEntCoord;
+    KDIS::DATA_TYPE::RelativeWorldCoordinates m_LocWrldCoord;
 
-    LE_Vector16_3 m_Vel;
+    KDIS::DATA_TYPE::LE_Vector16_3 m_Vel;
 
-    LE_EulerAngles m_Ori;
+    KDIS::DATA_TYPE::LE_EulerAngles m_Ori;
 
-    MunitionDescriptor m_MunitionDesc;
+    KDIS::DATA_TYPE::MunitionDescriptor m_MunitionDesc;
 
     KUINT8 m_ui8DetonationResult;
 
@@ -124,7 +117,7 @@ public:
 
 	LE_Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    LE_Detonation_PDU( const LE_EntityIdentifier & ID );
+    LE_Detonation_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
     virtual ~LE_Detonation_PDU();
 
@@ -181,9 +174,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const LE_EntityIdentifier & ID
     //************************************
-    void SetTargetEntityID( const LE_EntityIdentifier & ID );
-    const LE_EntityIdentifier & GetTargetEntityID() const;
-    LE_EntityIdentifier & GetTargetEntityID();
+    void SetTargetEntityID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetTargetEntityID() const;
+    KDIS::DATA_TYPE::LE_EntityIdentifier & GetTargetEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetMunitionEntityID
@@ -197,9 +190,9 @@ public:
     //              Note: Setting this value will also cause the relevant flags to be set to true.
     // Parameter:   const LE_EntityIdentifier & ID
     //************************************
-    void SetMunitionEntityID( const LE_EntityIdentifier & ID );
-    const LE_EntityIdentifier & GetMunitionEntityID() const;
-    LE_EntityIdentifier & GetMunitionEntityID();
+    void SetMunitionEntityID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetMunitionEntityID() const;
+    KDIS::DATA_TYPE::LE_EntityIdentifier & GetMunitionEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetEventID
@@ -215,9 +208,9 @@ public:
     //              firing entity and the relevant flags are set accordingly.
     // Parameter:   const LE_EntityIdentifier & ID
     //************************************
-    void SetEventID( const LE_EntityIdentifier & ID );
-    const LE_EntityIdentifier & GetEventID() const;
-    LE_EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::LE_EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetLocation
@@ -232,14 +225,14 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set correctly.
     // Parameter:   const LE_Vector16_3 & L, const RelativeWorldCoordinates & L
     //************************************
-    void SetLocation( const LE_Vector16_3 & L  );
-    void SetLocation( const RelativeWorldCoordinates & L  );
-    void SetLocationEntityCoordinates( const LE_Vector16_3 & L );
-    const LE_Vector16_3 & GetLocationEntityCoordinates() const;
-    LE_Vector16_3 & GetLocationEntityCoordinates();
-    void SetLocationWorldCoordinates( const RelativeWorldCoordinates & L );
-    const RelativeWorldCoordinates & GetLocationWorldCoordinates() const;
-    RelativeWorldCoordinates & GetLocationWorldCoordinates();
+    void SetLocation( const KDIS::DATA_TYPE::LE_Vector16_3 & L  );
+    void SetLocation( const KDIS::DATA_TYPE::RelativeWorldCoordinates & L  );
+    void SetLocationEntityCoordinates( const KDIS::DATA_TYPE::LE_Vector16_3 & L );
+    const KDIS::DATA_TYPE::LE_Vector16_3 & GetLocationEntityCoordinates() const;
+    KDIS::DATA_TYPE::LE_Vector16_3 & GetLocationEntityCoordinates();
+    void SetLocationWorldCoordinates( const KDIS::DATA_TYPE::RelativeWorldCoordinates & L );
+    const KDIS::DATA_TYPE::RelativeWorldCoordinates & GetLocationWorldCoordinates() const;
+    KDIS::DATA_TYPE::RelativeWorldCoordinates & GetLocationWorldCoordinates();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetVelocity
@@ -248,9 +241,9 @@ public:
     //              detonation/impact in decimeters per second.
     // Parameter:   const LE_Vector16_3 & V
     //************************************
-    void SetVelocity( const LE_Vector16_3 & V );
-    const LE_Vector16_3 & GetVelocity() const;
-    LE_Vector16_3 & GetVelocity();
+    void SetVelocity( const KDIS::DATA_TYPE::LE_Vector16_3 & V );
+    const KDIS::DATA_TYPE::LE_Vector16_3 & GetVelocity() const;
+    KDIS::DATA_TYPE::LE_Vector16_3 & GetVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetMunitionOrientation
@@ -260,9 +253,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const LE_EulerAngles & O
     //************************************
-    void SetMunitionOrientation( const LE_EulerAngles & O );
-    const LE_EulerAngles & GetMunitionOrientation() const;
-    LE_EulerAngles & GetMunitionOrientation();
+    void SetMunitionOrientation( const KDIS::DATA_TYPE::LE_EulerAngles & O );
+    const KDIS::DATA_TYPE::LE_EulerAngles & GetMunitionOrientation() const;
+    KDIS::DATA_TYPE::LE_EulerAngles & GetMunitionOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetMunitionDescriptor
@@ -275,9 +268,9 @@ public:
     //              This field is also known as the BurstDescriptor in older versions of the DIS standard.
     // Parameter:   const MunitionDescriptor & MD
     //************************************
-    void SetMunitionDescriptor( const MunitionDescriptor & MD );
-    const MunitionDescriptor & GetMunitionDescriptor() const;
-    MunitionDescriptor & GetMunitionDescriptor();
+    void SetMunitionDescriptor( const KDIS::DATA_TYPE::MunitionDescriptor & MD );
+    const KDIS::DATA_TYPE::MunitionDescriptor & GetMunitionDescriptor() const;
+    KDIS::DATA_TYPE::MunitionDescriptor & GetMunitionDescriptor();
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::SetDetonationResult
@@ -285,8 +278,8 @@ public:
     // Description: Represents the result of the detonation.
     // Parameter:   DetonationResult DR
     //************************************
-    void SetDetonationResult( DetonationResult DR );
-    DetonationResult GetDetonationResult() const;
+	void SetDetonationResult( KDIS::DATA_TYPE::ENUMS::DetonationResult DR );
+	KDIS::DATA_TYPE::ENUMS::DetonationResult GetDetonationResult() const;
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::GetAsString

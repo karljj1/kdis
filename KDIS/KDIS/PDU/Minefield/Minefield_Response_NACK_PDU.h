@@ -48,21 +48,17 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EntityType;
-using std::vector;
-
 class KDIS_EXPORT Minefield_Response_NACK_PDU : public Minefield_Header
 {
 protected:
 
-    EntityIdentifier m_ReqID;
+    KDIS::DATA_TYPE::EntityIdentifier m_ReqID;
 
     KUINT8 m_ui8ReqID;
 
     KUINT8 m_ui8NumMisPdus;
 
-    vector<KUINT8> m_vSeqNums;
+	std::vector<KUINT8> m_vSeqNums;
 
 public:
 
@@ -74,11 +70,11 @@ public:
 
 	Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
+    Minefield_Response_NACK_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                                  KUINT8 ReqID );
 
-    Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
-                                 KUINT8 ReqID, const vector<KUINT8> & MissingSeqNums );
+    Minefield_Response_NACK_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
+		                         KUINT8 ReqID, const std::vector<KUINT8> & MissingSeqNums );
    
 
     virtual ~Minefield_Response_NACK_PDU();
@@ -90,9 +86,9 @@ public:
     //              retransmission of information from the minefield simulation.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetRequestingSimulationID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetRequestingSimulationID() const;
-    EntityIdentifier & GetRequestingSimulationID();
+    void SetRequestingSimulationID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::SetRequestID
@@ -123,8 +119,8 @@ public:
     // Parameter:   KUINT8 N, const vector<KUINT8> & N
     //************************************
     void AddMissingPDUSequenceNumber( KUINT8 N );
-    void SetMissingPDUSequenceNumbers( const vector<KUINT8> & N );
-    const vector<KUINT8> & GetMissingPDUSequenceNumbers() const;
+	void SetMissingPDUSequenceNumbers( const std::vector<KUINT8> & N );
+	const std::vector<KUINT8> & GetMissingPDUSequenceNumbers() const;
     void ClearMissingPDUSequenceNumbers();
 
     //************************************

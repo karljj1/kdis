@@ -72,37 +72,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EnvironmentType;
-using KDIS::DATA_TYPE::PointRecord1;
-using KDIS::DATA_TYPE::PointRecord2;
-using KDIS::DATA_TYPE::LineRecord1;
-using KDIS::DATA_TYPE::LineRecord2;
-using KDIS::DATA_TYPE::BoundingSphereRecord;
-using KDIS::DATA_TYPE::SphereRecord1;
-using KDIS::DATA_TYPE::SphereRecord2;
-using KDIS::DATA_TYPE::EllipsoidRecord1;
-using KDIS::DATA_TYPE::EllipsoidRecord2;
-using KDIS::DATA_TYPE::ConeRecord1;
-using KDIS::DATA_TYPE::ConeRecord2;
-using KDIS::DATA_TYPE::RectangularVolumeRecord1;
-using KDIS::DATA_TYPE::RectangularVolumeRecord2;
-using KDIS::DATA_TYPE::RectangularVolumeRecord3;
-using KDIS::DATA_TYPE::GaussianPlumeRecord;
-using KDIS::DATA_TYPE::GaussianPuffRecord;
-using KDIS::DATA_TYPE::EnvironmentRecord;
-using KDIS::DATA_TYPE::COMBICState;
-using KDIS::DATA_TYPE::FlareState;
-using KDIS::DATA_TYPE::EnvironmentRecord;
-using KDIS::DATA_TYPE::EnviromentRecordPtr;
-
 class KDIS_EXPORT Environmental_Process_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_EnvProcID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EnvProcID;
 
-    EnvironmentType m_EnvType;
+    KDIS::DATA_TYPE::EnvironmentType m_EnvType;
 
     KUINT8 m_ui8ModelType;
 
@@ -122,7 +98,7 @@ protected:
 
     KUINT16 m_ui16SeqNum;
 
-    vector<EnviromentRecordPtr> m_vEnvRecords;
+    std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> m_vEnvRecords;
 
 public:
 
@@ -134,13 +110,13 @@ public:
 
 	Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Environmental_Process_PDU( const EntityIdentifier & EnvironmentalProcessID, const EnvironmentType & ET,
+    Environmental_Process_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, const KDIS::DATA_TYPE::EnvironmentType & ET,
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
                                KUINT16 SequenceNumber );
 
-    Environmental_Process_PDU( const EntityIdentifier & EnvironmentalProcessID, const EnvironmentType & ET,
+    Environmental_Process_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, const KDIS::DATA_TYPE::EnvironmentType & ET,
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
-                               KUINT16 SequenceNumber, const vector<EnviromentRecordPtr> & ERL );
+							   KUINT16 SequenceNumber, const std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> & ERL );
 
     virtual ~Environmental_Process_PDU();
 
@@ -148,21 +124,21 @@ public:
     // FullName:    KDIS::PDU::Environmental_Process_PDU::SetEnvironmentalProcessID
     //              KDIS::PDU::Environmental_Process_PDU::GetEnvironmentalProcessID
     // Description: Identifies the environmental process issuing the Environmental Process PDU.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEnvironmentalProcessID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEnvironmentalProcessID() const;
-    EntityIdentifier & GetEnvironmentalProcessID();
+    void SetEnvironmentalProcessID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEnvironmentalProcessID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEnvironmentalProcessID();
 
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::SetEnvironmentType
     //              KDIS::PDU::Environmental_Process_PDU::GetEnvironmentType
     // Description: DIS enumeration identifying the type of environmental effect being described.
-    // Parameter:   const EnvironmentType & ET, void
+    // Parameter:   const EnvironmentType & ET
     //************************************
-    void SetEnvironmentType( const EnvironmentType & ET );
-    const EnvironmentType & GetEnvironmentType() const;
-    EnvironmentType & GetEnvironmentType();
+    void SetEnvironmentType( const KDIS::DATA_TYPE::EnvironmentType & ET );
+    const KDIS::DATA_TYPE::EnvironmentType & GetEnvironmentType() const;
+    KDIS::DATA_TYPE::EnvironmentType & GetEnvironmentType();
 
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::SetModelType
@@ -171,7 +147,7 @@ public:
     //              environmental condition or entity.
     //              values for this enumeration shall be defined by the
     //              Exercise Manager prior to a simulation exercise.
-    // Parameter:   const EnvironmentType & ET, void
+    // Parameter:   const EnvironmentType & ET
     //************************************
     void SetModelType( KUINT8 MT );
     KUINT8 GetModelType() const;
@@ -189,7 +165,7 @@ public:
     //              bit 0 (Last) = Indicates that the current PDU shall be the last PDU for the specified process.
     //              bit 1 (On)   = Indicates that the specified environmental process is active.
     //              bits 2 - 7   = Unused.
-    // Parameter:   KUINT8 ES, KBOOL Last, void
+    // Parameter:   KUINT8 ES, KBOOL Last
     // Parameter:   KBOOL On
     //************************************
     void SetEnvironmentStatus( KUINT8 ES );
@@ -214,7 +190,7 @@ public:
     //              If PDU sequencing is required, this field shall be set to zero for each exercise and sequentially
     //              incremented by one each time a PDU is issued by an environmental process.
     //              When all possible values are exhausted, the numbers shall be reused beginning at one.
-    // Parameter:   KKUINT16 SN, void
+    // Parameter:   KKUINT16 SN
     //************************************
     void SetSequenceNumber( KUINT16 SN );
     KUINT16 GetSequenceNumber() const;
@@ -265,9 +241,9 @@ public:
     //
     // Parameter:   const EnviromentRecordLst & ER, void, const EnviromentRecordPtr & ER
     //************************************
-    void SetEnvironmentRecords( const vector<EnviromentRecordPtr> & ER );
-    const vector<EnviromentRecordPtr> & GetEnvironmentRecords() const;
-    void AddEnviromentRecord( EnviromentRecordPtr ER );
+    void SetEnvironmentRecords( const std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> & ER );
+    const std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> & GetEnvironmentRecords() const;
+    void AddEnviromentRecord( KDIS::DATA_TYPE::EnviromentRecordPtr ER );
 	void ClearEnviromentRecords();
 
     //************************************

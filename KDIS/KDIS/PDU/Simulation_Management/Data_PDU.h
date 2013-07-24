@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Data_PDU : public Comment_PDU
 {
 protected:
@@ -66,7 +64,7 @@ public:
 
 	Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Data_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
+    Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
               KUINT32 RequestID );
 
     virtual ~Data_PDU();
@@ -76,15 +74,14 @@ public:
     //              KDIS::PDU::Data_PDU::GetRequestID
     // Description: Request ID, identifies the matching response
     //              to a Data Query PDU or Set Data PDU.
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Data_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

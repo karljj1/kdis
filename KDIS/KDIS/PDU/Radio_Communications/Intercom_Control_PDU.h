@@ -64,9 +64,9 @@ protected:
 
     KUINT8 m_ui8CtrlTyp;
 
-    CommunicationsChannelType m_CommChannelType;
+    KDIS::DATA_TYPE::CommunicationsChannelType m_CommChannelType;
 
-    EntityIdentifier m_SrcEnt;
+    KDIS::DATA_TYPE::EntityIdentifier m_SrcEnt;
 
     KUINT16 m_ui16SrcCommDevID;
 
@@ -78,7 +78,7 @@ protected:
 
     KUINT8 m_ui8Command;
 
-    EntityIdentifier m_MstrEntID;
+    KDIS::DATA_TYPE::EntityIdentifier m_MstrEntID;
 
     KUINT16 m_ui16MstrCommDeviceID;
 
@@ -86,7 +86,7 @@ protected:
 
     KUINT32 m_ui32IntrParamLen;
 
-    vector<IntercomCommunicationParameters> m_vICP;
+	std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> m_vICP;
 
 public:
 
@@ -104,20 +104,20 @@ public:
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetControlType
     //              KDIS::PDU::Intercom_Control_PDU::GetControlType
     // Description: Identifies the type of control requested.
-    // Parameter:   ControlType CT, void
+    // Parameter:   ControlType CT
     //************************************
-    void SetControlType( ControlType CT );
-    ControlType GetControlType() const;
+    void SetControlType( KDIS::DATA_TYPE::ENUMS::ControlType CT );
+    KDIS::DATA_TYPE::ENUMS::ControlType GetControlType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetCommunicationsChannelType
     //              KDIS::PDU::Intercom_Control_PDU::GetCommunicationsChannelType
     // Description: Identifies the Communications Channel Type, class & type.
-    // Parameter:   const CommunicationsChannelType & CCT, void
-    //************************************
-    void SetCommunicationsChannelType( const CommunicationsChannelType & CCT );
-    const CommunicationsChannelType & GetCommunicationsChannelType() const;
-    CommunicationsChannelType & GetCommunicationsChannelType();
+    // Parameter:   const CommunicationsChannelType & CCT
+	//************************************
+    void SetCommunicationsChannelType( const KDIS::DATA_TYPE::CommunicationsChannelType & CCT );
+    const KDIS::DATA_TYPE::CommunicationsChannelType & GetCommunicationsChannelType() const;
+    KDIS::DATA_TYPE::CommunicationsChannelType & GetCommunicationsChannelType();
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetSourceEntityID
@@ -125,11 +125,11 @@ public:
     // Description: Entity that is the source of the radio intercom transmission.
     //              This Entity ID can be for either the entity that contains/owns
     //              the intercom device or the intercom device itself.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetSourceEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetSourceEntityID() const;
-    EntityIdentifier & GetSourceEntityID();
+    void SetSourceEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetSourceEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetSourceEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetSourceCommDeviceID
@@ -138,7 +138,7 @@ public:
     //              and/or simulated within an entity.
     //              All devices on an entity must have a unique ID.
     //              Set to 0 if the entity does not have a simulated device.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetSourceCommDeviceID( KUINT16 ID );
     KUINT16 GetSourceCommDeviceID() const;
@@ -148,7 +148,7 @@ public:
     //              KDIS::PDU::Intercom_Control_PDU::GetSourceLineID
     // Description: Identifies the line number to which this intercom control refers.
     //              E.G. For a intercom device with a single line the value would be 1.
-    // Parameter:   KUINT8 ID, void
+    // Parameter:   KUINT8 ID
     //************************************
     void SetSourceLineID( KUINT8 ID );
     KUINT8 GetSourceLineID() const;
@@ -160,7 +160,7 @@ public:
     //              from other intercom devices on the same channel.
     //              The value 0 is reserved.
     //              1 = highest priority, 255 = lowest priority.
-    // Parameter:   KUINT8 TP, void
+    // Parameter:   KUINT8 TP
     //************************************
     void SetTransmitPriority( KUINT8 TP );
     KUINT8 GetTransmitPriority() const;
@@ -170,10 +170,10 @@ public:
     //              KDIS::PDU::Intercom_Control_PDU::GetTransmitLineState
     // Description: Identify the current transmit state of the line at the intercom
     //              source.
-    // Parameter:   TransmitLineState TLS, void
+    // Parameter:   TransmitLineState TLS
     //************************************
-    void SetTransmitLineState( TransmitLineState TLS );
-    TransmitLineState GetTransmitLineState() const;
+    void SetTransmitLineState( KDIS::DATA_TYPE::ENUMS::TransmitLineState TLS );
+    KDIS::DATA_TYPE::ENUMS::TransmitLineState GetTransmitLineState() const;
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetLineStateCommand
@@ -181,20 +181,20 @@ public:
     // Description: When the Control Type of the Intercom Control PDU is
     //              request or acknowledge, this field shall specify the
     //              detailed type requested. Otherwise set to 0.
-    // Parameter:   LineStateCommand LSC, void
+    // Parameter:   LineStateCommand LSC
     //************************************
-    void SetLineStateCommand( LineStateCommand LSC );
-    LineStateCommand GetLineStateCommand() const;
+    void SetLineStateCommand( KDIS::DATA_TYPE::ENUMS::LineStateCommand LSC );
+    KDIS::DATA_TYPE::ENUMS::LineStateCommand GetLineStateCommand() const;
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetMasterEntityID
     //              KDIS::PDU::Intercom_Control_PDU::GetMasterEntityID
     // Description: Entity that has created this intercom channel.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetMasterEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetMasterEntityID() const;
-    EntityIdentifier & GetMasterEntityID();
+    void SetMasterEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetMasterEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetMasterEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::SetMasterCommDeviceID
@@ -208,7 +208,7 @@ public:
     //              or does not wish to associate this channel with, an intercom device.
     //              All intercom units associated with a particular site/application/entity
     //              are numbered to provide unique identification.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetMasterCommDeviceID( KUINT16 ID );
     KUINT16 GetMasterCommDeviceID() const;
@@ -218,7 +218,7 @@ public:
     //              KDIS::PDU::Intercom_Control_PDU::GetMasterChannelID
     // Description: Identifies a unique intercom channel created by this Master Entity
     //              ID and Master Communications Device ID pair.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetMasterChannelID( KUINT16 ID );
     KUINT16 GetMasterChannelID() const;
@@ -234,16 +234,15 @@ public:
     //              KDIS::PDU::Intercom_Control_PDU::SetIntercomCommunicationParameters
     //              KDIS::PDU::Intercom_Control_PDU::GetIntercomCommunicationParameters
     // Description: Add a Intercom Communication Parameter / Get vector or params.
-    // Parameter:   const IntercomCommunicationParameters & ICP, void
+    // Parameter:   const IntercomCommunicationParameters & ICP
     //************************************
-    void AddIntercomCommunicationParameters( const IntercomCommunicationParameters & ICP );
-    void SetIntercomCommunicationParameters( const vector<IntercomCommunicationParameters> & ICP );
-    const vector<IntercomCommunicationParameters> & GetIntercomCommunicationParameters() const;
+    void AddIntercomCommunicationParameters( const KDIS::DATA_TYPE::IntercomCommunicationParameters & ICP );
+	void SetIntercomCommunicationParameters( const std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> & ICP );
+	const std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> & GetIntercomCommunicationParameters() const;
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

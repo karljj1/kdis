@@ -46,12 +46,8 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::ActionID;
-using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
-
 class KDIS_EXPORT Action_Request_R_PDU : public Action_Request_PDU,
-    public Reliability_Header
+                                         public Reliability_Header
 {
 protected:
 
@@ -67,15 +63,14 @@ public:
 
 	Action_Request_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Action_Request_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                          KUINT32 RequestID, KUINT32 ActionID, RequiredReliabilityService RRS );
+    Action_Request_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
+                          KUINT32 RequestID, KUINT32 ActionID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
     virtual ~Action_Request_R_PDU();
 
     //************************************
     // FullName:    KDIS::PDU::Action_Request_R_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

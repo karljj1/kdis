@@ -46,9 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::RepairResult;
-
 class KDIS_EXPORT Repair_Response_PDU : public Logistics_Header
 {
 protected:
@@ -69,8 +66,8 @@ public:
 
 	Repair_Response_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Repair_Response_PDU( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID,
-                         RepairResult RR );
+    Repair_Response_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntityID,
+		                 KDIS::DATA_TYPE::ENUMS::RepairResult RR );
 
     virtual ~Repair_Response_PDU();
 
@@ -80,8 +77,8 @@ public:
     // Description: Specifies the result of a previous repair completed PDU
     // Parameter:   RepairResult RR
     //************************************
-    void SetRepairResult( RepairResult RR );
-    RepairResult GetRepairResult() const;
+	void SetRepairResult( KDIS::DATA_TYPE::ENUMS::RepairResult RR );
+    KDIS::DATA_TYPE::ENUMS::RepairResult GetRepairResult() const;
 
     //************************************
     // FullName:    KDIS::PDU::Repair_Response_PDU::GetAsString

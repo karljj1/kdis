@@ -43,10 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::AggregateKind;
-using KDIS::DATA_TYPE::ENUMS::EntityDomain;
-using KDIS::DATA_TYPE::ENUMS::Country;
-
 class KDIS_EXPORT AggregateType : public DataTypeBase
 {
 protected:
@@ -71,8 +67,8 @@ public:
 
     AggregateType();
 
-    AggregateType( AggregateKind Kind, KUINT8  Domain, Country Country, KUINT8  Categoy,
-                   KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );
+    AggregateType( KDIS::DATA_TYPE::ENUMS::AggregateKind Kind, KUINT8 Domain, KDIS::DATA_TYPE::ENUMS::Country Country,
+				   KUINT8  Categoy, KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );
 
     AggregateType( KUINT8 Kind, KUINT8  Domain, KUINT8 Country, KUINT8  Categoy,
                    KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );
@@ -87,8 +83,8 @@ public:
     // Description: Kind
     // Parameter:   AggregateKind UI, void
     //************************************
-    void SetEntityKind( AggregateKind AK );
-    AggregateKind GetEntityKind() const;
+    void SetEntityKind( KDIS::DATA_TYPE::ENUMS::AggregateKind AK );
+    KDIS::DATA_TYPE::ENUMS::AggregateKind GetEntityKind() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateType::SetDomain
@@ -96,8 +92,8 @@ public:
     // Description: Domain - Same as Entity Type record
     // Parameter:   EntityDomain  UI, void
     //************************************
-    void SetDomain( EntityDomain UI );
-    EntityDomain GetDomain() const;
+    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain UI );
+    KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateType::SetCountry
@@ -105,8 +101,8 @@ public:
     // Description: Country
     // Parameter:   Country UI, void
     //************************************
-    void SetCountry( Country UI );
-    Country GetCountry() const;
+    void SetCountry( KDIS::DATA_TYPE::ENUMS::Country UI );
+    KDIS::DATA_TYPE::ENUMS::Country GetCountry() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateType::SetCategory

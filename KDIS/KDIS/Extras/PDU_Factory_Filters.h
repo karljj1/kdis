@@ -46,8 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace UTILS {
 
-using KDIS::PDU::Header;
-
 //////////////////////////////////////////////////////////////////////////
 // The base filter class that all filters must derive from.             //
 //////////////////////////////////////////////////////////////////////////
@@ -65,7 +63,7 @@ public:
     //              you can cast it to the relevant PDU if you wish to filter based on a PDU's contents.
     // Parameter:   const Header * H
     //************************************
-    virtual KBOOL ApplyFilter( const Header * H ) = 0;
+    virtual KBOOL ApplyFilter( const KDIS::PDU::Header * H ) = 0;
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,7 +91,7 @@ public:
     // Description: Checks if the exercise id matches.
     // Parameter:   const Header * H
     //************************************
-    virtual KBOOL ApplyFilter( const Header * H )
+    virtual KBOOL ApplyFilter( const KDIS::PDU::Header * H )
     {
         if( m_ui8ID == H->GetExerciseID() )
         {

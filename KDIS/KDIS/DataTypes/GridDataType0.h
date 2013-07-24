@@ -58,7 +58,7 @@ protected:
 
     KUINT16 m_ui16NumBytes;
 
-    vector<KUINT8> m_vui8DataVals;
+    std::vector<KUINT8> m_vui8DataVals;
 
     KUINT8 m_ui8Padding;
 
@@ -94,13 +94,13 @@ public:
     // Description: Specifies the environmental state variable data values. The data shall
     //              be represented as a stream of bytes, the interpretation of which shall be
     //              agreed to prior to the start of the exercise.
-    // Parameter:   KUINT8 D, KUINT8 * Data,, const vector<KUINT8> & DV, void
-    // Parameter:   void, KUINT16 NumBytes, void, void
+    // Parameter:   KUINT8 D, KUINT8 * Data,, const vector<KUINT8> & DV
+    // Parameter:   KUINT16 NumBytes
     //************************************
     void AddDataValue( KUINT8 D );
     void SetDataValues( KUINT8 * Data, KUINT16 NumBytes );
-    void SetDataValues( const vector<KUINT8> & DV );
-    const vector<KUINT8> & GetDataValues() const;
+    void SetDataValues( const std::vector<KUINT8> & DV );
+    const std::vector<KUINT8> & GetDataValues() const;
     void ClearValues();
 
     //************************************

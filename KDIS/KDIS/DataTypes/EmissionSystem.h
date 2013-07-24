@@ -48,8 +48,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::vector;
-
 class KDIS_EXPORT EmissionSystem : public DataTypeBase
 {
 protected:
@@ -64,7 +62,7 @@ protected:
 
     Vector m_Location;
 
-    vector<EmitterBeam> m_vEmitterBeams;
+    std::vector<EmitterBeam> m_vEmitterBeams;
 
 public:
 
@@ -113,8 +111,8 @@ public:
     // Parameter:   const EmitterBeam & EB, const vector<EmitterBeam> & Beams
     //************************************
     void AddEmitterBeam( const EmitterBeam & EB );
-    void SetEmitterBeams( const vector<EmitterBeam> & Beams );
-    const vector<EmitterBeam> & GetEmitterBeams() const;
+    void SetEmitterBeams( const std::vector<EmitterBeam> & Beams );
+    const std::vector<EmitterBeam> & GetEmitterBeams() const;
     void ClearEmitterBeams();
 
     //************************************

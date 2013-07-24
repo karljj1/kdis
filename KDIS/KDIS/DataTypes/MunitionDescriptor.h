@@ -35,7 +35,6 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Represents the firing of a a round or a burst of ammunition
                 This data type is also referred to as a Burst Descriptor in older versions of DIS.
                 This descriptor is applicable to the Fire PDU and Detonation PDU.
-
     size:       128 bits / 16 octets
 *********************************************************************/
 
@@ -45,9 +44,6 @@ http://p.sf.net/kdis/UserGuide
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-using KDIS::DATA_TYPE::ENUMS::WarheadType;
-using KDIS::DATA_TYPE::ENUMS::FuseType;
 
 class KDIS_EXPORT MunitionDescriptor : public Descriptor
 {
@@ -67,8 +63,8 @@ public:
 
     MunitionDescriptor( KDataStream & stream )throw( KException );
 
-    MunitionDescriptor( const EntityType & T, WarheadType WT, FuseType FT,
-                        KUINT16 Quantity, KUINT16 Rate );
+    MunitionDescriptor( const EntityType & T, KDIS::DATA_TYPE::ENUMS::WarheadType WT, 
+		                KDIS::DATA_TYPE::ENUMS::FuseType FT, KUINT16 Quantity, KUINT16 Rate );
 
     virtual ~MunitionDescriptor();
 
@@ -78,8 +74,8 @@ public:
     // Description: Warhead type enumeration.
     // Parameter:   WarheadType WT
     //************************************
-    void SetWarhead( WarheadType WT );
-    WarheadType GetWarhead() const;
+    void SetWarhead( KDIS::DATA_TYPE::ENUMS::WarheadType WT );
+    KDIS::DATA_TYPE::ENUMS::WarheadType GetWarhead() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::SetFuse
@@ -87,8 +83,8 @@ public:
     // Description: Fuse type enumeration.
     // Parameter:   FuseType FT
     //************************************
-    void SetFuse( FuseType FT );
-    FuseType GetFuse() const;
+    void SetFuse( KDIS::DATA_TYPE::ENUMS::FuseType FT );
+    KDIS::DATA_TYPE::ENUMS::FuseType GetFuse() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::SetQuantity

@@ -47,8 +47,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::vector;
-
 class KDIS_EXPORT SilentEntitySystem : public DataTypeBase
 {
 protected:
@@ -59,7 +57,7 @@ protected:
 
     EntityType m_EntTyp;
 
-    vector<EntityAppearance> m_vEA;
+	std::vector<EntityAppearance> m_vEA;
 
 public:
 
@@ -104,15 +102,15 @@ public:
     // Parameter:   const EntityAppearance & EA, const vector<EntityAppearance> & EA
     //************************************
     void AddEntityAppearance( const EntityAppearance & EA ) throw( KException );
-    void SetEntityAppearanceList( const vector<EntityAppearance> & EA ) throw( KException );
-    const vector<EntityAppearance> & GetEntityAppearanceList() const;
+    void SetEntityAppearanceList( const std::vector<EntityAppearance> & EA ) throw( KException );
+    const std::vector<EntityAppearance> & GetEntityAppearanceList() const;
     void ClearEntityAppearanceList();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::SetEntityType
     //              KDIS::DATA_TYPE::SilentEntitySystem::GetEntityType
     // Description: Aggregate type for this record.
-    // Parameter:   const EntityType & E, void
+    // Parameter:   const EntityType & E
     //************************************
     void SetEntityType( const EntityType & A );
     const EntityType & GetEntityType() const;

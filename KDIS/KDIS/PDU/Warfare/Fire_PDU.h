@@ -47,25 +47,17 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::DescPtr;
-using KDIS::DATA_TYPE::Vector;
-
-#if DIS_VERSION > 6
-using KDIS::DATA_TYPE::ENUMS::FireType;
-#endif
-
 class KDIS_EXPORT Fire_PDU : public Warfare_Header
 {
 protected:
 
     KUINT32 m_ui32FireMissionIndex;
 
-    WorldCoordinates m_Location;
+    KDIS::DATA_TYPE::WorldCoordinates m_Location;
 
-	DescPtr m_pDescriptor;
+	KDIS::DATA_TYPE::DescPtr m_pDescriptor;
 
-    Vector m_Velocity;
+    KDIS::DATA_TYPE::Vector m_Velocity;
 
     KFLOAT32 m_f32Range;
 
@@ -79,13 +71,13 @@ public:
 
 	Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Fire_PDU( const Warfare_Header & WarfareHeader, KUINT32 FireMissionIndex, const WorldCoordinates & Location,
-              DescPtr Desc, const Vector & Velocity, KFLOAT32 Range );
+    Fire_PDU( const Warfare_Header & WarfareHeader, KUINT32 FireMissionIndex, const KDIS::DATA_TYPE::WorldCoordinates & Location,
+              KDIS::DATA_TYPE::DescPtr Desc, const KDIS::DATA_TYPE::Vector & Velocity, KFLOAT32 Range );
 
-    Fire_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
-              const EntityIdentifier & MunitionID, const EntityIdentifier & EventID,
-              KUINT32 FireMissionIndex, const WorldCoordinates & Location,
-              DescPtr Desc, const Vector & Velocity, KFLOAT32 Range );
+    Fire_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FiringEntID, const KDIS::DATA_TYPE::EntityIdentifier & TargetEntID,
+              const KDIS::DATA_TYPE::EntityIdentifier & MunitionID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
+              KUINT32 FireMissionIndex, const KDIS::DATA_TYPE::WorldCoordinates & Location,
+              KDIS::DATA_TYPE::DescPtr Desc, const KDIS::DATA_TYPE::Vector & Velocity, KFLOAT32 Range );
 
     virtual ~Fire_PDU();
 
@@ -96,8 +88,8 @@ public:
     // Description: Indicates the descriptor type used. FTI.
     // Parameter:   FireType FT
     //************************************
-    void SetPDUStatusFireType( FireType FT );
-    FireType GetPDUStatusFireType() const;
+	void SetPDUStatusFireType( KDIS::DATA_TYPE::ENUMS::FireType FT );
+	KDIS::DATA_TYPE::ENUMS::FireType GetPDUStatusFireType() const;
 	#endif
 
     //************************************
@@ -117,9 +109,9 @@ public:
     //              coordinates.
     // Parameter:   const WorldCoordinates & L
     //************************************
-    void SetLocation( const WorldCoordinates & L );
-    const WorldCoordinates & GetLocation() const;
-    WorldCoordinates & GetLocation();
+    void SetLocation( const KDIS::DATA_TYPE::WorldCoordinates & L );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetLocation() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetDescriptor
@@ -134,8 +126,8 @@ public:
 	//              Example usage in DIS 7: SetDescriptor( DescPtr( new ExplosionDescriptor() ) );
     // Parameter:   DescPtr D
     //************************************
-    void SetDescriptor( DescPtr D );
-    DescPtr GetDescriptor();
+    void SetDescriptor( KDIS::DATA_TYPE::DescPtr D );
+    KDIS::DATA_TYPE::DescPtr GetDescriptor();
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetVelocity
@@ -143,9 +135,9 @@ public:
     // Description: Velocity of fire munition.
     // Parameter:   const Vector & V
     //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+    void SetVelocity( const KDIS::DATA_TYPE::Vector & V );
+    const KDIS::DATA_TYPE::Vector & GetVelocity() const;
+    KDIS::DATA_TYPE::Vector & GetVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetRange

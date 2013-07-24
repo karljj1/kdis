@@ -22,6 +22,7 @@
 #define RECEIVE_SOCK 1
 
 using namespace KDIS;
+using namespace PDU;
 using namespace UTILS;
 using namespace NETWORK;
 using namespace std;

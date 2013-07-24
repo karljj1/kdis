@@ -55,9 +55,7 @@ http://p.sf.net/kdis/UserGuide
 
 namespace KDIS {
 namespace PDU {
-namespace Link16 {
-
-using KDIS::DATA_TYPE::ENUMS::LINK16::Link16MessageType;
+namespace LINK16 {
 
 class Link16_Signal_PDU : public Signal_PDU
 {
@@ -100,9 +98,9 @@ public:
 
 	Link16_Signal_PDU( KDataStream & stream ) throw( KException );
 
-	Link16_Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
+	Link16_Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
                        KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength,
-					   KUINT16 NPG, KUINT8 NN, KUINT8 TSEC, KUINT8 MSEC, Link16MessageType MT,
+					   KUINT16 NPG, KUINT8 NN, KUINT8 TSEC, KUINT8 MSEC, KDIS::DATA_TYPE::ENUMS::LINK16::Link16MessageType MT,
 					   KUINT32 TSN, KUINT32 Epoch, KUINT32 TTInteger, KUINT32 TTFraction );
 	
 	virtual ~Link16_Signal_PDU();
@@ -160,8 +158,8 @@ public:
 	// Description: Link 16 message type. 
 	// Parameter:   Link16MessageType MT
 	//************************************
-	void SetMessageType( Link16MessageType MT );
-	Link16MessageType GetMessageType() const;
+	void SetMessageType( KDIS::DATA_TYPE::ENUMS::LINK16::Link16MessageType MT );
+	KDIS::DATA_TYPE::ENUMS::LINK16::Link16MessageType GetMessageType() const;
 
 	//************************************
 	// FullName:    KDIS::DATA_TYPE::Link16_Signal_PDU::SetTimeSlotNumber
@@ -233,4 +231,4 @@ public:
 
 } // END namespace PDU
 } // END namespace KDIS
-} // END namespace Link16
+} // END namespace LINK16

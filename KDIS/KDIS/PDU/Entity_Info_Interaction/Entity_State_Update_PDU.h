@@ -54,34 +54,25 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::EntityAppearance;
-using KDIS::DATA_TYPE::VariableParameter;
-using KDIS::DATA_TYPE::VarPrmPtr;
-using std::vector;
-
 class KDIS_EXPORT Entity_State_Update_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_EntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
 
     KUINT8 m_ui8Padding1;
 
     KUINT8 m_ui8NumOfVariableParams;
 
-    Vector m_EntityLinearVelocity;
+    KDIS::DATA_TYPE::Vector m_EntityLinearVelocity;
 
-    WorldCoordinates m_EntityLocation;
+    KDIS::DATA_TYPE::WorldCoordinates m_EntityLocation;
 
-    EulerAngles m_EntityOrientation;
+    KDIS::DATA_TYPE::EulerAngles m_EntityOrientation;
 
-    EntityAppearance m_EntityAppearance;
+    KDIS::DATA_TYPE::EntityAppearance m_EntityAppearance;
 				      
-    vector<VarPrmPtr> m_vVariableParameters;
+	std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
 public:
 
@@ -94,9 +85,9 @@ public:
 
 	Entity_State_Update_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Entity_State_Update_PDU( const EntityIdentifier & EI, const Vector & EntityLinearVelocity,
-                             const WorldCoordinates & EntityLocation, const EulerAngles & EntityOrientation,
-                             const EntityAppearance & EA );
+    Entity_State_Update_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, const KDIS::DATA_TYPE::Vector & EntityLinearVelocity,
+                             const KDIS::DATA_TYPE::WorldCoordinates & EntityLocation, const KDIS::DATA_TYPE::EulerAngles & EntityOrientation,
+                             const KDIS::DATA_TYPE::EntityAppearance & EA );
 
     virtual ~Entity_State_Update_PDU();
 
@@ -104,11 +95,11 @@ public:
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityIdentifier
     //              KDIS::PDU::Entity_State_Update_PDU::GetEntityIdentifier
     // Description: Entity ID
-    // Parameter:   const EntityIdentifier & EI, void
+    // Parameter:   const EntityIdentifier & EI
     //************************************
-    void SetEntityIdentifier( const EntityIdentifier & EI );
-    const EntityIdentifier & GetEntityIdentifier() const;
-    EntityIdentifier & GetEntityIdentifier();
+    void SetEntityIdentifier( const KDIS::DATA_TYPE::EntityIdentifier & EI );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEntityIdentifier() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEntityIdentifier();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetNumberOfVariableParams
@@ -120,40 +111,40 @@ public:
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityLinearVelocity
     //              KDIS::PDU::Entity_State_Update_PDU::GetEntityLinearVelocity
     // Description: Linear Velocity
-    // Parameter:   const Vector & ELV, void
+    // Parameter:   const Vector & ELV
     //************************************
-    void SetEntityLinearVelocity( const Vector & ELV );
-    const Vector & GetEntityLinearVelocity() const;
-    Vector & GetEntityLinearVelocity();
+    void SetEntityLinearVelocity( const KDIS::DATA_TYPE::Vector & ELV );
+    const KDIS::DATA_TYPE::Vector & GetEntityLinearVelocity() const;
+    KDIS::DATA_TYPE::Vector & GetEntityLinearVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityLocation
     // Description: Entity Location
-    // Parameter:   const WorldCoordinates & EL, void
+    // Parameter:   const WorldCoordinates & EL
     //************************************
-    void SetEntityLocation( const WorldCoordinates & EL );
-    const WorldCoordinates & GetEntityLocation() const;
-    WorldCoordinates & GetEntityLocation();
+    void SetEntityLocation( const KDIS::DATA_TYPE::WorldCoordinates & EL );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetEntityLocation() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetEntityLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityOrientation
     //              KDIS::PDU::Entity_State_Update_PDU::GetEntityOrientation
     // Description: Orientation of entity. Euler Angles
-    // Parameter:   const EulerAngles & EO, void
+    // Parameter:   const EulerAngles & EO
     //************************************
-    void SetEntityOrientation( const EulerAngles & EO );
-    const EulerAngles & GetEntityOrientation() const;
-    EulerAngles & GetEntityOrientation();
+    void SetEntityOrientation( const KDIS::DATA_TYPE::EulerAngles & EO );
+    const KDIS::DATA_TYPE::EulerAngles & GetEntityOrientation() const;
+    KDIS::DATA_TYPE::EulerAngles & GetEntityOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityAppearance
     //              KDIS::PDU::Entity_State_Update_PDU::GetEntityAppearance
     // Description: Entity Appearance bit field accessors/mutator
-    // Parameter:   const EntityAppearance & EA, void
+    // Parameter:   const EntityAppearance & EA
     //************************************
-    void SetEntityAppearance( const EntityAppearance & EA );
-    const EntityAppearance & GetEntityAppearance() const;
-    EntityAppearance & GetEntityAppearance();
+    void SetEntityAppearance( const KDIS::DATA_TYPE::EntityAppearance & EA );
+    const KDIS::DATA_TYPE::EntityAppearance & GetEntityAppearance() const;
+    KDIS::DATA_TYPE::EntityAppearance & GetEntityAppearance();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::AddVariableParameter
@@ -165,15 +156,14 @@ public:
     //              See VariableParameter for supported/implemented types.
     // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddVariableParameter( VarPrmPtr VP );
-    void SetVariableParameters( const vector<VarPrmPtr> & VP );
-    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void AddVariableParameter( KDIS::DATA_TYPE::VarPrmPtr VP );
+	void SetVariableParameters( const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & VP );
+	const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & GetVariableParameters() const;
     void ClearVariableParameters();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

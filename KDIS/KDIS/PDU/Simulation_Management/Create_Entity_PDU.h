@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Create_Entity_PDU : public Simulation_Management_Header
 {
 protected:
@@ -64,7 +62,7 @@ public:
 
 	Create_Entity_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Create_Entity_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, KUINT32 RequestID );
+    Create_Entity_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, KUINT32 RequestID );
 
     Create_Entity_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID );
 
@@ -74,15 +72,14 @@ public:
     // FullName:    KDIS::PDU::Create_Entity_PDU::SetRequestID
     //              KDIS::PDU::Create_Entity_PDU::GetRequestID
     // Description: Request ID
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Create_Entity_PDU::GetString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

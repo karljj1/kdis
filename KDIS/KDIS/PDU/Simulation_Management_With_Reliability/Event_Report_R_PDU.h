@@ -46,9 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::EventType;
-
 class KDIS_EXPORT Event_Report_R_PDU : public Event_Report_PDU
 {
 public:
@@ -61,8 +58,8 @@ public:
 
 	Event_Report_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Event_Report_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                        EventType ET );
+    Event_Report_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
+                        KDIS::DATA_TYPE::ENUMS::EventType ET );
 
     virtual ~Event_Report_R_PDU();
 

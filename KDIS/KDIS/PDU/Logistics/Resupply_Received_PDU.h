@@ -45,10 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::Supplies;
-using std::vector;
-
 class KDIS_EXPORT Resupply_Received_PDU : public Logistics_Header
 {
 protected:
@@ -59,7 +55,7 @@ protected:
 
     KUINT8 m_ui8Padding2;
 
-    vector<Supplies> m_vSupplies;
+	std::vector<KDIS::DATA_TYPE::Supplies> m_vSupplies;
 
 public:
 
@@ -73,7 +69,7 @@ public:
 
 	Resupply_Received_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Resupply_Received_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );
+    Resupply_Received_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
 
     virtual ~Resupply_Received_PDU();
 
@@ -97,9 +93,9 @@ public:
     //              PDU size fields automatically.
     // Parameter:   const Supplies & S, void
     //************************************
-    void AddSupply( const Supplies & S );
-    void SetSupplies( const vector<Supplies> & S );
-    vector<Supplies> GetSupplies() const;
+    void AddSupply( const KDIS::DATA_TYPE::Supplies & S );
+	void SetSupplies( const std::vector<KDIS::DATA_TYPE::Supplies> & S );
+	std::vector<KDIS::DATA_TYPE::Supplies> GetSupplies() const;
 
     //************************************
     // FullName:    KDIS::PDU::Resupply_Received_PDU::GetAsString

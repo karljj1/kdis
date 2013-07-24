@@ -35,7 +35,6 @@ http://p.sf.net/kdis/UserGuide
 
     purpose:    Provides the means to query a minefield simulation for information on individual
                 mines contained within a minefield when operating in QRP mode (MinefieldProtocolMode = 1).
-
     size:       320 bits / 40 octets  - Min size
 *********************************************************************/
 
@@ -50,17 +49,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::MinefieldDataFilter;
-using KDIS::DATA_TYPE::EntityType;
-using KDIS::DATA_TYPE::PerimeterPointCoordinate;
-using KDIS::DATA_TYPE::ENUMS::SensorType;
-using std::vector;
-
 class KDIS_EXPORT Minefield_Query_PDU : public Minefield_Header
 {
 protected:
 
-    EntityIdentifier m_ReqID;
+    KDIS::DATA_TYPE::EntityIdentifier m_ReqID;
 
     KUINT8 m_ui8ReqID;
 
@@ -70,13 +63,13 @@ protected:
 
     KUINT8 m_ui8NumSensTyp;
 
-    MinefieldDataFilter m_DataFilter;
+    KDIS::DATA_TYPE::MinefieldDataFilter m_DataFilter;
 
-    EntityType m_MineTypFilter;
+    KDIS::DATA_TYPE::EntityType m_MineTypFilter;
 
-    vector<PerimeterPointCoordinate> m_vPoints;
+	std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> m_vPoints;
 
-    vector<KUINT16> m_vui16SensorTypes;
+	std::vector<KUINT16> m_vui16SensorTypes;
     KBOOL m_bNeedsPadding;
     KUINT16 m_ui16Padding1;
 
@@ -96,8 +89,8 @@ public:
 
 	Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Minefield_Query_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
-                         KUINT8 RequestID, const MinefieldDataFilter & DF, const EntityType & MineTypeFilter );
+    Minefield_Query_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
+                         KUINT8 RequestID, const KDIS::DATA_TYPE::MinefieldDataFilter & DF, const KDIS::DATA_TYPE::EntityType & MineTypeFilter );
 
     virtual ~Minefield_Query_PDU();
 
@@ -107,9 +100,9 @@ public:
     // Description: The simulation that is requesting the information.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetRequestingSimulationID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetRequestingSimulationID() const;
-    EntityIdentifier & GetRequestingSimulationID();
+    void SetRequestingSimulationID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::SetRequestID
@@ -141,9 +134,9 @@ public:
     //              fields are being requested.
     // Parameter:   const MinefieldDataFilter & DF
     //************************************
-    void SetDataFilter( const MinefieldDataFilter & DF );
-    const MinefieldDataFilter & GetDataFilter() const;
-    MinefieldDataFilter & GetDataFilter();
+    void SetDataFilter( const KDIS::DATA_TYPE::MinefieldDataFilter & DF );
+    const KDIS::DATA_TYPE::MinefieldDataFilter & GetDataFilter() const;
+    KDIS::DATA_TYPE::MinefieldDataFilter & GetDataFilter();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::SetMineTypeFilter
@@ -155,9 +148,9 @@ public:
     //              (e.g., all countries are allowed).
     // Parameter:   const EntityType & MT
     //************************************
-    void SetMineTypeFilter( const EntityType & MT );
-    const EntityType & GetMineTypeFilter() const;
-    EntityType & GetMineTypeFilter();
+    void SetMineTypeFilter( const KDIS::DATA_TYPE::EntityType & MT );
+    const KDIS::DATA_TYPE::EntityType & GetMineTypeFilter() const;
+    KDIS::DATA_TYPE::EntityType & GetMineTypeFilter();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::AddRequestedPerimeterPointCoordinate
@@ -166,11 +159,11 @@ public:
     // Description: Specifies the location of each perimeter point in the requested area,
     //              relative to the Minefield Location field from the Minefield State PDU.
     //              Only the x and y coordinates shall be specified.
-    // Parameter:   const PerimeterPointCoordinate & PPC, vector<PerimeterPointCoordinate> & PPC, void
+    // Parameter:   const PerimeterPointCoordinate & PPC, vector<PerimeterPointCoordinate> & PPC
     //************************************
-    void AddRequestedPerimeterPointCoordinate( const PerimeterPointCoordinate & PPC );
-    void SetRequestedPerimeterPointCoordinates( const vector<PerimeterPointCoordinate> & PPC );
-    const vector<PerimeterPointCoordinate> & GetRequestedPerimeterPointCoordinates() const;
+    void AddRequestedPerimeterPointCoordinate( const KDIS::DATA_TYPE::PerimeterPointCoordinate & PPC );
+	void SetRequestedPerimeterPointCoordinates( const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & PPC );
+	const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & GetRequestedPerimeterPointCoordinates() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::AddSensorType
@@ -186,9 +179,9 @@ public:
     //              correctly for each sensor type.
     // Parameter:   SensorType ST, vector<KUINT16> & ST
     //************************************
-    void AddSensorType( SensorType ST );
-    void SetSensorTypes( const vector<KUINT16> & ST );
-    const vector<KUINT16> & GetSensorTypes() const;
+	void AddSensorType( KDIS::DATA_TYPE::ENUMS::SensorType ST );
+	void SetSensorTypes( const std::vector<KUINT16> & ST );
+	const std::vector<KUINT16> & GetSensorTypes() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::GetAsString

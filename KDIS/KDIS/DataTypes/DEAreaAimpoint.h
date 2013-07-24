@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::StandardVariableType;
-
 class KDIS_EXPORT DEAreaAimpoint : public StandardVariable
 {
 protected:

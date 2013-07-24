@@ -39,13 +39,9 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./ObjectAppearance.h"
-#include <bitset>
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-using std::bitset;
-using KDIS::DATA_TYPE::ENUMS::Breach2bit;
 
 class KDIS_EXPORT ArealObjectAppearance : public ObjectAppearance
 {
@@ -84,8 +80,8 @@ public:
     // Description: Describes the breached appearance of the object.
     // Parameter:   Breach2bit B, void
     ////************************************
-    void SetBreach( Breach2bit B );
-    Breach2bit GetBreach() const;
+    void SetBreach( KDIS::DATA_TYPE::ENUMS::Breach2bit B );
+    KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::SetMineCount

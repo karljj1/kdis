@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityDomain;
-
 class KDIS_EXPORT ObjectType : public DataTypeBase
 {
 protected:
@@ -74,16 +72,16 @@ public:
     // FullName:    KDIS::DATA_TYPE::ObjectType::SetDomain
     //              KDIS::DATA_TYPE::ObjectType::GetDomain
     // Description: Objects domain.
-    // Parameter:   EntityDomain  UI, void
+    // Parameter:   EntityDomain  UI
     //************************************
-    void SetDomain( EntityDomain UI );
-    EntityDomain GetDomain() const;
+    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain UI );
+    KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ObjectType::SetEntityKind
     //              KDIS::DATA_TYPE::ObjectType::GetEntityKind
     // Description: Object Kind.
-    // Parameter:   KUINT8 UI, void
+    // Parameter:   KUINT8 UI
     //************************************
     void SetEntityKind( KUINT8 UI );
     KUINT8 GetEntityKind() const;
@@ -92,7 +90,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::ObjectType::SetCategory
     //              KDIS::DATA_TYPE::ObjectType::GetCategory
     // Description: Category.
-    // Parameter:   KUINT8 UI, void
+    // Parameter:   KUINT8 UI
     //************************************
     void SetCategory( KUINT8 UI );
     KUINT8 GetCategory() const;
@@ -101,7 +99,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::ObjectType::SetSubCategory
     //              KDIS::DATA_TYPE::ObjectType::GetSubCategory
     // Description: Sub Category.
-    // Parameter:   KUINT8 UI, void
+    // Parameter:   KUINT8 UI
     //************************************
     void SetSubCategory( KUINT8 UI );
     KUINT8 GetSubCategory() const;

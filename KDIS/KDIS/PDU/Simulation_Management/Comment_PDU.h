@@ -62,9 +62,9 @@ protected:
 
     KUINT32 m_ui32NumVariableDatum;
 
-    vector<FixDtmPtr> m_vFixedDatum;
+	std::vector<KDIS::DATA_TYPE::FixDtmPtr> m_vFixedDatum;
 
-    vector<VarDtmPtr> m_vVariableDatum;
+	std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVariableDatum;
 
 public:
 
@@ -78,7 +78,7 @@ public:
 
 	Comment_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Comment_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID );
+    Comment_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
 
     virtual ~Comment_PDU();
 
@@ -101,9 +101,9 @@ public:
     // Description: Add, get fixed datums
     // Parameter:   FixedDatum FD, const vector<FixDtmPtr> & FD
     //************************************
-    void AddFixedDatum( FixDtmPtr FD );
-    void SetFixedDatum( const vector<FixDtmPtr> & FD );
-    const vector<FixDtmPtr> & GetFixedDatum() const;
+    void AddFixedDatum( KDIS::DATA_TYPE::FixDtmPtr FD );
+	void SetFixedDatum( const std::vector<KDIS::DATA_TYPE::FixDtmPtr> & FD );
+	const std::vector<FixDtmPtr> & GetFixedDatum() const;
 
     //************************************
     // FullName:    KDIS::PDU::Comment_PDU::AddVariableDatum
@@ -112,9 +112,9 @@ public:
     // Description: Add, get variable datums
     // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
     //************************************
-    void AddVariableDatum( VarDtmPtr VD );
-    void SetVariableDatum( const vector<VarDtmPtr> & VD );
-    const vector<VarDtmPtr> & GetVariableDatum() const;
+    void AddVariableDatum( KDIS::DATA_TYPE::VarDtmPtr VD );
+	void SetVariableDatum( const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD );
+	const std::vector<VarDtmPtr> & GetVariableDatum() const;
 
     //************************************
     // FullName:    KDIS::PDU::Comment_PDU::GetAsString

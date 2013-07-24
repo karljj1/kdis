@@ -65,8 +65,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::TimeStampType;
-
 class KDIS_EXPORT TimeStamp : public DataTypeBase
 {
 protected:
@@ -91,7 +89,7 @@ public:
 
     TimeStamp( KDataStream & stream )throw( KException );
 
-    TimeStamp( TimeStampType T, KUINT32 Time, KBOOL AutoCalcRelative = false);
+    TimeStamp( KDIS::DATA_TYPE::ENUMS::TimeStampType T, KUINT32 Time, KBOOL AutoCalcRelative = false);
 
     virtual ~TimeStamp();
 
@@ -101,8 +99,8 @@ public:
     // Description: Set the time stamp type, Absolute or Relative.
     // Parameter:   TimeStampType T
     //************************************
-    void SetTimeStampType( TimeStampType T );
-    TimeStampType GetTimeStampType() const;
+    void SetTimeStampType( KDIS::DATA_TYPE::ENUMS::TimeStampType T );
+    KDIS::DATA_TYPE::ENUMS::TimeStampType GetTimeStampType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::TimeStamp::SetTime

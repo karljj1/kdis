@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Resupply_Offer_PDU : public Resupply_Received_PDU
 {
 public:
@@ -59,7 +57,7 @@ public:
 
 	Resupply_Offer_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Resupply_Offer_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity );    
+    Resupply_Offer_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );    
 
     virtual ~Resupply_Offer_PDU();
 

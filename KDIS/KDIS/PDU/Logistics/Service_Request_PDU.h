@@ -44,9 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested;
-
 class KDIS_EXPORT Service_Request_PDU : public Resupply_Received_PDU
 {
 protected:
@@ -64,7 +61,8 @@ public:
 
 	Service_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Service_Request_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, ServiceTypeRequested STR );
+	Service_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, 
+		                 KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
 
     virtual ~Service_Request_PDU();
 
@@ -74,8 +72,8 @@ public:
     // Description: Describes type of service being requested
     // Parameter:   ServiceTypeRequested  STR, void
     //************************************
-    void SetServiceTypeRequested( ServiceTypeRequested STR );
-    ServiceTypeRequested GetServiceTypeRequested() const;
+	void SetServiceTypeRequested( KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
+	KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested GetServiceTypeRequested() const;
 
     //************************************
     // FullName:    KDIS::PDU::Service_Request_PDU::GetAsString

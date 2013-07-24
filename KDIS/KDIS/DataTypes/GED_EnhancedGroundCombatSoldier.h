@@ -44,9 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory;
-using KDIS::DATA_TYPE::ENUMS::RestStatus;
-
 class KDIS_EXPORT GED_EnhancedGroundCombatSoldier : public GED_BasicGroundCombatSoldier
 {
 protected:
@@ -69,10 +66,10 @@ public:
 
     GED_EnhancedGroundCombatSoldier( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA,
                                      KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed, KINT8 HeadAzimuth, KINT8 HeadElevation,
-                                     KINT8 HeadScanRate, KINT8 HeadElevationRate, KUINT8 WaterStatus, RestStatus R,
+                                     KINT8 HeadScanRate, KINT8 HeadElevationRate, KUINT8 WaterStatus, KDIS::DATA_TYPE::ENUMS::RestStatus R,
                                      KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
 
-    GED_EnhancedGroundCombatSoldier( const GED_BasicGroundCombatSoldier & BGCS, KUINT8 WaterStatus, RestStatus R,
+    GED_EnhancedGroundCombatSoldier( const GED_BasicGroundCombatSoldier & BGCS, KUINT8 WaterStatus, KDIS::DATA_TYPE::ENUMS::RestStatus R,
                                      KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
 
     virtual ~GED_EnhancedGroundCombatSoldier();
@@ -82,7 +79,7 @@ public:
     // Description: Identifies the derived GED class.
     //              Not part of the DIS PDU.
     //************************************
-    virtual GroupedEntityCategory GetGroupedEntityCategory() const;
+    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetLength
@@ -96,7 +93,7 @@ public:
     //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetWaterStatus
     // Description: Represents the amount of water on hand.
     //              Specified in one ounce increments.
-    // Parameter:   KUINT8  W, void
+    // Parameter:   KUINT8  W
     //************************************
     void SetWaterStatus( KUINT8 W );
     KUINT8 GetWaterStatus() const;
@@ -105,17 +102,17 @@ public:
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetRestStatus
     //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetRestStatus
     // Description: How rested is the soldier. Number of hours slept on average.
-    // Parameter:   RestStatus  R, void
+    // Parameter:   RestStatus  R
     //************************************
-    void SetRestStatus( RestStatus R );
-    RestStatus GetRestStatus() const;
+    void SetRestStatus( KDIS::DATA_TYPE::ENUMS::RestStatus R );
+    KDIS::DATA_TYPE::ENUMS::RestStatus GetRestStatus() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetPrimaryAmmunition
     //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetPrimaryAmmunition
     // Description: Amount of primary ammunition remaining.
     //              Specified in natural ammunition units for the primary weapon system.
-    // Parameter:   KUINT8  P, void
+    // Parameter:   KUINT8  P
     //************************************
     void SetPrimaryAmmunition( KUINT8 P );
     KUINT8 GetPrimaryAmmunition() const;
@@ -125,7 +122,7 @@ public:
     //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetSecondaryAmmunition
     // Description: Amount of secondary ammunition remaining.
     //              Specified in natural ammunition units for the secondary weapon system.
-    // Parameter:   KUINT8  S, void
+    // Parameter:   KUINT8  S
     //************************************
     void SetSecondaryAmmunition( KUINT8 S );
     KUINT8 GetSecondaryAmmunition() const;

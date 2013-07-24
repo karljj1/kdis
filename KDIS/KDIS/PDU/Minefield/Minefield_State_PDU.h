@@ -52,17 +52,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityType;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::MinefieldAppearance;
-using KDIS::DATA_TYPE::PerimeterPointCoordinate;
-using KDIS::DATA_TYPE::EntityType;
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::ForceID;
-using KDIS::DATA_TYPE::ENUMS::MinefieldProtocolMode;
-using std::vector;
-
 class KDIS_EXPORT Minefield_State_PDU : public Minefield_Header
 {
 protected:
@@ -81,15 +70,15 @@ protected:
 
     KUINT8 m_ui8NumPerimPoints;
 
-    EntityType m_MinefieldType;
+    KDIS::DATA_TYPE::EntityType m_MinefieldType;
 
     KUINT16 m_ui16NumMineTypes;
 
-    WorldCoordinates m_Loc;
+    KDIS::DATA_TYPE::WorldCoordinates m_Loc;
 
-    EulerAngles m_Ori;
+    KDIS::DATA_TYPE::EulerAngles m_Ori;
 
-    MinefieldAppearance m_App;
+    KDIS::DATA_TYPE::MinefieldAppearance m_App;
 
     union
     {
@@ -101,9 +90,9 @@ protected:
         KUINT16 m_ui16ProtocolMode16;
     } m_ui16ProtocolModeUnion;
 
-    vector<PerimeterPointCoordinate> m_vPoints;
+	std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> m_vPoints;
 
-    vector<EntityType> m_vMineTypes;
+	std::vector<KDIS::DATA_TYPE::EntityType> m_vMineTypes;
 
 public:
 
@@ -115,9 +104,9 @@ public:
 
 	Minefield_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Minefield_State_PDU( const EntityIdentifier & ID, KUINT16 SequenceNumber, ForceID FID, const EntityType & Type,
-                         const WorldCoordinates & Loc, const EulerAngles & Ori, const MinefieldAppearance & MA,
-                         MinefieldProtocolMode MPM );
+    Minefield_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 SequenceNumber, KDIS::DATA_TYPE::ENUMS::ForceID FID, const KDIS::DATA_TYPE::EntityType & Type,
+                         const KDIS::DATA_TYPE::WorldCoordinates & Loc, const KDIS::DATA_TYPE::EulerAngles & Ori, const KDIS::DATA_TYPE::MinefieldAppearance & MA,
+                         KDIS::DATA_TYPE::ENUMS::MinefieldProtocolMode MPM );
 
     virtual ~Minefield_State_PDU();
 
@@ -127,7 +116,7 @@ public:
     // Description: Specifies a change in state of a minefield as a result of a
     //              change in minefield information or a change in the state,
     //              in accordance with the rules specified in 5.9.2.3(IEEE 1278.1a).
-    // Parameter:   KUINT16 S, void
+    // Parameter:   KUINT16 S
     //************************************
     void SetSequenceNumber( KUINT16 S );
     KUINT16 GetSequenceNumber() const;
@@ -137,10 +126,10 @@ public:
     //              KDIS::PDU::Minefield_State_PDU::GetForceID
     // Description: Force ID. Enumerated value representing the force the minefield belongs to,
     //              such as friendly, opposing or neutral.
-    // Parameter:   ForceID ID, void
+    // Parameter:   ForceID ID
     //************************************
-    void SetForceID( ForceID ID );
-    ForceID GetForceID() const;
+    void SetForceID( KDIS::DATA_TYPE::ENUMS::ForceID ID );
+    KDIS::DATA_TYPE::ENUMS::ForceID GetForceID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::GetNumberOfPerimeterPoints
@@ -155,11 +144,11 @@ public:
     //              Consists of 7 values used to represent the type of minefield.
     //              Please see DIS Enums document found on the SISO website for a full list of enumerations available.
     //              See 6.2.30(IEEE 1278.1) and Section 4 of SISO-REF-010.
-    // Parameter:   const EntityType & Type, void
+    // Parameter:   const EntityType & Type
     //************************************
-    void SetMinefieldType( const EntityType & Type );
-    const EntityType & GetMinefieldType() const;
-    EntityType & GetMinefieldType();
+    void SetMinefieldType( const KDIS::DATA_TYPE::EntityType & Type );
+    const KDIS::DATA_TYPE::EntityType & GetMinefieldType() const;
+    KDIS::DATA_TYPE::EntityType & GetMinefieldType();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::GetNumberOfMineTypes
@@ -172,41 +161,41 @@ public:
     //              KDIS::PDU::Minefield_State_PDU::GetMinefieldLocation
     // Description: Location of the center of the minefield in Geocentric world coordinates.
     //              Note: See KConversions.h for some useful coordinate conversions.
-    // Parameter:   const WorldCoordinates & L, void
+    // Parameter:   const WorldCoordinates & L
     //************************************
-    void SetMinefieldLocation( const WorldCoordinates & L );
-    const WorldCoordinates & GetMinefieldLocation() const;
-    WorldCoordinates & GetMinefieldLocation();
+    void SetMinefieldLocation( const KDIS::DATA_TYPE::WorldCoordinates & L );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetMinefieldLocation() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetMinefieldLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::SetMinefieldOrientation
     //              KDIS::PDU::Minefield_State_PDU::GetMinefieldOrientation
     // Description: Orientation of minefield. Geocentric Euler Angles.
     //              Note: See KConversions.h for some useful orientation conversions.
-    // Parameter:   const EulerAngles & O, void
+    // Parameter:   const EulerAngles & O
     //************************************
-    void SetMinefieldOrientation( const EulerAngles & O );
-    const EulerAngles & GetMinefieldOrientation() const;
-    EulerAngles & GetMinefieldOrientation();
+    void SetMinefieldOrientation( const KDIS::DATA_TYPE::EulerAngles & O );
+    const KDIS::DATA_TYPE::EulerAngles & GetMinefieldOrientation() const;
+    KDIS::DATA_TYPE::EulerAngles & GetMinefieldOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::SetMinefieldAppearance
     //              KDIS::PDU::Minefield_State_PDU::GetMinefieldAppearance
     // Description: The appearance of the minefield.
-    // Parameter:   const MinefieldAppearance & MA, void
+    // Parameter:   const MinefieldAppearance & MA
     //************************************
-    void SetMinefieldAppearance( const MinefieldAppearance & MA );
-    const MinefieldAppearance & GetMinefieldAppearance() const;
-    MinefieldAppearance & GetMinefieldAppearance();
+    void SetMinefieldAppearance( const KDIS::DATA_TYPE::MinefieldAppearance & MA );
+    const KDIS::DATA_TYPE::MinefieldAppearance & GetMinefieldAppearance() const;
+    KDIS::DATA_TYPE::MinefieldAppearance & GetMinefieldAppearance();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::SetMinefieldProtocolMode
     //              KDIS::PDU::Minefield_State_PDU::GetMinefieldProtocolMode
     // Description: Specifies which protocol mode is being used to communicate the minefield data.
-    // Parameter:   MinefieldProtocolMode MPM, void
+    // Parameter:   MinefieldProtocolMode MPM
     //************************************
-    void SetMinefieldProtocolMode( MinefieldProtocolMode MPM );
-    MinefieldProtocolMode GetMinefieldProtocolMode() const;
+    void SetMinefieldProtocolMode( KDIS::DATA_TYPE::ENUMS::MinefieldProtocolMode MPM );
+    KDIS::DATA_TYPE::ENUMS::MinefieldProtocolMode GetMinefieldProtocolMode() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::AddPerimeterPointCoordinate
@@ -215,22 +204,22 @@ public:
     // Description: Specifies the location of each perimeter point, relative to
     //              the Minefield Location field.
     //              Only the x and y coordinates of each perimeter point shall be specified.
-    // Parameter:   const PerimeterPointCoordinate & PPC, vector<PerimeterPointCoordinate> & PPC, void
+    // Parameter:   const PerimeterPointCoordinate & PPC, vector<PerimeterPointCoordinate> & PPC
     //************************************
-    void AddPerimeterPointCoordinate( const PerimeterPointCoordinate & PPC );
-    void SetPerimeterPointCoordinates( const vector<PerimeterPointCoordinate> & PPC );
-    const vector<PerimeterPointCoordinate> & GetPerimeterPointCoordinates() const;
+    void AddPerimeterPointCoordinate( const KDIS::DATA_TYPE::PerimeterPointCoordinate & PPC );
+	void SetPerimeterPointCoordinates( const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & PPC );
+	const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & GetPerimeterPointCoordinates() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::AddMineType
     //              KDIS::PDU::Minefield_State_PDU::SetMineTypes
     //              KDIS::PDU::Minefield_State_PDU::GetMineTypes
     // Description: Specifies the type of each mine contained within the minefield.
-    // Parameter:   const EntityType & MT, vector<EntityType> & MT, void
+    // Parameter:   const EntityType & MT, vector<EntityType> & MT
     //************************************
-    void AddMineType( const EntityType & MT );
-    void SetMineTypes( const vector<EntityType> & MT );
-    const vector<EntityType> & GetMineTypes() const;
+    void AddMineType( const KDIS::DATA_TYPE::EntityType & MT );
+	void SetMineTypes( const std::vector<KDIS::DATA_TYPE::EntityType> & MT );
+	const std::vector<KDIS::DATA_TYPE::EntityType> & GetMineTypes() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::GetAsString

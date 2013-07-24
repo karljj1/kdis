@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::ENUMS::EventType;
-
 class KDIS_EXPORT Record_R_PDU : public Set_Record_R_PDU
 {
 protected:
@@ -65,8 +63,8 @@ public:
 
 	Record_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Record_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
-                  RequiredReliabilityService RRS, EventType ET, KUINT32 ResponseSerialNumber );
+    Record_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
+                  KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS, KDIS::DATA_TYPE::ENUMS::EventType ET, KUINT32 ResponseSerialNumber );
 
     virtual ~Record_R_PDU();
 
@@ -74,10 +72,10 @@ public:
     // FullName:    KDIS::PDU::Record_R_PDU::SetEventType
     //              KDIS::PDU::Record_R_PDU::GetEventType
     // Description: Event type
-    // Parameter:   EventType ET, void
+    // Parameter:   EventType ET
     //************************************
-    void SetEventType( EventType ET );
-    EventType GetEventType() const;
+    void SetEventType( KDIS::DATA_TYPE::ENUMS::EventType ET );
+    KDIS::DATA_TYPE::ENUMS::EventType GetEventType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Record_R_PDU::SetResponseSerialNumber

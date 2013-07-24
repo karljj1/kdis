@@ -50,14 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityPaintScheme;
-using KDIS::DATA_TYPE::ENUMS::EntityDamage;
-using KDIS::DATA_TYPE::ENUMS::EntitySmoke;
-using KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect;
-using KDIS::DATA_TYPE::ENUMS::EntityHatchState;
-using KDIS::DATA_TYPE::ENUMS::EntityLights;
-using DATA_TYPE::ENUMS::EntityCamouflage;
-
 struct KDIS_EXPORT LandPlatformAppearance
 {
 protected:	
@@ -98,8 +90,8 @@ public:
     // Description: Describes the paint scheme of an entity.
     // Parameter:   EntityPaintScheme EPS
     //************************************
-    void SetEntityPaintScheme( EntityPaintScheme EPS );
-    EntityPaintScheme GetEntityPaintScheme() const;
+    void SetEntityPaintScheme( KDIS::DATA_TYPE::ENUMS::EntityPaintScheme EPS );
+    KDIS::DATA_TYPE::ENUMS::EntityPaintScheme GetEntityPaintScheme() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LandPlatformAppearance::SetEntityMobilityKill
@@ -125,8 +117,8 @@ public:
     // Description: Entity Damage State
     // Parameter:   EntityDamage ED
     //************************************
-    void SetEntityDamage( EntityDamage ED );
-    EntityDamage GetEntityDamage() const;
+    void SetEntityDamage( KDIS::DATA_TYPE::ENUMS::EntityDamage ED );
+    KDIS::DATA_TYPE::ENUMS::EntityDamage GetEntityDamage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LandPlatformAppearance::SetEntitySmoke,
@@ -134,8 +126,8 @@ public:
     // Description: Entity Smoke State
     // Parameter:   EntitySmoke ES
     //************************************
-    void SetEntitySmoke( EntitySmoke ES );
-    EntitySmoke GetEntitySmoke() const;
+    void SetEntitySmoke( KDIS::DATA_TYPE::ENUMS::EntitySmoke ES );
+    KDIS::DATA_TYPE::ENUMS::EntitySmoke GetEntitySmoke() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LandPlatformAppearance::SetEntityTrailingEffect
@@ -143,8 +135,8 @@ public:
     // Description: Describes the size of the dust cloud/trailing effect.
     // Parameter:   EntityTrailingEffect ETE
     //************************************
-    void SetEntityTrailingEffect( EntityTrailingEffect ETE );
-    EntityTrailingEffect GetEntityTrailingEffect() const;
+    void SetEntityTrailingEffect( KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect ETE );
+    KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect GetEntityTrailingEffect() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LandPlatformAppearance::SetEntityHatchState
@@ -152,8 +144,8 @@ public:
     // Description: Entity primary hatch state. Open, closed etc.
     // Parameter:   EntityHatchState EHS
     //************************************
-    void SetEntityHatchState( EntityHatchState EHS );
-    EntityHatchState GetEntityHatchState() const;
+    void SetEntityHatchState( KDIS::DATA_TYPE::ENUMS::EntityHatchState EHS );
+    KDIS::DATA_TYPE::ENUMS::EntityHatchState GetEntityHatchState() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LandPlatformAppearance::SetEntityHeadLights
@@ -206,8 +198,8 @@ public:
     // Description: Camouflage type worn.
     // Parameter:   EntityCamouflage EC
     //************************************
-    void SetEntityCamouflage( EntityCamouflage EC );
-    EntityCamouflage GetEntityCamouflage() const;
+    void SetEntityCamouflage( KDIS::DATA_TYPE::ENUMS::EntityCamouflage EC );
+    KDIS::DATA_TYPE::ENUMS::EntityCamouflage GetEntityCamouflage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LandPlatformAppearance::SetEntityConcealed

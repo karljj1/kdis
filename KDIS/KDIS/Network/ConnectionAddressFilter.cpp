@@ -1,6 +1,7 @@
 
 #include "./ConnectionAddressFilter.h"
 
+using namespace std;
 using namespace KDIS;
 using namespace NETWORK;
 

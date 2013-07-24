@@ -54,18 +54,15 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace UTILS {
 
-using std::fstream;
-using std::vector;
-
 class KDIS_EXPORT DIS_Logger_Record
 {
 protected:
 
-    fstream m_File;
+    std::fstream m_File;
 
     KBOOL m_bWriteToFile;
 
-    vector<KString> m_vsLog;
+    std::vector<KString> m_vsLog;
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Record::writeToFile

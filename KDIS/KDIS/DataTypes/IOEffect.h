@@ -43,10 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::IOStatus;
-using KDIS::DATA_TYPE::ENUMS::IOLinkType;
-using KDIS::DATA_TYPE::ENUMS::IOEffectType;
-
 class KDIS_EXPORT IOEffect : public StandardVariable
 {
 protected:
@@ -69,8 +65,8 @@ public:
 
     static const KUINT16 IO_EFFECT_TYPE_SIZE = 16;
 
-    IOEffect( IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
-              KUINT16 Duration, KUINT16 Process ) throw( KException );
+    IOEffect( KDIS::DATA_TYPE::ENUMS::IOStatus S, KDIS::DATA_TYPE::ENUMS::IOLinkType LT, KDIS::DATA_TYPE::ENUMS::IOEffectType ET, 
+		      KUINT8 DutyCycle, KUINT16 Duration, KUINT16 Process ) throw( KException );
 
     IOEffect();
 
@@ -85,8 +81,8 @@ public:
     //              receiver, message(s) or some combination of them.
     // Parameter:   IOStatus S
     //************************************
-    void SetStatus( IOStatus S );
-    IOStatus GetStatus() const;
+    void SetStatus( KDIS::DATA_TYPE::ENUMS::IOStatus S );
+    KDIS::DATA_TYPE::ENUMS::IOStatus GetStatus() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOEffect::SetLinkType
@@ -94,8 +90,8 @@ public:
     // Description: The IO link type as a logical or physical link or node.
     // Parameter:   IOLinkType LT
     //************************************
-    void SetLinkType( IOLinkType LT );
-    IOLinkType GetLinkType() const;
+    void SetLinkType( KDIS::DATA_TYPE::ENUMS::IOLinkType LT );
+    KDIS::DATA_TYPE::ENUMS::IOLinkType GetLinkType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectType
@@ -103,8 +99,8 @@ public:
     // Description: The IO effect associated with this IO attack.
     // Parameter:   IOEffectType ET
     //************************************
-    void SetEffectType( IOEffectType ET );
-    IOEffectType GetEffectType() const;
+    void SetEffectType( KDIS::DATA_TYPE::ENUMS::IOEffectType ET );
+    KDIS::DATA_TYPE::ENUMS::IOEffectType GetEffectType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectDutyCycle
