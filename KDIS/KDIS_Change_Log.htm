@@ -75,7 +75,7 @@
 	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
 	<li>Performance Improvements In Decoding. ignoreHeader parameter added to to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>
 	<li>Added WorldCoordinates::Lerp</li>
-    <li>Cleaned up namespaces. I had <b>using</b> statements inside namespaces which caused classes to belong to multiple namespaces. For example the following was possible: KDIS::PDU::Header, KDIS::NETWORK::Header, KDIS::UTILS::Header, KDIS::PDU::Header should have been the only one possible.</li>
+    <li>Cleaned up namespaces. namespaces had become polluted, for example the following was possible: KDIS::PDU::Header, KDIS::NETWORK::Header, KDIS::UTILS::Header, KDIS::PDU::Header should have been the only one possible.</li>
 	<li>Fixed some invalid Symbolic names.</li>
 	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type variant field. The high and low bits method was incorrect. TypeVariantHighBits is now TypeVariantClass and TypeVariantLowBits is TypeVariantMetric.</li>
 	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type value field. Should have been a KFLOAT32 not KUINT64.</li>
