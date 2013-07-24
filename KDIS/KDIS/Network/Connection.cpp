@@ -621,24 +621,39 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
 			*SenderIp = m_sLastIP;
 	    }
 
-		// Get the next/only PDU from the stream
-		auto_ptr<Header> pdu = m_pPduFact->Decode( m_stream );
+		// Get the current write position
+		KUINT16 currentPos = m_stream.GetCurrentWritePosition();
 
-        // If the PDU was decoded successfully then fire the next event
-        if( pdu.get() )
-        {
-			vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
-			vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
-            itr = m_vpSubscribers.begin();
-            itrEnd = m_vpSubscribers.end();
-            for( ; itr != itrEnd; ++itr )
-            {
-                ( *itr )->OnPDUReceived( pdu.get() );
-            }
+		try
+		{
+			// Get the next/only PDU from the stream
+			auto_ptr<Header> pdu = m_pPduFact->Decode( m_stream );
 
-            // Now return the decoded pdu
-            return pdu;
-        }
+			// If the PDU was decoded successfully then fire the next event
+			if( pdu.get() )
+			{ 
+				vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
+				vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
+				itr = m_vpSubscribers.begin();
+				itrEnd = m_vpSubscribers.end();
+				for( ; itr != itrEnd; ++itr )
+				{
+					( *itr )->OnPDUReceived( pdu.get() );
+				}
+
+				// Set the write pos for the next pdu.
+				m_stream.SetCurrentWritePosition( currentPos + pdu->GetPDULength() );
+
+				// Now return the decoded pdu
+				return pdu;
+			}
+		}
+		catch( exception e )
+		{
+			// Something went wrong, the stream is likely corrupted now so wipe it or we will have issues in the next GetNextPDU call.
+			m_stream.Clear();
+			throw e;
+		}
 	}
 	
 	return auto_ptr<Header>( 0 ); // No data so Null ptr     
