@@ -54,7 +54,7 @@ int main()
 
     // Set the time stamp to automatically calculate each time encode is called.
     Entity.SetTimeStamp( TimeStamp( RelativeTime, 0, true ) );
-
+	
     try
     {
         // Note: This address will probably be different for your network.

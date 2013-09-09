@@ -466,41 +466,41 @@ void DeadReckoningCalculator::RunAlgorithm( const KFLOAT32 totalTimeSinceReset, 
     switch( m_DRA )
     {
     case DRM_F_P_W:
-        calcDeadReckoningFPW( PositionOut, totalTimeSinceReset);
+        calcDeadReckoningFPW( PositionOut, totalTimeSinceReset );
         break;
 
     case DRM_R_P_W:
-        if (m_f64Magnitude < MAGIC_EPSILON)
-            calcDeadReckoningFPW( PositionOut, totalTimeSinceReset);
+        if( m_f64Magnitude < MAGIC_EPSILON )
+            calcDeadReckoningFPW( PositionOut, totalTimeSinceReset );
         else
-            calcDeadReckoningRPW( PositionOut, OrientationOut, totalTimeSinceReset);
+            calcDeadReckoningRPW( PositionOut, OrientationOut, totalTimeSinceReset );
         break;
 
     case DRM_R_V_W:
-        if (m_f64Magnitude < MAGIC_EPSILON)
-            calcDeadReckoningFVW( PositionOut, totalTimeSinceReset);
+        if( m_f64Magnitude < MAGIC_EPSILON )
+            calcDeadReckoningFVW( PositionOut, totalTimeSinceReset );
         else
-            calcDeadReckoningRVW( PositionOut, OrientationOut, totalTimeSinceReset);
+            calcDeadReckoningRVW( PositionOut, OrientationOut, totalTimeSinceReset );
         break;
 
     case DRM_F_V_W:
-        calcDeadReckoningFVW( PositionOut, totalTimeSinceReset);
+        calcDeadReckoningFVW( PositionOut, totalTimeSinceReset );
         break;
 
     case DRM_F_P_B:
-        calcDeadReckoningFPB( PositionOut, totalTimeSinceReset);
+        calcDeadReckoningFPB( PositionOut, totalTimeSinceReset );
         break;
 
     case DRM_R_P_B:
-        calcDeadReckoningRPB( PositionOut, OrientationOut, totalTimeSinceReset);
+        calcDeadReckoningRPB( PositionOut, OrientationOut, totalTimeSinceReset );
         break;
 
     case DRM_R_V_B:
-        calcDeadReckoningRVB( PositionOut, OrientationOut, totalTimeSinceReset);
+        calcDeadReckoningRVB( PositionOut, OrientationOut, totalTimeSinceReset );
         break;
 
     case DRM_F_V_B:
-        calcDeadReckoningFVB( PositionOut, totalTimeSinceReset);
+        calcDeadReckoningFVB( PositionOut, totalTimeSinceReset );
         break;
     }
 }

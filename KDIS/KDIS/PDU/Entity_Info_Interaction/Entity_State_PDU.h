@@ -263,7 +263,7 @@ public:
     // FullName:    KDIS::PDU::Entity_State_PDU::ApplyDeadReckoning
     // Description: Applies a dead reckoning transformation to the entity for a time step.
     //              Throws INVALID_OPERATION exception if InitDeadReckoning has not been called first.
-    // Parameter:   KFLOAT64 DeltaTime the time since the DR has been reset. Not the simulation time step.
+    // Parameter:   KFLOAT64 totalTimeSinceDrReset the time since the DR has been reset. Not the simulation time step.
     //************************************
     void ApplyDeadReckoning( KFLOAT64 totalTimeSinceDrReset ) throw( KException );
 
