@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet;
-
 class KDIS_EXPORT AggregateMarking : public DataTypeBase
 {
 protected:
@@ -63,7 +61,7 @@ public:
 
     AggregateMarking( KDataStream & stream ) throw( KException );
 
-    AggregateMarking( const EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) throw( KException );
+    AggregateMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) throw( KException );
 
     virtual ~AggregateMarking();
 
@@ -73,8 +71,8 @@ public:
     // Description: Marking Char set
     // Parameter:   AggregateMarkingCharacterSet EMCS, void
     //************************************
-    void SetAggregateMarkingCharacterSet( EntityMarkingCharacterSet EMCS );
-    EntityMarkingCharacterSet GetAggregateMarkingCharacterSet() const;
+    void SetAggregateMarkingCharacterSet( KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet EMCS );
+    KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet GetAggregateMarkingCharacterSet() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateMarking::SetAggregateMarkingString

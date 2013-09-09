@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory;
-
 class KDIS_EXPORT GED_BasicRotorWingAircraft : public GED_BasicFixedWingAircraft
 {
 protected:
@@ -78,7 +76,7 @@ public:
     // Description: Identifies the derived GED class.
     //              Not part of the DIS PDU.
     //************************************
-    virtual GroupedEntityCategory GetGroupedEntityCategory() const;
+    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_BasicRotorWingAircraft::GetLength

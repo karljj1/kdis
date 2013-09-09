@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory;
-
 class KDIS_EXPORT GED_GroundLogisticsVehicle : public GED
 {
 protected:
@@ -79,7 +77,7 @@ public:
     // Description: Identifies the derived GED class.
     //              Not part of the DIS PDU.
     //************************************
-    virtual GroupedEntityCategory GetGroupedEntityCategory() const;
+    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::GetLength
@@ -94,7 +92,7 @@ public:
     // Description: Entity identifier unique within the group.
     //              The Site Identifier and Application Identifiers shall be the same as
     //              those designated in the Group Entity ID field.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetEntityID( KUINT16 ID );
     KUINT16 GetEntityID() const;
@@ -110,7 +108,7 @@ public:
     //              KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::GetEntityLocationZOffset
     // Description: Location of the grouped entity specified by a set of three offsets.
     //              Determined by the difference, in meters, of the grouped entity from the Group Reference Point.
-    // Parameter:   KINT16, void
+    // Parameter:   KINT16
     //************************************
     void SetEntityLocation( KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset );
     void SetEntityLocation( KINT16 Offsets[3] );
@@ -125,7 +123,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::SetEntityAppearance
     //              KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::GetEntityAppearance
     // Description: Entity appearance bit field accessors/mutator
-    // Parameter:   const EntityAppearance & EA, void
+    // Parameter:   const EntityAppearance & EA
     //************************************
     void SetEntityAppearance( const EntityAppearance & EA );
     const EntityAppearance & GetEntityAppearance() const;
@@ -141,7 +139,7 @@ public:
     //              KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::GetEntityOrientationTheta
     //              KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::GetEntityOrientationPhi
     // Description: Entity orientation in Euler angles, psi, theta and phi, in 25 milli radian increments.
-    // Parameter:   KINT8, void
+    // Parameter:   KINT8
     //************************************
     void SetEntityOrientation( KINT8 Psi, KINT8 Theta, KINT8 Phi );
     void SetEntityOrientation( KINT8 Ori[3] );
@@ -159,7 +157,7 @@ public:
     //              A negative value shall indicate that the entity is moving backwards.
     //              Specified in 0.1 meter per second increments for aircraft and meters
     //              per second for ground vehicles.
-    // Parameter:   KINT8 S, void
+    // Parameter:   KINT8 S
     //************************************
     void SetSpeed( KINT8 S );
     KINT8 GetSpeed() const;

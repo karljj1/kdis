@@ -45,7 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-
 class KDIS_EXPORT Data_R_PDU : public Data_PDU,
                                public Reliability_Header
 {
@@ -61,8 +60,8 @@ public:
 
 	Data_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Data_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                KUINT32 RequestID, RequiredReliabilityService RRS );
+	Data_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
+                KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
     virtual ~Data_R_PDU();
 

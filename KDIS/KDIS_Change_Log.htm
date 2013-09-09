@@ -73,8 +73,9 @@
 	<li>Added Vector::Set to set all values in one call.</li>
 	<li>Added Vector::Lerp.</li>	
 	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
-	<li>Performance Improvements In Decoding. ignoreHeader parameter added to to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>
+	<li>Performance Improvements In Decoding. ignoreHeader parameter added to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>
 	<li>Added WorldCoordinates::Lerp</li>
+    <li>Cleaned up namespaces. namespaces had become polluted, for example the following was possible: KDIS::PDU::Header, KDIS::NETWORK::Header, KDIS::UTILS::Header, KDIS::PDU::Header should have been the only one possible.</li>
 	<li>Fixed some invalid Symbolic names.</li>
 	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type variant field. The high and low bits method was incorrect. TypeVariantHighBits is now TypeVariantClass and TypeVariantLowBits is TypeVariantMetric.</li>
 	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type value field. Should have been a KFLOAT32 not KUINT64.</li>
@@ -88,12 +89,14 @@
     <li>Fixed bug in Directed_Energy_Fire_PDU Encode/Decode. Was not including padding.</li>
 	<li>Fixed bug in FactoryDecoder when calling the clear function. If a single object was used to handle more than 1 enum it would attempt to delete it multiple times(one per enum). The FactoryDecoder now uses the KRef_Ptr class.</li>
 	<li>Fixed bug with GuidedMunitionsAppearance when using a DLL version of KDIS.</li>
+    <li>Fixed bug in GetNextPDU when an error occurs, the next call was using corrupted data.</li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Renamed enum WarheadType::GlassBladsWarhead to WarheadType::GlassBeadsWarhead.</li>
 	<li>Renamed enum EncodingType::_16_bit_linear_PCM to EncodingType::_16_bit_linear_PCM2sComplementBigEndian.</li>
+    <li>Changed define COMM_CHANNEL_TYPE to a static KUINT16 COMM_CHANNEL_TYPE_SIZE.</li>
 	<li>Added missing enums to EncodingType.</li>
 	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>		
-	<li>Lots of improvements to comments. More details, fixes etc.</li>
+	<li>Lots of improvements to comments. More details, fixes etc.</li>    
 </ul>
 
 <!-- Version 2-7-0 !-->

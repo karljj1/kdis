@@ -46,9 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace UTILS {
 
-using std::queue;
-using std::fstream;
-
 class KDIS_EXPORT DIS_Logger_Playback
 {
 protected:
@@ -60,11 +57,11 @@ protected:
         KString sData;
     };
 
-    fstream m_File;
+    std::fstream m_File;
 
     KUINT16 m_ui16PreLoadLines;
 
-    queue<Log> m_qLog;
+    std::queue<Log> m_qLog;
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Playback::loadFromFile

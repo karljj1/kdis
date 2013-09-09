@@ -43,8 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::AdditionalPassiveParameterIndex;
-
 class KDIS_EXPORT APA : public DataTypeBase
 {
 protected:
@@ -70,7 +68,7 @@ public:
 
     APA( KDataStream & stream ) throw( KException );
 
-    APA( AdditionalPassiveParameterIndex APPI, KBOOL Val1, KBOOL Val2, KINT16 Value );
+    APA( KDIS::DATA_TYPE::ENUMS::AdditionalPassiveParameterIndex APPI, KBOOL Val1, KBOOL Val2, KINT16 Value );
 
     virtual ~APA();
 
@@ -85,8 +83,8 @@ public:
     //              ( SEDB )and an Additional Narrow band Database ( ANDB ).
     // Parameter:   AdditionalPassiveParameterIndex RPM, void
     //************************************
-    void SetAPPI( AdditionalPassiveParameterIndex APPI );
-    AdditionalPassiveParameterIndex GetAPPI() const;
+    void SetAPPI( KDIS::DATA_TYPE::ENUMS::AdditionalPassiveParameterIndex APPI );
+    KDIS::DATA_TYPE::ENUMS::AdditionalPassiveParameterIndex GetAPPI() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::APA::SetStatus

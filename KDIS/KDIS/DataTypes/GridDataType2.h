@@ -47,15 +47,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::vector;
-
 class KDIS_EXPORT GridDataType2 : public GridData
 {
 protected:
 
     KUINT16 m_ui16NumValues;
 
-    vector<KFLOAT32> m_vf32Values;
+    std::vector<KFLOAT32> m_vf32Values;
 
     KUINT16 m_ui16Padding;
 
@@ -71,7 +69,7 @@ public:
     // data we have we must decode the first 2 values.So this constructor is here to aid in this process.
     GridDataType2( KUINT16 SampleType, KUINT16 DataRepresentation, KDataStream & stream );
 
-    GridDataType2( KUINT16 SampleType, const vector<KFLOAT32> & Values );
+    GridDataType2( KUINT16 SampleType, const std::vector<KFLOAT32> & Values );
 
     virtual ~GridDataType2();
 
@@ -88,11 +86,11 @@ public:
     //              KDIS::DATA_TYPE::GridDataType2::GetValues
     //              KDIS::DATA_TYPE::GridDataType2::ClearValues
     // Description: The environmental state variable data values.
-    // Parameter:   KFLOAT32 V, const vector<KFLOAT32> & V, void
+    // Parameter:   KFLOAT32 V, const vector<KFLOAT32> & V
     //************************************
     void AddValue( KFLOAT32 V );
-    void SetValues( const vector<KFLOAT32> & V );
-    const vector<KFLOAT32> & GetValues() const;
+    void SetValues( const std::vector<KFLOAT32> & V );
+    const std::vector<KFLOAT32> & GetValues() const;
     void ClearValues();
 
     //************************************

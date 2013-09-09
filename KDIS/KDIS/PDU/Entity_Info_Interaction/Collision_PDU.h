@@ -50,29 +50,25 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::ENUMS::CollisionType;
-
 class KDIS_EXPORT Collision_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_IssuingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_IssuingEntityID;
 
-    EntityIdentifier m_CollidingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_CollidingEntityID;
 
-    EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
     KUINT8 m_ui8CollisionType;
 
     KUINT8 m_ui8Padding;
 
-    Vector m_Velocity;
+    KDIS::DATA_TYPE::Vector m_Velocity;
 
     KFLOAT32 m_f32Mass;
 
-    Vector m_Location;
+    KDIS::DATA_TYPE::Vector m_Location;
 
 public:
 
@@ -84,9 +80,9 @@ public:
 
 	Collision_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Collision_PDU( const EntityIdentifier & IssuingID, const EntityIdentifier & CollidingID,
-                   const EntityIdentifier & EventID, CollisionType CT,const Vector & Velocity,
-                   KFLOAT32 Mass, const Vector & Location );
+    Collision_PDU( const KDIS::DATA_TYPE::EntityIdentifier & IssuingID, const KDIS::DATA_TYPE::EntityIdentifier & CollidingID,
+		const KDIS::DATA_TYPE::EntityIdentifier & EventID, KDIS::DATA_TYPE::ENUMS::CollisionType CT,const KDIS::DATA_TYPE::Vector & Velocity,
+                   KFLOAT32 Mass, const KDIS::DATA_TYPE::Vector & Location );
 
     virtual ~Collision_PDU();
 
@@ -96,9 +92,9 @@ public:
     // Description: Entity Issuing the collision
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetIssuingEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetIssuingEntityID() const;
-    EntityIdentifier & GetIssuingEntityID();
+    void SetIssuingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetIssuingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetIssuingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::SetCollidingEntityID
@@ -108,9 +104,9 @@ public:
     //              the id will be ENTITY_ID_UNKNOWN
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetCollidingEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetCollidingEntityID() const;
-    EntityIdentifier & GetCollidingEntityID();
+    void SetCollidingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetCollidingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetCollidingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::SetEventID
@@ -119,9 +115,9 @@ public:
     //              to this one.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEventID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEventID() const;
-    EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::SetCollisionType
@@ -129,8 +125,8 @@ public:
     // Description: Describes the type of collision that occurred
     // Parameter:   CollisionType CT
     //************************************
-    void SetCollisionType( CollisionType CT );
-    CollisionType GetCollisionType() const;
+	void SetCollisionType( KDIS::DATA_TYPE::ENUMS::CollisionType CT );
+	KDIS::DATA_TYPE::ENUMS::CollisionType GetCollisionType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::SetVelocity
@@ -140,9 +136,9 @@ public:
     //              Velocity Vector.
     // Parameter:   const Vector & V
     //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+    void SetVelocity( const KDIS::DATA_TYPE::Vector & V );
+    const KDIS::DATA_TYPE::Vector & GetVelocity() const;
+    KDIS::DATA_TYPE::Vector & GetVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::SetMass
@@ -161,14 +157,13 @@ public:
     //              Entity Coordinate Vector.
     // Parameter:   const Vector & L
     //************************************
-    void SetLocation( const Vector & L );
-    const Vector & GetLocation() const;
-    Vector & GetLocation();
+    void SetLocation( const KDIS::DATA_TYPE::Vector & L );
+    const KDIS::DATA_TYPE::Vector & GetLocation() const;
+    KDIS::DATA_TYPE::Vector & GetLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

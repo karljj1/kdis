@@ -66,26 +66,21 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::SystemIdentifier;
-using KDIS::DATA_TYPE::FundamentalOperationalData;
-
 class KDIS_EXPORT IFF_ATC_NAVAIDS_L1_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_EmittingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EmittingEntityID;
 
-    EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
-    Vector m_Location;
+    KDIS::DATA_TYPE::Vector m_Location;
 
-    SystemIdentifier m_SystemID;
+    KDIS::DATA_TYPE::SystemIdentifier m_SystemID;
 
     KUINT16 m_ui16Padding;
 
-    FundamentalOperationalData m_FOD;
+    KDIS::DATA_TYPE::FundamentalOperationalData m_FOD;
 
 public:
 
@@ -99,8 +94,8 @@ public:
 
 	IFF_ATC_NAVAIDS_L1_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    IFF_ATC_NAVAIDS_L1_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID, const Vector & Location,
-                            const SystemIdentifier & ID, const FundamentalOperationalData & FOD );
+    IFF_ATC_NAVAIDS_L1_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID, const KDIS::DATA_TYPE::Vector & Location,
+                            const KDIS::DATA_TYPE::SystemIdentifier & ID, const KDIS::DATA_TYPE::FundamentalOperationalData & FOD );
 
     virtual ~IFF_ATC_NAVAIDS_L1_PDU();
 
@@ -108,21 +103,21 @@ public:
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetEmittingEntityID
     //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetEmittingEntityID
     // Description: Emitting Entity ID
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEmittingEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEmittingEntityID() const;
-    EntityIdentifier & GetEmittingEntityID();
+    void SetEmittingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetEventID
     //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetEventID
     // Description: Event ID. For associated events.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEventID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEventID() const;
-    EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetLocation
@@ -130,36 +125,35 @@ public:
     // Description: Location of the emitting system relative to
     //              the emitting entity's coordinate system.
     //              Represented as a Entity Coordinate Vector
-    // Parameter:   const Vector & L, void
+    // Parameter:   const Vector & L
     //************************************
-    void SetLocation( const Vector & L );
-    const Vector & GetLocation() const;
-    Vector & GetLocation();
+    void SetLocation( const KDIS::DATA_TYPE::Vector & L );
+    const KDIS::DATA_TYPE::Vector & GetLocation() const;
+    KDIS::DATA_TYPE::Vector & GetLocation();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetSystemIdentifier
     //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetSystemIdentifier
     // Description: Identifies the emitting system.
-    // Parameter:   const SystemIdentifier & ID, void
+    // Parameter:   const SystemIdentifier & ID
     //************************************
-    void SetSystemIdentifier( const SystemIdentifier & ID );
-    const SystemIdentifier & GetSystemIdentifier() const;
-    SystemIdentifier & GetSystemIdentifier();
+    void SetSystemIdentifier( const KDIS::DATA_TYPE::SystemIdentifier & ID );
+    const KDIS::DATA_TYPE::SystemIdentifier & GetSystemIdentifier() const;
+    KDIS::DATA_TYPE::SystemIdentifier & GetSystemIdentifier();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetFundamentalOperationalData
     //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetFundamentalOperationalData
     // Description: Identifies certain basic operational data for an emitting system.
-    // Parameter:   const FundamentalOperationalData & FOD, void
+    // Parameter:   const FundamentalOperationalData & FOD
     //************************************
-    void SetFundamentalOperationalData( const FundamentalOperationalData & FOD );
-    const FundamentalOperationalData & GetFundamentalOperationalData() const;
-    FundamentalOperationalData & GetFundamentalOperationalData();
+    void SetFundamentalOperationalData( const KDIS::DATA_TYPE::FundamentalOperationalData & FOD );
+    const KDIS::DATA_TYPE::FundamentalOperationalData & GetFundamentalOperationalData() const;
+    KDIS::DATA_TYPE::FundamentalOperationalData & GetFundamentalOperationalData();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

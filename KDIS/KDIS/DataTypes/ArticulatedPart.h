@@ -48,9 +48,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass;
-using KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric;
-
 class KDIS_EXPORT ArticulatedPart : public VariableParameter
 {
 protected:
@@ -71,8 +68,8 @@ public:
 
     ArticulatedPart( KDataStream & stream ) throw( KException );
 
-	ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, ArticulatedPartsClass C, 
-		             ArticulatedPartsMetric M, KFLOAT32 Value );
+	ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass C, 
+		             KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric M, KFLOAT32 Value );
 
     ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KUINT32 TypeVariant, KFLOAT32 Value );
 
@@ -105,8 +102,8 @@ public:
     // Description: Identifies a particular articulated part on a given entity type.
     // Parameter:   ArticulatedPartsClass C
     //************************************
-    void SetTypeVariantClass( ArticulatedPartsClass C );
-    ArticulatedPartsClass GetTypeVariantClass() const;
+    void SetTypeVariantClass( KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass C );
+    KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass GetTypeVariantClass() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariantMetric
@@ -122,8 +119,8 @@ public:
 	//                 Movable missile launcher     -  Azimuth and elevation
     // Parameter:   ArticulatedPartsMetric M
     //************************************
-    void SetTypeVariantMetric( ArticulatedPartsMetric M );
-    ArticulatedPartsMetric GetTypeVariantMetric() const;
+    void SetTypeVariantMetric( KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric M );
+    KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric GetTypeVariantMetric() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariant

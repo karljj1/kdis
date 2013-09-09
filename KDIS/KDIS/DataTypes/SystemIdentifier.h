@@ -45,10 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::SystemType;
-using KDIS::DATA_TYPE::ENUMS::SystemName;
-using KDIS::DATA_TYPE::ENUMS::SystemMode;
-
 class KDIS_EXPORT SystemIdentifier : public DataTypeBase
 {
 protected:
@@ -78,8 +74,8 @@ public:
 
     SystemIdentifier();
 
-    SystemIdentifier( SystemType T, SystemName N, SystemMode M, KBOOL ChangeIndicator,
-                      KBOOL AltMode4 = false, KBOOL AltModeC = false );
+    SystemIdentifier( KDIS::DATA_TYPE::ENUMS::SystemType T, KDIS::DATA_TYPE::ENUMS::SystemName N, KDIS::DATA_TYPE::ENUMS::SystemMode M, 
+		              KBOOL ChangeIndicator, KBOOL AltMode4 = false, KBOOL AltModeC = false );
 
     SystemIdentifier( KDataStream & stream ) throw( KException );
 
@@ -91,8 +87,8 @@ public:
     // Description: System Type
     // Parameter:   SystemType T
     //************************************
-    void SetSystemType( SystemType T );
-    SystemType GetSystemType() const;
+    void SetSystemType( KDIS::DATA_TYPE::ENUMS::SystemType T );
+    KDIS::DATA_TYPE::ENUMS::SystemType GetSystemType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemName
@@ -100,8 +96,8 @@ public:
     // Description: A particular named type of system
     // Parameter:   SystemName ID
     //************************************
-    void SetSystemName( SystemName N );
-    SystemName GetSystemName() const;
+    void SetSystemName( KDIS::DATA_TYPE::ENUMS::SystemName N );
+    KDIS::DATA_TYPE::ENUMS::SystemName GetSystemName() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemMode
@@ -109,8 +105,8 @@ public:
     // Description: Mode of operation for the named system.
     // Parameter:   SystemMode M
     //************************************
-    void SetSystemMode( SystemMode M );
-    SystemMode GetSystemMode() const;
+    void SetSystemMode( KDIS::DATA_TYPE::ENUMS::SystemMode M );
+    KDIS::DATA_TYPE::ENUMS::SystemMode GetSystemMode() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetChangeOptions

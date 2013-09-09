@@ -51,17 +51,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::SimulationIdentifier;
-using KDIS::DATA_TYPE::AttributeRecordSet;
-using KDIS::DATA_TYPE::ENUMS::AttributeID;
-using KDIS::DATA_TYPE::ENUMS::ActionCode;
-using std::vector;
-
 class KDIS_EXPORT Attribute_PDU : public Header
 {
 protected:
 
-    SimulationIdentifier m_OrigSimAddr;
+    KDIS::DATA_TYPE::SimulationIdentifier m_OrigSimAddr;
 
     KUINT32 m_ui32Padding;
 
@@ -79,7 +73,7 @@ protected:
 
 	KUINT16 m_ui16NumAttrRecSets;
 
-	vector<AttributeRecordSet> m_vAttributeRecordSets;
+	std::vector<KDIS::DATA_TYPE::AttributeRecordSet> m_vAttributeRecordSets;
 
 public:
 
@@ -91,8 +85,8 @@ public:
 
 	Attribute_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Attribute_PDU( const SimulationIdentifier & OriginatingID, PDUType T, 
-				   ProtocolVersion PV, AttributeID MART, ActionCode AC );
+	Attribute_PDU( const KDIS::DATA_TYPE::SimulationIdentifier & OriginatingID, KDIS::DATA_TYPE::ENUMS::PDUType T, 
+		           KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KDIS::DATA_TYPE::ENUMS::AttributeID MART, KDIS::DATA_TYPE::ENUMS::ActionCode AC );
 
     virtual ~Attribute_PDU();
 
@@ -102,9 +96,9 @@ public:
     // Description: Identifies the simulation issuing the PDU.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetOriginatingSimulationAddress( const SimulationIdentifier & ID );
-    const SimulationIdentifier & GetOriginatingSimulationAddress() const;
-    SimulationIdentifier & GetOriginatingSimulationAddress();
+    void SetOriginatingSimulationAddress( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
+    const KDIS::DATA_TYPE::SimulationIdentifier & GetOriginatingSimulationAddress() const;
+    KDIS::DATA_TYPE::SimulationIdentifier & GetOriginatingSimulationAddress();
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::SetExtendedPDUType
@@ -112,8 +106,8 @@ public:
     // Description: The type of PDU that is being extended or updated, if applicable.
     // Parameter:   PDUType Type
     //************************************
-    void SetExtendedPDUType( PDUType T );
-    PDUType GetExtendedPDUType() const;
+    void SetExtendedPDUType( KDIS::DATA_TYPE::ENUMS::PDUType T );
+    KDIS::DATA_TYPE::ENUMS::PDUType GetExtendedPDUType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::SetExtendedProtocolVersion
@@ -121,8 +115,8 @@ public:
     // Description: The protocol version asociated with the extended/updated PDU.
     // Parameter:   ProtocolVersion PV
     //************************************
-    void SetExtendedProtocolVersion( ProtocolVersion PV );
-    ProtocolVersion GetExtendedProtocolVersion() const;
+    void SetExtendedProtocolVersion( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV );
+    KDIS::DATA_TYPE::ENUMS::ProtocolVersion GetExtendedProtocolVersion() const;
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::SetMasterAttributeRecordType
@@ -131,8 +125,8 @@ public:
 	//              in the PDU if they all have the same Attribute record type.
     // Parameter:   AttributeID MART
     //************************************
-	void SetMasterAttributeRecordType( AttributeID MART );
-	AttributeID GetMasterAttributeRecordType() const;
+	void SetMasterAttributeRecordType( KDIS::DATA_TYPE::ENUMS::AttributeID MART );
+	KDIS::DATA_TYPE::ENUMS::AttributeID GetMasterAttributeRecordType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::SetActionCode
@@ -140,8 +134,8 @@ public:
     // Description: Action code applicable to all attribute records in this Attribute_PDU.
     // Parameter:   ActionCode AC
     //************************************
-	void SetActionCode( ActionCode AC );
-	ActionCode GetActionCode() const;
+	void SetActionCode( KDIS::DATA_TYPE::ENUMS::ActionCode AC );
+	KDIS::DATA_TYPE::ENUMS::ActionCode GetActionCode() const;
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::GetNumberOfAttributeRecordSets    
@@ -158,9 +152,9 @@ public:
     //              Adding will update the Number of Attribute Record Sets Params and the PDU length field.
     // Parameter:   const AttributeRecordSet & AR, const vector<AttributeRecordSet> & AR
     //************************************
-    void AddAttributeRecordSet( const AttributeRecordSet & AR );
-    void SetAttributeRecordSets( const vector<AttributeRecordSet> & AR );
-    const vector<AttributeRecordSet> & GetAttributeRecordSets() const;
+    void AddAttributeRecordSet( const KDIS::DATA_TYPE::AttributeRecordSet & AR );
+	void SetAttributeRecordSets( const std::vector<KDIS::DATA_TYPE::AttributeRecordSet> & AR );
+	const std::vector<KDIS::DATA_TYPE::AttributeRecordSet> & GetAttributeRecordSets() const;
     void ClearAttributeRecordSet();	
 
     //************************************

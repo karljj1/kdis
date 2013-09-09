@@ -52,12 +52,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityType;
-using KDIS::DATA_TYPE::EntityMarking;
-using KDIS::DATA_TYPE::EntityCapabilities;
-using KDIS::DATA_TYPE::EntityAppearance;
-using KDIS::DATA_TYPE::ENUMS::ForceID;
-
 class KDIS_EXPORT Appearance_PDU : public LE_Header
 {
 protected:
@@ -92,21 +86,21 @@ protected:
 
     KUINT8 m_ui8ForceID;
 
-    EntityType m_EntityType;
+    KDIS::DATA_TYPE::EntityType m_EntityType;
 
-    EntityType m_AltEntityType;
+    KDIS::DATA_TYPE::EntityType m_AltEntityType;
 
-    EntityMarking m_EntityMarking;
+    KDIS::DATA_TYPE::EntityMarking m_EntityMarking;
 
-    EntityCapabilities m_EntityCapabilities;
+    KDIS::DATA_TYPE::EntityCapabilities m_EntityCapabilities;
 
-    EntityAppearance m_VisApp;
+    KDIS::DATA_TYPE::EntityAppearance m_VisApp;
 
-    EntityAppearance m_IRApp;
+    KDIS::DATA_TYPE::EntityAppearance m_IRApp;
 
-    EntityAppearance m_EMApp;
+    KDIS::DATA_TYPE::EntityAppearance m_EMApp;
 
-    EntityAppearance m_AudApp;
+    KDIS::DATA_TYPE::EntityAppearance m_AudApp;
 
 public:
 
@@ -118,7 +112,7 @@ public:
 
 	Appearance_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Appearance_PDU( const LE_EntityIdentifier & ID );
+    Appearance_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
     virtual ~Appearance_PDU();
 
@@ -178,8 +172,8 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   ForceID ID
     //************************************
-    void SetForceID( ForceID ID );
-    ForceID GetForceID() const;
+	void SetForceID( KDIS::DATA_TYPE::ENUMS::ForceID ID );
+	KDIS::DATA_TYPE::ENUMS::ForceID GetForceID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetEntityType
@@ -190,9 +184,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const EntityType & Type
     //************************************
-    void SetEntityType( const EntityType & Type );
-    const EntityType & GetEntityType() const;
-    EntityType & GetEntityType();
+    void SetEntityType( const KDIS::DATA_TYPE::EntityType & Type );
+    const KDIS::DATA_TYPE::EntityType & GetEntityType() const;
+    KDIS::DATA_TYPE::EntityType & GetEntityType();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetAltEntityType
@@ -203,20 +197,20 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const EntityType & Type
     //************************************
-    void SetAltEntityType( const EntityType & Type );
-    const EntityType & GetAltEntityType() const;
-    EntityType & GetAltEntityType();
+    void SetAltEntityType( const KDIS::DATA_TYPE::EntityType & Type );
+    const KDIS::DATA_TYPE::EntityType & GetAltEntityType() const;
+    KDIS::DATA_TYPE::EntityType & GetAltEntityType();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetEntityMarking
     //              KDIS::PDU::Appearance_PDU::GetEntityMarking
     // Description: Optional field. Entity Marking. This can be the entities name,Army Markings or Chevrons.
     //              Note: Setting this value will also cause the relevant flag to be set to true.
-    // Parameter:   const EntityMarking & EM, void
+    // Parameter:   const EntityMarking & EM
     //************************************
-    void SetEntityMarking( const EntityMarking & EM );
-    const EntityMarking & GetEntityMarking() const;
-    EntityMarking & GetEntityMarking();
+    void SetEntityMarking( const KDIS::DATA_TYPE::EntityMarking & EM );
+    const KDIS::DATA_TYPE::EntityMarking & GetEntityMarking() const;
+    KDIS::DATA_TYPE::EntityMarking & GetEntityMarking();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetEntityCapabilities
@@ -225,9 +219,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const EntityCapabilities & EC
     //************************************
-    void SetEntityCapabilities( const EntityCapabilities & EC );
-    const EntityCapabilities & GetEntityCapabilities() const;
-    EntityCapabilities & GetEntityCapabilities();
+    void SetEntityCapabilities( const KDIS::DATA_TYPE::EntityCapabilities & EC );
+    const KDIS::DATA_TYPE::EntityCapabilities & GetEntityCapabilities() const;
+    KDIS::DATA_TYPE::EntityCapabilities & GetEntityCapabilities();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceVisual
@@ -236,9 +230,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const EntityAppearance & V
     //************************************
-    void SetAppearanceVisual( const EntityAppearance & V );
-    const EntityAppearance & GetAppearanceVisual() const;
-    EntityAppearance & GetAppearanceVisual();
+    void SetAppearanceVisual( const KDIS::DATA_TYPE::EntityAppearance & V );
+    const KDIS::DATA_TYPE::EntityAppearance & GetAppearanceVisual() const;
+    KDIS::DATA_TYPE::EntityAppearance & GetAppearanceVisual();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceIR
@@ -247,9 +241,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const EntityAppearance & IR
     //************************************
-    void SetAppearanceIR( const EntityAppearance & IR );
-    const EntityAppearance & GetAppearanceIR() const;
-    EntityAppearance & GetAppearanceIR();
+    void SetAppearanceIR( const KDIS::DATA_TYPE::EntityAppearance & IR );
+    const KDIS::DATA_TYPE::EntityAppearance & GetAppearanceIR() const;
+    KDIS::DATA_TYPE::EntityAppearance & GetAppearanceIR();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceEM
@@ -258,9 +252,9 @@ public:
     //              Note: Setting this value will also cause the relevant flags to be set to true.
     // Parameter:   const EntityAppearance & EM
     //************************************
-    void SetAppearanceEM( const EntityAppearance & EM );
-    const EntityAppearance & GetAppearanceEM() const;
-    EntityAppearance & GetAppearanceEM();
+    void SetAppearanceEM( const KDIS::DATA_TYPE::EntityAppearance & EM );
+    const KDIS::DATA_TYPE::EntityAppearance & GetAppearanceEM() const;
+    KDIS::DATA_TYPE::EntityAppearance & GetAppearanceEM();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceAudio
@@ -269,9 +263,9 @@ public:
     //              Note: Setting this value will also cause the relevant flags to be set to true.
     // Parameter:   const EntityAppearance & A
     //************************************
-    void SetAppearanceAudio( const EntityAppearance & A );
-    const EntityAppearance & GetAppearanceAudio() const;
-    EntityAppearance & GetAppearanceAudio();
+    void SetAppearanceAudio( const KDIS::DATA_TYPE::EntityAppearance & A );
+    const KDIS::DATA_TYPE::EntityAppearance & GetAppearanceAudio() const;
+    KDIS::DATA_TYPE::EntityAppearance & GetAppearanceAudio();
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::GetAsString

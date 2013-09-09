@@ -77,7 +77,7 @@ class KDIS_EXPORT IsGroupOf_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_GroupedEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_GroupedEntityID;
 
     KUINT8 m_ui8GrpdEntCat;
 
@@ -89,7 +89,7 @@ protected:
 
     KFLOAT64 m_f64GrpLon;
 
-    GEDList m_vpGED;
+    KDIS::DATA_TYPE::GEDList m_vpGED;
 
 public:
 
@@ -101,9 +101,9 @@ public:
 
 	IsGroupOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    IsGroupOf_PDU( const EntityIdentifier & EI, GroupedEntityCategory GED, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude );
+	IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GED, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude );
 
-    IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const GEDList & GED ) throw( KException );
+    IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const KDIS::DATA_TYPE::GEDList & GED ) throw( KException );
 
     virtual ~IsGroupOf_PDU();
 
@@ -111,20 +111,20 @@ public:
     // FullName:    KDIS::PDU::IsGroupOf_PDU::SetGroupedEntityID
     //              KDIS::PDU::IsGroupOf_PDU::GetGroupedEntityID
     // Description: The entity that represents the group of entities.
-    // Parameter:   const EntityIdentifier & EI, void
+    // Parameter:   const EntityIdentifier & EI
     //************************************
-    void SetGroupedEntityID( const EntityIdentifier & EI );
-    const EntityIdentifier & GetGroupedEntityID() const;
-    EntityIdentifier & GetGroupedEntityID();
+    void SetGroupedEntityID( const KDIS::DATA_TYPE::EntityIdentifier & EI );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetGroupedEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetGroupedEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::IsGroupOf_PDU::SetGroupedEntityCategory
     //              KDIS::PDU::IsGroupOf_PDU::GetGroupedEntityCategory
     // Description: Describes the type of entities constituting a group.
-    // Parameter:   const GroupedEntityCategor GED, void
+    // Parameter:   const GroupedEntityCategor GED
     //************************************
-    void SetGroupedEntityCategory( GroupedEntityCategory GED );
-    GroupedEntityCategory GetGroupedEntityCategory() const;
+	void SetGroupedEntityCategory( KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GED );
+	KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
 
     //************************************
     // FullName:    KDIS::PDU::IsGroupOf_PDU::GetNumberOfGroupedEntities
@@ -176,9 +176,9 @@ public:
     //                  GED_GroundLogisticsVehicle
     // Parameter:   const GEDItem & GED, const GEDList & GED, void
     //************************************
-    void AddGED( const GEDItem & GED ) throw( KException );
-    void SetGED( const GEDList & GED ) throw( KException );
-    const GEDList & GetGED() const;
+    void AddGED( const KDIS::DATA_TYPE::GEDItem & GED ) throw( KException );
+    void SetGED( const KDIS::DATA_TYPE::GEDList & GED ) throw( KException );
+    const KDIS::DATA_TYPE::GEDList & GetGED() const;
 
     //************************************
     // FullName:    KDIS::PDU::IsGroupOf_PDU::GetAsString

@@ -52,11 +52,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::TimeStamp;
-using KDIS::DATA_TYPE::ENUMS::ProtocolVersion;
-using KDIS::DATA_TYPE::ENUMS::ProtocolFamily;
-using KDIS::DATA_TYPE::ENUMS::PDUType;
-
 class KDIS_EXPORT Header6
 {
 protected:
@@ -69,7 +64,7 @@ protected:
 
     KUINT8 m_ui8ProtocolFamily;
 
-    TimeStamp m_TimeStamp;
+    KDIS::DATA_TYPE::TimeStamp m_TimeStamp;
 
     KUINT16 m_ui16PDULength;
 
@@ -85,8 +80,8 @@ public:
 
     Header6( KDataStream & stream ) throw( KException );
 
-    Header6( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFamily PF,
-             const TimeStamp & TS, KUINT16 PDULength );
+    Header6( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KUINT8 ExerciseID, KDIS::DATA_TYPE::ENUMS::PDUType PT,
+		     KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF, const KDIS::DATA_TYPE::TimeStamp & TS, KUINT16 PDULength );
 
     virtual ~Header6();
 
@@ -98,8 +93,8 @@ public:
     //              to the mimimum version of DIS required to support the current PDU.	
 	// Parameter:   ProtocolVersion PV
     //************************************
-    void SetProtocolVersion( ProtocolVersion PV );
-    ProtocolVersion GetProtocolVersion() const;
+    void SetProtocolVersion( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV );
+    KDIS::DATA_TYPE::ENUMS::ProtocolVersion GetProtocolVersion() const;
 
     //************************************
     // FullName:    KDIS::PDU::Header6::SetExerciseID
@@ -118,8 +113,8 @@ public:
     //              Only change if you know what you are doing.
     // Parameter:   PDUType Type
     //************************************
-    void SetPDUType( PDUType Type );
-    PDUType GetPDUType() const;
+    void SetPDUType( KDIS::DATA_TYPE::ENUMS::PDUType Type );
+    KDIS::DATA_TYPE::ENUMS::PDUType GetPDUType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Header6::SetProtocolFamily
@@ -129,8 +124,8 @@ public:
     //              Only change if you know what you are doing.
     // Parameter:   ProtocolFamily PF
     //************************************
-    void SetProtocolFamily( ProtocolFamily PF );
-    ProtocolFamily GetProtocolFamily() const;
+    void SetProtocolFamily( KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF );
+    KDIS::DATA_TYPE::ENUMS::ProtocolFamily GetProtocolFamily() const;
 
     //************************************
     // FullName:    KDIS::PDU::Header6::SetTimeStamp
@@ -139,9 +134,9 @@ public:
     //              in the PDU is valid.
     // Parameter:   const TimeStamp & TS
     //************************************
-    void SetTimeStamp( const TimeStamp & TS );
-    const TimeStamp & GetTimeStamp() const;
-    TimeStamp & GetTimeStamp();
+    void SetTimeStamp( const KDIS::DATA_TYPE::TimeStamp & TS );
+    const KDIS::DATA_TYPE::TimeStamp & GetTimeStamp() const;
+    KDIS::DATA_TYPE::TimeStamp & GetTimeStamp();
 
     //************************************
     // FullName:    KDIS::PDU::Header6::SetPDULength

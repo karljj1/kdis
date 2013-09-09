@@ -46,13 +46,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Minefield_Header : public Header
 {
 protected:
 
-    EntityIdentifier m_MinefieldID;
+    KDIS::DATA_TYPE::EntityIdentifier m_MinefieldID;
 
 public:
 
@@ -73,11 +71,11 @@ public:
     //              KDIS::PDU::Minefield_Header::GetMinefieldID
     // Description: The Minefield Identifier (Minefield ID) does not represent an entity but
     //              rather an aggregation of mine entities for the purpose of conserving bandwidth.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetMinefieldID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetMinefieldID() const;
-    EntityIdentifier & GetMinefieldID();
+    void SetMinefieldID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetMinefieldID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetMinefieldID();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Header::GetAsString

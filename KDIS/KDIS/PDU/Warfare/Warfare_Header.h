@@ -45,19 +45,17 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Warfare_Header : public Header
 {
 protected:
 
-    EntityIdentifier m_FiringEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_FiringEntityID;
 
-    EntityIdentifier m_TargetEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_TargetEntityID;
 
-    EntityIdentifier m_MunitionID;
+    KDIS::DATA_TYPE::EntityIdentifier m_MunitionID;
 
-    EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
 public:
 
@@ -67,8 +65,8 @@ public:
 
 	Warfare_Header( const Header & H );
 
-    Warfare_Header( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
-                    const EntityIdentifier & MunitionID, const EntityIdentifier & EventID );
+    Warfare_Header( const KDIS::DATA_TYPE::EntityIdentifier & FiringEntID, const KDIS::DATA_TYPE::EntityIdentifier & TargetEntID,
+                    const KDIS::DATA_TYPE::EntityIdentifier & MunitionID, const KDIS::DATA_TYPE::EntityIdentifier & EventID );
 
     virtual ~Warfare_Header();
 
@@ -76,33 +74,33 @@ public:
     // FullName:    KDIS::PDU::Warfare_Header::SetFiringEntityID
     //              KDIS::PDU::Warfare_Header::GetFiringEntityID
     // Description: Firing Entity.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetFiringEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetFiringEntityID() const;
-    EntityIdentifier & GetFiringEntityID();
+    void SetFiringEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetFiringEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetFiringEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Warfare_Header::SetTargetEntityID
     //              KDIS::PDU::Warfare_Header::GetTargetEntityID
     // Description: Target Entity. If target is unknown the ID
     //              shall contain the symbolic value: TARGET_ID_UNKNOWN.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetTargetEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetTargetEntityID() const;
-    EntityIdentifier & GetTargetEntityID();
+    void SetTargetEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetTargetEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetTargetEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Warfare_Header::SetMunitionID
     //              KDIS::PDU::Warfare_Header::GetMunitionID
     // Description: Munition ID. If the munition is not tracked
     //              the ID shall contain the symbolic value: MUNITION_NOT_TRACKED.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetMunitionID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetMunitionID() const;
-    EntityIdentifier & GetMunitionID();
+    void SetMunitionID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetMunitionID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetMunitionID();
 
     //************************************
     // FullName:    KDIS::PDU::Warfare_Header::SetEventID
@@ -110,11 +108,11 @@ public:
     // Description: Event ID. Used to associate related firing/detonation
     //              events. If a detonation event if not proceeded
     //              by a firing event then the value shall be 0 (e.g land mines)
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEventID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEventID() const;
-    EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::Warfare_Header::GetAsString

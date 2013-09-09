@@ -43,9 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityDomain;
-using KDIS::DATA_TYPE::ENUMS::EnvironmentSubcategory;
-
 class KDIS_EXPORT EnvironmentType : public DataTypeBase
 {
 protected:
@@ -70,11 +67,11 @@ public:
 
     EnvironmentType();
 
-    EnvironmentType( KUINT8 Kind, EntityDomain Domain, KUINT16 Class, KUINT8 Categoy,
-                     EnvironmentSubcategory SubCategory, KUINT8 Specific, KUINT8 Extra );
+    EnvironmentType( KUINT8 Kind, KDIS::DATA_TYPE::ENUMS::EntityDomain Domain, KUINT16 Class, KUINT8 Categoy,
+                     KDIS::DATA_TYPE::ENUMS::EnvironmentSubcategory SubCategory, KUINT8 Specific, KUINT8 Extra );
 
-    EnvironmentType( EntityDomain Domain, KUINT16 Class, KUINT8 Categoy,
-                     EnvironmentSubcategory SubCategory, KUINT8 Specific, KUINT8 Extra );
+    EnvironmentType( KDIS::DATA_TYPE::ENUMS::EntityDomain Domain, KUINT16 Class, KUINT8 Categoy,
+                     KDIS::DATA_TYPE::ENUMS::EnvironmentSubcategory SubCategory, KUINT8 Specific, KUINT8 Extra );
 
     EnvironmentType( KDataStream & stream ) throw( KException );
 
@@ -96,8 +93,8 @@ public:
     // Description: Domain
     // Parameter:   EntityDomain  UI, void
     //************************************
-    void SetDomain( EntityDomain UI );
-    EntityDomain GetDomain() const;
+    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain UI );
+    KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EnvironmentType::SetClass
@@ -123,8 +120,8 @@ public:
     // Description: Sub Category
     // Parameter:   EnvironmentSubcategory UI, void
     //************************************
-    void SetSubCategory( EnvironmentSubcategory UI );
-    EnvironmentSubcategory GetSubCategory() const;
+    void SetSubCategory( KDIS::DATA_TYPE::ENUMS::EnvironmentSubcategory UI );
+    KDIS::DATA_TYPE::ENUMS::EnvironmentSubcategory GetSubCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EnvironmentType::SetSpecific

@@ -72,12 +72,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace UTILS {
 
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm;
-using std::vector;
-
 ////////////////////////////////////////////////////////
 // A simple matrix class for simplifying the dead reckoning equations.
 ////////////////////////////////////////////////////////
@@ -208,9 +202,9 @@ public:
         return *this;
     };
 
-    Vector operator * ( const Vector& Value )
+    KDIS::DATA_TYPE::Vector operator * ( const KDIS::DATA_TYPE::Vector& Value )
     {
-        Vector res;
+        KDIS::DATA_TYPE::Vector res;
         for( KUINT16 i = 0; i < rows; ++i )
         {
             for( KUINT16 j = 0; j < cols; ++j )
@@ -245,39 +239,39 @@ class KDIS_EXPORT DeadReckoningCalculator
 {
 protected:
 
-    WorldCoordinates m_initPosition;
-    Vector m_initLinearVelocity;
+    KDIS::DATA_TYPE::WorldCoordinates m_initPosition;
+    KDIS::DATA_TYPE::Vector m_initLinearVelocity;
 
-    Vector m_initLinearAcceleration;
-    Vector m_Ab;
+    KDIS::DATA_TYPE::Vector m_initLinearAcceleration;
+    KDIS::DATA_TYPE::Vector m_Ab;
     KBOOL m_bQuaxAxisSet;
-    Vector m_quatAxis;
+    KDIS::DATA_TYPE::Vector m_quatAxis;
 
     // Some algorithms are implemented as an integral form for rotation, thus using the time since t0
     KFLOAT32 m_f64Magnitude;
 
     // Orientation cache
-    EulerAngles m_initOrientation, m_initEulerAngularVelocity;
+    KDIS::DATA_TYPE::EulerAngles m_initOrientation, m_initEulerAngularVelocity;
     TMATRIX m_initOrientationMatrix, m_initOrientationMatrixTranspose;
 
     // Angular velocity cache
-    Vector m_initAngularVelocity;
+    KDIS::DATA_TYPE::Vector m_initAngularVelocity;
     TMATRIX m_wwMatrix;
     TMATRIX m_SkewOmegaMatrix;
 
-    DeadReckoningAlgorithm m_DRA; // The selected dead reckoning algorithm
+	KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm m_DRA; // The selected dead reckoning algorithm
 
-    void positionReset( const WorldCoordinates & Position );
-    void orientationReset( const EulerAngles & Orientation );
-    void angularVelocityReset( const Vector & AngularVelocity );
-    void velocityReset( const Vector & LinearVelocity );
-    void accelerationReset( const Vector & LinearAcceleration );
-    void quatAxisReset(const Vector & QuatAxis);
+    void positionReset( const KDIS::DATA_TYPE::WorldCoordinates & Position );
+    void orientationReset( const KDIS::DATA_TYPE::EulerAngles & Orientation );
+    void angularVelocityReset( const KDIS::DATA_TYPE::Vector & AngularVelocity );
+    void velocityReset( const KDIS::DATA_TYPE::Vector & LinearVelocity );
+    void accelerationReset( const KDIS::DATA_TYPE::Vector & LinearAcceleration );
+    void quatAxisReset(const KDIS::DATA_TYPE::Vector & QuatAxis);
 
-    EulerAngles toEulerAngularVelocity( const Vector & angVel, const EulerAngles & Orientation );
+    KDIS::DATA_TYPE::EulerAngles toEulerAngularVelocity( const KDIS::DATA_TYPE::Vector & angVel, const KDIS::DATA_TYPE::EulerAngles & Orientation );
 
-    void calcOrientation_simplified( EulerAngles & OrientationOut, const KFLOAT32 DeltaTime );
-    void calcOrientation( EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset  );
+    void calcOrientation_simplified( KDIS::DATA_TYPE::EulerAngles & OrientationOut, const KFLOAT32 DeltaTime );
+    void calcOrientation( KDIS::DATA_TYPE::EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset  );
 
     void computeRotationAxis( const TMATRIX& curOrientationMatrix );
     void computeDRMatrix( TMATRIX & res, const KFLOAT32 totalTimeSinceReset  );
@@ -288,28 +282,28 @@ protected:
     /************************************************************************/
 
     // FPW //
-    void calcDeadReckoningFPW( WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset);
+    void calcDeadReckoningFPW( KDIS::DATA_TYPE::WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset);
 
     // RPW //
-    void calcDeadReckoningRPW( WorldCoordinates & PositionOut, EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
+    void calcDeadReckoningRPW( KDIS::DATA_TYPE::WorldCoordinates & PositionOut, KDIS::DATA_TYPE::EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
 
     // RVW //
-    void calcDeadReckoningRVW( WorldCoordinates & PositionOut, EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
+    void calcDeadReckoningRVW( KDIS::DATA_TYPE::WorldCoordinates & PositionOut,KDIS::DATA_TYPE::EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
 
     // FVW //
-    void calcDeadReckoningFVW( WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset );
+    void calcDeadReckoningFVW( KDIS::DATA_TYPE::WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset );
 
     // FPB //
-    void calcDeadReckoningFPB( WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset);
+    void calcDeadReckoningFPB( KDIS::DATA_TYPE::WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset);
 
     // RPB //
-    void calcDeadReckoningRPB( WorldCoordinates & PositionOut, EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
+    void calcDeadReckoningRPB( KDIS::DATA_TYPE::WorldCoordinates & PositionOut, KDIS::DATA_TYPE::EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
 
     // RVB //
-    void calcDeadReckoningRVB( WorldCoordinates & PositionOut, EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
+    void calcDeadReckoningRVB( KDIS::DATA_TYPE::WorldCoordinates & PositionOut, KDIS::DATA_TYPE::EulerAngles & OrientationOut, const KFLOAT32 totalTimeSinceReset );
 
     // FVB //
-    void calcDeadReckoningFVB( WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset );
+    void calcDeadReckoningFVB( KDIS::DATA_TYPE::WorldCoordinates & PositionOut, const KFLOAT32 totalTimeSinceReset );
 
 public:
 
@@ -330,8 +324,8 @@ public:
     // Parameter:   const EulerAngles & Orientation
     // Parameter:   DeadReckoningAlgorithm DRA
     //************************************
-    void Reset( const Vector & LinearVelocity, const Vector & LinearAcceleration, const Vector & AngularVelocity,
-                const WorldCoordinates & Position, const EulerAngles & Orientation, const Vector & QuatAxis, DeadReckoningAlgorithm DRA );
+    void Reset( const KDIS::DATA_TYPE::Vector & LinearVelocity, const KDIS::DATA_TYPE::Vector & LinearAcceleration, const KDIS::DATA_TYPE::Vector & AngularVelocity,
+		        const KDIS::DATA_TYPE::WorldCoordinates & Position, const KDIS::DATA_TYPE::EulerAngles & Orientation, const KDIS::DATA_TYPE::Vector & QuatAxis, KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA );
 
     //************************************
     // FullName:    KDIS::UTILS::DeadReckoningCalculator::RunAlgorithm
@@ -342,7 +336,7 @@ public:
     // Parameter:   WorldCoordinates & PositionOut
     // Parameter:   EulerAngles & OrientationOut
     //************************************
-    void RunAlgorithm( const KFLOAT32 TotalTimeSinceReset, WorldCoordinates & PositionOut, EulerAngles & OrientationOut );
+    void RunAlgorithm( const KFLOAT32 TotalTimeSinceReset, KDIS::DATA_TYPE::WorldCoordinates & PositionOut, KDIS::DATA_TYPE::EulerAngles & OrientationOut );
 
 	//************************************
     // FullName:    KDIS::DeadReckoningCalculator::GenerateSmoothingPoints
@@ -355,7 +349,7 @@ public:
     // Parameter:   const WorldCoordinates & EndPosition,
     // Parameter:   KUINT32 NumberOfPoints
     //************************************
-    vector<WorldCoordinates> GenerateSmoothingPoints( const WorldCoordinates & StartPosition, const WorldCoordinates & EndPosition, KUINT32 NumberOfPoints );
+	std::vector<KDIS::DATA_TYPE::WorldCoordinates> GenerateSmoothingPoints( const KDIS::DATA_TYPE::WorldCoordinates & StartPosition, const KDIS::DATA_TYPE::WorldCoordinates & EndPosition, KUINT32 NumberOfPoints );
 
     //************************************
     // FullName:    KDIS::DeadReckoningCalculator::GenerateSmoothingPoints
@@ -373,7 +367,7 @@ public:
     // Parameter:   KUINT32 NumberOfPoints
     // Parameter:   vector<WorldCoordinates> & v
     //************************************
-    void GenerateSmoothingPoints( const WorldCoordinates & StartPosition, const WorldCoordinates & EndPosition, KUINT32 NumberOfPoints, vector<WorldCoordinates> & v );
+	void GenerateSmoothingPoints( const KDIS::DATA_TYPE::WorldCoordinates & StartPosition, const KDIS::DATA_TYPE::WorldCoordinates & EndPosition, KUINT32 NumberOfPoints, std::vector<KDIS::DATA_TYPE::WorldCoordinates> & v );
 };
 
 } // END namespace UTILS

@@ -43,10 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityKind;
-using KDIS::DATA_TYPE::ENUMS::EntityDomain;
-using KDIS::DATA_TYPE::ENUMS::Country;
-
 class KDIS_EXPORT RadioEntityType : public DataTypeBase
 {
 protected:
@@ -69,11 +65,12 @@ public:
 
     RadioEntityType();
 
-    RadioEntityType( EntityKind Kind, KUINT8  Domain, Country Country, KUINT8  Categoy,
-                     KUINT8  NomenclatureVersion, KUINT16 Nomenclature );
+    RadioEntityType( KDIS::DATA_TYPE::ENUMS::EntityKind Kind, KUINT8 Domain, 
+		             KDIS::DATA_TYPE::ENUMS::Country Country, KUINT8 Categoy, KUINT8 NomenclatureVersion,
+					 KUINT16 Nomenclature );
 
-    RadioEntityType( KUINT8 Kind, KUINT8  Domain, KUINT8 Country, KUINT8  Categoy,
-                     KUINT8  NomenclatureVersion, KUINT16 Nomenclature );
+    RadioEntityType( KUINT8 Kind, KUINT8 Domain, KUINT8 Country, KUINT8 Categoy,
+                     KUINT8 NomenclatureVersion, KUINT16 Nomenclature );
 
     RadioEntityType( KDataStream & stream ) throw( KException );
 
@@ -83,34 +80,34 @@ public:
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetEntityKind
     //              KDIS::DATA_TYPE::RadioEntityType::GetEntityKind
     // Description: Kind
-    // Parameter:   EntityKind UI, void
+    // Parameter:   EntityKind UI
     //************************************
-    void SetEntityKind( EntityKind UI );
-    EntityKind GetEntityKind() const;
+    void SetEntityKind( KDIS::DATA_TYPE::ENUMS::EntityKind UI );
+    KDIS::DATA_TYPE::ENUMS::EntityKind GetEntityKind() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetDomain
     //              KDIS::DATA_TYPE::RadioEntityType::GetDomain
     // Description: Domain
-    // Parameter:   EntityDomain  UI, void
+    // Parameter:   EntityDomain UI
     //************************************
-    void SetDomain( EntityDomain UI );
-    EntityDomain GetDomain() const;
+    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain UI );
+    KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetCountry
     //              KDIS::DATA_TYPE::RadioEntityType::GetCountry
     // Description: Country
-    // Parameter:   Country UI, void
+    // Parameter:   Country UI
     //************************************
-    void SetCountry( Country UI );
-    Country GetCountry() const;
+    void SetCountry( KDIS::DATA_TYPE::ENUMS::Country UI );
+    KDIS::DATA_TYPE::ENUMS::Country GetCountry() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetCategory
     //              KDIS::DATA_TYPE::RadioEntityType::GetCategory
     // Description: Category
-    // Parameter:   KUINT8 UI, void
+    // Parameter:   KUINT8 UI
     //************************************
     void SetCategory( KUINT8 UI );
     KUINT8 GetCategory() const;
@@ -118,8 +115,8 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetNomenclatureVersion
     //              KDIS::DATA_TYPE::RadioEntityType::GetNomenclatureVersion
-    // Description: Nomenclature, Version
-    // Parameter:   KUINT8 UI, void
+    // Description: Nomenclature Version
+    // Parameter:   KUINT8 UI
     //************************************
     void SetNomenclatureVersion( KUINT8 NV );
     KUINT8 GetNomenclatureVersion() const;
@@ -127,8 +124,8 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetNomenclature
     //              KDIS::DATA_TYPE::RadioEntityType::GetNomenclature
-    // Description: Nomenclature,
-    // Parameter:   KINT16 N, void
+    // Description: Nomenclature
+    // Parameter:   KINT16 N
     //************************************
     void SetNomenclature( KUINT16 N );
     KUINT16 GetNomenclature() const;

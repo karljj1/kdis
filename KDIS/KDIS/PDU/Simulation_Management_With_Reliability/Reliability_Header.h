@@ -47,8 +47,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
-
 class KDIS_EXPORT Reliability_Header
 {
 protected:
@@ -67,7 +65,7 @@ public:
 
     Reliability_Header( KDataStream & stream ) throw( KException );
 
-    Reliability_Header( RequiredReliabilityService RRS );
+    Reliability_Header( KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
     virtual ~Reliability_Header();
 
@@ -76,15 +74,14 @@ public:
     //              KDIS::PDU::Reliability_Header::GetRequiredReliabilityService
     // Description: specifies the required level of reliability service to be
     //              used for this transaction/PDU.
-    // Parameter:   RequiredReliabilityService RRS, void
+    // Parameter:   RequiredReliabilityService RRS
     //************************************
-    void SetRequiredReliabilityService( RequiredReliabilityService RRS );
-    RequiredReliabilityService GetRequiredReliabilityService() const;
+    void SetRequiredReliabilityService( KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+    KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService GetRequiredReliabilityService() const;
 
     //************************************
     // FullName:    KDIS::PDU::Reliability_Header::GetString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

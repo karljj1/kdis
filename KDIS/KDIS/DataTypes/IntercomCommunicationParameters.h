@@ -46,8 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::AdditionalIntrCommParamType;
-
 class KDIS_EXPORT IntercomCommunicationParameters : public DataTypeBase
 {
 protected:
@@ -80,7 +78,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetRecordType
     // Description: Identifies the additional parameters type.
     //************************************
-    AdditionalIntrCommParamType GetRecordType() const;
+    KDIS::DATA_TYPE::ENUMS::AdditionalIntrCommParamType GetRecordType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetLength

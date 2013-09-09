@@ -51,20 +51,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::RadioEntityType;
-using KDIS::DATA_TYPE::AntennaLocation;
-using KDIS::DATA_TYPE::ModulationType;
-using KDIS::DATA_TYPE::CryptoSystem;
-using KDIS::DATA_TYPE::ENUMS::TransmitState;
-using KDIS::DATA_TYPE::ENUMS::RadioInputSource;
-using KDIS::DATA_TYPE::ENUMS::AntennaPatternType;
-using std::vector;
-
 class KDIS_EXPORT Transmitter_PDU : public Radio_Communications_Header
 {
 protected:
 
-    RadioEntityType m_RadioEntityType;
+    KDIS::DATA_TYPE::RadioEntityType m_RadioEntityType;
 
     KUINT8 m_ui8TransmitterState;
 
@@ -72,7 +63,7 @@ protected:
 
     KUINT16 m_ui16Padding1;
 
-    AntennaLocation m_AntennaLocation;
+    KDIS::DATA_TYPE::AntennaLocation m_AntennaLocation;
 
     KUINT16 m_ui16AntennaPatternType;
 
@@ -84,9 +75,9 @@ protected:
 
     KFLOAT32 m_f32Power;
 
-    ModulationType m_ModulationType;
+    KDIS::DATA_TYPE::ModulationType m_ModulationType;
 
-    CryptoSystem m_CryptoSystem;
+    KDIS::DATA_TYPE::CryptoSystem m_CryptoSystem;
 
     KUINT8 m_ui8LengthOfModulationParam;
 
@@ -94,9 +85,9 @@ protected:
 
     KUINT8 m_ui8Padding3;
 
-    vector<KOCTET> m_vModulationParams;
+	std::vector<KOCTET> m_vModulationParams;
 
-    vector<KOCTET> m_vAntennaPattern;
+	std::vector<KOCTET> m_vAntennaPattern;
 
 public:
 
@@ -108,10 +99,10 @@ public:
 
 	Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Transmitter_PDU( const RadioEntityType & Type, TransmitState TS, RadioInputSource IS,
-                     const AntennaLocation & AL, AntennaPatternType APT, KUINT64 Freq,
-                     KFLOAT32 FreqBW, KFLOAT32 Power, const ModulationType & MT,
-                     const CryptoSystem & CS, const KOCTET * ModulationParams,
+	Transmitter_PDU( const KDIS::DATA_TYPE::RadioEntityType & Type, KDIS::DATA_TYPE::ENUMS::TransmitState TS, KDIS::DATA_TYPE::ENUMS::RadioInputSource IS,
+                     const KDIS::DATA_TYPE::AntennaLocation & AL, KDIS::DATA_TYPE::ENUMS::AntennaPatternType APT, KUINT64 Freq,
+                     KFLOAT32 FreqBW, KFLOAT32 Power, const KDIS::DATA_TYPE::ModulationType & MT,
+                     const KDIS::DATA_TYPE::CryptoSystem & CS, const KOCTET * ModulationParams,
                      KUINT8 ModulationParamsLength, const KOCTET * AntennaPattern,
                      KUINT8 AntennaPatternLength );
 
@@ -121,50 +112,50 @@ public:
     // FullName:    KDIS::PDU::Transmitter_PDU::SetRadioEntityType
     //              KDIS::PDU::Transmitter_PDU::GetRadioEntityType
     // Description: Radio Entity Type
-    // Parameter:   const RadioEntityType & Type, void
+    // Parameter:   const RadioEntityType & Type
     //************************************
-    void SetRadioEntityType( const RadioEntityType & Type );
-    const RadioEntityType & GetRadioEntityType() const;
-    RadioEntityType & GetRadioEntityType();
+    void SetRadioEntityType( const KDIS::DATA_TYPE::RadioEntityType & Type );
+    const KDIS::DATA_TYPE::RadioEntityType & GetRadioEntityType() const;
+    KDIS::DATA_TYPE::RadioEntityType & GetRadioEntityType();
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::SetTransmitState
     //              KDIS::PDU::Transmitter_PDU::GetTransmitState
     // Description: Radio Transmit State, on or off.
-    // Parameter:   TransmitState TS, void
+    // Parameter:   TransmitState TS
     //************************************
-    void SetTransmitState( TransmitState TS );
-    TransmitState GetTransmitState() const;
+    void SetTransmitState( KDIS::DATA_TYPE::ENUMS::TransmitState TS );
+    KDIS::DATA_TYPE::ENUMS::TransmitState GetTransmitState() const;
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::SetInputSource
     //              KDIS::PDU::Transmitter_PDU::GetInputSource
     // Description: Source of the radio in relation to the entity.
-    // Parameter:   RadioInputSource IS, void
+    // Parameter:   RadioInputSource IS
     //************************************
-    void SetInputSource( RadioInputSource IS );
-    RadioInputSource GetInputSource() const;
+    void SetInputSource( KDIS::DATA_TYPE::ENUMS::RadioInputSource IS );
+    KDIS::DATA_TYPE::ENUMS::RadioInputSource GetInputSource() const;
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::SetAntennaLocation
     //              KDIS::PDU::Transmitter_PDU::GetAntennaLocation
     // Description: Location of the Antenna in world coordinates
     //              and entity coordinates.
-    // Parameter:   const AntennaLocation AL, void
+    // Parameter:   const AntennaLocation AL
     //************************************
-    void SetAntennaLocation( const AntennaLocation & AL );
-    const AntennaLocation & GetAntennaLocation() const;
-    AntennaLocation & GetAntennaLocation();
+    void SetAntennaLocation( const KDIS::DATA_TYPE::AntennaLocation & AL );
+    const KDIS::DATA_TYPE::AntennaLocation & GetAntennaLocation() const;
+    KDIS::DATA_TYPE::AntennaLocation & GetAntennaLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::SetAntennaPatternType
     //              KDIS::PDU::Transmitter_PDU::GetAntennaPatternType
     // Description: Type of representation used for radiation pattern
     //              from antenna.
-    // Parameter:   AntennaPatternType APT, void
+    // Parameter:   AntennaPatternType APT
     //************************************
-    void SetAntennaPatternType( AntennaPatternType APT );
-    AntennaPatternType GetAntennaPatternType() const;
+    void SetAntennaPatternType( KDIS::DATA_TYPE::ENUMS::AntennaPatternType APT );
+    KDIS::DATA_TYPE::ENUMS::AntennaPatternType GetAntennaPatternType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::GetAntennaPatternLength
@@ -196,7 +187,7 @@ public:
     // FullName:    KDIS::PDU::Transmitter_PDU::SetPower
     //              KDIS::PDU::Transmitter_PDU::GetPower
     // Description: Power in decibel-milliwatts
-    // Parameter:   KFLOAT32 P, void
+    // Parameter:   KFLOAT32 P
     //************************************
     void SetPower( KFLOAT32 P );
     KFLOAT32 GetPower() const;
@@ -205,22 +196,22 @@ public:
     // FullName:    KDIS::PDU::Transmitter_PDU::SetModulationType
     //              KDIS::PDU::Transmitter_PDU::GetModulationType
     // Description: Modulation Type
-    // Parameter:   const ModulationType & MT, void
+    // Parameter:   const ModulationType & MT
     //************************************
-    void SetModulationType( const ModulationType & MT );
-    const ModulationType & GetModulationType() const;
-    ModulationType & GetModulationType();
+    void SetModulationType( const KDIS::DATA_TYPE::ModulationType & MT );
+    const KDIS::DATA_TYPE::ModulationType & GetModulationType() const;
+    KDIS::DATA_TYPE::ModulationType & GetModulationType();
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::SetCryptoSystem
     //              KDIS::PDU::Transmitter_PDU::GetCryptoSystem
     // Description: Identifies the crypto equipment and key
     //              used in a transmission .
-    // Parameter:   const CryptoSystem & CS, void
+    // Parameter:   const CryptoSystem & CS
     //************************************
-    void SetCryptoSystem( const CryptoSystem & CS );
-    const CryptoSystem & GetCryptoSystem() const;
-    CryptoSystem & GetCryptoSystem();
+    void SetCryptoSystem( const KDIS::DATA_TYPE::CryptoSystem & CS );
+    const KDIS::DATA_TYPE::CryptoSystem & GetCryptoSystem() const;
+    KDIS::DATA_TYPE::CryptoSystem & GetCryptoSystem();
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::GetLengthOfModulationParameters

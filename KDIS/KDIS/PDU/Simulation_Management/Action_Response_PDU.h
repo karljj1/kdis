@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::ENUMS::RequestStatus;
-
 class KDIS_EXPORT Action_Response_PDU : public Data_PDU
 {
 protected:
@@ -66,7 +64,7 @@ public:
 	Action_Response_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     // Generate a response from a PDU.
-    Action_Response_PDU( const Action_Request_PDU & pdu, RequestStatus RS );
+    Action_Response_PDU( const Action_Request_PDU & pdu, KDIS::DATA_TYPE::ENUMS::RequestStatus RS );
 
     virtual ~Action_Response_PDU();
 
@@ -74,10 +72,10 @@ public:
     // FullName:    KDIS::PDU::Action_Response_PDU::SetRequestStatus
     //              KDIS::PDU::Action_Response_PDU::GetRequestStatus
     // Description: Identifies the status of the request action
-    // Parameter:   RequestStatus RS, void
+    // Parameter:   RequestStatus RS
     //************************************
-    void SetRequestStatus( RequestStatus RS );
-    RequestStatus GetRequestStatus() const;
+    void SetRequestStatus( KDIS::DATA_TYPE::ENUMS::RequestStatus RS );
+    KDIS::DATA_TYPE::ENUMS::RequestStatus GetRequestStatus() const;
 
     //************************************
     // FullName:    KDIS::PDU::Action_Response_PDU::GetAsString

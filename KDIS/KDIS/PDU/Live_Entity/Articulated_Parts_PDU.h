@@ -47,17 +47,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::VariableParameter;
-using KDIS::DATA_TYPE::VarPrmPtr;
-using std::vector;
-
 class KDIS_EXPORT Articulated_Parts_PDU : public LE_Header
 {
 protected:
 
     KUINT8 m_ui8NumOfVariableParams;
 
-    vector<VarPrmPtr> m_vVariableParameters;
+	std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
 public:
 
@@ -69,7 +65,7 @@ public:
 
 	Articulated_Parts_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Articulated_Parts_PDU( const LE_EntityIdentifier & ID );
+    Articulated_Parts_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
     virtual ~Articulated_Parts_PDU();
 
@@ -89,9 +85,9 @@ public:
     //              See VariableParameter for supported/implemented types.
     // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddVariableParameter( VarPrmPtr VP );
-    void SetVariableParameters( const vector<VarPrmPtr> & VP );
-    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void AddVariableParameter( KDIS::DATA_TYPE::VarPrmPtr VP );
+	void SetVariableParameters( const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & VP );
+	const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & GetVariableParameters() const;
     void ClearVariableParameters();
 
     //************************************

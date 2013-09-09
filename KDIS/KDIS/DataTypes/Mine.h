@@ -52,9 +52,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::vector;
-using std::map;
-
 class KDIS_EXPORT Mine : public MinefieldDataFilter // Data filter used to keep track of what fields are being used in this mine.
 {
 protected:
@@ -79,13 +76,13 @@ protected:
 
     MineFusing m_MF;
 
-    vector<KUINT8> m_vui8SDC;
+    std::vector<KUINT8> m_vui8SDC;
 
-    MinePaintScheme m_MPS;
+	KDIS::DATA_TYPE::MinePaintScheme m_MPS;
 
     KUINT8 m_ui8NumTrpDetWrs;
 
-    map< KUINT16, vector<Vector> >m_mvVertices;
+	std::map< KUINT16, std::vector<KDIS::DATA_TYPE::Vector> >m_mvVertices;
     KUINT16 m_ui16NextIndex;
 
     //************************************
@@ -93,7 +90,7 @@ protected:
     // Description: Return wire or throw exception if not found.
     // Parameter:   KUINT16 Index
     //************************************
-    map< KUINT16, vector<Vector> >::iterator getWire( KUINT16 Index ) throw( KException );
+    std::map< KUINT16, std::vector<Vector> >::iterator getWire( KUINT16 Index ) throw( KException );
 
     // Not Used. It is not possible to use this method of decoding/encoding as the values are
     // not all stored sequentially in the Minefield Data PDU. The PDU must do all the encoding/decoding.
@@ -300,9 +297,9 @@ public:
     // Parameter:   KUINT8 SDC
     //************************************
     void AddScalarDetectionCoefficientValue( KUINT8 SDC );
-    void SetScalarDetectionCoefficientValues( const vector<KUINT8> & SDC );
-    const vector<KUINT8> & GetScalarDetectionCoefficientValues() const;
-    vector<KUINT8> & GetScalarDetectionCoefficientValues();
+    void SetScalarDetectionCoefficientValues( const std::vector<KUINT8> & SDC );
+    const std::vector<KUINT8> & GetScalarDetectionCoefficientValues() const;
+    std::vector<KUINT8> & GetScalarDetectionCoefficientValues();
     void ClearScalarDetectionCoefficientValues();
 
     //************************************
@@ -337,8 +334,8 @@ public:
     //              over DIS, it is just provided to allow you to access the wire.
     // Parameter:   const vector<Vector> & Vertices
     //************************************
-    KUINT16 AddTripDetonationWire( const vector<Vector> & Vertices );
-    const map< KUINT16, vector<Vector> > & GetTripDetonationWire() const;
+    KUINT16 AddTripDetonationWire( const std::vector<Vector> & Vertices );
+    const std::map< KUINT16, std::vector<Vector> > & GetTripDetonationWire() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mine::ClearWires
@@ -356,10 +353,10 @@ public:
     // Parameter:   KUINT16 Index - OUT_OF_BOUNDS exception thrown if invalid.
     // Parameter:   const Vector & Vertex, const vector<Vector> & Vertices
     //************************************
-    void AddVertexToTripDetonationWire( KUINT16 Index, const Vector & Vertex ) throw( KException );
-    void SetTripDetonationWireVertices( KUINT16 Index, const vector<Vector> & Vertices ) throw( KException );
+	void AddVertexToTripDetonationWire( KUINT16 Index, const KDIS::DATA_TYPE::Vector & Vertex ) throw( KException );
+	void SetTripDetonationWireVertices( KUINT16 Index, const std::vector<KDIS::DATA_TYPE::Vector> & Vertices ) throw( KException );
     void RemoveTripDetonationWire( KUINT16 Index ) throw( KException );
-    const vector<Vector> & GetWireVertices( KUINT16 Index ) throw( KException );
+	const std::vector<KDIS::DATA_TYPE::Vector> & GetWireVertices( KUINT16 Index ) throw( KException );
     void ClearWireVertices( KUINT16 Index ) throw( KException );
 
     /* End of trip detonation wire functions                                */

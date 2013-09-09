@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::MineFuse;
-
 class KDIS_EXPORT MineFusing : public DataTypeBase
 {
 protected:
@@ -70,7 +68,7 @@ public:
 
     MineFusing();
 
-    MineFusing( MineFuse Primary, MineFuse Secondary, KBOOL AntiHandlingDevice );
+    MineFusing( KDIS::DATA_TYPE::ENUMS::MineFuse Primary, KDIS::DATA_TYPE::ENUMS::MineFuse Secondary, KBOOL AntiHandlingDevice );
 
     MineFusing( KDataStream & stream ) throw( KException );
 
@@ -82,8 +80,8 @@ public:
     // Description: Identifies the type of the primary fuse.
     // Parameter:   MineFuse F
     //************************************
-    void SetPrimaryFuse( MineFuse F );
-    MineFuse GetPrimaryFuse() const;
+    void SetPrimaryFuse( KDIS::DATA_TYPE::ENUMS::MineFuse F );
+    KDIS::DATA_TYPE::ENUMS::MineFuse GetPrimaryFuse() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MineFusing::SetSecondaryFuse
@@ -91,8 +89,8 @@ public:
     // Description: Identifies the type of the secondary fuse.
     // Parameter:   MineFuse F
     //************************************
-    void SetSecondaryFuse( MineFuse F );
-    MineFuse GetSecondaryFuse() const;
+    void SetSecondaryFuse( KDIS::DATA_TYPE::ENUMS::MineFuse F );
+    KDIS::DATA_TYPE::ENUMS::MineFuse GetSecondaryFuse() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MineFusing::SetHasAntiHandlingDevice

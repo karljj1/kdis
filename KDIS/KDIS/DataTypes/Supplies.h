@@ -55,9 +55,8 @@ public:
 
     Supplies();
 
-    Supplies( EntityKind Kind, KUINT8 Domain, Country Country, KUINT8 Categoy,
-              KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra,
-              KFLOAT32 Quantity );
+    Supplies( KDIS::DATA_TYPE::ENUMS::EntityKind Kind, KUINT8 Domain, KDIS::DATA_TYPE::ENUMS::Country Country, 
+			  KUINT8 Categoy, KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra, KFLOAT32 Quantity );
 
     Supplies( EntityType Type, KFLOAT32 Quantity );
 

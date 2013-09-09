@@ -66,7 +66,7 @@ public:
 
 	Action_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Action_Request_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
+    Action_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                         KUINT32 RequestID, KUINT32 ActionID );
 
     virtual ~Action_Request_PDU();
@@ -76,10 +76,10 @@ public:
     //              KDIS::PDU::Action_Request_PDU::GetActionID
     // Description: Specifies the particular action that is requested
     //              by the sim manger.
-    // Parameter:   ActionID ID, void
+    // Parameter:   ActionID ID
     //************************************
-    void SetActionID( ActionID ID );
-    ActionID GetActionID() const;
+    void SetActionID( KDIS::DATA_TYPE::ENUMS::ActionID ID );
+    KDIS::DATA_TYPE::ENUMS::ActionID GetActionID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Action_Request_PDU::GetAsString

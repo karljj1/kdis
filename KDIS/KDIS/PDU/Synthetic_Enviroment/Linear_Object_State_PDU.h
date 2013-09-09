@@ -51,24 +51,19 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::SimulationIdentifier;
-using KDIS::DATA_TYPE::ObjectType;
-using KDIS::DATA_TYPE::LinearSegmentParameter;
-using KDIS::DATA_TYPE::ENUMS::ForceID;
-
 class KDIS_EXPORT Linear_Object_State_PDU : public Object_State_Header
 {
 protected:
 
     KUINT8 m_ui8NumSegment;
 
-    SimulationIdentifier m_ReqID;
+    KDIS::DATA_TYPE::SimulationIdentifier m_ReqID;
 
-    SimulationIdentifier m_RecvID;
+    KDIS::DATA_TYPE::SimulationIdentifier m_RecvID;
 
-    ObjectType m_ObjTyp;
+    KDIS::DATA_TYPE::ObjectType m_ObjTyp;
 
-    vector<LinearSegmentParameter> m_vSegments;
+    std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> m_vSegments;
 
 public:
 
@@ -80,13 +75,13 @@ public:
 
 	Linear_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Linear_Object_State_PDU( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID , KUINT16 UpdateNum,
-                             ForceID FI, const SimulationIdentifier & ReqID, const SimulationIdentifier & RecvID,
-                             const ObjectType & O );
+    Linear_Object_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID , KUINT16 UpdateNum,
+		                     KDIS::DATA_TYPE::ENUMS::ForceID FI, const KDIS::DATA_TYPE::SimulationIdentifier & ReqID, const KDIS::DATA_TYPE::SimulationIdentifier & RecvID,
+                             const KDIS::DATA_TYPE::ObjectType & O );
 
-    Linear_Object_State_PDU( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID , KUINT16 UpdateNum,
-                             ForceID FI, const SimulationIdentifier & ReqID, const SimulationIdentifier & RecvID,
-                             const ObjectType & O, vector<LinearSegmentParameter> & Segments );
+    Linear_Object_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID , KUINT16 UpdateNum,
+                             KDIS::DATA_TYPE::ENUMS::ForceID FI, const KDIS::DATA_TYPE::SimulationIdentifier & ReqID, const KDIS::DATA_TYPE::SimulationIdentifier & RecvID,
+							 const KDIS::DATA_TYPE::ObjectType & O, std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> & Segments );
 
     virtual ~Linear_Object_State_PDU();
 
@@ -100,42 +95,42 @@ public:
     // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetRequestorSimulationID
     //              KDIS::PDU::Linear_Object_State_PDU::GetRequestorSimulationID
     // Description: The simulation application sending the PDU.
-    // Parameter:   const SimulationIdentifier & ID, void
+    // Parameter:   const SimulationIdentifier & ID
     //************************************
-    void SetRequestorSimulationID( const SimulationIdentifier & ID );
-    const SimulationIdentifier & GetRequestorSimulationID() const;
-    SimulationIdentifier & GetRequestorSimulationID();
+    void SetRequestorSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
+    const KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID() const;
+    KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID();
 
     //************************************
     // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetReceivingSimulationID
     //              KDIS::PDU::Linear_Object_State_PDU::GetReceivingSimulationID
     // Description: The simulation application that is to receive the PDU.
-    // Parameter:   const SimulationIdentifier & ID, void
+    // Parameter:   const SimulationIdentifier & ID
     //************************************
-    void SetReceivingSimulationID( const SimulationIdentifier & ID );
-    const SimulationIdentifier & GetReceivingSimulationID() const;
-    SimulationIdentifier & GetReceivingSimulationID();
+    void SetReceivingSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
+    const KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID() const;
+    KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID();
 
     //************************************
     // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetObjectType
     //              KDIS::PDU::Linear_Object_State_PDU::GetObjectType
     // Description: The type of object. Represented as DIS enumeration(domain, kind, Category and sub category).
-    // Parameter:   const ObjectType & O, void
+    // Parameter:   const ObjectType & O
     //************************************
-    void SetObjectType( const ObjectType & O );
-    const ObjectType & GetObjectType() const;
-    ObjectType & GetObjectType();
+    void SetObjectType( const KDIS::DATA_TYPE::ObjectType & O );
+    const KDIS::DATA_TYPE::ObjectType & GetObjectType() const;
+    KDIS::DATA_TYPE::ObjectType & GetObjectType();
 
     //************************************
     // FullName:    KDIS::PDU::Linear_Object_State_PDU::AddLinearSegmentParameter
     //              KDIS::PDU::Linear_Object_State_PDU::SetLinearSegmentParameters
     //              KDIS::PDU::Linear_Object_State_PDU::GetLinearSegmentParameters
     // Description: Specifies the parameter values for representing each linear segment.
-    // Parameter:   const LinearSegmentParameter & L, const vector<LinearSegmentParameter> & L, void
+    // Parameter:   const LinearSegmentParameter & L, const vector<LinearSegmentParameter> & L
     //************************************
-    void AddLinearSegmentParameter( const LinearSegmentParameter & L );
-    void SetLinearSegmentParameters( const vector<LinearSegmentParameter> & L );
-    const vector<LinearSegmentParameter> & GetLinearSegmentParameters() const;
+    void AddLinearSegmentParameter( const KDIS::DATA_TYPE::LinearSegmentParameter & L );
+    void SetLinearSegmentParameters( const std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> & L );
+    const std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> & GetLinearSegmentParameters() const;
 
     //************************************
     // FullName:    KDIS::PDU::Linear_Object_State_PDU::GetAsString

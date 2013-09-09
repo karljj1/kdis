@@ -55,45 +55,29 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::AggregateIdentifier;
-using KDIS::DATA_TYPE::AggregateType;
-using KDIS::DATA_TYPE::AggregateMarking;
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::SilentAggregateSystem;
-using KDIS::DATA_TYPE::SilentEntitySystem;
-using KDIS::DATA_TYPE::VariableDatum;
-using KDIS::DATA_TYPE::VarDtmPtr;
-using KDIS::DATA_TYPE::ENUMS::ForceID;
-using KDIS::DATA_TYPE::ENUMS::AggregateState;
-using KDIS::DATA_TYPE::ENUMS::Formation;
-using std::vector;
-
 class KDIS_EXPORT Aggregate_State_PDU : public Header
 {
 protected:
 
-    AggregateIdentifier m_AggregateID;
+    KDIS::DATA_TYPE::AggregateIdentifier m_AggregateID;
 
     KUINT8 m_ui8ForceID;
 
     KUINT8 m_ui8AggState;
 
-    AggregateType m_AggregateType;
+    KDIS::DATA_TYPE::AggregateType m_AggregateType;
 
     KUINT32 m_ui32Formation;
 
-    AggregateMarking m_AggregateMarking;
+    KDIS::DATA_TYPE::AggregateMarking m_AggregateMarking;
 
-    Vector m_Dimensions;
+    KDIS::DATA_TYPE::Vector m_Dimensions;
 
-    EulerAngles m_Ori;
+    KDIS::DATA_TYPE::EulerAngles m_Ori;
 
-    WorldCoordinates m_CtrOfMassLoc;
+    KDIS::DATA_TYPE::WorldCoordinates m_CtrOfMassLoc;
 
-    Vector m_Vel;
+    KDIS::DATA_TYPE::Vector m_Vel;
 
     KUINT16 m_ui16NumAggregates;
 
@@ -103,20 +87,20 @@ protected:
 
     KUINT16 m_ui16NumSilentEntityTypes;
 
-    vector<AggregateIdentifier> m_vAI;
+	std::vector<KDIS::DATA_TYPE::AggregateIdentifier> m_vAI;
 
-    vector<EntityIdentifier> m_vEI;
+	std::vector<KDIS::DATA_TYPE::EntityIdentifier> m_vEI;
 
     KBOOL m_bNeedsPadding;
     KUINT16 m_ui16Padding1;
 
-    vector<SilentAggregateSystem> m_vSASL;
+	std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> m_vSASL;
 
-    vector<SilentEntitySystem> m_vSESL;
+	std::vector<KDIS::DATA_TYPE::SilentEntitySystem> m_vSESL;
 
     KUINT32 m_ui32NumVariableDatum;
 
-    vector<VarDtmPtr> m_vVD;
+	std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVD;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::calcPadding
@@ -134,10 +118,10 @@ public:
 
 	Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Aggregate_State_PDU( const AggregateIdentifier & AI, ForceID FID, AggregateState AS,
-                         const AggregateType & AT, Formation F, const AggregateMarking & AM,
-                         const Vector & Dimensions, const EulerAngles & Orientation,
-                         const WorldCoordinates & CenterOfMass, const Vector & Velocity );
+	Aggregate_State_PDU( const KDIS::DATA_TYPE::AggregateIdentifier & AI, KDIS::DATA_TYPE::ENUMS::ForceID FID, KDIS::DATA_TYPE::ENUMS::AggregateState AS,
+		                 const KDIS::DATA_TYPE::AggregateType & AT, KDIS::DATA_TYPE::ENUMS::Formation F, const KDIS::DATA_TYPE::AggregateMarking & AM,
+                         const KDIS::DATA_TYPE::Vector & Dimensions, const KDIS::DATA_TYPE::EulerAngles & Orientation,
+                         const KDIS::DATA_TYPE::WorldCoordinates & CenterOfMass, const KDIS::DATA_TYPE::Vector & Velocity );
 
     virtual ~Aggregate_State_PDU();
 
@@ -145,59 +129,59 @@ public:
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateIdentifier
     //              KDIS::PDU::Aggregate_State_PDU::GetAggregateIdentifier
     // Description: ID of the aggregate issuing the PDU.
-    // Parameter:   const AggregateIdentifier & AI, void
+    // Parameter:   const AggregateIdentifier & AI
     //************************************
-    void SetAggregateIdentifier( const AggregateIdentifier & AI );
-    const AggregateIdentifier & GetAggregateIdentifier() const;
-    AggregateIdentifier & GetAggregateIdentifier();
+    void SetAggregateIdentifier( const KDIS::DATA_TYPE::AggregateIdentifier & AI );
+    const KDIS::DATA_TYPE::AggregateIdentifier & GetAggregateIdentifier() const;
+    KDIS::DATA_TYPE::AggregateIdentifier & GetAggregateIdentifier();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetForceID
     //              KDIS::PDU::Aggregate_State_PDU::GetForceID
     // Description: Force ID of the aggregate, aggregates of opposing forces
     //              may not group together.
-    // Parameter:   ForceID ID, void
+    // Parameter:   ForceID ID
     //************************************
-    void SetForceID( ForceID ID );
-    ForceID GetForceID() const;
+    void SetForceID( KDIS::DATA_TYPE::ENUMS::ForceID ID );
+    KDIS::DATA_TYPE::ENUMS::ForceID GetForceID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateState
     //              KDIS::PDU::Aggregate_State_PDU::GetAggregateState
     // Description: Aggregate state enumeration.
-    // Parameter:   AggregateState AS, void
+    // Parameter:   AggregateState AS
     //************************************
-    void SetAggregateState( AggregateState AS );
-    AggregateState GetAggregateState() const;
+    void SetAggregateState( KDIS::DATA_TYPE::ENUMS::AggregateState AS );
+    KDIS::DATA_TYPE::ENUMS::AggregateState GetAggregateState() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateType
     //              KDIS::PDU::Aggregate_State_PDU::GetAggregateType
     // Description: Aggregate type enumerations.
-    // Parameter:   const AggregateType & Type, void
+    // Parameter:   const AggregateType & Type
     //************************************
-    void SetAggregateType( const AggregateType & Type );
-    const AggregateType & GetAggregateType() const;
-    AggregateType & GetAggregateType();
+    void SetAggregateType( const KDIS::DATA_TYPE::AggregateType & Type );
+    const KDIS::DATA_TYPE::AggregateType & GetAggregateType() const;
+    KDIS::DATA_TYPE::AggregateType & GetAggregateType();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetFormation
     //              KDIS::PDU::Aggregate_State_PDU::GetFormation
     // Description: Aggregate formation.
-    // Parameter:   Formation F, void
+    // Parameter:   Formation F
     //************************************
-    void SetFormation( Formation F );
-    Formation GetFormation() const;
+    void SetFormation( KDIS::DATA_TYPE::ENUMS::Formation F );
+    KDIS::DATA_TYPE::ENUMS::Formation GetFormation() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateMarking
     //              KDIS::PDU::Aggregate_State_PDU::GetAggregateMarking
     // Description: Aggregate marking.
-    // Parameter:   const AggregateMarking & AM, void
+    // Parameter:   const AggregateMarking & AM
     //************************************
-    void SetAggregateMarking( const AggregateMarking & AM );
-    const AggregateMarking & GetAggregateMarking() const;
-    AggregateMarking & GetAggregateMarking();
+    void SetAggregateMarking( const KDIS::DATA_TYPE::AggregateMarking & AM );
+    const KDIS::DATA_TYPE::AggregateMarking & GetAggregateMarking() const;
+    KDIS::DATA_TYPE::AggregateMarking & GetAggregateMarking();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateDimensions
@@ -208,11 +192,11 @@ public:
     //              the center of mass of the aggregate to the shortest distance
     //              along an axis in the positive or negative direction that includes
     //              all of the constituent entities. See fig 38 from IEEE 1278.1A-1998.
-    // Parameter:   const Vector & AD, void
+    // Parameter:   const Vector & AD
     //************************************
-    void SetAggregateDimensions( const Vector & AD );
-    const Vector & GetAggregateDimensions() const;
-    Vector & GetAggregateDimensions();
+    void SetAggregateDimensions( const KDIS::DATA_TYPE::Vector & AD );
+    const KDIS::DATA_TYPE::Vector & GetAggregateDimensions() const;
+    KDIS::DATA_TYPE::Vector & GetAggregateDimensions();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateOrientation
@@ -220,21 +204,21 @@ public:
     // Description: Orientation of the aggregate.
     //              Calculated by taking the average orientation of its
     //              constituent entities.
-    // Parameter:   const EulerAngles & AO, void
+    // Parameter:   const EulerAngles & AO
     //************************************
-    void SetAggregateOrientation( const EulerAngles & AO );
-    const EulerAngles & GetAggregateOrientation() const;
-    EulerAngles & GetAggregateOrientation();
+    void SetAggregateOrientation( const KDIS::DATA_TYPE::EulerAngles & AO );
+    const KDIS::DATA_TYPE::EulerAngles & GetAggregateOrientation() const;
+    KDIS::DATA_TYPE::EulerAngles & GetAggregateOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetCenterOfMassLocation
     //              KDIS::PDU::Aggregate_State_PDU::GetCenterOfMassLocation
     // Description: Location of the aggregate’s center of mass in the simulated world.
-    // Parameter:   const WorldCoordinates & COML, void
+    // Parameter:   const WorldCoordinates & COML
     //************************************
-    void SetCenterOfMassLocation( const WorldCoordinates & COML );
-    const WorldCoordinates & GetCenterOfMassLocation() const;
-    WorldCoordinates & GetCenterOfMassLocation();
+    void SetCenterOfMassLocation( const KDIS::DATA_TYPE::WorldCoordinates & COML );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetCenterOfMassLocation() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetCenterOfMassLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateVelocity
@@ -246,11 +230,11 @@ public:
     //              An aggreagte’s velocity is calculated by taking the average velocity
     //              of its constituent entities. The velocity of the aggregate is
     //              directed from the center of mass. See fig 39 from IEEE 1278.1A-1998.
-    // Parameter:   const Vector & V, void
+    // Parameter:   const Vector & V
     //************************************
-    void SetAggregateVelocity( const Vector & V );
-    const Vector & GetAggregateVelocity() const;
-    Vector & GetAggregateVelocity();
+    void SetAggregateVelocity( const KDIS::DATA_TYPE::Vector & V );
+    const KDIS::DATA_TYPE::Vector & GetAggregateVelocity() const;
+    KDIS::DATA_TYPE::Vector & GetAggregateVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::GetNumberOfDISAggregates
@@ -283,9 +267,9 @@ public:
     // Description: Identify sub aggregates that are transmitting Aggregate State PDUs.
     // Parameter:   const AggregateIdentifier & AI, const vector<AggregateIdentifier> & AI
     //************************************
-    void AddAggregateID( const AggregateIdentifier & AI );
-    void SetAggregateIDList( const vector<AggregateIdentifier> & AI );
-    const vector<AggregateIdentifier> & GetAggregateIDList() const;
+    void AddAggregateID( const KDIS::DATA_TYPE::AggregateIdentifier & AI );
+	void SetAggregateIDList( const std::vector<KDIS::DATA_TYPE::AggregateIdentifier> & AI );
+	const std::vector<KDIS::DATA_TYPE::AggregateIdentifier> & GetAggregateIDList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::AddEntityID
@@ -295,9 +279,9 @@ public:
     //              transmitting Entity State PDUs.
     // Parameter:   const EntityIdentifier & EI, const vector<EntityIdentifier> & EI
     //************************************
-    void AddEntityID( const EntityIdentifier & EI );
-    void SetEntityIDList( const vector<EntityIdentifier> & EI );
-    const vector<EntityIdentifier> & GetEntityIDList() const;
+    void AddEntityID( const KDIS::DATA_TYPE::EntityIdentifier & EI );
+	void SetEntityIDList( const std::vector<KDIS::DATA_TYPE::EntityIdentifier> & EI );
+	const std::vector<KDIS::DATA_TYPE::EntityIdentifier> & GetEntityIDList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::AddSilentAggregateSystem
@@ -307,9 +291,9 @@ public:
     //              Aggregate State PDUs.
     // Parameter:   const SilentAggregateSystem & SAS, const vector<SilentAggregateSystem> & SAS
     //************************************
-    void AddSilentAggregateSystem( const SilentAggregateSystem & SAS );
-    void SetSilentAggregateSystemList( const vector<SilentAggregateSystem> & SAS );
-    const vector<SilentAggregateSystem> & GetSilentAggregateSystemList() const;
+    void AddSilentAggregateSystem( const KDIS::DATA_TYPE::SilentAggregateSystem & SAS );
+	void SetSilentAggregateSystemList( const std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> & SAS );
+	const std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> & GetSilentAggregateSystemList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::AddSilentEntitySystem
@@ -319,9 +303,9 @@ public:
     //              Entity State PDUs.
     // Parameter:   const SilentEntitySystem & SES, const vector<SilentEntitySystem> & SES
     //************************************
-    void AddSilentEntitySystem( const SilentEntitySystem & SES );
-    void SetSilentEntitySystemList( const vector<SilentEntitySystem> & SES );
-    const vector<SilentEntitySystem> & GetSilentEntitySystemList() const;
+    void AddSilentEntitySystem( const KDIS::DATA_TYPE::SilentEntitySystem & SES );
+	void SetSilentEntitySystemList( const std::vector<KDIS::DATA_TYPE::SilentEntitySystem> & SES );
+	const std::vector<KDIS::DATA_TYPE::SilentEntitySystem> & GetSilentEntitySystemList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::GetNumberOfVariableDatums
@@ -343,9 +327,9 @@ public:
     //              tells that the composition or formation of the unit has changed.
     // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
     //************************************
-    void AddVariableDatum( VarDtmPtr VD );
-    void SetVariableDatumList( const vector<VarDtmPtr> & VD );
-    const vector<VarDtmPtr> & GetVariableDatumList() const;
+    void AddVariableDatum( KDIS::DATA_TYPE::VarDtmPtr VD );
+	void SetVariableDatumList( const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD );
+	const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & GetVariableDatumList() const;
 	void ClearVariableDatumList();
 
     //************************************

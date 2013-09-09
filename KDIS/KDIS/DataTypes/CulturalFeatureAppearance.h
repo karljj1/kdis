@@ -50,10 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityDamage;
-using KDIS::DATA_TYPE::ENUMS::EntitySmoke;
-using KDIS::DATA_TYPE::ENUMS::EntityLights;
-
 struct KDIS_EXPORT CulturalFeatureAppearance
 {
 protected:	
@@ -81,8 +77,8 @@ public:
     // Description: Entity Damage State
     // Parameter:   EntityDamage ED
     //************************************
-    void SetEntityDamage( EntityDamage ED );
-    EntityDamage GetEntityDamage() const;
+    void SetEntityDamage( KDIS::DATA_TYPE::ENUMS::EntityDamage ED );
+    KDIS::DATA_TYPE::ENUMS::EntityDamage GetEntityDamage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CulturalFeatureAppearance::SetEntitySmoke,
@@ -90,8 +86,8 @@ public:
     // Description: Entity Smoke State
     // Parameter:   EntitySmoke ES
     //************************************
-    void SetEntitySmoke( EntitySmoke ES );
-    EntitySmoke GetEntitySmoke() const;
+    void SetEntitySmoke( KDIS::DATA_TYPE::ENUMS::EntitySmoke ES );
+    KDIS::DATA_TYPE::ENUMS::EntitySmoke GetEntitySmoke() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CulturalFeatureAppearance::SetEntityFlamingEffect

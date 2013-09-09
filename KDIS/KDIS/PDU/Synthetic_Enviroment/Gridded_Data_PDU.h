@@ -64,23 +64,11 @@ typedef KDIS::UTILS::KRef_Ptr<GridData> GridDataPtr;
 
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EnvironmentType;
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::GridAxisIrregular;
-using KDIS::DATA_TYPE::GridAxisRegular;
-using KDIS::DATA_TYPE::GridData;
-using KDIS::DATA_TYPE::GridAxisDescriptor;
-using KDIS::DATA_TYPE::GridDataPtr;
-using KDIS::DATA_TYPE::ENUMS::CoordinateSystem;
-using KDIS::DATA_TYPE::ENUMS::ConstantGrid;
-using std::vector;
-
 class KDIS_EXPORT Gridded_Data_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_EnvProcID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EnvProcID;
 
     KUINT16 m_ui16FieldNum;
 
@@ -94,9 +82,9 @@ protected:
 
     KUINT8 m_ui8ConstGrid;
 
-    EnvironmentType m_EnvType;
+    KDIS::DATA_TYPE::EnvironmentType m_EnvType;
 
-    EulerAngles m_Ori;
+    KDIS::DATA_TYPE::EulerAngles m_Ori;
 
     KUINT64 m_ui64SampleTime;
 
@@ -107,9 +95,9 @@ protected:
     KUINT16 m_ui16Padding1; // 24 bits unused for alignment of Grid Axis Descriptor
     KUINT8 m_ui8Padding1;
 
-    vector<GridAxisDescriptor> m_vpGridAxisDesc;
+	std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> m_vpGridAxisDesc;
 
-    vector<GridDataPtr> m_vGridData;
+	std::vector<KDIS::DATA_TYPE::GridDataPtr> m_vGridData;
 
 public:
 
@@ -121,9 +109,9 @@ public:
 
 	Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Gridded_Data_PDU( const EntityIdentifier & EnvironmentalProcessID, KUINT16 FieldNumber, KUINT16 PduNum,
-                      KUINT16 PduTotal, CoordinateSystem CS, ConstantGrid CG, const EnvironmentType & ET,
-                      const EulerAngles & Ori, KUINT64 SampleTime );
+    Gridded_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, KUINT16 FieldNumber, KUINT16 PduNum,
+                      KUINT16 PduTotal, KDIS::DATA_TYPE::ENUMS::CoordinateSystem CS, KDIS::DATA_TYPE::ENUMS::ConstantGrid CG, 
+					  const KDIS::DATA_TYPE::EnvironmentType & ET, const KDIS::DATA_TYPE::EulerAngles & Ori, KUINT64 SampleTime );
 
     virtual ~Gridded_Data_PDU();
 
@@ -132,18 +120,18 @@ public:
     //              KDIS::PDU::Gridded_Data_PDU::GetEnvironmentalProcessID
     // Description: Identifies the environmental simulation application issuing the PDU.
     //              This field is also known as "Environmental Simulation ID" in DIS version 7.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEnvironmentalProcessID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEnvironmentalProcessID() const;
-    EntityIdentifier & GetEnvironmentalProcessID();
+    void SetEnvironmentalProcessID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEnvironmentalProcessID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEnvironmentalProcessID();
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::SetFieldNumber
     //              KDIS::PDU::Gridded_Data_PDU::GetFieldNumber
     // Description: Specifies a unique identifier for each environmental variable transmitted
     //              during an exercise.
-    // Parameter:   KUINT16 FN, void
+    // Parameter:   KUINT16 FN
     //************************************
     void SetFieldNumber( KUINT16 FN );
     KUINT16 GetFieldNumber() const;
@@ -156,7 +144,7 @@ public:
     //              SetPDUNumberAndTotal will throw an exception if Num is greater than Total.
     //              No error checking is done if you use the 2 separate accessors SetPDUNumber
     //              and SetPDUTotal so be careful not to make the PDU number greater than the total.
-    // Parameter:   KUINT16 PN, void
+    // Parameter:   KUINT16 PN
     //************************************
     void SetPDUNumber( KUINT16 PN );
     KUINT16 GetPDUNumber() const;
@@ -167,7 +155,7 @@ public:
     //              KDIS::PDU::Gridded_Data_PDU::GetPDUTotal
     // Description: Specifies the total number of PDUs used to transmit this environmental data.
     //              This value should not be less than PDU number.
-    // Parameter:   KUINT16 PT, void
+    // Parameter:   KUINT16 PT
     //************************************
     void SetPDUTotal( KUINT16 PT );
     KUINT16 GetPDUTotal() const;
@@ -177,10 +165,10 @@ public:
     //              KDIS::PDU::Gridded_Data_PDU::GetCoordinateSystem
     // Description: Specifies the coordinate system of the grid for the environmental
     //              data contained in the Gridded Data PDU.
-    // Parameter:   CoordinateSystem CS, void
+    // Parameter:   CoordinateSystem CS
     //************************************
-    void SetCoordinateSystem( CoordinateSystem CS );
-    CoordinateSystem GetCoordinateSystem() const;
+    void SetCoordinateSystem( KDIS::DATA_TYPE::ENUMS::CoordinateSystem CS );
+    KDIS::DATA_TYPE::ENUMS::CoordinateSystem GetCoordinateSystem() const;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::Decode
@@ -194,36 +182,36 @@ public:
     //              KDIS::PDU::Gridded_Data_PDU::GetConstantGrid
     // Description: Specifies whether the domain grid axes are identical to those of the previous
     //              domain update grid for the environmental data sample contained in the PDU
-    // Parameter:   ConstantGrid CG, void
+    // Parameter:   ConstantGrid CG
     //************************************
-    void SetConstantGrid( ConstantGrid CG );
-    ConstantGrid GetConstantGrid() const;
+    void SetConstantGrid( KDIS::DATA_TYPE::ENUMS::ConstantGrid CG );
+    KDIS::DATA_TYPE::ENUMS::ConstantGrid GetConstantGrid() const;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::SetEnvironmentType
     //              KDIS::PDU::Gridded_Data_PDU::GetEnvironmentType
     // Description: DIS enumeration identifying the type of environmental effect being described.
-    // Parameter:   const EnvironmentType & ET, void
+    // Parameter:   const EnvironmentType & ET
     //************************************
-    void SetEnvironmentType( const EnvironmentType & ET );
-    const EnvironmentType & GetEnvironmentType() const;
-    EnvironmentType & GetEnvironmentType();
+    void SetEnvironmentType( const KDIS::DATA_TYPE::EnvironmentType & ET );
+    const KDIS::DATA_TYPE::EnvironmentType & GetEnvironmentType() const;
+    KDIS::DATA_TYPE::EnvironmentType & GetEnvironmentType();
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::SetOrientation
     //              KDIS::PDU::Gridded_Data_PDU::GetOrientation
     // Description: Specifies the orientation of the data grid.
-    // Parameter:   const EulerAngles & O, void
+    // Parameter:   const EulerAngles & O
     //************************************
-    void SetOrientation( const EulerAngles & O );
-    const EulerAngles & GetOrientation() const;
-    EulerAngles & GetOrientation();
+    void SetOrientation( const KDIS::DATA_TYPE::EulerAngles & O );
+    const KDIS::DATA_TYPE::EulerAngles & GetOrientation() const;
+    KDIS::DATA_TYPE::EulerAngles & GetOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::SetSampleTime
     //              KDIS::PDU::Gridded_Data_PDU::GetSampleTime
     // Description: Specifies the valid time of the environmental data sample contained in the PDU.
-    // Parameter:   KUINT64 ST, void
+    // Parameter:   KUINT64 ST
     //************************************
     void SetSampleTime( KUINT64 ST );
     KUINT64 GetSampleTime() const;
@@ -234,7 +222,7 @@ public:
     // Description: Specifies the total number of data values for all PDUs for an environmental
     //              sample. This total includes vector-valued environmental data and equals the
     //              product of the vector dimension and the total number of grid points.
-    // Parameter:   KUINT32 TV, void
+    // Parameter:   KUINT32 TV
     //************************************
     void SetTotalValues( KUINT32 TV );
     KUINT32 GetTotalValues() const;
@@ -247,7 +235,7 @@ public:
     //              Vector Dimension shall be one for scalar data, and shall be greater than one when
     //              multiple enumerated environmental data values are sent for each grid location
     //              (e.g., u, v, w wind components have V = 3). (I.E Number of GridData values).
-    // Parameter:   KUINT8 VD, void
+    // Parameter:   KUINT8 VD
     //************************************
     void SetVectorDimension( KUINT8 VD );
     KUINT8 GetVectorDimension() const;
@@ -260,11 +248,11 @@ public:
     //              and coordinates for environmental state variables.
     //              More than one Grid Data record is allowed in a single Gridded Data PDU
     //              corresponding to each enumerated sample type.
-    // Parameter:   const GridAxisDescriptor & GAD, const vector<GridAxisDescriptor> & GADS, void
+    // Parameter:   const GridAxisDescriptor & GAD, const vector<GridAxisDescriptor> & GADS
     //************************************
-    void AddGridAxisDescriptor( const GridAxisDescriptor & GAD );
-    void SetGridAxisDescriptors( const vector<GridAxisDescriptor> & GADS );
-    const vector<GridAxisDescriptor> & GetSetGridAxisDescriptors() const;
+    void AddGridAxisDescriptor( const KDIS::DATA_TYPE::GridAxisDescriptor & GAD );
+	void SetGridAxisDescriptors( const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> & GADS );
+	const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> & GetSetGridAxisDescriptors() const;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::AddGridData
@@ -272,11 +260,11 @@ public:
     //              KDIS::PDU::Gridded_Data_PDU::GetGridData
     // Description: Specifies the environmental state data at the grid locations specified by
     //              parameters in the Grid Axis Descriptor record.
-    // Parameter:   const GridDataPtr & GD, const vector<GridDataPtr> & GD, void
+    // Parameter:   const GridDataPtr & GD, const vector<GridDataPtr> & GD
     //************************************
-    void AddGridData( const GridDataPtr & GD );
-    void SetGridData( const vector<GridDataPtr> & GD );
-    const vector<GridDataPtr> & GetGridData() const;
+    void AddGridData( const KDIS::DATA_TYPE::GridDataPtr & GD );
+	void SetGridData( const std::vector<KDIS::DATA_TYPE::GridDataPtr> & GD );
+	const std::vector<KDIS::DATA_TYPE::GridDataPtr> & GetGridData() const;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::GetAsString

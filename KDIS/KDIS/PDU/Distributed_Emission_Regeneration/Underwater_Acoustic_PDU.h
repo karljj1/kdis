@@ -50,22 +50,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::Shaft;
-using KDIS::DATA_TYPE::APA;
-using KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem;
-using KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator;
-using KDIS::DATA_TYPE::ENUMS::PassiveParameterIndex;
-using KDIS::DATA_TYPE::ENUMS::PropulsionPlantConfiguration;
-using std::vector;
-
 class KDIS_EXPORT Underwater_Acoustic_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_EmittingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EmittingEntityID;
 
-    EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
     KUINT8 m_ui8StateUpdateIndicator;
 
@@ -81,11 +72,11 @@ protected:
 
     KUINT8 m_ui8NumEmitterSys;
 
-    vector<Shaft> m_vShafts;
+	std::vector<KDIS::DATA_TYPE::Shaft> m_vShafts;
 
-    vector<APA> m_vAPA;
+	std::vector<KDIS::DATA_TYPE::APA> m_vAPA;
 
-    vector<UnderwaterAcousticEmitterSystem> m_vUAES;
+	std::vector<KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem> m_vUAES;
 
 public:
 
@@ -103,21 +94,21 @@ public:
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::SetEmittingEntityID
     //              KDIS::PDU::Underwater_Acoustic_PDU::GetEmittingEntityID
     // Description: Emitting Entity ID
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEmittingEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEmittingEntityID() const;
-    EntityIdentifier & GetEmittingEntityID();
+    void SetEmittingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::SetEventID
     //              KDIS::PDU::Underwater_Acoustic_PDU::GetEventID
     // Description: Event ID. For associated events.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEventID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEventID() const;
-    EntityIdentifier & GetEventID();
+    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::SetStateUpdateIndicator
@@ -125,10 +116,10 @@ public:
     // Description: Indicates if the data contained in the PDU represents a state update or
     //              just data that has changed since issuance of the last Electromagnetic Emission
     //              PDU.
-    // Parameter:   StateUpdateIndicator SUI, void
-    //************************************
-    void SetStateUpdateIndicator( StateUpdateIndicator SUI );
-    StateUpdateIndicator GetStateUpdateIndicator() const;
+    // Parameter:   StateUpdateIndicator SUI
+	//************************************
+	void SetStateUpdateIndicator( KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI );
+	KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator GetStateUpdateIndicator() const;
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::SetPassiveParameterIndex
@@ -140,20 +131,20 @@ public:
     //              configuration and associated auxiliaries.
     //              E.G parameter indexex identifying a file in a common
     //              acoustic database (CADB) would be used here.
-    // Parameter:   PassiveParameterIndex PPI, void
+    // Parameter:   PassiveParameterIndex PPI
     //************************************
-    void SetPassiveParameterIndex( PassiveParameterIndex PPI );
-    PassiveParameterIndex GetPassiveParameterIndex() const;
+	void SetPassiveParameterIndex( KDIS::DATA_TYPE::ENUMS::PassiveParameterIndex PPI );
+	KDIS::DATA_TYPE::ENUMS::PassiveParameterIndex GetPassiveParameterIndex() const;
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::SetPropulsionPlantConfiguration
     //              KDIS::PDU::Underwater_Acoustic_PDU::GetPropulsionPlantConfiguration
     // Description: Used to determine the passive signature
     //              characteristics of an entity
-    // Parameter:   PropulsionPlantConfiguration PPC, void
+    // Parameter:   PropulsionPlantConfiguration PPC
     //************************************
-    void SetPropulsionPlantConfiguration( PropulsionPlantConfiguration PPC );
-    PropulsionPlantConfiguration GetPropulsionPlantConfiguration() const;
+	void SetPropulsionPlantConfiguration( KDIS::DATA_TYPE::ENUMS::PropulsionPlantConfiguration PPC );
+	KDIS::DATA_TYPE::ENUMS::PropulsionPlantConfiguration GetPropulsionPlantConfiguration() const;
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::GetNumberOfShafts
@@ -178,38 +169,37 @@ public:
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::SetShafts
     //              KDIS::PDU::Underwater_Acoustic_PDU::GetShafts
     // Description: Shafts belonging to the platform.
-    // Parameter:   const vector<Shaft> & S, void
+    // Parameter:   const vector<Shaft> & S
     //************************************
-    void AddShaft( const Shaft & S );
-    void SetShafts( const vector<Shaft> & S );
-    const vector<Shaft> & GetShafts() const;
+    void AddShaft( const KDIS::DATA_TYPE::Shaft & S );
+	void SetShafts( const std::vector<KDIS::DATA_TYPE::Shaft> & S );
+	const std::vector<KDIS::DATA_TYPE::Shaft> & GetShafts() const;
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::AddAPA
     //              KDIS::PDU::Underwater_Acoustic_PDU::SetAPA
     //              KDIS::PDU::Underwater_Acoustic_PDU::GetAPA
     // Description: Additional Passive Activity ( APA )
-    // Parameter:   const APA & A, const vector<APA> & A, void
+    // Parameter:   const APA & A, const vector<APA> & A
     //************************************
-    void AddAPA( const APA & A );
-    void SetAPA( const vector<APA> & A );
-    const vector<APA> & GetAPA() const;
+    void AddAPA( const KDIS::DATA_TYPE::APA & A );
+	void SetAPA( const std::vector<KDIS::DATA_TYPE::APA> & A );
+	const std::vector<KDIS::DATA_TYPE::APA> & GetAPA() const;
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::AddUnderwaterAcousticEmitterSystem
     //              KDIS::PDU::Underwater_Acoustic_PDU::SetUnderwaterAcousticEmitterSystem
     //              KDIS::PDU::Underwater_Acoustic_PDU::GetUnderwaterAcousticEmitterSystem
     // Description: Adds a system to the platform.
-    // Parameter:   const UnderwaterAcousticEmitterSystem & UAES, const vector<UnderwaterAcousticEmitterSystem> & UAES, void
+    // Parameter:   const UnderwaterAcousticEmitterSystem & UAES, const vector<UnderwaterAcousticEmitterSystem> & UAES
     //************************************
-    void AddUnderwaterAcousticEmitterSystem( const UnderwaterAcousticEmitterSystem & UAES );
-    void SetUnderwaterAcousticEmitterSystem( const vector<UnderwaterAcousticEmitterSystem> & UAES );
-    const vector<UnderwaterAcousticEmitterSystem> & GetUnderwaterAcousticEmitterSystem() const;
+    void AddUnderwaterAcousticEmitterSystem( const KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem & UAES );
+	void SetUnderwaterAcousticEmitterSystem( const std::vector<KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem> & UAES );
+	const std::vector<KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem> & GetUnderwaterAcousticEmitterSystem() const;
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

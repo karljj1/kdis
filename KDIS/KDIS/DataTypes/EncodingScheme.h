@@ -44,10 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EncodingClass;
-using KDIS::DATA_TYPE::ENUMS::EncodingType;
-using KDIS::DATA_TYPE::ENUMS::TDLType;
-
 class KDIS_EXPORT EncodingScheme : public DataTypeBase
 {
 protected:
@@ -72,9 +68,9 @@ public:
 
     EncodingScheme( KDataStream & stream ) throw( KException );
 
-    EncodingScheme( EncodingClass EC, KUINT16 EncodingType, TDLType T );
+    EncodingScheme( KDIS::DATA_TYPE::ENUMS::EncodingClass EC, KUINT16 EncodingType, KDIS::DATA_TYPE::ENUMS::TDLType T );
 
-    EncodingScheme( EncodingType Audio, TDLType T );
+    EncodingScheme( KDIS::DATA_TYPE::ENUMS::EncodingType Audio, KDIS::DATA_TYPE::ENUMS::TDLType T );
 
     virtual ~EncodingScheme();
 
@@ -84,8 +80,8 @@ public:
     // Description: Encoding Class
     // Parameter:   EncodingClass EC
     //************************************
-    void SetEncodingClass( EncodingClass EC );
-    EncodingClass GetEncodingClass() const;
+    void SetEncodingClass( KDIS::DATA_TYPE::ENUMS::EncodingClass EC );
+    KDIS::DATA_TYPE::ENUMS::EncodingClass GetEncodingClass() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EncodingScheme::SetEncodingTypeAudio
@@ -98,9 +94,9 @@ public:
     //              and the TDL type is 0 then this value should also be 0.
     // Parameter:   EncodingType T, KUINT16 T
     //************************************
-    void SetEncodingTypeAudio( EncodingType T );
+    void SetEncodingTypeAudio( KDIS::DATA_TYPE::ENUMS::EncodingType T );
     void SetEncodingType( KUINT16 T );
-    EncodingType GetEncodingTypeAudio() const;
+    KDIS::DATA_TYPE::ENUMS::EncodingType GetEncodingTypeAudio() const;
     KUINT16 GetEncodingType() const;
 
     //************************************
@@ -110,8 +106,8 @@ public:
     //              representing a TDL type, if not then set to 0.
     // Parameter:   TDLType T
     //************************************
-    void SetTDLType( TDLType T );
-    TDLType GetTDLType() const;
+    void SetTDLType( KDIS::DATA_TYPE::ENUMS::TDLType T );
+    KDIS::DATA_TYPE::ENUMS::TDLType GetTDLType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EncodingScheme::GetAsString

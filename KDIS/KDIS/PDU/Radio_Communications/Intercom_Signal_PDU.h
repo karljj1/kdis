@@ -46,9 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EncodingScheme;
-
 class KDIS_EXPORT Intercom_Signal_PDU : public Signal_PDU
 {
 protected:
@@ -61,7 +58,7 @@ public:
 
 	Intercom_Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Intercom_Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
+    Intercom_Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
                          KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
 
     virtual ~Intercom_Signal_PDU();

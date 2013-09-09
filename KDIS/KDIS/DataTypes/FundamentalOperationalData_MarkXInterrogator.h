@@ -46,9 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::TCAS;
-using KDIS::DATA_TYPE::ENUMS::AlternateParameter4;
-
 struct KDIS_EXPORT FundamentalOperationalData_MarkXInterrogator
 {
 protected:
@@ -202,8 +199,8 @@ public:
     // Description: Used for an alternative representation of parameter 4
     // Parameter:   AlternateParameter4 AP4, void
     //************************************
-    void SetAlternateParameter4( AlternateParameter4 AP4 );
-    AlternateParameter4 GetAlternateParameter4() const;
+    void SetAlternateParameter4( KDIS::DATA_TYPE::ENUMS::AlternateParameter4 AP4 );
+    KDIS::DATA_TYPE::ENUMS::AlternateParameter4 GetAlternateParameter4() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData_MarkXInterrogator::SetInfomationLayer
@@ -298,12 +295,12 @@ public:
     // Description: Parameter 6 data - Mode S Interrogator Status
     // Parameter:   KBOOL, void
     //************************************
-    void SetModeSCodeStatus( TCAS TCASVersion, KBOOL IsStatusOn, KBOOL IsDamaged,
+    void SetModeSCodeStatus( KDIS::DATA_TYPE::ENUMS::TCAS TCASVersion, KBOOL IsStatusOn, KBOOL IsDamaged,
                              KBOOL IsMalfunctioning );
     void SetModeSStatus( KBOOL IsOn );
     void SetModeSDamage( KBOOL IsDamaged );
     void SetModeSMalfunction( KBOOL IsMalfunctioning );
-    TCAS GetTCASVersion() const;
+    KDIS::DATA_TYPE::ENUMS::TCAS GetTCASVersion() const;
     KBOOL IsModeSStatusOn() const;
     KBOOL IsModeSDamaged() const;
     KBOOL IsModeSMalfunctioning() const;

@@ -49,23 +49,17 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::LayerHeader;
-using KDIS::DATA_TYPE::BeamData;
-using KDIS::DATA_TYPE::SecondaryOperationalData;
-using KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData;
-using std::vector;
-
 class KDIS_EXPORT IFF_ATC_NAVAIDS_L2_PDU : public IFF_ATC_NAVAIDS_L1_PDU
 {
 protected:
 
-    LayerHeader m_LyrHdr;
+    KDIS::DATA_TYPE::LayerHeader m_LyrHdr;
 
-    BeamData m_BmDt;
+    KDIS::DATA_TYPE::BeamData m_BmDt;
 
-    SecondaryOperationalData m_SOD;
+    KDIS::DATA_TYPE::SecondaryOperationalData m_SOD;
 
-    vector<IFF_ATC_NAVAIDS_FundamentalParameterData> m_vFPD;
+	std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> m_vFPD;
 
 public:
 
@@ -77,12 +71,14 @@ public:
 
 	IFF_ATC_NAVAIDS_L2_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    IFF_ATC_NAVAIDS_L2_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID, const Vector & Location, const SystemIdentifier & ID,
-                            const FundamentalOperationalData & FOD, const LayerHeader & LH,const BeamData & BD, const SecondaryOperationalData & SOD,
-                            const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
+    IFF_ATC_NAVAIDS_L2_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID, 
+		                    const KDIS::DATA_TYPE::Vector & Location, const KDIS::DATA_TYPE::SystemIdentifier & ID,
+                            const KDIS::DATA_TYPE::FundamentalOperationalData & FOD, const KDIS::DATA_TYPE::LayerHeader & LH,
+							const KDIS::DATA_TYPE::BeamData & BD, const KDIS::DATA_TYPE::SecondaryOperationalData & SOD,
+							const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
 
-    IFF_ATC_NAVAIDS_L2_PDU( const IFF_ATC_NAVAIDS_L1_PDU & PDU, const LayerHeader & LH,const BeamData & BD, const SecondaryOperationalData & SOD,
-                            const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
+    IFF_ATC_NAVAIDS_L2_PDU( const IFF_ATC_NAVAIDS_L1_PDU & PDU, const KDIS::DATA_TYPE::LayerHeader & LH,const KDIS::DATA_TYPE::BeamData & BD, 
+		                    const KDIS::DATA_TYPE::SecondaryOperationalData & SOD, const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
 
     virtual ~IFF_ATC_NAVAIDS_L2_PDU();
 
@@ -92,11 +88,11 @@ public:
     // Description: Contains information regarding the layer.
     //              Note Layer Number and Layer length are set automatically and layer
     //              specific information is undefined so it is safe to let this record manage itself.
-    // Parameter:   const LayerHeader & LH, void
+    // Parameter:   const LayerHeader & LH
     //************************************
-    void SetLayerHeader( const LayerHeader & LH );
-    const LayerHeader & GetLayerHeader() const;
-    LayerHeader & GetLayerHeader();
+    void SetLayerHeader( const KDIS::DATA_TYPE::LayerHeader & LH );
+    const KDIS::DATA_TYPE::LayerHeader & GetLayerHeader() const;
+    KDIS::DATA_TYPE::LayerHeader & GetLayerHeader();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::SetBeamData
@@ -106,11 +102,11 @@ public:
     //              IFF/ATC/NAVAIDS PDU update can be represented by a single beam, then a description of the beam
     //              shall be entered in this record. If multiple beams would be required, then this record
     //              shall be filled with zeroes.
-    // Parameter:   const LayerHeader & LH, void
+    // Parameter:   const LayerHeader & LH
     //************************************
-    void SetBeamData( const BeamData & BD );
-    const BeamData & GetBeamData() const;
-    BeamData & GetBeamData();
+    void SetBeamData( const KDIS::DATA_TYPE::BeamData & BD );
+    const KDIS::DATA_TYPE::BeamData & GetBeamData() const;
+    KDIS::DATA_TYPE::BeamData & GetBeamData();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::SetSecondaryOperationalData
@@ -118,11 +114,11 @@ public:
     // Description: Specifies secondary operational data for the IFF/ATC/NAVAIDS emitting system.
     //              Note: This data type holds the number of Fundamental Parameter Data Sets, if you make a
     //              change you will need to make sure the value stays correct.
-    // Parameter:   const SecondaryOperationalData & SOD, void
+    // Parameter:   const SecondaryOperationalData & SOD
     //************************************
-    void SetSecondaryOperationalData( const SecondaryOperationalData & SOD );
-    const SecondaryOperationalData & GetSecondaryOperationalData() const;
-    SecondaryOperationalData & GetSecondaryOperationalData();
+    void SetSecondaryOperationalData( const KDIS::DATA_TYPE::SecondaryOperationalData & SOD );
+    const KDIS::DATA_TYPE::SecondaryOperationalData & GetSecondaryOperationalData() const;
+    KDIS::DATA_TYPE::SecondaryOperationalData & GetSecondaryOperationalData();
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::AddFundamentalParameterData
@@ -130,11 +126,11 @@ public:
     //              KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::GetFundamentalParameterData
     // Description: Specifies the values of the fundamental energy radiation characteristic
     //              of each emission from the IFF/ATC/NAVAIDS emitting system.
-    // Parameter:   const IFF_ATC_NAVAIDS_FundamentalParameterData & FPD, const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD, void
+    // Parameter:   const IFF_ATC_NAVAIDS_FundamentalParameterData & FPD, const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD
     //************************************
-    void AddFundamentalParameterData( const IFF_ATC_NAVAIDS_FundamentalParameterData & FPD );
-    void SetFundamentalParameterData( const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
-    const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & GetFundamentalParameterData() const;
+    void AddFundamentalParameterData( const KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData & FPD );
+	void SetFundamentalParameterData( const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
+	const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & GetFundamentalParameterData() const;
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::GetAsString

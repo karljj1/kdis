@@ -50,8 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityDensity;
-
 struct KDIS_EXPORT EnvironmentalsAppearance
 {
 protected:
@@ -73,8 +71,8 @@ public:
     // Description: Describes the density of the environmentals.
     // Parameter:   EntityDensity ED
     //************************************
-    void SetEntityDensity( EntityDensity ED );
-    EntityDensity GetEntityDensity() const;
+    void SetEntityDensity( KDIS::DATA_TYPE::ENUMS::EntityDensity ED );
+    KDIS::DATA_TYPE::ENUMS::EntityDensity GetEntityDensity() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EnvironmentalsAppearance::SetEntityFrozenStatus

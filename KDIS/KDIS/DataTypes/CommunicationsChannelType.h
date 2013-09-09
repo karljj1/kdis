@@ -43,9 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::ChannelType;
-using KDIS::DATA_TYPE::ENUMS::ChannelClass;
-
 class KDIS_EXPORT CommunicationsChannelType : public DataTypeBase
 {
 protected:
@@ -63,13 +60,13 @@ protected:
 
 public:
 
-#define COMM_CHANNEL_TYPE 1
+	static const KUINT16 COMM_CHANNEL_TYPE_SIZE = 1;
 
     CommunicationsChannelType();
 
     CommunicationsChannelType( KDataStream & stream ) throw( KException );
 
-    CommunicationsChannelType( ChannelType CT, ChannelClass CC );
+    CommunicationsChannelType( KDIS::DATA_TYPE::ENUMS::ChannelType CT, KDIS::DATA_TYPE::ENUMS::ChannelClass CC );
 
     virtual ~CommunicationsChannelType();
 
@@ -79,8 +76,8 @@ public:
     // Description: Type of channel.
     // Parameter:   ChannelType CT, void
     //************************************
-    void SetType( ChannelType CT );
-    ChannelType GetType() const;
+    void SetType( KDIS::DATA_TYPE::ENUMS::ChannelType CT );
+    KDIS::DATA_TYPE::ENUMS::ChannelType GetType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::SetClass
@@ -88,8 +85,8 @@ public:
     // Description: Communications class.
     // Parameter:   ChannelClass CC, void
     //************************************
-    void SetClass( ChannelClass CC );
-    ChannelClass GetClass() const;
+    void SetClass( KDIS::DATA_TYPE::ENUMS::ChannelClass CC );
+    KDIS::DATA_TYPE::ENUMS::ChannelClass GetClass() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::GetAsString

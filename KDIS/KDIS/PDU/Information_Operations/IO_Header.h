@@ -55,14 +55,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::StandardVariable;
-
 class KDIS_EXPORT IO_Header : public Header
 {
 protected:
 
-    EntityIdentifier m_OriginatingEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntityID;
 
 public:
 
@@ -76,7 +73,7 @@ public:
 
 	IO_Header( const Header & H, KDataStream & stream ) throw( KException );
 
-    IO_Header( const EntityIdentifier & OrigID );
+    IO_Header( const KDIS::DATA_TYPE::EntityIdentifier & OrigID );
 
     virtual ~IO_Header();
 
@@ -86,9 +83,9 @@ public:
     // Description: Originating Entity ID, the simulation that is issuing the PDU.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetOriginatingEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetOriginatingEntityID() const;
-    EntityIdentifier & GetOriginatingEntityID();
+    void SetOriginatingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::IO_Header::GetAsString

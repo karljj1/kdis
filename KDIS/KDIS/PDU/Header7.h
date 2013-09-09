@@ -139,10 +139,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::ENUMS::LVCIndicator;
-using KDIS::DATA_TYPE::ENUMS::DetonationType;
-using KDIS::DATA_TYPE::ENUMS::AttachedIndicator;
-
 class KDIS_EXPORT Header7 : public Header6
 {
 protected:
@@ -180,8 +176,8 @@ public:
 
     Header7( KDataStream & stream ) throw( KException );
 
-    Header7( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFamily PF,
-             const TimeStamp & TS, KUINT16 PDULength );
+    Header7( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KUINT8 ExerciseID, KDIS::DATA_TYPE::ENUMS::PDUType PT,
+		     KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF, const KDIS::DATA_TYPE::TimeStamp & TS, KUINT16 PDULength );
 
     virtual ~Header7();
 
@@ -229,8 +225,8 @@ public:
 	// PDU:         See Header7 description to see which PDU's use this field.    
 	// Parameter:   LVCIndicator LVC
 	//************************************
-	void SetPDUStatusLVC( LVCIndicator LVC );
-	LVCIndicator GetPDUStatusLVC() const;
+	void SetPDUStatusLVC( KDIS::DATA_TYPE::ENUMS::LVCIndicator LVC );
+	KDIS::DATA_TYPE::ENUMS::LVCIndicator GetPDUStatusLVC() const;
 
 	//************************************
 	// FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusFTI
@@ -252,8 +248,8 @@ public:
 	// PDU:         Detonation(3) 
 	// Parameter:   DetonationType DTI
 	//************************************
-	void SetPDUStatusDTI( DetonationType DTI );
-	DetonationType GetPDUStatusDTI() const;
+	void SetPDUStatusDTI( KDIS::DATA_TYPE::ENUMS::DetonationType DTI );
+	KDIS::DATA_TYPE::ENUMS::DetonationType GetPDUStatusDTI() const;
 
 	//************************************
 	// FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusRAI
@@ -264,8 +260,8 @@ public:
 	// PDU:         Transmitter(25), Signal(26), Receiver(27)
 	// Parameter:   AttachedIndicator RAI
 	//************************************
-	void SetPDUStatusRAI( AttachedIndicator RAI );
-	AttachedIndicator GetPDUStatusRAI() const;
+	void SetPDUStatusRAI( KDIS::DATA_TYPE::ENUMS::AttachedIndicator RAI );
+	KDIS::DATA_TYPE::ENUMS::AttachedIndicator GetPDUStatusRAI() const;
 	
 	//************************************
 	// FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusIAI
@@ -275,8 +271,8 @@ public:
 	// PDU:         IntercomSignal(31), IntercomControl(32)
 	// Parameter:   AttachedIndicator IAI
 	//************************************
-	void SetPDUStatusIAI( AttachedIndicator RAI );
-	AttachedIndicator GetPDUStatusIAI() const;
+	void SetPDUStatusIAI( KDIS::DATA_TYPE::ENUMS::AttachedIndicator RAI );
+	KDIS::DATA_TYPE::ENUMS::AttachedIndicator GetPDUStatusIAI() const;
 
 	//************************************
 	// FullName:    KDIS::PDU::Header7::SetPDUStatusSM

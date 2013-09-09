@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory;
-
 class KDIS_EXPORT GED_EnhancedRotaryWingAircraft : public GED_BasicRotorWingAircraft
 {
 protected:
@@ -81,7 +79,7 @@ public:
     // Description: Identifies the derived GED class.
     //              Not part of the DIS PDU.
     //************************************
-    virtual GroupedEntityCategory GetGroupedEntityCategory() const;
+    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetLength
@@ -95,7 +93,7 @@ public:
     //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetSupplementalFuelStatus
     // Description: Represents the amount of supplemental fuel remaining.
     //              Specified in natural units.
-    // Parameter:   KUINT8  F, void
+    // Parameter:   KUINT8  F
     //************************************
     void SetSupplementalFuelStatus( KUINT8 F );
     KUINT8 GetSupplementalFuelStatus() const;
@@ -104,7 +102,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetAirMaintenanceStatus
     //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetAirMaintenanceStatus
     // Description: Time spent since last maintenance in hours.
-    // Parameter:   KUINT8  A, void
+    // Parameter:   KUINT8  A
     //************************************
     void SetAirMaintenanceStatus( KUINT8 A );
     KUINT8 GetAirMaintenanceStatus() const;
@@ -114,7 +112,7 @@ public:
     //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetPrimaryAmmunition
     // Description: Amount of primary ammunition remaining.
     //              Specified in natural ammunition units for the primary weapon system.
-    // Parameter:   KUINT8  P, void
+    // Parameter:   KUINT8  P
     //************************************
     void SetPrimaryAmmunition( KUINT8 P );
     KUINT8 GetPrimaryAmmunition() const;
@@ -124,7 +122,7 @@ public:
     //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetSecondaryAmmunition
     // Description: Amount of secondary ammunition remaining.
     //              Specified in natural ammunition units for the secondary weapon system.
-    // Parameter:   KUINT8  S, void
+    // Parameter:   KUINT8  S
     //************************************
     void SetSecondaryAmmunition( KUINT8 S );
     KUINT8 GetSecondaryAmmunition() const;

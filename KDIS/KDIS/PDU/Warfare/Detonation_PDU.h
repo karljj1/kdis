@@ -48,30 +48,17 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::DescPtr;
-using KDIS::DATA_TYPE::VariableParameter;
-using KDIS::DATA_TYPE::VarPrmPtr;
-using KDIS::DATA_TYPE::ENUMS::DetonationResult;
-
-#if DIS_VERSION > 6
-using KDIS::DATA_TYPE::ENUMS::DetonationType;
-#endif
-
-using std::vector;
-
 class KDIS_EXPORT Detonation_PDU : public Warfare_Header
 {
 protected:
 
-    Vector m_Velocity;
+    KDIS::DATA_TYPE::Vector m_Velocity;
 
-    WorldCoordinates m_LocationWorldCoords;
+    KDIS::DATA_TYPE::WorldCoordinates m_LocationWorldCoords;
 
-    DescPtr m_pDescriptor;
+    KDIS::DATA_TYPE::DescPtr m_pDescriptor;
 
-    Vector m_LocationEntityCoords;
+    KDIS::DATA_TYPE::Vector m_LocationEntityCoords;
 
     KUINT8 m_ui8DetonationResult;
 
@@ -79,7 +66,7 @@ protected:
 
     KUINT16 m_ui16Padding1;
 
-    vector<VarPrmPtr> m_vVariableParameters;
+	std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
 public:
 
@@ -91,15 +78,15 @@ public:
 
 	Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Detonation_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID,
-                    const EntityIdentifier & MunitionID, const EntityIdentifier & EventID,
-                    const Vector & Velocity, const WorldCoordinates & LocationWorldCoords,
-                    DescPtr Desc, const Vector & LocationEntityCoords,
-                    DetonationResult DetonationResult );
+    Detonation_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FiringEntID, const KDIS::DATA_TYPE::EntityIdentifier & TargetEntID,
+                    const KDIS::DATA_TYPE::EntityIdentifier & MunitionID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
+                    const KDIS::DATA_TYPE::Vector & Velocity, const KDIS::DATA_TYPE::WorldCoordinates & LocationWorldCoords,
+                    KDIS::DATA_TYPE::DescPtr Desc, const KDIS::DATA_TYPE::Vector & LocationEntityCoords,
+					KDIS::DATA_TYPE::ENUMS::DetonationResult DetonationResult );
 
-    Detonation_PDU( const Warfare_Header & WarfareHeader, const Vector & Velocity,
-                    const WorldCoordinates & LocationWorldCoords, DescPtr Desc,
-                    const Vector & LocationEntityCoords, DetonationResult DetonationResult );
+    Detonation_PDU( const Warfare_Header & WarfareHeader, const KDIS::DATA_TYPE::Vector & Velocity,
+                    const KDIS::DATA_TYPE::WorldCoordinates & LocationWorldCoords, KDIS::DATA_TYPE::DescPtr Desc,
+					const KDIS::DATA_TYPE::Vector & LocationEntityCoords, KDIS::DATA_TYPE::ENUMS::DetonationResult DetonationResult );
 
     virtual ~Detonation_PDU();
 
@@ -110,8 +97,8 @@ public:
     // Description: Indicates the descriptor type used. DTI.
     // Parameter:   DetonationType FT
     //************************************
-    void SetPDUStatusDetonationType( DetonationType DT );
-    DetonationType GetPDUStatusDetonationType() const;
+    void SetPDUStatusDetonationType( KDIS::DATA_TYPE::ENUMS::DetonationType DT );
+    KDIS::DATA_TYPE::ENUMS::DetonationType GetPDUStatusDetonationType() const;
 	#endif
 
     //************************************
@@ -120,9 +107,9 @@ public:
     // Description: Velocity of fire munition.
     // Parameter:   const Vector & V
     //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+    void SetVelocity( const KDIS::DATA_TYPE::Vector & V );
+    const KDIS::DATA_TYPE::Vector & GetVelocity() const;
+    KDIS::DATA_TYPE::Vector & GetVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetLocationInWorldCoords
@@ -131,9 +118,9 @@ public:
     //              coordinates.
     // Parameter:   const WorldCoordinates & L
     //************************************
-    void SetLocationInWorldCoords( const WorldCoordinates & L );
-    const WorldCoordinates & GetLocationInWorldCoords() const;
-    WorldCoordinates & GetLocationInWorldCoords();
+    void SetLocationInWorldCoords( const KDIS::DATA_TYPE::WorldCoordinates & L );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetLocationInWorldCoords() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetLocationInWorldCoords();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetDescriptor
@@ -148,8 +135,8 @@ public:
 	//              Example usage in DIS 7: SetDescriptor( DescPtr( new MunitionDescriptor() ) );
     // Parameter:   DescPtr D
     //************************************
-    void SetDescriptor( DescPtr D );
-    DescPtr GetDescriptor();
+    void SetDescriptor( KDIS::DATA_TYPE::DescPtr D );
+    KDIS::DATA_TYPE::DescPtr GetDescriptor();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetLocationInEntityCoords
@@ -158,9 +145,9 @@ public:
     //              Use for damage assessment to the entity.
     // Parameter:   const Vector & L
     //************************************
-    void SetLocationInEntityCoords( const Vector & L );
-    const Vector & GetLocationInEntityCoords() const;
-    Vector & GetLocationInEntityCoords();
+    void SetLocationInEntityCoords( const KDIS::DATA_TYPE::Vector & L );
+    const KDIS::DATA_TYPE::Vector & GetLocationInEntityCoords() const;
+    KDIS::DATA_TYPE::Vector & GetLocationInEntityCoords();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetDetonationResult
@@ -168,8 +155,8 @@ public:
     // Description: Represents the result of the detonation.
     // Parameter:   DetonationResult DR
     //************************************
-    void SetDetonationResult( DetonationResult DR );
-    DetonationResult GetDetonationResult() const;
+    void SetDetonationResult( KDIS::DATA_TYPE::ENUMS::DetonationResult DR );
+    KDIS::DATA_TYPE::ENUMS::DetonationResult GetDetonationResult() const;
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::GetNumberOfVariableParams
@@ -187,15 +174,14 @@ public:
     //              See VariableParameter for supported/implemented types.
     // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddVariableParameter( VarPrmPtr VP );
-    void SetVariableParameters( const vector<VarPrmPtr> & VP );
-    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void AddVariableParameter( KDIS::DATA_TYPE::VarPrmPtr VP );
+	void SetVariableParameters( const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & VP );
+	const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & GetVariableParameters() const;
     void ClearVariableParameters();
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

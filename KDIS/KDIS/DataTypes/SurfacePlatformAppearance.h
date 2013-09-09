@@ -50,11 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EntityPaintScheme;
-using KDIS::DATA_TYPE::ENUMS::EntityDamage;
-using KDIS::DATA_TYPE::ENUMS::EntitySmoke;
-using KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect;
-
 struct KDIS_EXPORT SurfacePlatformAppearance
 {
 protected:
@@ -86,8 +81,8 @@ public:
     // Description: Describes the paint scheme of an entity.
     // Parameter:   EntityPaintScheme EPS
     //************************************
-    void SetEntityPaintScheme( EntityPaintScheme EPS );
-    EntityPaintScheme GetEntityPaintScheme() const;
+    void SetEntityPaintScheme( KDIS::DATA_TYPE::ENUMS::EntityPaintScheme EPS );
+    KDIS::DATA_TYPE::ENUMS::EntityPaintScheme GetEntityPaintScheme() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SurfacePlatformAppearance::SetEntityMobilityKill
@@ -104,8 +99,8 @@ public:
     // Description: Entity Damage State
     // Parameter:   EntityDamage ED
     //************************************
-    void SetEntityDamage( EntityDamage ED );
-    EntityDamage GetEntityDamage() const;
+    void SetEntityDamage( KDIS::DATA_TYPE::ENUMS::EntityDamage ED );
+    KDIS::DATA_TYPE::ENUMS::EntityDamage GetEntityDamage() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SurfacePlatformAppearance::SetEntitySmoke,
@@ -113,8 +108,8 @@ public:
     // Description: Entity Smoke State
     // Parameter:   EntitySmoke ES
     //************************************
-    void SetEntitySmoke( EntitySmoke ES );
-    EntitySmoke GetEntitySmoke() const;
+    void SetEntitySmoke( KDIS::DATA_TYPE::ENUMS::EntitySmoke ES );
+    KDIS::DATA_TYPE::ENUMS::EntitySmoke GetEntitySmoke() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SurfacePlatformAppearance::SetEntityTrailingEffect
@@ -122,8 +117,8 @@ public:
     // Description: Describes the size of the dust cloud/trailing effect.
     // Parameter:   EntityTrailingEffect ETE
     //************************************
-    void SetEntityTrailingEffect( EntityTrailingEffect ETE );
-    EntityTrailingEffect GetEntityTrailingEffect() const;
+    void SetEntityTrailingEffect( KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect ETE );
+    KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect GetEntityTrailingEffect() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SurfacePlatformAppearance::SetEntityRunningLights

@@ -45,9 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
-
 class KDIS_EXPORT Create_Entity_R_PDU : public Create_Entity_PDU,
                                         public Reliability_Header
 {
@@ -63,11 +60,11 @@ public:
 
 	Create_Entity_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Create_Entity_R_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity,
-                         KUINT32 RequestID, RequiredReliabilityService RRS );
+    Create_Entity_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
+                         KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
     Create_Entity_R_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID,
-                         RequiredReliabilityService RRS );
+                         KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
     virtual ~Create_Entity_R_PDU();
 

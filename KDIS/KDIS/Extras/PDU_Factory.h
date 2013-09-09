@@ -46,15 +46,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace UTILS {
 
-using KDIS::PDU::Header;
-using std::auto_ptr;
-using std::vector;
-
 class KDIS_EXPORT PDU_Factory
 {
 protected:
 
-    vector<PDU_Factory_Filter*> m_vFilters;
+    std::vector<PDU_Factory_Filter*> m_vFilters;
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::applyFilters
@@ -62,7 +58,7 @@ protected:
     //              pointer if the PDU does not pass all filters.
     // Parameter:   Header * H
     //************************************
-    auto_ptr<Header> applyFilters( Header * H );
+    std::auto_ptr<KDIS::PDU::Header> applyFilters( KDIS::PDU::Header * H );
 
 public:
 
@@ -93,7 +89,7 @@ public:
     // Parameter:   KOCTET * Buffer
     // Parameter:   KUINT16 BufferSize
     //************************************
-    virtual auto_ptr<Header> Decode( KOCTET * Buffer, KUINT16 BufferSize )throw( KException );
+    virtual std::auto_ptr<KDIS::PDU::Header> Decode( KOCTET * Buffer, KUINT16 BufferSize )throw( KException );
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::Decode
@@ -102,7 +98,7 @@ public:
     //              implemented a NULL auto_ptr is returned.
     // Parameter:   KDataStream & Stream
     //************************************
-    virtual auto_ptr<Header> Decode( KDataStream & Stream )throw( KException );
+    virtual std::auto_ptr<KDIS::PDU::Header> Decode( KDataStream & Stream )throw( KException );
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::Decode
@@ -114,7 +110,7 @@ public:
     // Parameter:   const Header & H
     // Parameter:   KDataStream & Stream
     //************************************
-    virtual auto_ptr<Header> Decode( const Header & H, KDataStream & Stream )throw( KException );
+    virtual std::auto_ptr<KDIS::PDU::Header> Decode( const KDIS::PDU::Header & H, KDataStream & Stream )throw( KException );
 };
 
 } // END namespace UTILS

@@ -50,8 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace NETWORK {
 
-using KDIS::PDU::Header;
-
 class KDIS_EXPORT ConnectionSubscriber
 {
 public:
@@ -88,7 +86,7 @@ public:
     //              Note: By default this PDU will be deleted unless it is released(auto_ptr) by the function that calls GetNextPDU.
     // Parameter:   const KOCTET * Data
     //************************************
-    virtual void OnPDUReceived( const Header * H )
+    virtual void OnPDUReceived( const KDIS::PDU::Header * H )
     {
     };
 
@@ -98,7 +96,7 @@ public:
     //              Note: This function is not for filtering, for PDU based filtering see the PDU_Factory.
     // Parameter:   const KOCTET * Data
     //************************************
-    virtual void OnPDUTransmit( Header * H )
+    virtual void OnPDUTransmit( KDIS::PDU::Header * H )
     {
     };
 };

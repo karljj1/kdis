@@ -44,9 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::RecordID;
-using std::vector;
-
 class KDIS_EXPORT RecordSet : public DataTypeBase
 {
 protected:
@@ -59,7 +56,7 @@ protected:
 
     KUINT16 m_ui16RecCnt;
 
-    vector<KUINT8> m_vui8RecVals;
+	std::vector<KUINT8> m_vui8RecVals;
 
 public:
 
@@ -69,8 +66,8 @@ public:
 
     RecordSet( KDataStream & stream )throw( KException );
 
-    RecordSet( RecordID ID, KUINT32 SerialNum, const vector<KUINT8> & RecordValue,
-               KUINT16 RecordCount );
+	RecordSet( KDIS::DATA_TYPE::ENUMS::RecordID ID, KUINT32 SerialNum, 
+		       const std::vector<KUINT8> & RecordValue, KUINT16 RecordCount );
 
     virtual ~RecordSet();
 
@@ -79,16 +76,16 @@ public:
     //              KDIS::DATA_TYPE::RecordSet::GetRecordID
     // Description: Specifies the data structure used to convey
     //              the parameters values of the record.
-    // Parameter:   RecordID ID, void
+    // Parameter:   RecordID ID
     //************************************
-    void SetRecordID( RecordID ID );
-    RecordID GetRecordID() const;
+    void SetRecordID( KDIS::DATA_TYPE::ENUMS::RecordID ID );
+    KDIS::DATA_TYPE::ENUMS::RecordID GetRecordID() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RecordSet::SetSerialNumber
     //              KDIS::DATA_TYPE::RecordSet::GetSerialNumber
     // Description: Record serial number.
-    // Parameter:   KUINT32 SN, void
+    // Parameter:   KUINT32 SN
     //************************************
     void SetSerialNumber( KUINT32 SN );
     KUINT32 GetSerialNumber() const;
@@ -118,8 +115,8 @@ public:
     // Parameter:   vector<KUINT8> & RC, void
     // Parameter:   KUINT16 RecNt - Number of bits used by the record.
     //************************************
-    void SetRecordValues( const vector<KUINT8> & RV, KUINT16 RecCnt );
-    const vector<KUINT8> & GetRecordValues() const;
+	void SetRecordValues( const std::vector<KUINT8> & RV, KUINT16 RecCnt );
+	const std::vector<KUINT8> & GetRecordValues() const;
     void ClearRecordValues();
 
     //************************************

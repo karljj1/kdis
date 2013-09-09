@@ -46,11 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::RecordSet;
-using KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService;
-using std::vector;
-
 class KDIS_EXPORT Set_Record_R_PDU : public Simulation_Management_Header,
                                      public Reliability_Header
 {
@@ -60,7 +55,7 @@ protected:
 
     KUINT32 m_ui32NumRecSets;
 
-    vector<RecordSet> m_vRecs;
+	std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
 
 public:
 
@@ -74,8 +69,8 @@ public:
 
 	Set_Record_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Set_Record_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                      KUINT32 RequestID, RequiredReliabilityService RRS );
+    Set_Record_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
+		KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
     virtual ~Set_Record_R_PDU();
 
@@ -83,7 +78,7 @@ public:
     // FullName:    KDIS::PDU::Set_Record_R_PDU::SetRequestID
     //              KDIS::PDU::Set_Record_R_PDU::GetRequestID
     // Description: Request ID
-    // Parameter:   KUINT32 ID, void
+    // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
     KUINT32 GetRequestID() const;
@@ -101,14 +96,13 @@ public:
     // Description:
     // Parameter:   const RecordSet & RS, vector<RecordSet> & RC
     //************************************
-    void AddRecordSet( const RecordSet & RS );
-    void SetRecordSets( const vector<RecordSet> & RS );
-    const vector<RecordSet> & GetRecordSets() const;
+    void AddRecordSet( const KDIS::DATA_TYPE::RecordSet & RS );
+	void SetRecordSets( const std::vector<KDIS::DATA_TYPE::RecordSet> & RS );
+	const std::vector<KDIS::DATA_TYPE::RecordSet> & GetRecordSets() const;
 
     //************************************
     // FullName:    KDIS::PDU::Set_Record_R_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

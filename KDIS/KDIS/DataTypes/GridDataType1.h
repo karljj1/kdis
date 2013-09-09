@@ -48,8 +48,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::vector;
-
 class KDIS_EXPORT GridDataType1 : public GridData
 {
 protected:
@@ -60,7 +58,7 @@ protected:
 
     KUINT16 m_ui16NumValues;
 
-    vector<KUINT16> m_vui16Values;
+    std::vector<KUINT16> m_vui16Values;
 
     KUINT16 m_ui16Padding;
 
@@ -77,7 +75,7 @@ public:
     GridDataType1( KUINT16 SampleType, KUINT16 DataRepresentation, KDataStream & stream );
 
     GridDataType1( KUINT16 SampleType, KFLOAT32 FieldScale, KFLOAT32 FieldOffset,
-                   const vector<KUINT16> & Values );
+                   const std::vector<KUINT16> & Values );
 
     virtual ~GridDataType1();
 
@@ -86,7 +84,7 @@ public:
     //              KDIS::DATA_TYPE::GridDataType1::GetFieldScale
     // Description: Specifies the constant scale factor used to scale the environmental
     //              state variable data values contained in this record.
-    // Parameter:   KFLOAT32 FS, void
+    // Parameter:   KFLOAT32 FS
     //************************************
     void SetFieldScale( KFLOAT32 FS );
     KFLOAT32 GetFieldScale() const;
@@ -96,7 +94,7 @@ public:
     //              KDIS::DATA_TYPE::GridDataType1::GetFieldOffset
     // Description: Specifies the constant offset used to scale the environmental state
     //              variable data values contained in this record.
-    // Parameter:   KFLOAT32 FO, void
+    // Parameter:   KFLOAT32 FO
     //************************************
     void SetFieldOffset( KFLOAT32 FO );
     KFLOAT32 GetFieldOffset() const;
@@ -114,11 +112,11 @@ public:
     //              KDIS::DATA_TYPE::GridDataType1::GetValues
     //              KDIS::DATA_TYPE::GridDataType1::ClearValues
     // Description: The environmental state variable data values.
-    // Parameter:   KUINT16 V, const vector<KUINT16> & V, void
+    // Parameter:   KUINT16 V, const vector<KUINT16> & V
     //************************************
     void AddValue( KUINT16 V );
-    void SetValues( const vector<KUINT16> & V );
-    const vector<KUINT16> & GetValues() const;
+    void SetValues( const std::vector<KUINT16> & V );
+    const std::vector<KUINT16> & GetValues() const;
     void ClearValues();
 
     //************************************

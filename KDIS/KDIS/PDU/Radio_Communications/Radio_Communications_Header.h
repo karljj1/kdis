@@ -45,13 +45,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Radio_Communications_Header : public Header
 {
 protected:
 
-    EntityIdentifier m_EntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
 
     KUINT16 m_ui16RadioID;
 
@@ -67,7 +65,7 @@ public:
 
 	Radio_Communications_Header( const Header & H, KDataStream & stream ) throw( KException );
 
-    Radio_Communications_Header( const EntityIdentifier & ID, KUINT16 RadioID );
+    Radio_Communications_Header( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID );
 
     virtual ~Radio_Communications_Header();
 
@@ -83,9 +81,9 @@ public:
 	//              The Radio Identifier is used to associate Transmitter, Signal, and Receiver PDUs with the same radio.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetEntityID ( const EntityIdentifier & ID );
-    const EntityIdentifier & GetEntityID() const;
-    EntityIdentifier & GetEntityID();
+    void SetEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Radio_Communications_Header::SetRadioID

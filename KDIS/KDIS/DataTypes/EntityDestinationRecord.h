@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::LineStateCommand;
-
 class KDIS_EXPORT EntityDestinationRecord : public DataTypeBase
 {
 protected:
@@ -71,7 +69,7 @@ public:
     EntityDestinationRecord( KDataStream & stream )throw( KException );
 
     EntityDestinationRecord( const EntityIdentifier & ID, KUINT16 CommDeviceID, KUINT8 LineID,
-                             KUINT8 Priority, LineStateCommand LSC );
+                             KUINT8 Priority, KDIS::DATA_TYPE::ENUMS::LineStateCommand LSC );
 
     virtual ~EntityDestinationRecord();
 
@@ -127,8 +125,8 @@ public:
     //              detailed type requested. Otherwise set to 0.
     // Parameter:   LineStateCommand LSC, void
     //************************************
-    void SetLineStateCommand( LineStateCommand LSC );
-    LineStateCommand GetLineStateCommand() const;
+    void SetLineStateCommand( KDIS::DATA_TYPE::ENUMS::LineStateCommand LSC );
+    KDIS::DATA_TYPE::ENUMS::LineStateCommand GetLineStateCommand() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityDestinationRecord::GetAsString

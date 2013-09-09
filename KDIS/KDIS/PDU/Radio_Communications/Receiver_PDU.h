@@ -50,9 +50,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::TransmitState;
-
 class KDIS_EXPORT Receiver_PDU : public Radio_Communications_Header
 {
 protected:
@@ -63,7 +60,7 @@ protected:
 
     KFLOAT32 m_f32RecPwr;
 
-    EntityIdentifier m_TransmitterEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_TransmitterEntityID;
 
     KUINT16 m_ui16TransmitterRadioID;
 
@@ -77,8 +74,8 @@ public:
 
 	Receiver_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Receiver_PDU( const EntityIdentifier & ID, KUINT16 RadioID, TransmitState TS,
-                  KFLOAT32 ReceivingPower, const EntityIdentifier & TransmitterID,
+	Receiver_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, KDIS::DATA_TYPE::ENUMS::TransmitState TS,
+                  KFLOAT32 ReceivingPower, const KDIS::DATA_TYPE::EntityIdentifier & TransmitterID,
                   KUINT16 TransmitterRadioID );
 
     virtual ~Receiver_PDU();
@@ -87,10 +84,10 @@ public:
     // FullName:    KDIS::PDU::Receiver_PDU::SetReceiverState
     //              KDIS::PDU::Receiver_PDU::GetReceiverState
     // Description: Radio Receiver State, on or off.
-    // Parameter:   TransmitState TS, void
+    // Parameter:   TransmitState TS
     //************************************
-    void SetReceiverState( TransmitState TS );
-    TransmitState GetReceiverState() const;
+	void SetReceiverState( KDIS::DATA_TYPE::ENUMS::TransmitState TS );
+	KDIS::DATA_TYPE::ENUMS::TransmitState GetReceiverState() const;
 
     //************************************
     // FullName:    KDIS::PDU::Receiver_PDU::SetReceiverPower
@@ -98,7 +95,7 @@ public:
     // Description: Radio Receiver power received, after applying
     //              any propagation loss and antenna gain.
     //              In decibel milliwatts.
-    // Parameter:   KFLOAT32 RP, void
+    // Parameter:   KFLOAT32 RP
     //************************************
     void SetReceiverPower( KFLOAT32 RP );
     KFLOAT32 GetReceiverPower() const;
@@ -107,26 +104,25 @@ public:
     // FullName:    KDIS::PDU::Receiver_PDU::SetTransmitterEntityID
     //              KDIS::PDU::Receiver_PDU::GetTransmitterEntityID
     // Description: The source of the transmission.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetTransmitterEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetTransmitterEntityID() const;
-    EntityIdentifier & GetTransmitterEntityID();
+    void SetTransmitterEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetTransmitterEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetTransmitterEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Receiver_PDU::SetTransmitterRadioID
     //              KDIS::PDU::Receiver_PDU::GetTransmitterRadioID
     // Description: Identifies the particular radio within the transmitting
     //              entity.
-    // Parameter:   KUINT16 ID, void
+    // Parameter:   KUINT16 ID
     //************************************
     void SetTransmitterRadioID( KUINT16 ID );
     KUINT16 GetTransmitterRadioID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Receiver_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

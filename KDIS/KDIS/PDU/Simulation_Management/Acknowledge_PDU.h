@@ -49,10 +49,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag;
-using KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag;
-
 class KDIS_EXPORT Acknowledge_PDU : public Simulation_Management_Header
 {
 protected:
@@ -75,17 +71,17 @@ public:
 
 	Acknowledge_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Acknowledge_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                     AcknowledgeFlag AF, AcknowledgeResponseFlag ARF, KUINT32 RequestID );
+    Acknowledge_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
+                     KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );
 
-    Acknowledge_PDU( const Simulation_Management_Header & SimMgrHeader, AcknowledgeFlag AF,
-                     AcknowledgeResponseFlag ARF, KUINT32 RequestID );
+    Acknowledge_PDU( const Simulation_Management_Header & SimMgrHeader, KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF,
+                     KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );
 
     // Generate a response to a specific PDU
-    Acknowledge_PDU( const Create_Entity_PDU & pdu, AcknowledgeResponseFlag ARF );
-    Acknowledge_PDU( const Remove_Entity_PDU & pdu, AcknowledgeResponseFlag ARF );
-    Acknowledge_PDU( const Start_Resume_PDU  & pdu, AcknowledgeResponseFlag ARF );
-    Acknowledge_PDU( const Stop_Freeze_PDU   & pdu, AcknowledgeResponseFlag ARF );
+    Acknowledge_PDU( const Create_Entity_PDU & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
+    Acknowledge_PDU( const Remove_Entity_PDU & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
+    Acknowledge_PDU( const Start_Resume_PDU  & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
+    Acknowledge_PDU( const Stop_Freeze_PDU   & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
 
     virtual ~Acknowledge_PDU();
 
@@ -93,10 +89,10 @@ public:
     // FullName:    KDIS::PDU::Acknowledge_PDU::SetAcknowledgeFlag
     //              KDIS::PDU::Acknowledge_PDU::GetAcknowledgeFlag
     // Description: Indicates the type of message being acknowledged
-    // Parameter:   AcknowledgeFlag AF, void
+    // Parameter:   AcknowledgeFlag AF
     //************************************
-    void SetAcknowledgeFlag( AcknowledgeFlag AF );
-    AcknowledgeFlag GetAcknowledgeFlag() const;
+    void SetAcknowledgeFlag( KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF );
+    KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag GetAcknowledgeFlag() const;
 
     //************************************
     // FullName:    KDIS::PDU::Acknowledge_PDU::SetAcknowledgeResponseFlag
@@ -104,8 +100,8 @@ public:
     // Description: Indicates if the receiving entity is able to comply with the request
     // Parameter:   AcknowledgeResponseFlag ARF
     //************************************
-    void SetAcknowledgeResponseFlag( AcknowledgeResponseFlag ARF );
-    AcknowledgeResponseFlag GetAcknowledgeResponseFlag() const;
+    void SetAcknowledgeResponseFlag( KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
+    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag GetAcknowledgeResponseFlag() const;
 
     //************************************
     // FullName:    KDIS::PDU::Acknowledge_PDU::SetRequestID

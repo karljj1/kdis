@@ -46,9 +46,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::AlternateParameter4;
-using KDIS::DATA_TYPE::ENUMS::TCAS;
-
 struct KDIS_EXPORT FundamentalOperationalData_MarkXTransponder
 {
 protected:
@@ -224,16 +221,16 @@ public:
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::SetAlternateParameter4
     //              KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::GetAlternateParameter4
     // Description: Used for an alternative representation of parameter 4
-    // Parameter:   AlternateParameter4 AP4, void
+    // Parameter:   AlternateParameter4 AP4
     //************************************
-    void SetAlternateParameter4( AlternateParameter4 AP4 );
-    AlternateParameter4 GetAlternateParameter4() const;
+    void SetAlternateParameter4( KDIS::DATA_TYPE::ENUMS::AlternateParameter4 AP4 );
+    KDIS::DATA_TYPE::ENUMS::AlternateParameter4 GetAlternateParameter4() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::SetInfomationLayer
     //              KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::IsInfomationLayerPresent
     // Description: Used for an alternative representation of parameter 4
-    // Parameter:   KBOOL, void
+    // Parameter:   KBOOL
     //************************************
     void SetInfomationLayersPresence( KBOOL IsLayer1Present, KBOOL IsLayer2Present );
     void SetInfomationLayer1( KBOOL IsPresent );
@@ -259,7 +256,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::SetMode1
     //              KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::GetMode1
     // Description: Parameter 1 data - Mode 1 Code/Status
-    // Parameter:   KBOOL, KUINT8, void
+    // Parameter:   KBOOL, KUINT8
     //************************************
     void SetMode1CodeStatus( KUINT8 CodeElement1, KUINT8 CodeElement2, KBOOL IsStatusOn,
                              KBOOL IsDamaged, KBOOL IsMalfunctioning );
@@ -278,7 +275,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::SetMode2
     //              KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::GetMode2
     // Description: Parameter 2 data - Mode 2 Code/Status
-    // Parameter:   KBOOL, KUINT8, void
+    // Parameter:   KBOOL, KUINT8
     //************************************
     void SetMode2CodeStatus( KUINT8 CodeElement1, KUINT8 CodeElement2, KUINT8 CodeElement3,
                              KUINT8 CodeElement4, KBOOL IsStatusOn, KBOOL IsDamaged,
@@ -328,7 +325,7 @@ public:
     // Description: Parameter 4 data - Mode 4 Code/Status
     //              Note: CodeElement1 value ranges = 0-4094 = "Pseudo-Crypto" value
     //              4095 = No Pseudo-Crypto value. Use Alternate Mode 4 value.
-    // Parameter:   KBOOL, KUINT16, void
+    // Parameter:   KBOOL, KUINT16
     //************************************
     void SetMode4CodeStatus( KUINT16 CodeElement1, KBOOL IsStatusOn, KBOOL IsDamaged,
                              KBOOL IsMalfunctioning );
@@ -350,7 +347,7 @@ public:
     //              Altitude value: Range 0-1260 in hundreds of feet.
     //              2047 = Not actual Mode C altitude value.  Use
     //              alternate Mode 5 (Bits 0-11 = 4095 i.e. all 1-s)
-    // Parameter:   KBOOL, KUINT16, void
+    // Parameter:   KBOOL, KUINT16
     //************************************
     void SetModeCCodeStatus( KBOOL IsAltitudeNegativeMeanSeaLevel, KUINT16 Altitude,
                              KBOOL IsStatusOn, KBOOL IsDamaged, KBOOL IsMalfunctioning );
@@ -369,14 +366,14 @@ public:
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::SetModeS
     //              KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder::GetModeS
     // Description: Parameter 6 data - Mode S Code/Status
-    // Parameter:   KBOOL, void
+    // Parameter:   KBOOL
     //************************************
-    void SetModeSCodeStatus( TCAS TCASVersion, KBOOL IsStatusOn, KBOOL IsDamaged,
+    void SetModeSCodeStatus( KDIS::DATA_TYPE::ENUMS::TCAS TCASVersion, KBOOL IsStatusOn, KBOOL IsDamaged,
                              KBOOL IsMalfunctioning );
     void SetModeSStatus( KBOOL IsOn );
     void SetModeSDamage( KBOOL IsDamaged );
     void SetModeSMalfunction( KBOOL IsMalfunctioning );
-    TCAS GetTCASVersion() const;
+    KDIS::DATA_TYPE::ENUMS::TCAS GetTCASVersion() const;
     KBOOL IsModeSStatusOn() const;
     KBOOL IsModeSDamaged() const;
     KBOOL IsModeSMalfunctioning() const;

@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::GridDataRepresentation;
-
 class KDIS_EXPORT GridData : public DataTypeBase
 {
 protected:
@@ -82,7 +80,7 @@ public:
     //              Values fields of this record. Use this value to know what type you should up cast to.
     //              E.G if the value was 1 then you would upcast to a "GridDataType1" to get access to the data.
     //************************************
-    GridDataRepresentation GetDataRepresentation() const;
+    KDIS::DATA_TYPE::ENUMS::GridDataRepresentation GetDataRepresentation() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridData::GetDataRepresentation

@@ -43,9 +43,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::CryptoSystemType;
-using KDIS::DATA_TYPE::ENUMS::EncryptionMode;
-
 class KDIS_EXPORT CryptoSystem : public DataTypeBase
 {
 protected:
@@ -71,27 +68,27 @@ public:
 
     CryptoSystem( KDataStream & stream )throw( KException );
 
-    CryptoSystem( CryptoSystemType CST, EncryptionMode EM, KUINT16 Key );
+    CryptoSystem( KDIS::DATA_TYPE::ENUMS::CryptoSystemType CST, KDIS::DATA_TYPE::ENUMS::EncryptionMode EM, KUINT16 Key );
 
     virtual ~CryptoSystem();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetCryptoSystemType
     //              KDIS::DATA_TYPE::CryptoSystem::GetCryptoSystemType
-    // Description: Equipment being used
-    // Parameter:   CryptoSystemType T, void
+    // Description: Equipment being used.
+    // Parameter:   CryptoSystemType T
     //************************************
-    void SetCryptoSystemType( CryptoSystemType T );
-    CryptoSystemType GetCryptoSystemType() const;
+    void SetCryptoSystemType( KDIS::DATA_TYPE::ENUMS::CryptoSystemType T );
+    KDIS::DATA_TYPE::ENUMS::CryptoSystemType GetCryptoSystemType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetEncryptionMode
     //              KDIS::DATA_TYPE::CryptoSystem::GetEncryptionMode
-    // Description: Mode being used to encrypt the data
-    // Parameter:   EncryptionMode EM, void
+    // Description: Mode being used to encrypt the data.
+    // Parameter:   EncryptionMode EM
     //************************************
-    void SetEncryptionMode( EncryptionMode EM );
-    EncryptionMode GetEncryptionMode() const;
+    void SetEncryptionMode( KDIS::DATA_TYPE::ENUMS::EncryptionMode EM );
+    KDIS::DATA_TYPE::ENUMS::EncryptionMode GetEncryptionMode() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetKey
@@ -100,7 +97,7 @@ public:
     //              from the sender is the same as the key of the
     //              receiver then they are considered to be using the
     //              same key.
-    // Parameter:   KUINT16 EM, void
+    // Parameter:   KUINT16 EM
     //************************************
     void SetKey( KUINT16 K );
     KUINT16 GetKey() const;

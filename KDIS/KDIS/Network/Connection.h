@@ -65,11 +65,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace NETWORK {
 
-using KDIS::UTILS::PDU_Factory;
-using KDIS::PDU::Header;
-using std::vector;
-using std::auto_ptr;
-
 class KDIS_EXPORT Connection
 {
 protected:
@@ -83,9 +78,9 @@ protected:
 
     KBOOL m_bBlockingSocket;
 
-    vector<ConnectionSubscriber*> m_vpSubscribers;
+	std::vector<ConnectionSubscriber*> m_vpSubscribers;
 
-    PDU_Factory * m_pPduFact;
+    KDIS::UTILS::PDU_Factory * m_pPduFact;
 
 	// Allows us to handle pdu bundles
 	KDataStream m_stream;
@@ -120,7 +115,7 @@ public:
 
     // Note: If using multicast you should ensure you use a correct multicast address or an exception will occur.
     Connection( const KString & SendAddress, KUINT32 Port = 3000, KBOOL SendAddressIsMulticast = false,
-                KBOOL Blocking = true, PDU_Factory * Custom = 0 );
+                KBOOL Blocking = true, KDIS::UTILS::PDU_Factory * Custom = 0 );
 
     virtual ~Connection();
 
@@ -179,8 +174,8 @@ public:
     //              Note: Calling set will automatically delete the old PDU_Fatcory.
     // Parameter:   PDU_Factory * P
     //************************************
-    void SetPDU_Factory( PDU_Factory * P );
-    PDU_Factory * GetPDU_Factory();
+    void SetPDU_Factory( KDIS::UTILS::PDU_Factory * P );
+    KDIS::UTILS::PDU_Factory * GetPDU_Factory();
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::Send
@@ -198,7 +193,7 @@ public:
 	//				Returns number of bytes sent.
     // Parameter:   Header * H
     //************************************
-    KINT32 SendPDU( Header * H ) throw ( KException );
+    KINT32 SendPDU( KDIS::PDU::Header * H ) throw ( KException );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::Receive
@@ -221,7 +216,7 @@ public:
 	//				Note: This function supports PDU Bundles. 
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
-    auto_ptr<Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
+	std::auto_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
 };
 
 } // END namespace NETWORK

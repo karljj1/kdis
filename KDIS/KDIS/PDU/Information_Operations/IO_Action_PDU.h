@@ -57,19 +57,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using std::vector;
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::StandardVariable;
-using KDIS::DATA_TYPE::StdVarPtr;
-using KDIS::DATA_TYPE::ENUMS::WarfareType;
-using KDIS::DATA_TYPE::ENUMS::ActionType;
-using KDIS::DATA_TYPE::ENUMS::ActionPhase;
-
 class KDIS_EXPORT IO_Action_PDU : public IO_Header
 {
 protected:
 
-    EntityIdentifier m_RecEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_RecEntityID;
 
     KUINT32 m_ui32ReqId;
 
@@ -83,15 +75,15 @@ protected:
 
     KUINT32 m_ui32Padding;
 
-    EntityIdentifier m_AtkEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_AtkEntityID;
 
-    EntityIdentifier m_TgtEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_TgtEntityID;
 
     KUINT16 m_ui16Padding;
 
     KUINT16 m_ui16NumStdVarRec;
 
-    vector<StdVarPtr> m_vStdVarRecs;
+	std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
 
 public:
 
@@ -103,9 +95,9 @@ public:
 
 	IO_Action_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    IO_Action_PDU( const EntityIdentifier & OrigID, const EntityIdentifier & RecvID, KUINT32 ReqID,
-                   WarfareType WT, KUINT16 SimSrc, ActionType AT, ActionPhase AP,
-                   const EntityIdentifier & AtkID, const EntityIdentifier & TgtID );
+    IO_Action_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OrigID, const KDIS::DATA_TYPE::EntityIdentifier & RecvID, KUINT32 ReqID,
+                   KDIS::DATA_TYPE::ENUMS::WarfareType WT, KUINT16 SimSrc, KDIS::DATA_TYPE::ENUMS::ActionType AT, KDIS::DATA_TYPE::ENUMS::ActionPhase AP,
+                   const KDIS::DATA_TYPE::EntityIdentifier & AtkID, const KDIS::DATA_TYPE::EntityIdentifier & TgtID );
 
     virtual ~IO_Action_PDU();
 
@@ -117,9 +109,9 @@ public:
     //              if applicable.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetReceivingEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetReceivingEntityID() const;
-    EntityIdentifier & GetReceivingEntityID();
+    void SetReceivingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::SetRequestID
@@ -136,8 +128,8 @@ public:
     // Description: Identifies the type of IO warfare.
     // Parameter:   WarfareType WT
     //************************************
-    void SetWarfareType( WarfareType WT );
-    WarfareType GetWarfareType() const;
+    void SetWarfareType( KDIS::DATA_TYPE::ENUMS::WarfareType WT );
+    KDIS::DATA_TYPE::ENUMS::WarfareType GetWarfareType() const;
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::SetSimulationSource
@@ -160,8 +152,8 @@ public:
     // Description: Identifies the type of IO action.
     // Parameter:   ActionType AT
     //************************************
-    void SetActionType( ActionType AT );
-    ActionType GetActionType() const;
+    void SetActionType( KDIS::DATA_TYPE::ENUMS::ActionType AT );
+    KDIS::DATA_TYPE::ENUMS::ActionType GetActionType() const;
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::SetActionPhase
@@ -169,8 +161,8 @@ public:
     // Description: Identifies the Phase of IO action.
     // Parameter:   ActionPhase AP
     //************************************
-    void SetActionPhase( ActionPhase AP );
-    ActionPhase GetActionPhase() const;
+    void SetActionPhase( KDIS::DATA_TYPE::ENUMS::ActionPhase AP );
+    KDIS::DATA_TYPE::ENUMS::ActionPhase GetActionPhase() const;
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::SetAttackerEntityID
@@ -178,9 +170,9 @@ public:
     // Description: Identifies the IO Attacker Entity ID.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetAttackerEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetAttackerEntityID() const;
-    EntityIdentifier & GetAttackerEntityID();
+    void SetAttackerEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetAttackerEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetAttackerEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::SetPrimaryTargetEntityID
@@ -188,9 +180,9 @@ public:
     // Description: Identifies the IO Primary Target Entity ID.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetPrimaryTargetEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetPrimaryTargetEntityID() const;
-    EntityIdentifier & GetPrimaryTargetEntityID();
+    void SetPrimaryTargetEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetPrimaryTargetEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetPrimaryTargetEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::GetNumberOfIORecords
@@ -208,9 +200,9 @@ public:
     //              -   IOEffect
     // Parameter:   StdVarPtr SVR, const vector<StdVarPtr> & SVR
     //************************************
-    void AddStandardVariableRecord( StdVarPtr SVR );
-    void SetStandardVariableRecords( const vector<StdVarPtr> & SVR );
-    const vector<StdVarPtr> & GetStandardVariableRecords() const;
+    void AddStandardVariableRecord( KDIS::DATA_TYPE::StdVarPtr SVR );
+	void SetStandardVariableRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & SVR );
+	const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetStandardVariableRecords() const;
     void ClearStandardVariableRecords();
 
     //************************************

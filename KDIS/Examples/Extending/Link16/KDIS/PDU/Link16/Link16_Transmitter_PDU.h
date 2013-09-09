@@ -74,12 +74,7 @@ http://p.sf.net/kdis/UserGuide
 
 namespace KDIS {
 namespace PDU {
-namespace Link16 {
-
-using KDIS::DATA_TYPE::ENUMS::LINK16::TimeSlotAllocationMode;
-using KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalPrimaryMode;
-using KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalSecondaryMode;
-using KDIS::DATA_TYPE::ENUMS::LINK16::SynchronizationState;
+namespace LINK16 {
 
 class Link16_Transmitter_PDU : public Transmitter_PDU
 {
@@ -103,13 +98,13 @@ public:
 
 	Link16_Transmitter_PDU( KDataStream & stream ) throw( KException );
 
-	Link16_Transmitter_PDU( const RadioEntityType & Type, TransmitState TS, RadioInputSource IS,
-						    const AntennaLocation & AL, AntennaPatternType APT, KUINT64 Freq,
-							KFLOAT32 FreqBW, KFLOAT32 Power, const ModulationType & MT,
-							const CryptoSystem & CS, const KOCTET * ModulationParams,
+	Link16_Transmitter_PDU( const KDIS::DATA_TYPE::RadioEntityType & Type, KDIS::DATA_TYPE::ENUMS::TransmitState TS, KDIS::DATA_TYPE::ENUMS::RadioInputSource IS,
+						    const KDIS::DATA_TYPE::AntennaLocation & AL, KDIS::DATA_TYPE::ENUMS::AntennaPatternType APT, KUINT64 Freq,
+							KFLOAT32 FreqBW, KFLOAT32 Power, const KDIS::DATA_TYPE::ModulationType & MT,
+							const KDIS::DATA_TYPE::CryptoSystem & CS, const KOCTET * ModulationParams,
 							KUINT8 ModulationParamsLength, const KOCTET * AntennaPattern,
-							KUINT8 AntennaPatternLength, TimeSlotAllocationMode TSA, 
-							TransmittingTerminalPrimaryMode TTPM, TransmittingTerminalSecondaryMode TTSM,
+							KUINT8 AntennaPatternLength, KDIS::DATA_TYPE::ENUMS::LINK16::TimeSlotAllocationMode TSA, 
+							KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalPrimaryMode TTPM, KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalSecondaryMode TTSM,
 							KUINT32 NetSyncID );
 	
 	virtual ~Link16_Transmitter_PDU();
@@ -120,8 +115,8 @@ public:
 	// Description: TSA Level.
 	// Parameter:   TimeSlotAllocationMode TSA
 	//************************************
-	void SetTimeSlotAllocationMode( TimeSlotAllocationMode TSA );
-	TimeSlotAllocationMode GetTimeSlotAllocationMode() const;
+	void SetTimeSlotAllocationMode( KDIS::DATA_TYPE::ENUMS::LINK16::TimeSlotAllocationMode TSA );
+	KDIS::DATA_TYPE::ENUMS::LINK16::TimeSlotAllocationMode GetTimeSlotAllocationMode() const;
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTransmittingTerminalPrimaryMode
@@ -129,8 +124,8 @@ public:
 	// Description: Primary mode of operation of the transmitting terminal.
 	// Parameter:   TransmittingTerminalPrimaryMode TTPM
 	//************************************
-	void SetTransmittingTerminalPrimaryMode( TransmittingTerminalPrimaryMode TTPM );
-	TransmittingTerminalPrimaryMode GetTransmittingTerminalPrimaryMode() const;
+	void SetTransmittingTerminalPrimaryMode( KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalPrimaryMode TTPM );
+	KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalPrimaryMode GetTransmittingTerminalPrimaryMode() const;
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTransmittingTerminalSecondaryMode
@@ -138,8 +133,8 @@ public:
 	// Description: Secondary mode of operation of the transmitting terminal.
 	// Parameter:   TransmittingTerminalSecondaryMode TTSM
 	//************************************
-	void SetTransmittingTerminalSecondaryMode( TransmittingTerminalSecondaryMode TTSM );
-	TransmittingTerminalSecondaryMode GetTransmittingTerminalSecondaryMode() const;
+	void SetTransmittingTerminalSecondaryMode( KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalSecondaryMode TTSM );
+	KDIS::DATA_TYPE::ENUMS::LINK16::TransmittingTerminalSecondaryMode GetTransmittingTerminalSecondaryMode() const;
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::GetSynchronizationState
@@ -148,7 +143,7 @@ public:
 	//              it shall be initially set to 2 for coarse synchronization.
 	//              This value is automatically set by the SetTimeSlotAllocationMode function.
 	//************************************
-	SynchronizationState GetSynchronizationState() const;
+	KDIS::DATA_TYPE::ENUMS::LINK16::SynchronizationState GetSynchronizationState() const;
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetNetworkSyncID
@@ -187,7 +182,7 @@ public:
     KBOOL operator != ( const Link16_Transmitter_PDU & Value ) const;
 };
 
-} // END namespace Link16
+} // END namespace LINK16
 } // END namespace PDU
 } // END namespace KDIS
 

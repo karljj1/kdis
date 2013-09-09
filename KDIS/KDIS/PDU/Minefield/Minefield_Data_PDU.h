@@ -54,20 +54,11 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::MinefieldDataFilter;
-using KDIS::DATA_TYPE::EntityType;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::Mine;
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::SensorType;
-using std::vector;
-
 class KDIS_EXPORT Minefield_Data_PDU : public Minefield_Header
 {
 protected:
 
-    EntityIdentifier m_ReqID;
+	KDIS::DATA_TYPE::EntityIdentifier m_ReqID;
 
     union
     {
@@ -91,13 +82,13 @@ protected:
 
     KUINT8 m_ui8Padding1;
 
-    MinefieldDataFilter m_DataFilter;
+    KDIS::DATA_TYPE::MinefieldDataFilter m_DataFilter;
 
-    EntityType m_MineTyp;
+    KDIS::DATA_TYPE::EntityType m_MineTyp;
 
-    vector<KUINT16> m_vui16SensorTypes;
+	std::vector<KUINT16> m_vui16SensorTypes;
 
-    vector<Mine> m_vMines;
+	std::vector<KDIS::DATA_TYPE::Mine> m_vMines;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::calcPaddingPaintScheme
@@ -123,9 +114,9 @@ public:
 
 	Minefield_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Minefield_Data_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
+    Minefield_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                         KUINT16 SeqNum, KUINT8 RequestID, KUINT8 PduSeqNum, KUINT8 NumPdus,
-                        const MinefieldDataFilter & DF, const EntityType & MineType );
+                        const KDIS::DATA_TYPE::MinefieldDataFilter & DF, const KDIS::DATA_TYPE::EntityType & MineType );
 
     virtual ~Minefield_Data_PDU();
 
@@ -135,9 +126,9 @@ public:
     // Description: The simulation that is requesting the information.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetRequestingSimulationID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetRequestingSimulationID() const;
-    EntityIdentifier & GetRequestingSimulationID();
+    void SetRequestingSimulationID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::SetSequenceNumber
@@ -205,9 +196,9 @@ public:
     //              the mines contained in this Minefield Data PDU.
     // Parameter:   const MinefieldDataFilter & DF
     //************************************
-    void SetDataFilter( const MinefieldDataFilter & DF );
-    const MinefieldDataFilter & GetDataFilter() const;
-    MinefieldDataFilter & GetDataFilter();
+    void SetDataFilter( const KDIS::DATA_TYPE::MinefieldDataFilter & DF );
+    const KDIS::DATA_TYPE::MinefieldDataFilter & GetDataFilter() const;
+    KDIS::DATA_TYPE::MinefieldDataFilter & GetDataFilter();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::SetMineType
@@ -215,9 +206,9 @@ public:
     // Description: The type of mine contained in this PDU.
     // Parameter:   const MinefieldDataFilter & DF
     //************************************
-    void SetMineType( const EntityType & MT );
-    const EntityType & GetMineType() const;
-    EntityType & GetMineType();
+    void SetMineType( const KDIS::DATA_TYPE::EntityType & MT );
+    const KDIS::DATA_TYPE::EntityType & GetMineType() const;
+    KDIS::DATA_TYPE::EntityType & GetMineType();
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::AddSensorType
@@ -231,11 +222,11 @@ public:
     //              subcategory within the specified category.
     //              The enum SensorType(EnumMinefield.h) provides all sensor types from SISO-REF-10-2006 which have all the bits set
     //              correctly for each sensor type.
-    // Parameter:   SensorType ST, vector<KUINT16> & ST, void
+    // Parameter:   SensorType ST, vector<KUINT16> & ST
     //************************************
-    void AddSensorType( SensorType ST );
-    void SetSensorTypes( const vector<KUINT16> & ST );
-    const vector<KUINT16> & GetSensorTypes() const;
+	void AddSensorType( KDIS::DATA_TYPE::ENUMS::SensorType ST );
+	void SetSensorTypes( const std::vector<KUINT16> & ST );
+	const std::vector<KUINT16> & GetSensorTypes() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::AddMine
@@ -246,9 +237,9 @@ public:
     //              MinefieldDataFilter, if they are not then an INVALID_OPERATION exception is thrown.
     // Parameter:   const Mine & M, const vector<Mine> & M
     //************************************
-    void AddMine( const Mine & M ) throw( KException );
-    void SetMines( const vector<Mine> & M ) throw( KException );
-    const vector<Mine> & GetMines() const;
+    void AddMine( const KDIS::DATA_TYPE::Mine & M ) throw( KException );
+	void SetMines( const std::vector<KDIS::DATA_TYPE::Mine> & M ) throw( KException );
+	const std::vector<KDIS::DATA_TYPE::Mine> & GetMines() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::GetAsString

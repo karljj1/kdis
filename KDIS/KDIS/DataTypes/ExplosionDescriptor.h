@@ -54,8 +54,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::ExplosiveMaterial;
-
 class KDIS_EXPORT ExplosionDescriptor : public Descriptor
 {
 protected:
@@ -72,7 +70,7 @@ public:
 
     ExplosionDescriptor( KDataStream & stream )throw( KException );
 
-    ExplosionDescriptor( const EntityType & T, ExplosiveMaterial EM, KFLOAT32 Force );                         
+    ExplosionDescriptor( const EntityType & T, KDIS::DATA_TYPE::ENUMS::ExplosiveMaterial EM, KFLOAT32 Force );                         
 
     virtual ~ExplosionDescriptor();
 
@@ -82,8 +80,8 @@ public:
     // Description: Indicates the material that exploded. 
     // Parameter:   ExplosiveMaterial EM
     //************************************
-    void SetExplosiveMaterial( ExplosiveMaterial EM );
-    ExplosiveMaterial GetExplosiveMaterial() const;
+    void SetExplosiveMaterial( KDIS::DATA_TYPE::ENUMS::ExplosiveMaterial EM );
+    KDIS::DATA_TYPE::ENUMS::ExplosiveMaterial GetExplosiveMaterial() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ExplosionDescriptor::SetExplosiveForce

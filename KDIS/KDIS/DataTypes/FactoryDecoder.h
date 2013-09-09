@@ -72,9 +72,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::map;
-using KDIS::UTILS::KRef_Ptr;
-
 template<class DecoderBaseTyp>
 class FactoryDecoder 
 {
@@ -108,11 +105,11 @@ class FactoryDecoderUser
 {
 public:
 	
-	typedef KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > FacDecPtr;
+	typedef KDIS::UTILS::KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > FacDecPtr;
 
 protected:
 
-	static map<KINT32, FacDecPtr> m_mDecoders;
+	static std::map<KINT32, FacDecPtr> m_mDecoders;
 	
 public:
 
@@ -148,7 +145,7 @@ public:
 	static DecoderBaseTyp * FactoryDecode( KINT32 EnumVal, KDataStream & stream ) throw( KException )
 	{
 		// Try to find a decoder
-		typename map<KINT32, FacDecPtr>::iterator itr = m_mDecoders.find( EnumVal );
+		typename std::map<KINT32, FacDecPtr>::iterator itr = m_mDecoders.find( EnumVal );
 		if( itr != m_mDecoders.end() )
 		{
 			return itr->second->FactoryDecode( EnumVal, stream );
@@ -170,7 +167,7 @@ public:
 
 // Init static map variable.
 template<class DecoderBaseTyp>
-map<KINT32, KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > > FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders = map<KINT32, KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > >();
+std::map<KINT32, KDIS::UTILS::KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > > FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders = std::map<KINT32, KDIS::UTILS::KRef_Ptr< FactoryDecoder<DecoderBaseTyp> > >();
 
 } // END namespace DATA_TYPES
 } // END namespace KDIS

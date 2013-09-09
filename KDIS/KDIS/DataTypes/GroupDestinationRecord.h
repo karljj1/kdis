@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::LineStateCommand;
-
 class KDIS_EXPORT GroupDestinationRecord :  public DataTypeBase
 {
 protected:
@@ -66,7 +64,7 @@ public:
 
     GroupDestinationRecord( KDataStream & stream )throw( KException );
 
-    GroupDestinationRecord( KUINT32 GroupBitField, KUINT8 Priority, LineStateCommand LSC );
+    GroupDestinationRecord( KUINT32 GroupBitField, KUINT8 Priority, KDIS::DATA_TYPE::ENUMS::LineStateCommand LSC );
 
     virtual ~GroupDestinationRecord();
 
@@ -76,7 +74,7 @@ public:
     // Description: Sets the group/s the Intercom PDU applies to.
     //              Each group is represented by a single bit, 1 indicates the PDU applies to this group.
     //              Exception thrown if a bit greater than 31 is specified in Group.
-    // Parameter:   KUINT32 AllGroups, void, KUINT8 Group
+    // Parameter:   KUINT32 AllGroups, KUINT8 Group
     // Parameter:   KBOOL InGroup = true
     //************************************
     void SetGroupBitField( KUINT32 AllGroups );
@@ -91,7 +89,7 @@ public:
     //              from other intercom devices on the same channel.
     //              The value 0 is reserved.
     //              1 = highest priority, 255 = lowest priority.
-    // Parameter:   KUINT8 TP, void
+    // Parameter:   KUINT8 TP
     //************************************
     void SetDestinationPriority( KUINT8 TP );
     KUINT8 GetDestinationPriority() const;
@@ -102,10 +100,10 @@ public:
     // Description: When the Control Type of the Intercom Control PDU is
     //              request or acknowledge, this field shall specify the
     //              detailed type requested. Otherwise set to 0.
-    // Parameter:   LineStateCommand LSC, void
+    // Parameter:   LineStateCommand LSC
     //************************************
-    void SetLineStateCommand( LineStateCommand LSC );
-    LineStateCommand GetLineStateCommand() const;
+    void SetLineStateCommand( KDIS::DATA_TYPE::ENUMS::LineStateCommand LSC );
+    KDIS::DATA_TYPE::ENUMS::LineStateCommand GetLineStateCommand() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GroupDestinationRecord::GetAsString

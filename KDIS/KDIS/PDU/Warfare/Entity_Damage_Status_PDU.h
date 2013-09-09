@@ -54,21 +54,17 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::StandardVariable;
-using KDIS::DATA_TYPE::StdVarPtr;
-
 class KDIS_EXPORT Entity_Damage_Status_PDU : public Header
 {
 protected:
 
-	EntityIdentifier m_DmgEnt;
+	KDIS::DATA_TYPE::EntityIdentifier m_DmgEnt;
 
 	KUINT32 m_ui32Padding;
 
 	KUINT16 m_ui16NumDmgDescRecs;
 
-	vector<StdVarPtr> m_vDdRec;
+	std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDdRec;
 
 public:
 
@@ -80,7 +76,7 @@ public:
 
 	Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Entity_Damage_Status_PDU( const EntityIdentifier & DamagedEntityID );
+	Entity_Damage_Status_PDU( const KDIS::DATA_TYPE::EntityIdentifier & DamagedEntityID );
 
     virtual ~Entity_Damage_Status_PDU();
 
@@ -90,9 +86,9 @@ public:
     // Description: The damaged entity.
     // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetDamagedEntityID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetDamagedEntityID() const;
-    EntityIdentifier & GetDamagedEntityID();
+    void SetDamagedEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetDamagedEntityID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetDamagedEntityID();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetNumberOfDamageDescriptionRecords    
@@ -109,9 +105,9 @@ public:
 	//				other Standard Variable records.
     // Parameter:   StdVarPtr DD, const vector<StdVarPtr> & DD
 	//************************************    
-    void AddDamageDescriptionRecord( StdVarPtr DD );
-    void SetDamageDescriptionRecords( const vector<StdVarPtr> & DD );
-    const vector<StdVarPtr> & GetDamageDescriptionRecords() const;
+    void AddDamageDescriptionRecord( KDIS::DATA_TYPE::StdVarPtr DD );
+    void SetDamageDescriptionRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DD );
+    const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDamageDescriptionRecords() const;
 	void ClearDamageDescriptionRecords();
   
     //************************************

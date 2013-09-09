@@ -56,52 +56,37 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::EntityType;
-using KDIS::DATA_TYPE::Vector;
-using KDIS::DATA_TYPE::WorldCoordinates;
-using KDIS::DATA_TYPE::EulerAngles;
-using KDIS::DATA_TYPE::EntityAppearance;
-using KDIS::DATA_TYPE::DeadReckoningParameter;
-using KDIS::DATA_TYPE::EntityMarking;
-using KDIS::DATA_TYPE::EntityCapabilities;
-using KDIS::DATA_TYPE::VariableParameter;
-using KDIS::DATA_TYPE::VarPrmPtr;
-using KDIS::DATA_TYPE::ENUMS::ForceID;
-using KDIS::UTILS::DeadReckoningCalculator;
-using std::vector;
-
 class KDIS_EXPORT Entity_State_PDU : public Header
 {
 protected:
 
-    EntityIdentifier m_EntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
 
     KUINT8 m_ui8ForceID;
 
     KUINT8 m_ui8NumOfVariableParams;
 
-    EntityType m_EntityType;
+    KDIS::DATA_TYPE::EntityType m_EntityType;
 
-    EntityType m_AltEntityType;
+    KDIS::DATA_TYPE::EntityType m_AltEntityType;
 
-    Vector m_EntityLinearVelocity;
+    KDIS::DATA_TYPE::Vector m_EntityLinearVelocity;
 
-    WorldCoordinates m_EntityLocation;
+    KDIS::DATA_TYPE::WorldCoordinates m_EntityLocation;
 
-    EulerAngles m_EntityOrientation;
+    KDIS::DATA_TYPE::EulerAngles m_EntityOrientation;
 
-    EntityAppearance m_EntityAppearance;
+    KDIS::DATA_TYPE::EntityAppearance m_EntityAppearance;
 
-    DeadReckoningParameter m_DeadReckoningParameter;
+    KDIS::DATA_TYPE::DeadReckoningParameter m_DeadReckoningParameter;
 
-    EntityMarking m_EntityMarking;
+    KDIS::DATA_TYPE::EntityMarking m_EntityMarking;
 
-    EntityCapabilities m_EntityCapabilities;
+    KDIS::DATA_TYPE::EntityCapabilities m_EntityCapabilities;
 
-    vector<VarPrmPtr> m_vVariableParameters;
+	std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
-    DeadReckoningCalculator * m_pDrCalc;
+    KDIS::UTILS::DeadReckoningCalculator * m_pDrCalc;
 
 public:
 
@@ -114,11 +99,11 @@ public:
 
 	Entity_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Entity_State_PDU( const EntityIdentifier & EI, ForceID ID, const EntityType & Type, const EntityType & AltType,
-                      const Vector & EntityLinearVelocity, const WorldCoordinates & EntityLocation,
-                      const EulerAngles & EntityOrientation, const EntityAppearance & EA,
-                      const DeadReckoningParameter & DRP, const EntityMarking & EM,
-                      const EntityCapabilities & EC );
+	Entity_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KDIS::DATA_TYPE::ENUMS::ForceID ID, const KDIS::DATA_TYPE::EntityType & Type, 
+		              const KDIS::DATA_TYPE::EntityType & AltType, const KDIS::DATA_TYPE::Vector & EntityLinearVelocity, 
+					  const KDIS::DATA_TYPE::WorldCoordinates & EntityLocation, const KDIS::DATA_TYPE::EulerAngles & EntityOrientation, 
+					  const KDIS::DATA_TYPE::EntityAppearance & EA, const KDIS::DATA_TYPE::DeadReckoningParameter & DRP, 
+					  const KDIS::DATA_TYPE::EntityMarking & EM, const KDIS::DATA_TYPE::EntityCapabilities & EC );
 
     virtual ~Entity_State_PDU();
 
@@ -129,9 +114,9 @@ public:
     //              the simulation address.(site, application) and the final is the entity. This ID should be unqiue to the simulation.
     // Parameter:   const EntityIdentifier & EI
     //************************************
-    void SetEntityIdentifier( const EntityIdentifier & EI );
-    const EntityIdentifier & GetEntityIdentifier() const;
-    EntityIdentifier & GetEntityIdentifier();
+    void SetEntityIdentifier( const KDIS::DATA_TYPE::EntityIdentifier & EI );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetEntityIdentifier() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetEntityIdentifier();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetForceID
@@ -140,8 +125,8 @@ public:
     //              such as friendly, opposing or neutral.
     // Parameter:   ForceID ID
     //************************************
-    void SetForceID( ForceID ID );
-    ForceID GetForceID() const;
+	void SetForceID( KDIS::DATA_TYPE::ENUMS::ForceID ID );
+	KDIS::DATA_TYPE::ENUMS::ForceID GetForceID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::GetNumberOfVariableParams
@@ -157,9 +142,9 @@ public:
     //              the SISO website for a full list of enumerations available.
     // Parameter:   const EntityType & Type
     //************************************
-    void SetEntityType( const EntityType & Type );
-    const EntityType & GetEntityType() const;
-    EntityType & GetEntityType();
+    void SetEntityType( const KDIS::DATA_TYPE::EntityType & Type );
+    const KDIS::DATA_TYPE::EntityType & GetEntityType() const;
+    KDIS::DATA_TYPE::EntityType & GetEntityType();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetAltEntityType
@@ -169,9 +154,9 @@ public:
     //              I.E This could be used to represent an entity in disguise.
     // Parameter:   const EntityType & Type
     //************************************
-    void SetAltEntityType( const EntityType & Type );
-    const EntityType & GetAltEntityType() const;
-    EntityType & GetAltEntityType();
+    void SetAltEntityType( const KDIS::DATA_TYPE::EntityType & Type );
+    const KDIS::DATA_TYPE::EntityType & GetAltEntityType() const;
+    KDIS::DATA_TYPE::EntityType & GetAltEntityType();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityLinearVelocity
@@ -179,9 +164,9 @@ public:
     // Description: Represented as Linear Velocity Vector. m/s.
     // Parameter:   const Vector & ELV
     //************************************
-    void SetEntityLinearVelocity( const Vector & ELV );
-    const Vector & GetEntityLinearVelocity() const;
-    Vector & GetEntityLinearVelocity();
+    void SetEntityLinearVelocity( const KDIS::DATA_TYPE::Vector & ELV );
+    const KDIS::DATA_TYPE::Vector & GetEntityLinearVelocity() const;
+    KDIS::DATA_TYPE::Vector & GetEntityLinearVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityLocation
@@ -190,9 +175,9 @@ public:
     //              Note: See KConversions.h for some useful coordinate conversions.
     // Parameter:   const WorldCoordinates & EL
     //************************************
-    void SetEntityLocation( const WorldCoordinates & EL );
-    const WorldCoordinates & GetEntityLocation() const;
-    WorldCoordinates & GetEntityLocation();
+    void SetEntityLocation( const KDIS::DATA_TYPE::WorldCoordinates & EL );
+    const KDIS::DATA_TYPE::WorldCoordinates & GetEntityLocation() const;
+    KDIS::DATA_TYPE::WorldCoordinates & GetEntityLocation();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityOrientation
@@ -201,9 +186,9 @@ public:
     //              Note: See KConversions.h for some useful orientation conversions.
     // Parameter:   const EulerAngles & EO
     //************************************
-    void SetEntityOrientation( const EulerAngles & EO );
-    const EulerAngles & GetEntityOrientation() const;
-    EulerAngles & GetEntityOrientation();
+    void SetEntityOrientation( const KDIS::DATA_TYPE::EulerAngles & EO );
+    const KDIS::DATA_TYPE::EulerAngles & GetEntityOrientation() const;
+    KDIS::DATA_TYPE::EulerAngles & GetEntityOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityAppearance
@@ -213,9 +198,9 @@ public:
     //              Note The "Specific Entity Appearance" varies depending on entity type, E.G Air, Ground, Lifeform etc.
     // Parameter:   const EntityAppearance & EA
     //************************************
-    void SetEntityAppearance( const EntityAppearance & EA );
-    const EntityAppearance & GetEntityAppearance() const;
-    EntityAppearance & GetEntityAppearance();
+    void SetEntityAppearance( const KDIS::DATA_TYPE::EntityAppearance & EA );
+    const KDIS::DATA_TYPE::EntityAppearance & GetEntityAppearance() const;
+    KDIS::DATA_TYPE::EntityAppearance & GetEntityAppearance();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetDeadReckoningParameter
@@ -226,9 +211,9 @@ public:
     //              When a new entity update is received the entities position is corrected via a process called "smoothing".
     // Parameter:   const DeadReckoningParameter & DRP
     //************************************
-    void SetDeadReckoningParameter( const DeadReckoningParameter & DRP );
-    const DeadReckoningParameter & GetDeadReckoningParameter() const;
-    DeadReckoningParameter & GetDeadReckoningParameter();
+    void SetDeadReckoningParameter( const KDIS::DATA_TYPE::DeadReckoningParameter & DRP );
+    const KDIS::DATA_TYPE::DeadReckoningParameter & GetDeadReckoningParameter() const;
+    KDIS::DATA_TYPE::DeadReckoningParameter & GetDeadReckoningParameter();
 
     /************************************************************************/
     /* Dead reckoning calculator                                            */
@@ -241,8 +226,8 @@ public:
     //              Returns null pointer if InitDeadReckoning has not been called first.
     // Parameter:   const DeadReckoningParameter & DRP
     //************************************
-    void SetDeadReckoningCalculator( DeadReckoningCalculator * DR );
-    DeadReckoningCalculator * GetDeadReckoningCalculator();
+    void SetDeadReckoningCalculator( KDIS::UTILS::DeadReckoningCalculator * DR );
+    KDIS::UTILS::DeadReckoningCalculator * GetDeadReckoningCalculator();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::InitDeadReckoning
@@ -273,21 +258,21 @@ public:
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityMarking
     //              KDIS::PDU::Entity_State_PDU::GetEntityMarking
     // Description: Entity Marking. This can be the entities name,Army Markings or Chevrons.
-    // Parameter:   const EntityMarking & EM, void
+    // Parameter:   const EntityMarking & EM
     //************************************
-    void SetEntityMarking( const EntityMarking & EM );
-    const EntityMarking & GetEntityMarking() const;
-    EntityMarking & GetEntityMarking();
+    void SetEntityMarking( const KDIS::DATA_TYPE::EntityMarking & EM );
+    const KDIS::DATA_TYPE::EntityMarking & GetEntityMarking() const;
+    KDIS::DATA_TYPE::EntityMarking & GetEntityMarking();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::SetEntityCapabilities
     //              KDIS::PDU::Entity_State_PDU::GetEntityCapabilities
     // Description: Entity Capabilities. Such as has fuel/ammo supply etc.
-    // Parameter:   const EntityCapabilities & EC, void
+    // Parameter:   const EntityCapabilities & EC
     //************************************
-    void SetEntityCapabilities( const EntityCapabilities & EC );
-    const EntityCapabilities & GetEntityCapabilities() const;
-    EntityCapabilities & GetEntityCapabilities();
+    void SetEntityCapabilities( const KDIS::DATA_TYPE::EntityCapabilities & EC );
+    const KDIS::DATA_TYPE::EntityCapabilities & GetEntityCapabilities() const;
+    KDIS::DATA_TYPE::EntityCapabilities & GetEntityCapabilities();
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::AddVariableParameter
@@ -299,9 +284,9 @@ public:
     //              See VariableParameter for supported/implemented types.
     // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
-    void AddVariableParameter( VarPrmPtr VP );
-    void SetVariableParameters( const vector<VarPrmPtr> & VP );
-    const vector<VarPrmPtr> & GetVariableParameters() const;
+    void AddVariableParameter( KDIS::DATA_TYPE::VarPrmPtr VP );
+	void SetVariableParameters( const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & VP );
+	const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & GetVariableParameters() const;
     void ClearVariableParameters();
 
     //************************************

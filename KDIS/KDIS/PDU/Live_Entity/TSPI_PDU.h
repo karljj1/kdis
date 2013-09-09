@@ -55,15 +55,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::RelativeWorldCoordinates;
-using KDIS::DATA_TYPE::LE_Vector16_3;
-using KDIS::DATA_TYPE::KFIXED16_3;
-using KDIS::DATA_TYPE::LE_EulerAngles;
-using KDIS::DATA_TYPE::PositionError;
-using KDIS::DATA_TYPE::OrientationError;
-using KDIS::DATA_TYPE::LE_DeadReckoningParameter;
-using std::vector;
-
 class KDIS_EXPORT TSPI_PDU : public LE_Header
 {
 protected:
@@ -84,23 +75,23 @@ protected:
         KUINT8 m_ui8Flag;
     } m_TSPIFlagUnion;
 
-    RelativeWorldCoordinates m_Loc;
+    KDIS::DATA_TYPE::RelativeWorldCoordinates m_Loc;
 
-    LE_Vector16_3 m_LinVel;
+    KDIS::DATA_TYPE::LE_Vector16_3 m_LinVel;
 
-    LE_EulerAngles m_Ori;
+    KDIS::DATA_TYPE::LE_EulerAngles m_Ori;
 
-    PositionError m_PosErr;
+    KDIS::DATA_TYPE::PositionError m_PosErr;
 
-    OrientationError m_OriErr;
+    KDIS::DATA_TYPE::OrientationError m_OriErr;
 
-    LE_DeadReckoningParameter m_DeadReckoningParameter;
+    KDIS::DATA_TYPE::LE_DeadReckoningParameter m_DeadReckoningParameter;
 
-    KFIXED16_3 m_MeasureSpd;
+    KDIS::DATA_TYPE::KFIXED16_3 m_MeasureSpd;
 
     KUINT8 m_ui8SSDLen;
 
-    vector<KOCTET> m_vSSD;
+	std::vector<KOCTET> m_vSSD;
 
 public:
 
@@ -112,7 +103,7 @@ public:
 
 	TSPI_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    TSPI_PDU( const LE_EntityIdentifier & ID );
+    TSPI_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
     virtual ~TSPI_PDU();
 
@@ -158,9 +149,9 @@ public:
     //              Each delta distance component shall represent distance in decimeters.
     // Parameter:   const RelativeWorldCoordinates & L
     //************************************
-    void SetEntityLocation( const RelativeWorldCoordinates & L );
-    const RelativeWorldCoordinates & GetEntityLocation() const;
-    RelativeWorldCoordinates & GetEntityLocation();
+    void SetEntityLocation( const KDIS::DATA_TYPE::RelativeWorldCoordinates & L );
+    const KDIS::DATA_TYPE::RelativeWorldCoordinates & GetEntityLocation() const;
+    KDIS::DATA_TYPE::RelativeWorldCoordinates & GetEntityLocation();
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::SetEntityLinearVelocity
@@ -172,9 +163,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const LE_Vector16_3 & V
     //************************************
-    void SetEntityLinearVelocity( const LE_Vector16_3 & V );
-    const LE_Vector16_3 & GetEntityLinearVelocity() const;
-    LE_Vector16_3 & GetEntityLinearVelocity();
+    void SetEntityLinearVelocity( const KDIS::DATA_TYPE::LE_Vector16_3 & V );
+    const KDIS::DATA_TYPE::LE_Vector16_3 & GetEntityLinearVelocity() const;
+    KDIS::DATA_TYPE::LE_Vector16_3 & GetEntityLinearVelocity();
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::SetEntityLinearOrientation
@@ -183,9 +174,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const LE_EulerAngles & O
     //************************************
-    void SetEntityLinearOrientation( const LE_EulerAngles & O );
-    const LE_EulerAngles & GetEntityLinearOrientation() const;
-    LE_EulerAngles & GetEntityLinearOrientation();
+    void SetEntityLinearOrientation( const KDIS::DATA_TYPE::LE_EulerAngles & O );
+    const KDIS::DATA_TYPE::LE_EulerAngles & GetEntityLinearOrientation() const;
+    KDIS::DATA_TYPE::LE_EulerAngles & GetEntityLinearOrientation();
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::SetPositionError
@@ -195,9 +186,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const PositionError & PE
     //************************************
-    void SetPositionError( const PositionError & PE );
-    const PositionError & GetPositionError() const;
-    PositionError & GetPositionError();
+    void SetPositionError( const KDIS::DATA_TYPE::PositionError & PE );
+    const KDIS::DATA_TYPE::PositionError & GetPositionError() const;
+    KDIS::DATA_TYPE::PositionError & GetPositionError();
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::SetOrientationError
@@ -206,9 +197,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const OrientationError & OE
     //************************************
-    void SetOrientationError( const OrientationError & OE );
-    const OrientationError & GetOrientationError() const;
-    OrientationError & GetOrientationError();
+    void SetOrientationError( const KDIS::DATA_TYPE::OrientationError & OE );
+    const KDIS::DATA_TYPE::OrientationError & GetOrientationError() const;
+    KDIS::DATA_TYPE::OrientationError & GetOrientationError();
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::SetDeadReckoningParameter
@@ -223,9 +214,9 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const DeadReckoningParameter & DRP
     //************************************
-    void SetDeadReckoningParameter( const LE_DeadReckoningParameter & DRP );
-    const LE_DeadReckoningParameter & GetDeadReckoningParameter() const;
-    LE_DeadReckoningParameter & GetDeadReckoningParameter();
+    void SetDeadReckoningParameter( const KDIS::DATA_TYPE::LE_DeadReckoningParameter & DRP );
+    const KDIS::DATA_TYPE::LE_DeadReckoningParameter & GetDeadReckoningParameter() const;
+    KDIS::DATA_TYPE::LE_DeadReckoningParameter & GetDeadReckoningParameter();
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::SetMeasuredSpeed
@@ -237,8 +228,8 @@ public:
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   KFIXED16_3 S
     //************************************
-    void SetMeasuredSpeed( KFIXED16_3 S );
-    KFIXED16_3 GetMeasuredSpeed() const;
+    void SetMeasuredSpeed( KDIS::DATA_TYPE::KFIXED16_3 S );
+    KDIS::DATA_TYPE::KFIXED16_3 GetMeasuredSpeed() const;
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::GetSystemSpecificDataLength
@@ -256,11 +247,11 @@ public:
     //              from the data transmitted in this or other LE Information/Interaction PDU.
     //              Note: Setting this value will also cause the relevant flag to be set to true.
     // Parameter:   const vector<KOCTET> & SSD, const KOCTET * Data
-    // Parameter:   void, KUINT8 Length
+    // Parameter:   KUINT8 Length
     //************************************
-    void SetSystemSpecificData( const vector<KOCTET> & SSD );
+	void SetSystemSpecificData( const std::vector<KOCTET> & SSD );
     void SetSystemSpecificData( const KOCTET * Data, KUINT8 Length );
-    const vector<KOCTET> & GetSystemSpecificData() const;
+	const std::vector<KOCTET> & GetSystemSpecificData() const;
     void ClearSystemSpecificData();
 
     //************************************

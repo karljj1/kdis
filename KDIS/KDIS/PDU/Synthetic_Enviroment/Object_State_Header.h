@@ -46,16 +46,13 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::ENUMS::ForceID;
-
 class KDIS_EXPORT Object_State_Header : public Header
 {
 protected:
 
-    EntityIdentifier m_ObjID;
+    KDIS::DATA_TYPE::EntityIdentifier m_ObjID;
 
-    EntityIdentifier m_RefObjID;
+    KDIS::DATA_TYPE::EntityIdentifier m_RefObjID;
 
     KUINT16 m_ui16UpdateNum;
 
@@ -73,8 +70,8 @@ public:
 
 	Object_State_Header( const Header & H, KDataStream & stream ) throw( KException );
 
-    Object_State_Header( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID ,
-                         KUINT16 UpdateNum, ForceID FI );
+    Object_State_Header( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID ,
+                         KUINT16 UpdateNum, KDIS::DATA_TYPE::ENUMS::ForceID FI );
 
     virtual ~Object_State_Header();
 
@@ -82,29 +79,29 @@ public:
     // FullName:    KDIS::PDU::Object_State_Header::SetObjectID
     //              KDIS::PDU::Object_State_Header::GetObjectID
     // Description: The unique identification of the object in the SE.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetObjectID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetObjectID() const;
-    EntityIdentifier & GetObjectID();
+    void SetObjectID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetObjectID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetObjectID();
 
     //************************************
     // FullName:    KDIS::PDU::Object_State_Header::SetReferencedObjectID
     //              KDIS::PDU::Object_State_Header::GetReferencedObjectID
     // Description: The unique identification of the object with which this
     //              state object is associated with.
-    // Parameter:   const EntityIdentifier & ID, void
+    // Parameter:   const EntityIdentifier & ID
     //************************************
-    void SetReferencedObjectID( const EntityIdentifier & ID );
-    const EntityIdentifier & GetReferencedObjectID() const;
-    EntityIdentifier & GetReferencedObjectID();
+    void SetReferencedObjectID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
+    const KDIS::DATA_TYPE::EntityIdentifier & GetReferencedObjectID() const;
+    KDIS::DATA_TYPE::EntityIdentifier & GetReferencedObjectID();
 
     //************************************
     // FullName:    KDIS::PDU::Object_State_Header::SetUpdateNumber
     //              KDIS::PDU::Object_State_Header::GetUpdateNumber
     // Description: This field shall represent the unique update number, starting with 1,
     //              of each state transition of an individual object.
-    // Parameter:   KUINT16 U, void
+    // Parameter:   KUINT16 U
     //************************************
     void SetUpdateNumber( KUINT16 U );
     KUINT16 GetUpdateNumber() const;
@@ -113,10 +110,10 @@ public:
     // FullName:    KDIS::PDU::Object_State_Header::SetForceID
     //              KDIS::PDU::Object_State_Header::GetForceID
     // Description: Identifies the force that created or modified the object.
-    // Parameter:   ForceID ID, void
+    // Parameter:   ForceID ID
     //************************************
-    void SetForceID( ForceID ID );
-    ForceID GetForceID() const;
+    void SetForceID( KDIS::DATA_TYPE::ENUMS::ForceID ID );
+    KDIS::DATA_TYPE::ENUMS::ForceID GetForceID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Object_State_Header::GetAsString

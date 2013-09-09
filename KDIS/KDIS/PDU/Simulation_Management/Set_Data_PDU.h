@@ -44,8 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-using KDIS::DATA_TYPE::EntityIdentifier;
-
 class KDIS_EXPORT Set_Data_PDU : public Data_PDU
 {
 public:
@@ -58,7 +56,7 @@ public:
 
 	Set_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    Set_Data_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
+    Set_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                   KUINT32 RequestID );
 
     virtual ~Set_Data_PDU();

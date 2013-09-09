@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType;
-
 class KDIS_EXPORT IOCommunicationsNode : public StandardVariable
 {
 protected:
@@ -65,7 +63,7 @@ public:
 
     IOCommunicationsNode( KDataStream & stream ) throw( KException );
 
-    IOCommunicationsNode( IOCommunicationsNodeType T, const CommunicationsNodeID & ID );
+    IOCommunicationsNode( KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType T, const CommunicationsNodeID & ID );
 
     virtual ~IOCommunicationsNode();
 
@@ -75,8 +73,8 @@ public:
     // Description: The type of communication node.
     // Parameter:   IOCommunicationsNodeType T
     //************************************
-    void SetIOCommunicationsNodeType( IOCommunicationsNodeType T );
-    IOCommunicationsNodeType GetIOCommunicationsNodeType() const;
+    void SetIOCommunicationsNodeType( KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType T );
+    KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType GetIOCommunicationsNodeType() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::SetCommunicationsNodeID

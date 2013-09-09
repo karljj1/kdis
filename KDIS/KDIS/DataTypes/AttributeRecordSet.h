@@ -45,8 +45,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {	
 
-using std::vector;
-
 class KDIS_EXPORT AttributeRecordSet : public DataTypeBase
 {
 protected:
@@ -55,7 +53,7 @@ protected:
 
 	KUINT16 m_ui16NumAttrRecs;
 
-	vector<StdVarPtr> m_vAttrRec;	
+	std::vector<StdVarPtr> m_vAttrRec;	
 
 public:
 
@@ -95,8 +93,8 @@ public:
     // Parameter:   StdVarPtr AR, const vector<StdVarPtr> & AR
 	//************************************    
     void AddAttributeRecord( StdVarPtr AR );
-    void SetAttributeRecords( const vector<StdVarPtr> & AR );
-    const vector<StdVarPtr> & GetAttributeRecords() const;
+    void SetAttributeRecords( const std::vector<StdVarPtr> & AR );
+    const std::vector<StdVarPtr> & GetAttributeRecords() const;
 	void ClearAttributeRecords();
 
     //************************************

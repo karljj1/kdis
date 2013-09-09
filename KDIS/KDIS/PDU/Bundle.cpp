@@ -29,6 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./Bundle.h"
 
+using namespace std;
 using namespace KDIS;
 using namespace PDU;
 

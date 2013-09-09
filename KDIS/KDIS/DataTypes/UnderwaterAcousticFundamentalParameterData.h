@@ -44,9 +44,6 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex;
-using KDIS::DATA_TYPE::ENUMS::ScanPattern;
-
 class KDIS_EXPORT UnderwaterAcousticFundamentalParameterData : public DataTypeBase
 {
 protected:
@@ -71,8 +68,8 @@ public:
 
     UnderwaterAcousticFundamentalParameterData( KDataStream & stream )throw( KException );
 
-    UnderwaterAcousticFundamentalParameterData( ActiveEmissionParameterIndex AEPI, ScanPattern SP, KFLOAT32 BeamCenterAzimuth,
-            KFLOAT32 AzimuthalBeamwidth, KFLOAT32 BeamCenter, KFLOAT32 BeamWidth );
+    UnderwaterAcousticFundamentalParameterData( KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex AEPI, KDIS::DATA_TYPE::ENUMS::ScanPattern SP, 
+		                                        KFLOAT32 BeamCenterAzimuth, KFLOAT32 AzimuthalBeamwidth, KFLOAT32 BeamCenter, KFLOAT32 BeamWidth );
 
     virtual ~UnderwaterAcousticFundamentalParameterData();
 
@@ -81,19 +78,19 @@ public:
     //              KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData::GetActiveEmissionParameterIndex
     // Description: Indicates which database record shall be used in the definition of
     //              intentional emissions of the entity.
-    // Parameter:   ActiveEmissionParameterIndex AEPI, void
+    // Parameter:   ActiveEmissionParameterIndex AEPI
     //************************************
-    void SetActiveEmissionParameterIndex( ActiveEmissionParameterIndex AEPI );
-    ActiveEmissionParameterIndex GetActiveEmissionParameterIndex() const;
+    void SetActiveEmissionParameterIndex( KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex AEPI );
+    KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex GetActiveEmissionParameterIndex() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData::SetScanPattern
     //              KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData::GetScanPattern
     // Description: Desscribes the UA scan pattern.
-    // Parameter:   ScanPattern SP, void
+    // Parameter:   ScanPattern SP
     //************************************
-    void SetScanPattern( ScanPattern SP );
-    ScanPattern GetScanPattern() const;
+    void SetScanPattern( KDIS::DATA_TYPE::ENUMS::ScanPattern SP );
+    KDIS::DATA_TYPE::ENUMS::ScanPattern GetScanPattern() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData::SetBeamCenterAzimuth
@@ -102,8 +99,8 @@ public:
     //              beam(as opposed to sidelobes) in relation to the emitter coordinate system.
     //              The azimuth center for 360 degrees bearing shall be 0. Omnidirectional beams shall have
     //              the value 0.
-    //              Represented as radians/
-    // Parameter:   KFLOAT32 BCA, void
+    //              Represented as radians.
+    // Parameter:   KFLOAT32 BCA
     //************************************
     void SetBeamCenterAzimuth( KFLOAT32 BCA );
     KFLOAT32 GetBeamCenterAzimuth() const;
@@ -115,7 +112,7 @@ public:
     //              at the 3db down point of peak radiated power. Omnidirectional beams shall have
     //              the value 0.
     //              Represented as radians.
-    // Parameter:   KFLOAT32 AB, void
+    // Parameter:   KFLOAT32 AB
     //************************************
     void SetAzimuthalBeamwidth( KFLOAT32 AB );
     KFLOAT32 GetAzimuthalBeamWidth() const;
@@ -130,7 +127,7 @@ public:
     //              A depression angle shall be defines as a downward angle and assigned a negative value.
     //              An elevation shall be defined as an upward angle and assigned a positive value.
     //              Omnidirectional beams shall have the value 0.
-    // Parameter:   KFLOAT32 BC, void
+    // Parameter:   KFLOAT32 BC
     //************************************
     void SetBeamCenter( KFLOAT32 BC );
     KFLOAT32 GetBeamCenter() const;
@@ -142,7 +139,7 @@ public:
     //              Beamwidth shall be measured at the 3db point of the peak radiated power.
     //              Represented as radians.
     //              Omnidirectional beams shall have the value 0.
-    // Parameter:   KFLOAT32 BC, void
+    // Parameter:   KFLOAT32 BC
     //************************************
     void SetBeamWidth( KFLOAT32 BW );
     KFLOAT32 GetBeamWidth() const;
