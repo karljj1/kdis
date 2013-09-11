@@ -202,6 +202,13 @@ void Detonation_PDU::SetDescriptor( DescPtr D )
 
 //////////////////////////////////////////////////////////////////////////
 
+const DescPtr Detonation_PDU::GetDescriptor() const
+{
+	return m_pDescriptor;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 DescPtr Detonation_PDU::GetDescriptor()
 {
 	return m_pDescriptor;

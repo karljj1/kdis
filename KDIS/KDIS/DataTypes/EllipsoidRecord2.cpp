@@ -87,7 +87,7 @@ const Vector & EllipsoidRecord2::GetDOverDt() const
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & EllipsoidRecord2::GetSigma()
+Vector & EllipsoidRecord2::GetDOverDt()
 {
     return m_DDT;
 }

@@ -742,6 +742,13 @@ void FundamentalOperationalData_MarkXTransponder::SetModeSCodeStatus( TCAS TCASV
 
 //////////////////////////////////////////////////////////////////////////
 
+void FundamentalOperationalData_MarkXTransponder::SetTCASVersion( TCAS TCASVersion )
+{
+    m_ui16ModeSTCAS = TCASVersion;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void FundamentalOperationalData_MarkXTransponder::SetModeSStatus( KBOOL IsOn )
 {
     m_ui16ModeSStatus = IsOn;

@@ -297,6 +297,7 @@ public:
     //************************************
     void SetModeSCodeStatus( KDIS::DATA_TYPE::ENUMS::TCAS TCASVersion, KBOOL IsStatusOn, KBOOL IsDamaged,
                              KBOOL IsMalfunctioning );
+    void SetTCASVersion( KDIS::DATA_TYPE::ENUMS::TCAS TCASVersion );
     void SetModeSStatus( KBOOL IsOn );
     void SetModeSDamage( KBOOL IsDamaged );
     void SetModeSMalfunction( KBOOL IsMalfunctioning );

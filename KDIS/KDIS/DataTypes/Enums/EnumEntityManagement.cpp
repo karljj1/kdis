@@ -833,7 +833,12 @@ const EnumDescriptor StationNameDescriptor[] =
     { 8 , "ForwardTorpedoTube" },
     { 9 , "AftTorpedoTube" },
     { 10 , "BombBay" },
-    { 11 , "CargoBay" }
+    { 11 , "CargoBay" },
+	{ 12 , "TruckBed" },
+	{ 13 , "TrailerBed" },
+	{ 14 , "WellDeck" },
+	{ 15 , "OnStationRangeAndBearing" },
+	{ 16 , "OnStationXYZ" }
 };
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStationName( KINT32 Value )

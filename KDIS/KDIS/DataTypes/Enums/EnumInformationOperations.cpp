@@ -44,7 +44,8 @@ const EnumDescriptor WarfareTypeDescriptor[] =
     { 2 , "ComputerNetworkOperations_CNO" },
     { 3 , "PsychologicalOperations_PSYOPS" },
     { 4 , "MilitaryDeception_MILDEC" },
-    { 5 , "OperationsSecurity_OPSEC" }
+    { 5 , "OperationsSecurity_OPSEC" },
+	{ 6 , "PhysicalAttack" }	
 };
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringWarfareType( KINT32 Value )

@@ -216,6 +216,27 @@ void FundamentalOperationalData_RRB::SetResponse( KUINT8 Code, KBOOL PowerReduct
 
 //////////////////////////////////////////////////////////////////////////
 
+void FundamentalOperationalData_RRB::SetResponseCode( KUINT8 C )
+{
+    m_ui16ResponseCode = C;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void FundamentalOperationalData_RRB::SetResponsePowerReduction( KBOOL PR )
+{
+    m_ui16ResponsePowerReduction = PR;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void FundamentalOperationalData_RRB::SetResponseRadarEnhancement( KBOOL RE )
+{
+    m_ui16ResponseRadarEnhancement = RE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void FundamentalOperationalData_RRB::SetResponseStatus( KBOOL IsOn )
 {
     m_ui16ResponseStatus = IsOn;
@@ -235,6 +256,26 @@ void FundamentalOperationalData_RRB::SetResponseMalfunction( KBOOL IsMalfunction
     m_ui16ResponseMalfunction = IsMalfunctioning;
 }
 
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 FundamentalOperationalData_RRB::GetResponseCode() const
+{
+    return m_ui16ResponseCode;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL FundamentalOperationalData_RRB::GetResponsePowerReduction() const
+{
+    return m_ui16ResponsePowerReduction;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL FundamentalOperationalData_RRB::GetResponseRadarEnhancement() const
+{
+    return m_ui16ResponseRadarEnhancement;
+}
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL FundamentalOperationalData_RRB::IsResponseStatusOn() const

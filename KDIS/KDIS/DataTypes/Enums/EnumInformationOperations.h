@@ -57,7 +57,8 @@ enum WarfareType
     ComputerNetworkOperations_CNO                                     = 2,
     PsychologicalOperations_PSYOPS                                    = 3,
     MilitaryDeception_MILDEC                                          = 4,
-    OperationsSecurity_OPSEC                                          = 5
+    OperationsSecurity_OPSEC                                          = 5,
+    PhysicalAttack                                                    = 6
 };
 
 KString GetEnumAsStringWarfareType( KINT32 Value );

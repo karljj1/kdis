@@ -119,6 +119,20 @@ IOReportType IO_Report_PDU::GetReportType() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void IO_Report_PDU::SetAttackerEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID )
+{
+    m_AtkEntityID = ID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityIdentifier & IO_Report_PDU::GetAttackerEntityID() const
+{
+    return m_AtkEntityID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EntityIdentifier & IO_Report_PDU::GetAttackerEntityID()
 {
     return m_AtkEntityID;

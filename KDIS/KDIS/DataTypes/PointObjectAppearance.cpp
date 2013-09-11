@@ -115,6 +115,20 @@ KUINT8 PointObjectAppearance::GetHeight() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void PointObjectAppearance::SetNumBursts( KUINT8 N )
+{
+	m_SpecificAppearanceUnion.m_AirBurstGroundBurst.m_ui32NumBurst = N;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 PointObjectAppearance::GetNumBursts() const
+{
+    return m_SpecificAppearanceUnion.m_AirBurstGroundBurst.m_ui32NumBurst;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void PointObjectAppearance::SetChemical( Chemical C )
 {
     m_SpecificAppearanceUnion.m_AirBurstGroundBurst.m_ui32Chemical = C;

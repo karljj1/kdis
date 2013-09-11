@@ -73,6 +73,10 @@
 	<li>Added Vector::Set to set all values in one call.</li>
 	<li>Added Vector::Lerp.</li>	
 	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
+	<li>Added SetTCASVersion to FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData_MarkXInterrogator.</li>
+	<li>Added missing get/set for ResponseCode, ResponsePowerReduction & ResponseRadarEnhancement to FundamentalOperationalData_RRB.<li>
+	<li>Added missing get/set for NumBurst to PointObjectAppearance.</li>
+	<li>Added missing get/set for AttackerEntityID to AttackerEntityID.</li>
 	<li>Performance Improvements In Decoding. ignoreHeader parameter added to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>
 	<li>Added WorldCoordinates::Lerp</li>
     <li>Cleaned up namespaces. namespaces had become polluted, for example the following was possible: KDIS::PDU::Header, KDIS::NETWORK::Header, KDIS::UTILS::Header, KDIS::PDU::Header should have been the only one possible.</li>
@@ -90,6 +94,9 @@
 	<li>Fixed bug in FactoryDecoder when calling the clear function. If a single object was used to handle more than 1 enum it would attempt to delete it multiple times(one per enum). The FactoryDecoder now uses the KRef_Ptr class.</li>
 	<li>Fixed bug with GuidedMunitionsAppearance when using a DLL version of KDIS.</li>
     <li>Fixed bug in GetNextPDU when an error occurs, the next call was using corrupted data.</li>
+	<li>Fixed incorrect function name in EllipsoidRecord2. Function GetSigma should have been GetDOverDt.</li>
+	<li>Added some missing enums to StationName.</li>
+	<li>Added missing enum to WarfareType.</li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Renamed enum WarheadType::GlassBladsWarhead to WarheadType::GlassBeadsWarhead.</li>
 	<li>Renamed enum EncodingType::_16_bit_linear_PCM to EncodingType::_16_bit_linear_PCM2sComplementBigEndian.</li>

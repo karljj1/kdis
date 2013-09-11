@@ -127,6 +127,7 @@ public:
     // Parameter:   DescPtr D
     //************************************
     void SetDescriptor( KDIS::DATA_TYPE::DescPtr D );
+    const KDIS::DATA_TYPE::DescPtr GetDescriptor() const;
     KDIS::DATA_TYPE::DescPtr GetDescriptor();
 
     //************************************

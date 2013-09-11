@@ -677,7 +677,12 @@ enum StationName
     ForwardTorpedoTube                                                = 8,
     AftTorpedoTube                                                    = 9,
     BombBay                                                           = 10,
-    CargoBay                                                          = 11
+    CargoBay                                                          = 11,
+    TruckBed                                                          = 12,
+    TrailerBed                                                        = 13,
+    WellDeck                                                          = 14,
+    OnStationRangeAndBearing                                          = 15,
+    OnStationXYZ                                                      = 16
 };
 
 KString GetEnumAsStringStationName( KINT32 Value );

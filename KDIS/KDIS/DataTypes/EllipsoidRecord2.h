@@ -76,7 +76,7 @@ public:
     //************************************
     void SetDOverDt( const Vector & S );
     const Vector & GetDOverDt() const;
-    Vector & GetSigma();
+    Vector & GetDOverDt();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::SetVelocity

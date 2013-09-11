@@ -499,6 +499,13 @@ void FundamentalOperationalData_MarkXInterrogator::SetModeSCodeStatus( TCAS TCAS
 
 //////////////////////////////////////////////////////////////////////////
 
+void FundamentalOperationalData_MarkXInterrogator::SetTCASVersion( TCAS TCASVersion )
+{
+    m_ui16ModeSTCAS = TCASVersion;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void FundamentalOperationalData_MarkXInterrogator::SetModeSStatus( KBOOL IsOn )
 {
     m_ui16ModeSStatus = IsOn;
