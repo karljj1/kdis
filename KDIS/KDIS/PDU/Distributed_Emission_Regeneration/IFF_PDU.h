@@ -28,29 +28,29 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      IFF_ATC_NAVAIDS_L1_PDU
+    class:      IFF_PDU
     DIS:        (6) 1278.1A - 1998 & (7) 1278.1-2012
-    created:    05/12/2008
+    updated:    20/09/2013
     author:     Karl Jones
 
-    purpose:    All IFF/ATC/NAVAIDS shall have a layer 1 as their first
-                layer.
+    purpose:    Additional layers shall contain the following types of data:
 
-                Additional layers shall contain the following types
-                of data:
+				Layer 1  - basic system data. Always included. 
 
-                Layer 2 - Infomation about radiating characteristics of the system
-                          described(for signal originators) and operational parameters
-                          not changeableby the system operator(for both originators and
-                          responders).
+                Layer 2 - This layer is used for basic emissions data when required to support
+				          simulations that need detailed IFF electromagnetic characteristics.
+						  The field formats of the two Operational Parameter fields and the 
+						  System-Specific Data field may vary depending on the system type.
 
-                Layer 6 - Information sufficient for emission regeneration (for originators)
-                          or sufficient for description of signal emission rate by type
-                          (for responders).
+				Layers 3 - Mode 5 formats. The military Mode 5 system is the only system that currently uses Layer 3.
 
-                Layer 7 - Information sufficient for correlation of response sets to originating events (for responders).
+				Layers 4 - Mode S formats. The civilian Mode S system is the only system that currently uses Layer 4.
 
-                Note: Not all layers have been defined.
+				Layers 5 - data communications. Optional layer. This layer is used to extend a layer that does 
+						   not have a standard variable record section (i.e., Layers1 and 2) and to support the
+						   emulation of real-world transponder and interrogator data link messages.
+
+                Layers 6 & 7 - Not defined. Reserved for future use.
 
     Size:       480 bits / 60 octets
 *********************************************************************/
@@ -63,10 +63,15 @@ http://p.sf.net/kdis/UserGuide
 #include "./../../DataTypes/SystemIdentifier.h"
 #include "./../../DataTypes/FundamentalOperationalData.h"
 
+// Layers
+#include <vector>
+#include "./../../DataTypes/LayerHeader.h"
+#include "./../../DataTypes/IFF_Layer2.h" 
+
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT IFF_ATC_NAVAIDS_L1_PDU : public Header
+class KDIS_EXPORT IFF_PDU : public Header
 {
 protected:
 
@@ -84,27 +89,29 @@ protected:
 
     KDIS::DATA_TYPE::FundamentalOperationalData m_FOD;
 
+	std::vector<KDIS::DATA_TYPE::LyrHdrPtr> m_vLayers;
+
 public:
 
-    static const KUINT16 IFF_ATC_NAVAIDS_L1_PDU_SIZE = 60;
+    static const KUINT16 IFF_PDU_SIZE = 60;
 
-    IFF_ATC_NAVAIDS_L1_PDU();
+    IFF_PDU();
 
-	IFF_ATC_NAVAIDS_L1_PDU( const Header & H );
+	IFF_PDU( const Header & H );
 
-    IFF_ATC_NAVAIDS_L1_PDU( KDataStream & stream ) throw( KException );
+    IFF_PDU( KDataStream & stream ) throw( KException );
 
-	IFF_ATC_NAVAIDS_L1_PDU( const Header & H, KDataStream & stream ) throw( KException );
+	IFF_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-    IFF_ATC_NAVAIDS_L1_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID, const KDIS::DATA_TYPE::Vector & Location,
+    IFF_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID, const KDIS::DATA_TYPE::Vector & Location,
                             const KDIS::DATA_TYPE::SystemIdentifier & ID, const KDIS::DATA_TYPE::FundamentalOperationalData & FOD );
 
-    virtual ~IFF_ATC_NAVAIDS_L1_PDU();
+    virtual ~IFF_PDU();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetEmittingEntityID
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetEmittingEntityID
-    // Description: Emitting Entity ID
+    // FullName:    KDIS::PDU::IFF_PDU::SetEmittingEntityID
+    //              KDIS::PDU::IFF_PDU::GetEmittingEntityID
+    // Description: Emitting Entity ID.
     // Parameter:   const EntityIdentifier & ID
     //************************************
     void SetEmittingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
@@ -112,8 +119,8 @@ public:
     KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetEventID
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetEventID
+    // FullName:    KDIS::PDU::IFF_PDU::SetEventID
+    //              KDIS::PDU::IFF_PDU::GetEventID
     // Description: Event ID. For associated events.
     // Parameter:   const EntityIdentifier & ID
     //************************************
@@ -122,8 +129,8 @@ public:
     KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetLocation
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetLocation
+    // FullName:    KDIS::PDU::IFF_PDU::SetLocation
+    //              KDIS::PDU::IFF_PDU::GetLocation
     // Description: Location of the emitting system relative to
     //              the emitting entity's coordinate system.
     //              Represented as a Entity Coordinate Vector
@@ -134,8 +141,8 @@ public:
     KDIS::DATA_TYPE::Vector & GetLocation();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetSystemIdentifier
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetSystemIdentifier
+    // FullName:    KDIS::PDU::IFF_PDU::SetSystemIdentifier
+    //              KDIS::PDU::IFF_PDU::GetSystemIdentifier
     // Description: Identifies the emitting system.
     // Parameter:   const SystemIdentifier & ID
     //************************************
@@ -144,8 +151,8 @@ public:
     KDIS::DATA_TYPE::SystemIdentifier & GetSystemIdentifier();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetFundamentalOperationalData
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetFundamentalOperationalData
+    // FullName:    KDIS::PDU::IFF_PDU::SetFundamentalOperationalData
+    //              KDIS::PDU::IFF_PDU::GetFundamentalOperationalData
     // Description: Identifies certain basic operational data for an emitting system.
     // Parameter:   const FundamentalOperationalData & FOD
     //************************************
@@ -156,8 +163,8 @@ public:
 	#if DIS_VERSION > 6
 	
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetSystemDesignator
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetSystemDesignator
+    // FullName:    KDIS::PDU::IFF_PDU::SetSystemDesignator
+    //              KDIS::PDU::IFF_PDU::GetSystemDesignator
     // Description: A unique decimal number assigned to this interrogator or transponder
 	//              to distinguish it from multiple interrogators or transponders that are
 	//              associated with the same entity.
@@ -167,8 +174,8 @@ public:
     KUINT8 GetSystemDesignator() const;  
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetSystemSpecificData
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetSystemSpecificData
+    // FullName:    KDIS::PDU::IFF_PDU::SetSystemSpecificData
+    //              KDIS::PDU::IFF_PDU::GetSystemSpecificData
     // Description: This is a variable format field whose meaning is defined for each specific system.
     // Parameter:   KUINT8 SSD
     //************************************
@@ -178,13 +185,26 @@ public:
 	#endif
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetAsString
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::AddLayer
+    //              KDIS::DATA_TYPE::IFF_Layer2::SetLayers
+    //              KDIS::DATA_TYPE::IFF_Layer2::GetLayers
+	//              KDIS::DATA_TYPE::IFF_Layer2::ClearLayers
+    // Description: Any additional layers attached to this IFF PDU.
+    // Parameter:   const KDIS::DATA_TYPE::LyrHdrPtr L, const vector<KDIS::DATA_TYPE::LyrHdrPtr> & L
+    //************************************
+    void AddLayer( const KDIS::DATA_TYPE::LyrHdrPtr & L );
+	void SetLayers( const std::vector<KDIS::DATA_TYPE::LyrHdrPtr> & L );
+	const std::vector<KDIS::DATA_TYPE::LyrHdrPtr> & GetLayers() const;
+	void ClearLayers();
+	
+    //************************************
+    // FullName:    KDIS::PDU::IFF_PDU::GetAsString
     // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::Decode
+    // FullName:    KDIS::PDU::IFF_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
@@ -192,15 +212,15 @@ public:
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::Encode
+    // FullName:    KDIS::PDU::IFF_PDU::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const IFF_ATC_NAVAIDS_L1_PDU & Value ) const;
-    KBOOL operator != ( const IFF_ATC_NAVAIDS_L1_PDU & Value ) const;
+    KBOOL operator == ( const IFF_PDU & Value ) const;
+    KBOOL operator != ( const IFF_PDU & Value ) const;
 };
 
 } // END namespace PDU

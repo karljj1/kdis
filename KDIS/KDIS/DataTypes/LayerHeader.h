@@ -32,9 +32,20 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./DataTypeBase.h"
+#include "./../Extras/KRef_Ptr.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
+
+/************************************************************************/
+// Define the type of pointer we are using for LayerHeader Records,
+// do we want a weak reference or a ref counter?
+// By default we use a ref pointer, however if you want to use a standard
+// pointer or one of your own then simply change it below.
+/************************************************************************/
+class LayerHeader;
+typedef KDIS::UTILS::KRef_Ptr<LayerHeader> LyrHdrPtr; // Ref counter
+//typedef VaLayerHeaderLyrHdrPtr; // Weak ref	
 
 class KDIS_EXPORT LayerHeader : public DataTypeBase
 {
@@ -62,7 +73,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::LayerHeader::SetLayerNumber
     //              KDIS::DATA_TYPE::LayerHeader::GetLayerNumber
     // Description: Identifies the layer.
-    // Parameter:   KUINT8 LN, void
+    // Parameter:   KUINT8 LN
     //************************************
     void SetLayerNumber( KUINT8 LN );
     KUINT8 GetLayerNumber() const;
@@ -72,7 +83,7 @@ public:
     //              KDIS::DATA_TYPE::LayerHeader::GetLayerSpecificInfomation
     // Description: This value varies by system type and layer number. Represented by an
     //              enumeration however no values has been defined(as of SISO-REF-10-2006) other than 0 = Other.
-    // Parameter:   KUINT8 LSI, void
+    // Parameter:   KUINT8 LSI
     //************************************
     void SetLayerSpecificInfomation( KUINT8 LSI );
     KUINT8 GetLayerSpecificInfomation() const;
@@ -81,7 +92,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::LayerHeader::SetLayerLength
     //              KDIS::DATA_TYPE::LayerHeader::GetLayerLength
     // Description: Specifies the length in octets of the layer including the layer header.
-    // Parameter:   KUINT16 L, void
+    // Parameter:   KUINT16 L
     //************************************
     void SetLayerLength( KUINT16 L );
     KUINT16 GetLayerLength() const;

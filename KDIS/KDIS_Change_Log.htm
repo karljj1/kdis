@@ -72,6 +72,9 @@
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>
 	<li>Added Vector::Set to set all values in one call.</li>
 	<li>Added Vector::Lerp.</li>	
+	<li>Added SystemDesignator and SystemSpecificData to IFF_ATC_NAVAIDS_L1_PDU, they are DIS 7 features.</li>
+	<li>Renamed IFF_ATC_NAVAIDS_L1_PDU to IFF_PDU.</li>
+	<li>Removed IFF_ATC_NAVAIDS_L2_PDU, it is now a data type class called IFF_Layer2 which is a property of IFF_PDU.</li>
 	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
 	<li>Added SetTCASVersion to FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData_MarkXInterrogator.</li>
 	<li>Added missing get/set for ResponseCode, ResponsePowerReduction & ResponseRadarEnhancement to FundamentalOperationalData_RRB.<li>

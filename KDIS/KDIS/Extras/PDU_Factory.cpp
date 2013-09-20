@@ -33,8 +33,7 @@
 #include "./../PDU/Entity_Info_Interaction/Collision_Elastic_PDU.h"
 #include "./../PDU/Radio_Communications/Intercom_Signal_PDU.h"
 #include "./../PDU/Radio_Communications//Intercom_Control_PDU.h"
-#include "./../PDU/Distributed_Emission_Regeneration/IFF_ATC_NAVAIDS_L1_PDU.h"
-#include "./../PDU/Distributed_Emission_Regeneration/IFF_ATC_NAVAIDS_L2_PDU.h"
+#include "./../PDU/Distributed_Emission_Regeneration/IFF_PDU.h"
 #include "./../PDU/Distributed_Emission_Regeneration/Underwater_Acoustic_PDU.h"
 #include "./../PDU/Distributed_Emission_Regeneration/SEES_PDU.h"
 #include "./../PDU/Entity_Management/Aggregate_State_PDU.h"
@@ -268,14 +267,7 @@ auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )th
         return applyFilters( new Collision_Elastic_PDU( H, Stream ) );
 
     case IFF_ATC_NAVAIDS_PDU_Type:
-        if( Stream.GetBufferSize() > IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU_SIZE )
-        {
-            return applyFilters( new IFF_ATC_NAVAIDS_L2_PDU( H, Stream ) );
-        }
-        else
-        {
-            return applyFilters( new IFF_ATC_NAVAIDS_L1_PDU( H, Stream ) );
-        }
+            return applyFilters( new IFF_PDU( H, Stream ) );       
 
     case UnderwaterAcoustic_PDU_Type:
         return applyFilters( new Underwater_Acoustic_PDU( H, Stream ) );

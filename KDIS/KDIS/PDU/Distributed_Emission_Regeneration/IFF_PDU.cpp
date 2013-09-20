@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IFF_ATC_NAVAIDS_L1_PDU.h"
+#include "./IFF_PDU.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,19 +42,19 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU() :
+IFF_PDU::IFF_PDU() :
     m_ui8SystemDesignator( 0 ),
 	m_ui8SystemSpecific( 0 )
 {
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
     m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
-    m_ui16PDULength = IFF_ATC_NAVAIDS_L1_PDU_SIZE;
+    m_ui16PDULength = IFF_PDU_SIZE;
     m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const Header & H ) :
+IFF_PDU::IFF_PDU( const Header & H ) :
 	Header( H ),
 	m_ui8SystemDesignator( 0 ),
 	m_ui8SystemSpecific( 0 )
@@ -63,14 +63,14 @@ IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( KDataStream & stream ) throw( KException )
+IFF_PDU::IFF_PDU( KDataStream & stream ) throw( KException )
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+IFF_PDU::IFF_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
 	Header( H )
 {
     Decode( stream, true );
@@ -78,7 +78,7 @@ IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const Header & H, KDataStream & 
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID, const Vector & Location,
+IFF_PDU::IFF_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID, const Vector & Location,
         const SystemIdentifier & ID, const FundamentalOperationalData & FOD ) :
     m_EmittingEntityID( EmittingID ),
     m_EventID( EventID ),
@@ -90,152 +90,193 @@ IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const EntityIdentifier & Emittin
 {
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
     m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
-    m_ui16PDULength = IFF_ATC_NAVAIDS_L1_PDU_SIZE;
+    m_ui16PDULength = IFF_PDU_SIZE;
     m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_L1_PDU::~IFF_ATC_NAVAIDS_L1_PDU()
+IFF_PDU::~IFF_PDU()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::SetEmittingEntityID( const EntityIdentifier & ID )
+void IFF_PDU::SetEmittingEntityID( const EntityIdentifier & ID )
 {
     m_EmittingEntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & IFF_ATC_NAVAIDS_L1_PDU::GetEmittingEntityID() const
+const EntityIdentifier & IFF_PDU::GetEmittingEntityID() const
 {
     return m_EmittingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & IFF_ATC_NAVAIDS_L1_PDU::GetEmittingEntityID()
+EntityIdentifier & IFF_PDU::GetEmittingEntityID()
 {
     return m_EmittingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::SetEventID( const EntityIdentifier & ID )
+void IFF_PDU::SetEventID( const EntityIdentifier & ID )
 {
     m_EventID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & IFF_ATC_NAVAIDS_L1_PDU::GetEventID() const
+const EntityIdentifier & IFF_PDU::GetEventID() const
 {
     return m_EventID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & IFF_ATC_NAVAIDS_L1_PDU::GetEventID()
+EntityIdentifier & IFF_PDU::GetEventID()
 {
     return m_EventID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::SetLocation( const Vector & L )
+void IFF_PDU::SetLocation( const Vector & L )
 {
     m_Location = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & IFF_ATC_NAVAIDS_L1_PDU::GetLocation() const
+const Vector & IFF_PDU::GetLocation() const
 {
     return m_Location;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & IFF_ATC_NAVAIDS_L1_PDU::GetLocation()
+Vector & IFF_PDU::GetLocation()
 {
     return m_Location;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::SetSystemIdentifier( const SystemIdentifier & ID )
+void IFF_PDU::SetSystemIdentifier( const SystemIdentifier & ID )
 {
     m_SystemID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const SystemIdentifier & IFF_ATC_NAVAIDS_L1_PDU::GetSystemIdentifier() const
+const SystemIdentifier & IFF_PDU::GetSystemIdentifier() const
 {
     return m_SystemID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier & IFF_ATC_NAVAIDS_L1_PDU::GetSystemIdentifier()
+SystemIdentifier & IFF_PDU::GetSystemIdentifier()
 {
     return m_SystemID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::SetFundamentalOperationalData( const FundamentalOperationalData & FOD )
+void IFF_PDU::SetFundamentalOperationalData( const FundamentalOperationalData & FOD )
 {
     m_FOD = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const FundamentalOperationalData & IFF_ATC_NAVAIDS_L1_PDU::GetFundamentalOperationalData() const
+const FundamentalOperationalData & IFF_PDU::GetFundamentalOperationalData() const
 {
     return m_FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData & IFF_ATC_NAVAIDS_L1_PDU::GetFundamentalOperationalData()
+FundamentalOperationalData & IFF_PDU::GetFundamentalOperationalData()
 {
     return m_FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::SetSystemDesignator ( KUINT8 SD )
+#if DIS_VERSION > 6
+
+void IFF_PDU::SetSystemDesignator ( KUINT8 SD )
 {
 	m_ui8SystemDesignator = SD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 IFF_ATC_NAVAIDS_L1_PDU::GetSystemDesignator() const
+KUINT8 IFF_PDU::GetSystemDesignator() const
 {
 	return m_ui8SystemDesignator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::SetSystemSpecificData ( KUINT8 SSD )
+void IFF_PDU::SetSystemSpecificData ( KUINT8 SSD )
 {
 	m_ui8SystemSpecific = SSD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 IFF_ATC_NAVAIDS_L1_PDU::GetSystemSpecificData() const
+KUINT8 IFF_PDU::GetSystemSpecificData() const
 {
 	return m_ui8SystemSpecific;
 }
 
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
-KString IFF_ATC_NAVAIDS_L1_PDU::GetAsString() const
+void IFF_PDU::AddLayer( const LyrHdrPtr & L )
+{
+	m_vLayers.push_back( L );
+	m_ui16PDULength += L->GetLayerLength();
+}
+
+//////////////////////////////////////////////////////////////////////////
+ 
+void IFF_PDU::SetLayers( const vector<LyrHdrPtr> & L )
+{
+	m_vLayers = L;
+	m_ui16PDULength = IFF_PDU_SIZE;
+	vector<LyrHdrPtr>::const_iterator citr = L.begin();
+	vector<LyrHdrPtr>::const_iterator citrEnd = L.end();
+	for( ; citr != citrEnd; ++citr )
+	{
+		m_ui16PDULength += ( *citr )->GetLayerLength();
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const std::vector<LyrHdrPtr> & IFF_PDU::GetLayers() const
+{
+	return m_vLayers;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::ClearLayers()
+{
+	m_vLayers.clear();
+	m_ui16PDULength = IFF_PDU_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString IFF_PDU::GetAsString() const
 {
     KStringStream ss;
 
@@ -256,16 +297,25 @@ KString IFF_ATC_NAVAIDS_L1_PDU::GetAsString() const
 
 	#endif
 
+	vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
+	vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
+	for( ; citr != citrEnd; ++citr )
+	{
+		ss << ( *citr )->GetAsString();
+	}
+
     return ss.str();	
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IFF_ATC_NAVAIDS_L1_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IFF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     Header::Decode( stream, ignoreHeader );	
+
+	// TODO: take a note of how big the PDU so we can keep track of how many layers are left to go.
 
     stream >> KDIS_STREAM m_EmittingEntityID
            >> KDIS_STREAM m_EventID
@@ -274,22 +324,32 @@ void IFF_ATC_NAVAIDS_L1_PDU::Decode( KDataStream & stream, bool ignoreHeader /*=
            >> m_ui8SystemDesignator
 		   >> m_ui8SystemSpecific
            >> KDIS_STREAM m_FOD;
+
+	// TODO: decode each layerheader and then layer.
+
+	//vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
+	//vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
+	//for( ; citr != citrEnd; ++citr )
+	//{
+	//	ss << ( *citr )->GetAsString();
+	//}
+
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream IFF_ATC_NAVAIDS_L1_PDU::Encode() const
+KDataStream IFF_PDU::Encode() const
 {
     KDataStream stream;
 
-    IFF_ATC_NAVAIDS_L1_PDU::Encode( stream );
+    IFF_PDU::Encode( stream );
 
     return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_L1_PDU::Encode( KDataStream & stream ) const
+void IFF_PDU::Encode( KDataStream & stream ) const
 {
     Header::Encode( stream );
 
@@ -300,11 +360,18 @@ void IFF_ATC_NAVAIDS_L1_PDU::Encode( KDataStream & stream ) const
            << m_ui8SystemDesignator
 		   << m_ui8SystemSpecific
            << KDIS_STREAM m_FOD;
+
+	vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
+	vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
+	for( ; citr != citrEnd; ++citr )
+	{
+		( *citr )->Encode( stream );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_ATC_NAVAIDS_L1_PDU::operator == ( const IFF_ATC_NAVAIDS_L1_PDU & Value ) const
+KBOOL IFF_PDU::operator == ( const IFF_PDU & Value ) const
 {
     if( Header::operator    !=( Value ) )                 return false;
     if( m_EmittingEntityID  != Value.m_EmittingEntityID ) return false;
@@ -312,12 +379,13 @@ KBOOL IFF_ATC_NAVAIDS_L1_PDU::operator == ( const IFF_ATC_NAVAIDS_L1_PDU & Value
     if( m_Location          != Value.m_Location )         return false;
     if( m_SystemID          != Value.m_SystemID )         return false;
     if( m_FOD               != Value.m_FOD )              return false;
+	if( m_vLayers           != Value.m_vLayers )          return false;
     return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_ATC_NAVAIDS_L1_PDU::operator != ( const IFF_ATC_NAVAIDS_L1_PDU & Value ) const
+KBOOL IFF_PDU::operator != ( const IFF_PDU & Value ) const
 {
     return !( *this == Value );
 }

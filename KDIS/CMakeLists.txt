@@ -192,6 +192,7 @@ IF(DIS_VERSION GREATER 5)
 	${DATATYPES_DIR}/PositionError.h
 	${DATATYPES_DIR}/OrientationError.h
 	${DATATYPES_DIR}/LE_DeadReckoningParameter.h
+	${DATATYPES_DIR}/IFF_Layer2.h
     )
 
 ENDIF(DIS_VERSION GREATER 5)
@@ -348,6 +349,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/PositionError.cpp
 	${DATATYPES_DIR}/OrientationError.cpp
 	${DATATYPES_DIR}/LE_DeadReckoningParameter.cpp
+	${DATATYPES_DIR}/IFF_Layer2.cpp
    )
 
 ENDIF(DIS_VERSION GREATER 5)
@@ -475,8 +477,7 @@ SET(KDIS_SRC_PDU_DER_H
 IF(DIS_VERSION GREATER 5)
 
     LIST(APPEND KDIS_SRC_PDU_DER_H
-        ${PDU_DER_DIR}/IFF_ATC_NAVAIDS_L1_PDU.h
-        ${PDU_DER_DIR}/IFF_ATC_NAVAIDS_L2_PDU.h
+        ${PDU_DER_DIR}/IFF_PDU.h
         ${PDU_DER_DIR}/SEES_PDU.h
         ${PDU_DER_DIR}/Underwater_Acoustic_PDU.h
     )
@@ -493,8 +494,7 @@ SET(KDIS_SRC_PDU_DER_CPP
 IF(DIS_VERSION GREATER 5)
 
     LIST(APPEND KDIS_SRC_PDU_DER_CPP
-        ${PDU_DER_DIR}/IFF_ATC_NAVAIDS_L1_PDU.cpp
-        ${PDU_DER_DIR}/IFF_ATC_NAVAIDS_L2_PDU.cpp
+        ${PDU_DER_DIR}/IFF_PDU.cpp
         ${PDU_DER_DIR}/SEES_PDU.cpp
         ${PDU_DER_DIR}/Underwater_Acoustic_PDU.cpp
     )

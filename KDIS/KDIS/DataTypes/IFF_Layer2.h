@@ -28,33 +28,30 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      IFF_ATC_NAVAIDS_L2_PDU
+    class:      IFF_Layer2
     DIS:        (6) 1278.1A - 1998
-    created:    13/12/2008
+    created:    20/09/2013
     author:     Karl Jones
 
-    purpose:    When present, layer 2 shall follow layer 1.
+    purpose:    Layer 2 emissions data.
 
-    Size:       736 bits / 92 octets
+    Size:       224 bits / 28 octets - min size
 *********************************************************************/
 
 #pragma once
 
-#include "./IFF_ATC_NAVAIDS_L1_PDU.h"
-#include "./../../DataTypes/LayerHeader.h"
-#include "./../../DataTypes/BeamData.h"
-#include "./../../DataTypes/SecondaryOperationalData.h"
-#include "./../../DataTypes/IFF_ATC_NAVAIDS_FundamentalParameterData.h"
+#include "./LayerHeader.h"
+#include "./BeamData.h"
+#include "./SecondaryOperationalData.h"
+#include "./IFF_ATC_NAVAIDS_FundamentalParameterData.h"
 
 namespace KDIS {
-namespace PDU {
+namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_ATC_NAVAIDS_L2_PDU : public IFF_ATC_NAVAIDS_L1_PDU
+class KDIS_EXPORT IFF_Layer2 : public LayerHeader
 {
 protected:
-
-    KDIS::DATA_TYPE::LayerHeader m_LyrHdr;
-
+	
     KDIS::DATA_TYPE::BeamData m_BmDt;
 
     KDIS::DATA_TYPE::SecondaryOperationalData m_SOD;
@@ -63,54 +60,36 @@ protected:
 
 public:
 
-    static const KUINT16 IFF_ATC_NAVAIDS_L2_PDU_SIZE = 92; // Min size
+    static const KUINT16 IFF_LAYER2_SIZE = 28; // Min size
 
-    IFF_ATC_NAVAIDS_L2_PDU();
+    IFF_Layer2();
 
-    IFF_ATC_NAVAIDS_L2_PDU( KDataStream & stream ) throw( KException );
+    IFF_Layer2( KDataStream & stream ) throw( KException );
 
-	IFF_ATC_NAVAIDS_L2_PDU( const Header & H, KDataStream & stream ) throw( KException );
+	IFF_Layer2( const LayerHeader & H, KDataStream & stream ) throw( KException );
 
-    IFF_ATC_NAVAIDS_L2_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID, 
-		                    const KDIS::DATA_TYPE::Vector & Location, const KDIS::DATA_TYPE::SystemIdentifier & ID,
-                            const KDIS::DATA_TYPE::FundamentalOperationalData & FOD, const KDIS::DATA_TYPE::LayerHeader & LH,
-							const KDIS::DATA_TYPE::BeamData & BD, const KDIS::DATA_TYPE::SecondaryOperationalData & SOD,
-							const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
+    IFF_Layer2( const KDIS::DATA_TYPE::BeamData & BD, const KDIS::DATA_TYPE::SecondaryOperationalData & SOD,
+                const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
 
-    IFF_ATC_NAVAIDS_L2_PDU( const IFF_ATC_NAVAIDS_L1_PDU & PDU, const KDIS::DATA_TYPE::LayerHeader & LH,const KDIS::DATA_TYPE::BeamData & BD, 
-		                    const KDIS::DATA_TYPE::SecondaryOperationalData & SOD, const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
-
-    virtual ~IFF_ATC_NAVAIDS_L2_PDU();
+    virtual ~IFF_Layer2();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::SetLayerHeader
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::GetLayerHeader
-    // Description: Contains information regarding the layer.
-    //              Note Layer Number and Layer length are set automatically and layer
-    //              specific information is undefined so it is safe to let this record manage itself.
-    // Parameter:   const LayerHeader & LH
-    //************************************
-    void SetLayerHeader( const KDIS::DATA_TYPE::LayerHeader & LH );
-    const KDIS::DATA_TYPE::LayerHeader & GetLayerHeader() const;
-    KDIS::DATA_TYPE::LayerHeader & GetLayerHeader();
-
-    //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::SetBeamData
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::GetBeamData
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::SetBeamData
+    //              KDIS::DATA_TYPE::IFF_Layer2::GetBeamData
     // Description: Specifies beam specific data.
     //              If the mainbeam antenna activity of the IFF emitting system before the next
     //              IFF/ATC/NAVAIDS PDU update can be represented by a single beam, then a description of the beam
     //              shall be entered in this record. If multiple beams would be required, then this record
     //              shall be filled with zeroes.
-    // Parameter:   const LayerHeader & LH
+    // Parameter:   const BeamData & BD
     //************************************
     void SetBeamData( const KDIS::DATA_TYPE::BeamData & BD );
     const KDIS::DATA_TYPE::BeamData & GetBeamData() const;
     KDIS::DATA_TYPE::BeamData & GetBeamData();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::SetSecondaryOperationalData
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::GetSecondaryOperationalData
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::SetSecondaryOperationalData
+    //              KDIS::DATA_TYPE::IFF_Layer2::GetSecondaryOperationalData
     // Description: Specifies secondary operational data for the IFF/ATC/NAVAIDS emitting system.
     //              Note: This data type holds the number of Fundamental Parameter Data Sets, if you make a
     //              change you will need to make sure the value stays correct.
@@ -121,9 +100,9 @@ public:
     KDIS::DATA_TYPE::SecondaryOperationalData & GetSecondaryOperationalData();
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::AddFundamentalParameterData
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::SetFundamentalParameterData
-    //              KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::GetFundamentalParameterData
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::AddFundamentalParameterData
+    //              KDIS::DATA_TYPE::IFF_Layer2::SetFundamentalParameterData
+    //              KDIS::DATA_TYPE::IFF_Layer2::GetFundamentalParameterData
     // Description: Specifies the values of the fundamental energy radiation characteristic
     //              of each emission from the IFF/ATC/NAVAIDS emitting system.
     // Parameter:   const IFF_ATC_NAVAIDS_FundamentalParameterData & FPD, const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD
@@ -133,31 +112,31 @@ public:
 	const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & GetFundamentalParameterData() const;
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::GetAsString
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::GetAsString
     // Description: Returns a string representation
     //              of the PDU.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::Decode
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L2_PDU::Encode
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const IFF_ATC_NAVAIDS_L2_PDU & Value ) const;
-    KBOOL operator != ( const IFF_ATC_NAVAIDS_L2_PDU & Value ) const;
+    KBOOL operator == ( const IFF_Layer2 & Value ) const;
+    KBOOL operator != ( const IFF_Layer2 & Value ) const;
 };
 
-} // END namespace PDU
+} // END namespace DATA_TYPE
 } // END namespace KDIS
