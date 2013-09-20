@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 /********************************************************************
     class:      IFF_ATC_NAVAIDS_L2_PDU
     DIS:        (6) 1278.1A - 1998
-    created:    2008/12/13
+    created:    13/12/2008
     author:     Karl Jones
 
     purpose:    When present, layer 2 shall follow layer 1.

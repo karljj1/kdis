@@ -43,7 +43,8 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU() :
-    m_ui16Padding( 0 )
+    m_ui8SystemDesignator( 0 ),
+	m_ui8SystemSpecific( 0 )
 {
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
     m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
@@ -55,7 +56,8 @@ IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU() :
 
 IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const Header & H ) :
 	Header( H ),
-    m_ui16Padding( 0 )
+	m_ui8SystemDesignator( 0 ),
+	m_ui8SystemSpecific( 0 )
 {
 }
 
@@ -83,7 +85,8 @@ IFF_ATC_NAVAIDS_L1_PDU::IFF_ATC_NAVAIDS_L1_PDU( const EntityIdentifier & Emittin
     m_Location( Location ),
     m_SystemID( ID ),
     m_FOD( FOD ),
-    m_ui16Padding( 0 )
+	m_ui8SystemDesignator( 0 ),
+	m_ui8SystemSpecific( 0 )
 {
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
     m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
@@ -204,6 +207,34 @@ FundamentalOperationalData & IFF_ATC_NAVAIDS_L1_PDU::GetFundamentalOperationalDa
 
 //////////////////////////////////////////////////////////////////////////
 
+void IFF_ATC_NAVAIDS_L1_PDU::SetSystemDesignator ( KUINT8 SD )
+{
+	m_ui8SystemDesignator = SD;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 IFF_ATC_NAVAIDS_L1_PDU::GetSystemDesignator() const
+{
+	return m_ui8SystemDesignator;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_ATC_NAVAIDS_L1_PDU::SetSystemSpecificData ( KUINT8 SSD )
+{
+	m_ui8SystemSpecific = SSD;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 IFF_ATC_NAVAIDS_L1_PDU::GetSystemSpecificData() const
+{
+	return m_ui8SystemSpecific;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString IFF_ATC_NAVAIDS_L1_PDU::GetAsString() const
 {
     KStringStream ss;
@@ -218,7 +249,14 @@ KString IFF_ATC_NAVAIDS_L1_PDU::GetAsString() const
        << m_SystemID.GetAsString()
        << m_FOD.GetAsString();
 
-    return ss.str();
+	#if DIS_VERSION > 6
+
+	ss << "System Designator:    " << ( KUINT16 )m_ui8SystemDesignator << "\n"
+	   << "System Specific Data: " << ( KUINT16 )m_ui8SystemSpecific << "\n";
+
+	#endif
+
+    return ss.str();	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -233,7 +271,8 @@ void IFF_ATC_NAVAIDS_L1_PDU::Decode( KDataStream & stream, bool ignoreHeader /*=
            >> KDIS_STREAM m_EventID
            >> KDIS_STREAM m_Location
            >> KDIS_STREAM m_SystemID
-           >> m_ui16Padding
+           >> m_ui8SystemDesignator
+		   >> m_ui8SystemSpecific
            >> KDIS_STREAM m_FOD;
 }
 
@@ -258,7 +297,8 @@ void IFF_ATC_NAVAIDS_L1_PDU::Encode( KDataStream & stream ) const
            << KDIS_STREAM m_EventID
            << KDIS_STREAM m_Location
            << KDIS_STREAM m_SystemID
-           << m_ui16Padding
+           << m_ui8SystemDesignator
+		   << m_ui8SystemSpecific
            << KDIS_STREAM m_FOD;
 }
 

@@ -29,8 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      IFF_ATC_NAVAIDS_L1_PDU
-    DIS:        (6) 1278.1A - 1998
-    created:    2008/12/05
+    DIS:        (6) 1278.1A - 1998 & (7) 1278.1-2012
+    created:    05/12/2008
     author:     Karl Jones
 
     purpose:    All IFF/ATC/NAVAIDS shall have a layer 1 as their first
@@ -78,7 +78,9 @@ protected:
 
     KDIS::DATA_TYPE::SystemIdentifier m_SystemID;
 
-    KUINT16 m_ui16Padding;
+	KUINT8 m_ui8SystemDesignator; // DIS 7
+
+	KUINT8 m_ui8SystemSpecific; // DIS 7
 
     KDIS::DATA_TYPE::FundamentalOperationalData m_FOD;
 
@@ -150,6 +152,30 @@ public:
     void SetFundamentalOperationalData( const KDIS::DATA_TYPE::FundamentalOperationalData & FOD );
     const KDIS::DATA_TYPE::FundamentalOperationalData & GetFundamentalOperationalData() const;
     KDIS::DATA_TYPE::FundamentalOperationalData & GetFundamentalOperationalData();
+
+	#if DIS_VERSION > 6
+	
+    //************************************
+    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetSystemDesignator
+    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetSystemDesignator
+    // Description: A unique decimal number assigned to this interrogator or transponder
+	//              to distinguish it from multiple interrogators or transponders that are
+	//              associated with the same entity.
+    // Parameter:   KUINT8 SD
+    //************************************
+    void SetSystemDesignator ( KUINT8 SD );
+    KUINT8 GetSystemDesignator() const;  
+
+    //************************************
+    // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::SetSystemSpecificData
+    //              KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetSystemSpecificData
+    // Description: This is a variable format field whose meaning is defined for each specific system.
+    // Parameter:   KUINT8 SSD
+    //************************************
+    void SetSystemSpecificData ( KUINT8 SSD );
+    KUINT8 GetSystemSpecificData() const;    
+
+	#endif
 
     //************************************
     // FullName:    KDIS::PDU::IFF_ATC_NAVAIDS_L1_PDU::GetAsString
