@@ -313,9 +313,7 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IFF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream, ignoreHeader );	
-
-	// TODO: take a note of how big the PDU so we can keep track of how many layers are left to go.
+    Header::Decode( stream, ignoreHeader );		
 
     stream >> KDIS_STREAM m_EmittingEntityID
            >> KDIS_STREAM m_EventID
@@ -325,15 +323,27 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
 		   >> m_ui8SystemSpecific
            >> KDIS_STREAM m_FOD;
 
-	// TODO: decode each layerheader and then layer.
+	KUINT16 remainingData = m_ui16PDULength - HEADER6_PDU_SIZE;
 
-	//vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
-	//vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
-	//for( ; citr != citrEnd; ++citr )
-	//{
-	//	ss << ( *citr )->GetAsString();
-	//}
+	// Decode each layer
+	while( remainingData )
+	{
+		LayerHeader hdr( stream );
+		LayerHeader * layer = NULL;
 
+		switch ( hdr.GetLayerNumber() )
+		{
+			case 2: layer = new IFF_Layer2( hdr, stream ); break;
+			//case 3: layer = new IFF_Layer3( hdr, stream ); break;
+			//case 4: layer = new IFF_Layer4( hdr, stream ); break;
+			//case 5: layer = new IFF_Layer5( hdr, stream ); break;
+				
+			default: throw KException( __FUNCTION__, UNSUPPORTED_DATATYPE, hdr.GetLayerNumber() );						
+		}
+
+		m_vLayers.push_back( layer );
+		remainingData -= layer->GetLayerLength();
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
