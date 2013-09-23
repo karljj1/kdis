@@ -56,6 +56,7 @@ Header7::Header7( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFam
     Header6( PV, ExerciseID, PT, PF, TS, PDULength )
 {
 	m_PDUStatusUnion.m_ui8PDUStatus = 0;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -69,6 +70,7 @@ Header7::~Header7()
 void Header7::SetPDUStatus( KUINT8 S )
 {
     m_PDUStatusUnion.m_ui8PDUStatus = S;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -83,6 +85,7 @@ KUINT8 Header7::GetPDUStatus() const
 void Header7::SetPDUStatusCEI( KBOOL CEI )
 {
 	m_PDUStatusUnion.m_ui8PDUStatusCEI = CEI;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -97,6 +100,7 @@ KBOOL Header7::GetPDUStatusCEI() const
 void Header7::SetPDUStatusTEI( KBOOL TEI )
 {
     m_PDUStatusUnion.m_ui8PDUStatusTEI = TEI;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -111,6 +115,7 @@ KBOOL Header7::GetPDUStatusTEI() const
 void Header7::SetPDUStatusLVC( LVCIndicator LVC )
 {
 	m_PDUStatusUnion.m_ui8PDUStatusLVC = LVC;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -125,6 +130,7 @@ LVCIndicator Header7::GetPDUStatusLVC() const
 void Header7::SetPDUStatusFTI( KBOOL FTI )
 {
 	m_PDUStatusUnion.m_ui8PDUStatusFTI = FTI;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -139,6 +145,7 @@ KBOOL Header7::GetPDUStatusFTI() const
 void Header7::SetPDUStatusDTI( DetonationType DTI )
 {
 	m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = DTI;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -153,6 +160,7 @@ DetonationType Header7::GetPDUStatusDTI() const
 void Header7::SetPDUStatusRAI( AttachedIndicator RAI )
 {
 	m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = RAI;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -167,6 +175,7 @@ AttachedIndicator Header7::GetPDUStatusRAI() const
 void Header7::SetPDUStatusIAI( AttachedIndicator IAI )
 {
 	m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = IAI;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -181,6 +190,7 @@ AttachedIndicator Header7::GetPDUStatusIAI() const
 void Header7::SetPDUStatusSM( KBOOL SM )
 {
 	m_PDUStatusUnion.m_ui8PDUStatusSM = SM;
+	m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
 //////////////////////////////////////////////////////////////////////////

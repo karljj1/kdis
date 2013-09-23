@@ -189,12 +189,12 @@ void Detonation_PDU::SetDescriptor( DescPtr D )
 	else if( dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
 	{
 		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = ExpendableDTI;		
-		m_ui8ProtocolVersion = 7; // Change the DIS version to 7.
+		m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 	}
 	else
 	{
 		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = NonMunitionExplosionDTI;		
-		m_ui8ProtocolVersion = 7; // Change the DIS version to 7.
+		m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 	}
 
 	#endif

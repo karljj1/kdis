@@ -52,11 +52,11 @@ class KDIS_EXPORT IFF_Layer2 : public LayerHeader
 {
 protected:
 	
-    KDIS::DATA_TYPE::BeamData m_BmDt;
+    BeamData m_BmDt;
 
-    KDIS::DATA_TYPE::SecondaryOperationalData m_SOD;
+    SecondaryOperationalData m_SOD;
 
-	std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> m_vFPD;
+	std::vector<IFF_ATC_NAVAIDS_FundamentalParameterData> m_vFPD;
 
 public:
 
@@ -68,8 +68,8 @@ public:
 
 	IFF_Layer2( const LayerHeader & H, KDataStream & stream ) throw( KException );
 
-    IFF_Layer2( const KDIS::DATA_TYPE::BeamData & BD, const KDIS::DATA_TYPE::SecondaryOperationalData & SOD,
-                const std::vector<KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
+    IFF_Layer2( const BeamData & BD, const SecondaryOperationalData & SOD,
+                const std::vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
 
     virtual ~IFF_Layer2();
 
@@ -83,9 +83,9 @@ public:
     //              shall be filled with zeroes.
     // Parameter:   const BeamData & BD
     //************************************
-    void SetBeamData( const KDIS::DATA_TYPE::BeamData & BD );
-    const KDIS::DATA_TYPE::BeamData & GetBeamData() const;
-    KDIS::DATA_TYPE::BeamData & GetBeamData();
+    void SetBeamData( const BeamData & BD );
+    const BeamData & GetBeamData() const;
+    BeamData & GetBeamData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer2::SetSecondaryOperationalData
@@ -95,9 +95,9 @@ public:
     //              change you will need to make sure the value stays correct.
     // Parameter:   const SecondaryOperationalData & SOD
     //************************************
-    void SetSecondaryOperationalData( const KDIS::DATA_TYPE::SecondaryOperationalData & SOD );
-    const KDIS::DATA_TYPE::SecondaryOperationalData & GetSecondaryOperationalData() const;
-    KDIS::DATA_TYPE::SecondaryOperationalData & GetSecondaryOperationalData();
+    void SetSecondaryOperationalData( const SecondaryOperationalData & SOD );
+    const SecondaryOperationalData & GetSecondaryOperationalData() const;
+    SecondaryOperationalData & GetSecondaryOperationalData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer2::AddFundamentalParameterData

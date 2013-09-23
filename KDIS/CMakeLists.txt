@@ -208,6 +208,8 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
 	${DATATYPES_DIR}/AttributeRecordSet.h
 	${DATATYPES_DIR}/ExplosionDescriptor.h
 	${DATATYPES_DIR}/DEAreaAimpoint.h	
+	${DATATYPES_DIR}/IFF_Layer3.h
+	${DATATYPES_DIR}/Mode5MessageFormats.h
 )
 
 ENDIF(DIS_VERSION GREATER 6)
@@ -365,6 +367,8 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/AttributeRecordSet.cpp
 	${DATATYPES_DIR}/ExplosionDescriptor.cpp
 	${DATATYPES_DIR}/DEAreaAimpoint.cpp
+	${DATATYPES_DIR}/IFF_Layer3.cpp
+	${DATATYPES_DIR}/Mode5MessageFormats.cpp
 )
 
 ENDIF(DIS_VERSION GREATER 6)

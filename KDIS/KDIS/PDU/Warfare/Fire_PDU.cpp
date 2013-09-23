@@ -168,7 +168,7 @@ void Fire_PDU::SetDescriptor( DescPtr D )
 	else
 	{
 		m_PDUStatusUnion.m_ui8PDUStatusFTI = ExpendableFTI;		
-		m_ui8ProtocolVersion = 7; // Change the DIS version to 7.
+		m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 	}
 
 	#endif
