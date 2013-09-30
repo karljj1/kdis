@@ -33,7 +33,10 @@ http://p.sf.net/kdis/UserGuide
     updated:    20/09/2013
     author:     Karl Jones
 
-    purpose:    Additional layers shall contain the following types of data:
+    purpose:    Identification Friend or Foe (IFF) PDU Layer 1.
+				Additional layers shall contain the following types of data:
+
+						  // DIS 6 //
 
 				Layer 1  - basic system data. Always included. 
 
@@ -41,6 +44,8 @@ http://p.sf.net/kdis/UserGuide
 				          simulations that need detailed IFF electromagnetic characteristics.
 						  The field formats of the two Operational Parameter fields and the 
 						  System-Specific Data field may vary depending on the system type.
+
+						  // DIS 7 //
 
 				Layers 3 - Mode 5 formats. The military Mode 5 system is the only system that currently uses Layer 3.
 

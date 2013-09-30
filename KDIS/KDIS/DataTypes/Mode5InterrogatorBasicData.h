@@ -28,92 +28,76 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      Mode5MessageFormats
+    class:      Mode5InterrogatorBasicData
     DIS:        (7) 1278.1 - 2012
-    created:    23/09/2013
+    created:    30/09/2013
     author:     Karl Jones
 
-    purpose:    Used to indicate the message formats associated with a Mode 5 transponder or interrogator as follows:
-	
-					a) Mode 5 Transponder. When a Mode 5 transponder is in the Regeneration Mode, the included
-					message formats shall be those that this Mode 5 transponder is capable of supporting and could be in
-					a reply to a Mode 5 interrogation. The Message Formats Status field of the Mode 5 Transponder
-					Status record is set to Capability (0) in this case. When a Mode 5 transponder is in the Interactive Mode, 
-					the requirements specified in InteractiveBasicMode5IFFData are applicable.
+    purpose:    Included in the Mode 5 Interrogator format for Layer 3 of the IFF PDU.
 
-					b) Mode 5 Interrogator. When a Mode 5 interrogator is in the Regeneration Mode, the included message formats 
-					shall be either:
-						1) Those that this Mode 5 interrogator is capable of supporting and could be sent in a Mode 5
-						interrogation as indicated by the Message Formats Status field being set to Capability (0).
-						2) Only the specific message formats associated with this Mode 5 interrogator’s current active
-						interrogation as indicated by the Message Formats Status field being set to Active Interrogation(1).
-						When a Mode 5 interrogator is in the Interactive Mode, the requirements specified in InteractiveBasicMode5IFFData are applicable.
-				
-    Size:       32 bits / 4 octets 
+    Size:       128 bits / 16 octets 
 *********************************************************************/
 
 #pragma once
 
 #include "./DataTypeBase.h"
-#include <bitset>
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT Mode5MessageFormats : public DataTypeBase
+class KDIS_EXPORT Mode5InterrogatorBasicData : public DataTypeBase
 {
 protected:
 
-	std::bitset<32> m_msgFormats;	
 
 public:
 
-    static const KUINT16 MODE_5_MESSAGE_FORMATS_SIZE = 4; 
+    static const KUINT16 MODE_5_INTERROGATOR_BASIC_DATA_SIZE = 16; 
 
-    Mode5MessageFormats();
+    Mode5InterrogatorBasicData();
 
-    Mode5MessageFormats( KDataStream & stream ) throw( KException );
+    Mode5InterrogatorBasicData( KDataStream & stream ) throw( KException );
 
-    virtual ~Mode5MessageFormats();
+    virtual ~Mode5InterrogatorBasicData();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5MessageFormats::etMessageFormatPrese
-    //              KDIS::DATA_TYPE::Mode5MessageFormats::IsMessageFormatPresent
-	//              KDIS::DATA_TYPE::Mode5MessageFormats::SetMessageFormatPresentFlags
-	//              KDIS::DATA_TYPE::Mode5MessageFormats::GetMessageFormatPresentFlags
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::etMessageFormatPrese
+    //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::IsMessageFormatPresent
+	//              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetMessageFormatPresentFlags
+	//              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetMessageFormatPresentFlags
     // Description: Set/Get the bit/flag to indicate if the message format is present.
     // Parameter:   KUINT8 MF - Message format. Exception thrown if not between 0-31.
 	// Parameter:   KBOOL P - Present?
     //************************************
-    void SetMessageFormatPresent( KUINT8 MF, KBOOL P ) throw( KException );	
-    KBOOL IsMessageFormatPresent( KUINT8 MF ) const throw( KException );
-	void SetMessageFormatPresentFlags( KINT32 All );
-	KUINT32 GetMessageFormatPresentFlags() const;
+ //   void SetMessageFormatPresent( KUINT8 MF, KBOOL P ) throw( KException );	
+ //   KBOOL IsMessageFormatPresent( KUINT8 MF ) const throw( KException );
+	//void SetMessageFormatPresentFlags( KINT32 All );
+	//KUINT32 GetMessageFormatPresentFlags() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5MessageFormats::GetAsString
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetAsString
     // Description: Returns a string representation
     //              of the PDU.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5MessageFormats::Decode
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5MessageFormats::Encode
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const Mode5MessageFormats & Value ) const;
-    KBOOL operator != ( const Mode5MessageFormats & Value ) const;
+    KBOOL operator == ( const Mode5InterrogatorBasicData & Value ) const;
+    KBOOL operator != ( const Mode5InterrogatorBasicData & Value ) const;
 };
 
 } // END namespace DATA_TYPE
