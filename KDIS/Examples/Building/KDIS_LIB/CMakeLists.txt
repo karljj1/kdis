@@ -41,9 +41,11 @@ SOURCE_GROUP(KDIS\\PDU\\Information_Operations FILES ${KDIS_SRC_PDU_IO_CPP})
 SOURCE_GROUP(KDIS\\Extras FILES ${KDIS_SRC_EX_CPP})
 SOURCE_GROUP(KDIS\\Network FILES ${KDIS_SRC_NET_CPP})
 
-#Include directories in project settings
-INCLUDE_DIRECTORIES(${KDIS_SOURCE_DIR})
-INCLUDE_DIRECTORIES(${KDIS_SOURCE_DIR}/Examples)
+# Include directories in project settings
+# (or not, because we don't want to install the Examples in the header files)
+
+# INCLUDE_DIRECTORIES(${KDIS_SOURCE_DIR})
+# INCLUDE_DIRECTORIES(${KDIS_SOURCE_DIR}/Examples)
 
 #Create the project
 
