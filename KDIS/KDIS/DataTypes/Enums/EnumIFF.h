@@ -82,6 +82,29 @@ KString GetEnumAsStringTCAS( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringTCAS( const KString & Value, KINT32 & ValueOut ); 
 
+#if DIS_VERSION > 6
+
+
+/************************************************************************/
+/* Mode5MessageFormat                                                   */
+/* indicate the Mode 5 Message Format.                                  */
+/* Used In:                                                             */
+/*  Mode 5 Interrogator Status                                          */
+/************************************************************************/
+
+enum Mode5MessageFormat
+{
+    Capability                                                        = 0,
+    ActiveInterrogation                                               = 1
+};
+
+KString GetEnumAsStringMode5MessageFormat( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut ); 
+
+#endif
+
 } // END namespace ENUMS
 } // END namespace DATA_TYPES
 } // END namespace KDIS

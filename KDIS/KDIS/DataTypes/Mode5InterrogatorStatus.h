@@ -33,7 +33,9 @@ http://p.sf.net/kdis/UserGuide
     created:    30/09/2013
     author:     Karl Jones
 
-    purpose:    
+    purpose:    Provides Mode 5 interrogator information.
+	            Knowledge of AIMS 03-1000A, and specific interrogator model specifications are
+                required to properly implement these fields.
 
     Size:       8 bits / 1 octet
 *********************************************************************/
@@ -71,13 +73,14 @@ public:
 
     Mode5InterrogatorStatus( KDataStream & stream ) throw( KException );
 
+	Mode5InterrogatorStatus( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
+                             KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction );
+
     virtual ~Mode5InterrogatorStatus();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::etMessageFormatPrese
-    //              KDIS::DATA_TYPE::Mode5InterrogatorStatus::IsMessageFormatPresent
-	//              KDIS::DATA_TYPE::Mode5InterrogatorStatus::SetMessageFormatPresentFlags
-	//              KDIS::DATA_TYPE::Mode5InterrogatorStatus::GetMessageFormatPresentFlags
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::SetIFFMission
+    //              KDIS::DATA_TYPE::Mode5InterrogatorStatus::GetIFFMIssion
     // Description: 3 bit enum field used to identify the IFF mission of this Mode 5 interrogator.
 	//              Refer to AIMS 03-1000A to determine the applicable IFF mission.
     // Parameter:   KUINT8 IFFM	- Exception thrown if greater than 7.
@@ -85,13 +88,46 @@ public:
 	void SetIFFMission( KUINT8 IFFM ) throw( KException );
 	KUINT8 GetIFFMIssion() const;
 
-	// TODO: You are here, add enum for message format status.
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::SetMode5MessageFormat
+    //              KDIS::DATA_TYPE::Mode5InterrogatorStatus::GetMode5MessageFormat	
+    // Description: Indicates whether the Mode 5 Message Formats record is a Capability or 
+	//              an Active Interrogation.
+    // Parameter:   KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF
+    //************************************
+	void SetMode5MessageFormat( KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF );
+	KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat GetMode5MessageFormat() const;
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::SetOnOffStatus
+    //              KDIS::DATA_TYPE::Mode5InterrogatorStatus::GetOnOffStatus	
+    // Description: Indicates whether the Mode 5 interrogation capability is On(true) or Off (false).
+    // Parameter:   KBOOL OOS
+    //************************************
+	void SetOnOffStatus( KBOOL OOS );
+	KBOOL GetOnOffStatus() const;
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::SetDamaged
+    //              KDIS::DATA_TYPE::Mode5InterrogatorStatus::IsDamaged	
+    // Description: Indicate whether there is damage to the Mode 5 interrogation capability.
+	// Parameter:   KBOOL D - Damaged(true) / not damaged(false).
+    //************************************
+	void SetDamaged( KBOOL D );
+	KBOOL IsDamaged() const;
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::SetMalfunction
+    //              KDIS::DATA_TYPE::Mode5InterrogatorStatus::HasMalfunction	
+    // Description: Indicate whether there is a malfunction of the Mode 5 interrogation capability. 
+	// Parameter:   KBOOL M - Malfunction(true) / No Malfunction(false).
+    //************************************
+	void SetMalfunction( KBOOL M );
+	KBOOL HasMalfunction() const;
+	
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

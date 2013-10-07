@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnumFundamentalOperationalData.h"
+#include "./EnumIFF.h"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -108,3 +108,44 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTCAS( const KString & Value, KINT
 }
 
 #endif
+
+//////////////////////////////////////////////////////////////////////////
+#if DIS_VERSION > 6
+
+// Implementation of string values for Mode5MessageFormat
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor Mode5MessageFormatDescriptor[] =
+{
+    { 0 , "Capability" },
+    { 1 , "ActiveInterrogation" }
+};
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value )
+{
+    return GetEnumAsString( Mode5MessageFormatDescriptor, sizeof( TCASDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString( Mode5MessageFormatDescriptor, sizeof( Mode5MessageFormatDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+};
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
+
+#endif // Endif DIS Version > 6

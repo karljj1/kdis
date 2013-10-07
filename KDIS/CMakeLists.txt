@@ -393,7 +393,7 @@ SET(KDIS_SRC_ENUMS_H
     ${ENUMS_DIR}/EnumDetonationResult.h
     ${ENUMS_DIR}/EnumEmitter.h
     ${ENUMS_DIR}/EnumEntityInfoInteraction.h
-    ${ENUMS_DIR}/EnumFundamentalOperationalData.h
+    ${ENUMS_DIR}/EnumIFF.h
     ${ENUMS_DIR}/EnumHeader.h
     ${ENUMS_DIR}/EnumRadio.h
     ${ENUMS_DIR}/EnumSupply.h
@@ -423,7 +423,7 @@ SET(KDIS_SRC_ENUMS_CPP
     ${ENUMS_DIR}/EnumEmitter.cpp
     ${ENUMS_DIR}/EnumEntityInfoInteraction.cpp
     ${ENUMS_DIR}/EnumEntityManagement.cpp
-    ${ENUMS_DIR}/EnumFundamentalOperationalData.cpp
+    ${ENUMS_DIR}/EnumIFF.cpp
     ${ENUMS_DIR}/EnumHeader.cpp
     ${ENUMS_DIR}/EnumRadio.cpp
     ${ENUMS_DIR}/EnumSimulationManagement.cpp

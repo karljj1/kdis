@@ -49,6 +49,8 @@ class KDIS_EXPORT Mode5InterrogatorBasicData : public DataTypeBase
 {
 protected:
 
+	// TODO: YOU ARE HERE!!!!
+	// Mode5InterrogatorStatus
 
 public:
 

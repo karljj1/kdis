@@ -46,7 +46,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./EnumDesignator.h"
 #include "./EnumRadio.h"
 #include "./EnumSystemIdentifier.h"
-#include "./EnumFundamentalOperationalData.h"
+#include "./EnumIFF.h"
 #include "./EnumEntityManagement.h"
 #include "./EnumSimulationManagement.h"
 #include "./EnumSyntheticEnviroment.h"
