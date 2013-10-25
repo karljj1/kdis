@@ -176,13 +176,12 @@ void Resupply_Received_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= 
 
     Logistics_Header::Decode( stream, ignoreHeader );	
 
-    stream >> m_ui8NumSupplyTypes;
+    stream >> m_ui8NumSupplyTypes
+           >> m_ui16Padding1
+           >> m_ui8Padding2;
 
     // Now recheck the size of the packet as we now know the number of supply types.
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RESUPPLY_RECEIVED_PDU_SIZE + ( m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE ) )throw KException( __FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE );
-
-    stream >> m_ui16Padding1
-           >> m_ui8Padding2;
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ( m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE ) )throw KException( __FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE );
 
     for( KUINT16 i = 0; i < m_ui8NumSupplyTypes; ++i )
     {

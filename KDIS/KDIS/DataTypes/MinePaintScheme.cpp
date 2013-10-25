@@ -81,14 +81,14 @@ MineAlgae MinePaintScheme::GetAlgae() const
 
 void MinePaintScheme::SetPaintScheme( PaintScheme PS )
 {
-    m_PntScmUnion.m_ui8PntSchm = PS;
+    m_PntScmUnion.m_ui8Scm = PS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 PaintScheme MinePaintScheme::GetPaintScheme() const
 {
-    return ( PaintScheme )m_PntScmUnion.m_ui8PntSchm;
+    return ( PaintScheme )m_PntScmUnion.m_ui8Scm;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ KString MinePaintScheme::GetAsString() const
 
     ss << "MinePaintScheme:"
        << "\n\tAlgae:			" << GetEnumAsStringMineAlgae( m_PntScmUnion.m_ui8Alg )
-       << "\n\tSecondary Fuse:	" << GetEnumAsStringPaintScheme( m_PntScmUnion.m_ui8PntSchm )
+       << "\n\Paint Scheme:	" << GetEnumAsStringPaintScheme( m_PntScmUnion.m_ui8Scm )
        << "\n";
 
     return ss.str();

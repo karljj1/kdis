@@ -50,7 +50,7 @@ class KDIS_EXPORT Data_R_PDU : public Data_PDU,
 {
 public:
 
-    static const KUINT16 DATA_R_PDU_SIZE = 44;
+    static const KUINT16 DATA_R_PDU_SIZE = 40;
 
     Data_R_PDU();
 

@@ -49,10 +49,6 @@ namespace PDU {
 class KDIS_EXPORT Action_Request_R_PDU : public Action_Request_PDU,
                                          public Reliability_Header
 {
-protected:
-
-    KUINT32 m_ui32ActionID;
-
 public:
 
     static const KUINT16 ACTION_REQUEST_R_PDU_SIZE = 44;

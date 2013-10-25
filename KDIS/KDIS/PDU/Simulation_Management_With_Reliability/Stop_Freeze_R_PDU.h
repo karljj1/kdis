@@ -50,7 +50,7 @@ class KDIS_EXPORT Stop_Freeze_R_PDU : public Stop_Freeze_PDU,
 {
 public:
 
-    static const KUINT16 STOP_FREEZE_R_PDU_SIZE = 44;
+    static const KUINT16 STOP_FREEZE_R_PDU_SIZE = 40;
 
     Stop_Freeze_R_PDU();
 

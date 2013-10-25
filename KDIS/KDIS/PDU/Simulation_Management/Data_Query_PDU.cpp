@@ -183,7 +183,7 @@ void Data_Query_PDU::AddVariableDatum( KUINT32 VD )
 void Data_Query_PDU::SetVariableDatum( const vector<KUINT32> & VD )
 {
 	m_vVariableDatum = VD;
-	m_ui32NumFixedDatum = VD.size();
+	m_ui32NumVariableDatum = VD.size();
 	m_ui16PDULength = ( m_ui32NumFixedDatum + m_ui32NumVariableDatum ) * 4; // Size of KUINT32
 }
 

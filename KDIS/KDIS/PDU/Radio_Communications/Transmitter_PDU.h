@@ -104,7 +104,7 @@ public:
                      KFLOAT32 FreqBW, KFLOAT32 Power, const KDIS::DATA_TYPE::ModulationType & MT,
                      const KDIS::DATA_TYPE::CryptoSystem & CS, const KOCTET * ModulationParams,
                      KUINT8 ModulationParamsLength, const KOCTET * AntennaPattern,
-                     KUINT8 AntennaPatternLength );
+                     KUINT16 AntennaPatternLength );
 
     virtual ~Transmitter_PDU();
 
@@ -245,8 +245,8 @@ public:
     // Parameter:   KOCTET * MP - buffer for writing/reading
     // Parameter:   KUINT8 Length - size of buffer.
     //************************************
-    void SetAntennaPattern( const KOCTET * AP, KUINT8 Length );
-    void GetAntennaPattern( KOCTET * AP, KUINT8 Length ) const throw( KException );
+    void SetAntennaPattern( const KOCTET * AP, KUINT16 Length );
+    void GetAntennaPattern( KOCTET * AP, KUINT16 Length ) const throw( KException );
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::GetAsString

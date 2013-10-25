@@ -77,9 +77,9 @@ IO_Report_PDU::IO_Report_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Report_PDU::IO_Report_PDU( const Header & H, KDataStream & stream ) throw( KException ) 
+IO_Report_PDU::IO_Report_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	IO_Header( H )
 {
-	( ( Header )*this ) = H;
     Decode( stream, true );
 }
 

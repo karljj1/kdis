@@ -75,7 +75,7 @@ Transmitter_PDU::Transmitter_PDU( const RadioEntityType & Type, TransmitState TS
                                   KFLOAT32 FreqBW, KFLOAT32 Power, const ModulationType & MT,
                                   const CryptoSystem & CS, const KOCTET * ModulationParams,
                                   KUINT8 ModulationParamsLength, const KOCTET * AntennaPattern,
-                                  KUINT8 AntennaPatternLength ) :
+                                  KUINT16 AntennaPatternLength ) :
     m_RadioEntityType( Type ),
     m_ui8TransmitterState( TS ),
     m_ui8InputSource( IS ),
@@ -331,7 +331,7 @@ void Transmitter_PDU::GetModulationParameters( KOCTET * MP, KUINT8 Length ) cons
 
 //////////////////////////////////////////////////////////////////////////
 
-void Transmitter_PDU::SetAntennaPattern( const KOCTET * AP, KUINT8 Length )
+void Transmitter_PDU::SetAntennaPattern( const KOCTET * AP, KUINT16 Length )
 {
     // If we already have data clear it first.
     m_ui16PDULength -= m_vAntennaPattern.size();
@@ -360,7 +360,7 @@ void Transmitter_PDU::SetAntennaPattern( const KOCTET * AP, KUINT8 Length )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Transmitter_PDU::GetAntennaPattern( KOCTET * AP, KUINT8 Length ) const throw( KException )
+void Transmitter_PDU::GetAntennaPattern( KOCTET * AP, KUINT16 Length ) const throw( KException )
 {
     if( Length < m_ui16AntennaPatternLength )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
 

@@ -55,11 +55,17 @@ protected:
 
     KUINT32 m_ui32NumRecSets;
 
+    KUINT8 m_ui8Padding;
+
+    KUINT16 m_ui16Padding;
+
+    KUINT32 m_ui32Padding;
+
 	std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
 
 public:
 
-    static const KUINT16 SET_RECORD_R_PDU_SIZE = 36;
+    static const KUINT16 SET_RECORD_R_PDU_SIZE = 40;
 
     Set_Record_R_PDU();
 

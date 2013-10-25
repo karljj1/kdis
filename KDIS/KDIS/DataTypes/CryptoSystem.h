@@ -91,6 +91,15 @@ public:
     KDIS::DATA_TYPE::ENUMS::EncryptionMode GetEncryptionMode() const;
 
     //************************************
+    // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetKeyID
+    //              KDIS::DATA_TYPE::CryptoSystem::GetKeyID
+    // Description: Mode being used to encrypt the data.
+    // Parameter:   EncryptionMode EM
+    //************************************
+    void SetKeyID( KUINT16 KeyID );
+    KUINT16 GetKeyID() const;
+
+    //************************************
     // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetKey
     //              KDIS::DATA_TYPE::CryptoSystem::GetKey
     // Description: Key. Not an actual crypto key, if the key

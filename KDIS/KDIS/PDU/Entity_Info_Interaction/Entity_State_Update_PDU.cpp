@@ -124,6 +124,90 @@ KUINT8 Entity_State_Update_PDU::GetNumberOfVariableParams() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void Entity_State_Update_PDU::SetEntityLinearVelocity( const Vector & ELV )
+{
+    m_EntityLinearVelocity = ELV;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const Vector & Entity_State_Update_PDU::GetEntityLinearVelocity() const
+{
+    return m_EntityLinearVelocity;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Vector & Entity_State_Update_PDU::GetEntityLinearVelocity()
+{
+    return m_EntityLinearVelocity;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_Update_PDU::SetEntityLocation( const WorldCoordinates & EL )
+{
+    m_EntityLocation = EL;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const WorldCoordinates & Entity_State_Update_PDU::GetEntityLocation() const
+{
+    return m_EntityLocation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+WorldCoordinates & Entity_State_Update_PDU::GetEntityLocation()
+{
+    return m_EntityLocation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_Update_PDU::SetEntityOrientation( const EulerAngles & EO )
+{
+    m_EntityOrientation = EO;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EulerAngles & Entity_State_Update_PDU::GetEntityOrientation() const
+{
+    return m_EntityOrientation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EulerAngles & Entity_State_Update_PDU::GetEntityOrientation()
+{
+    return m_EntityOrientation;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Entity_State_Update_PDU::SetEntityAppearance( const EntityAppearance & EA )
+{
+    m_EntityAppearance = EA;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityAppearance & Entity_State_Update_PDU::GetEntityAppearance() const
+{
+    return m_EntityAppearance;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityAppearance & Entity_State_Update_PDU::GetEntityAppearance()
+{
+    return m_EntityAppearance;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void Entity_State_Update_PDU::AddVariableParameter( VarPrmPtr VP )
 {
     m_vVariableParameters.push_back( VP );

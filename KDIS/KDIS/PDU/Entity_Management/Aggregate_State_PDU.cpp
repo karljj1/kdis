@@ -183,7 +183,7 @@ ForceID Aggregate_State_PDU::GetForceID() const
 
 void Aggregate_State_PDU::SetAggregateState( AggregateState AS )
 {
-    m_ui8AggState;
+    m_ui8AggState = AS;
 }
 
 //////////////////////////////////////////////////////////////////////////

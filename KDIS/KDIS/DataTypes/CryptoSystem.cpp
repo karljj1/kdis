@@ -71,7 +71,7 @@ CryptoSystem::~CryptoSystem()
 
 void CryptoSystem::SetCryptoSystemType( CryptoSystemType T )
 {
-    m_ui16CryptoSystemType;
+    m_ui16CryptoSystemType = T;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,6 +93,20 @@ void CryptoSystem::SetEncryptionMode( EncryptionMode EM )
 EncryptionMode CryptoSystem::GetEncryptionMode() const
 {
     return ( EncryptionMode )m_ui16EncryptionMode;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void CryptoSystem::SetKeyID( KUINT16 KeyID )
+{
+    m_ui16KeyID = KeyID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 CryptoSystem::GetKeyID() const
+{
+    return m_ui16KeyID;
 }
 
 //////////////////////////////////////////////////////////////////////////
