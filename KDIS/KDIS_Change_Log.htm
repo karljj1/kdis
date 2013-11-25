@@ -50,6 +50,9 @@
 <br>
 <br>
 
+
+TODO: CLEAN UP THIS LOG.!!! AGGREGATE THE FIXES!
+
 <!-- Version 3-0-0 !-->
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table2">
 	<tr>
@@ -66,9 +69,19 @@
 	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Migration_Guide">migration</a> guide for more details.
 	<li>Renamed ArticulationParamaters to ArticulatedPart.</li>
 	<li>Added AttachedPart class.</li>
+	<li>Added CryptoSystem::SetKeyID & CryptoSystem::GetKeyID.</li>
+	<li>Fixed no operation bug in CryptoSystem::SetCryptoSystemType.</li>
+	<li>Fixed no operation bug in Aggregate_State_PDU::SetAggregateState.</li>
+	<li>Fixed incorrect size values for DATA_R_PDU , SET_RECORD_R_PDU_SIZE and STOP_FREEZE_R_PDU_SIZE.</li>
+	<li>Fixed bug in Set_Record_R_PDU::Decode & Set_Record_R_PDU::Encode. Not enough padding.</li>
+	</li>Fixed error checking bug in Resupply_Received_PDU::Decode & Service_Request_PDU::Decode.</li>
+	<li>Fixed bug in Transmitter_PDU::Transmitter_PDU, AntennaPatternLength was using the wrong data type.</li>
+	<li>Fixed bug in void Data_Query_PDU::SetVariableDatum, setting the wrong length value.</li>
+	<li>Fixed bug in MinePaintScheme, was not using the correct variable for SetPaintScheme & GetPaintScheme.</li>
+	<li>Added missing implementations of LinearVelocity, EntityLocation, EntityOrientation, EntityAppearance into Entity_State_Update_PDU.</li>
 	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>
 	<li>Replaced BurstDescriptor in LE Fire & LE Detonation PDU with MunitionDescriptor. This class is the same except the Set/GetMuntion function is now named Set/GetType.</li>
-	</div>	
+	</div>		
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>
 	<li>Added Vector::Set to set all values in one call.</li>
 	<li>Added Vector::Lerp.</li>	
@@ -77,7 +90,7 @@
 	<li>Removed IFF_ATC_NAVAIDS_L2_PDU, it is now a data type class called IFF_Layer2 which is a property of IFF_PDU.</li>
 	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
 	<li>Added SetTCASVersion to FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData_MarkXInterrogator.</li>
-	<li>Added missing get/set for ResponseCode, ResponsePowerReduction & ResponseRadarEnhancement to FundamentalOperationalData_RRB.<li>
+	<li>Added missing get/set for ResponseCode, ResponsePowerReduction & ResponseRadarEnhancement to FundamentalOperationalData_RRB.</li>
 	<li>Added missing get/set for NumBurst to PointObjectAppearance.</li>
 	<li>Added missing get/set for AttackerEntityID to AttackerEntityID.</li>
 	<li>Performance Improvements In Decoding. ignoreHeader parameter added to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>

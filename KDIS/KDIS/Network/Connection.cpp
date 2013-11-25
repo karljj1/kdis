@@ -635,6 +635,8 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
 			{ 
 				vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
 				vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
+				itr = m_vpSubscribers.begin();
+				itrEnd = m_vpSubscribers.end();
 				for( ; itr != itrEnd; ++itr )
 				{
 					( *itr )->OnPDUReceived( pdu.get() );

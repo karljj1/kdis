@@ -132,7 +132,7 @@ void Service_Request_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tr
            >> m_ui16Padding1;
 
     // Now recheck the size of the packet as we now know the number of supply types.
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ( m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE ) )throw KException( __FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE );
+    if( stream.GetBufferSize() < m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE )throw KException( __FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE );
 
     for( KUINT16 i = 0; i < m_ui8NumSupplyTypes; ++i )
     {
