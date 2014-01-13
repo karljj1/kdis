@@ -116,8 +116,7 @@ public:
 
     //************************************
     // FullName:    KDIS::PDU::Warfare_Header::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

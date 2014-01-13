@@ -41,16 +41,30 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./DataTypeBase.h"
+#include "./EntityIdentifier.h"
+#include "./Mode5InterrogatorStatus.h"
+#include <bitset>
 
 namespace KDIS {
 namespace DATA_TYPE {
 
+using std::bitset;
+
 class KDIS_EXPORT Mode5InterrogatorBasicData : public DataTypeBase
 {
 protected:
+	
+	Mode5InterrogatorStatus m_Status;
 
-	// TODO: YOU ARE HERE!!!!
-	// Mode5InterrogatorStatus
+	KUINT8 m_ui8Padding;
+
+	KUINT16 m_ui16Padding1;
+
+	KUINT32 m_ui32MsgFormats;
+
+	EntityIdentifier m_InterrogatedID;
+
+	KUINT16 m_ui16Padding2;
 
 public:
 
@@ -58,25 +72,58 @@ public:
 
     Mode5InterrogatorBasicData();
 
+	Mode5InterrogatorBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID );
+
     Mode5InterrogatorBasicData( KDataStream & stream ) throw( KException );
 
     virtual ~Mode5InterrogatorBasicData();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::etMessageFormatPrese
-    //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::IsMessageFormatPresent
-	//              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetMessageFormatPresentFlags
-	//              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetMessageFormatPresentFlags
-    // Description: Set/Get the bit/flag to indicate if the message format is present.
-    // Parameter:   KUINT8 MF - Message format. Exception thrown if not between 0-31.
-	// Parameter:   KBOOL P - Present?
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetMode5InterrogatorStatus
+    //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetMode5InterrogatorStatus	
+    // Description: The Mode 5 Message Formats supported by this Mode 5 interrogator.
+    // Parameter:   const InterrogatorStatus & IS
     //************************************
- //   void SetMessageFormatPresent( KUINT8 MF, KBOOL P ) throw( KException );	
- //   KBOOL IsMessageFormatPresent( KUINT8 MF ) const throw( KException );
-	//void SetMessageFormatPresentFlags( KINT32 All );
-	//KUINT32 GetMessageFormatPresentFlags() const;
+	void SetMode5InterrogatorStatus( const Mode5InterrogatorStatus & IS );
+	const Mode5InterrogatorStatus & GetMode5InterrogatorStatus() const;
+	Mode5InterrogatorStatus & GetMode5InterrogatorStatus();
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetMessageFormatsPresent
+    //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetMessageFormatsPresentBitSet	
+	//              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetMessageFormatsPresent
+    // Description: The Mode 5 Message Formats supported by this Mode 5 interrogator.
+	//              When a Mode 5 interrogator is in the Regeneration Mode, the included message 
+	//              formats shall be either:
+	//              1) Those that this Mode 5 interrogator is capableof supporting and could be sent 
+	//              in a Mode 5 interrogation as indicated by the Message Formats Status field being
+	//              set to Capability (0).
+	//              2) Only the specific message formats associated with this Mode 5 interrogator’s 
+	//              current active interrogation as indicated by the Message Formats Status field 
+	//              being set to Active Interrogation (1).
+	//              When a Mode 5 interrogator is in the Interactive Mode, the requirements specified in
+	//              Interactive Basic Mode 5 IFF Data record are applicable.
+	//              Each bit represents a specific message format: Not Present (0) and Present (1).
+    // Parameter:   KUINT32 MFP, const std::bitset<32> & MFP
     //************************************
+	void SetMessageFormatsPresent( KUINT32 MFP );
+	void SetMessageFormatsPresent( const std::bitset<32> & MFP );
+	const std::bitset<32> & GetMessageFormatsPresentBitSet() const;
+	KUINT32 GetMessageFormatsPresent();
+	
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetInterrogatedEntityID
+    //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetInterrogatedEntityID		
+    // Description: The Entity ID of the entity to which an active interrogation is being
+    //              directed. If there is no active interrogation, this field shall be set
+	//              to NO_SPECIFIC_ENTITY. 
+    // Parameter:   const EntityIdentifier & ID 
+    //************************************
+    void SetInterrogatedEntityID( const EntityIdentifier & ID );
+    const EntityIdentifier & GetInterrogatedEntityID() const;
+    EntityIdentifier & GetInterrogatedEntityID();
+
+	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetAsString
     // Description: Returns a string representation
     //              of the PDU.

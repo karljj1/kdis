@@ -287,8 +287,7 @@ public:
 	
     //************************************
     // FullName:    KDIS::PDU::Header7::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

@@ -159,8 +159,7 @@ public:
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

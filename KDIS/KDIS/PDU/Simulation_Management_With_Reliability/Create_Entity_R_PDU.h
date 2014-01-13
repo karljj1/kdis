@@ -70,8 +70,7 @@ public:
 
     //************************************
     // FullName:    KDIS::PDU::Create_Entity_R_PDU::GetString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

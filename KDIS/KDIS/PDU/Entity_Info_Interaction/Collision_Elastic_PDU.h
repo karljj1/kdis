@@ -216,8 +216,7 @@ public:
 
     //************************************
     // FullName:    KDIS::PDU::Collision_Elastic_PDU::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

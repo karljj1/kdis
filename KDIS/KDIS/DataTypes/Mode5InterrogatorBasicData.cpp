@@ -33,14 +33,31 @@ http://p.sf.net/kdis/UserGuide
 
 using namespace std;
 using namespace KDIS;
+using namespace UTILS;
 using namespace DATA_TYPE;
 
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorBasicData::Mode5InterrogatorBasicData() 
+Mode5InterrogatorBasicData::Mode5InterrogatorBasicData() :
+	m_ui8Padding( 0 ),
+	m_ui16Padding1( 0 ),
+	m_ui32MsgFormats( 0 ),
+	m_ui16Padding2( 0 )
 {	
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Mode5InterrogatorBasicData::Mode5InterrogatorBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID ) :
+	m_Status( Status ),
+	m_ui8Padding( 0 ),
+	m_ui16Padding1( 0 ),
+	m_ui32MsgFormats( FormatsPresent ),
+	m_InterrogatedID( ID ),
+	m_ui16Padding2( 0 )
+{
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -58,10 +75,63 @@ Mode5InterrogatorBasicData::~Mode5InterrogatorBasicData()
 
 //////////////////////////////////////////////////////////////////////////
 
+void Mode5InterrogatorBasicData::SetMode5InterrogatorStatus( const Mode5InterrogatorStatus & IS )
+{
+	m_Status = IS;
+}
+	
+//////////////////////////////////////////////////////////////////////////
+
+const Mode5InterrogatorStatus & Mode5InterrogatorBasicData::GetMode5InterrogatorStatus() const
+{
+	return m_Status;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Mode5InterrogatorStatus & Mode5InterrogatorBasicData::GetMode5InterrogatorStatus()
+{
+	return m_Status;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5InterrogatorBasicData::SetMessageFormatsPresent( KUINT32 MFP )
+{
+	m_ui32MsgFormats = MFP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5InterrogatorBasicData::SetMessageFormatsPresent( const std::bitset<32> & MFP )
+{
+	m_ui32MsgFormats = MFP.to_ullong();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const std::bitset<32> & Mode5InterrogatorBasicData::GetMessageFormatsPresentBitSet() const
+{
+	return bitset<32>( ( KINT32 )m_ui32MsgFormats );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT32 Mode5InterrogatorBasicData::GetMessageFormatsPresent()
+{
+	return m_ui32MsgFormats;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString Mode5InterrogatorBasicData::GetAsString() const
 {
     KStringStream ss;	
-	//ss << "Mode 5 Message Formats: " << m_msgFormats.to_string() << "\n";       
+	ss << "Mode 5 Interrogator Basic Data:"
+       << IndentString( m_Status.GetAsString() )
+	   << GetMessageFormatsPresentBitSet().to_string()
+	   << IndentString( m_InterrogatedID.GetAsString() );	   
+	   
     return ss.str();
 }
 
@@ -70,10 +140,13 @@ KString Mode5InterrogatorBasicData::GetAsString() const
 void Mode5InterrogatorBasicData::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < MODE_5_INTERROGATOR_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-	//KINT32 tmp = 0;
-    //stream >> tmp;
-	//m_msgFormats = bitset<32>( tmp );
+	
+    stream >> KDIS_STREAM m_Status
+		   >> m_ui8Padding
+		   >> m_ui16Padding1
+		   >> m_ui32MsgFormats
+		   >> KDIS_STREAM m_InterrogatedID
+		   >> m_ui16Padding2;	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,14 +164,21 @@ KDataStream Mode5InterrogatorBasicData::Encode() const
 
 void Mode5InterrogatorBasicData::Encode( KDataStream & stream ) const
 {
-	//stream << m_msgFormats.to_ulong();
+	stream << KDIS_STREAM m_Status
+		   << m_ui8Padding
+		   << m_ui16Padding1
+		   << m_ui32MsgFormats
+		   << KDIS_STREAM m_InterrogatedID
+		   << m_ui16Padding2;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5InterrogatorBasicData::operator == ( const Mode5InterrogatorBasicData & Value ) const
 {
-	//if( m_msgFormats != Value.m_msgFormats ) return false;
+	if( m_Status         != Value.m_Status )         return false;
+	if( m_ui32MsgFormats != Value.m_ui32MsgFormats ) return false;
+	if( m_InterrogatedID != Value.m_InterrogatedID ) return false;	
     return true;
 }
 

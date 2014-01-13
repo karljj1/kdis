@@ -99,7 +99,7 @@ KString MinePaintScheme::GetAsString() const
 
     ss << "MinePaintScheme:"
        << "\n\tAlgae:			" << GetEnumAsStringMineAlgae( m_PntScmUnion.m_ui8Alg )
-       << "\n\Paint Scheme:	" << GetEnumAsStringPaintScheme( m_PntScmUnion.m_ui8Scm )
+       << "\n\tPaint Scheme:	" << GetEnumAsStringPaintScheme( m_PntScmUnion.m_ui8Scm )
        << "\n";
 
     return ss.str();

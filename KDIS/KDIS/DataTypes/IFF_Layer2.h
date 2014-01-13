@@ -113,8 +113,7 @@ public:
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer2::GetAsString
-    // Description: Returns a string representation
-    //              of the PDU.
+    // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 
