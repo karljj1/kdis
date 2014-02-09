@@ -73,7 +73,7 @@ Mode5InterrogatorStatus::~Mode5InterrogatorStatus()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::SetIFFMission( KUINT8 IFFM )
+void Mode5InterrogatorStatus::SetIFFMission( KUINT8 IFFM ) throw( KException )
 {
 	if( IFFM > 7 )throw KException( __FUNCTION__, INVALID_DATA );
 	m_StatusUnion.m_ui8IffMis = IFFM;
