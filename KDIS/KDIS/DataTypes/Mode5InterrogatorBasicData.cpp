@@ -105,7 +105,7 @@ void Mode5InterrogatorBasicData::SetMessageFormatsPresent( KUINT32 MFP )
 
 void Mode5InterrogatorBasicData::SetMessageFormatsPresent( const std::bitset<32> & MFP )
 {
-	m_ui32MsgFormats = MFP.to_ullong();
+	m_ui32MsgFormats = MFP.to_ulong();
 }
 
 //////////////////////////////////////////////////////////////////////////
