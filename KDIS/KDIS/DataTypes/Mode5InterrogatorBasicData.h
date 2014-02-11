@@ -108,7 +108,7 @@ public:
     //************************************
 	void SetMessageFormatsPresent( KUINT32 MFP );
 	void SetMessageFormatsPresent( const std::bitset<32> & MFP );
-	const std::bitset<32> & GetMessageFormatsPresentBitSet() const;
+	const std::bitset<32> GetMessageFormatsPresentBitSet() const;
 	KUINT32 GetMessageFormatsPresent();
 	
 	//************************************
