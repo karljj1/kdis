@@ -1,5 +1,5 @@
 /*********************************************************************
-Copyright 2013 KDIS
+Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
