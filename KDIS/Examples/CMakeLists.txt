@@ -13,8 +13,8 @@ IF(BUILD_EXAMPLES)
 ENDIF(BUILD_EXAMPLES)
 
 #We need to link to the rt library for the function clock_gettime in TimeStamp.cpp when using Linux.
-IF( CMAKE_SYSTEM MATCHES "Linux" )
+IF(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	FIND_LIBRARY( RT_LIBRARY rt )
-ENDIF( CMAKE_SYSTEM MATCHES "Linux" )
-
-
+ELSE(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+	SET( RT_LIBRARY "" )
+ENDIF(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
