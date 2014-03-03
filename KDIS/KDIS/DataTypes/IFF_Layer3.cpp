@@ -41,8 +41,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 IFF_Layer3::IFF_Layer3() :
-	m_ui32Padding( 0 ),
-	m_ui64Padding( 0 ), 
+	m_ui16Padding( 0 ),
 	m_ui16NumIffRecs( 0 )
 {
 	m_ui8LayerNumber = 2;
@@ -93,24 +92,26 @@ SimulationIdentifier & IFF_Layer3::GetReportingSimulation()
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::SetMode5MessageFormats( const Mode5MessageFormats & MF )
+void IFF_Layer3::SetMode5InterrogatorBasicData( const Mode5InterrogatorBasicData & IBD )
 {
-	m_MsgFormats = MF;
+	m_IntBscDta = IBD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Mode5MessageFormats & IFF_Layer3::GetMode5MessageFormats() const
+const Mode5InterrogatorBasicData & IFF_Layer3::GetMode5InterrogatorBasicData() const
 {
-	return m_MsgFormats;
+	return m_IntBscDta;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5MessageFormats & IFF_Layer3::GetMode5MessageFormats()
+Mode5InterrogatorBasicData & IFF_Layer3::GetMode5InterrogatorBasicDatan()
 {
-	return m_MsgFormats;
+	return m_IntBscDta;
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -152,10 +153,10 @@ void IFF_Layer3::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) th
 		LayerHeader::Decode( stream );
 	}
 
-    stream >> KDIS_STREAM m_RptSim
-		   >> m_ui32Padding              // Mode 5 Interrogator Basic Data field 0
-           >> KDIS_STREAM m_MsgFormats   // Mode 5 Interrogator Basic Data field 1
-		   >> m_ui64Padding;             // Mode 5 Interrogator Basic Data field 2
+    //stream >> KDIS_STREAM m_RptSim
+	//	   >> m_ui32Padding              // Mode 5 Interrogator Basic Data field 0
+   //        >> KDIS_STREAM m_MsgFormats   // Mode 5 Interrogator Basic Data field 1
+	//	   >> m_ui64Padding;             // Mode 5 Interrogator Basic Data field 2
 
  //   for( KUINT8 i = 0; i < m_SOD.GetNumberOfFundamentalParamSets(); ++i )
  //   {
@@ -180,10 +181,10 @@ void IFF_Layer3::Encode( KDataStream & stream ) const
 {
 	LayerHeader::Encode( stream );
 
-    stream << KDIS_STREAM m_RptSim
-		   << m_ui32Padding              // Mode 5 Interrogator Basic Data field 0
-           << KDIS_STREAM m_MsgFormats   // Mode 5 Interrogator Basic Data field 1
-		   << m_ui64Padding;             // Mode 5 Interrogator Basic Data field 2   
+   // stream << KDIS_STREAM m_RptSim
+	//	   << m_ui32Padding              // Mode 5 Interrogator Basic Data field 0
+   //        << KDIS_STREAM m_MsgFormats   // Mode 5 Interrogator Basic Data field 1
+	//	   << m_ui64Padding;             // Mode 5 Interrogator Basic Data field 2   
 
     //vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citr = m_vFPD.begin();
     //vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citrEnd = m_vFPD.end();

@@ -210,7 +210,9 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
 	${DATATYPES_DIR}/DEAreaAimpoint.h	
 	${DATATYPES_DIR}/IFF_Layer3.h
 	${DATATYPES_DIR}/Mode5InterrogatorBasicData.h
+	${DATATYPES_DIR}/Mode5TransponderBasicData.h	
 	${DATATYPES_DIR}/Mode5InterrogatorStatus.h
+	${DATATYPES_DIR}/Mode5TransponderStatus.h
 	${DATATYPES_DIR}/Mode5MessageFormats.h
 )
 
@@ -371,7 +373,9 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/DEAreaAimpoint.cpp
 	${DATATYPES_DIR}/IFF_Layer3.cpp
 	${DATATYPES_DIR}/Mode5InterrogatorBasicData.cpp
+	${DATATYPES_DIR}/Mode5TransponderBasicData.cpp	
 	${DATATYPES_DIR}/Mode5InterrogatorStatus.cpp
+	${DATATYPES_DIR}/Mode5TransponderStatus.cpp
 	${DATATYPES_DIR}/Mode5MessageFormats.cpp
 )
 

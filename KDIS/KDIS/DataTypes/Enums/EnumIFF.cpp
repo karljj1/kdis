@@ -124,7 +124,7 @@ const EnumDescriptor Mode5MessageFormatDescriptor[] =
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value )
 {
-    return GetEnumAsString( Mode5MessageFormatDescriptor, sizeof( TCASDescriptor ) / sizeof( EnumDescriptor ), Value );
+    return GetEnumAsString( Mode5MessageFormatDescriptor, sizeof( Mode5MessageFormatDescriptor ) / sizeof( EnumDescriptor ), Value );
 }
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut )
@@ -142,6 +142,47 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value 
 };
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
+
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for Mode5Reply
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor Mode5ReplyDescriptor[] =
+{
+    { 0 , "No Response" },
+    { 1 , "Valid Reply" },
+	{ 2 , "Invalid Reply" },
+	{ 3 , "Unable To Verify" }
+};
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
+{
+    return GetEnumAsString( Mode5MessageFormatDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString( Mode5MessageFormatDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+};
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value, KINT32 & ValueOut )
 {
 	return false; // Maybe throw an exception?
 }

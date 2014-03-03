@@ -28,118 +28,107 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      IFF_Layer3
+    class:      Mode5TransponderStatus
     DIS:        (7) 1278.1 - 2012
-    created:    23/09/2013
+    created:    3/03/2014
     author:     Karl Jones
 
-    purpose:    Layer 3 Mode 5 formats.
-				Used to convey Mode 5 interrogator and transponder functional data.
+    purpose:    
 
-    Size:       224 bits / 28 octets - min size
+    Size:       16 bits / 2 octet
 *********************************************************************/
 
 #pragma once
 
-#include "./LayerHeader.h"
-#include "./SimulationIdentifier.h"
-#include "./Mode5MessageFormats.h"
-#include "./Mode5InterrogatorBasicData.h"
+#include "./DataTypeBase.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3 : public LayerHeader
+class KDIS_EXPORT Mode5TransponderStatus : public DataTypeBase
 {
 protected:
 
-	SimulationIdentifier m_RptSim;
-
-	// TODO: This is either interrogator or transponder data. 
-	Mode5InterrogatorBasicData m_IntBscDta;
-
-	KUINT16 m_ui16Padding;
-	
-	
-	
-	
 	// TODO: YOU ARE HERE
-	
-	KUINT16 m_ui16NumIffRecs;
+	// TODO: NEXT enum for antenna selection
 
+	union
+	{
+		struct
+		{
+			KUINT16 m_ui16Reply        : 4;
+			KUINT16 m_ui16LineTst      : 1;
+			KUINT16 m_ui16AntennaSel   : 2;
+			KUINT16 m_ui16CryptoCtrl   : 1;
+			KUINT16 m_ui16LatLonAltSrc : 1;
+			KUINT16 m_ui16LocErrs      : 1;
+			KUINT16 m_ui16PlatfrmTyp   : 1;
+			KUINT16 m_ui16LvlSel       : 1;
+			KUINT16 m_ui16Padding      : 1;
+			KUINT16 m_ui16OnOffStatus  : 1;
+			KUINT16 m_ui16DmgStatus    : 1;
+			KUINT16 m_ui16MalfncStatus : 1;
+		};
+		KUINT16 m_ui16Status;
+
+	} m_StatusUnion;
+		
 public:
 
-    static const KUINT16 IFF_LAYER3_SIZE = 28; // Min size
+    static const KUINT16 MODE_5_TRANSPONDER_STATUS_SIZE = 2; 
 
-    IFF_Layer3();
+    Mode5TransponderStatus();
 
-    IFF_Layer3( KDataStream & stream ) throw( KException );
+    Mode5TransponderStatus( KDataStream & stream ) throw( KException );
 
-	IFF_Layer3( const LayerHeader & H, KDataStream & stream ) throw( KException );
-
-    virtual ~IFF_Layer3();
+	/*Mode5TransponderStatus( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
+                             KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction );
+*/
+    virtual ~Mode5TransponderStatus();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::SetReportingSimulation
-    //              KDIS::DATA_TYPE::IFF_Layer3::GetReportingSimulation
-    // Description: The simulation reporting this IFF PDU.
-    // Parameter:   const SimulationIdentifier & RS
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetReply
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::GetReply
+    // Description: Specifies the validity of a reply that would be transmitted 
+	//              by a Mode 5 transponder if interrogated.
+    // Parameter:   KDIS::DATA_TYPE::ENUMS::Mode5Reply R
     //************************************
-    void SetReportingSimulation( const SimulationIdentifier & RS );
-    const SimulationIdentifier & GetReportingSimulation() const;
-    SimulationIdentifier & GetReportingSimulation();
+	void SetReply( KDIS::DATA_TYPE::ENUMS::Mode5Reply R );
+	KDIS::DATA_TYPE::ENUMS::Mode5Reply GetReply() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetLineTest
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::GetLineTest
+    // Description: Indicates whether a line test is in progress(true) or not(false).
+    // Parameter:   KBOOL LT 
+    //************************************
+	void SetLineTest( KBOOL LT ) throw( KException );
+	KBOOL GetLineTest() const;
+
 	
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::SetMode5InterrogatorBasicData
-    //              KDIS::DATA_TYPE::IFF_Layer3::GetMode5InterrogatorBasicData
-    // Description: Basic Mode 5 interrogator data that is always required to be transmitted.
-    // Parameter:   const Mode5InterrogatorBasicData & IBD
-    //************************************
-    void SetMode5InterrogatorBasicData( const Mode5InterrogatorBasicData & IBD );
-    const Mode5InterrogatorBasicData & GetMode5InterrogatorBasicData() const;
-    Mode5InterrogatorBasicData & GetMode5InterrogatorBasicDatan();
-
-
-
-
-	
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::GetNumberIFFDataRecords
-    // Description: The number of IFF Data records in this PDU.
-    //************************************
-	KUINT16 GetNumberIFFDataRecords() const;
-
-	
-
-
-
-
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::GetAsString
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::GetAsString
     // Description: Returns a string representation of the PDU.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::Decode
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::Encode
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const IFF_Layer3 & Value ) const;
-    KBOOL operator != ( const IFF_Layer3 & Value ) const;
+    KBOOL operator == ( const Mode5TransponderStatus & Value ) const;
+    KBOOL operator != ( const Mode5TransponderStatus & Value ) const;
 };
 
 } // END namespace DATA_TYPE
