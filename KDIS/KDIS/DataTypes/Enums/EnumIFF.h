@@ -85,7 +85,7 @@ KBOOL GetEnumFromStringTCAS( const KString & Value, KINT32 & ValueOut );
 #if DIS_VERSION > 6
 
 /************************************************************************/
-/* Mode5MessageFormat                                                   */
+/* Mode 5 Message Format                                                */
 /* Indicate the Mode 5 Message Format.                                  */
 /* Used In:                                                             */
 /*  Mode 5 Interrogator Status                                          */
@@ -103,7 +103,7 @@ KString GetEnumAsStringMode5MessageFormat( KINT32 Value );
 KBOOL GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut ); 
 
 /************************************************************************/
-/* Mode5Reply                                                           */
+/* Mode 5 Reply                                                         */
 /* Specifies the validity of a reply that would be transmitted          */
 /* by a Mode 5 transponder if interrogated.                             */
 /* Used In:                                                             */
@@ -122,6 +122,45 @@ KString GetEnumAsStringMode5Reply( KINT32 Value );
 
 // Returns true if a value was found.
 KBOOL GetEnumFromStringMode5Reply( const KString & Value, KINT32 & ValueOut ); 
+
+/************************************************************************/
+/* Antenna Selection                                                    */
+/* The present Mode 5 transponder antenna selection                     */
+/* Used In:                                                             */
+/*  Mode 5 Transponder Status                                           */
+/************************************************************************/
+
+enum AntennaSelection
+{
+    AntennaSelectionNoStatement                                       = 0,
+	Top                                                               = 1,
+	Bottom                                                            = 2,
+	Diversity                                                         = 3	
+};
+
+KString GetEnumAsStringAntennaSelection( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringAntennaSelection( const KString & Value, KINT32 & ValueOut ); 
+
+/************************************************************************/
+/* Platform Type	                                                    */
+/* The type of platform (air or ground) that is associated with a Mode  */
+/* 5 transponder.                                                       */
+/* Used In:                                                             */
+/*  Mode 5 Transponder Status                                           */
+/************************************************************************/
+
+enum PlatformType
+{
+    GroundPlatformType                                                = 0,
+	AirPlatformType                                                   = 1
+};
+
+KString GetEnumAsStringPlatformType( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut ); 
 
 #endif // DIS 6
 

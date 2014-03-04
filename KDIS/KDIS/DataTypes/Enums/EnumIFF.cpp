@@ -148,7 +148,6 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString
 
 #endif
 
-
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for Mode5Reply
@@ -188,5 +187,84 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value
 }
 
 #endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for AntennaSelection
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor AntennaSelectionDescriptor[] =
+{
+    { 0 , "No Statement" },
+	{ 1 , "Top" },
+	{ 2 , "Bottom" },
+	{ 3 , "Diversity" }
+};
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
+{
+    return GetEnumAsString( AntennaSelectionDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString( AntennaSelectionDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+};
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for PlatformType
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor PlatformTypeDescriptor[] =
+{
+    { 0 , "Ground" },
+	{ 1 , "Air" },	
+};
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
+{
+    return GetEnumAsString( PlatformTypeDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString( PlatformTypeDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+};
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
+
 
 #endif // Endif DIS Version > 6

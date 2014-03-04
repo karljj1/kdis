@@ -59,6 +59,8 @@ protected:
 	Mode5InterrogatorBasicData m_IntBscDta;
 
 	KUINT16 m_ui16Padding;
+
+	// TODO: Look at the interrgator and transponder status to see what the included records are.
 	
 	
 	

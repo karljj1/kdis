@@ -97,15 +97,75 @@ public:
 	KDIS::DATA_TYPE::ENUMS::Mode5Reply GetReply() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetLineTest
-    //              KDIS::DATA_TYPE::Mode5TransponderStatus::GetLineTest
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetLineTestInProgress
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsLineTestInProgress
     // Description: Indicates whether a line test is in progress(true) or not(false).
     // Parameter:   KBOOL LT 
     //************************************
-	void SetLineTest( KBOOL LT ) throw( KException );
-	KBOOL GetLineTest() const;
+	void SetLineTestInProgress( KBOOL LT );
+	KBOOL IsLineTestInProgress() const;
 
-	
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetAntennaSelection
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::GetAntennaSelection
+    // Description: The present Mode 5 transponder antenna selection.
+    // Parameter:   KDIS::DATA_TYPE::ENUMS::AntennaSelection AS
+    //************************************
+	void SetAntennaSelection( KDIS::DATA_TYPE::ENUMS::AntennaSelection AS );
+	KDIS::DATA_TYPE::ENUMS::AntennaSelection GetAntennaSelection() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetCryptoControlPresent
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsCryptoControlPresent
+    // Description: Indicate whether the Crypto Control IFF Data record is
+	//              included to indicate that pseudo crypto control is present.
+    // Parameter:   KBOOL CC
+    //************************************
+	void SetCryptoControlPresent( KBOOL CC );
+	KBOOL IsCryptoControlPresent() const;
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetLocationRecordPresent
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsLocationRecordPresent
+    // Description: Indicates the source of Mode 5 latitude, longitude, and altitude information. 
+	//              Set to Compute Locally (false) or to Mode 5 Transponder Location IFF Data Record Present (true).
+    // Parameter:   KBOOL LRP
+    //************************************
+	void SetLocationRecordPresent( KBOOL LRP );
+	KBOOL IsLocationRecordPresent() const;
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetLocationErrorRecordPresent
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsLocationErrorRecordPresent
+    // Description: Indicates whether there are location errors associated with Mode 5 latitude, longitude, or altitude.
+	//              Set to No Location Errors (false) or to Transponder Location Error IFF Data Record Present(true).
+    // Parameter:   KBOOL LERP  
+    //************************************
+	void SetLocationErrorRecordPresent( KBOOL LERP );
+	KBOOL IsLocationErrorRecordPresent() const;
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetPlatformType
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::GetPlatformType
+    // Description: Indicate the type of platform (air or ground) that is associated 
+	//              this Mode 5 transponder. 
+	//              Set as follows:
+	//              1) Ground Vehicle (0) if the Entity Type record, Domain field is 
+	//              Land (1) regardless of whether the entity is actually a land vehicle or
+	//				some other type of land platform.
+	//				2) Air Vehicle (1) if the Entity Type record, Domain field is Air (2)
+	//				regardless of whether the entity is actually an aircraft or some other 
+	//				type of air platform (e.g., a blimp).
+    // Parameter:   PlatformType PT
+    //************************************	
+	void SetPlatformType( KDIS::DATA_TYPE::ENUMS::PlatformType PT );
+	KDIS::DATA_TYPE::ENUMS::PlatformType GetPlatformType() const;
+
+
+
+
+
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::GetAsString
     // Description: Returns a string representation of the PDU.

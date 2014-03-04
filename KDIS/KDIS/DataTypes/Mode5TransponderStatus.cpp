@@ -87,24 +87,87 @@ Mode5Reply Mode5TransponderStatus::GetReply() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderStatus::SetLineTest( KBOOL LT ) throw( KException )
+void Mode5TransponderStatus::SetLineTestInProgress( KBOOL LT ) 
 {
 	m_StatusUnion.m_ui16LineTst = LT;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5TransponderStatus::GetLineTest() const
+KBOOL Mode5TransponderStatus::IsLineTestInProgress() const
 {
 	return ( KBOOL )m_StatusUnion.m_ui16LineTst;
 }
 
+//////////////////////////////////////////////////////////////////////////
 
+void Mode5TransponderStatus::SetAntennaSelection( AntennaSelection AS )
+{
+	m_StatusUnion.m_ui16AntennaSel = AS;
+}
 
+//////////////////////////////////////////////////////////////////////////
 
+AntennaSelection Mode5TransponderStatus::GetAntennaSelection() const
+{
+	return ( AntennaSelection )m_StatusUnion.m_ui16AntennaSel;
+}
 
+//////////////////////////////////////////////////////////////////////////
 
+void Mode5TransponderStatus::SetCryptoControlPresent( KBOOL CC )
+{
+	m_StatusUnion.m_ui16CryptoCtrl = CC;
+}
 
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5TransponderStatus::IsCryptoControlPresent() const
+{
+	return m_StatusUnion.m_ui16CryptoCtrl;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderStatus::SetLocationRecordPresent( KBOOL LRP )
+{
+	m_StatusUnion.m_ui16LatLonAltSrc = LRP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5TransponderStatus::IsLocationRecordPresent() const
+{
+	return m_StatusUnion.m_ui16LatLonAltSrc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderStatus::SetLocationErrorRecordPresent( KBOOL LERP )
+{
+	m_StatusUnion.m_ui16LocErrs = LERP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5TransponderStatus::IsLocationErrorRecordPresent() const
+{
+	return m_StatusUnion.m_ui16LocErrs;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderStatus::SetPlatformType( PlatformType PT )
+{
+	m_StatusUnion.m_ui16PlatfrmTyp = PT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+PlatformType Mode5TransponderStatus::GetPlatformType() const
+{
+	return ( PlatformType )m_StatusUnion.m_ui16PlatfrmTyp;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
