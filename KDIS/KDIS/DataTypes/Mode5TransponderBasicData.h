@@ -42,13 +42,13 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./DataTypeBase.h"
 #include "./EntityIdentifier.h"
-#include "./Mode5InterrogatorStatus.h"
-#include <bitset>
+#include "./Mode5TransponderStatus.h"
+//#include <bitset>
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-using std::bitset;
+//using std::bitset;
 
 class KDIS_EXPORT Mode5TransponderBasicData : public DataTypeBase
 {
@@ -56,8 +56,8 @@ protected:
 
 	// TODO: YOU ARE HERE> MODE 5 STATUS
 	
-	/*Mode5InterrogatorStatus m_Status;
-
+	Mode5TransponderStatus m_Status;
+	/*
 	KUINT8 m_ui8Padding;
 
 	KUINT16 m_ui16Padding1;
@@ -81,14 +81,14 @@ public:
     virtual ~Mode5TransponderBasicData();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetMode5InterrogatorStatus
-    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetMode5InterrogatorStatus	
-    // Description: The Mode 5 Message Formats supported by this Mode 5 interrogator.
-    // Parameter:   const InterrogatorStatus & IS
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetStatus
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetStatus	
+    // Description: The Mode 5 Message Formats supported by this Mode 5 transponder.
+    // Parameter:   const InterrogatorStatus & S
     //************************************
-	//void SetMode5InterrogatorStatus( const Mode5InterrogatorStatus & IS );
-	//const Mode5InterrogatorStatus & GetMode5InterrogatorStatus() const;
-	//Mode5InterrogatorStatus & GetMode5InterrogatorStatus();
+	void SetStatus( const Mode5TransponderStatus & S );
+	const Mode5TransponderStatus & GetStatus() const;
+	Mode5TransponderStatus & GetStatus();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetMessageFormatsPresent
@@ -128,7 +128,6 @@ public:
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::GetAsString
     // Description: Returns a string representation
-    //              of the PDU.
     //************************************
     virtual KString GetAsString() const;
 

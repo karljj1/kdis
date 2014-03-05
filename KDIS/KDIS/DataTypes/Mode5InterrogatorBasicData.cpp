@@ -75,21 +75,21 @@ Mode5InterrogatorBasicData::~Mode5InterrogatorBasicData()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorBasicData::SetMode5InterrogatorStatus( const Mode5InterrogatorStatus & IS )
+void Mode5InterrogatorBasicData::SetStatus( const Mode5InterrogatorStatus & S )
 {
-	m_Status = IS;
+	m_Status = S;
 }
 	
 //////////////////////////////////////////////////////////////////////////
 
-const Mode5InterrogatorStatus & Mode5InterrogatorBasicData::GetMode5InterrogatorStatus() const
+const Mode5InterrogatorStatus & Mode5InterrogatorBasicData::GetStatus() const
 {
 	return m_Status;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorStatus & Mode5InterrogatorBasicData::GetMode5InterrogatorStatus()
+Mode5InterrogatorStatus & Mode5InterrogatorBasicData::GetStatus()
 {
 	return m_Status;
 }

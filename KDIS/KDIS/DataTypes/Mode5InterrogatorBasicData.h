@@ -79,14 +79,14 @@ public:
     virtual ~Mode5InterrogatorBasicData();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetMode5InterrogatorStatus
-    //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetMode5InterrogatorStatus	
+    // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetStatus
+    //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetStatus	
     // Description: The Mode 5 Message Formats supported by this Mode 5 interrogator.
-    // Parameter:   const InterrogatorStatus & IS
+    // Parameter:   const InterrogatorStatus & S
     //************************************
-	void SetMode5InterrogatorStatus( const Mode5InterrogatorStatus & IS );
-	const Mode5InterrogatorStatus & GetMode5InterrogatorStatus() const;
-	Mode5InterrogatorStatus & GetMode5InterrogatorStatus();
+	void SetStatus( const Mode5InterrogatorStatus & S );
+	const Mode5InterrogatorStatus & GetStatus() const;
+	Mode5InterrogatorStatus & GetStatus();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetMessageFormatsPresent

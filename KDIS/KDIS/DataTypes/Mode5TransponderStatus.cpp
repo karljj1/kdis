@@ -53,17 +53,24 @@ Mode5TransponderStatus::Mode5TransponderStatus( KDataStream & stream ) throw( KE
 }
 
 //////////////////////////////////////////////////////////////////////////
-//
-//Mode5TransponderStatus::Mode5TransponderStatus( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
-//                                                  KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction )
-//{
-//	m_StatusUnion.m_ui8Status = 0; // Set all fields to 0
-//	m_StatusUnion.m_ui8IffMis = IFFMission;
-//	m_StatusUnion.m_ui8MsgFrmt = MF;
-//	m_StatusUnion.m_ui8OnOff = OnOffStatus;
-//	m_StatusUnion.m_ui8Dmg = Damaged;
-//	m_StatusUnion.m_ui8MalFnc = Malfunction;
-//}
+
+Mode5TransponderStatus::Mode5TransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Reply R, KBOOL LineTest, KDIS::DATA_TYPE::ENUMS::AntennaSelection AS, KBOOL Crypto,
+	                                            KBOOL LocationIncluded, KBOOL LocationErrorIncluded, KDIS::DATA_TYPE::ENUMS::PlatformType PT, KBOOL Lvl2Included,
+                                                KBOOL Status, KBOOL Dmg, KBOOL Malfnc )
+{	
+	m_StatusUnion.m_ui16Reply = R;
+	m_StatusUnion.m_ui16LineTst = LineTest;      
+	m_StatusUnion.m_ui16AntennaSel = AS;
+	m_StatusUnion.m_ui16CryptoCtrl = Crypto; 
+	m_StatusUnion.m_ui16LatLonAltSrc = LocationIncluded;
+	m_StatusUnion.m_ui16LocErrs = LocationErrorIncluded;
+	m_StatusUnion.m_ui16PlatfrmTyp = PT;
+	m_StatusUnion.m_ui16LvlSel = Lvl2Included;
+	m_StatusUnion.m_ui16Padding = 0;
+	m_StatusUnion.m_ui16OnOff = Status;
+	m_StatusUnion.m_ui16Dmg = Dmg;          
+	m_StatusUnion.m_ui16MalFnc = Malfnc;   	
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -124,7 +131,7 @@ void Mode5TransponderStatus::SetCryptoControlPresent( KBOOL CC )
 
 KBOOL Mode5TransponderStatus::IsCryptoControlPresent() const
 {
-	return m_StatusUnion.m_ui16CryptoCtrl;
+	return ( KBOOL )m_StatusUnion.m_ui16CryptoCtrl;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -138,7 +145,7 @@ void Mode5TransponderStatus::SetLocationRecordPresent( KBOOL LRP )
 
 KBOOL Mode5TransponderStatus::IsLocationRecordPresent() const
 {
-	return m_StatusUnion.m_ui16LatLonAltSrc;
+	return ( KBOOL )m_StatusUnion.m_ui16LatLonAltSrc;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -152,7 +159,7 @@ void Mode5TransponderStatus::SetLocationErrorRecordPresent( KBOOL LERP )
 
 KBOOL Mode5TransponderStatus::IsLocationErrorRecordPresent() const
 {
-	return m_StatusUnion.m_ui16LocErrs;
+	return ( KBOOL )m_StatusUnion.m_ui16LocErrs;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -171,16 +178,78 @@ PlatformType Mode5TransponderStatus::GetPlatformType() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void Mode5TransponderStatus::SetMode5Level2Included( KBOOL M )
+{
+	m_StatusUnion.m_ui16LvlSel = M;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5TransponderStatus::IsMode5Level2Included() const
+{
+	return ( KBOOL )m_StatusUnion.m_ui16LvlSel;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderStatus::SetStatus( KBOOL S )
+{
+	m_StatusUnion.m_ui16OnOff = S;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5TransponderStatus::GetStatus() const
+{
+	return ( KBOOL )m_StatusUnion.m_ui16OnOff;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderStatus::SetDamaged( KBOOL D )
+{
+	m_StatusUnion.m_ui16Dmg = D;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5TransponderStatus::IsDamaged() const
+{
+	return ( KBOOL )m_StatusUnion.m_ui16Dmg;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderStatus::SetMalfunctioning( KBOOL M )
+{
+	m_StatusUnion.m_ui16MalFnc = M;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5TransponderStatus::IsMalfunctioning() const
+{
+	return ( KBOOL )m_StatusUnion.m_ui16MalFnc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString Mode5TransponderStatus::GetAsString() const
 {
     KStringStream ss;	
-	//ss << "Mode 5 Interrogator Status:"
-	//   << "\n\tIFF Mission:    " << ( KUINT16 )m_StatusUnion.m_ui8IffMis
-	//   << "\n\tMessage Format: " << GetEnumAsStringMode5MessageFormat( m_StatusUnion.m_ui8MsgFrmt )
-	//   << "\n\tOn/Off Status:  " << ( KBOOL )m_StatusUnion.m_ui8OnOff
-	//   << "\n\tDamaged:        " << ( KBOOL )m_StatusUnion.m_ui8Dmg 
-	//   << "\n\tMalfunction:    " << ( KBOOL )m_StatusUnion.m_ui8MalFnc
-	//   << "\n";
+	ss << "Mode 5 Transponder Status:"
+	   << "\n\tReply:                   " << GetEnumAsStringMode5Reply( m_StatusUnion.m_ui16Reply )
+	   << "\n\tLine Test:               " << ( KBOOL )m_StatusUnion.m_ui16LineTst
+	   << "\n\tAntenna Selection:       " << GetEnumAsStringAntennaSelection( m_StatusUnion.m_ui16AntennaSel )
+	   << "\n\tCrypto Control:          " << ( KBOOL )m_StatusUnion.m_ui16CryptoCtrl
+	   << "\n\tLocation Included:       " << ( KBOOL )m_StatusUnion.m_ui16LatLonAltSrc
+	   << "\n\tLocation Error Included: " << ( KBOOL )m_StatusUnion.m_ui16LocErrs
+	   << "\n\tPlatform Type:           " << GetEnumAsStringPlatformType( m_StatusUnion.m_ui16PlatfrmTyp )
+	   << "\n\tLevel 2 Included:        " << ( KBOOL )m_StatusUnion.m_ui16LvlSel
+	   << "\n\tOn/Off Status:           " << ( KBOOL )m_StatusUnion.m_ui16OnOff
+	   << "\n\tDamaged:                 " << ( KBOOL )m_StatusUnion.m_ui16Dmg
+	   << "\n\tMalfunction:             " << ( KBOOL )m_StatusUnion.m_ui16MalFnc 
+	   << "\n";
 
     return ss.str();
 }
@@ -191,7 +260,7 @@ void Mode5TransponderStatus::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < MODE_5_TRANSPONDER_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	
-	//stream >> m_StatusUnion.m_ui8Status;	
+	stream >> m_StatusUnion.m_ui16Status;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -209,14 +278,14 @@ KDataStream Mode5TransponderStatus::Encode() const
 
 void Mode5TransponderStatus::Encode( KDataStream & stream ) const
 {
-	//stream << m_StatusUnion.m_ui8Status;
+	stream << m_StatusUnion.m_ui16Status;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::operator == ( const Mode5TransponderStatus & Value ) const
 {
-	//if( m_StatusUnion.m_ui8Status != Value.m_StatusUnion.m_ui8Status ) return false;
+	if( m_StatusUnion.m_ui16Status != Value.m_StatusUnion.m_ui16Status ) return false;
     return true;
 }
 

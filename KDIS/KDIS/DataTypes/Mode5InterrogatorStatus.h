@@ -127,7 +127,7 @@ public:
 	
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::GetAsString
-    // Description: Returns a string representation of the PDU.
+    // Description: Returns a string representation
     //************************************
     virtual KString GetAsString() const;
 

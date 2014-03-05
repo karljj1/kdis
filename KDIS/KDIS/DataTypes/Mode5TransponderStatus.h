@@ -49,9 +49,6 @@ class KDIS_EXPORT Mode5TransponderStatus : public DataTypeBase
 {
 protected:
 
-	// TODO: YOU ARE HERE
-	// TODO: NEXT enum for antenna selection
-
 	union
 	{
 		struct
@@ -65,9 +62,9 @@ protected:
 			KUINT16 m_ui16PlatfrmTyp   : 1;
 			KUINT16 m_ui16LvlSel       : 1;
 			KUINT16 m_ui16Padding      : 1;
-			KUINT16 m_ui16OnOffStatus  : 1;
-			KUINT16 m_ui16DmgStatus    : 1;
-			KUINT16 m_ui16MalfncStatus : 1;
+			KUINT16 m_ui16OnOff        : 1;
+			KUINT16 m_ui16Dmg          : 1;
+			KUINT16 m_ui16MalFnc       : 1;
 		};
 		KUINT16 m_ui16Status;
 
@@ -81,9 +78,10 @@ public:
 
     Mode5TransponderStatus( KDataStream & stream ) throw( KException );
 
-	/*Mode5TransponderStatus( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
-                             KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction );
-*/
+	Mode5TransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Reply R, KBOOL LineTest, KDIS::DATA_TYPE::ENUMS::AntennaSelection AS, KBOOL Crypto,
+	                        KBOOL LocationIncluded, KBOOL LocationErrorIncluded, KDIS::DATA_TYPE::ENUMS::PlatformType PT, KBOOL Lvl2Included,
+                            KBOOL Status, KBOOL Dmg, KBOOL Malfnc );
+	
     virtual ~Mode5TransponderStatus();
 
     //************************************
@@ -128,7 +126,8 @@ public:
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetLocationRecordPresent
     //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsLocationRecordPresent
     // Description: Indicates the source of Mode 5 latitude, longitude, and altitude information. 
-	//              Set to Compute Locally (false) or to Mode 5 Transponder Location IFF Data Record Present (true).
+	//              Set to Compute Locally (false) or to Mode 5 Transponder Location IFF 
+	//              Record Present (true).
     // Parameter:   KBOOL LRP
     //************************************
 	void SetLocationRecordPresent( KBOOL LRP );
@@ -137,8 +136,10 @@ public:
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetLocationErrorRecordPresent
     //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsLocationErrorRecordPresent
-    // Description: Indicates whether there are location errors associated with Mode 5 latitude, longitude, or altitude.
-	//              Set to No Location Errors (false) or to Transponder Location Error IFF Data Record Present(true).
+    // Description: Indicates whether there are location errors associated with Mode 5 latitude, 
+	//              longitude, or altitude.
+	//              Set to No Location Errors (false) or to Transponder Location Error IFF Data 
+    //              Record Present(true).
     // Parameter:   KBOOL LERP  
     //************************************
 	void SetLocationErrorRecordPresent( KBOOL LERP );
@@ -161,14 +162,47 @@ public:
 	void SetPlatformType( KDIS::DATA_TYPE::ENUMS::PlatformType PT );
 	KDIS::DATA_TYPE::ENUMS::PlatformType GetPlatformType() const;
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetMode5Level2Included
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsMode5Level2Included
+    // Description: Indicates whether Mode 5 Level 1 (false) or Mode 5 Level 2 (true) is 
+	//              currently selected for this Mode 5 transponder. (The Level 2 selection
+	//              includes both Level 1 and Level 2 message formats.)
+    // Parameter:   KBOOL M
+    //************************************
+	void SetMode5Level2Included( KBOOL M );
+	KBOOL IsMode5Level2Included() const;
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetStatus
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::GetStatus
+    // Description: Indicates whether the Mode 5 transponder is On (true or Off (false).
+    // Parameter:   KBOOL S
+    //************************************
+	void SetStatus( KBOOL S );
+	KBOOL GetStatus() const;
 
-
-
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetDamaged
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsDamaged
+    // Description: Indicates whether there is damage to the Mode 5 transponder.
+    // Parameter:   KBOOL S
+    //************************************
+	void SetDamaged( KBOOL D );
+	KBOOL IsDamaged() const;
+		
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::SetMalfunctioning
+    //              KDIS::DATA_TYPE::Mode5TransponderStatus::IsMalfunctioning
+    // Description: Indicates whether there is damage to the Mode 5 transponder.
+    // Parameter:   KBOOL M
+    //************************************
+	void SetMalfunctioning( KBOOL M );
+	KBOOL IsMalfunctioning() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::GetAsString
-    // Description: Returns a string representation of the PDU.
+    // Description: Returns a string representation 
     //************************************
     virtual KString GetAsString() const;
 
