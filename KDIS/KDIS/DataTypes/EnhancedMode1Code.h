@@ -53,6 +53,7 @@ class KDIS_EXPORT EnhancedMode1Code : public LayerHeader
 protected:
 	
 	// TODO: YOU ARE HERE. Look at Mode 1 Code. Changes needed to FOD?
+	// A lot of classes have the on/off, dmg and mal func bits. Maybe put it into one base class?
 
 	union
 	{
