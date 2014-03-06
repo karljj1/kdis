@@ -40,10 +40,9 @@ using namespace DATA_TYPE;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderBasicData::Mode5TransponderBasicData() 
-	//m_ui8Padding( 0 ),
-	//m_ui16Padding1( 0 ),
-	//m_ui32MsgFormats( 0 ),
+Mode5TransponderBasicData::Mode5TransponderBasicData() :
+	m_ui16PIN( 0 ),
+	m_ui32MsgFormats( 0 )
 	//m_ui16Padding2( 0 )
 {	
 }
@@ -95,32 +94,51 @@ Mode5TransponderStatus & Mode5TransponderBasicData::GetStatus()
 }
 
 //////////////////////////////////////////////////////////////////////////
-//
-//void Mode5TransponderBasicData::SetMessageFormatsPresent( KUINT32 MFP )
-//{
-//	m_ui32MsgFormats = MFP;
-//}
-//
-////////////////////////////////////////////////////////////////////////////
-//
-//void Mode5TransponderBasicData::SetMessageFormatsPresent( const std::bitset<32> & MFP )
-//{
-//	m_ui32MsgFormats = MFP.to_ulong();
-//}
-//
-////////////////////////////////////////////////////////////////////////////
-//
-//const std::bitset<32> Mode5TransponderBasicData::GetMessageFormatsPresentBitSet() const
-//{
-//	return bitset<32>( ( KINT32 )m_ui32MsgFormats );
-//}
-//
-////////////////////////////////////////////////////////////////////////////
-//
-//KUINT32 Mode5TransponderBasicData::GetMessageFormatsPresent()
-//{
-//	return m_ui32MsgFormats;
-//}
+
+void Mode5TransponderBasicData::SetPersonalIdentificationNumber( KUINT16 PIN )
+{
+	m_ui16PIN = PIN;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 Mode5TransponderBasicData::GetPersonalIdentificationNumber() const
+{
+	return m_ui16PIN;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderBasicData::SetMessageFormatsPresent( KUINT32 MFP )
+{
+	m_ui32MsgFormats = MFP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderBasicData::SetMessageFormatsPresent( const std::bitset<32> & MFP )
+{
+	m_ui32MsgFormats = MFP.to_ulong();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const std::bitset<32> Mode5TransponderBasicData::GetMessageFormatsPresentBitSet() const
+{
+	return bitset<32>( ( KINT32 )m_ui32MsgFormats );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT32 Mode5TransponderBasicData::GetMessageFormatsPresent()
+{
+	return m_ui32MsgFormats;
+}
+
+
+
+
+
 
 //////////////////////////////////////////////////////////////////////////
 

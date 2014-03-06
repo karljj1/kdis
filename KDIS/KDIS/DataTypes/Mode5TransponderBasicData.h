@@ -43,12 +43,10 @@ http://p.sf.net/kdis/UserGuide
 #include "./DataTypeBase.h"
 #include "./EntityIdentifier.h"
 #include "./Mode5TransponderStatus.h"
-//#include <bitset>
+#include <bitset>
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-//using std::bitset;
 
 class KDIS_EXPORT Mode5TransponderBasicData : public DataTypeBase
 {
@@ -57,12 +55,17 @@ protected:
 	// TODO: YOU ARE HERE> MODE 5 STATUS
 	
 	Mode5TransponderStatus m_Status;
-	/*
-	KUINT8 m_ui8Padding;
 
-	KUINT16 m_ui16Padding1;
+	KUINT16 m_ui16PIN;
 
 	KUINT32 m_ui32MsgFormats;
+
+	// TODO: EnhancedMode1Code
+
+
+	/*
+
+
 
 	EntityIdentifier m_InterrogatedID;
 
@@ -89,41 +92,34 @@ public:
 	void SetStatus( const Mode5TransponderStatus & S );
 	const Mode5TransponderStatus & GetStatus() const;
 	Mode5TransponderStatus & GetStatus();
+		
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetStatus
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetStatus	
+    // Description: Uniquely identifies the platform carrying this Mode 5 transponder.
+	//              Should be a number in the range 00 000 octal to 37 777 octal.
+    // Parameter:   KUINT16 PIN
+    //************************************
+	void SetPersonalIdentificationNumber( KUINT16 PIN );
+	KUINT16 GetPersonalIdentificationNumber() const;
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetMessageFormatsPresent
     //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetMessageFormatsPresentBitSet	
 	//              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetMessageFormatsPresent
-    // Description: The Mode 5 Message Formats supported by this Mode 5 interrogator.
-	//              When a Mode 5 interrogator is in the Regeneration Mode, the included message 
-	//              formats shall be either:
-	//              1) Those that this Mode 5 interrogator is capableof supporting and could be sent 
-	//              in a Mode 5 interrogation as indicated by the Message Formats Status field being
-	//              set to Capability (0).
-	//              2) Only the specific message formats associated with this Mode 5 interrogator’s 
-	//              current active interrogation as indicated by the Message Formats Status field 
-	//              being set to Active Interrogation (1).
-	//              When a Mode 5 interrogator is in the Interactive Mode, the requirements specified in
-	//              Interactive Basic Mode 5 IFF Data record are applicable.
-	//              Each bit represents a specific message format: Not Present (0) and Present (1).
+    // Description:	When a Mode 5 transponder is in the Regeneration Mode, the included message 
+	//              formats shall be those that this Mode 5 transponder is capable of supporting
+	//              and could be in a reply to a Mode 5 interrogation. 
+	//              The Message Formats Status field of the Mode 5 Transponder Status record
+	//              is set to Capability (0) in this case. When a Mode 5 transponder is in the 
+	//              Interactive Mode, the requirements specified in Interactive Basic Mode 5 IFF 
+	//              Data record are applicable.
     // Parameter:   KUINT32 MFP, const std::bitset<32> & MFP
     //************************************
-	//void SetMessageFormatsPresent( KUINT32 MFP );
-	//void SetMessageFormatsPresent( const std::bitset<32> & MFP );
-	//const std::bitset<32> GetMessageFormatsPresentBitSet() const;
-	//KUINT32 GetMessageFormatsPresent();
-	
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetInterrogatedEntityID
-    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetInterrogatedEntityID		
-    // Description: The Entity ID of the entity to which an active interrogation is being
-    //              directed. If there is no active interrogation, this field shall be set
-	//              to NO_SPECIFIC_ENTITY. 
-    // Parameter:   const EntityIdentifier & ID 
-    //************************************
-    //void SetInterrogatedEntityID( const EntityIdentifier & ID );
-    //const EntityIdentifier & GetInterrogatedEntityID() const;
-    //EntityIdentifier & GetInterrogatedEntityID();
+	void SetMessageFormatsPresent( KUINT32 MFP );
+	void SetMessageFormatsPresent( const std::bitset<32> & MFP );
+	const std::bitset<32> GetMessageFormatsPresentBitSet() const;
+	KUINT32 GetMessageFormatsPresent();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::GetAsString

@@ -214,6 +214,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
 	${DATATYPES_DIR}/Mode5InterrogatorStatus.h
 	${DATATYPES_DIR}/Mode5TransponderStatus.h
 	${DATATYPES_DIR}/Mode5MessageFormats.h
+	${DATATYPES_DIR}/EnhancedMode1Code.h
 )
 
 ENDIF(DIS_VERSION GREATER 6)
@@ -371,12 +372,13 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/AttributeRecordSet.cpp
 	${DATATYPES_DIR}/ExplosionDescriptor.cpp
 	${DATATYPES_DIR}/DEAreaAimpoint.cpp
-	${DATATYPES_DIR}/IFF_Layer3.cpp
+	${DATATYPES_DIR}/IFF_Layer3.cpp	
 	${DATATYPES_DIR}/Mode5InterrogatorBasicData.cpp
 	${DATATYPES_DIR}/Mode5TransponderBasicData.cpp	
 	${DATATYPES_DIR}/Mode5InterrogatorStatus.cpp
 	${DATATYPES_DIR}/Mode5TransponderStatus.cpp
 	${DATATYPES_DIR}/Mode5MessageFormats.cpp
+	${DATATYPES_DIR}/EnhancedMode1Code.cpp
 )
 
 ENDIF(DIS_VERSION GREATER 6)

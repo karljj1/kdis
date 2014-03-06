@@ -47,9 +47,7 @@ http://p.sf.net/kdis/UserGuide
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-using std::bitset;
-
+	
 class KDIS_EXPORT Mode5InterrogatorBasicData : public DataTypeBase
 {
 protected:
