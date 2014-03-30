@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnhancedMode1Code.h"
+#include "./ModeXCodeRecord.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,93 +40,118 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-EnhancedMode1Code::EnhancedMode1Code() 
+ModeXCodeRecord::ModeXCodeRecord() 
 {
 	m_CodeUnion.m_ui16Code = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EnhancedMode1Code::EnhancedMode1Code( KDataStream & stream ) throw( KException )
+ModeXCodeRecord::ModeXCodeRecord( KDataStream & stream ) throw( KException )
 {
     Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EnhancedMode1Code::~EnhancedMode1Code()
+ModeXCodeRecord::~ModeXCodeRecord()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EnhancedMode1Code::SetCodeElement1( KUINT8 CE )
+void ModeXCodeRecord::SetStatus( KBOOL S )
 {
-	m_CodeUnion.m_ui16Bits0_2 = CE;
+	m_CodeUnion.m_ui16OnOff = S;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement1()
+KBOOL ModeXCodeRecord::GetStatus() const
 {
-	return m_CodeUnion.m_ui16Bits0_2;
-}
-	
-//////////////////////////////////////////////////////////////////////////
-
-void EnhancedMode1Code::SetCodeElement2( KUINT8 CE )
-{
-	m_CodeUnion.m_ui16Bits3_5 = CE;
+	return ( KBOOL )m_CodeUnion.m_ui16OnOff;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement2()
+void ModeXCodeRecord::SetDamaged( KBOOL D )
 {
-	return m_CodeUnion.m_ui16Bits3_5;
-}
-	
-//////////////////////////////////////////////////////////////////////////
-
-void EnhancedMode1Code::SetCodeElement3( KUINT8 CE )
-{
-	m_CodeUnion.m_ui16Bits6_8 = CE;
+	m_CodeUnion.m_ui16Dmg = D;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement3()
+KBOOL ModeXCodeRecord::IsDamaged() const
 {
-	return m_CodeUnion.m_ui16Bits6_8;
-}
-
-//////////////////////////////////////////////////////////////////////////
-	
-void EnhancedMode1Code::SetCodeElement4( KUINT8 CE )
-{
-	m_CodeUnion.m_ui16Bits9_11 = CE;
+	return ( KBOOL )m_CodeUnion.m_ui16Dmg;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement4()
+void ModeXCodeRecord::SetMalfunctioning( KBOOL M )
 {
-	return m_CodeUnion.m_ui16Bits9_11;
+	m_CodeUnion.m_ui16MalFnc = M;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString EnhancedMode1Code::GetAsString() const
+KBOOL ModeXCodeRecord::IsMalfunctioning() const
+{
+	return ( KBOOL )m_CodeUnion.m_ui16MalFnc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString ModeXCodeRecord::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "Enhanced Mode 1 Code: " << m_CodeUnion.m_ui16Bits9_11
-		                           << m_CodeUnion.m_ui16Bits6_8 
-								   << m_CodeUnion.m_ui16Bits3_5 
-								   << m_CodeUnion.m_ui16Bits0_2
-	   << IndentString( ModeXCodeRecord::GetAsString(), 1 )
- 
+	ss << "On/Off Status:       " << ( KBOOL )m_CodeUnion.m_ui16OnOff << "\n"
+	   << "Damage Status:       " << ( KBOOL )m_CodeUnion.m_ui16Dmg   << "\n"
+	   << "Malfunction Status:  " << ( KBOOL )m_CodeUnion.m_ui16MalFnc << "\n";
+
     return ss.str();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeXCodeRecord::Decode( KDataStream & stream ) throw( KException )
+{
+    if( stream.GetBufferSize() < MODE_X_CODE_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+	stream >> m_CodeUnion.m_ui16Code;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KDataStream ModeXCodeRecord::Encode() const
+{
+    KDataStream stream;
+
+    ModeXCodeRecord::Encode( stream );
+
+    return stream;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeXCodeRecord::Encode( KDataStream & stream ) const
+{
+	stream << m_CodeUnion.m_ui16Code;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeXCodeRecord::operator == ( const ModeXCodeRecord & Value ) const
+{ 
+    if( m_CodeUnion.m_ui16Code != Value.m_CodeUnion.m_ui16Code ) return false;
+    return true;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeXCodeRecord::operator != ( const ModeXCodeRecord & Value ) const
+{
+    return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////

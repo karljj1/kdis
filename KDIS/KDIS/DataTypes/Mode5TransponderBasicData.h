@@ -43,6 +43,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./DataTypeBase.h"
 #include "./EntityIdentifier.h"
 #include "./Mode5TransponderStatus.h"
+//#include "./EnhancedMode1Code.h" // Causes linker error.
 #include <bitset>
 
 namespace KDIS {
@@ -60,7 +61,7 @@ protected:
 
 	KUINT32 m_ui32MsgFormats;
 
-	// TODO: EnhancedMode1Code
+	//EnhancedMode1Code m_EM1Code; // TODO: Causes linker error.  Missing encode/decode or operators?
 
 
 	/*
