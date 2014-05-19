@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 /********************************************************************
     class:      Mode5TransponderBasicData
     DIS:        (7) 1278.1 - 2012
-    created:    3/03/2014
+    created:    10/05/2014
     author:     Karl Jones
 
     purpose:    Included in the Mode 5 Transponder format for Layer 3 of the IFF PDU.
@@ -43,7 +43,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./DataTypeBase.h"
 #include "./EntityIdentifier.h"
 #include "./Mode5TransponderStatus.h"
-//#include "./EnhancedMode1Code.h" // Causes linker error.
+#include "./EnhancedMode1Code.h" 
 #include <bitset>
 
 namespace KDIS {
@@ -53,19 +53,19 @@ class KDIS_EXPORT Mode5TransponderBasicData : public DataTypeBase
 {
 protected:
 
-	// TODO: YOU ARE HERE> MODE 5 STATUS
-	
 	Mode5TransponderStatus m_Status;
 
 	KUINT16 m_ui16PIN;
 
 	KUINT32 m_ui32MsgFormats;
 
-	//EnhancedMode1Code m_EM1Code; // TODO: Causes linker error.  Missing encode/decode or operators?
+	EnhancedMode1Code m_EM1Code;
+
+	KUINT16 m_ui16NationalOrigin;
 
 
 	/*
-
+	NEXT Supplemental Data
 
 
 	EntityIdentifier m_InterrogatedID;
@@ -121,6 +121,34 @@ public:
 	void SetMessageFormatsPresent( const std::bitset<32> & MFP );
 	const std::bitset<32> GetMessageFormatsPresentBitSet() const;
 	KUINT32 GetMessageFormatsPresent();
+	
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetEnhancedMode1Code
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetEnhancedMode1Code	
+    // Description: Mode 5 Enhanced Mode 1 information. 
+    // Parameter:   const EnhancedMode1Code & EMC1
+    //************************************
+	void SetEnhancedMode1Code( const EnhancedMode1Code & EMC1 );
+	const EnhancedMode1Code & GetEnhancedMode1Code() const;
+	EnhancedMode1Code & GetEnhancedMode1Code();
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetNationalOrigin
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetNationalOrigin	
+    // Description: The national origin is the country that owns the platform 
+	//              carrying a Mode 5 transponder. NOTE—The National Origin is 
+	//              not the same as the Country field enumerations contained in Entity Type
+	//              records. For simulations that have modeled Mode 5 (e.g., Mark XIIA) 
+	//              transponders based on the original AIMS 03-1000, the AIMS 03-1000A 
+	//              standard contains instructions on how to set separate National Origin and
+    //              Mission Code values to equate tothe present National Origin field.
+    // Parameter:   KUINT16 NO
+    //************************************
+	void SetNationalOrigin( KUINT16 NO );
+	KUINT16 GetNationalOrigin() const;
+	
+	
+
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::GetAsString

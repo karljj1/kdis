@@ -43,22 +43,10 @@ using namespace DATA_TYPE;
 
 Mode5TransponderBasicData::Mode5TransponderBasicData() :
 	m_ui16PIN( 0 ),
-	m_ui32MsgFormats( 0 )
-	//m_ui16Padding2( 0 )
+	m_ui32MsgFormats( 0 ),
+	m_ui16NationalOrigin( 0 )
 {	
 }
-
-//////////////////////////////////////////////////////////////////////////
-//
-//Mode5TransponderBasicData::Mode5TransponderBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID ) :
-//	//m_Status( Status ),
-//	//m_ui8Padding( 0 ),
-//	//m_ui16Padding1( 0 ),
-//	//m_ui32MsgFormats( FormatsPresent ),
-//	//m_InterrogatedID( ID ),
-//	//m_ui16Padding2( 0 )
-//{
-//}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -136,8 +124,41 @@ KUINT32 Mode5TransponderBasicData::GetMessageFormatsPresent()
 	return m_ui32MsgFormats;
 }
 
+//////////////////////////////////////////////////////////////////////////
 
+void Mode5TransponderBasicData::SetEnhancedMode1Code( const EnhancedMode1Code & EMC1 )
+{
+	m_EM1Code = EMC1;
+}
 
+//////////////////////////////////////////////////////////////////////////
+
+const EnhancedMode1Code & Mode5TransponderBasicData::GetEnhancedMode1Code() const
+{
+	return m_EM1Code;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EnhancedMode1Code & Mode5TransponderBasicData::GetEnhancedMode1Code()
+{
+	return m_EM1Code;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderBasicData::SetNationalOrigin( KUINT16 NO )
+{
+	m_ui16NationalOrigin = NO;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 Mode5TransponderBasicData::GetNationalOrigin() const
+{
+	return m_ui16NationalOrigin;
+}
+	
 
 
 

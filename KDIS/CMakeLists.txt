@@ -379,6 +379,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/Mode5InterrogatorStatus.cpp
 	${DATATYPES_DIR}/Mode5TransponderStatus.cpp
 	${DATATYPES_DIR}/Mode5MessageFormats.cpp
+	${DATATYPES_DIR}/EnhancedMode1Code.cpp
 	${DATATYPES_DIR}/ModeXCodeRecord.cpp
 )
 

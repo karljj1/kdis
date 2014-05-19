@@ -123,8 +123,9 @@ KString EnhancedMode1Code::GetAsString() const
     ss << "Enhanced Mode 1 Code: " << m_CodeUnion.m_ui16Bits9_11
 		                           << m_CodeUnion.m_ui16Bits6_8 
 								   << m_CodeUnion.m_ui16Bits3_5 
-								   << m_CodeUnion.m_ui16Bits0_2
-	   << IndentString( ModeXCodeRecord::GetAsString(), 1 )
+								   << m_CodeUnion.m_ui16Bits0_2 
+								   << "\n"
+	   << IndentString( ModeXCodeRecord::GetAsString(), 1 );
  
     return ss.str();
 }
