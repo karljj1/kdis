@@ -49,7 +49,7 @@ http://p.sf.net/kdis/UserGuide
 // in your project pre-processor definitions (-D KDIS_USE_ENUM_DESCRIPTORS).
 //#define KDIS_USE_ENUM_DESCRIPTORS
 
-#if defined( WIN32 ) | defined( WIN64 )
+#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
 // Disable this warning, it simply warns us about any functions that have a throw qualifier.
 #pragma warning( disable : 4290 )
 

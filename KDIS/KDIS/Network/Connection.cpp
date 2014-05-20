@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./Connection.h"
 
-#if defined( WIN32 ) || defined( WIN64 ) // Windows Headers //
+#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 ) // Windows Headers //
 
 #include <ws2tcpip.h>
 
@@ -66,7 +66,7 @@ void Connection::startup() throw( KException )
     if( !m_iSocket[SEND_SOCK] && !m_iSocket[RECEIVE_SOCK] )
     {
         // Windows only //
-#if defined( WIN32 ) || defined( WIN64 )
+#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
         WSADATA w;
         static KINT32 iWinSockInit = WSAStartup( 0x0202, &w ); // Init with winsock version 2.2
         if( iWinSockInit != NO_ERROR )
@@ -127,7 +127,7 @@ void Connection::shutdown() throw( KException )
     {
         if( m_iSocket[i] )
         {
-			#if defined( WIN32 ) || defined( WIN64 )
+			#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
 				KINT32 iError = closesocket( m_iSocket[i] );
 			#else
 				KINT32 iError = close( m_iSocket[i] );
@@ -149,7 +149,7 @@ const KCHAR8 * Connection::getErrorText( KINT32 ErrorCode ) const
 {
     switch ( ErrorCode )
     {
-#if defined( WIN32 ) || defined( WIN64 )
+#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
     case /* 10004 */ WSAEINTR           :
         return "Invalid interrupt number";
     case /* 10009 */ WSAEBADF           :
@@ -440,7 +440,7 @@ void Connection::SetBlockingModeEnabled( KBOOL E )
     {
         KINT32 iResult;
 
-#if defined( WIN32 ) || defined( WIN64 )
+#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
 
         // Windows non blocking //
         unsigned long int uliIoctBlock = !m_bBlockingSocket;           // 1 enable, 0 disable.
