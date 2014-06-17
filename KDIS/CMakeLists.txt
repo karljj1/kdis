@@ -32,6 +32,7 @@ ENDIF(USE_SOLUTION_FOLDERS)
 #                       Base                           #
 ########################################################
 
+SET(BASE_DIRNAME KDIS)
 SET(BASE_DIR ${KDIS_SOURCE_DIR}/KDIS)
 
 # *.H
@@ -51,6 +52,7 @@ SET(KDIS_SRC_BASE_CPP ${BASE_DIR}/KDataStream.cpp)
 #                       DataTypes                      #
 ########################################################
 
+SET(DATATYPES_DIRNAME DataTypes)
 SET(DATATYPES_DIR ${BASE_DIR}/DataTypes)
 
 # *.h
@@ -393,6 +395,7 @@ ENDIF(DIS_VERSION GREATER 6)
 # *.h
 
 #DIS 5-6
+SET(ENUMS_DIRNAME /DataTypes/Enums)
 SET(ENUMS_DIR ${BASE_DIR}/DataTypes/Enums)
 
 SET(KDIS_SRC_ENUMS_H
@@ -459,6 +462,7 @@ ENDIF(DIS_VERSION GREATER 6)
 
 #Base----------------------------------------------------#
 
+SET(PDU_BASE_DIRNAME PDU)
 SET(PDU_BASE_DIR ${BASE_DIR}/PDU)
 
 SET(KDIS_SRC_PDU_BASE_H ${PDU_BASE_DIR}/Header.h
@@ -481,6 +485,7 @@ ENDIF(DIS_VERSION GREATER 6)
 
 #Distributed_Emission_Regeneration------------------------#
 
+SET(PDU_DER_DIRNAME PDU/Distributed_Emission_Regeneration)
 SET(PDU_DER_DIR ${BASE_DIR}/PDU/Distributed_Emission_Regeneration)
 
 #DIS 5
@@ -519,6 +524,7 @@ ENDIF(DIS_VERSION GREATER 5)
 
 #Entity_Info_Interaction---------------------------------#
 
+SET(PDU_EII_DIRNAME PDU/Entity_Info_Interaction)
 SET(PDU_EII_DIR ${BASE_DIR}/PDU/Entity_Info_Interaction)
 
 #DIS 5
@@ -573,6 +579,7 @@ ENDIF(DIS_VERSION GREATER 6)
 
 #Entity_Management---------------------------------------#
 
+SET(PDU_EM_DIRNAME PDU/Entity_Management)
 #DIS 6 - All
 SET(PDU_EM_DIR ${BASE_DIR}/PDU/Entity_Management)
 
@@ -596,6 +603,7 @@ ENDIF(DIS_VERSION GREATER 5)
 
 #LE------------------------------------------------------#
 
+SET(PDU_LE_DIRNAME PDU/Live_Entity)
 #DIS 6 - All
 SET(PDU_LE_DIR ${BASE_DIR}/PDU/Live_Entity)
 
@@ -623,6 +631,7 @@ ENDIF(DIS_VERSION GREATER 5)
 
 #Logistics-----------------------------------------------#
 
+SET(PDU_L_DIRNAME PDU/Logistics)
 SET(PDU_L_DIR ${BASE_DIR}/PDU/Logistics)
 
 #DIS 5
@@ -649,6 +658,7 @@ SET(KDIS_SRC_PDU_L_CPP
 
 #Minefield-----------------------------------------------#
 
+SET(PDU_M_DIRNAME PDU/Minefield)
 #DIS 6 - All
 SET(PDU_M_DIR ${BASE_DIR}/PDU/Minefield)
 
@@ -674,6 +684,7 @@ ENDIF(DIS_VERSION GREATER 5)
 
 #Radio_Communications------------------------------------#
 
+SET(PDU_R_DIRNAME PDU/Radio_Communications)
 SET(PDU_R_DIR ${BASE_DIR}/PDU/Radio_Communications)
 
 #DIS 5
@@ -716,6 +727,7 @@ ENDIF(DIS_VERSION GREATER 5)
 
 #Simulation_Management-----------------------------------#
 
+SET(PDU_SM_DIRNAME PDU/Simulation_Management)
 SET(PDU_SM_DIR ${BASE_DIR}/PDU/Simulation_Management)
 
 #DIS 5
@@ -754,6 +766,7 @@ SET(KDIS_SRC_PDU_SM_CPP
 
 #Simulation_Management_With_Reliability------------------#
 
+SET(PDU_SMWR_DIRNAME PDU/Simulation_Management_With_Reliability)
 #DIS 6 - ALL
 SET(PDU_SMWR_DIR ${BASE_DIR}/PDU/Simulation_Management_With_Reliability)
 
@@ -801,6 +814,7 @@ ENDIF(DIS_VERSION GREATER 5)
 
 #Synthetic_Enviroment------------------------------------#
 
+SET(PDU_SE_DIRNAME PDU/Synthetic_Enviroment)
 #DIS 6 - ALL
 SET(PDU_SE_DIR ${BASE_DIR}/PDU/Synthetic_Enviroment)
 
@@ -828,6 +842,7 @@ ENDIF(DIS_VERSION GREATER 5)
 
 #Warfare-------------------------------------------------#
 
+SET(PDU_W_DIRNAME PDU/Warfare)
 SET(PDU_W_DIR ${BASE_DIR}/PDU/Warfare)
 
 #DIS 5
@@ -866,6 +881,7 @@ ENDIF(DIS_VERSION GREATER 6)
 
 #Information_Operations----------------------------------#
 
+SET(PDU_IO_DIRNAME PDU/Information_Operations)
 SET(PDU_IO_DIR ${BASE_DIR}/PDU/Information_Operations)
 
 IF(DIS_VERSION GREATER 6)
@@ -890,6 +906,7 @@ ENDIF(DIS_VERSION GREATER 6)
 #                         Extras                       #
 ########################################################
 
+SET(EX_DIRNAME Extras)
 SET(EX_DIR ${BASE_DIR}/Extras)
 
 SET(KDIS_SRC_EX_H 
@@ -915,6 +932,7 @@ SET(KDIS_SRC_EX_CPP
 #                         Network                      #
 ########################################################
 
+SET(NET_DIRNAME Network)
 SET(NET_DIR ${BASE_DIR}/Network)
 
 SET(KDIS_SRC_NET_H 
@@ -929,4 +947,25 @@ SET(KDIS_SRC_NET_CPP
 )
 
 ADD_SUBDIRECTORY(Examples)
+
+INSTALL(TARGETS ${KDIS_DLL} LIBRARY DESTINATION lib)
+
+INSTALL(FILES ${KDIS_SRC_BASE_H}       DESTINATION  include/${BASE_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_DATATYPES_H}  DESTINATION  include/${BASE_DIRNAME}/${DATATYPES_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_ENUMS_H}      DESTINATION  include/${BASE_DIRNAME}/${ENUMS_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_PDU_BASE_H}   DESTINATION  include/${BASE_DIRNAME}/${PDU_BASE_DIRNAME}) 
+INSTALL(FILES ${KDIS_SRC_PDU_DER_H}    DESTINATION  include/${BASE_DIRNAME}/${PDU_DER_DIRNAME}) 
+INSTALL(FILES ${KDIS_SRC_PDU_EII_H}    DESTINATION  include/${BASE_DIRNAME}/${PDU_EII_DIRNAME})     
+INSTALL(FILES ${KDIS_SRC_PDU_EM_H}     DESTINATION  include/${BASE_DIRNAME}/${PDU_EM_DIRNAME}) 
+INSTALL(FILES ${KDIS_SRC_PDU_LE_H}     DESTINATION  include/${BASE_DIRNAME}/${PDU_LE_DIRNAME}) 
+INSTALL(FILES ${KDIS_SRC_PDU_L_H}      DESTINATION  include/${BASE_DIRNAME}/${PDU_L_DIRNAME}) 
+INSTALL(FILES ${KDIS_SRC_PDU_M_H}      DESTINATION  include/${BASE_DIRNAME}/${PDU_M_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_PDU_R_H}      DESTINATION  include/${BASE_DIRNAME}/${PDU_R_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_PDU_SM_H}     DESTINATION  include/${BASE_DIRNAME}/${PDU_SM_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_PDU_SMWR_H}   DESTINATION  include/${BASE_DIRNAME}/${PDU_SMWR_DIRNAME}) 
+INSTALL(FILES ${KDIS_SRC_PDU_SE_H}     DESTINATION  include/${BASE_DIRNAME}/${PDU_SE_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_PDU_W_H}      DESTINATION  include/${BASE_DIRNAME}/${PDU_W_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_PDU_IO_H}     DESTINATION  include/${BASE_DIRNAME}/${PDU_IO_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_EX_H}         DESTINATION  include/${BASE_DIRNAME}/${EX_DIRNAME})
+INSTALL(FILES ${KDIS_SRC_NET_H}        DESTINATION  include/${BASE_DIRNAME}/${NET_DIRNAME})
 
