@@ -158,8 +158,20 @@ KUINT16 Mode5TransponderBasicData::GetNationalOrigin() const
 {
 	return m_ui16NationalOrigin;
 }
-	
 
+//////////////////////////////////////////////////////////////////////////
+
+void  Mode5TransponderBasicData::SetSupplementalData( Mode5TransponderSupplementalData SD )
+{
+	m_SupplementalData = SD;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Mode5TransponderSupplementalData  Mode5TransponderBasicData::GetSupplementalData() const
+{
+	return m_SupplementalData;
+}
 
 
 //////////////////////////////////////////////////////////////////////////

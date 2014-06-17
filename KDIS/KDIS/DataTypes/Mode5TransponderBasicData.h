@@ -44,6 +44,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./EntityIdentifier.h"
 #include "./Mode5TransponderStatus.h"
 #include "./EnhancedMode1Code.h" 
+#include "./Mode5TransponderSupplementalData.h"
 #include <bitset>
 
 namespace KDIS {
@@ -63,10 +64,11 @@ protected:
 
 	KUINT16 m_ui16NationalOrigin;
 
+	Mode5TransponderSupplementalData m_SupplementalData;
 
 	/*
-	NEXT Supplemental Data
-
+	
+	TODO: NEXT up Nav src
 
 	EntityIdentifier m_InterrogatedID;
 
@@ -147,7 +149,15 @@ public:
 	void SetNationalOrigin( KUINT16 NO );
 	KUINT16 GetNationalOrigin() const;
 	
-	
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetSupplementalData
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetSupplementalData	
+    // Description: Supplemental data for a Mode 5 transponder.
+    // Parameter:   Mode5TransponderSupplementalData SD
+    //************************************
+	void SetSupplementalData( Mode5TransponderSupplementalData SD );
+	Mode5TransponderSupplementalData GetSupplementalData() const;
+
 
 
 	//************************************

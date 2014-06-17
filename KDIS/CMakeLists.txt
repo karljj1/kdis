@@ -218,6 +218,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
 	${DATATYPES_DIR}/Mode5MessageFormats.h
 	${DATATYPES_DIR}/EnhancedMode1Code.h
 	${DATATYPES_DIR}/ModeXCodeRecord.h
+	${DATATYPES_DIR}/Mode5TransponderSupplementalData.h
 )
 
 ENDIF(DIS_VERSION GREATER 6)
@@ -383,6 +384,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/Mode5MessageFormats.cpp
 	${DATATYPES_DIR}/EnhancedMode1Code.cpp
 	${DATATYPES_DIR}/ModeXCodeRecord.cpp
+	${DATATYPES_DIR}/Mode5TransponderSupplementalData.cpp
 )
 
 ENDIF(DIS_VERSION GREATER 6)
