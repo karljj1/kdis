@@ -36,6 +36,7 @@ using namespace std;
 using namespace KDIS;
 using namespace UTILS;
 using namespace DATA_TYPE;
+using namespace ENUMS;
 
 //////////////////////////////////////////////////////////////////////////
 // public:
@@ -44,8 +45,28 @@ using namespace DATA_TYPE;
 Mode5TransponderBasicData::Mode5TransponderBasicData() :
 	m_ui16PIN( 0 ),
 	m_ui32MsgFormats( 0 ),
-	m_ui16NationalOrigin( 0 )
+	m_ui16NationalOrigin( 0 ),
+	m_ui8NavSrc( 0 ),
+	m_ui8FigMerit( 0 ),
+	m_ui8Padding( 0 )
 {	
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Mode5TransponderBasicData::Mode5TransponderBasicData( const Mode5TransponderStatus & S, KUINT16 PersonalIdentificationNumber, KUINT32 MsgFormats,
+                                                      const EnhancedMode1Code & EMC1, KUINT16 NationalOrigin, Mode5TransponderSupplementalData SD,
+                                                      KDIS::DATA_TYPE::ENUMS::NavigationSource NS, KUINT8 FigureOfMerit ) :
+	m_ui16PIN( PersonalIdentificationNumber ),
+	m_ui32MsgFormats( MsgFormats ),
+	m_ui16NationalOrigin( NationalOrigin ),
+	m_ui8NavSrc( NS ),
+	m_ui8FigMerit( FigureOfMerit ),
+	m_ui8Padding( 0 )
+{
+	m_Status = S;
+	m_EM1Code = EMC1;
+	m_SupplementalData = SD;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -173,17 +194,51 @@ Mode5TransponderSupplementalData  Mode5TransponderBasicData::GetSupplementalData
 	return m_SupplementalData;
 }
 
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderBasicData::SetNavigationSource( NavigationSource NS )
+{
+	m_ui8NavSrc = NS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+NavigationSource Mode5TransponderBasicData::GetNavigationSource() const
+{
+	return ( NavigationSource )m_ui8NavSrc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderBasicData::SetFigureOfMerit( KUINT8 FOM ) throw( KException )
+{
+	if( FOM > 31 )throw KException( __FUNCTION__, INVALID_DATA, "Value must be between 0-31." );
+	m_ui8FigMerit = FOM;
+}
+
+//////////////////////////////////////////////////////////////////////////
+	
+KUINT8 Mode5TransponderBasicData::GetFigureOfMerit() const
+{
+	return m_ui8FigMerit;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
 KString Mode5TransponderBasicData::GetAsString() const
 {
     KStringStream ss;	
-	//ss << "Mode 5 Interrogator Basic Data:"
- //      << IndentString( m_Status.GetAsString() )
-	//   << GetMessageFormatsPresentBitSet().to_string()
-	//   << IndentString( m_InterrogatedID.GetAsString() );	   
-	//   
+			
+	ss << "Mode 5 Transponder Basic Data:"
+		<< IndentString( m_Status.GetAsString() )
+		<< "Personal ID Number: " << m_ui16PIN            << "\n"
+		<< "Message Formats:    " << m_ui32MsgFormats     << "\n"
+		<< IndentString( m_EM1Code.GetAsString() )
+		<< "National Origin:    " << m_ui16NationalOrigin << "\n"
+		<< m_SupplementalData.GetAsString() 
+		<< GetEnumAsStringNavigationSource( m_ui8NavSrc ) << "\n"
+		<< "Figure Of Merit:    " << m_ui8FigMerit        << "\n";
+	   	 
     return ss.str();
 }
 
@@ -192,13 +247,15 @@ KString Mode5TransponderBasicData::GetAsString() const
 void Mode5TransponderBasicData::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < MODE_5_TRANSPONDER_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-	
-    //stream >> KDIS_STREAM m_Status
-		  // >> m_ui8Padding
-		  // >> m_ui16Padding1
-		  // >> m_ui32MsgFormats
-		  // >> KDIS_STREAM m_InterrogatedID
-		  // >> m_ui16Padding2;	
+
+	stream >> KDIS_STREAM m_Status
+		   >> m_ui16PIN
+		   >> m_ui32MsgFormats
+		   >> KDIS_STREAM m_EM1Code
+		   >> m_ui16NationalOrigin
+		   >> KDIS_STREAM m_SupplementalData
+		   >> m_ui8NavSrc
+		   >> m_ui8FigMerit;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -216,22 +273,29 @@ KDataStream Mode5TransponderBasicData::Encode() const
 
 void Mode5TransponderBasicData::Encode( KDataStream & stream ) const
 {
-	//stream << KDIS_STREAM m_Status
-	//	   << m_ui8Padding
-	//	   << m_ui16Padding1
-	//	   << m_ui32MsgFormats
-	//	   << KDIS_STREAM m_InterrogatedID
-	//	   << m_ui16Padding2;
+	stream << KDIS_STREAM m_Status
+		   << m_ui16PIN
+		   << m_ui32MsgFormats
+		   << KDIS_STREAM m_EM1Code
+		   << m_ui16NationalOrigin
+		   << KDIS_STREAM m_SupplementalData
+		   << m_ui8NavSrc
+		   << m_ui8FigMerit;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderBasicData::operator == ( const Mode5TransponderBasicData & Value ) const
 {
-	//if( m_Status         != Value.m_Status )         return false;
-	//if( m_ui32MsgFormats != Value.m_ui32MsgFormats ) return false;
-	//if( m_InterrogatedID != Value.m_InterrogatedID ) return false;	
-    return true;
+	if( m_Status             != Value.m_Status )             return false;
+	if( m_ui16PIN            != Value.m_ui16PIN )            return false;
+	if( m_ui32MsgFormats     != Value.m_ui32MsgFormats )     return false;	
+	if( m_EM1Code            != Value.m_EM1Code )            return false;
+	if( m_ui16NationalOrigin != Value.m_ui16NationalOrigin ) return false;
+	if( m_SupplementalData   != Value.m_SupplementalData )   return false;	
+	if( m_ui8NavSrc          != Value.m_ui8NavSrc )          return false;
+	if( m_ui8FigMerit        != Value.m_ui8FigMerit )        return false;	
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////

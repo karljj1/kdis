@@ -266,5 +266,44 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Val
 
 #endif
 
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for PlatformType
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor NavigationSourceDescriptor[] =
+{
+    { 0 , "No Statement" },
+	{ 1 , "GPS" },
+	{ 2 , "INS" },
+	{ 3 , "INS/GPS" },	
+};
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationSource( KINT32 Value )
+{
+    return GetEnumAsString( NavigationSourceDescriptor, sizeof( NavigationSourceDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString( NavigationSourceDescriptor, sizeof( NavigationSourceDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationSource( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+};
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
 
 #endif // Endif DIS Version > 6

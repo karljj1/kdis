@@ -162,6 +162,26 @@ KString GetEnumAsStringPlatformType( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut ); 
 
+/************************************************************************/
+/* Navigation Source                                                    */
+/* The navigation source.                                               */
+/* Used In:                                                             */
+/*  Mode 5 Transponder Basic Data                                       */
+/************************************************************************/
+
+enum NavigationSource
+{
+    NoStatementNavigationSource                                       = 0,
+	GPS                                                               = 1,
+	INS                                                               = 2,
+	INS_GPS                                                           = 3	
+};
+
+KString GetEnumAsStringNavigationSource( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringNavigationSource( const KString & Value, KINT32 & ValueOut ); 
+
 #endif // DIS 6
 
 } // END namespace ENUMS

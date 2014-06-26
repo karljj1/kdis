@@ -66,13 +66,11 @@ protected:
 
 	Mode5TransponderSupplementalData m_SupplementalData;
 
-	/*
-	
-	TODO: NEXT up Nav src
+	KUINT8 m_ui8NavSrc;
 
-	EntityIdentifier m_InterrogatedID;
+	KUINT8 m_ui8FigMerit;
 
-	KUINT16 m_ui16Padding2;*/
+	KUINT8 m_ui8Padding;
 
 public:
 
@@ -80,7 +78,9 @@ public:
 
     Mode5TransponderBasicData();
 
-	//Mode5TransponderBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID );
+	Mode5TransponderBasicData( const Mode5TransponderStatus & S, KUINT16 PersonalIdentificationNumber, KUINT32 MsgFormats,
+		                       const EnhancedMode1Code & EMC1, KUINT16 NationalOrigin, Mode5TransponderSupplementalData SD,
+							   KDIS::DATA_TYPE::ENUMS::NavigationSource NS, KUINT8 FigureOfMerit );
 
     Mode5TransponderBasicData( KDataStream & stream ) throw( KException );
 
@@ -97,8 +97,8 @@ public:
 	Mode5TransponderStatus & GetStatus();
 		
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetStatus
-    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetStatus	
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetPersonalIdentificationNumber
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetPersonalIdentificationNumber	
     // Description: Uniquely identifies the platform carrying this Mode 5 transponder.
 	//              Should be a number in the range 00 000 octal to 37 777 octal.
     // Parameter:   KUINT16 PIN
@@ -158,7 +158,24 @@ public:
 	void SetSupplementalData( Mode5TransponderSupplementalData SD );
 	Mode5TransponderSupplementalData GetSupplementalData() const;
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetNavigationSource
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetNavigationSource	
+    // Description: Navigation source for this transponder.
+    // Parameter:   KDIS::DATA_TYPE::ENUMS::NavigationSource NS
+    //************************************
+	void SetNavigationSource( KDIS::DATA_TYPE::ENUMS::NavigationSource NS );
+	KDIS::DATA_TYPE::ENUMS::NavigationSource GetNavigationSource() const;
 
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetFigureOfMerit
+    //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetFigureOfMerit
+    // Description: The figure of merit is a quantity used to characterize the performance of the device.
+	//              Valid values 0-31 else INVALID_DATA exception thrown.
+    // Parameter:   KUINT8 FOM
+    //************************************
+	void SetFigureOfMerit( KUINT8 FOM ) throw( KException );
+	KUINT8 GetFigureOfMerit() const;
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::GetAsString
