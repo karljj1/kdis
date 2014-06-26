@@ -42,25 +42,10 @@ using namespace UTILS;
 
 IFF_Layer3::IFF_Layer3() :
 	m_ui16Padding( 0 ),
-	m_ui16NumIffRecs( 0 )
+	m_ui16NumIffRecs( 0 )	
 {
 	m_ui8LayerNumber = 2;
 	m_ui16LayerLength = IFF_LAYER3_SIZE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IFF_Layer3::IFF_Layer3( KDataStream & stream ) throw( KException )
-{
-    Decode( stream, false );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IFF_Layer3::IFF_Layer3( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
-	LayerHeader( H )
-{
-    Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -92,116 +77,66 @@ SimulationIdentifier & IFF_Layer3::GetReportingSimulation()
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::SetMode5InterrogatorBasicData( const Mode5InterrogatorBasicData & IBD )
+void IFF_Layer3::AddDataRecord( KDIS::DATA_TYPE::StdVarPtr DR )
 {
-	m_IntBscDta = IBD;
+	m_vStdVarRecs.push_back( DR );
+	++m_ui16NumIffRecs;
+    m_ui16LayerLength += DR->GetRecordLength();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Mode5InterrogatorBasicData & IFF_Layer3::GetMode5InterrogatorBasicData() const
+void IFF_Layer3::SetDataRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DRS )
 {
-	return m_IntBscDta;
+	m_vStdVarRecs = DRS;
+
+    // Reset the PDU length.
+	m_ui16LayerLength = IFF_LAYER3_SIZE;
+
+    // Calculate the new length.
+    KUINT16 ui16Length = 0;
+    vector<StdVarPtr>::const_iterator citr = m_vStdVarRecs.begin();
+    vector<StdVarPtr>::const_iterator citrEnd = m_vStdVarRecs.end();
+    for( ; citr != citrEnd; ++citr )
+    {
+        m_ui16LayerLength += ( *citr )->GetRecordLength();
+    }
+
+    m_ui16NumIffRecs = m_vStdVarRecs.size();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorBasicData & IFF_Layer3::GetMode5InterrogatorBasicDatan()
+const std::vector<KDIS::DATA_TYPE::StdVarPtr> & IFF_Layer3::GetDataRecords() const
 {
-	return m_IntBscDta;
+	return m_vStdVarRecs;
 }
-
-
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 IFF_Layer3::GetNumberIFFDataRecords() const
+void IFF_Layer3::ClearDataRecords()
+{
+	// Reset the length.
+	m_ui16LayerLength = IFF_LAYER3_SIZE;
+
+    m_vStdVarRecs.clear();
+    m_ui16NumIffRecs = 0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 IFF_Layer3::GetNumberDataRecords() const
 {
 	return m_ui16NumIffRecs;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString IFF_Layer3::GetAsString() const
-{
-    KStringStream ss;
-
-    //ss << "IFF Layer 2\n"
-    //   << IndentString( m_BmDt.GetAsString(), 1 )
-    //   << IndentString( m_SOD.GetAsString(), 1 );
-
-    //vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citr = m_vFPD.begin();
-    //vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citrEnd = m_vFPD.end();
-    //for( ; citr != citrEnd; ++citr )
-    //{
-    //    ss << citr->GetAsString();
-    //}
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IFF_Layer3::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
-{
-    if( stream.GetBufferSize() < IFF_LAYER3_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
- //   m_vFPD.clear();
-
-	if( !ignoreHeader )
-	{
-		LayerHeader::Decode( stream );
-	}
-
-    //stream >> KDIS_STREAM m_RptSim
-	//	   >> m_ui32Padding              // Mode 5 Interrogator Basic Data field 0
-   //        >> KDIS_STREAM m_MsgFormats   // Mode 5 Interrogator Basic Data field 1
-	//	   >> m_ui64Padding;             // Mode 5 Interrogator Basic Data field 2
-
- //   for( KUINT8 i = 0; i < m_SOD.GetNumberOfFundamentalParamSets(); ++i )
- //   {
- //       m_vFPD.push_back( IFF_ATC_NAVAIDS_FundamentalParameterData( stream ) );
- //   }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream IFF_Layer3::Encode() const
-{
-    KDataStream stream;
-
-    IFF_Layer3::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IFF_Layer3::Encode( KDataStream & stream ) const
-{
-	LayerHeader::Encode( stream );
-
-   // stream << KDIS_STREAM m_RptSim
-	//	   << m_ui32Padding              // Mode 5 Interrogator Basic Data field 0
-   //        << KDIS_STREAM m_MsgFormats   // Mode 5 Interrogator Basic Data field 1
-	//	   << m_ui64Padding;             // Mode 5 Interrogator Basic Data field 2   
-
-    //vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citr = m_vFPD.begin();
-    //vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citrEnd = m_vFPD.end();
-    //for( ; citr != citrEnd; ++citr )
-    //{
-    //    citr->Encode( stream );
-    //}
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 KBOOL IFF_Layer3::operator == ( const IFF_Layer3 & Value ) const
 {
- //   if( LayerHeader::operator !=( Value ) )     return false;    
- //   if( m_BmDt                != Value.m_BmDt ) return false;
- //   if( m_SOD                 != Value.m_SOD )  return false;
-	//if( m_vFPD                != Value.m_vFPD ) return false;
+    if( LayerHeader::operator !=( Value ) )            return false;    
+    if( m_RptSim              != Value.m_RptSim )      return false;
+    if( m_vStdVarRecs         != Value.m_vStdVarRecs ) return false;
     return true;
 }
 

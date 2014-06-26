@@ -120,7 +120,7 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(  KDataStream & stream
 		case IOEffectRecord               : return new IOEffect( stream );
 
 		// TODO: DE Records
-		//case DEPrecisionAimpointRecord             : return new IOEffect( stream );
+		//case DEPrecisionAimpointRecord        : return new IOEffect( stream );
 		//case DEAreaAimpointRecord             : return new IOEffect( stream );
     }
 

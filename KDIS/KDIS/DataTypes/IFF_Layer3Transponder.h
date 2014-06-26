@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      IFF_Layer3
+    class:      IFF_Layer3Transponder
     DIS:        (7) 1278.1 - 2012
     created:    23/09/2013
     author:     Karl Jones
@@ -44,14 +44,22 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./LayerHeader.h"
 #include "./SimulationIdentifier.h"
+#include "./Mode5MessageFormats.h"
+#include "./Mode5InterrogatorBasicData.h"
 #include "./StandardVariable.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3 : public LayerHeader
+class KDIS_EXPORT IFF_Layer3Transponder : public LayerHeader
 {
 protected:
+
+	//*******************************************************
+	// TODO: YOU ARE HERE!!!!
+	// TODO: transponder record and encode/decode/getasstring
+	// TODO: Then interrogator the same as.
+	//*******************************************************
 
 	SimulationIdentifier m_RptSim;
 
@@ -67,31 +75,45 @@ public:
 
     static const KUINT16 IFF_LAYER3_SIZE = 28; // Min size
 
-    IFF_Layer3();
+    IFF_Layer3Transponder();
 
-    virtual ~IFF_Layer3();
+    IFF_Layer3Transponder( KDataStream & stream ) throw( KException );
+
+	IFF_Layer3Transponder( const LayerHeader & H, KDataStream & stream ) throw( KException );
+
+    virtual ~IFF_Layer3Transponder();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::SetReportingSimulation
-    //              KDIS::DATA_TYPE::IFF_Layer3::GetReportingSimulation
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::SetReportingSimulation
+    //              KDIS::DATA_TYPE::IFF_Layer3Transponder::GetReportingSimulation
     // Description: The simulation reporting this IFF PDU.
     // Parameter:   const SimulationIdentifier & RS
     //************************************
     void SetReportingSimulation( const SimulationIdentifier & RS );
     const SimulationIdentifier & GetReportingSimulation() const;
     SimulationIdentifier & GetReportingSimulation();
-			
+	
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::GetNumberDataRecords
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::SetMode5InterrogatorBasicData
+    //              KDIS::DATA_TYPE::IFF_Layer3Transponder::GetMode5InterrogatorBasicData
+    // Description: Basic Mode 5 interrogator data that is always required to be transmitted.
+    // Parameter:   const Mode5InterrogatorBasicData & IBD
+    //************************************
+    //void SetMode5InterrogatorBasicData( const Mode5InterrogatorBasicData & IBD );
+    //const Mode5InterrogatorBasicData & GetMode5InterrogatorBasicData() const;
+    //Mode5InterrogatorBasicData & GetMode5InterrogatorBasicDatan();
+		
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetNumberDataRecords
     // Description: The number of IFF Data records in this PDU.
     //************************************
 	KUINT16 GetNumberDataRecords() const;
 
 	//************************************
-    // FullName:    KDIS::PDU::IFF_Layer3::AddDataRecord
-    //              KDIS::PDU::IFF_Layer3::SetDataRecords
-    //              KDIS::PDU::IFF_Layer3::GetDataRecords
-    //              KDIS::PDU::IFF_Layer3::ClearDataRecords
+    // FullName:    KDIS::PDU::IFF_Layer3Transponder::AddDataRecord
+    //              KDIS::PDU::IFF_Layer3Transponder::SetDataRecords
+    //              KDIS::PDU::IFF_Layer3Transponder::GetDataRecords
+    //              KDIS::PDU::IFF_Layer3Transponder::ClearDataRecords
     // Description: IFF Data records are used when variable records are required to be included in the layer.
 	//              They are identical to Standard Variable Specification record format except that alignment is to
 	//              a 32-bit boundary for each IFF Data record instead of to a 64-bit boundary. 
@@ -102,9 +124,31 @@ public:
 	void SetDataRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DRS );
 	const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDataRecords() const;
     void ClearDataRecords();
+	
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetAsString
+    // Description: Returns a string representation 
+    //************************************
+    virtual KString GetAsString() const;
 
-    KBOOL operator == ( const IFF_Layer3 & Value ) const;
-    KBOOL operator != ( const IFF_Layer3 & Value ) const;
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Decode
+    // Description: Convert From Network Data.
+    // Parameter:   KDataStream & stream
+    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
+    //************************************
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Encode
+    // Description: Convert To Network Data.
+    // Parameter:   KDataStream & stream
+    //************************************
+    virtual KDataStream Encode() const;
+    virtual void Encode( KDataStream & stream ) const;
+
+    KBOOL operator == ( const IFF_Layer3Transponder & Value ) const;
+    KBOOL operator != ( const IFF_Layer3Transponder & Value ) const;
 };
 
 } // END namespace DATA_TYPE
