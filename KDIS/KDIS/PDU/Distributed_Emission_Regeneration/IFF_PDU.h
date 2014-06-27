@@ -73,6 +73,11 @@ http://p.sf.net/kdis/UserGuide
 #include "./../../DataTypes/LayerHeader.h"
 #include "./../../DataTypes/IFF_Layer2.h" 
 
+#if DIS_VERSION > 6
+#include "./../../DataTypes/IFF_Layer3Interrogator.h"
+#include "./../../DataTypes/IFF_Layer3Transponder.h"
+#endif
+
 namespace KDIS {
 namespace PDU {
 

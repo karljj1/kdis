@@ -98,6 +98,7 @@ public:
 	//              They are identical to Standard Variable Specification record format except that alignment is to
 	//              a 32-bit boundary for each IFF Data record instead of to a 64-bit boundary. 
 	//              This means the records can not contain 64 bit floats or 64 bit integers.
+	//              See B.2.1.1 of IEEE 1278.1-2012 for a full list of supported records (Note: I have not implmented them all yet but do plan to).
     // Parameter:   StdVarPtr DR, const vector<StdVarPtr> & DRS
     //************************************
     void AddDataRecord( StdVarPtr DR );

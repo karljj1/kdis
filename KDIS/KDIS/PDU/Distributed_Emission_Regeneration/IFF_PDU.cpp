@@ -49,7 +49,12 @@ IFF_PDU::IFF_PDU() :
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
     m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
     m_ui16PDULength = IFF_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+
+	#if DIS_VERSION > 6
+	m_ui8ProtocolVersion = IEEE_1278_1_2012;
+	#else 
+	m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+	#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,7 +96,12 @@ IFF_PDU::IFF_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & 
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
     m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
     m_ui16PDULength = IFF_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+
+	#if DIS_VERSION > 6
+	m_ui8ProtocolVersion = IEEE_1278_1_2012;
+	#else 
+	m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+	#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -334,7 +344,25 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
 		switch ( hdr.GetLayerNumber() )
 		{
 			case 2: layer = new IFF_Layer2( hdr, stream ); break;
-			//case 3: layer = new IFF_Layer3( hdr, stream ); break;
+
+			#if DIS_VERSION > 6
+			case 3: 
+				switch( m_SystemID.GetSystemType() )
+				{
+					case SystemType::Mark_X_XII_ATCRBS_ModeS_Transponder:
+					case SystemType::RRB_Transponder:
+					case SystemType::Soviet_Transponder:
+						layer = new IFF_Layer3Transponder( hdr, stream );
+						break;
+
+					case SystemType::Mark_X_XII_ATCRBS_ModeS_Interrogator:
+					case SystemType::Soviet_Interrogator:
+						layer = new IFF_Layer3Interrogator( hdr, stream );
+						break;
+				}							
+				break;
+			#endif
+			
 			//case 4: layer = new IFF_Layer4( hdr, stream ); break;
 			//case 5: layer = new IFF_Layer5( hdr, stream ); break;
 				

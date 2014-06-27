@@ -41,62 +41,43 @@
 <b>Future Releases</b>
 		<hr>Plans for future releases are currently:
 		<ul>
-			<li>Dead Reckoning - verify all algorithms work correctly.</li>
-			<li>Examine V-DIS standard for potential KDIS extension..</li>			
+			<li>More work to come on IFF.</li>
+			<li>Dead Reckoning - verify all algorithms work correctly.</li>			
 			<li>Conversions for multiple datum's and orientation representations.</li>
 			<li>Improve GetAsString formatting.</li>	
-			<li>Finish Link 16 integration</li>
+			<li>Finish/Improve Link 16 integration.</li>
 </ul>
 <br>
 <br>
 
-
-TODO: CLEAN UP THIS LOG.!!! AGGREGATE THE FIXES!
-
-<!-- Version 3-0-0 !-->
+<!-- Version 2-8-0 !-->
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table2">
 	<tr>
-		<td><b>Version 3-0-0 </b></td>
-		<td><b>xx xx 2014</b></td>
+		<td><b>Version 2-8-0 </b></td>
+		<td><b>27 June 2014</b></td>
 	</tr>
 </table>
 <hr>
-<ul>		
-	<div style="color: red">
-	<li>DIS 7 is now fully implemented.
-	</div>
+<ul>			
 	<div style="color: blue">
+	<li>Added IFF_PDU which replaces IFF_ATC_NAVAIDS_L1_PDU</li>
+	<li>Removed IFF_ATC_NAVAIDS_L2_PDU, it is now a data type class called IFF_Layer2 which is a property of IFF_PDU.</li>
+	<li>Added IFF Layer 3 classes: IFF_Layer3Transponder & IFF_Layer3Interrogator.</li>	
 	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Migration_Guide">migration</a> guide for more details.
 	<li>Renamed ArticulationParamaters to ArticulatedPart.</li>
 	<li>Added AttachedPart class.</li>
 	<li>Added CryptoSystem::SetKeyID & CryptoSystem::GetKeyID.</li>
+	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>	
+	<li>Replaced BurstDescriptor in LE Fire & LE Detonation PDU with MunitionDescriptor. This class is the same except the Set/GetMuntion function is now named Set/GetType.</li>	
+	</div>			
 	<li>Fixed no operation bug in CryptoSystem::SetCryptoSystemType.</li>
 	<li>Fixed no operation bug in Aggregate_State_PDU::SetAggregateState.</li>
 	<li>Fixed incorrect size values for DATA_R_PDU , SET_RECORD_R_PDU_SIZE and STOP_FREEZE_R_PDU_SIZE.</li>
 	<li>Fixed bug in Set_Record_R_PDU::Decode & Set_Record_R_PDU::Encode. Not enough padding.</li>
-	</li>Fixed error checking bug in Resupply_Received_PDU::Decode & Service_Request_PDU::Decode.</li>
+	<li>Fixed error checking bug in Resupply_Received_PDU::Decode & Service_Request_PDU::Decode.</li>
 	<li>Fixed bug in Transmitter_PDU::Transmitter_PDU, AntennaPatternLength was using the wrong data type.</li>
 	<li>Fixed bug in void Data_Query_PDU::SetVariableDatum, setting the wrong length value.</li>
 	<li>Fixed bug in MinePaintScheme, was not using the correct variable for SetPaintScheme & GetPaintScheme.</li>
-	<li>Added missing implementations of LinearVelocity, EntityLocation, EntityOrientation, EntityAppearance into Entity_State_Update_PDU.</li>
-	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>
-	<li>Replaced BurstDescriptor in LE Fire & LE Detonation PDU with MunitionDescriptor. This class is the same except the Set/GetMuntion function is now named Set/GetType.</li>
-	</div>		
-	<li>Added WorldCoordinates::Set to set all values in one call.</li>
-	<li>Added Vector::Set to set all values in one call.</li>
-	<li>Added Vector::Lerp.</li>	
-	<li>Added SystemDesignator and SystemSpecificData to IFF_ATC_NAVAIDS_L1_PDU, they are DIS 7 features.</li>
-	<li>Renamed IFF_ATC_NAVAIDS_L1_PDU to IFF_PDU.</li>
-	<li>Removed IFF_ATC_NAVAIDS_L2_PDU, it is now a data type class called IFF_Layer2 which is a property of IFF_PDU.</li>
-	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
-	<li>Added SetTCASVersion to FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData_MarkXInterrogator.</li>
-	<li>Added missing get/set for ResponseCode, ResponsePowerReduction & ResponseRadarEnhancement to FundamentalOperationalData_RRB.</li>
-	<li>Added missing get/set for NumBurst to PointObjectAppearance.</li>
-	<li>Added missing get/set for AttackerEntityID to AttackerEntityID.</li>
-	<li>Performance Improvements In Decoding. ignoreHeader parameter added to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>
-	<li>Added WorldCoordinates::Lerp</li>
-    <li>Cleaned up namespaces. namespaces had become polluted, for example the following was possible: KDIS::PDU::Header, KDIS::NETWORK::Header, KDIS::UTILS::Header, KDIS::PDU::Header should have been the only one possible.</li>
-	<li>Fixed some invalid Symbolic names.</li>
 	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type variant field. The high and low bits method was incorrect. TypeVariantHighBits is now TypeVariantClass and TypeVariantLowBits is TypeVariantMetric.</li>
 	<li>Fixed ArticulationParameters(now ArticulatedPart) Parameter type value field. Should have been a KFLOAT32 not KUINT64.</li>
 	<li>Fixed bug in TimeStamp::SetTimeStampType.</li>
@@ -111,22 +92,35 @@ TODO: CLEAN UP THIS LOG.!!! AGGREGATE THE FIXES!
 	<li>Fixed bug with GuidedMunitionsAppearance when using a DLL version of KDIS.</li>
     <li>Fixed bug in GetNextPDU when an error occurs, the next call was using corrupted data.</li>
 	<li>Fixed incorrect function name in EllipsoidRecord2. Function GetSigma should have been GetDOverDt.</li>
+	<li>Fixed some invalid Symbolic names.</li>
+	<li>Fixed compile bug when using Visual Studio 2010 Express Edition, WIN32 was not defined.</li>	
+	<li>Added missing implementations of LinearVelocity, EntityLocation, EntityOrientation, EntityAppearance into Entity_State_Update_PDU.</li>
+	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
+	<li>Added missing get/set for ResponseCode, ResponsePowerReduction & ResponseRadarEnhancement to FundamentalOperationalData_RRB.</li>
+	<li>Added missing get/set for NumBurst to PointObjectAppearance.</li>
+	<li>Added missing get/set for AttackerEntityID to AttackerEntityID.</li>	
+	<li>Added WorldCoordinates::Set to set all values in one call.</li>
+	<li>Added Vector::Set to set all values in one call.</li>
+	<li>Added Vector::Lerp.</li>	
+	<li>Added WorldCoordinates::Lerp</li>
+	<li>Added SystemDesignator and SystemSpecificData to IFF_ATC_NAVAIDS_L1_PDU, they are DIS 7 features.</li>	
+	<li>Added SetTCASVersion to FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData_MarkXInterrogator.</li>
 	<li>Added some missing enums to StationName.</li>
 	<li>Added missing enum to WarfareType.</li>
-	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
+	<li>Added missing enums to EncodingType.</li>
+	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>		
+	<li>Linux - Added "make install" target and fixed the "you have to cmake . cmake . before building". Thanks Bud Davis!</li>
 	<li>Renamed EnumFundamentalOperationalData .h & .cpp to EnumIFF.</li>
 	<li>Renamed enum WarheadType::GlassBladsWarhead to WarheadType::GlassBeadsWarhead.</li>
 	<li>Renamed enum EncodingType::_16_bit_linear_PCM to EncodingType::_16_bit_linear_PCM2sComplementBigEndian.</li>
-    <li>Changed define COMM_CHANNEL_TYPE to a static KUINT16 COMM_CHANNEL_TYPE_SIZE.</li>
-	<li>Added missing enums to EncodingType.</li>
-	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>		
+	<li>Changed define COMM_CHANNEL_TYPE to a static KUINT16 COMM_CHANNEL_TYPE_SIZE.</li>
+	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
+	<li>Cleaned up namespaces. namespaces had become polluted, for example the following was possible: KDIS::PDU::Header, KDIS::NETWORK::Header, KDIS::UTILS::Header, KDIS::PDU::Header should have been the only one possible.</li>
+	<li>Performance Improvements In Decoding. ignoreHeader parameter added to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>
 	<li>Lots of improvements to comments. More details, fixes etc.</li>   
-	<li>Corrected incorrect licence text in LayerHeader.h.</li>
+	<li>Fixed some files missing their license text.</li>	
 	<li>Changed Copyright 2013 KDIS to Copyright 2013 Karl Jones.</li>
-	<li>Added UNLICENSE statement to examples(Except Link16).</li>
-	<li>Fixed some files missing their license text.</li>
-	<li>Fixed compile bug when using Visual Studio 2010 Express Edition, WIN32 was not defined.</li>
-	<li>Linux - Added "make install" target and fixed the "you have to cmake . cmake . before building". Thanks Bud Davis!</li>
+    <li>Added UNLICENSE statement to examples(Except Link16).</li>			
 </ul>
 
 <!-- Version 2-7-0 !-->
