@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IFF_Layer3Transponder.h"
+#include "./IFF_Layer3Interrogator.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,20 +40,20 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder() 
+IFF_Layer3Interrogator::IFF_Layer3Interrogator() 
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder( KDataStream & stream ) throw( KException )
+IFF_Layer3Interrogator::IFF_Layer3Interrogator( KDataStream & stream ) throw( KException )
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder( const SimulationIdentifier & ReportingSimulation, const Mode5TransponderBasicData & Data,
+IFF_Layer3Interrogator::IFF_Layer3Interrogator( const SimulationIdentifier & ReportingSimulation, const Mode5InterrogatorBasicData & Data,
                                               std::vector<StdVarPtr> & Records ) 
 {
 	m_RptSim = ReportingSimulation;
@@ -63,7 +63,7 @@ IFF_Layer3Transponder::IFF_Layer3Transponder( const SimulationIdentifier & Repor
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
+IFF_Layer3Interrogator::IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
 	IFF_Layer3( H )
 {
     Decode( stream, false );
@@ -71,37 +71,37 @@ IFF_Layer3Transponder::IFF_Layer3Transponder( const LayerHeader & H, KDataStream
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::~IFF_Layer3Transponder()
+IFF_Layer3Interrogator::~IFF_Layer3Interrogator()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Transponder::SetBasicData( const Mode5TransponderBasicData & BD )
+void IFF_Layer3Interrogator::SetBasicData( const Mode5InterrogatorBasicData & BD )
 {
 	m_BasicData = BD;
 }
 
 //////////////////////////////////////////////////////////////////////////
-const Mode5TransponderBasicData & IFF_Layer3Transponder::GetBasicData() const
+const Mode5InterrogatorBasicData & IFF_Layer3Interrogator::GetBasicData() const
 {
 	return m_BasicData;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderBasicData & IFF_Layer3Transponder::GetBasicDatan()
+Mode5InterrogatorBasicData & IFF_Layer3Interrogator::GetBasicDatan()
 {
 	return m_BasicData;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString IFF_Layer3Transponder::GetAsString() const
+KString IFF_Layer3Interrogator::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "IFF Layer 3 Transponder\n"
+    ss << "IFF Layer 3 Interrogator\n"
 		<< LayerHeader::GetAsString()
 		<< "Reporting Simulation: " << m_RptSim.GetAsString()
 		<< "Basic Data: "           << m_BasicData.GetAsString() 
@@ -120,7 +120,7 @@ KString IFF_Layer3Transponder::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Transponder::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void IFF_Layer3Interrogator::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
     if( stream.GetBufferSize() < IFF_LAYER3_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -145,18 +145,18 @@ void IFF_Layer3Transponder::Decode( KDataStream & stream, bool ignoreHeader /*= 
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream IFF_Layer3Transponder::Encode() const
+KDataStream IFF_Layer3Interrogator::Encode() const
 {
     KDataStream stream;
 
-    IFF_Layer3Transponder::Encode( stream );
+    IFF_Layer3Interrogator::Encode( stream );
 
     return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Transponder::Encode( KDataStream & stream ) const
+void IFF_Layer3Interrogator::Encode( KDataStream & stream ) const
 {
 	LayerHeader::Encode( stream );
 
@@ -175,7 +175,7 @@ void IFF_Layer3Transponder::Encode( KDataStream & stream ) const
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_Layer3Transponder::operator == ( const IFF_Layer3Transponder & Value ) const
+KBOOL IFF_Layer3Interrogator::operator == ( const IFF_Layer3Interrogator & Value ) const
 {
     if( IFF_Layer3::operator !=( Value ) )          return false;    
     if( m_BasicData          != Value.m_BasicData ) return false; 
@@ -184,7 +184,7 @@ KBOOL IFF_Layer3Transponder::operator == ( const IFF_Layer3Transponder & Value )
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_Layer3Transponder::operator != ( const IFF_Layer3Transponder & Value ) const
+KBOOL IFF_Layer3Interrogator::operator != ( const IFF_Layer3Interrogator & Value ) const
 {
     return !( *this == Value );
 }
