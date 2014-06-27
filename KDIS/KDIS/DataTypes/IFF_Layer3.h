@@ -69,6 +69,8 @@ public:
 
     IFF_Layer3();
 
+	IFF_Layer3( const LayerHeader & H );
+
     virtual ~IFF_Layer3();
 
     //************************************
@@ -98,9 +100,9 @@ public:
 	//              This means the records can not contain 64 bit floats or 64 bit integers.
     // Parameter:   StdVarPtr DR, const vector<StdVarPtr> & DRS
     //************************************
-    void AddDataRecord( KDIS::DATA_TYPE::StdVarPtr DR );
-	void SetDataRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DRS );
-	const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDataRecords() const;
+    void AddDataRecord( StdVarPtr DR );
+	void SetDataRecords( const std::vector<StdVarPtr> & DRS );
+	const std::vector<StdVarPtr> & GetDataRecords() const;
     void ClearDataRecords();
 
     KBOOL operator == ( const IFF_Layer3 & Value ) const;

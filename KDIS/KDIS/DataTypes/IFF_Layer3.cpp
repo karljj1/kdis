@@ -44,8 +44,15 @@ IFF_Layer3::IFF_Layer3() :
 	m_ui16Padding( 0 ),
 	m_ui16NumIffRecs( 0 )	
 {
-	m_ui8LayerNumber = 2;
+	m_ui8LayerNumber = 3;
 	m_ui16LayerLength = IFF_LAYER3_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+IFF_Layer3::IFF_Layer3( const LayerHeader & H ) :
+	LayerHeader( H )
+{
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -77,7 +84,7 @@ SimulationIdentifier & IFF_Layer3::GetReportingSimulation()
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::AddDataRecord( KDIS::DATA_TYPE::StdVarPtr DR )
+void IFF_Layer3::AddDataRecord( StdVarPtr DR )
 {
 	m_vStdVarRecs.push_back( DR );
 	++m_ui16NumIffRecs;
@@ -86,7 +93,7 @@ void IFF_Layer3::AddDataRecord( KDIS::DATA_TYPE::StdVarPtr DR )
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::SetDataRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DRS )
+void IFF_Layer3::SetDataRecords( const std::vector<StdVarPtr> & DRS )
 {
 	m_vStdVarRecs = DRS;
 
@@ -107,7 +114,7 @@ void IFF_Layer3::SetDataRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> &
 
 //////////////////////////////////////////////////////////////////////////
 
-const std::vector<KDIS::DATA_TYPE::StdVarPtr> & IFF_Layer3::GetDataRecords() const
+const std::vector<StdVarPtr> & IFF_Layer3::GetDataRecords() const
 {
 	return m_vStdVarRecs;
 }
