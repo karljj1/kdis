@@ -101,14 +101,14 @@ public:
 	// Our custom decode function.
     virtual void Decode( KDataStream & stream ) throw( KException )
 	{
-		// Deocode the standard variable datum fields
+		// Decode the standard variable datum fields
 		stream >> m_ui32DatumID
                >> m_ui32DatumLength;
 
 		// Now decode our 'extra' fields.
 		stream >> KDIS_STREAM m_EntID
 			   >> KDIS_STREAM m_worldCoords
-			   >> m_ui16padding; // The variable datum needs to be padded to a 64 bit boundry, with our 2 new fields the total size is 38 bytes, we need 2 more bytes to be on a 64 bit boundry(40).
+			   >> m_ui16padding; // The variable datum needs to be padded to a 64 bit boundary, with our 2 new fields the total size is 38 bytes, we need 2 more bytes to be on a 64 bit boundary(40).
 	}
 
     virtual void Encode( KDataStream & stream ) const
@@ -120,7 +120,7 @@ public:
 		// Now encode our 'extra' fields.
 		stream << KDIS_STREAM m_EntID
 			   << KDIS_STREAM m_worldCoords
-			   << m_ui16padding; // The variable datum needs to be padded to a 64 bit boundry, with our 2 new fields the total size is 38 bytes, we need 2 more bytes to be on a 64 bit boundry(40).
+			   << m_ui16padding; // The variable datum needs to be padded to a 64 bit boundary, with our 2 new fields the total size is 38 bytes, we need 2 more bytes to be on a 64 bit boundary(40).
 	}
 };
 
@@ -152,7 +152,7 @@ int main()
 	try
 	{
 		// 1
-		// Register our factory decode function, KDIS will use this deocoder when it encounters a VariableDatum record that has this DatumID
+		// Register our factory decode function, KDIS will use this decoder when it encounters a VariableDatum record that has this DatumID
 		VariableDatum::RegisterFactoryDecoder( 12345, VariableDatum::FacDecPtr( new TargetPositionDecoderClass ) );
 
 		// 2
@@ -188,7 +188,7 @@ int main()
 			// Get the first and only item.
 			VarDtmPtr pVd = ourRecPDU->GetVariableDatum()[0];
 
-			// Now upcast so we get our data type.
+			// Now up cast so we get our data type.
 			TargetPosition * pMyRecvTargetPos = dynamic_cast<TargetPosition*>( pVd.GetPtr() );
 			
 			if( pMyRecvTargetPos )
