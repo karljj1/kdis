@@ -349,14 +349,14 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
 			case 3: 
 				switch( m_SystemID.GetSystemType() )
 				{
-					case SystemType::Mark_X_XII_ATCRBS_ModeS_Transponder:
-					case SystemType::RRB_Transponder:
-					case SystemType::Soviet_Transponder:
+					case Mark_X_XII_ATCRBS_ModeS_Transponder:
+					case RRB_Transponder:
+					case Soviet_Transponder:
 						layer = new IFF_Layer3Transponder( hdr, stream );
 						break;
 
-					case SystemType::Mark_X_XII_ATCRBS_ModeS_Interrogator:
-					case SystemType::Soviet_Interrogator:
+					case Mark_X_XII_ATCRBS_ModeS_Interrogator:
+					case Soviet_Interrogator:
 						layer = new IFF_Layer3Interrogator( hdr, stream );
 						break;
 				}							

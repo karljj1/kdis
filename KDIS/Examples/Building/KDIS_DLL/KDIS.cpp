@@ -32,7 +32,7 @@ For Further Information on KDIS:
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#if defined( WIN32 ) | defined( WIN64 )
+#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
 
 // Building a DLL for windows example, you will may need to make changes for other OS.
 #include <Windows.h>

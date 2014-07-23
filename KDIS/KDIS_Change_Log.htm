@@ -63,7 +63,7 @@
 	<li>Added IFF_PDU which replaces IFF_ATC_NAVAIDS_L1_PDU</li>
 	<li>Removed IFF_ATC_NAVAIDS_L2_PDU, it is now a data type class called IFF_Layer2 which is a property of IFF_PDU.</li>
 	<li>Added IFF Layer 3 classes: IFF_Layer3Transponder & IFF_Layer3Interrogator.</li>	
-	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Migration_Guide">migration</a> guide for more details.
+	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/p/kdis/wiki/Migration_Guide/">migration</a> guide for more details.
 	<li>Renamed ArticulationParamaters to ArticulatedPart.</li>
 	<li>Added AttachedPart class.</li>
 	<li>Added CryptoSystem::SetKeyID & CryptoSystem::GetKeyID.</li>
@@ -195,7 +195,7 @@
 		</ul>
 	</li>	
 	</div>
-	<li>Added GetEnumFromString..., It is now possible to convert an enums name to its value as well as value to enum. More info <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Converting_Enumerations_Into_Their_String_Values_Tutorial">here</a>.</li>
+	<li>Added GetEnumFromString..., It is now possible to convert an enums name to its value as well as value to enum. More info <a href="http://sourceforge.net/p/kdis/wiki/Converting_Enumerations_Into_Their_String_Values_Tutorial/">here</a>.</li>
 	<li>Fixed bug in Data_Query_PDU and Data_Query_R_PDU. Variable and Fixed Datum's were being used instead of just ID's.</li>	
 	<li>Some improvements to DeadReckoningCalculator::GenerateSmoothingPoints</li>	
 	<li>Some reorganizing of the examples. Examples are now sorted in sub folders by category.</li>
@@ -438,7 +438,7 @@
 		<li>Improved timestamps auto calculate to include milliseconds for windows & linux.</li>
 		<li>Changed all entity specific appearance classes to invert/negate the "Entity State Active" value. In this case the DIS standard actually states that a 0 indicates the state is true and 1 false, so I flipped them to make more sense. If you want to disable the entity you now say SetEntityStateActive( false ) instead of SetEntityStateActive( true ).</li>
 		<li>Added some additional operator overloads to Vector, EulerAngles and WorldCoordinates</li>
-		<li>Changes to dead reckoning calculator. Dead reckoning is no longer done through static functions. Each entity must now have a dead reckoning calculator class to perform the dead reckoning correctly. More information and tutorials can be found <a href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Dead_Reckoning_Tutorial">here</a>. Thanks to Robert Ioiart for these changes.</li>
+		<li>Changes to dead reckoning calculator. Dead reckoning is no longer done through static functions. Each entity must now have a dead reckoning calculator class to perform the dead reckoning correctly. More information and tutorials can be found <a href="http://sourceforge.net/p/kdis/wiki/Dead_Reckoning_Tutorial/">here</a>. Thanks to Robert Ioiart for these changes.</li>
 		<li>Fixed spelling error on m_EntiyCapabilities in Entity_State_PDU</li>
 		<li>Fixed public accessibility on Param Type Variant union in ArticulationParameters</li>
 </ul>
@@ -671,11 +671,11 @@
 	enumerated value as a string. E.G <i>GetEnumAsStringEmitterFunction( 39 )</i> 
 	would now return <i>&quot;39&quot;</i>. I am currently applying this change to all 
 	GetAsString function in Data types and PDU. More infomation can be found
-	<a target="_blank" href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Converting_Enumerations_Into_Their_String_Values_Tutorial">
+	<a target="_blank" href="http://sourceforge.net/p/kdis/wiki/Converting_Enumerations_Into_Their_String_Values_Tutorial/">
 	here</a>. This feature can also be enabled/disabled from CMake.</li>
 	<li>KDIS has a new website based on MediaWiki. This site will feature all 
 	documentation for KDIS including class docs, tutorials etc. You can find it
-	<a target="_blank" href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Main_Page">
+	<a target="_blank" href="http://sourceforge.net/p/kdis/wiki/Main_Page/">
 	here</a>.</li>
 	<li>Small change to the Send example showing how to correctly use the time 
 	stamp, a tutorial is now available for this example
