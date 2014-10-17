@@ -368,6 +368,16 @@ enum Country
     India                                                             = 99
 };
 
+// Returns number of values in the EnumDescriptor for this enum. 
+// This can be used to itterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeCountry();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorCountry( KUINT32 Index );
+
 KString GetEnumAsStringCountry( KINT32 Value );
 
 // Returns true if a value was found.

@@ -430,6 +430,16 @@ const EnumDescriptor CountryDescriptor[] =
     { 266 , "Uzbekistan" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCountry()
+{
+	return sizeof( CountryDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCountry( KUINT32 Index )
+{
+	return &CountryDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCountry( KINT32 Value )
 {
     return GetEnumAsString( CountryDescriptor, sizeof( CountryDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -441,6 +451,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCountry( const KString & Value, K
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCountry()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCountry( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCountry( KINT32 Value )
 {

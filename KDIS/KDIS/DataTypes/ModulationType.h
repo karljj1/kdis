@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      ModulationType
-    created:    2008/10/21
+    created:    21/10/2008
     author:     Karl Jones
 
     purpose:    Contains information about the type of modulation used for
