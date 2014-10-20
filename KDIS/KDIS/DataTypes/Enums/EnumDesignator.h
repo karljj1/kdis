@@ -55,6 +55,16 @@ enum DesignatorCodeName
     OtherDesignatorCodeName                                           = 0
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeDesignatorCodeName();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorDesignatorCodeName( KUINT32 Index );
+
 KString GetEnumAsStringDesignatorCodeName( KINT32 Value );
 
 // Returns true if a value was found.
@@ -71,6 +81,16 @@ enum DesignatorCode
 {
     OtherDesignatorCode                                               = 0
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeDesignatorCode();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorDesignatorCode( KUINT32 Index );
 
 KString GetEnumAsStringDesignatorCode( KINT32 Value );
 
@@ -93,6 +113,16 @@ enum BeamSpotShape
 	Gaussian                                                          = 1,
 	TopHat                                                            = 2
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeBeamSpotShape();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorBeamSpotShape( KUINT32 Index );
 
 KString GetEnumAsStringBeamSpotShape( KINT32 Value );
 

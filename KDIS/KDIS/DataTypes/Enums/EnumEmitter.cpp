@@ -1202,6 +1202,16 @@ const EnumDescriptor EmitterNameDescriptor[] =
     { 451226 , "DECCAMIL" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEmitterName()
+{
+	return sizeof( EmitterNameDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEmitterName( KUINT32 Index )
+{
+	return &EmitterNameDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEmitterName( KINT32 Value )
 {
     return GetEnumAsString( EmitterNameDescriptor, sizeof( EmitterNameDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1213,6 +1223,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEmitterName( const KString & Valu
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEmitterName()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEmitterName( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEmitterName( KINT32 Value )
 {
@@ -1304,6 +1324,16 @@ const EnumDescriptor EmitterFunctionDescriptor[] =
     { 97 , "Weapon_lethalFunction" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEmitterFunction()
+{
+	return sizeof( EmitterFunctionDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEmitterFunction( KUINT32 Index )
+{
+	return &EmitterFunctionDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEmitterFunction( KINT32 Value )
 {
     return GetEnumAsString( EmitterFunctionDescriptor, sizeof( EmitterFunctionDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1315,6 +1345,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEmitterFunction( const KString & 
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEmitterFunction()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEmitterFunction( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEmitterFunction( KINT32 Value )
 {
@@ -1342,6 +1382,16 @@ const EnumDescriptor StateUpdateIndicatorDescriptor[] =
     { 1 , "ChangedDataUpdate" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeStateUpdateIndicator()
+{
+	return sizeof( StateUpdateIndicatorDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorStateUpdateIndicator( KUINT32 Index )
+{
+	return &StateUpdateIndicatorDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStateUpdateIndicator( KINT32 Value )
 {
     return GetEnumAsString( StateUpdateIndicatorDescriptor, sizeof( StateUpdateIndicatorDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1353,6 +1403,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStateUpdateIndicator( const KStri
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeStateUpdateIndicator()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorStateUpdateIndicator( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStateUpdateIndicator( KINT32 Value )
 {
@@ -1380,6 +1440,16 @@ const EnumDescriptor HighDensityTrackJamDescriptor[] =
     { 1 , "Selected" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeHighDensityTrackJam()
+{
+	return sizeof( HighDensityTrackJamDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorHighDensityTrackJam( KUINT32 Index )
+{
+	return &HighDensityTrackJamDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringHighDensityTrackJam( KINT32 Value )
 {
     return GetEnumAsString( HighDensityTrackJamDescriptor, sizeof( HighDensityTrackJamDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1391,6 +1461,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringHighDensityTrackJam( const KStrin
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeHighDensityTrackJam()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorHighDensityTrackJam( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringHighDensityTrackJam( KINT32 Value )
 {
@@ -1417,6 +1497,16 @@ const EnumDescriptor PassiveParameterIndexDescriptor[] =
     { 0 , "OtherPPI" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePassiveParameterIndex()
+{
+	return sizeof( PassiveParameterIndexDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPassiveParameterIndex( KUINT32 Index )
+{
+	return &PassiveParameterIndexDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPassiveParameterIndex( KINT32 Value )
 {
     return GetEnumAsString( PassiveParameterIndexDescriptor, sizeof( PassiveParameterIndexDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1428,6 +1518,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPassiveParameterIndex( const KStr
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePassiveParameterIndex()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPassiveParameterIndex( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPassiveParameterIndex( KINT32 Value )
 {
@@ -1455,6 +1555,16 @@ const EnumDescriptor AdditionalPassiveParameterIndexDescriptor[] =
     { 1 , "GrahamsMKVCoffeeMaker" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAdditionalPassiveParameterIndex()
+{
+	return sizeof( AdditionalPassiveParameterIndexDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAdditionalPassiveParameterIndex( KUINT32 Index )
+{
+	return &AdditionalPassiveParameterIndexDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAdditionalPassiveParameterIndex( KINT32 Value )
 {
     return GetEnumAsString( AdditionalPassiveParameterIndexDescriptor, sizeof( AdditionalPassiveParameterIndexDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1466,6 +1576,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAdditionalPassiveParameterIndex( 
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAdditionalPassiveParameterIndex()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAdditionalPassiveParameterIndex( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAdditionalPassiveParameterIndex( KINT32 Value )
 {
@@ -1505,6 +1625,16 @@ const EnumDescriptor PropulsionPlantConfigurationDescriptor[] =
     { 135 , "Gas_Turbine_HMMS_On" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePropulsionPlantConfiguration()
+{
+	return sizeof( PropulsionPlantConfigurationDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPropulsionPlantConfiguration( KUINT32 Index )
+{
+	return &PropulsionPlantConfigurationDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPropulsionPlantConfiguration( KINT32 Value )
 {
     return GetEnumAsString( PropulsionPlantConfigurationDescriptor, sizeof( PropulsionPlantConfigurationDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1516,6 +1646,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPropulsionPlantConfiguration( con
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePropulsionPlantConfiguration()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPropulsionPlantConfiguration( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPropulsionPlantConfiguration( KINT32 Value )
 {
@@ -1551,6 +1691,16 @@ const EnumDescriptor AcousticSystemNameDescriptor[] =
     { 9 , "AN_AQS_902" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcousticSystemName()
+{
+	return sizeof( AcousticSystemNameDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcousticSystemName( KUINT32 Index )
+{
+	return &AcousticSystemNameDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcousticSystemName( KINT32 Value )
 {
     return GetEnumAsString( AcousticSystemNameDescriptor, sizeof( AcousticSystemNameDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1562,6 +1712,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcousticSystemName( const KString
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcousticSystemName()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcousticSystemName( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcousticSystemName( KINT32 Value )
 {
@@ -1592,6 +1752,16 @@ const EnumDescriptor AcousticSystemFunctionDescriptor[] =
     { 4 , "WeaponSearch_Detect_Track_Detect" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcousticSystemFunction()
+{
+	return sizeof( AcousticSystemFunctionDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcousticSystemFunction( KUINT32 Index )
+{
+	return &AcousticSystemFunctionDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcousticSystemFunction( KINT32 Value )
 {
     return GetEnumAsString( AcousticSystemFunctionDescriptor, sizeof( AcousticSystemFunctionDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1603,6 +1773,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcousticSystemFunction( const KSt
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcousticSystemFunction()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcousticSystemFunction( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcousticSystemFunction( KINT32 Value )
 {
@@ -1629,6 +1809,16 @@ const EnumDescriptor ActiveEmissionParameterIndexDescriptor[] =
     { 0 , "OtherActiveEmissionParameterIndex" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeActiveEmissionParameterIndex()
+{
+	return sizeof( ActiveEmissionParameterIndexDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorActiveEmissionParameterIndex( KUINT32 Index )
+{
+	return &ActiveEmissionParameterIndexDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActiveEmissionParameterIndex( KINT32 Value )
 {
     return GetEnumAsString( ActiveEmissionParameterIndexDescriptor, sizeof( ActiveEmissionParameterIndexDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1640,6 +1830,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActiveEmissionParameterIndex( con
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeActiveEmissionParameterIndex()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorActiveEmissionParameterIndex( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActiveEmissionParameterIndex( KINT32 Value )
 {
@@ -1671,6 +1871,16 @@ const EnumDescriptor ScanPatternDescriptor[] =
     { 5 , "ContinuousSearch" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeScanPattern()
+{
+	return sizeof( ScanPatternDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorScanPattern( KUINT32 Index )
+{
+	return &ScanPatternDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringScanPattern( KINT32 Value )
 {
     return GetEnumAsString( ScanPatternDescriptor, sizeof( ScanPatternDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1682,6 +1892,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringScanPattern( const KString & Valu
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeScanPattern()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorScanPattern( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringScanPattern( KINT32 Value )
 {
@@ -1712,6 +1932,16 @@ const EnumDescriptor PowerSettingAircraftDescriptor[] =
     { 100 , "AircraftMaxAB" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePowerSettingAircraft()
+{
+	return sizeof( PowerSettingAircraftDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPowerSettingAircraft( KUINT32 Index )
+{
+	return &PowerSettingAircraftDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingAircraft( KINT32 Value )
 {
     return GetEnumAsString( PowerSettingAircraftDescriptor, sizeof( PowerSettingAircraftDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1723,6 +1953,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPowerSettingAircraft( const KStri
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePowerSettingAircraft()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPowerSettingAircraft( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingAircraft( KINT32 Value )
 {
@@ -1751,6 +1991,16 @@ const EnumDescriptor PowerSettingHelicopterDescriptor[] =
     { 100 , "HelicopterMaxPower" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePowerSettingHelicopter()
+{
+	return sizeof( PowerSettingHelicopterDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPowerSettingHelicopter( KUINT32 Index )
+{
+	return &PowerSettingHelicopterDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingHelicopter( KINT32 Value )
 {
     return GetEnumAsString( PowerSettingHelicopterDescriptor, sizeof( PowerSettingHelicopterDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1762,6 +2012,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPowerSettingHelicopter( const KSt
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePowerSettingHelicopter()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPowerSettingHelicopter( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingHelicopter( KINT32 Value )
 {
@@ -1790,6 +2050,16 @@ const EnumDescriptor PowerSettingTankDescriptor[] =
     { 100 , "TankMaxPower" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePowerSettingTank()
+{
+	return sizeof( PowerSettingTankDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPowerSettingTank( KUINT32 Index )
+{
+	return &PowerSettingTankDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingTank( KINT32 Value )
 {
     return GetEnumAsString( PowerSettingTankDescriptor, sizeof( PowerSettingTankDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1801,6 +2071,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPowerSettingTank( const KString &
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePowerSettingTank()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPowerSettingTank( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingTank( KINT32 Value )
 {

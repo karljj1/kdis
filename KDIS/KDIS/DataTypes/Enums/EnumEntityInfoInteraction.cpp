@@ -954,12 +954,12 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityPaintScheme( const KString 
 
 #else
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityDamage()
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityPaintScheme()
 {
 	return 0;
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityDamage( KUINT32 Index )
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityPaintScheme( KUINT32 Index )
 {
 	return NULL;
 }

@@ -64,7 +64,7 @@ enum EnvironmentRecordType
     EllipsoidRecord2Type                                              = 0x10000000,
     ConeRecord1Type                                                   = 0x00300000,
     ConeRecord2Type                                                   = 0x30000000,
-    UniformGeometryRecordType                                         = 0x00050000, // Not implemented, 12.3.4.16 of SISO-REF-010-2006 has a poor description. It is difficult to understand what should be in it. Karl 27/08/2009
+    UniformGeometryRecordType                                         = 0x00050000, // TODO: Not implemented, 12.3.4.16 of SISO-REF-010-2006 has a poor description. It is difficult to understand what should be in it. Karl 27/08/2009
     RectangularVolumeRecord1Type                                      = 0x00500000,
     RectangularVolumeRecord2Type                                      = 0x50000000,
     GaussianPlumeRecordType                                           = 0x60000000,
@@ -74,6 +74,16 @@ enum EnvironmentRecordType
     COMBICStateType                                                   = 0x00000100,
     FlareStateType                                                    = 0x00000103
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeEnvironmentRecordType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorEnvironmentRecordType( KUINT32 Index );
 
 KString GetEnumAsStringEnvironmentRecordType( KINT32 Value );
 
@@ -97,6 +107,16 @@ enum EnvironmentSubcategory
     VeryLargeSize                                                     = 100
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeEnvironmentSubcategory();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorEnvironmentSubcategory( KUINT32 Index );
+
 KString GetEnumAsStringEnvironmentSubcategory( KINT32 Value );
 
 // Returns true if a value was found.
@@ -118,6 +138,16 @@ enum CoordinateSystem
     LatLonDepth                                                       = 3  // Latitude, Longitude, Depth
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeCoordinateSystem();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorCoordinateSystem( KUINT32 Index );
+
 KString GetEnumAsStringCoordinateSystem( KINT32 Value );
 
 // Returns true if a value was found.
@@ -137,6 +167,16 @@ enum ConstantGrid
     Constant                                                          = 0,
     Updated                                                           = 1
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeConstantGrid();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorConstantGrid( KUINT32 Index );
 
 KString GetEnumAsStringConstantGrid( KINT32 Value );
 
@@ -159,6 +199,16 @@ enum GridDataRepresentation
     Type2                                                             = 2  // 32 bit representation.
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeGridDataRepresentation();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorGridDataRepresentation( KUINT32 Index );
+
 KString GetEnumAsStringGridDataRepresentation( KINT32 Value );
 
 // Returns true if a value was found.
@@ -177,6 +227,16 @@ enum ObjectDamage
     ObjectDamaged                                                     = 1,
     ObjectDestroyed                                                   = 2
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeObjectDamage();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorObjectDamage( KUINT32 Index );
 
 KString GetEnumAsStringObjectDamage( KINT32 Value );
 
@@ -200,6 +260,16 @@ enum Breach2bit
     Cleared2bit                                                       = 2
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeBreach2bit();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorBreach2bit( KUINT32 Index );
+
 KString GetEnumAsStringBreach2bit( KINT32 Value );
 
 // Returns true if a value was found.
@@ -222,6 +292,16 @@ enum Chemical
     RedPhosphorous                                                    = 3
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeChemical();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorChemical( KUINT32 Index );
+
 KString GetEnumAsStringChemical( KINT32 Value );
 
 // Returns true if a value was found.
@@ -240,6 +320,16 @@ enum VisibleSide
     RightSideVisible                                                  = 1,
     BothSidesVisible                                                  = 2
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeVisibleSide();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorVisibleSide( KUINT32 Index );
 
 KString GetEnumAsStringVisibleSide( KINT32 Value );
 

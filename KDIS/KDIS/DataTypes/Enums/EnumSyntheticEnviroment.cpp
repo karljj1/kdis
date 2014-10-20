@@ -60,6 +60,16 @@ const EnumDescriptor EnvironmentRecordTypeDescriptor[] =
     { 0x70000000 , "GaussianPuffRecordType" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEnvironmentRecordType()
+{
+	return sizeof( EnvironmentRecordTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEnvironmentRecordType( KUINT32 Index )
+{
+	return &EnvironmentRecordTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEnvironmentRecordType( KINT32 Value )
 {
     return GetEnumAsString( EnvironmentRecordTypeDescriptor, sizeof( EnvironmentRecordTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -71,6 +81,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEnvironmentRecordType( const KStr
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEnvironmentRecordType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEnvironmentRecordType( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEnvironmentRecordType( KINT32 Value )
 {
@@ -102,6 +122,16 @@ const EnumDescriptor EnvironmentSubcategoryDescriptor[] =
     { 100 , "VeryLargeSize" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEnvironmentSubcategory()
+{
+	return sizeof( EnvironmentSubcategoryDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEnvironmentSubcategory( KUINT32 Index )
+{
+	return &EnvironmentSubcategoryDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEnvironmentSubcategory( KINT32 Value )
 {
     return GetEnumAsString( EnvironmentSubcategoryDescriptor, sizeof( EnvironmentSubcategoryDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -113,6 +143,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEnvironmentSubcategory( const KSt
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEnvironmentSubcategory()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEnvironmentSubcategory( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEnvironmentSubcategory( KINT32 Value )
 {
@@ -142,6 +182,16 @@ const EnumDescriptor CoordinateSystemDescriptor[] =
     { 3 , "LatLonDepth" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCoordinateSystem()
+{
+	return sizeof( CoordinateSystemDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCoordinateSystem( KUINT32 Index )
+{
+	return &CoordinateSystemDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCoordinateSystem( KINT32 Value )
 {
     return GetEnumAsString( CoordinateSystemDescriptor, sizeof( CoordinateSystemDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -153,6 +203,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCoordinateSystem( const KString &
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCoordinateSystem()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCoordinateSystem( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCoordinateSystem( KINT32 Value )
 {
@@ -170,7 +230,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCoordinateSystem( const KString &
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for CoordinateSystem
+// Implementation of string values for ConstantGrid
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
@@ -179,6 +239,16 @@ const EnumDescriptor ConstantGridDescriptor[] =
     { 0 , "Constant" },
     { 1 , "Updated" }
 };
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeConstantGrid()
+{
+	return sizeof( CoordinateSystemDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorConstantGrid( KUINT32 Index )
+{
+	return &CoordinateSystemDescriptor[Index];
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringConstantGrid( KINT32 Value )
 {
@@ -192,6 +262,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringConstantGrid( const KString & Val
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeConstantGrid()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorConstantGrid( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringConstantGrid( KINT32 Value )
 {
     KStringStream ss;
@@ -208,7 +288,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringConstantGrid( const KString & Val
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for CoordinateSystem
+// Implementation of string values for GridDataRepresentation
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
@@ -218,6 +298,16 @@ const EnumDescriptor GridDataRepresentationDescriptor[] =
     { 1 , "Type1(16 bit)" },
     { 2 , "Type2(32 bit)" }
 };
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeGridDataRepresentation()
+{
+	return sizeof( CoordinateSystemDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorGridDataRepresentation( KUINT32 Index )
+{
+	return &CoordinateSystemDescriptor[Index];
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringGridDataRepresentation( KINT32 Value )
 {
@@ -230,6 +320,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringGridDataRepresentation( const KSt
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeGridDataRepresentation()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorGridDataRepresentation( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringGridDataRepresentation( KINT32 Value )
 {
@@ -258,6 +358,16 @@ const EnumDescriptor ObjectDamageDescriptor[] =
     { 2 , "ObjectDestroyed" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeObjectDamage()
+{
+	return sizeof( ObjectDamageDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorObjectDamage( KUINT32 Index )
+{
+	return &ObjectDamageDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringObjectDamage( KINT32 Value )
 {
     return GetEnumAsString( ObjectDamageDescriptor, sizeof( ObjectDamageDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -269,6 +379,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringObjectDamage( const KString & Val
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeObjectDamage()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorObjectDamage( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringObjectDamage( KINT32 Value )
 {
@@ -297,6 +417,16 @@ const EnumDescriptor Breach2bitDescriptor[] =
     { 2 , "Cleared2bit" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBreach2bit()
+{
+	return sizeof( Breach2bitDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBreach2bit( KUINT32 Index )
+{
+	return &Breach2bitDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBreach2bit( KINT32 Value )
 {
     return GetEnumAsString( Breach2bitDescriptor, sizeof( Breach2bitDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -308,6 +438,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBreach2bit( const KString & Value
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBreach2bit()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBreach2bit( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBreach2bit( KINT32 Value )
 {
@@ -325,7 +465,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBreach2bit( const KString & Value
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for Breach2bit
+// Implementation of string values for Chemical
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
@@ -336,6 +476,16 @@ const EnumDescriptor ChemicalDescriptor[] =
     { 2 , "WhitePhosphorous" },
     { 3 , "RedPhosphorous" }
 };
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeChemical()
+{
+	return sizeof( Breach2bitDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorChemical( KUINT32 Index )
+{
+	return &Breach2bitDescriptor[Index];
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChemical( KINT32 Value )
 {
@@ -348,6 +498,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringChemical( const KString & Value, 
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeChemical()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorChemical( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChemical( KINT32 Value )
 {
@@ -376,6 +536,16 @@ const EnumDescriptor VisibleSideDescriptor[] =
     { 2 , "BothSidesVisible" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeVisibleSide()
+{
+	return sizeof( VisibleSideDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorVisibleSide( KUINT32 Index )
+{
+	return &VisibleSideDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVisibleSide( KINT32 Value )
 {
     return GetEnumAsString( VisibleSideDescriptor, sizeof( VisibleSideDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -387,6 +557,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVisibleSide( const KString & Valu
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeVisibleSide()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorVisibleSide( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVisibleSide( KINT32 Value )
 {

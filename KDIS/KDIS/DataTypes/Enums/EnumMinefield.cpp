@@ -44,6 +44,16 @@ const EnumDescriptor MinefieldTypeDescriptor[] =
     { 2 , "Pure Anti Tank" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMinefieldType()
+{
+	return sizeof( MinefieldTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMinefieldType( KUINT32 Index )
+{
+	return &MinefieldTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMinefieldType( KINT32 Value )
 {
     return GetEnumAsString( MinefieldTypeDescriptor, sizeof( MinefieldTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -55,6 +65,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMinefieldType( const KString & Va
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMinefieldType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMinefieldType( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMinefieldType( KINT32 Value )
 {
@@ -82,6 +102,16 @@ const EnumDescriptor MinefieldProtocolModeDescriptor[] =
     { 1 , "QPR" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMinefieldProtocolMode()
+{
+	return sizeof( MinefieldProtocolModeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMinefieldProtocolMode( KUINT32 Index )
+{
+	return &MinefieldProtocolModeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMinefieldProtocolMode( KINT32 Value )
 {
     return GetEnumAsString( MinefieldProtocolModeDescriptor, sizeof( MinefieldProtocolModeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -93,6 +123,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMinefieldProtocolMode( const KStr
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMinefieldProtocolMode()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMinefieldProtocolMode( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMinefieldProtocolMode( KINT32 Value )
 {
@@ -159,6 +199,16 @@ const EnumDescriptor SensorTypeDescriptor[] =
     { 177 , "Optical_TrackedVehicleOccupantOpenHatchNotActivelySearching" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSensorType()
+{
+	return sizeof( SensorTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSensorType( KUINT32 Index )
+{
+	return &SensorTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSensorType( KINT32 Value )
 {
     return GetEnumAsString( SensorTypeDescriptor, sizeof( SensorTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -170,6 +220,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSensorType( const KString & Value
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSensorType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSensorType( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSensorType( KINT32 Value )
 {
@@ -202,6 +262,16 @@ const EnumDescriptor MineFuseDescriptor[] =
     { 6 , "TripWireFuse" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMineFuse()
+{
+	return sizeof( MineFuseDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMineFuse( KUINT32 Index )
+{
+	return &MineFuseDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMineFuse( KINT32 Value )
 {
     return GetEnumAsString( MineFuseDescriptor, sizeof( MineFuseDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -213,6 +283,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMineFuse( const KString & Value, 
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMineFuse()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMineFuse( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMineFuse( KINT32 Value )
 {
@@ -242,6 +322,16 @@ const EnumDescriptor MineAlgaeDescriptor[] =
     { 3 , "AlgaeHeavy" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMineAlgae()
+{
+	return sizeof( MineAlgaeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMineAlgae( KUINT32 Index )
+{
+	return &MineAlgaeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMineAlgae( KINT32 Value )
 {
     return GetEnumAsString( MineAlgaeDescriptor, sizeof( MineAlgaeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -253,6 +343,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMineAlgae( const KString & Value,
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMineAlgae()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMineAlgae( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMineAlgae( KINT32 Value )
 {
@@ -297,6 +397,16 @@ const EnumDescriptor PaintSchemeDescriptor[] =
     { 18 , "Brown" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePaintScheme()
+{
+	return sizeof( PaintSchemeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPaintScheme( KUINT32 Index )
+{
+	return &PaintSchemeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPaintScheme( KINT32 Value )
 {
     return GetEnumAsString( PaintSchemeDescriptor, sizeof( PaintSchemeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -308,6 +418,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPaintScheme( const KString & Valu
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePaintScheme()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPaintScheme( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPaintScheme( KINT32 Value )
 {

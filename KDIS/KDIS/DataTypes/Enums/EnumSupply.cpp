@@ -44,6 +44,16 @@ const EnumDescriptor ServiceTypeRequestedDescriptor[] =
     { 2 , "Repair" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeServiceTypeRequested()
+{
+	return sizeof( ServiceTypeRequestedDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorServiceTypeRequested( KUINT32 Index )
+{
+	return &ServiceTypeRequestedDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringServiceTypeRequested( KINT32 Value )
 {
     return GetEnumAsString( ServiceTypeRequestedDescriptor, sizeof( ServiceTypeRequestedDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -55,6 +65,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringServiceTypeRequested( const KStri
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeServiceTypeRequested()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorServiceTypeRequested( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringServiceTypeRequested( KINT32 Value )
 {
@@ -164,6 +184,16 @@ const EnumDescriptor RepairTypePerformedDescriptor[] =
     { 10020 , "EjectionSeats" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairTypePerformed()
+{
+	return sizeof( RepairTypePerformedDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairTypePerformed( KUINT32 Index )
+{
+	return &RepairTypePerformedDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairTypePerformed( KINT32 Value )
 {
     return GetEnumAsString( RepairTypePerformedDescriptor, sizeof( RepairTypePerformedDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -175,6 +205,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairTypePerformed( const KStrin
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairTypePerformed()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairTypePerformed( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairTypePerformed( KINT32 Value )
 {
@@ -205,6 +245,16 @@ const EnumDescriptor RepairResultDescriptor[] =
     { 4 , "ServiceCanceledByTheSupplier" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairResult()
+{
+	return sizeof( RepairResultDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairResult( KUINT32 Index )
+{
+	return &RepairResultDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairResult( KINT32 Value )
 {
     return GetEnumAsString( RepairResultDescriptor, sizeof( RepairResultDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -216,6 +266,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairResult( const KString & Val
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairResult()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairResult( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairResult( KINT32 Value )
 {

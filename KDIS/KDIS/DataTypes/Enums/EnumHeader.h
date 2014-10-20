@@ -62,6 +62,16 @@ enum ProtocolVersion
     IEEE_1278_1_2012                                                  = 7  
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeProtocolVersion();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorProtocolVersion( KUINT32 Index );
+
 KString GetEnumAsStringProtocolVersion( KINT32 Value );
 
 // Returns true if a value was found.
@@ -159,6 +169,16 @@ enum PDUType
     Request_Object_PDU_Type                                           = 135
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePDUType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPDUType( KUINT32 Index );
+
 KString GetEnumAsStringPDUType( KINT32 Value );
 
 // Returns true if a value was found.
@@ -194,6 +214,16 @@ enum ProtocolFamily
     Experimental_Entity_Management                                    = 133
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeProtocolFamily();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorProtocolFamily( KUINT32 Index );
+
 KString GetEnumAsStringProtocolFamily( KINT32 Value );
 
 // Returns true if a value was found.
@@ -216,6 +246,16 @@ enum TimeStampType
     RelativeTime                                                      = 0,
     AbsoluteTime                                                      = 1
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeTimeStampType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorTimeStampType( KUINT32 Index );
 
 KString GetEnumAsStringTimeStampType( KINT32 Value );
 
@@ -240,6 +280,16 @@ enum LVCIndicator
     VirtualLVC                                                        = 2,
     ConstructiveLVC                                                   = 3
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeLVCIndicator();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorLVCIndicator( KUINT32 Index );
 
 KString GetEnumAsStringLVCIndicator( KINT32 Value );
 

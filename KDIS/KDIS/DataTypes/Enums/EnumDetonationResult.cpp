@@ -75,6 +75,16 @@ const EnumDescriptor DetonationResultDescriptor[] =
     { 33 , "MissDueToflyOutAndEndGameFailure" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationResult()
+{
+	return sizeof( DetonationResultDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationResult( KUINT32 Index )
+{
+	return &DetonationResultDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationResult( KINT32 Value )
 {
     return GetEnumAsString( DetonationResultDescriptor, sizeof( DetonationResultDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -86,6 +96,16 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationResult( const KString &
 }
 
 #else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationResult()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationResult( KUINT32 Index )
+{
+	return NULL;
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationResult( KINT32 Value )
 {

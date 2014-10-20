@@ -1210,6 +1210,16 @@ enum EmitterName
     Yo_Yo                                                             = 39105
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeEmitterName();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorEmitterName( KUINT32 Index );
+
 KString GetEnumAsStringEmitterName( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1292,6 +1302,16 @@ enum EmitterFunction
     Weapon_lethalFunction                                             = 97
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeEmitterFunction();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorEmitterFunction( KUINT32 Index );
+
 KString GetEnumAsStringEmitterFunction( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1309,6 +1329,16 @@ enum StateUpdateIndicator
     StateUpdate                                                       = 0,
     ChangedDataUpdate                                                 = 1
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeStateUpdateIndicator();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorStateUpdateIndicator( KUINT32 Index );
 
 KString GetEnumAsStringStateUpdateIndicator( KINT32 Value );
 
@@ -1331,6 +1361,16 @@ enum HighDensityTrackJam
     Selected                                                          = 1
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeHighDensityTrackJam();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorHighDensityTrackJam( KUINT32 Index );
+
 KString GetEnumAsStringHighDensityTrackJam( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1349,6 +1389,16 @@ enum PassiveParameterIndex
 {
     OtherPPI                                                          = 0
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePassiveParameterIndex();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPassiveParameterIndex( KUINT32 Index );
 
 KString GetEnumAsStringPassiveParameterIndex( KINT32 Value );
 
@@ -1374,6 +1424,16 @@ enum AdditionalPassiveParameterIndex
     // >32768   Reserved for classified enumerations
     // Point of Contact =
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAdditionalPassiveParameterIndex();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAdditionalPassiveParameterIndex( KUINT32 Index );
 
 KString GetEnumAsStringAdditionalPassiveParameterIndex( KINT32 Value );
 
@@ -1407,6 +1467,16 @@ enum PropulsionPlantConfiguration
     Gas_Turbine_HMMS_On                                               = 135
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePropulsionPlantConfiguration();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPropulsionPlantConfiguration( KUINT32 Index );
+
 KString GetEnumAsStringPropulsionPlantConfiguration( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1433,6 +1503,16 @@ enum AcousticSystemName
     AN_AQS_902                                                        = 9
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAcousticSystemName();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAcousticSystemName( KUINT32 Index );
+
 KString GetEnumAsStringAcousticSystemName( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1454,6 +1534,16 @@ enum AcousticSystemFunction
     WeaponSearch_Detect_Track_Detect                                  = 4
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAcousticSystemFunction();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAcousticSystemFunction( KUINT32 Index );
+
 KString GetEnumAsStringAcousticSystemFunction( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1470,6 +1560,16 @@ enum ActiveEmissionParameterIndex
 {
     OtherActiveEmissionParameterIndex                                 = 0
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeActiveEmissionParameterIndex();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorActiveEmissionParameterIndex( KUINT32 Index );
 
 KString GetEnumAsStringActiveEmissionParameterIndex( KINT32 Value );
 
@@ -1493,6 +1593,16 @@ enum ScanPattern
     ContinuousSearch                                                  = 5
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeScanPattern();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorScanPattern( KUINT32 Index );
+
 KString GetEnumAsStringScanPattern( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1515,6 +1625,16 @@ enum PowerSettingAircraft
     AircraftMaxAB                                                     = 100
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePowerSettingAircraft();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPowerSettingAircraft( KUINT32 Index );
+
 KString GetEnumAsStringPowerSettingAircraft( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1527,6 +1647,16 @@ enum PowerSettingHelicopter
     HelicopterMaxPower                                                = 100
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePowerSettingHelicopter();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPowerSettingHelicopter( KUINT32 Index );
+
 KString GetEnumAsStringPowerSettingHelicopter( KINT32 Value );
 
 // Returns true if a value was found.
@@ -1538,6 +1668,16 @@ enum PowerSettingTank
     TankIdlePower                                                     = 0,
     TankMaxPower                                                      = 100
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePowerSettingTank();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPowerSettingTank( KUINT32 Index );
 
 KString GetEnumAsStringPowerSettingTank( KINT32 Value );
 
