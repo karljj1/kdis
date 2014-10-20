@@ -655,33 +655,33 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringID_Enum( const KString & Value, K
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDatumID( KINT32 Value )
 {
     return GetEnumAsStringID_Enum( Value );
-};
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRecordID( KINT32 Value )
 {
     return GetEnumAsStringID_Enum( Value );
-};
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttributeID( KINT32 Value )
 {
     return GetEnumAsStringID_Enum( Value );
-};
+}
 
 // From
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDatumID( const KString & Value, KINT32 & ValueOut  )
 {
 	return GetEnumFromStringID_Enum( Value, ValueOut );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRecordID( const KString & Value, KINT32 & ValueOut  )
 {
     return GetEnumFromStringID_Enum( Value, ValueOut );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttributeID( const KString & Value, KINT32 & ValueOut  )
 {
     return GetEnumFromStringID_Enum( Value, ValueOut );
-};
+}
 
 //////////////////////////////////////////////////////////////////////////
 

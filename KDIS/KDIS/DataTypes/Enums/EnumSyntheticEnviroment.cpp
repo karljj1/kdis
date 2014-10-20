@@ -63,7 +63,7 @@ const EnumDescriptor EnvironmentRecordTypeDescriptor[] =
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEnvironmentRecordType( KINT32 Value )
 {
     return GetEnumAsString( EnvironmentRecordTypeDescriptor, sizeof( EnvironmentRecordTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEnvironmentRecordType( const KString & Value, KINT32 & ValueOut )
 {
@@ -183,7 +183,7 @@ const EnumDescriptor ConstantGridDescriptor[] =
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringConstantGrid( KINT32 Value )
 {
     return GetEnumAsString( ConstantGridDescriptor, sizeof( ConstantGridDescriptor ) / sizeof( EnumDescriptor ), Value );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringConstantGrid( const KString & Value, KINT32 & ValueOut )
 {
@@ -222,7 +222,7 @@ const EnumDescriptor GridDataRepresentationDescriptor[] =
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringGridDataRepresentation( KINT32 Value )
 {
     return GetEnumAsString( GridDataRepresentationDescriptor, sizeof( GridDataRepresentationDescriptor ) / sizeof( EnumDescriptor ), Value );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringGridDataRepresentation( const KString & Value, KINT32 & ValueOut )
 {
@@ -261,7 +261,7 @@ const EnumDescriptor ObjectDamageDescriptor[] =
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringObjectDamage( KINT32 Value )
 {
     return GetEnumAsString( ObjectDamageDescriptor, sizeof( ObjectDamageDescriptor ) / sizeof( EnumDescriptor ), Value );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringObjectDamage( const KString & Value, KINT32 & ValueOut )
 {
@@ -300,7 +300,7 @@ const EnumDescriptor Breach2bitDescriptor[] =
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBreach2bit( KINT32 Value )
 {
     return GetEnumAsString( Breach2bitDescriptor, sizeof( Breach2bitDescriptor ) / sizeof( EnumDescriptor ), Value );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBreach2bit( const KString & Value, KINT32 & ValueOut )
 {
@@ -340,7 +340,7 @@ const EnumDescriptor ChemicalDescriptor[] =
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChemical( KINT32 Value )
 {
     return GetEnumAsString( ChemicalDescriptor, sizeof( ChemicalDescriptor ) / sizeof( EnumDescriptor ), Value );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringChemical( const KString & Value, KINT32 & ValueOut )
 {
@@ -379,7 +379,7 @@ const EnumDescriptor VisibleSideDescriptor[] =
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVisibleSide( KINT32 Value )
 {
     return GetEnumAsString( VisibleSideDescriptor, sizeof( VisibleSideDescriptor ) / sizeof( EnumDescriptor ), Value );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVisibleSide( const KString & Value, KINT32 & ValueOut )
 {
