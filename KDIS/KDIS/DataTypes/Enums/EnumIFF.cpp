@@ -268,7 +268,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Val
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for PlatformType
+// Implementation of string values for NavigationSource
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
