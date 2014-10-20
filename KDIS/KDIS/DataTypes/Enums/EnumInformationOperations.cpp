@@ -65,7 +65,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringWarfareType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 #endif
 
@@ -99,7 +99,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 #endif
 
@@ -137,7 +137,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionPhase( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 #endif
 
@@ -172,7 +172,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStandardVariableType( KINT32 Valu
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStandardVariableType( const KString & Value, KINT32 & ValueOut )
 {
@@ -212,7 +212,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringIOCommunicationsNodeType( KINT32 
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringIOCommunicationsNodeType( const KString & Value, KINT32 & ValueOut )
 {
@@ -256,7 +256,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringIOStatus( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringIOStatus( const KString & Value, KINT32 & ValueOut )
 {
@@ -296,7 +296,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringIOLinkType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringIOLinkType( const KString & Value, KINT32 & ValueOut )
 {
@@ -338,7 +338,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringIOEffectType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringIOEffectType( const KString & Value, KINT32 & ValueOut )
 {
@@ -377,7 +377,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringIOReportType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringIOReportType( const KString & Value, KINT32 & ValueOut )
 {

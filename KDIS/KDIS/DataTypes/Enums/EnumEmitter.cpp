@@ -1219,7 +1219,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEmitterName( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEmitterName( const KString & Value, KINT32 & ValueOut )
 {
@@ -1321,7 +1321,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEmitterFunction( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEmitterFunction( const KString & Value, KINT32 & ValueOut )
 {
@@ -1359,7 +1359,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStateUpdateIndicator( KINT32 Valu
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStateUpdateIndicator( const KString & Value, KINT32 & ValueOut )
 {
@@ -1397,7 +1397,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringHighDensityTrackJam( KINT32 Value
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringHighDensityTrackJam( const KString & Value, KINT32 & ValueOut )
 {
@@ -1434,7 +1434,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPassiveParameterIndex( KINT32 Val
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPassiveParameterIndex( const KString & Value, KINT32 & ValueOut )
 {
@@ -1472,7 +1472,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAdditionalPassiveParameterIndex( 
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAdditionalPassiveParameterIndex( const KString & Value, KINT32 & ValueOut )
 {
@@ -1522,7 +1522,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPropulsionPlantConfiguration( KIN
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPropulsionPlantConfiguration( const KString & Value, KINT32 & ValueOut )
 {
@@ -1568,7 +1568,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcousticSystemName( KINT32 Value 
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcousticSystemName( const KString & Value, KINT32 & ValueOut )
 {
@@ -1609,7 +1609,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcousticSystemFunction( KINT32 Va
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcousticSystemFunction( const KString & Value, KINT32 & ValueOut )
 {
@@ -1646,7 +1646,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActiveEmissionParameterIndex( KIN
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActiveEmissionParameterIndex( const KString & Value, KINT32 & ValueOut )
 {
@@ -1688,7 +1688,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringScanPattern( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringScanPattern( const KString & Value, KINT32 & ValueOut )
 {
@@ -1729,7 +1729,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingAircraft( KINT32 Valu
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPowerSettingAircraft( const KString & Value, KINT32 & ValueOut )
 {
@@ -1768,7 +1768,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingHelicopter( KINT32 Va
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPowerSettingHelicopter( const KString & Value, KINT32 & ValueOut )
 {
@@ -1807,7 +1807,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPowerSettingTank( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPowerSettingTank( const KString & Value, KINT32 & ValueOut )
 {

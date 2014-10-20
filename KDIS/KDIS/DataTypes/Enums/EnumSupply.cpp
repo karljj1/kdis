@@ -61,7 +61,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringServiceTypeRequested( KINT32 Valu
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringServiceTypeRequested( const KString & Value, KINT32 & ValueOut )
 {
@@ -181,7 +181,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairTypePerformed( KINT32 Value
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairTypePerformed( const KString & Value, KINT32 & ValueOut )
 {
@@ -222,7 +222,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairResult( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairResult( const KString & Value, KINT32 & ValueOut )
 {

@@ -126,7 +126,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringWarheadType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringWarheadType( const KString & Value, KINT32 & ValueOut )
 {
@@ -258,7 +258,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFuseType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFuseType( const KString & Value, KINT32 & ValueOut )
 {
@@ -297,7 +297,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFireType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFireType( const KString & Value, KINT32 & ValueOut )
 {
@@ -336,7 +336,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut )
 {
@@ -422,7 +422,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringExplosiveMaterial( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringExplosiveMaterial( const KString & Value, KINT32 & ValueOut )
 {

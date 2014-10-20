@@ -62,7 +62,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAlternateParameter4( KINT32 Value
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAlternateParameter4( const KString & Value, KINT32 & ValueOut )
 {
@@ -100,7 +100,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTCAS( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTCAS( const KString & Value, KINT32 & ValueOut )
 {
@@ -139,7 +139,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value 
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut )
 {
@@ -179,7 +179,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value, KINT32 & ValueOut )
 {
@@ -219,7 +219,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection( const KString & Value, KINT32 & ValueOut )
 {
@@ -257,7 +257,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut )
 {
@@ -297,7 +297,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationSource( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource( const KString & Value, KINT32 & ValueOut )
 {

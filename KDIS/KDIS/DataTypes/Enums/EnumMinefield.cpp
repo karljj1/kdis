@@ -61,7 +61,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMinefieldType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMinefieldType( const KString & Value, KINT32 & ValueOut )
 {
@@ -99,7 +99,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMinefieldProtocolMode( KINT32 Val
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMinefieldProtocolMode( const KString & Value, KINT32 & ValueOut )
 {
@@ -176,7 +176,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSensorType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSensorType( const KString & Value, KINT32 & ValueOut )
 {
@@ -184,7 +184,6 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSensorType( const KString & Value
 }
 
 #endif
-
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -220,7 +219,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMineFuse( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMineFuse( const KString & Value, KINT32 & ValueOut )
 {
@@ -260,7 +259,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMineAlgae( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMineAlgae( const KString & Value, KINT32 & ValueOut )
 {
@@ -315,7 +314,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPaintScheme( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPaintScheme( const KString & Value, KINT32 & ValueOut )
 {

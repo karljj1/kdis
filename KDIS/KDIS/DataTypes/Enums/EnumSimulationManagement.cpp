@@ -60,7 +60,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRequiredReliabilityService( KINT3
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRequiredReliabilityService( const KString & Value, KINT32 & ValueOut )
 {
@@ -105,7 +105,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStopFreezeReason( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStopFreezeReason( const KString & Value, KINT32 & ValueOut )
 {
@@ -144,7 +144,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFrozenBehavior( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFrozenBehavior( const KString & Value, KINT32 & ValueOut )
 {
@@ -185,7 +185,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcknowledgeFlag( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcknowledgeFlag( const KString & Value, KINT32 & ValueOut )
 {
@@ -224,7 +224,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcknowledgeResponseFlag( KINT32 V
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcknowledgeResponseFlag( const KString & Value, KINT32 & ValueOut )
 {
@@ -309,7 +309,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionID( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionID( const KString & Value, KINT32 & ValueOut )
 {
@@ -359,7 +359,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRequestStatus( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRequestStatus( const KString & Value, KINT32 & ValueOut )
 {
@@ -410,7 +410,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEventType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEventType( const KString & Value, KINT32 & ValueOut )
 {

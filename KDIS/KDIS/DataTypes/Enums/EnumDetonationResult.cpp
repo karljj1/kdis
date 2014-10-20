@@ -92,7 +92,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationResult( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationResult( const KString & Value, KINT32 & ValueOut )
 {

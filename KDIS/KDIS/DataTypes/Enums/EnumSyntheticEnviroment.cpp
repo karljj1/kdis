@@ -77,7 +77,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEnvironmentRecordType( KINT32 Val
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEnvironmentRecordType( const KString & Value, KINT32 & ValueOut )
 {
@@ -119,7 +119,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEnvironmentSubcategory( KINT32 Va
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEnvironmentSubcategory( const KString & Value, KINT32 & ValueOut )
 {
@@ -159,7 +159,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCoordinateSystem( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCoordinateSystem( const KString & Value, KINT32 & ValueOut )
 {
@@ -197,7 +197,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringConstantGrid( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringConstantGrid( const KString & Value, KINT32 & ValueOut )
 {
@@ -236,7 +236,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringGridDataRepresentation( KINT32 Va
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringGridDataRepresentation( const KString & Value, KINT32 & ValueOut )
 {
@@ -275,7 +275,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringObjectDamage( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringObjectDamage( const KString & Value, KINT32 & ValueOut )
 {
@@ -314,7 +314,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBreach2bit( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBreach2bit( const KString & Value, KINT32 & ValueOut )
 {
@@ -354,7 +354,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChemical( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringChemical( const KString & Value, KINT32 & ValueOut )
 {
@@ -393,7 +393,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVisibleSide( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVisibleSide( const KString & Value, KINT32 & ValueOut )
 {

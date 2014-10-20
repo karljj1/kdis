@@ -80,7 +80,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCollisionType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCollisionType( const KString & Value, KINT32 & ValueOut )
 {
@@ -146,7 +146,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityKind( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityKind( const KString & Value, KINT32 & ValueOut )
 {
@@ -208,7 +208,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDomain( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDomain( const KString & Value, KINT32 & ValueOut )
 {
@@ -527,7 +527,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCountry( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut )
 {
@@ -585,7 +585,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Val
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut )
 {
@@ -657,7 +657,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsMetric( KINT32 Va
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut )
 {
@@ -841,7 +841,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsClass( KINT32 Val
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut )
 {
@@ -911,7 +911,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedPartParameterType( KINT32
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut )
 {
@@ -969,7 +969,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityPaintScheme( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityPaintScheme( const KString & Value, KINT32 & ValueOut )
 {
@@ -1029,7 +1029,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDamage( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDamage( const KString & Value, KINT32 & ValueOut )
 {
@@ -1089,7 +1089,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntitySmoke( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntitySmoke( const KString & Value, KINT32 & ValueOut )
 {
@@ -1149,7 +1149,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityTrailingEffect( KINT32 Valu
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityTrailingEffect( const KString & Value, KINT32 & ValueOut )
 {
@@ -1211,7 +1211,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityHatchState( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityHatchState( const KString & Value, KINT32 & ValueOut )
 {
@@ -1271,7 +1271,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLights( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLights( const KString & Value, KINT32 & ValueOut )
 {
@@ -1330,7 +1330,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCamouflage( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityCamouflage( const KString & Value, KINT32 & ValueOut )
 {
@@ -1401,7 +1401,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformAppearance( KINT32 
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLifeformAppearance( const KString & Value, KINT32 & ValueOut )
 {
@@ -1461,7 +1461,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformWeapon( KINT32 Valu
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLifeformWeapon( const KString & Value, KINT32 & ValueOut )
 {
@@ -1522,7 +1522,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDensity( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDensity( const KString & Value, KINT32 & ValueOut )
 {
@@ -1593,7 +1593,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCompliance( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOut )
 {
@@ -1659,7 +1659,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDeadReckoningAlgorithm( KINT32 Va
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDeadReckoningAlgorithm( const KString & Value, KINT32 & ValueOut )
 {
@@ -1718,7 +1718,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityMarkingCharacterSet( KINT32
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityMarkingCharacterSet( const KString & Value, KINT32 & ValueOut )
 {
@@ -1805,7 +1805,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringForceID( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringForceID( const KString & Value, KINT32 & ValueOut )
 {
@@ -1864,7 +1864,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionCode( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut )
 {

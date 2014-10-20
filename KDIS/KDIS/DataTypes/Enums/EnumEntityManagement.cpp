@@ -64,7 +64,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAggregateState( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAggregateState( const KString & Value, KINT32 & ValueOut )
 {
@@ -106,7 +106,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAggregateKind( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAggregateKind( const KString & Value, KINT32 & ValueOut )
 {
@@ -148,7 +148,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFormation( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFormation( const KString & Value, KINT32 & ValueOut )
 {
@@ -194,7 +194,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringGroupedEntityCategory( KINT32 Val
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringGroupedEntityCategory( const KString & Value, KINT32 & ValueOut )
 {
@@ -241,7 +241,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTransferType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTransferType( const KString & Value, KINT32 & ValueOut )
 {
@@ -642,7 +642,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringID_Enum( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringID_Enum( const KString & Value, KINT32 & ValueOut )
 {
@@ -719,7 +719,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRestStatus( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRestStatus( const KString & Value, KINT32 & ValueOut )
 {
@@ -765,7 +765,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRelationshipNature( KINT32 Value 
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipNature( const KString & Value, KINT32 & ValueOut )
 {
@@ -773,7 +773,6 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipNature( const KString
 }
 
 #endif
-
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -805,7 +804,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRelationshipPosition( KINT32 Valu
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipPosition( const KString & Value, KINT32 & ValueOut )
 {
@@ -858,7 +857,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStationName( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStationName( const KString & Value, KINT32 & ValueOut )
 {

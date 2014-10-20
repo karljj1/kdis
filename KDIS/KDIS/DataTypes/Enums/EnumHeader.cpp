@@ -66,7 +66,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolVersion( const KString & Value, KINT32 & ValueOut )
 {
@@ -181,7 +181,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPDUType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPDUType( const KString & Value, KINT32 & ValueOut )
 {
@@ -236,7 +236,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolFamily( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolFamily( const KString & Value, KINT32 & ValueOut )
 {
@@ -274,7 +274,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTimeStampType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTimeStampType( const KString & Value, KINT32 & ValueOut )
 {
@@ -315,7 +315,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLVCIndicator( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLVCIndicator( const KString & Value, KINT32 & ValueOut )
 {

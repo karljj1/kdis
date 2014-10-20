@@ -64,7 +64,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemType( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemType( const KString & Value, KINT32 & ValueOut )
 {
@@ -110,7 +110,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemName( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemName( const KString & Value, KINT32 & ValueOut )
 {
@@ -147,7 +147,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemMode( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemMode( const KString & Value, KINT32 & ValueOut )
 {
