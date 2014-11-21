@@ -80,64 +80,70 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetEntityKind
     //              KDIS::DATA_TYPE::EntityType::GetEntityKind
-    // Description: Kind.
-    // Parameter:   EntityKind UI
+    // Description: Returns either Kind enum or integer value.
+    // Parameter:   EntityKind EK
     //************************************
-    void SetEntityKind( KDIS::DATA_TYPE::ENUMS::EntityKind UI );
+    void SetEntityKind( KDIS::DATA_TYPE::ENUMS::EntityKind EK );
     KDIS::DATA_TYPE::ENUMS::EntityKind GetEntityKind() const;
+	void SetEntityKindValue( KUINT8 EK );
+	KUINT8 GetEntityKindValue() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetDomain
     //              KDIS::DATA_TYPE::EntityType::GetDomain
-    // Description: Domain.
-    // Parameter:   EntityDomain  UI
+    // Description: Returns either Domain enum or integer value.
+    // Parameter:   EntityDomain ED
     //************************************
-    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain UI );
+    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain ED );
     KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
+	void SetDomainValue( KUINT8 ED );
+	KUINT8 GetDomainValue() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetCountry
     //              KDIS::DATA_TYPE::EntityType::GetCountry
-    // Description: Country.
-    // Parameter:   Country UI
+    // Description: Returns either Country enum or integer value.
+    // Parameter:   Country C
     //************************************
-    void SetCountry( KDIS::DATA_TYPE::ENUMS::Country UI );
+    void SetCountry( KDIS::DATA_TYPE::ENUMS::Country C );
     KDIS::DATA_TYPE::ENUMS::Country GetCountry() const;
+	void SetCountryValue( KUINT16 C );
+	KUINT16 GetCountryValue() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetCategory
     //              KDIS::DATA_TYPE::EntityType::GetCategory
-    // Description: Category.
-    // Parameter:   KUINT8 UI
+    // Description: Returns category value.
+    // Parameter:   KUINT8 C
     //************************************
-    void SetCategory( KUINT8 UI );
+    void SetCategory( KUINT8 C );
     KUINT8 GetCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetSubCategory
     //              KDIS::DATA_TYPE::EntityType::GetSubCategory
-    // Description: Sub Category.
-    // Parameter:   KUINT8 UI
+    // Description: Returns sub category value.
+    // Parameter:   KUINT8 SC
     //************************************
-    void SetSubCategory( KUINT8 UI );
+    void SetSubCategory( KUINT8 SC );
     KUINT8 GetSubCategory() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetSpecific
     //              KDIS::DATA_TYPE::EntityType::GetSpecific
-    // Description: Specific.
-    // Parameter:   KUINT8 UI
+    // Description: Returns specific value..
+    // Parameter:   KUINT8 S
     //************************************
-    void SetSpecific( KUINT8 UI );
+    void SetSpecific( KUINT8 S );
     KUINT8 GetSpecific() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::SetExtra
     //              KDIS::DATA_TYPE::EntityType::GetExtra
-    // Description: Extra.
-    // Parameter:   KUINT8  UI
+    // Description: Returns extra value.
+    // Parameter:   KUINT8 E
     //************************************
-    void SetExtra( KUINT8 UI );
+    void SetExtra( KUINT8 E );
     KUINT8 GetExtra() const;
 
     //************************************
