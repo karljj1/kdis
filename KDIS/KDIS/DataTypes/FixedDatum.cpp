@@ -75,8 +75,7 @@ DatumID FixedDatum::GetDatumID() const
 void FixedDatum::GetDatumValue( KOCTET * Buffer, KUINT16 BufferSize ) const throw( KException )
 {
     if( BufferSize < 4 )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
-
-    strncpy( Buffer, m_cDatumValue, 4 );
+	memcpy( Buffer, m_cDatumValue, 4 );
 }
 
 //////////////////////////////////////////////////////////////////////////
