@@ -66,7 +66,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsString( const EnumDescriptor * pArray, 
 
     ss << "Unknown Enum: " << Value;
     return ss.str();
-};
+}
 
 //////////////////////////////////////////////////////////////////////////
 

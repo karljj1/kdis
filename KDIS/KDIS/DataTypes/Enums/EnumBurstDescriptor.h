@@ -122,6 +122,16 @@ enum WarheadType
     Biological_ToxinWarhead                                           = 9500
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeWarheadType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorWarheadType( KUINT32 Index );
+
 KString GetEnumAsStringWarheadType( KINT32 Value );
 
 // Returns true if a value was found.
@@ -245,6 +255,16 @@ enum FuseType
     Mechanical_Tail                                                   = 9620
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeFuseType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorFuseType( KUINT32 Index );
+
 KString GetEnumAsStringFuseType( KINT32 Value );
 
 // Returns true if a value was found.
@@ -265,6 +285,16 @@ enum FireType
     ExpendableFTI                                                     = 1
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeFireType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorFireType( KUINT32 Index );
+
 KString GetEnumAsStringFireType( KINT32 Value );
 
 // Returns true if a value was found.
@@ -284,6 +314,16 @@ enum DetonationType
     ExpendableDTI                                                     = 1,
 	NonMunitionExplosionDTI                                           = 2
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeDetonationType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorDetonationType( KUINT32 Index );
 
 KString GetEnumAsStringDetonationType( KINT32 Value );
 
@@ -351,6 +391,16 @@ enum ExplosiveMaterial
     FlourDust                                                         = 803,
     SugarDust                                                         = 804
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeExplosiveMaterial ();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorExplosiveMaterial ( KUINT32 Index );
 
 KString GetEnumAsStringExplosiveMaterial( KINT32 Value );
 

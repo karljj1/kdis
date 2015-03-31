@@ -57,6 +57,16 @@ enum MinefieldType
     PureAntiTank                                                      = 2
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeMinefieldType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorMinefieldType( KUINT32 Index );
+
 KString GetEnumAsStringMinefieldType( KINT32 Value );
 
 // Returns true if a value was found.
@@ -75,6 +85,16 @@ enum MinefieldProtocolMode
     Heartbeat                                                         = 0,
     QPR                                                               = 1
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeMinefieldProtocolMode();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorMinefieldProtocolMode( KUINT32 Index );
 
 KString GetEnumAsStringMinefieldProtocolMode( KINT32 Value );
 
@@ -145,6 +165,16 @@ enum SensorType
     Multispectral_Generic                                             = 8
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeSensorType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorSensorType( KUINT32 Index );
+
 KString GetEnumAsStringSensorType( KINT32 Value );
 
 // Returns true if a value was found.
@@ -168,6 +198,16 @@ enum MineFuse
     TripWireFuse                                                      = 6
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeMineFuse();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorMineFuse( KUINT32 Index );
+
 KString GetEnumAsStringMineFuse( KINT32 Value );
 
 // Returns true if a value was found.
@@ -187,6 +227,16 @@ enum MineAlgae
     AlgaeModerate                                                     = 2,
     AlgaeHeavy                                                        = 3
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeMineAlgae();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorMineAlgae( KUINT32 Index );
 
 KString GetEnumAsStringMineAlgae( KINT32 Value );
 
@@ -222,6 +272,16 @@ enum PaintScheme
     Yellow                                                            = 17,
     Brown                                                             = 18
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePaintScheme();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPaintScheme( KUINT32 Index );
 
 KString GetEnumAsStringPaintScheme( KINT32 Value );
 

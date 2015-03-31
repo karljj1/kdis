@@ -43,6 +43,16 @@ const EnumDescriptor RequiredReliabilityServiceDescriptor[] =
     { 1 , "Unacknowledged" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRequiredReliabilityService()
+{
+	return sizeof( RequiredReliabilityServiceDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRequiredReliabilityService( KUINT32 Index )
+{
+	return &RequiredReliabilityServiceDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRequiredReliabilityService( KINT32 Value )
 {
     return GetEnumAsString( RequiredReliabilityServiceDescriptor, sizeof( RequiredReliabilityServiceDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -55,12 +65,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRequiredReliabilityService( const
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRequiredReliabilityService()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRequiredReliabilityService( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRequiredReliabilityService( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRequiredReliabilityService( const KString & Value, KINT32 & ValueOut )
 {
@@ -88,6 +108,16 @@ const EnumDescriptor StopFreezeReasonDescriptor[] =
     { 8 , "AbortTrainingReturnToTacticalOperations" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeStopFreezeReason()
+{
+	return sizeof( StopFreezeReasonDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorStopFreezeReason( KUINT32 Index )
+{
+	return &StopFreezeReasonDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStopFreezeReason( KINT32 Value )
 {
     return GetEnumAsString( StopFreezeReasonDescriptor, sizeof( StopFreezeReasonDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -100,12 +130,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStopFreezeReason( const KString &
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeStopFreezeReason()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorStopFreezeReason( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStopFreezeReason( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStopFreezeReason( const KString & Value, KINT32 & ValueOut )
 {
@@ -127,6 +167,16 @@ const EnumDescriptor FrozenBehaviorDescriptor[] =
     { 2 , "ReceivePDU" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFrozenBehavior()
+{
+	return sizeof( FrozenBehaviorDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFrozenBehavior( KUINT32 Index )
+{
+	return &FrozenBehaviorDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFrozenBehavior( KINT32 Value )
 {
     return GetEnumAsString( FrozenBehaviorDescriptor, sizeof( FrozenBehaviorDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -139,12 +189,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFrozenBehavior( const KString & V
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFrozenBehavior()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFrozenBehavior( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFrozenBehavior( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFrozenBehavior( const KString & Value, KINT32 & ValueOut )
 {
@@ -168,6 +228,16 @@ const EnumDescriptor AcknowledgeFlagDescriptor[] =
     { 5 , "TransferControlRequest" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcknowledgeFlag()
+{
+	return sizeof( AcknowledgeFlagDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcknowledgeFlag( KUINT32 Index )
+{
+	return &AcknowledgeFlagDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcknowledgeFlag( KINT32 Value )
 {
     return GetEnumAsString( AcknowledgeFlagDescriptor, sizeof( AcknowledgeFlagDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -180,12 +250,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcknowledgeFlag( const KString & 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcknowledgeFlag()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcknowledgeFlag( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcknowledgeFlag( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcknowledgeFlag( const KString & Value, KINT32 & ValueOut )
 {
@@ -207,6 +287,16 @@ const EnumDescriptor AcknowledgeResponseFlagDescriptor[] =
     { 2 , "UnableToComply" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcknowledgeResponseFlag()
+{
+	return sizeof( AcknowledgeResponseFlagDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcknowledgeResponseFlag( KUINT32 Index )
+{
+	return &AcknowledgeResponseFlagDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcknowledgeResponseFlag( KINT32 Value )
 {
     return GetEnumAsString( AcknowledgeResponseFlagDescriptor, sizeof( AcknowledgeResponseFlagDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -219,12 +309,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcknowledgeResponseFlag( const KS
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAcknowledgeResponseFlag()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAcknowledgeResponseFlag( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAcknowledgeResponseFlag( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAcknowledgeResponseFlag( const KString & Value, KINT32 & ValueOut )
 {
@@ -292,6 +392,16 @@ const EnumDescriptor ActionIDDescriptor[] =
     { 101 , "TACCSFLOSRequest_Type2" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeActionID()
+{
+	return sizeof( ActionIDDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorActionID( KUINT32 Index )
+{
+	return &ActionIDDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionID( KINT32 Value )
 {
     return GetEnumAsString( ActionIDDescriptor, sizeof( ActionIDDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -304,12 +414,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionID( const KString & Value, 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeActionID()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorActionID( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionID( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionID( const KString & Value, KINT32 & ValueOut )
 {
@@ -342,6 +462,16 @@ const EnumDescriptor RequestStatusDescriptor[] =
     { 201 , "JoinExerciseRequestRejected" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRequestStatus()
+{
+	return sizeof( RequestStatusDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRequestStatus( KUINT32 Index )
+{
+	return &RequestStatusDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRequestStatus( KINT32 Value )
 {
     return GetEnumAsString( RequestStatusDescriptor, sizeof( RequestStatusDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -354,12 +484,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRequestStatus( const KString & Va
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRequestStatus()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRequestStatus( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRequestStatus( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRequestStatus( const KString & Value, KINT32 & ValueOut )
 {
@@ -393,6 +533,16 @@ const EnumDescriptor EventTypeDescriptor[] =
     { 15 , "AggregateStateChangeRequested" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEventType()
+{
+	return sizeof( EventTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEventType( KUINT32 Index )
+{
+	return &EventTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEventType( KINT32 Value )
 {
     return GetEnumAsString( EventTypeDescriptor, sizeof( EventTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -405,12 +555,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEventType( const KString & Value,
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEventType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEventType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEventType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEventType( const KString & Value, KINT32 & ValueOut )
 {

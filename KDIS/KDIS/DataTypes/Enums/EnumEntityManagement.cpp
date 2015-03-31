@@ -47,6 +47,16 @@ const EnumDescriptor AggregateStateDescriptor[] =
     { 5 , "PartiallyDisaggregated" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAggregateState()
+{
+	return sizeof( AggregateStateDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAggregateState( KUINT32 Index )
+{
+	return &AggregateStateDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAggregateState( KINT32 Value )
 {
     return GetEnumAsString( AggregateStateDescriptor, sizeof( AggregateStateDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -59,12 +69,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAggregateState( const KString & V
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAggregateState()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAggregateState( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAggregateState( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAggregateState( const KString & Value, KINT32 & ValueOut )
 {
@@ -89,6 +109,16 @@ const EnumDescriptor AggregateKindDescriptor[] =
     { 5 , "CommonLocation" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAggregateKind()
+{
+	return sizeof( AggregateKindDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAggregateKind( KUINT32 Index )
+{
+	return &AggregateKindDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAggregateKind( KINT32 Value )
 {
     return GetEnumAsString( AggregateKindDescriptor, sizeof( AggregateKindDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -101,12 +131,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAggregateKind( const KString & Va
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAggregateKind()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAggregateKind( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAggregateKind( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAggregateKind( const KString & Value, KINT32 & ValueOut )
 {
@@ -131,6 +171,16 @@ const EnumDescriptor FormationDescriptor[] =
     { 5 , "Column" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFormation()
+{
+	return sizeof( FormationDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFormation( KUINT32 Index )
+{
+	return &FormationDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFormation( KINT32 Value )
 {
     return GetEnumAsString( FormationDescriptor, sizeof( FormationDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -143,12 +193,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFormation( const KString & Value,
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFormation()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFormation( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFormation( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFormation( const KString & Value, KINT32 & ValueOut )
 {
@@ -177,6 +237,16 @@ const EnumDescriptor GroupedEntityCategoryDescriptor[] =
     { 9 , "GroundLogisticsVehicleGEC" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeGroupedEntityCategory()
+{
+	return sizeof( GroupedEntityCategoryDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorGroupedEntityCategory( KUINT32 Index )
+{
+	return &GroupedEntityCategoryDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringGroupedEntityCategory( KINT32 Value )
 {
     return GetEnumAsString( GroupedEntityCategoryDescriptor, sizeof( GroupedEntityCategoryDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -189,12 +259,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringGroupedEntityCategory( const KStr
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeGroupedEntityCategory()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorGroupedEntityCategory( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringGroupedEntityCategory( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringGroupedEntityCategory( const KString & Value, KINT32 & ValueOut )
 {
@@ -224,6 +304,16 @@ const EnumDescriptor TransferTypeDescriptor[] =
     { 10 , "RemoveEntity" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTransferType()
+{
+	return sizeof( TransferTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTransferType( KUINT32 Index )
+{
+	return &TransferTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTransferType( KINT32 Value )
 {
     return GetEnumAsString( TransferTypeDescriptor, sizeof( TransferTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -236,12 +326,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTransferType( const KString & Val
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTransferType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTransferType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTransferType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTransferType( const KString & Value, KINT32 & ValueOut )
 {
@@ -625,6 +725,16 @@ const EnumDescriptor ID_EnumDescriptor[] =
     { 500007 , "AssociationAssociationID" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeID_Enum()
+{
+	return sizeof( ID_EnumDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorID_Enum( KUINT32 Index )
+{
+	return &ID_EnumDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringID_Enum( KINT32 Value )
 {
     return GetEnumAsString( ID_EnumDescriptor, sizeof( ID_EnumDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -637,12 +747,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringID_Enum( const KString & Value, K
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeID_Enum()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorID_Enum( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringID_Enum( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringID_Enum( const KString & Value, KINT32 & ValueOut )
 {
@@ -655,33 +775,33 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringID_Enum( const KString & Value, K
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDatumID( KINT32 Value )
 {
     return GetEnumAsStringID_Enum( Value );
-};
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRecordID( KINT32 Value )
 {
     return GetEnumAsStringID_Enum( Value );
-};
+}
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttributeID( KINT32 Value )
 {
     return GetEnumAsStringID_Enum( Value );
-};
+}
 
 // From
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDatumID( const KString & Value, KINT32 & ValueOut  )
 {
 	return GetEnumFromStringID_Enum( Value, ValueOut );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRecordID( const KString & Value, KINT32 & ValueOut  )
 {
     return GetEnumFromStringID_Enum( Value, ValueOut );
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttributeID( const KString & Value, KINT32 & ValueOut  )
 {
     return GetEnumFromStringID_Enum( Value, ValueOut );
-};
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -702,6 +822,16 @@ const EnumDescriptor RestStatusDescriptor[] =
     { 8 , "FullyRested" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRestStatus()
+{
+	return sizeof( RestStatusDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRestStatus( KUINT32 Index )
+{
+	return &RestStatusDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRestStatus( KINT32 Value )
 {
     return GetEnumAsString( RestStatusDescriptor, sizeof( RestStatusDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -714,12 +844,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRestStatus( const KString & Value
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRestStatus()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRestStatus( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRestStatus( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRestStatus( const KString & Value, KINT32 & ValueOut )
 {
@@ -748,6 +888,16 @@ const EnumDescriptor RelationshipNatureDescriptor[] =
     { 9 , "EntityStationedAt" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRelationshipNature()
+{
+	return sizeof( RelationshipNatureDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRelationshipNature( KUINT32 Index )
+{
+	return &RelationshipNatureDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRelationshipNature( KINT32 Value )
 {
     return GetEnumAsString( RelationshipNatureDescriptor, sizeof( RelationshipNatureDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -760,12 +910,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipNature( const KString
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRelationshipNature()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRelationshipNature( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRelationshipNature( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipNature( const KString & Value, KINT32 & ValueOut )
 {
@@ -773,7 +933,6 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipNature( const KString
 }
 
 #endif
-
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -788,6 +947,16 @@ const EnumDescriptor RelationshipPositionDescriptor[] =
     { 2 , "InsideOf" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRelationshipPosition()
+{
+	return sizeof( RelationshipPositionDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRelationshipPosition( KUINT32 Index )
+{
+	return &RelationshipPositionDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRelationshipPosition( KINT32 Value )
 {
     return GetEnumAsString( RelationshipPositionDescriptor, sizeof( RelationshipPositionDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -800,12 +969,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipPosition( const KStri
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRelationshipPosition()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRelationshipPosition( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRelationshipPosition( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRelationshipPosition( const KString & Value, KINT32 & ValueOut )
 {
@@ -841,6 +1020,16 @@ const EnumDescriptor StationNameDescriptor[] =
 	{ 16 , "OnStationXYZ" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeStationName()
+{
+	return sizeof( StationNameDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorStationName( KUINT32 Index )
+{
+	return &StationNameDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStationName( KINT32 Value )
 {
     return GetEnumAsString( StationNameDescriptor, sizeof( StationNameDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -853,12 +1042,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStationName( const KString & Valu
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeStationName()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorStationName( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringStationName( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringStationName( const KString & Value, KINT32 & ValueOut )
 {

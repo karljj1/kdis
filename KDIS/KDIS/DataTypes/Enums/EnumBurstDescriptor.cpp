@@ -109,6 +109,16 @@ const EnumDescriptor WarheadTypeDescriptor[] =
     { 9500 , "Biological_ToxinWarhead" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeWarheadType()
+{
+	return sizeof( WarheadTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorWarheadType( KUINT32 Index )
+{
+	return &WarheadTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringWarheadType( KINT32 Value )
 {
     return GetEnumAsString( WarheadTypeDescriptor, sizeof( WarheadTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -121,12 +131,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringWarheadType( const KString & Valu
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeWarheadType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorWarheadType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringWarheadType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringWarheadType( const KString & Value, KINT32 & ValueOut )
 {
@@ -241,6 +261,16 @@ const EnumDescriptor FuseTypeDescriptor[] =
     { 9620 , "Mechanical_Tail" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFuseType()
+{
+	return sizeof( FuseTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFuseType( KUINT32 Index )
+{
+	return &FuseTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFuseType( KINT32 Value )
 {
     return GetEnumAsString( FuseTypeDescriptor, sizeof( FuseTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -253,12 +283,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFuseType( const KString & Value, 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFuseType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFuseType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFuseType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFuseType( const KString & Value, KINT32 & ValueOut )
 {
@@ -280,6 +320,16 @@ const EnumDescriptor FireTypeDescriptor[] =
     { 1 , "Expendable" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFireType()
+{
+	return sizeof( FireTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFireType( KUINT32 Index )
+{
+	return &FireTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFireType( KINT32 Value )
 {
     return GetEnumAsString( FireTypeDescriptor, sizeof( FireTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -292,12 +342,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFireType( const KString & Value, 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFireType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFireType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFireType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFireType( const KString & Value, KINT32 & ValueOut )
 {
@@ -319,6 +379,16 @@ const EnumDescriptor DetonationTypeDescriptor[] =
 	{ 2 , "Non-Munition Explosion" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationType()
+{
+	return sizeof( DetonationTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationType( KUINT32 Index )
+{
+	return &DetonationTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationType( KINT32 Value )
 {
     return GetEnumAsString( DetonationTypeDescriptor, sizeof( DetonationTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -331,12 +401,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType( const KString & V
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut )
 {
@@ -405,6 +485,16 @@ const EnumDescriptor ExplosiveMaterialDescriptor[] =
 	{ 804 , "SugarDust" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeExplosiveMaterial()
+{
+	return sizeof( ExplosiveMaterialDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorExplosiveMaterial( KUINT32 Index )
+{
+	return &ExplosiveMaterialDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringExplosiveMaterial( KINT32 Value )
 {
     return GetEnumAsString( ExplosiveMaterialDescriptor, sizeof( ExplosiveMaterialDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -417,12 +507,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringExplosiveMaterial( const KString 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeExplosiveMaterial()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorExplosiveMaterial( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringExplosiveMaterial( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringExplosiveMaterial( const KString & Value, KINT32 & ValueOut )
 {

@@ -141,7 +141,7 @@ http://p.sf.net/kdis/UserGuide
 #define RESUP_REC_T1_DFLT                           5                                   // s
 #define RESUP_REC_T2_DFLT                           55                                  // s
 #define RESUP_SUP_T1_DFLT                           1                                   // min
-#define RQST_ASSIGN_ID                              0xffff
+#define RQST_ASSIGN_ID                              0xfffe
 #define SEES_NDA_THRSH                              2                                   // ±° in the axis of deflection
 #define SEES_PS_THRSH                               10                                  // ±% of the maximum value of the Power 
 #define SEES_RPM_THRSH                              5                                   // ±% of the maximum speed in RPM

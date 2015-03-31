@@ -44,6 +44,16 @@ const EnumDescriptor TransmitStateDescriptor[] =
     { 2 , "OnAndTransmitting" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTransmitState()
+{
+	return sizeof( TransmitStateDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTransmitState( KUINT32 Index )
+{
+	return &TransmitStateDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTransmitState( KINT32 Value )
 {
     return GetEnumAsString( TransmitStateDescriptor, sizeof( TransmitStateDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -56,12 +66,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTransmitState( const KString & Va
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTransmitState()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTransmitState( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTransmitState( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTransmitState( const KString & Value, KINT32 & ValueOut )
 {
@@ -90,6 +110,16 @@ const EnumDescriptor RadioInputSourceDescriptor[] =
     { 9 , "Intercom" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRadioInputSource()
+{
+	return sizeof( RadioInputSourceDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRadioInputSource( KUINT32 Index )
+{
+	return &RadioInputSourceDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRadioInputSource( KINT32 Value )
 {
     return GetEnumAsString( RadioInputSourceDescriptor, sizeof( RadioInputSourceDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -102,12 +132,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRadioInputSource( const KString &
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRadioInputSource()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRadioInputSource( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRadioInputSource( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRadioInputSource( const KString & Value, KINT32 & ValueOut )
 {
@@ -129,6 +169,16 @@ const EnumDescriptor AntennaPatternTypeDescriptor[] =
     { 2 , "SphericalHarmonic" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAntennaPatternType()
+{
+	return sizeof( AntennaPatternTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAntennaPatternType( KUINT32 Index )
+{
+	return &AntennaPatternTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaPatternType( KINT32 Value )
 {
     return GetEnumAsString( AntennaPatternTypeDescriptor, sizeof( AntennaPatternTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -141,12 +191,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaPatternType( const KString
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAntennaPatternType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAntennaPatternType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaPatternType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaPatternType( const KString & Value, KINT32 & ValueOut )
 {
@@ -173,6 +233,16 @@ const EnumDescriptor RadioMajorModulationDescriptor[] =
     { 7 , "CarrierPhaseShiftModulation_CPSM" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRadioMajorModulation()
+{
+	return sizeof( RadioMajorModulationDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRadioMajorModulation( KUINT32 Index )
+{
+	return &RadioMajorModulationDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRadioMajorModulation( KINT32 Value )
 {
     return GetEnumAsString( RadioMajorModulationDescriptor, sizeof( RadioMajorModulationDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -185,12 +255,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRadioMajorModulation( const KStri
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRadioMajorModulation()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRadioMajorModulation( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRadioMajorModulation( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRadioMajorModulation( const KString & Value, KINT32 & ValueOut )
 {
@@ -220,6 +300,16 @@ const EnumDescriptor DetailAmplitudeDescriptor[] =
     { 10, "VSB_VestigialSideband" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailAmplitude()
+{
+	return sizeof( DetailAmplitudeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailAmplitude( KUINT32 Index )
+{
+	return &DetailAmplitudeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailAmplitude( KINT32 Value )
 {
     return GetEnumAsString( DetailAmplitudeDescriptor, sizeof( DetailAmplitudeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -232,12 +322,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailAmplitude( const KString & 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailAmplitude()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailAmplitude( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailAmplitude( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailAmplitude( const KString & Value, KINT32 & ValueOut )
 {
@@ -258,6 +358,16 @@ const EnumDescriptor DetailAmplitudeAndAngleDescriptor[] =
     { 1 , "AmplitudeAndAngleDetail" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailAmplitudeAndAngle()
+{
+	return sizeof( DetailAmplitudeAndAngleDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailAmplitudeAndAngle( KUINT32 Index )
+{
+	return &DetailAmplitudeAndAngleDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailAmplitudeAndAngle( KINT32 Value )
 {
     return GetEnumAsString( DetailAmplitudeAndAngleDescriptor, sizeof( DetailAmplitudeAndAngleDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -270,12 +380,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailAmplitudeAndAngle( const KS
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailAmplitudeAndAngle()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailAmplitudeAndAngle( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailAmplitudeAndAngle( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailAmplitudeAndAngle( const KString & Value, KINT32 & ValueOut )
 {
@@ -298,6 +418,16 @@ const EnumDescriptor DetailAngleDescriptor[] =
     { 3 , "PM_PhaseModulation" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailAngle()
+{
+	return sizeof( DetailAngleDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailAngle( KUINT32 Index )
+{
+	return &DetailAngleDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailAngle( KINT32 Value )
 {
     return GetEnumAsString( DetailAngleDescriptor, sizeof( DetailAngleDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -310,12 +440,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailAngle( const KString & Valu
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailAngle()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailAngle( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailAngle( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailAngle( const KString & Value, KINT32 & ValueOut )
 {
@@ -336,6 +476,16 @@ const EnumDescriptor DetailCombinationDescriptor[] =
     { 1 , "AmplitudeAnglePulse" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailCombination()
+{
+	return sizeof( DetailCombinationDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailCombination( KUINT32 Index )
+{
+	return &DetailCombinationDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailCombination( KINT32 Value )
 {
     return GetEnumAsString( DetailCombinationDescriptor, sizeof( DetailCombinationDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -348,12 +498,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailCombination( const KString 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailCombination()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailCombination( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailCombination( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailCombination( const KString & Value, KINT32 & ValueOut )
 {
@@ -376,6 +536,16 @@ const EnumDescriptor DetailPulseDescriptor[] =
     { 3 , "Y_Band_TACAN_PulseDetail" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailPulse()
+{
+	return sizeof( DetailPulseDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailPulse( KUINT32 Index )
+{
+	return &DetailPulseDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailPulse( KINT32 Value )
 {
     return GetEnumAsString( DetailPulseDescriptor, sizeof( DetailPulseDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -388,12 +558,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailPulse( const KString & Valu
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailPulse()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailPulse( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailPulse( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailPulse( const KString & Value, KINT32 & ValueOut )
 {
@@ -414,6 +594,16 @@ const EnumDescriptor DetailUnmodulatedDescriptor[] =
     { 1 , "ContinuousWaveEmissionOfAnUnmodulatedCarrier" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailUnmodulated()
+{
+	return sizeof( DetailUnmodulatedDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailUnmodulated( KUINT32 Index )
+{
+	return &DetailUnmodulatedDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailUnmodulated( KINT32 Value )
 {
     return GetEnumAsString( DetailUnmodulatedDescriptor, sizeof( DetailUnmodulatedDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -426,12 +616,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailUnmodulated( const KString 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailUnmodulated()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailUnmodulated( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailUnmodulated( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailUnmodulated( const KString & Value, KINT32 & ValueOut )
 {
@@ -451,6 +651,16 @@ const EnumDescriptor DetailCarrierPhaseShiftDescriptor[] =
     { 0 , "OtherDetailCarrierPhaseShift" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailCarrierPhaseShift()
+{
+	return sizeof( DetailCarrierPhaseShiftDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailCarrierPhaseShift( KUINT32 Index )
+{
+	return &DetailCarrierPhaseShiftDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailCarrierPhaseShift( KINT32 Value )
 {
     return GetEnumAsString( DetailCarrierPhaseShiftDescriptor, sizeof( DetailCarrierPhaseShiftDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -463,12 +673,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailCarrierPhaseShift( const KS
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetailCarrierPhaseShift()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetailCarrierPhaseShift( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetailCarrierPhaseShift( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetailCarrierPhaseShift( const KString & Value, KINT32 & ValueOut )
 {
@@ -496,6 +716,16 @@ const EnumDescriptor ModulationSystemDescriptor[] =
     { 8 , "JTIDS_MIDS" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModulationSystem()
+{
+	return sizeof( ModulationSystemDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModulationSystem( KUINT32 Index )
+{
+	return &ModulationSystemDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModulationSystem( KINT32 Value )
 {
     return GetEnumAsString( ModulationSystemDescriptor, sizeof( ModulationSystemDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -508,12 +738,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModulationSystem( const KString &
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModulationSystem()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModulationSystem( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModulationSystem( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModulationSystem( const KString & Value, KINT32 & ValueOut )
 {
@@ -537,6 +777,16 @@ const EnumDescriptor CryptoSystemTypeDescriptor[] =
     { 4 , "WideSpectrumSecureVoice_WSVE" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCryptoSystemType()
+{
+	return sizeof( CryptoSystemTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCryptoSystemType( KUINT32 Index )
+{
+	return &CryptoSystemTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCryptoSystemType( KINT32 Value )
 {
     return GetEnumAsString( CryptoSystemTypeDescriptor, sizeof( CryptoSystemTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -549,12 +799,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCryptoSystemType( const KString &
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCryptoSystemType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCryptoSystemType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCryptoSystemType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCryptoSystemType( const KString & Value, KINT32 & ValueOut )
 {
@@ -575,6 +835,16 @@ const EnumDescriptor EncryptionModeDescriptor[] =
     { 1 , "Diphase" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEncryptionMode()
+{
+	return sizeof( EncryptionModeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEncryptionMode( KUINT32 Index )
+{
+	return &EncryptionModeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEncryptionMode( KINT32 Value )
 {
     return GetEnumAsString( EncryptionModeDescriptor, sizeof( EncryptionModeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -587,12 +857,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEncryptionMode( const KString & V
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEncryptionMode()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEncryptionMode( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEncryptionMode( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEncryptionMode( const KString & Value, KINT32 & ValueOut )
 {
@@ -615,6 +895,16 @@ const EnumDescriptor EncodingClassDescriptor[] =
     { 3 , "DatabaseIndex" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEncodingClass()
+{
+	return sizeof( EncodingClassDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEncodingClass( KUINT32 Index )
+{
+	return &EncodingClassDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEncodingClass( KINT32 Value )
 {
     return GetEnumAsString( EncodingClassDescriptor, sizeof( EncodingClassDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -627,12 +917,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEncodingClass( const KString & Va
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEncodingClass()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEncodingClass( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEncodingClass( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEncodingClass( const KString & Value, KINT32 & ValueOut )
 {
@@ -661,6 +961,16 @@ const EnumDescriptor EncodingTypeDescriptor[] =
     { 100 , "_16_bit_linear_PCM2sComplementLittleEndian" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEncodingType()
+{
+	return sizeof( EncodingTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEncodingType( KUINT32 Index )
+{
+	return &EncodingTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEncodingType( KINT32 Value )
 {
     return GetEnumAsString( EncodingTypeDescriptor, sizeof( EncodingTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -673,12 +983,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEncodingType( const KString & Val
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEncodingType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEncodingType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEncodingType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEncodingType( const KString & Value, KINT32 & ValueOut )
 {
@@ -770,6 +1090,16 @@ const EnumDescriptor TDLTypeDescriptor[] =
     { 104 , "AFIWCIADSCommunicationsLinks" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTDLType()
+{
+	return sizeof( TDLTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTDLType( KUINT32 Index )
+{
+	return &TDLTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTDLType( KINT32 Value )
 {
     return GetEnumAsString( TDLTypeDescriptor, sizeof( TDLTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -782,12 +1112,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTDLType( const KString & Value, K
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTDLType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTDLType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTDLType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTDLType( const KString & Value, KINT32 & ValueOut )
 {
@@ -812,6 +1152,16 @@ const EnumDescriptor ControlTypeDescriptor[] =
     { 5 , "Nack_Request_Denied" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeControlType()
+{
+	return sizeof( ControlTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorControlType( KUINT32 Index )
+{
+	return &ControlTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringControlType( KINT32 Value )
 {
     return GetEnumAsString( ControlTypeDescriptor, sizeof( ControlTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -824,12 +1174,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringControlType( const KString & Valu
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeControlType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorControlType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringControlType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringControlType( const KString & Value, KINT32 & ValueOut )
 {
@@ -853,6 +1213,16 @@ const EnumDescriptor ChannelTypeDescriptor[] =
     { 4 , "Connection_HDX" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeChannelType()
+{
+	return sizeof( ChannelTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorChannelType( KUINT32 Index )
+{
+	return &ChannelTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChannelType( KINT32 Value )
 {
     return GetEnumAsString( ChannelTypeDescriptor, sizeof( ChannelTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -865,12 +1235,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringChannelType( const KString & Valu
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeChannelType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorChannelType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChannelType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringChannelType( const KString & Value, KINT32 & ValueOut )
 {
@@ -891,6 +1271,16 @@ const EnumDescriptor ChannelClassDescriptor[] =
     { 1 , "Simulation_Support_Comm_Channel" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeChannelClass()
+{
+	return sizeof( ChannelClassDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorChannelClass( KUINT32 Index )
+{
+	return &ChannelClassDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChannelClass( KINT32 Value )
 {
     return GetEnumAsString( ChannelClassDescriptor, sizeof( ChannelClassDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -903,12 +1293,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringChannelClass( const KString & Val
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeChannelClass()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorChannelClass( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringChannelClass( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringChannelClass( const KString & Value, KINT32 & ValueOut )
 {
@@ -930,6 +1330,16 @@ const EnumDescriptor TransmitLineStateDescriptor[] =
     { 2 , "Transmitting" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTransmitLineState()
+{
+	return sizeof( TransmitLineStateDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTransmitLineState( KUINT32 Index )
+{
+	return &TransmitLineStateDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTransmitLineState( KINT32 Value )
 {
     return GetEnumAsString( TransmitLineStateDescriptor, sizeof( TransmitLineStateDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -942,12 +1352,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTransmitLineState( const KString 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTransmitLineState()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTransmitLineState( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTransmitLineState( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTransmitLineState( const KString & Value, KINT32 & ValueOut )
 {
@@ -970,6 +1390,16 @@ const EnumDescriptor LineStateCommandDescriptor[] =
     { 3 , "ReturnToLocalLineStateControl" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeLineStateCommand()
+{
+	return sizeof( LineStateCommandDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorLineStateCommand( KUINT32 Index )
+{
+	return &LineStateCommandDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLineStateCommand( KINT32 Value )
 {
     return GetEnumAsString( LineStateCommandDescriptor, sizeof( LineStateCommandDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -982,12 +1412,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLineStateCommand( const KString &
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeLineStateCommand()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorLineStateCommand( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLineStateCommand( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLineStateCommand( const KString & Value, KINT32 & ValueOut )
 {
@@ -1009,6 +1449,16 @@ const EnumDescriptor AdditionalIntrCommParamTypeDescriptor[] =
     { 3 , "GroupAssignmentRecord_Type" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAdditionalIntrCommParamType()
+{
+	return sizeof( AdditionalIntrCommParamTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAdditionalIntrCommParamType( KUINT32 Index )
+{
+	return &AdditionalIntrCommParamTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAdditionalIntrCommParamType( KINT32 Value )
 {
     return GetEnumAsString( AdditionalIntrCommParamTypeDescriptor, sizeof( AdditionalIntrCommParamTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1021,12 +1471,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAdditionalIntrCommParamType( cons
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAdditionalIntrCommParamType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAdditionalIntrCommParamType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAdditionalIntrCommParamType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAdditionalIntrCommParamType( const KString & Value, KINT32 & ValueOut )
 {
@@ -1049,6 +1509,16 @@ const EnumDescriptor AttachedIndicatorDescriptor[] =
     { 2 , "AttachedAttachedIndicator" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAttachedIndicator()
+{
+	return sizeof( AttachedIndicatorDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAttachedIndicator( KUINT32 Index )
+{
+	return &AttachedIndicatorDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedIndicator( KINT32 Value )
 {
     return GetEnumAsString( AttachedIndicatorDescriptor, sizeof( AttachedIndicatorDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -1061,12 +1531,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedIndicator( const KString 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAttachedIndicator()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAttachedIndicator( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedIndicator( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedIndicator( const KString & Value, KINT32 & ValueOut )
 {

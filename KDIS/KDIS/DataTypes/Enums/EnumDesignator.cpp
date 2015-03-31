@@ -59,7 +59,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCodeName( KINT32 Value 
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName( const KString & Value, KINT32 & ValueOut )
 {
@@ -96,7 +96,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCode( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode( const KString & Value, KINT32 & ValueOut )
 {
@@ -140,7 +140,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape( KINT32 Value )
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape( const KString & Value, KINT32 & ValueOut )
 {

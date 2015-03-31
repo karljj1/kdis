@@ -56,6 +56,16 @@ enum ServiceTypeRequested
     Repair                                                            = 2
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeServiceTypeRequested();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorServiceTypeRequested( KUINT32 Index );
+
 KString GetEnumAsStringServiceTypeRequested( KINT32 Value );
 
 // Returns true if a value was found.
@@ -165,6 +175,16 @@ enum RepairTypePerformed
     EjectionSeats                                                     = 10020
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeRepairTypePerformed();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorRepairTypePerformed( KUINT32 Index );
+
 KString GetEnumAsStringRepairTypePerformed( KINT32 Value );
 
 // Returns true if a value was found.
@@ -184,6 +204,16 @@ enum RepairResult
     RepairInterrupted                                                 = 3,
     ServiceCanceledByTheSupplier                                      = 4
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeRepairResult();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorRepairResult( KUINT32 Index );
 
 KString GetEnumAsStringRepairResult( KINT32 Value );
 

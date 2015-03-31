@@ -59,6 +59,16 @@ enum AlternateParameter4
     // 4+ Not used
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAlternateParameter4();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAlternateParameter4( KUINT32 Index );
+
 KString GetEnumAsStringAlternateParameter4( KINT32 Value );
 
 // Returns true if a value was found.
@@ -76,6 +86,16 @@ enum TCAS
     TCAS_I                                                            = 0,
     TCAS_II                                                           = 1
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeTCAS();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorTCAS( KUINT32 Index );
 
 KString GetEnumAsStringTCAS( KINT32 Value );
 
@@ -96,6 +116,16 @@ enum Mode5MessageFormat
     Capability                                                        = 0,
     ActiveInterrogation                                               = 1
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeMode5MessageFormat();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorMode5MessageFormat( KUINT32 Index );
 
 KString GetEnumAsStringMode5MessageFormat( KINT32 Value );
 
@@ -118,6 +148,16 @@ enum Mode5Reply
 	UnableToVerify                                                    = 3
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeMode5Reply();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorMode5Reply( KUINT32 Index );
+
 KString GetEnumAsStringMode5Reply( KINT32 Value );
 
 // Returns true if a value was found.
@@ -138,6 +178,16 @@ enum AntennaSelection
 	Diversity                                                         = 3	
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAntennaSelection();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAntennaSelection( KUINT32 Index );
+
 KString GetEnumAsStringAntennaSelection( KINT32 Value );
 
 // Returns true if a value was found.
@@ -156,6 +206,16 @@ enum PlatformType
     GroundPlatformType                                                = 0,
 	AirPlatformType                                                   = 1
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePlatformType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPlatformType( KUINT32 Index );
 
 KString GetEnumAsStringPlatformType( KINT32 Value );
 
@@ -176,6 +236,16 @@ enum NavigationSource
 	INS                                                               = 2,
 	INS_GPS                                                           = 3	
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeNavigationSource();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorNavigationSource( KUINT32 Index );
 
 KString GetEnumAsStringNavigationSource( KINT32 Value );
 

@@ -49,6 +49,16 @@ const EnumDescriptor ProtocolVersionDescriptor[] =
     { 7 , "IEEE_1278_1_2012" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolVersion()
+{
+	return sizeof( ProtocolVersionDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolVersion( KUINT32 Index )
+{
+	return &ProtocolVersionDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )
 {
     return GetEnumAsString( ProtocolVersionDescriptor, sizeof( ProtocolVersionDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -61,12 +71,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolVersion( const KString & 
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolVersion()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolVersion( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolVersion( const KString & Value, KINT32 & ValueOut )
 {
@@ -164,6 +184,16 @@ const EnumDescriptor PDUTypeDescriptor[] =
     { 135 , "Request_Object_PDU_Type" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePDUType()
+{
+	return sizeof( PDUTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPDUType( KUINT32 Index )
+{
+	return &PDUTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPDUType( KINT32 Value )
 {
     return GetEnumAsString( PDUTypeDescriptor, sizeof( PDUTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -176,12 +206,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPDUType( const KString & Value, K
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePDUType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPDUType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPDUType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPDUType( const KString & Value, KINT32 & ValueOut )
 {
@@ -219,6 +259,16 @@ const EnumDescriptor ProtocolFamilyDescriptor[] =
     { 133 , "Experimental_Entity_Management" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolFamily()
+{
+	return sizeof( ProtocolFamilyDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolFamily( KUINT32 Index )
+{
+	return &ProtocolFamilyDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolFamily( KINT32 Value )
 {
     return GetEnumAsString( ProtocolFamilyDescriptor, sizeof( ProtocolFamilyDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -231,12 +281,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolFamily( const KString & V
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolFamily()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolFamily( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolFamily( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolFamily( const KString & Value, KINT32 & ValueOut )
 {
@@ -257,6 +317,16 @@ const EnumDescriptor TimeStampTypeDescriptor[] =
     { 1, "AbsoluteTime" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTimeStampType()
+{
+	return sizeof( TimeStampTypeDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTimeStampType( KUINT32 Index )
+{
+	return &TimeStampTypeDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTimeStampType( KINT32 Value )
 {
     return GetEnumAsString( TimeStampTypeDescriptor, sizeof( TimeStampTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -269,12 +339,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTimeStampType( const KString & Va
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTimeStampType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTimeStampType( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTimeStampType( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTimeStampType( const KString & Value, KINT32 & ValueOut )
 {
@@ -298,6 +378,16 @@ const EnumDescriptor LVCIndicatorDescriptor[] =
     { 3 , "Constructive LVC" }
 };
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeLVCIndicator()
+{
+	return sizeof( LVCIndicatorDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorLVCIndicator( KUINT32 Index )
+{
+	return &LVCIndicatorDescriptor[Index];
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLVCIndicator( KINT32 Value )
 {
     return GetEnumAsString( LVCIndicatorDescriptor, sizeof( LVCIndicatorDescriptor ) / sizeof( EnumDescriptor ), Value );
@@ -310,12 +400,22 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLVCIndicator( const KString & Val
 
 #else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeLVCIndicator()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorLVCIndicator( KUINT32 Index )
+{
+	return NULL;
+}
+
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLVCIndicator( KINT32 Value )
 {
     KStringStream ss;
     ss << Value;
     return ss.str().c_str();
-};
+}
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLVCIndicator( const KString & Value, KINT32 & ValueOut )
 {

@@ -67,6 +67,16 @@ enum RequiredReliabilityService
     Unacknowledged                                                    = 1
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeRequiredReliabilityService();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorRequiredReliabilityService( KUINT32 Index );
+
 KString GetEnumAsStringRequiredReliabilityService( KINT32 Value );
 
 // Returns true if a value was found.
@@ -93,6 +103,16 @@ enum StopFreezeReason
     AbortTrainingReturnToTacticalOperations                           = 8
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeStopFreezeReason();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorStopFreezeReason( KUINT32 Index );
+
 KString GetEnumAsStringStopFreezeReason( KINT32 Value );
 
 // Returns true if a value was found.
@@ -118,6 +138,16 @@ enum FrozenBehavior
     ReceivePDU                                                        = 2
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeFrozenBehavior();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorFrozenBehavior( KUINT32 Index );
+
 KString GetEnumAsStringFrozenBehavior( KINT32 Value );
 
 // Returns true if a value was found.
@@ -140,6 +170,16 @@ enum AcknowledgeFlag
     TransferControlRequest                                            = 5
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAcknowledgeFlag();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAcknowledgeFlag( KUINT32 Index );
+
 KString GetEnumAsStringAcknowledgeFlag( KINT32 Value );
 
 // Returns true if a value was found.
@@ -159,6 +199,16 @@ enum AcknowledgeResponseFlag
     AbleToComply                                                      = 1,
     UnableToComply                                                    = 2
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAcknowledgeResponseFlag();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAcknowledgeResponseFlag( KUINT32 Index );
 
 KString GetEnumAsStringAcknowledgeResponseFlag( KINT32 Value );
 
@@ -226,6 +276,16 @@ enum ActionID
     TACCSFLOSRequest_Type2                                            = 101
 };
 
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeActionID();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorActionID( KUINT32 Index );
+
 KString GetEnumAsStringActionID( KINT32 Value );
 
 // Returns true if a value was found.
@@ -256,6 +316,16 @@ enum RequestStatus
     TACCSFLOSReply_Type2                                              = 101,
     JoinExerciseRequestRejected                                       = 201
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeRequestStatus();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorRequestStatus( KUINT32 Index );
 
 KString GetEnumAsStringRequestStatus( KINT32 Value );
 
@@ -290,6 +360,16 @@ enum EventType
     EntityInitialization                                              = 8,
     RequestForIndirectFireOrCASMission                                = 9,
 };
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeEventType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorEventType( KUINT32 Index );
 
 KString GetEnumAsStringEventType( KINT32 Value );
 
