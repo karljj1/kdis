@@ -43,7 +43,15 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Intercom_Control_PDU::Intercom_Control_PDU() :
-    m_ui8Command( 0 )
+	m_ui8CtrlTyp( 0 ),
+	m_ui16SrcCommDevID( 0 ),
+	m_ui8SrcLineID( 0 ),
+	m_ui8TransmitPriority( 0 ),
+	m_ui8TransmitLineState( 0 ),
+	m_ui8Command( 0 ),
+	m_ui16MstrCommDeviceID( 0 ),
+	m_ui16MstrChannelID( 0 ),
+	m_ui32IntrParamLen( 0 )
 {
     m_ui8PDUType = IntercomControl_PDU_Type;
     m_ui16PDULength = INTERCOM_CONTROL_PDU_SIZE;
@@ -68,7 +76,6 @@ Intercom_Control_PDU::Intercom_Control_PDU( const Header & H, KDataStream & stre
 
 Intercom_Control_PDU::~Intercom_Control_PDU()
 {
-    m_vICP.clear();
 }
 
 //////////////////////////////////////////////////////////////////////////

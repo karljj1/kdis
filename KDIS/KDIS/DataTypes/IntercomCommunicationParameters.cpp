@@ -50,7 +50,8 @@ IntercomCommunicationParameters::IntercomCommunicationParameters() :
 
 //////////////////////////////////////////////////////////////////////////
 
-IntercomCommunicationParameters::IntercomCommunicationParameters( KDataStream & stream )throw( KException )
+IntercomCommunicationParameters::IntercomCommunicationParameters( KDataStream & stream )throw( KException ) :
+	m_pRecord( NULL )
 {
     Decode( stream );
 }

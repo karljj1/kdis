@@ -30,10 +30,10 @@ http://p.sf.net/kdis/UserGuide
 /********************************************************************
     class:      Intercom_Control_PDU
     DIS:        (6) 1278.1A - 1998
-    created:    2009/02/24
+    created:    24/02/2009
     author:     Karl Jones
 
-    purpose:    Contains detailed infomation about the state of an intercom
+    purpose:    Contains detailed information about the state of an intercom
                 device and the actions it is requesting of another intercom
                 device or the response to a requested action.
 
