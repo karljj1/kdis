@@ -323,7 +323,11 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IFF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream, ignoreHeader );		
+    Header::Decode( stream, ignoreHeader );	
+
+	// Record the size of the stream so we can calculate how much data is left. We could just use 
+	// stream.GetBufferSize() but what if this PDU was part of a PDU bundle...
+	KUINT32 streamSizeSnapshot = stream.GetBufferSize();
 
     stream >> KDIS_STREAM m_EmittingEntityID
            >> KDIS_STREAM m_EventID
@@ -332,9 +336,9 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
            >> m_ui8SystemDesignator
 		   >> m_ui8SystemSpecific
            >> KDIS_STREAM m_FOD;
-
-	KUINT16 remainingData = m_ui16PDULength - HEADER6_PDU_SIZE;
-
+	
+	KUINT16 remainingData = m_ui16PDULength - HEADER6_PDU_SIZE - ( streamSizeSnapshot - stream.GetBufferSize() );
+	
 	// Decode each layer
 	while( remainingData )
 	{

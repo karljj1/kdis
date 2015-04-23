@@ -63,6 +63,7 @@
 	<li>Added get and set functions to EntityKind that support integers as well as enums for kind, domain and country. Makes it simpler when using values that may not be standard of implemented in the enums.</li>
 	<li>Fixed bug in FixedDatum:GetDatumValue. Was using strncpy to return data which causes issues when the data was not a string.</li>
     <li>Fixed bug in Intercom Control PDU and IntercomCommunicationParameters. Some values were not initialized so caused unexpected behaviours during encode/decode. <a href="http://sourceforge.net/p/kdis/bugs/42/">Ticket</a></li>
+    <li>Fixed bug in IFF_PDU::Decode. More info <a href="http://sourceforge.net/p/kdis/bugs/43/">here</a></li>
 </ul>
 
 <!-- Version 2-8-0 !-->
