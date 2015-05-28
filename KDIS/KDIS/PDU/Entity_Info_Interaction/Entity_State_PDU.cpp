@@ -75,6 +75,27 @@ Entity_State_PDU::Entity_State_PDU( const Header & H, KDataStream & stream ) thr
 
 //////////////////////////////////////////////////////////////////////////
 
+Entity_State_PDU::Entity_State_PDU( const Entity_State_PDU & ESPDU ) :
+	Header( ESPDU ),
+	m_EntityID( ESPDU.m_EntityID ),
+    m_ui8ForceID( ESPDU.m_ui8ForceID ),
+    m_ui8NumOfVariableParams( ESPDU.m_ui8NumOfVariableParams ),
+    m_EntityType( ESPDU.m_EntityType ),
+    m_AltEntityType( ESPDU.m_AltEntityType ),
+    m_EntityLinearVelocity( ESPDU.m_EntityLinearVelocity ),
+    m_EntityLocation( ESPDU.m_EntityLocation ),
+    m_EntityOrientation( ESPDU.m_EntityOrientation ),
+    m_EntityAppearance( ESPDU.m_EntityAppearance ),
+    m_DeadReckoningParameter( ESPDU.m_DeadReckoningParameter ),
+    m_EntityMarking( ESPDU.m_EntityMarking ),
+    m_EntityCapabilities( ESPDU.m_EntityCapabilities ),
+	m_vVariableParameters( ESPDU.m_vVariableParameters ),
+	m_pDrCalc( ESPDU.m_pDrCalc ? new DeadReckoningCalculator( *ESPDU.m_pDrCalc ) : NULL )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Entity_State_PDU::Entity_State_PDU( const EntityIdentifier & EI, ForceID ID, const EntityType & Type, const EntityType & AltType,
                                     const Vector & EntityLinearVelocity, const WorldCoordinates & EntityLocation,
                                     const EulerAngles & EntityOrientation, const EntityAppearance & EA,
@@ -551,6 +572,28 @@ void Entity_State_PDU::Encode( KDataStream & stream ) const
     {
         ( *citr )->Encode( stream );
     }
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_PDU & Entity_State_PDU::operator=( const Entity_State_PDU & Other )
+{
+	Header::operator=( Other );
+	m_EntityID = Other.m_EntityID;
+    m_ui8ForceID = Other.m_ui8ForceID;
+    m_ui8NumOfVariableParams = Other.m_ui8NumOfVariableParams;
+    m_EntityType = Other.m_EntityType;
+    m_AltEntityType = Other.m_AltEntityType;
+    m_EntityLinearVelocity = Other.m_EntityLinearVelocity;
+    m_EntityLocation = Other.m_EntityLocation;
+    m_EntityOrientation = Other.m_EntityOrientation;
+    m_EntityAppearance = Other.m_EntityAppearance;
+    m_DeadReckoningParameter = Other.m_DeadReckoningParameter;
+    m_EntityMarking = Other.m_EntityMarking;
+    m_EntityCapabilities = Other.m_EntityCapabilities;
+	m_vVariableParameters = Other.m_vVariableParameters;
+	m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
+	return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////

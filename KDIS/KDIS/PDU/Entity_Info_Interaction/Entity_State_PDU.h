@@ -99,6 +99,8 @@ public:
 
 	Entity_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
+	Entity_State_PDU( const Entity_State_PDU & ESPDU );
+
 	Entity_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KDIS::DATA_TYPE::ENUMS::ForceID ID, const KDIS::DATA_TYPE::EntityType & Type, 
 		              const KDIS::DATA_TYPE::EntityType & AltType, const KDIS::DATA_TYPE::Vector & EntityLinearVelocity, 
 					  const KDIS::DATA_TYPE::WorldCoordinates & EntityLocation, const KDIS::DATA_TYPE::EulerAngles & EntityOrientation, 
@@ -310,6 +312,8 @@ public:
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
+
+	Entity_State_PDU & operator=( const Entity_State_PDU & Other );   
 
     KBOOL operator == ( const Entity_State_PDU & Value ) const;
     KBOOL operator != ( const Entity_State_PDU & Value ) const;
