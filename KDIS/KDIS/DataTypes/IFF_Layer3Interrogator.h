@@ -40,14 +40,14 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./IFF_Layer3.h"
+#include "./IFF_LayerFormat.h"
 #include "./SimulationIdentifier.h"
 #include "./Mode5InterrogatorBasicData.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3Interrogator : public IFF_Layer3
+class KDIS_EXPORT IFF_Layer3Interrogator : public IFF_LayerFormat
 {
 protected:
 

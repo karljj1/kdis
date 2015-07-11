@@ -28,62 +28,50 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      IFF_Layer3Transponder
+    class:      IFF_Layer4Interrogator
     DIS:        (7) 1278.1 - 2012
     created:    27/06/2014
     author:     Karl Jones
 
-    purpose:    Layer 3 Mode 5 transponder functional data.	            
+    purpose:               
 
-    Size:       224 bits / 28 octets - min size
+    Size:       xx bits / xx octets - min size
 *********************************************************************/
 
 #pragma once
 
 #include "./IFF_LayerFormat.h"
 #include "./SimulationIdentifier.h"
-#include "./Mode5TransponderBasicData.h"
+#include "./Mode5InterrogatorBasicData.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3Transponder : public IFF_LayerFormat
+class KDIS_EXPORT IFF_Layer4Interrogator : public IFF_LayerFormat
 {
 protected:
-
-	Mode5TransponderBasicData m_BasicData;
-		
+	
 public:
 	
-    IFF_Layer3Transponder();
+    IFF_Layer4Interrogator();
 
-    IFF_Layer3Transponder( KDataStream & stream ) throw( KException );
+    IFF_Layer4Interrogator( KDataStream & stream ) throw( KException );
 
-	IFF_Layer3Transponder( const SimulationIdentifier & ReportingSimulation, const Mode5TransponderBasicData & Data,
-		                   std::vector<StdVarPtr> & Records );
+	//IFF_Layer4Interrogator( const SimulationIdentifier & ReportingSimulation, const Mode5InterrogatorBasicData & Data,
+	//	                   std::vector<StdVarPtr> & Records );
 
-    IFF_Layer3Transponder( const LayerHeader & H, KDataStream & stream ) throw( KException );
+    //IFF_Layer4Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException );
 
-    virtual ~IFF_Layer3Transponder();
+    virtual ~IFF_Layer4Interrogator();
 	
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::SetBasicData
-    //              KDIS::DATA_TYPE::IFF_Layer3Transponder::GetBasicData
-    // Description: Basic Mode 5 transponder data that is always required to be transmitted.
-    // Parameter:   const Mode5TransponderBasicData & BD
-    //************************************
-    void SetBasicData( const Mode5TransponderBasicData & BD );
-    const Mode5TransponderBasicData & GetBasicData() const;
-    Mode5TransponderBasicData & GetBasicDatan();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetAsString
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::GetAsString
     // Description: Returns a string representation 
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Decode
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
@@ -91,15 +79,15 @@ public:
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Encode
+    // FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const IFF_Layer3Transponder & Value ) const;
-    KBOOL operator != ( const IFF_Layer3Transponder & Value ) const;
+    KBOOL operator == ( const IFF_Layer4Interrogator & Value ) const;
+    KBOOL operator != ( const IFF_Layer4Interrogator & Value ) const;
 };
 
 } // END namespace DATA_TYPE

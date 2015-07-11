@@ -28,14 +28,14 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      IFF_Layer3
+    class:      IFF_LayerFormat
     DIS:        (7) 1278.1 - 2012
     created:    23/09/2013
     author:     Karl Jones
 
-    purpose:    Base class for Layer 3 Mode 5 interrogator and transponder functional data.
-	            Note: The Layer 1 System Type field isused to determine whether Layer 3 
-				represents a Mode 5 capable interrogator or transponder.
+    purpose:    Base class for Layer 3/4 Mode 5/S interrogator and transponder functional data.
+	            Note: The Layer 1 System Type field isused to determine whether Layer
+				represents a interrogator or transponder.
 
     Size:       224 bits / 28 octets - min size
 *********************************************************************/
@@ -49,7 +49,7 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3 : public LayerHeader
+class KDIS_EXPORT IFF_LayerFormat : public LayerHeader
 {
 protected:
 
@@ -67,15 +67,15 @@ public:
 
     static const KUINT16 IFF_LAYER3_SIZE = 28; // Min size
 
-    IFF_Layer3();
+    IFF_LayerFormat();
 
-	IFF_Layer3( const LayerHeader & H );
+	IFF_LayerFormat( const LayerHeader & H );
 
-    virtual ~IFF_Layer3();
+    virtual ~IFF_LayerFormat();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::SetReportingSimulation
-    //              KDIS::DATA_TYPE::IFF_Layer3::GetReportingSimulation
+    // FullName:    KDIS::DATA_TYPE::IFF_LayerFormat::SetReportingSimulation
+    //              KDIS::DATA_TYPE::IFF_LayerFormat::GetReportingSimulation
     // Description: The simulation reporting this IFF PDU.
     // Parameter:   const SimulationIdentifier & RS
     //************************************
@@ -84,16 +84,16 @@ public:
     SimulationIdentifier & GetReportingSimulation();
 			
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::GetNumberDataRecords
+    // FullName:    KDIS::DATA_TYPE::IFF_LayerFormat::GetNumberDataRecords
     // Description: The number of IFF Data records in this PDU.
     //************************************
 	KUINT16 GetNumberDataRecords() const;
 
 	//************************************
-    // FullName:    KDIS::PDU::IFF_Layer3::AddDataRecord
-    //              KDIS::PDU::IFF_Layer3::SetDataRecords
-    //              KDIS::PDU::IFF_Layer3::GetDataRecords
-    //              KDIS::PDU::IFF_Layer3::ClearDataRecords
+    // FullName:    KDIS::PDU::IFF_LayerFormat::AddDataRecord
+    //              KDIS::PDU::IFF_LayerFormat::SetDataRecords
+    //              KDIS::PDU::IFF_LayerFormat::GetDataRecords
+    //              KDIS::PDU::IFF_LayerFormat::ClearDataRecords
     // Description: IFF Data records are used when variable records are required to be included in the layer.
 	//              They are identical to Standard Variable Specification record format except that alignment is to
 	//              a 32-bit boundary for each IFF Data record instead of to a 64-bit boundary. 
@@ -106,8 +106,8 @@ public:
 	const std::vector<StdVarPtr> & GetDataRecords() const;
     void ClearDataRecords();
 
-    KBOOL operator == ( const IFF_Layer3 & Value ) const;
-    KBOOL operator != ( const IFF_Layer3 & Value ) const;
+    KBOOL operator == ( const IFF_LayerFormat & Value ) const;
+    KBOOL operator != ( const IFF_LayerFormat & Value ) const;
 };
 
 } // END namespace DATA_TYPE

@@ -76,6 +76,8 @@ http://p.sf.net/kdis/UserGuide
 #if DIS_VERSION > 6
 #include "./../../DataTypes/IFF_Layer3Interrogator.h"
 #include "./../../DataTypes/IFF_Layer3Transponder.h"
+//#include "./../../DataTypes/IFF_Layer4Interrogator.h"
+//#include "./../../DataTypes/IFF_Layer4Transponder.h"
 #endif
 
 namespace KDIS {

@@ -64,7 +64,7 @@ IFF_Layer3Interrogator::IFF_Layer3Interrogator( const SimulationIdentifier & Rep
 //////////////////////////////////////////////////////////////////////////
 
 IFF_Layer3Interrogator::IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
-	IFF_Layer3( H )
+	IFF_LayerFormat( H )
 {
     Decode( stream, false );
 }
@@ -177,7 +177,7 @@ void IFF_Layer3Interrogator::Encode( KDataStream & stream ) const
 
 KBOOL IFF_Layer3Interrogator::operator == ( const IFF_Layer3Interrogator & Value ) const
 {
-    if( IFF_Layer3::operator !=( Value ) )          return false;    
+    if( IFF_LayerFormat::operator !=( Value ) )          return false;    
     if( m_BasicData          != Value.m_BasicData ) return false; 
     return true;
 }

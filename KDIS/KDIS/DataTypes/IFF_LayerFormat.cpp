@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IFF_Layer3.h"
+#include "./IFF_LayerFormat.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,7 +40,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3::IFF_Layer3() :
+IFF_LayerFormat::IFF_LayerFormat() :
 	m_ui16Padding( 0 ),
 	m_ui16NumIffRecs( 0 )	
 {
@@ -50,41 +50,41 @@ IFF_Layer3::IFF_Layer3() :
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3::IFF_Layer3( const LayerHeader & H ) :
+IFF_LayerFormat::IFF_LayerFormat( const LayerHeader & H ) :
 	LayerHeader( H )
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3::~IFF_Layer3()
+IFF_LayerFormat::~IFF_LayerFormat()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::SetReportingSimulation( const SimulationIdentifier & RS )
+void IFF_LayerFormat::SetReportingSimulation( const SimulationIdentifier & RS )
 {
 	m_RptSim = RS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const SimulationIdentifier & IFF_Layer3::GetReportingSimulation() const
+const SimulationIdentifier & IFF_LayerFormat::GetReportingSimulation() const
 {
 	return m_RptSim;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier & IFF_Layer3::GetReportingSimulation()
+SimulationIdentifier & IFF_LayerFormat::GetReportingSimulation()
 {
 	return m_RptSim;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::AddDataRecord( StdVarPtr DR )
+void IFF_LayerFormat::AddDataRecord( StdVarPtr DR )
 {
 	m_vStdVarRecs.push_back( DR );
 	++m_ui16NumIffRecs;
@@ -93,7 +93,7 @@ void IFF_Layer3::AddDataRecord( StdVarPtr DR )
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::SetDataRecords( const std::vector<StdVarPtr> & DRS )
+void IFF_LayerFormat::SetDataRecords( const std::vector<StdVarPtr> & DRS )
 {
 	m_vStdVarRecs = DRS;
 
@@ -114,14 +114,14 @@ void IFF_Layer3::SetDataRecords( const std::vector<StdVarPtr> & DRS )
 
 //////////////////////////////////////////////////////////////////////////
 
-const std::vector<StdVarPtr> & IFF_Layer3::GetDataRecords() const
+const std::vector<StdVarPtr> & IFF_LayerFormat::GetDataRecords() const
 {
 	return m_vStdVarRecs;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3::ClearDataRecords()
+void IFF_LayerFormat::ClearDataRecords()
 {
 	// Reset the length.
 	m_ui16LayerLength = IFF_LAYER3_SIZE;
@@ -132,14 +132,14 @@ void IFF_Layer3::ClearDataRecords()
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 IFF_Layer3::GetNumberDataRecords() const
+KUINT16 IFF_LayerFormat::GetNumberDataRecords() const
 {
 	return m_ui16NumIffRecs;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_Layer3::operator == ( const IFF_Layer3 & Value ) const
+KBOOL IFF_LayerFormat::operator == ( const IFF_LayerFormat & Value ) const
 {
     if( LayerHeader::operator !=( Value ) )            return false;    
     if( m_RptSim              != Value.m_RptSim )      return false;
@@ -149,7 +149,7 @@ KBOOL IFF_Layer3::operator == ( const IFF_Layer3 & Value ) const
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_Layer3::operator != ( const IFF_Layer3 & Value ) const
+KBOOL IFF_LayerFormat::operator != ( const IFF_LayerFormat & Value ) const
 {
     return !( *this == Value );
 }
