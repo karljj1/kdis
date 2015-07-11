@@ -1553,8 +1553,70 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedIndicator( const KString 
 	return false; // Maybe throw an exception?
 }
 
-#endif // DIS 7
+#endif 
 
-#endif
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for ModeSInterrogatorStatusTransmitState
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor ModeSInterrogatorStatusTransmitStateDescriptor[] =
+{
+	{ 0, "NoStatementModeSInterrogatorStatusTransmitState" },
+	{ 1, "RollCall" },
+	{ 2, "AllCall" },
+	{ 3, "LockoutOverride" },
+	{ 4, "TemporaryLockout" },
+	{ 5, "IntermittentLockout" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModeSInterrogatorStatusTransmitState()
+{
+	return sizeof( ModeSInterrogatorStatusTransmitStateDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSInterrogatorStatusTransmitState( KUINT32 Index )
+{
+	return &ModeSInterrogatorStatusTransmitStateDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSInterrogatorStatusTransmitState( KINT32 Value )
+{
+	return GetEnumAsString(ModeSInterrogatorStatusTransmitStateDescriptor, sizeof( ModeSInterrogatorStatusTransmitStateDescriptor ) / sizeof( EnumDescriptor ), Value);
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSInterrogatorStatusTransmitState( const KString & Value, KINT32 & ValueOut )
+{
+	return GetEnumFromString(ModeSInterrogatorStatusTransmitStateDescriptor, sizeof( ModeSInterrogatorStatusTransmitStateDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut);
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModeSInterrogatorStatusTransmitState()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSInterrogatorStatusTransmitState( KUINT32 Index )
+{
+	return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSInterrogatorStatusTransmitState( KINT32 Value )
+{
+	KStringStream ss;
+	ss << Value;
+	return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSInterrogatorStatusTransmitState( const KString & Value, KINT32 & ValueOut )
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif 
+
+#endif // DIS 7
 
 

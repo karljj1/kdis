@@ -51,19 +51,18 @@ protected:
 		
 	// TODO: You are here
 
-   // union
-   // {
-   //     struct
-   //     {
-   //         KUINT8 m_ui8IffMis  : 3;
-			//KUINT8 m_ui8MsgFrmt : 1;
-   //         KUINT8 m_ui8Padding : 1;
-			//KUINT8 m_ui8OnOff   : 1;
-			//KUINT8 m_ui8Dmg     : 1;
-			//KUINT8 m_ui8MalFnc  : 1;
-   //     };
-   //     KUINT8 m_ui8Status;
-   // } m_StatusUnion;
+    union
+    {
+        struct
+        {
+            KUINT8 m_ui8OnOff    : 1;
+			KUINT8 m_ui8Transmit : 3;
+            KUINT8 m_ui8Dmg      : 1;
+			KUINT8 m_ui8MalFnc   : 1;
+			KUINT8 m_ui8Padding  : 2;
+        };
+        KUINT8 m_ui8Status;
+    } m_StatusUnion;
 
 public:
 
@@ -77,7 +76,27 @@ public:
     //                         KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction );
 
     virtual ~ModeSInterrogatorStatus();
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSInterrogatorStatus::SetOnOffStatus
+	//              KDIS::DATA_TYPE::ModeSInterrogatorStatus::GetOnOffStatus	
+	// Description: Indicates whether the Mode S interrogation capability is On(true) or Off (false).
+	// Parameter:   KBOOL OOS
+	//************************************
+	void SetOnOffStatus( KBOOL OOS );
+	KBOOL GetOnOffStatus() const;
 	
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSInterrogatorStatus::SetOnOffStatus
+	//              KDIS::DATA_TYPE::ModeSInterrogatorStatus::GetOnOffStatus	
+	// Description: Indicates the state of the Mode S interrogator.
+	// Parameter:   ModeSInterrogatorStatusTransmitState TS
+	//************************************
+	void SetTransmitState(KDIS::DATA_TYPE::ENUMS::ModeSInterrogatorStatusTransmitState TS);
+	KDIS::DATA_TYPE::ENUMS::ModeSInterrogatorStatusTransmitState GetTransmitState() const;
+
+	
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModeSInterrogatorStatus::GetAsString
     // Description: Returns a string representation

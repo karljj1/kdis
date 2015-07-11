@@ -40,6 +40,14 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
+
+ModeSInterrogatorStatus::ModeSInterrogatorStatus()
+{
+	m_StatusUnion.m_ui8Status = 0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 ModeSInterrogatorStatus::ModeSInterrogatorStatus( KDataStream & stream ) throw( KException )
 {
     Decode( stream );
@@ -49,6 +57,34 @@ ModeSInterrogatorStatus::ModeSInterrogatorStatus( KDataStream & stream ) throw( 
 
 ModeSInterrogatorStatus::~ModeSInterrogatorStatus()
 {
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSInterrogatorStatus::SetOnOffStatus( KBOOL OOS )
+{
+	m_StatusUnion.m_ui8OnOff = OOS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSInterrogatorStatus::GetOnOffStatus() const
+{
+	return m_StatusUnion.m_ui8OnOff;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSInterrogatorStatus::SetTransmitState( ModeSInterrogatorStatusTransmitState TS )
+{
+	m_StatusUnion.m_ui8Transmit = TS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeSInterrogatorStatusTransmitState ModeSInterrogatorStatus::GetTransmitState() const
+{
+	( ModeSInterrogatorStatusTransmitState )m_StatusUnion.m_ui8Transmit;
 }
 
 //////////////////////////////////////////////////////////////////////////
