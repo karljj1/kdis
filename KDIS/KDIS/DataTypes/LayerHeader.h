@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      LayerHeader
-    created:    2008/12/07
+    /reated:    07/12/2008
     author:     Karl Jones
 
     purpose:    Identifies the additional layer number, layer-specific

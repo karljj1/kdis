@@ -216,6 +216,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
 	#${DATATYPES_DIR}/IFF_Layer4Transponder.h
 	${DATATYPES_DIR}/IFF_Layer4Interrogator.h
 	${DATATYPES_DIR}/Mode5InterrogatorBasicData.h
+	${DATATYPES_DIR}/ModeSInterrogatorBasicData.h
 	${DATATYPES_DIR}/Mode5TransponderBasicData.h	
 	${DATATYPES_DIR}/Mode5InterrogatorStatus.h
 	${DATATYPES_DIR}/Mode5TransponderStatus.h
@@ -383,6 +384,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/IFF_Layer3Transponder.cpp
 	${DATATYPES_DIR}/IFF_Layer3Interrogator.cpp
 	${DATATYPES_DIR}/Mode5InterrogatorBasicData.cpp
+	${DATATYPES_DIR}/ModeSInterrogatorBasicData.cpp
 	${DATATYPES_DIR}/Mode5TransponderBasicData.cpp	
 	${DATATYPES_DIR}/Mode5InterrogatorStatus.cpp
 	${DATATYPES_DIR}/Mode5TransponderStatus.cpp

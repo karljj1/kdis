@@ -28,65 +28,77 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      IFF_Layer4Interrogator
+    class:      ModeSInterrogatorBasicData
     DIS:        (7) 1278.1 - 2012
     created:    11/08/2015
     author:     Karl Jones
 
-    purpose:    Layer 4 Mode S transponder functional data.	      
+    purpose:    
 
-    Size:       xx bits / xx octets - min size
+    Size:       xx bits / x octets 
 *********************************************************************/
 
 #pragma once
 
-#include "./IFF_LayerFormat.h"
-#include "./ModeSInterrogatorBasicData.h" // TODO: YOU ARE HERE
+#include "./DataTypeBase.h"
+//#include "./ModeSInterrogatorStatus.h"
+#include <bitset>
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-class KDIS_EXPORT IFF_Layer4Interrogator : public IFF_LayerFormat
+	
+class KDIS_EXPORT ModeSInterrogatorBasicData : public DataTypeBase
 {
 protected:
 	
+	/*Mode5InterrogatorStatus m_Status;
+
+	KUINT8 m_ui8Padding;
+
+	KUINT16 m_ui16Padding1;
+
+	KUINT32 m_ui32MsgFormats;
+
+	EntityIdentifier m_InterrogatedID;
+*/
+	KUINT16 m_ui16Padding2;
+
 public:
-	
-    IFF_Layer4Interrogator();
 
-    IFF_Layer4Interrogator( KDataStream & stream ) throw( KException );
+    static const KUINT16 MODE_5_INTERROGATOR_BASIC_DATA_SIZE = 16; 
 
-	//IFF_Layer4Interrogator( const SimulationIdentifier & ReportingSimulation, const Mode5InterrogatorBasicData & Data,
-	//	                   std::vector<StdVarPtr> & Records );
+    ModeSInterrogatorBasicData();
 
-    //IFF_Layer4Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException );
+	//ModeSInterrogatorBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID );
 
-    virtual ~IFF_Layer4Interrogator();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::GetAsString
-    // Description: Returns a string representation 
+    ModeSInterrogatorBasicData( KDataStream & stream ) throw( KException );
+
+    virtual ~ModeSInterrogatorBasicData();
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::ModeSInterrogatorBasicData::GetAsString
+    // Description: Returns a string representation
+    //              of the PDU.
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::Decode
+    // FullName:    KDIS::DATA_TYPE::ModeSInterrogatorBasicData::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::Encode
+    // FullName:    KDIS::DATA_TYPE::ModeSInterrogatorBasicData::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const IFF_Layer4Interrogator & Value ) const;
-    KBOOL operator != ( const IFF_Layer4Interrogator & Value ) const;
+    KBOOL operator == ( const ModeSInterrogatorBasicData & Value ) const;
+    KBOOL operator != ( const ModeSInterrogatorBasicData & Value ) const;
 };
 
 } // END namespace DATA_TYPE
