@@ -40,8 +40,8 @@ using namespace DATA_TYPE;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ModeSInterrogatorBasicData::ModeSInterrogatorBasicData() 
-	//m_ui8Padding( 0 ),
+ModeSInterrogatorBasicData::ModeSInterrogatorBasicData() :
+	m_ui8Padding( 0 )
 	//m_ui16Padding1( 0 ),
 	//m_ui32MsgFormats( 0 ),
 	//m_ui16Padding2( 0 )
@@ -59,6 +59,21 @@ ModeSInterrogatorBasicData::ModeSInterrogatorBasicData()
 //	m_ui16Padding2( 0 )
 //{
 //}
+
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSInterrogatorBasicData::SetStatus(const ModeSInterrogatorStatus & S)
+{
+	m_Status = S;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const ModeSInterrogatorStatus & ModeSInterrogatorBasicData::GetStatus() const
+{
+	return m_Status;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -91,7 +106,7 @@ KString ModeSInterrogatorBasicData::GetAsString() const
 
 void ModeSInterrogatorBasicData::Decode( KDataStream & stream ) throw( KException )
 {
-    if( stream.GetBufferSize() < MODE_5_INTERROGATOR_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+	if( stream.GetBufferSize() < MODE_S_INTERROGATOR_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	
 /*    stream >> KDIS_STREAM m_Status
 		   >> m_ui8Padding

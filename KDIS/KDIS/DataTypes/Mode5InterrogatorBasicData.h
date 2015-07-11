@@ -80,7 +80,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetStatus
     //              KDIS::DATA_TYPE::Mode5InterrogatorBasicData::GetStatus	
     // Description: The Mode 5 Message Formats supported by this Mode 5 interrogator.
-    // Parameter:   const InterrogatorStatus & S
+    // Parameter:   const Mode5InterrogatorStatus & S
     //************************************
 	void SetStatus( const Mode5InterrogatorStatus & S );
 	const Mode5InterrogatorStatus & GetStatus() const;

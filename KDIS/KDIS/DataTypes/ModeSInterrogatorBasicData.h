@@ -41,7 +41,7 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./DataTypeBase.h"
-//#include "./ModeSInterrogatorStatus.h"
+#include "./ModeSInterrogatorStatus.h"
 #include <bitset>
 
 namespace KDIS {
@@ -51,10 +51,10 @@ class KDIS_EXPORT ModeSInterrogatorBasicData : public DataTypeBase
 {
 protected:
 	
-	/*Mode5InterrogatorStatus m_Status;
+	ModeSInterrogatorStatus m_Status;
 
 	KUINT8 m_ui8Padding;
-
+	/*
 	KUINT16 m_ui16Padding1;
 
 	KUINT32 m_ui32MsgFormats;
@@ -65,7 +65,7 @@ protected:
 
 public:
 
-    static const KUINT16 MODE_5_INTERROGATOR_BASIC_DATA_SIZE = 16; 
+    static const KUINT16 MODE_S_INTERROGATOR_BASIC_DATA_SIZE = 0000000000000000000; 
 
     ModeSInterrogatorBasicData();
 
@@ -74,6 +74,16 @@ public:
     ModeSInterrogatorBasicData( KDataStream & stream ) throw( KException );
 
     virtual ~ModeSInterrogatorBasicData();
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSInterrogatorBasicData::SetStatus
+	//              KDIS::DATA_TYPE::ModeSInterrogatorBasicData::GetStatus	
+	// Description: The Mode 5 Message Formats supported by this Mode 5 interrogator.
+	// Parameter:   const ModeSInterrogatorStatus & S
+	//************************************
+	void SetStatus( const ModeSInterrogatorStatus & S );
+	const ModeSInterrogatorStatus & GetStatus() const;
+	ModeSInterrogatorStatus & GetStatus();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::ModeSInterrogatorBasicData::GetAsString
