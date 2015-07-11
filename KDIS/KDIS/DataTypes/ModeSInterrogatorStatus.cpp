@@ -84,7 +84,7 @@ void ModeSInterrogatorStatus::SetTransmitState( ModeSInterrogatorStatusTransmitS
 
 ModeSInterrogatorStatusTransmitState ModeSInterrogatorStatus::GetTransmitState() const
 {
-	( ModeSInterrogatorStatusTransmitState )m_StatusUnion.m_ui8Transmit;
+	return ( ModeSInterrogatorStatusTransmitState )m_StatusUnion.m_ui8Transmit;
 }
 
 //////////////////////////////////////////////////////////////////////////
