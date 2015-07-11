@@ -48,6 +48,19 @@ ModeSInterrogatorStatus::ModeSInterrogatorStatus()
 
 //////////////////////////////////////////////////////////////////////////
 
+ModeSInterrogatorStatus::ModeSInterrogatorStatus( KBOOL OnOffStatus, KDIS::DATA_TYPE::ENUMS::ModeSInterrogatorStatusTransmitState TS,
+	                                              KBOOL Damaged, KBOOL Malfunction )
+{
+	m_StatusUnion.m_ui8Status = 0;
+	m_StatusUnion.m_ui8OnOff = OnOffStatus;
+	m_StatusUnion.m_ui8Transmit = TS;
+	m_StatusUnion.m_ui8Dmg = Damaged;
+	m_StatusUnion.m_ui8MalFnc = Malfunction;
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+
 ModeSInterrogatorStatus::ModeSInterrogatorStatus( KDataStream & stream ) throw( KException )
 {
     Decode( stream );
@@ -89,16 +102,43 @@ ModeSInterrogatorStatusTransmitState ModeSInterrogatorStatus::GetTransmitState()
 
 //////////////////////////////////////////////////////////////////////////
 
+void ModeSInterrogatorStatus::SetDamaged( KBOOL D )
+{
+	m_StatusUnion.m_ui8Dmg = D;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSInterrogatorStatus::IsDamaged() const
+{
+	return m_StatusUnion.m_ui8Dmg;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSInterrogatorStatus::SetMalfunction( KBOOL M )
+{
+	m_StatusUnion.m_ui8MalFnc = M;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSInterrogatorStatus::HasMalfunction() const
+{
+	return m_StatusUnion.m_ui8MalFnc;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString ModeSInterrogatorStatus::GetAsString() const
 {
     KStringStream ss;	
-	//ss << "Mode 5 Interrogator Status:"
-	//   << "\n\tIFF Mission:    " << ( KUINT16 )m_StatusUnion.m_ui8IffMis
-	//   << "\n\tMessage Format: " << GetEnumAsStringMode5MessageFormat( m_StatusUnion.m_ui8MsgFrmt )
-	//   << "\n\tOn/Off Status:  " << ( KBOOL )m_StatusUnion.m_ui8OnOff
-	//   << "\n\tDamaged:        " << ( KBOOL )m_StatusUnion.m_ui8Dmg 
-	//   << "\n\tMalfunction:    " << ( KBOOL )m_StatusUnion.m_ui8MalFnc
-	//   << "\n";
+	ss << "Mode S Interrogator Status:"
+	   << "\n\tOn/Off Status:  " << ( KBOOL )m_StatusUnion.m_ui8OnOff
+	   << "\nTransmit State:   " << GetEnumAsStringModeSInterrogatorStatusTransmitState( m_StatusUnion.m_ui8Transmit )
+	   << "\n\tDamaged:        " << ( KBOOL )m_StatusUnion.m_ui8Dmg 
+	   << "\n\tMalfunction:    " << ( KBOOL )m_StatusUnion.m_ui8MalFnc
+	   << "\n";
 
     return ss.str();
 }
@@ -107,9 +147,8 @@ KString ModeSInterrogatorStatus::GetAsString() const
 
 void ModeSInterrogatorStatus::Decode( KDataStream & stream ) throw( KException )
 {
- //   if( stream.GetBufferSize() < MODE_5_INTERROGATOR_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-	//
-	//stream >> m_StatusUnion.m_ui8Status;	
+	if( stream.GetBufferSize() < MODE_S_INTERROGATOR_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+	stream >> m_StatusUnion.m_ui8Status;	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -127,14 +166,14 @@ KDataStream ModeSInterrogatorStatus::Encode() const
 
 void ModeSInterrogatorStatus::Encode( KDataStream & stream ) const
 {
-	//stream << m_StatusUnion.m_ui8Status;
+	stream << m_StatusUnion.m_ui8Status;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL ModeSInterrogatorStatus::operator == ( const ModeSInterrogatorStatus & Value ) const
 {
-	//if( m_StatusUnion.m_ui8Status != Value.m_StatusUnion.m_ui8Status ) return false;
+	if( m_StatusUnion.m_ui8Status != Value.m_StatusUnion.m_ui8Status ) return false;
     return true;
 }
 

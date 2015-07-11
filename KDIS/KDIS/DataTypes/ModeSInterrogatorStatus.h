@@ -33,9 +33,9 @@ http://p.sf.net/kdis/UserGuide
     created:    11/08/2015
     author:     Karl Jones
 
-    purpose:    
+    purpose:    Indicates the status of an interrogator to interrogate Mode S.
 
-    Size:       x bits / x octet
+    Size:       8 bits / 1 octet
 *********************************************************************/
 
 #pragma once
@@ -48,9 +48,7 @@ namespace DATA_TYPE {
 class KDIS_EXPORT ModeSInterrogatorStatus : public DataTypeBase
 {
 protected:
-		
-	// TODO: You are here
-
+	
     union
     {
         struct
@@ -66,14 +64,14 @@ protected:
 
 public:
 
-    static const KUINT16 MODE_5_INTERROGATOR_STATUS_SIZE = 1; 
+    static const KUINT16 MODE_S_INTERROGATOR_STATUS_SIZE = 1; 
 
     ModeSInterrogatorStatus();
 
     ModeSInterrogatorStatus( KDataStream & stream ) throw( KException );
 
-	//ModeSInterrogatorStatus( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
-    //                         KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction );
+	ModeSInterrogatorStatus( KBOOL OnOffStatus, KDIS::DATA_TYPE::ENUMS::ModeSInterrogatorStatusTransmitState TS,
+		                     KBOOL Damaged, KBOOL Malfunction );
 
     virtual ~ModeSInterrogatorStatus();
 
@@ -92,10 +90,26 @@ public:
 	// Description: Indicates the state of the Mode S interrogator.
 	// Parameter:   ModeSInterrogatorStatusTransmitState TS
 	//************************************
-	void SetTransmitState(KDIS::DATA_TYPE::ENUMS::ModeSInterrogatorStatusTransmitState TS);
+	void SetTransmitState( KDIS::DATA_TYPE::ENUMS::ModeSInterrogatorStatusTransmitState TS );
 	KDIS::DATA_TYPE::ENUMS::ModeSInterrogatorStatusTransmitState GetTransmitState() const;
 
-	
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSInterrogatorStatus::SetDamaged
+	//              KDIS::DATA_TYPE::ModeSInterrogatorStatus::IsDamaged	
+	// Description: Indicate whether there is damage to the Mode S interrogation capability.
+	// Parameter:   KBOOL D - Damaged(true) / not damaged(false).
+	//************************************
+	void SetDamaged( KBOOL D );
+	KBOOL IsDamaged() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSInterrogatorStatus::SetMalfunction
+	//              KDIS::DATA_TYPE::ModeSInterrogatorStatus::HasMalfunction	
+	// Description: Indicate whether there is a malfunction of the Mode s interrogation capability. 
+	// Parameter:   KBOOL M - Malfunction(true) / No Malfunction(false).
+	//************************************
+	void SetMalfunction( KBOOL M );
+	KBOOL HasMalfunction() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModeSInterrogatorStatus::GetAsString
