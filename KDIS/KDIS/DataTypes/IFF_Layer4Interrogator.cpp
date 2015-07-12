@@ -160,7 +160,7 @@ KDataStream IFF_Layer4Interrogator::Encode() const
 
 void IFF_Layer4Interrogator::Encode( KDataStream & stream ) const
 {
-	LayerHeader::Encode(stream);
+	LayerHeader::Encode( stream );
 
 	stream << KDIS_STREAM m_RptSim
 		   << KDIS_STREAM m_BasicData
@@ -169,9 +169,9 @@ void IFF_Layer4Interrogator::Encode( KDataStream & stream ) const
 
 	vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citr = m_vStdVarRecs.begin();
 	vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citrEnd = m_vStdVarRecs.end();
-	for (; citr != citrEnd; ++citr)
+	for( ; citr != citrEnd; ++citr )
 	{
-		(*citr)->Encode(stream);
+		( *citr )->Encode( stream );
 	}
 }
 

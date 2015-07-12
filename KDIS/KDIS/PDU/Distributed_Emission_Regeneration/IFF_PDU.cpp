@@ -365,11 +365,26 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
 						break;
 				}							
 				break;
+
+			case 4:
+				switch( m_SystemID.GetSystemType() )
+				{
+				case Mark_X_XII_ATCRBS_ModeS_Transponder:
+				case RRB_Transponder:
+				case Soviet_Transponder:
+					//layer = new IFF_Layer4Transponder( hdr, stream );
+					break;
+
+				case Mark_X_XII_ATCRBS_ModeS_Interrogator:
+				case Soviet_Interrogator:
+					layer = new IFF_Layer4Interrogator( hdr, stream );
+					break;
+				}
+				break;
+			
+			//case 5: layer = new IFF_Layer5( hdr, stream ); break;
 			#endif
 			
-			//case 4: layer = new IFF_Layer4( hdr, stream ); break;
-			//case 5: layer = new IFF_Layer5( hdr, stream ); break;
-				
 			default: throw KException( __FUNCTION__, UNSUPPORTED_DATATYPE, hdr.GetLayerNumber() );						
 		}
 
