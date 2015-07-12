@@ -33,9 +33,9 @@ http://p.sf.net/kdis/UserGuide
     created:    11/08/2015
     author:     Karl Jones
 
-    purpose:    
+    purpose:    Mode S Interrogator Basic Data record is included in the Mode S Interrogator format for Layer 4.
 
-    Size:       xx bits / x octets 
+    Size:       192 bits / 24 octets 
 *********************************************************************/
 
 #pragma once
@@ -57,22 +57,18 @@ protected:
 	KUINT8 m_ui8Padding;
 
 	ModeSLevelsPresent m_LvlsPresent;
-	/*
-	KUINT16 m_ui16Padding1;
 
-	KUINT32 m_ui32MsgFormats;
+	KUINT8 m_ui8Padding2;
 
-	EntityIdentifier m_InterrogatedID;
-*/
-	KUINT16 m_ui16Padding2;
+	KUINT32 m_ui32Padding[5];
 
 public:
 
-    static const KUINT16 MODE_S_INTERROGATOR_BASIC_DATA_SIZE = 0000000000000000000; 
+    static const KUINT16 MODE_S_INTERROGATOR_BASIC_DATA_SIZE = 24; 
 
     ModeSInterrogatorBasicData();
 
-	//ModeSInterrogatorBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID );
+	ModeSInterrogatorBasicData( const ModeSInterrogatorStatus & S, const ModeSLevelsPresent & LP );
 
     ModeSInterrogatorBasicData( KDataStream & stream ) throw( KException );
 

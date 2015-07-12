@@ -41,25 +41,34 @@ using namespace DATA_TYPE;
 //////////////////////////////////////////////////////////////////////////
 
 ModeSInterrogatorBasicData::ModeSInterrogatorBasicData() :
-	m_ui8Padding( 0 )
-	//m_ui16Padding1( 0 ),
-	//m_ui32MsgFormats( 0 ),
-	//m_ui16Padding2( 0 )
+	m_ui8Padding( 0 ),
+	m_ui8Padding2( 0 )
 {	
+	for( int i = 0; i < 5; ++i )
+	{
+		m_ui32Padding[i] = 0;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-//ModeSInterrogatorBasicData::ModeSInterrogatorBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID ) :
-//	m_Status( Status ),
-//	m_ui8Padding( 0 ),
-//	m_ui16Padding1( 0 ),
-//	m_ui32MsgFormats( FormatsPresent ),
-//	m_InterrogatedID( ID ),
-//	m_ui16Padding2( 0 )
-//{
-//}
+ModeSInterrogatorBasicData::ModeSInterrogatorBasicData( const ModeSInterrogatorStatus & S, const ModeSLevelsPresent & LP ) :
+	m_Status( S ),
+	m_ui8Padding( 0 ),
+	m_LvlsPresent( LP ),
+	m_ui8Padding2( 0 )
+{
+	for (int i = 0; i < 5; ++i)
+	{
+		m_ui32Padding[i] = 0;
+	}
+}
 
+//////////////////////////////////////////////////////////////////////////
+
+ModeSInterrogatorBasicData::~ModeSInterrogatorBasicData()
+{
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -112,21 +121,12 @@ ModeSInterrogatorBasicData::ModeSInterrogatorBasicData( KDataStream & stream ) t
 
 //////////////////////////////////////////////////////////////////////////
 
-ModeSInterrogatorBasicData::~ModeSInterrogatorBasicData()
-{
-}
-
-
-//////////////////////////////////////////////////////////////////////////
-
 KString ModeSInterrogatorBasicData::GetAsString() const
 {
     KStringStream ss;	
-	//ss << "Mode 5 Interrogator Basic Data:"
- //      << IndentString( m_Status.GetAsString() )
-	//   << GetMessageFormatsPresentBitSet().to_string()
-	//   << IndentString( m_InterrogatedID.GetAsString() );	   
-	//   
+	ss << "Mode S Interrogator Basic Data:"
+		<< m_Status.GetAsString()
+		<< m_LvlsPresent.GetAsString();
     return ss.str();
 }
 
@@ -136,12 +136,14 @@ void ModeSInterrogatorBasicData::Decode( KDataStream & stream ) throw( KExceptio
 {
 	if( stream.GetBufferSize() < MODE_S_INTERROGATOR_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	
-/*    stream >> KDIS_STREAM m_Status
+	stream >> KDIS_STREAM m_Status
 		   >> m_ui8Padding
-		   >> m_ui16Padding1
-		   >> m_ui32MsgFormats
-		   >> KDIS_STREAM m_InterrogatedID
-		   >> m_ui16Padding2;*/	
+		   >> KDIS_STREAM m_LvlsPresent
+		   >> m_ui8Padding2;
+	for( int i = 0; i < 5; ++i )
+	{
+		stream >> m_ui32Padding[i];
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -159,21 +161,22 @@ KDataStream ModeSInterrogatorBasicData::Encode() const
 
 void ModeSInterrogatorBasicData::Encode( KDataStream & stream ) const
 {
-	//stream << KDIS_STREAM m_Status
-	//	   << m_ui8Padding
-	//	   << m_ui16Padding1
-	//	   << m_ui32MsgFormats
-	//	   << KDIS_STREAM m_InterrogatedID
-	//	   << m_ui16Padding2;
+	stream << KDIS_STREAM m_Status
+		   << m_ui8Padding
+		   << KDIS_STREAM m_LvlsPresent
+		   << m_ui8Padding2;
+	for( int i = 0; i < 5; ++i )
+	{
+		stream << m_ui32Padding[i];
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL ModeSInterrogatorBasicData::operator == ( const ModeSInterrogatorBasicData & Value ) const
 {
-	//if( m_Status         != Value.m_Status )         return false;
-	//if( m_ui32MsgFormats != Value.m_ui32MsgFormats ) return false;
-	//if( m_InterrogatedID != Value.m_InterrogatedID ) return false;	
+	if( m_Status      != Value.m_Status )      return false;
+	if( m_LvlsPresent != Value.m_LvlsPresent ) return false;	
     return true;
 }
 
