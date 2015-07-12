@@ -385,6 +385,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/IFF_LayerFormat.cpp	
 	${DATATYPES_DIR}/IFF_Layer3Transponder.cpp
 	${DATATYPES_DIR}/IFF_Layer3Interrogator.cpp
+	${DATATYPES_DIR}/IFF_Layer4Interrogator.cpp
 	${DATATYPES_DIR}/Mode5InterrogatorBasicData.cpp
 	${DATATYPES_DIR}/ModeSInterrogatorBasicData.cpp
 	${DATATYPES_DIR}/Mode5TransponderBasicData.cpp	

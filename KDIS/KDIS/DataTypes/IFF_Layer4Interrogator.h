@@ -59,7 +59,7 @@ public:
 	//IFF_Layer4Interrogator( const SimulationIdentifier & ReportingSimulation, const Mode5InterrogatorBasicData & Data,
 	//	                   std::vector<StdVarPtr> & Records );
 
-    //IFF_Layer4Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException );
+    IFF_Layer4Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException );
 
     virtual ~IFF_Layer4Interrogator();
 	

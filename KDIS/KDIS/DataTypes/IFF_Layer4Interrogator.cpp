@@ -40,7 +40,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_LayerFormatInterrogator::IFF_Layer4Interrogator() 
+IFF_Layer4Interrogator::IFF_Layer4Interrogator()
 {
 }
 
