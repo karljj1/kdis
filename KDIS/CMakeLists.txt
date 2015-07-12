@@ -223,6 +223,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
 	${DATATYPES_DIR}/ModeSInterrogatorStatus.h
 	${DATATYPES_DIR}/ModeSLevelsPresent.h
 	${DATATYPES_DIR}/Mode5TransponderStatus.h
+	${DATATYPES_DIR}/ModeSTransponderStatus.h
 	${DATATYPES_DIR}/EnhancedMode1Code.h
 	${DATATYPES_DIR}/ModeXCodeRecord.h
 	${DATATYPES_DIR}/Mode5TransponderSupplementalData.h
@@ -395,6 +396,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
 	${DATATYPES_DIR}/ModeSInterrogatorStatus.cpp
 	${DATATYPES_DIR}/ModeSLevelsPresent.cpp
 	${DATATYPES_DIR}/Mode5TransponderStatus.cpp
+	${DATATYPES_DIR}/ModeSTransponderStatus.cpp
 	${DATATYPES_DIR}/EnhancedMode1Code.cpp
 	${DATATYPES_DIR}/ModeXCodeRecord.cpp
 	${DATATYPES_DIR}/Mode5TransponderSupplementalData.cpp

@@ -28,14 +28,14 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      ModeSTransponderBasicData
+    class:      ModeSTransponderStatus
     DIS:        (7) 1278.1 - 2012
     created:    12/07/2015
     author:     Karl Jones
 
-    purpose:    Included in the Mode S Transponder format for Layer 4 of the IFF PDU.
+    purpose:    
 
-    Size:       128 bits / 16 octets 
+    Size:       16 bits / 2 octet
 *********************************************************************/
 
 #pragma once
@@ -45,65 +45,69 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ModeSTransponderBasicData : public DataTypeBase
+class KDIS_EXPORT ModeSTransponderStatus : public DataTypeBase
 {
 protected:
 /*
-	Mode5TransponderStatus m_Status;
+	union
+	{
+		struct
+		{
+			KUINT16 m_ui16Reply        : 4;
+			KUINT16 m_ui16LineTst      : 1;
+			KUINT16 m_ui16AntennaSel   : 2;
+			KUINT16 m_ui16CryptoCtrl   : 1;
+			KUINT16 m_ui16LatLonAltSrc : 1;
+			KUINT16 m_ui16LocErrs      : 1;
+			KUINT16 m_ui16PlatfrmTyp   : 1;
+			KUINT16 m_ui16LvlSel       : 1;
+			KUINT16 m_ui16Padding      : 1;
+			KUINT16 m_ui16OnOff        : 1;
+			KUINT16 m_ui16Dmg          : 1;
+			KUINT16 m_ui16MalFnc       : 1;
+		};
+		KUINT16 m_ui16Status;
 
-	KUINT16 m_ui16PIN;
-
-	KUINT32 m_ui32MsgFormats;
-
-	EnhancedMode1Code m_EM1Code;
-
-	KUINT16 m_ui16NationalOrigin;
-
-	Mode5TransponderSupplementalData m_SupplementalData;
-
-	KUINT8 m_ui8NavSrc;
-
-	KUINT8 m_ui8FigMerit;
-
-	KUINT8 m_ui8Padding;
-*/
+	} m_StatusUnion;
+	*/
+		
 public:
 
-    static const KUINT16 MODE_5_TRANSPONDER_BASIC_DATA_SIZE = 16; 
+    static const KUINT16 MODE_S_TRANSPONDER_STATUS_SIZE = 2; 
 
-    ModeSTransponderBasicData();
+    ModeSTransponderStatus();
 
-	//ModeSTransponderBasicData( const Mode5TransponderStatus & S, KUINT16 PersonalIdentificationNumber, KUINT32 MsgFormats,
-	//	                       const EnhancedMode1Code & EMC1, KUINT16 NationalOrigin, Mode5TransponderSupplementalData SD,
-	//						   KDIS::DATA_TYPE::ENUMS::NavigationSource NS, KUINT8 FigureOfMerit );
+    ModeSTransponderStatus( KDataStream & stream ) throw( KException );
 
-    ModeSTransponderBasicData( KDataStream & stream ) throw( KException );
+	//ModeSTransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Reply R, KBOOL LineTest, KDIS::DATA_TYPE::ENUMS::AntennaSelection AS, KBOOL Crypto,
+	  //                      KBOOL LocationIncluded, KBOOL LocationErrorIncluded, KDIS::DATA_TYPE::ENUMS::PlatformType PT, KBOOL Lvl2Included,
+        //                    KBOOL Status, KBOOL Dmg, KBOOL Malfnc );
+	
+    virtual ~ModeSTransponderStatus();
 
-    virtual ~ModeSTransponderBasicData();
-
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::GetAsString
-    // Description: Returns a string representation
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::GetAsString
+    // Description: Returns a string representation 
     //************************************
     virtual KString GetAsString() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::Decode
+    // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::Encode
+    // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const ModeSTransponderBasicData & Value ) const;
-    KBOOL operator != ( const ModeSTransponderBasicData & Value ) const;
+    KBOOL operator == ( const ModeSTransponderStatus & Value ) const;
+    KBOOL operator != ( const ModeSTransponderStatus & Value ) const;
 };
 
 } // END namespace DATA_TYPE
