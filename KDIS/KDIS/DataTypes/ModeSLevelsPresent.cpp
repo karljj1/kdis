@@ -42,7 +42,7 @@ using namespace ENUMS;
 
 ModeSLevelsPresent::ModeSLevelsPresent() 
 {
-	//m_StatusUnion.m_ui8Status = 0;
+	m_LevelsUnion.m_ui8LevelsPresent = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -53,18 +53,17 @@ ModeSLevelsPresent::ModeSLevelsPresent( KDataStream & stream ) throw( KException
 }
 
 //////////////////////////////////////////////////////////////////////////
-/*
-ModeSLevelsPresent::ModeSLevelsPresent( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
-                                                  KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction )
+
+ModeSLevelsPresent::ModeSLevelsPresent( KBOOL Lvl1, KBOOL Lvl2Elementary, KBOOL Lvl2Enhanced, KBOOL Lvl3, KBOOL Lvl4 )
 {
-	m_StatusUnion.m_ui8Status = 0; // Set all fields to 0
-	m_StatusUnion.m_ui8IffMis = IFFMission;
-	m_StatusUnion.m_ui8MsgFrmt = MF;
-	m_StatusUnion.m_ui8OnOff = OnOffStatus;
-	m_StatusUnion.m_ui8Dmg = Damaged;
-	m_StatusUnion.m_ui8MalFnc = Malfunction;
+	m_LevelsUnion.m_ui8LevelsPresent = 0;
+	m_LevelsUnion.m_ui8Lvl1 = Lvl1;
+	m_LevelsUnion.m_ui8Lvl2Elementary = Lvl2Elementary;
+	m_LevelsUnion.m_ui8Lvl2Enhanced = Lvl2Enhanced;
+	m_LevelsUnion.m_ui8Lvl3 = Lvl3;
+	m_LevelsUnion.m_ui8Lvl4 = Lvl4;
 }
-*/
+
 //////////////////////////////////////////////////////////////////////////
 
 ModeSLevelsPresent::~ModeSLevelsPresent()
@@ -73,17 +72,87 @@ ModeSLevelsPresent::~ModeSLevelsPresent()
 
 //////////////////////////////////////////////////////////////////////////
 
+void ModeSLevelsPresent::SetLevel1Present( KBOOL LP )
+{
+	m_LevelsUnion.m_ui8Lvl1 = LP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSLevelsPresent::SetLevel2ElementarySublevelPresent( KBOOL LP )
+{
+	m_LevelsUnion.m_ui8Lvl2Elementary = LP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSLevelsPresent::SetLevel2EnhancedSublevelPresent( KBOOL LP )
+{
+	m_LevelsUnion.m_ui8Lvl2Enhanced = LP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSLevelsPresent::SetLevel3Present( KBOOL LP )
+{
+	m_LevelsUnion.m_ui8Lvl3 = LP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSLevelsPresent::SetLevel4Present( KBOOL LP )
+{
+	m_LevelsUnion.m_ui8Lvl4 = LP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSLevelsPresent::IsLevel1Present() const
+{
+	return m_LevelsUnion.m_ui8Lvl1;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSLevelsPresent::IsLevel2ElementarySublevelPresent() const
+{
+	return m_LevelsUnion.m_ui8Lvl2Elementary;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSLevelsPresent::IsLevel2EnhancedSublevelPresent() const
+{
+	return m_LevelsUnion.m_ui8Lvl2Enhanced;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSLevelsPresent::IsLevel3Present() const
+{
+	return m_LevelsUnion.m_ui8Lvl3;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSLevelsPresent::IsLevel4Present() const
+{
+	return m_LevelsUnion.m_ui8Lvl4;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString ModeSLevelsPresent::GetAsString() const
 {
-    KStringStream ss;	/*
-	ss << "Mode 5 Interrogator Status:"
-	   << "\n\tIFF Mission:    " << ( KUINT16 )m_StatusUnion.m_ui8IffMis
-	   << "\n\tMessage Format: " << GetEnumAsStringMode5MessageFormat( m_StatusUnion.m_ui8MsgFrmt )
-	   << "\n\tOn/Off Status:  " << ( KBOOL )m_StatusUnion.m_ui8OnOff
-	   << "\n\tDamaged:        " << ( KBOOL )m_StatusUnion.m_ui8Dmg 
-	   << "\n\tMalfunction:    " << ( KBOOL )m_StatusUnion.m_ui8MalFnc
+    KStringStream ss;	
+	ss << "Mode S Levels Present:"
+	   << "\n\tLevel 1: " << ( KBOOL )m_LevelsUnion.m_ui8Lvl1
+	   << "\n\tLevel 2(Elementary Surveillance sublevel): " << ( KBOOL )m_LevelsUnion.m_ui8Lvl2Elementary
+	   << "\n\tLevel 2(Enhanced Surveillance sublevel): " << ( KBOOL )m_LevelsUnion.m_ui8Lvl2Enhanced
+	   << "\n\tLevel 3: " << ( KBOOL )m_LevelsUnion.m_ui8Lvl3
+	   << "\n\tLevel 4: " << ( KBOOL )m_LevelsUnion.m_ui8Lvl4
 	   << "\n";
-*/
+
     return ss.str();
 }
 
@@ -93,7 +162,7 @@ void ModeSLevelsPresent::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < MODE_S_LEVELS_PRESENT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	
-	stream >> m_StatusUnion.m_ui8Status;	
+	stream >> m_LevelsUnion.m_ui8LevelsPresent;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -111,14 +180,14 @@ KDataStream ModeSLevelsPresent::Encode() const
 
 void ModeSLevelsPresent::Encode( KDataStream & stream ) const
 {
-	stream << m_StatusUnion.m_ui8Status;
+	stream << m_LevelsUnion.m_ui8LevelsPresent;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL ModeSLevelsPresent::operator == ( const ModeSLevelsPresent & Value ) const
 {
-	//if( m_StatusUnion.m_ui8Status != Value.m_StatusUnion.m_ui8Status ) return false;
+	if( m_LevelsUnion.m_ui8LevelsPresent != Value.m_LevelsUnion.m_ui8LevelsPresent ) return false;
     return true;
 }
 

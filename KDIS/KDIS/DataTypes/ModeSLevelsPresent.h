@@ -49,21 +49,22 @@ namespace DATA_TYPE {
 class KDIS_EXPORT ModeSLevelsPresent : public DataTypeBase
 {
 protected:
-	/*	
+	
     union
     {
         struct
         {
-            KUINT8 m_ui8IffMis  : 3;
-			KUINT8 m_ui8MsgFrmt : 1;
-            KUINT8 m_ui8Padding : 1;
-			KUINT8 m_ui8OnOff   : 1;
-			KUINT8 m_ui8Dmg     : 1;
-			KUINT8 m_ui8MalFnc  : 1;
+			KUINT8 m_ui8Unused1        : 1;
+            KUINT8 m_ui8Lvl1           : 1;
+			KUINT8 m_ui8Lvl2Elementary : 1;
+			KUINT8 m_ui8Lvl2Enhanced   : 1;
+			KUINT8 m_ui8Lvl3           : 1;
+			KUINT8 m_ui8Lvl4           : 1;
+            KUINT8 m_ui8Unused2        : 2;
         };
-        KUINT8 m_ui8Status;
-    } m_StatusUnion;
-	*/
+        KUINT8 m_ui8LevelsPresent;
+    } m_LevelsUnion;
+	
 public:
 
     static const KUINT16 MODE_S_LEVELS_PRESENT_SIZE = 1; 
@@ -72,10 +73,27 @@ public:
 
     ModeSLevelsPresent( KDataStream & stream ) throw( KException );
 
-	//ModeSLevelsPresent( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
-      //                       KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction );
+	ModeSLevelsPresent( KBOOL Lvl1, KBOOL Lvl2Elementary, KBOOL Lvl2Enhanced, KBOOL Lvl3, KBOOL Lvl4 );
 
     virtual ~ModeSLevelsPresent();
+
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSLevelsPresent::SetLevelPresent
+	//              KDIS::DATA_TYPE::ModeSLevelsPresent::IsLevelPresent	
+	// Description: Indicates whether the level is present.
+	// Parameter:   KBOOL LP
+	//************************************
+	void SetLevel1Present( KBOOL LP );
+	void SetLevel2ElementarySublevelPresent( KBOOL LP );
+	void SetLevel2EnhancedSublevelPresent( KBOOL LP );
+	void SetLevel3Present( KBOOL LP );
+	void SetLevel4Present( KBOOL LP );
+	KBOOL IsLevel1Present() const;
+	KBOOL IsLevel2ElementarySublevelPresent() const;
+	KBOOL IsLevel2EnhancedSublevelPresent() const;
+	KBOOL IsLevel3Present() const;
+	KBOOL IsLevel4Present() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModeSLevelsPresent::GetAsString

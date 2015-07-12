@@ -42,6 +42,7 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./DataTypeBase.h"
 #include "./ModeSInterrogatorStatus.h"
+#include "./ModeSLevelsPresent.h"
 #include <bitset>
 
 namespace KDIS {
@@ -54,6 +55,8 @@ protected:
 	ModeSInterrogatorStatus m_Status;
 
 	KUINT8 m_ui8Padding;
+
+	ModeSLevelsPresent m_LvlsPresent;
 	/*
 	KUINT16 m_ui16Padding1;
 
@@ -84,6 +87,16 @@ public:
 	void SetStatus( const ModeSInterrogatorStatus & S );
 	const ModeSInterrogatorStatus & GetStatus() const;
 	ModeSInterrogatorStatus & GetStatus();
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSInterrogatorBasicData::SetLevelsPresent
+	//              KDIS::DATA_TYPE::ModeSInterrogatorBasicData::GetLevelsPresent	
+	// Description: All levels that would be able to be responded to for a Mode S interrogation.
+	// Parameter:   const ModeSLevelsPresent & LP
+	//************************************
+	void SetLevelsPresent( const ModeSLevelsPresent & LP );
+	const ModeSLevelsPresent & GetLevelsPresent() const;
+	ModeSLevelsPresent & GetLevelsPresent();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::ModeSInterrogatorBasicData::GetAsString

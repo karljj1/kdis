@@ -77,6 +77,34 @@ const ModeSInterrogatorStatus & ModeSInterrogatorBasicData::GetStatus() const
 
 //////////////////////////////////////////////////////////////////////////
 
+ModeSInterrogatorStatus & ModeSInterrogatorBasicData::GetStatus()
+{
+	return m_Status;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSInterrogatorBasicData::SetLevelsPresent( const ModeSLevelsPresent & LP )
+{
+	m_LvlsPresent = LP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const ModeSLevelsPresent & ModeSInterrogatorBasicData::GetLevelsPresent() const
+{
+	return m_LvlsPresent;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeSLevelsPresent & ModeSInterrogatorBasicData::GetLevelsPresent()
+{
+	return m_LvlsPresent;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 ModeSInterrogatorBasicData::ModeSInterrogatorBasicData( KDataStream & stream ) throw( KException )
 {
     Decode( stream );
