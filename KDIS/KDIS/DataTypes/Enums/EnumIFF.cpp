@@ -461,22 +461,22 @@ const EnumDescriptor ModeSSquitterTypeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModeSSquitterType()
 {
-	return sizeof(ModeSSquitterTypeDescriptor) / sizeof(EnumDescriptor);
+	return sizeof( ModeSSquitterTypeDescriptor ) / sizeof( EnumDescriptor );
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSSquitterType(KUINT32 Index)
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSSquitterType( KUINT32 Index )
 {
 	return &ModeSSquitterTypeDescriptor[Index];
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSSquitterType(KINT32 Value)
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSSquitterType( KINT32 Value )
 {
-	return GetEnumAsString(ModeSSquitterTypeDescriptor, sizeof(ModeSSquitterTypeDescriptor) / sizeof(EnumDescriptor), Value);
+	return GetEnumAsString( ModeSSquitterTypeDescriptor, sizeof( ModeSSquitterTypeDescriptor ) / sizeof( EnumDescriptor ), Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType(const KString & Value, KINT32 & ValueOut)
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString(ModeSSquitterTypeDescriptor, sizeof(ModeSSquitterTypeDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+	return GetEnumFromString( ModeSSquitterTypeDescriptor, sizeof( ModeSSquitterTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
@@ -486,19 +486,19 @@ KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModeSSquitterType()
 	return 0;
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSSquitterType(KUINT32 Index)
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSSquitterType( KUINT32 Index )
 {
 	return NULL;
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSSquitterType(KINT32 Value)
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSSquitterType( KINT32 Value )
 {
 	KStringStream ss;
 	ss << Value;
 	return ss.str().c_str();
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType(const KString & Value, KINT32 & ValueOut)
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType( const KString & Value, KINT32 & ValueOut )
 {
 	return false; // Maybe throw an exception?
 }

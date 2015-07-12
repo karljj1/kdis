@@ -276,10 +276,10 @@ KUINT32 GetEnumSizeModeSSquitterType();
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorModeSSquitterType( KUINT32 Index );
 
-KString GetEnumAsStringGetEnumAsStringModeSSquitterType( KINT32 Value );
+KString GetEnumAsStringModeSSquitterType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringModeSSquitterType(const KString & Value, KINT32 & ValueOut );
+KBOOL GetEnumFromStringModeSSquitterType( const KString & Value, KINT32 & ValueOut );
 
 #endif // DIS 6
 

@@ -58,6 +58,7 @@ Mode5TransponderStatus::Mode5TransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Rep
 	                                            KBOOL LocationIncluded, KBOOL LocationErrorIncluded, KDIS::DATA_TYPE::ENUMS::PlatformType PT, KBOOL Lvl2Included,
                                                 KBOOL Status, KBOOL Dmg, KBOOL Malfnc )
 {	
+	m_StatusUnion.m_ui16Status = 0;
 	m_StatusUnion.m_ui16Reply = R;
 	m_StatusUnion.m_ui16LineTst = LineTest;      
 	m_StatusUnion.m_ui16AntennaSel = AS;
@@ -66,7 +67,6 @@ Mode5TransponderStatus::Mode5TransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Rep
 	m_StatusUnion.m_ui16LocErrs = LocationErrorIncluded;
 	m_StatusUnion.m_ui16PlatfrmTyp = PT;
 	m_StatusUnion.m_ui16LvlSel = Lvl2Included;
-	m_StatusUnion.m_ui16Padding = 0;
 	m_StatusUnion.m_ui16OnOff = Status;
 	m_StatusUnion.m_ui16Dmg = Dmg;          
 	m_StatusUnion.m_ui16MalFnc = Malfnc;   	

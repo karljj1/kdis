@@ -33,7 +33,7 @@ http://p.sf.net/kdis/UserGuide
     created:    12/07/2015
     author:     Karl Jones
 
-    purpose:    
+    purpose:    Mode S transponder status information. 
 
     Size:       16 bits / 2 octet
 *********************************************************************/
@@ -59,7 +59,7 @@ protected:
 			KUINT16 m_ui16AirPosRptInd    : 1;
 			KUINT16 m_ui16AirVelRptInd    : 1;
 			KUINT16 m_ui16SurfPosRptInd   : 1;
-			KUINT16 m_ui16IdPosRptInd     : 1;
+			KUINT16 m_ui16IdRptInd        : 1;
 			KUINT16 m_ui16EvtDrvRptInd    : 1;
 			KUINT16 m_ui16Padding         : 3;
 			KUINT16 m_ui16OnOff           : 1;
@@ -77,10 +77,9 @@ public:
 
     ModeSTransponderStatus( KDataStream & stream ) throw( KException );
 
-	//ModeSTransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Reply R, KBOOL LineTest, KDIS::DATA_TYPE::ENUMS::AntennaSelection AS, KBOOL Crypto,
-	  //                      KBOOL LocationIncluded, KBOOL LocationErrorIncluded, KDIS::DATA_TYPE::ENUMS::PlatformType PT, KBOOL Lvl2Included,
-        //                    KBOOL Status, KBOOL Dmg, KBOOL Malfnc );
-	
+	ModeSTransponderStatus( KBOOL SquitterOn, KDIS::DATA_TYPE::ENUMS::ModeSSquitterType ST, KBOOL RecSrc, KBOOL AirPos, KBOOL AirVel, 
+		                    KBOOL SurfPos, KBOOL Id, KBOOL EvntDrv, KBOOL Status, KBOOL Dmg, KBOOL Malfnc );
+		
     virtual ~ModeSTransponderStatus();
 
 	//************************************
@@ -91,6 +90,97 @@ public:
 	//************************************
 	void SetSquitterOn( KBOOL S );
 	KBOOL IsSquitterOn() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetSquitterType
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::GetSquitterType
+	// Description: The present Mode 5 transponder antenna selection.
+	// Parameter:   KDIS::DATA_TYPE::ENUMS::ModeSSquitterType ST
+	//************************************
+	void SetSquitterType( KDIS::DATA_TYPE::ENUMS::ModeSSquitterType ST );
+	KDIS::DATA_TYPE::ENUMS::ModeSSquitterType GetSquitterType() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetSquitterRecordSource
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::GetSquitterRecordSource
+	// Description: Indicates whether the squitter records are only present as Layer 4 IFF Data Records(false) 
+	//              or are also included as Layer 5 GICB IFF Data Records(true).
+	// Parameter:   KBOOL RS
+	//************************************
+	void SetSquitterRecordSource( KBOOL RS );
+	KBOOL GetSquitterRecordSource() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetAirbornePositionReportIndicator
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::GetAirbornePositionReportIndicator
+	// Description: Indicates whether there is a Airborne Position Report IFF Data Record Present.
+	// Parameter:   KBOOL RI
+	//************************************
+	void SetAirbornePositionReportIndicator( KBOOL RI );
+	KBOOL GetAirbornePositionReportIndicator() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetAirborneVelocityReportIndicator
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::GetAirborneVelocityReportIndicator
+	// Description: Indicates whether there is a Airborne Velocity Report IFF Data Record Present.
+	// Parameter:   KBOOL RI
+	//************************************
+	void SetAirborneVelocityReportIndicator( KBOOL RI );
+	KBOOL GetAirborneVelocityReportIndicator() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetSurfacePositionReportIndicator
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::GetSurfacePositionReportIndicator
+	// Description: Indicates whether there is a Surface Position Report IFF Data Record Present.
+	// Parameter:   KBOOL RI
+	//************************************
+	void SetSurfacePositionReportIndicator( KBOOL RI );
+	KBOOL GetSurfacePositionReportIndicator() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetIdentificationReportIndicator
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::GetIdentificationReportIndicator
+	// Description: Indicates whether there is a Id Report IFF Data Record Present.
+	// Parameter:   KBOOL RI
+	//************************************
+	void SetIdentificationReportIndicator( KBOOL RI );
+	KBOOL GetIdentificationReportIndicator() const;
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetEventDrivenReportIndicator
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::GetEventDrivenReportIndicator
+	// Description: Indicates whether there is a Event-Driven Report IFF Data Record Present.
+	// Parameter:   KBOOL RI
+	//************************************
+	void SetEventDrivenReportIndicator( KBOOL RI );
+	KBOOL GetEventDrivenReportIndicator() const;
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetStatus
+    //              KDIS::DATA_TYPE::ModeSTransponderStatus::GetStatus
+    // Description: Indicates whether the Mode S transponder is On (true or Off (false).
+    // Parameter:   KBOOL S
+    //************************************
+	void SetStatus( KBOOL S );
+	KBOOL GetStatus() const;
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetDamaged
+    //              KDIS::DATA_TYPE::ModeSTransponderStatus::IsDamaged
+    // Description: Indicates whether there is damage to the Mode S transponder.
+    // Parameter:   KBOOL S
+    //************************************
+	void SetDamaged( KBOOL D );
+	KBOOL IsDamaged() const;
+		
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetMalfunctioning
+    //              KDIS::DATA_TYPE::ModeSTransponderStatus::IsMalfunctioning
+    // Description: Indicates whether there is damage to the Mode S transponder.
+    // Parameter:   KBOOL M
+    //************************************
+	void SetMalfunctioning( KBOOL M );
+	KBOOL IsMalfunctioning() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::GetAsString
