@@ -48,28 +48,26 @@ namespace DATA_TYPE {
 class KDIS_EXPORT ModeSTransponderStatus : public DataTypeBase
 {
 protected:
-/*
+
 	union
 	{
 		struct
 		{
-			KUINT16 m_ui16Reply        : 4;
-			KUINT16 m_ui16LineTst      : 1;
-			KUINT16 m_ui16AntennaSel   : 2;
-			KUINT16 m_ui16CryptoCtrl   : 1;
-			KUINT16 m_ui16LatLonAltSrc : 1;
-			KUINT16 m_ui16LocErrs      : 1;
-			KUINT16 m_ui16PlatfrmTyp   : 1;
-			KUINT16 m_ui16LvlSel       : 1;
-			KUINT16 m_ui16Padding      : 1;
-			KUINT16 m_ui16OnOff        : 1;
-			KUINT16 m_ui16Dmg          : 1;
-			KUINT16 m_ui16MalFnc       : 1;
+			KUINT16 m_ui161SquitterStatus : 1;
+			KUINT16 m_ui16SquitterType    : 3;
+			KUINT16 m_ui16SquitterRecSrc  : 1;
+			KUINT16 m_ui16AirPosRptInd    : 1;
+			KUINT16 m_ui16AirVelRptInd    : 1;
+			KUINT16 m_ui16SurfPosRptInd   : 1;
+			KUINT16 m_ui16IdPosRptInd     : 1;
+			KUINT16 m_ui16EvtDrvRptInd    : 1;
+			KUINT16 m_ui16Padding         : 3;
+			KUINT16 m_ui16OnOff           : 1;
+			KUINT16 m_ui16Dmg             : 1;
+			KUINT16 m_ui16MalFnc          : 1;
 		};
 		KUINT16 m_ui16Status;
-
 	} m_StatusUnion;
-	*/
 		
 public:
 
@@ -84,6 +82,15 @@ public:
         //                    KBOOL Status, KBOOL Dmg, KBOOL Malfnc );
 	
     virtual ~ModeSTransponderStatus();
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::SetSquitterOn
+	//              KDIS::DATA_TYPE::ModeSTransponderStatus::IsSquitterOn
+	// Description: Indicates whether the squitter is On (true) or Off (false).
+	// Parameter:   KBOOL S
+	//************************************
+	void SetSquitterOn( KBOOL S );
+	KBOOL IsSquitterOn() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModeSTransponderStatus::GetAsString

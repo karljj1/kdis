@@ -252,6 +252,35 @@ KString GetEnumAsStringNavigationSource( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringNavigationSource( const KString & Value, KINT32 & ValueOut ); 
 
+/************************************************************************/
+/* Mode S Squitter Type                                                 */
+/* The type of Mode S squitter.                                         */
+/* Used In:                                                             */
+/*  Mode S Transponder Status                                           */
+/************************************************************************/
+
+enum ModeSSquitterType
+{
+	NotCapableSquitterType                                               = 0,
+	AcquisitionShortSquitterType                                         = 1,
+	ExtendedSquitterType                                                 = 2
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeModeSSquitterType();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorModeSSquitterType( KUINT32 Index );
+
+KString GetEnumAsStringGetEnumAsStringModeSSquitterType( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringModeSSquitterType(const KString & Value, KINT32 & ValueOut );
+
 #endif // DIS 6
 
 } // END namespace ENUMS

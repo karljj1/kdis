@@ -42,7 +42,7 @@ using namespace ENUMS;
 
 ModeSTransponderStatus::ModeSTransponderStatus() 
 {
-	//m_StatusUnion.m_ui16Status = 0;	
+	m_StatusUnion.m_ui16Status = 0;	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -76,6 +76,34 @@ ModeSTransponderStatus::ModeSTransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Rep
 
 ModeSTransponderStatus::~ModeSTransponderStatus()
 {
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSTransponderStatus::SetSquitterOn( KBOOL S )
+{
+	m_StatusUnion.m_ui161SquitterStatus = S;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeSTransponderStatus::IsSquitterOn() const
+{
+	return m_StatusUnion.m_ui161SquitterStatus;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSTransponderStatus::SetSquitterType( ModeSSquitterType ST )
+{
+	m_StatusUnion.m_ui16SquitterType = ST;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeSSquitterType ModeSTransponderStatus::GetSquitterType() const
+{
+	return ( ModeSSquitterType )m_StatusUnion.m_ui16SquitterType;
 }
 
 //////////////////////////////////////////////////////////////////////////

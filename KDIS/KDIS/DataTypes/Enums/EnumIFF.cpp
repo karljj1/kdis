@@ -446,4 +446,75 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource( const KString &
 
 #endif
 
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for ModeSSquitterType
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor ModeSSquitterTypeDescriptor[] =
+{
+	{ 0, "Not Capable" },
+	{ 1, "Acquisition Short" },
+	{ 2, "Extended" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModeSSquitterType()
+{
+	return sizeof(ModeSSquitterTypeDescriptor) / sizeof(EnumDescriptor);
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSSquitterType(KUINT32 Index)
+{
+	return &ModeSSquitterTypeDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSSquitterType(KINT32 Value)
+{
+	return GetEnumAsString(ModeSSquitterTypeDescriptor, sizeof(ModeSSquitterTypeDescriptor) / sizeof(EnumDescriptor), Value);
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType(const KString & Value, KINT32 & ValueOut)
+{
+	return GetEnumFromString(ModeSSquitterTypeDescriptor, sizeof(ModeSSquitterTypeDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeModeSSquitterType()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSSquitterType(KUINT32 Index)
+{
+	return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSSquitterType(KINT32 Value)
+{
+	KStringStream ss;
+	ss << Value;
+	return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType(const KString & Value, KINT32 & ValueOut)
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif // Endif DIS Version > 6
