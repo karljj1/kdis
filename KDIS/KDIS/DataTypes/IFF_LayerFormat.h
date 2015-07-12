@@ -65,7 +65,7 @@ protected:
 
 public:
 
-    static const KUINT16 IFF_LAYER3_SIZE = 28; // Min size
+    static const KUINT16 IFF_LAYER_FORMAT_SIZE = 28; // Min size
 
     IFF_LayerFormat();
 

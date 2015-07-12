@@ -122,7 +122,7 @@ KString IFF_Layer3Transponder::GetAsString() const
 
 void IFF_Layer3Transponder::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < IFF_LAYER3_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( stream.GetBufferSize() < IFF_LAYER_FORMAT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vStdVarRecs.clear();
 

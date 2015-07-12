@@ -53,6 +53,16 @@ IFF_Layer4Interrogator::IFF_Layer4Interrogator( KDataStream & stream ) throw( KE
 
 //////////////////////////////////////////////////////////////////////////
 
+IFF_Layer4Interrogator::IFF_Layer4Interrogator( const SimulationIdentifier & ReportingSimulation, const ModeSInterrogatorBasicData & Data,
+	                                            std::vector<StdVarPtr> & Records )
+{
+	m_RptSim = ReportingSimulation;
+	m_BasicData = Data;
+	SetDataRecords( Records );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 IFF_Layer4Interrogator::IFF_Layer4Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
 	IFF_LayerFormat( H )
 {
@@ -65,13 +75,35 @@ IFF_Layer4Interrogator::~IFF_Layer4Interrogator()
 {
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_Layer4Interrogator::SetBasicData( const ModeSInterrogatorBasicData & BD )
+{
+	m_BasicData = BD;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const ModeSInterrogatorBasicData & IFF_Layer4Interrogator::GetBasicData() const
+{
+	return m_BasicData;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeSInterrogatorBasicData & IFF_Layer4Interrogator::GetBasicDatan()
+{
+	return m_BasicData;
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 KString IFF_Layer4Interrogator::GetAsString() const
 {
     KStringStream ss;
-/*
-    ss << "IFF Layer 3 Interrogator\n"
+
+    ss << "IFF Layer 4 Interrogator\n"
 		<< LayerHeader::GetAsString()
 		<< "Reporting Simulation: " << m_RptSim.GetAsString()
 		<< "Basic Data: "           << m_BasicData.GetAsString() 
@@ -84,7 +116,7 @@ KString IFF_Layer4Interrogator::GetAsString() const
     {
 		ss << ( *citr )->GetAsString();
     }	
-*/
+
     return ss.str();
 }
 
@@ -92,7 +124,25 @@ KString IFF_Layer4Interrogator::GetAsString() const
 
 void IFF_Layer4Interrogator::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
+    if( stream.GetBufferSize() < IFF_LAYER_FORMAT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
+    m_vStdVarRecs.clear();
+
+	if( !ignoreHeader )
+	{
+		LayerHeader::Decode( stream );
+	}
+
+	stream >> KDIS_STREAM m_RptSim
+		   >> KDIS_STREAM m_BasicData
+		   >> m_ui16Padding
+		   >> m_ui16NumIffRecs;
+
+	// Use the factory decode function for each standard variable
+    for( KUINT16 i = 0; i < m_ui16NumIffRecs; ++i )
+    {
+        m_vStdVarRecs.push_back( StandardVariable::FactoryDecodeStandardVariable( stream ) );
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -110,15 +160,27 @@ KDataStream IFF_Layer4Interrogator::Encode() const
 
 void IFF_Layer4Interrogator::Encode( KDataStream & stream ) const
 {
-	LayerHeader::Encode( stream );
+	LayerHeader::Encode(stream);
+
+	stream << KDIS_STREAM m_RptSim
+		   << KDIS_STREAM m_BasicData
+		   << m_ui16Padding
+		   << m_ui16NumIffRecs;
+
+	vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citr = m_vStdVarRecs.begin();
+	vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citrEnd = m_vStdVarRecs.end();
+	for (; citr != citrEnd; ++citr)
+	{
+		(*citr)->Encode(stream);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL IFF_Layer4Interrogator::operator == ( const IFF_Layer4Interrogator & Value ) const
 {
-   // if( IFF_LayerFormat::operator !=( Value ) )          return false;    
-   // if( m_BasicData          != Value.m_BasicData ) return false; 
+	if( IFF_LayerFormat::operator !=( Value ) ) return false;    
+	if( m_BasicData != Value.m_BasicData ) return false; 
     return true;
 }
 

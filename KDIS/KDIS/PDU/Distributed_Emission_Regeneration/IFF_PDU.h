@@ -76,7 +76,7 @@ http://p.sf.net/kdis/UserGuide
 #if DIS_VERSION > 6
 #include "./../../DataTypes/IFF_Layer3Interrogator.h"
 #include "./../../DataTypes/IFF_Layer3Transponder.h"
-//#include "./../../DataTypes/IFF_Layer4Interrogator.h"
+#include "./../../DataTypes/IFF_Layer4Interrogator.h"
 //#include "./../../DataTypes/IFF_Layer4Transponder.h"
 #endif
 
@@ -197,10 +197,10 @@ public:
 	#endif
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer2::AddLayer
-    //              KDIS::DATA_TYPE::IFF_Layer2::SetLayers
-    //              KDIS::DATA_TYPE::IFF_Layer2::GetLayers
-	//              KDIS::DATA_TYPE::IFF_Layer2::ClearLayers
+    // FullName:    KDIS::DATA_TYPE::IFF_PDU::AddLayer
+    //              KDIS::DATA_TYPE::IFF_PDU::SetLayers
+    //              KDIS::DATA_TYPE::IFF_PDU::GetLayers
+	//              KDIS::DATA_TYPE::IFF_PDU::ClearLayers
     // Description: Any additional layers attached to this IFF PDU.
     // Parameter:   const KDIS::DATA_TYPE::LyrHdrPtr L, const vector<KDIS::DATA_TYPE::LyrHdrPtr> & L
     //************************************

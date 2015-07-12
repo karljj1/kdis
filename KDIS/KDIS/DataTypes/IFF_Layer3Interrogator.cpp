@@ -122,7 +122,7 @@ KString IFF_Layer3Interrogator::GetAsString() const
 
 void IFF_Layer3Interrogator::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( stream.GetBufferSize() < IFF_LAYER3_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+    if( stream.GetBufferSize() < IFF_LAYER_FORMAT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vStdVarRecs.clear();
 
@@ -177,8 +177,8 @@ void IFF_Layer3Interrogator::Encode( KDataStream & stream ) const
 
 KBOOL IFF_Layer3Interrogator::operator == ( const IFF_Layer3Interrogator & Value ) const
 {
-    if( IFF_LayerFormat::operator !=( Value ) )          return false;    
-    if( m_BasicData          != Value.m_BasicData ) return false; 
+    if( IFF_LayerFormat::operator !=( Value ) ) return false;    
+    if( m_BasicData != Value.m_BasicData ) return false; 
     return true;
 }
 

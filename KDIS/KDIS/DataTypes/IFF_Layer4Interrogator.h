@@ -35,13 +35,13 @@ http://p.sf.net/kdis/UserGuide
 
     purpose:    Layer 4 Mode S transponder functional data.	      
 
-    Size:       xx bits / xx octets - min size
+    Size:       224 bits / 28 octets - min size
 *********************************************************************/
 
 #pragma once
 
 #include "./IFF_LayerFormat.h"
-#include "./ModeSInterrogatorBasicData.h" // TODO: YOU ARE HERE
+#include "./ModeSInterrogatorBasicData.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -49,6 +49,8 @@ namespace DATA_TYPE {
 class KDIS_EXPORT IFF_Layer4Interrogator : public IFF_LayerFormat
 {
 protected:
+
+	ModeSInterrogatorBasicData m_BasicData;
 	
 public:
 	
@@ -56,13 +58,23 @@ public:
 
     IFF_Layer4Interrogator( KDataStream & stream ) throw( KException );
 
-	//IFF_Layer4Interrogator( const SimulationIdentifier & ReportingSimulation, const Mode5InterrogatorBasicData & Data,
-	//	                   std::vector<StdVarPtr> & Records );
+	IFF_Layer4Interrogator( const SimulationIdentifier & ReportingSimulation, const ModeSInterrogatorBasicData & Data,
+	 	                    std::vector<StdVarPtr> & Records );
 
     IFF_Layer4Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException );
 
     virtual ~IFF_Layer4Interrogator();
 	
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::SetBasicData
+	//              KDIS::DATA_TYPE::IFF_Layer4Interrogator::GetBasicData
+	// Description: Basic Mode S interrogator data that is always required to be transmitted.
+	// Parameter:   const ModeSInterrogatorBasicData & BD
+	//************************************
+	void SetBasicData( const ModeSInterrogatorBasicData & BD );
+	const ModeSInterrogatorBasicData & GetBasicData() const;
+	ModeSInterrogatorBasicData & GetBasicDatan();
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer4Interrogator::GetAsString
     // Description: Returns a string representation 

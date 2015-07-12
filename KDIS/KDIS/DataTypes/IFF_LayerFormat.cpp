@@ -45,7 +45,7 @@ IFF_LayerFormat::IFF_LayerFormat() :
 	m_ui16NumIffRecs( 0 )	
 {
 	m_ui8LayerNumber = 3;
-	m_ui16LayerLength = IFF_LAYER3_SIZE;
+	m_ui16LayerLength = IFF_LAYER_FORMAT_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ void IFF_LayerFormat::SetDataRecords( const std::vector<StdVarPtr> & DRS )
 	m_vStdVarRecs = DRS;
 
     // Reset the PDU length.
-	m_ui16LayerLength = IFF_LAYER3_SIZE;
+	m_ui16LayerLength = IFF_LAYER_FORMAT_SIZE;
 
     // Calculate the new length.
     KUINT16 ui16Length = 0;
@@ -124,7 +124,7 @@ const std::vector<StdVarPtr> & IFF_LayerFormat::GetDataRecords() const
 void IFF_LayerFormat::ClearDataRecords()
 {
 	// Reset the length.
-	m_ui16LayerLength = IFF_LAYER3_SIZE;
+	m_ui16LayerLength = IFF_LAYER_FORMAT_SIZE;
 
     m_vStdVarRecs.clear();
     m_ui16NumIffRecs = 0;
