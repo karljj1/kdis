@@ -83,6 +83,48 @@ ModeSTransponderBasicData::~ModeSTransponderBasicData()
 
 //////////////////////////////////////////////////////////////////////////
 
+void ModeSTransponderBasicData::SetStatus( const ModeSTransponderStatus & S )
+{
+	m_Status = S;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const ModeSTransponderStatus & ModeSTransponderBasicData::GetStatus() const
+{
+	return m_Status;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeSTransponderStatus & ModeSTransponderBasicData::GetStatus()
+{
+	return m_Status;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSTransponderBasicData::SetLevelsPresent(const ModeSLevelsPresent & LP)
+{
+	m_LvlsPresent = LP;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const ModeSLevelsPresent & ModeSTransponderBasicData::GetLevelsPresent() const
+{
+	return m_LvlsPresent;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeSLevelsPresent & ModeSTransponderBasicData::GetLevelsPresent()
+{
+	return m_LvlsPresent;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString ModeSTransponderBasicData::GetAsString() const
 {
     KStringStream ss;	

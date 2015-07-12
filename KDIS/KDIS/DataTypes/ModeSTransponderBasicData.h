@@ -41,6 +41,8 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./DataTypeBase.h"
+#include "./ModeSTransponderStatus.h"
+#include "./ModeSLevelsPresent.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -48,9 +50,11 @@ namespace DATA_TYPE {
 class KDIS_EXPORT ModeSTransponderBasicData : public DataTypeBase
 {
 protected:
-/*
-	Mode5TransponderStatus m_Status;
 
+	ModeSTransponderStatus m_Status;
+
+	ModeSLevelsPresent m_LvlsPresent;
+	/*
 	KUINT16 m_ui16PIN;
 
 	KUINT32 m_ui32MsgFormats;
@@ -73,13 +77,34 @@ public:
 
     ModeSTransponderBasicData();
 
-	//ModeSTransponderBasicData( const Mode5TransponderStatus & S, KUINT16 PersonalIdentificationNumber, KUINT32 MsgFormats,
+	//ModeSTransponderBasicData( const ModeSTransponderStatus & S, KUINT16 PersonalIdentificationNumber, KUINT32 MsgFormats,
 	//	                       const EnhancedMode1Code & EMC1, KUINT16 NationalOrigin, Mode5TransponderSupplementalData SD,
 	//						   KDIS::DATA_TYPE::ENUMS::NavigationSource NS, KUINT8 FigureOfMerit );
 
     ModeSTransponderBasicData( KDataStream & stream ) throw( KException );
 
     virtual ~ModeSTransponderBasicData();
+
+	//************************************
+    // FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::SetStatus
+    //              KDIS::DATA_TYPE::ModeSTransponderBasicData::GetStatus	
+    // Description: The Mode S Message Formats supported by this Mode S transponder.
+    // Parameter:   const ModeSTransponderStatus & S
+    //************************************
+	void SetStatus( const ModeSTransponderStatus & S );
+	const ModeSTransponderStatus & GetStatus() const;
+	ModeSTransponderStatus & GetStatus();
+		
+	
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::SetLevelsPresent
+	//              KDIS::DATA_TYPE::ModeSTransponderBasicData::GetLevelsPresent	
+	// Description: All levels that would be able to be responded to for a Mode S interrogation.
+	// Parameter:   const ModeSLevelsPresent & LP
+	//************************************
+	void SetLevelsPresent( const ModeSLevelsPresent & LP );
+	const ModeSLevelsPresent & GetLevelsPresent() const;
+	ModeSLevelsPresent & GetLevelsPresent();
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::GetAsString

@@ -90,7 +90,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetStatus
     //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetStatus	
     // Description: The Mode 5 Message Formats supported by this Mode 5 transponder.
-    // Parameter:   const InterrogatorStatus & S
+    // Parameter:   const Mode5TransponderStatus & S
     //************************************
 	void SetStatus( const Mode5TransponderStatus & S );
 	const Mode5TransponderStatus & GetStatus() const;
