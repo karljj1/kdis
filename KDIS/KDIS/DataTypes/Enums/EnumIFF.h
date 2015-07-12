@@ -281,6 +281,39 @@ KString GetEnumAsStringModeSSquitterType( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringModeSSquitterType( const KString & Value, KINT32 & ValueOut );
 
+/************************************************************************/
+/* Aircraft Present Domain                                              */
+/* Present domain of an aircraft.                                       */
+/* This field is referred to as Flight Status in ICAO Publications.     */
+/* Used In:                                                             */
+/*  Mode S Transponder Basic Data                                       */
+/************************************************************************/
+
+enum AircraftPresentDomain
+{
+	AircraftPresentDomainNoStatement                                     = 0,
+	AirborneDomain                                                       = 1,
+
+	// Surface means on a water platform surface such as a ship deck or on the
+	// water surface directly(e.g., pontoon - equipped aircraft).
+	GroundSurfaceDomain                                                  = 2 
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAircraftPresentDomain();
+
+// Returns the EnumDescriptor value for the specified index. 
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAircraftPresentDomain( KUINT32 Index );
+
+KString GetEnumAsStringAircraftPresentDomain( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringAircraftPresentDomain( const KString & Value, KINT32 & ValueOut );
+
 #endif // DIS 6
 
 } // END namespace ENUMS

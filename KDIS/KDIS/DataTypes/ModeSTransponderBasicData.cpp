@@ -41,7 +41,8 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ModeSTransponderBasicData::ModeSTransponderBasicData()/* :
+ModeSTransponderBasicData::ModeSTransponderBasicData() :
+	m_ui8AirPresDom( 0 )/*
 	m_ui16PIN( 0 ),
 	m_ui32MsgFormats( 0 ),
 	m_ui16NationalOrigin( 0 ),
@@ -121,6 +122,20 @@ const ModeSLevelsPresent & ModeSTransponderBasicData::GetLevelsPresent() const
 ModeSLevelsPresent & ModeSTransponderBasicData::GetLevelsPresent()
 {
 	return m_LvlsPresent;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeSTransponderBasicData::SetAircraftPresentDomain( AircraftPresentDomain AD )
+{
+	m_ui8AirPresDom = AD;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+AircraftPresentDomain ModeSTransponderBasicData::GetAircraftPresentDomain() const
+{
+	return ( AircraftPresentDomain )m_ui8AirPresDom;
 }
 
 //////////////////////////////////////////////////////////////////////////

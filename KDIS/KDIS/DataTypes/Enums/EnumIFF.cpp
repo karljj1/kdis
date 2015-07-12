@@ -471,7 +471,7 @@ const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorModeSSquitterTyp
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringModeSSquitterType( KINT32 Value )
 {
-	return GetEnumAsString( ModeSSquitterTypeDescriptor, sizeof( ModeSSquitterTypeDescriptor ) / sizeof( EnumDescriptor ), Value);
+	return GetEnumAsString(ModeSSquitterTypeDescriptor, sizeof( ModeSSquitterTypeDescriptor ) / sizeof( EnumDescriptor ), Value);
 }
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType( const KString & Value, KINT32 & ValueOut )
@@ -506,15 +506,63 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringModeSSquitterType( const KString 
 #endif
 
 
+//////////////////////////////////////////////////////////////////////////
 
+// Implementation of string values for AircraftPresentDomain
 
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
 
+const EnumDescriptor AircraftPresentDomainDescriptor[] =
+{
+	{ 0, "No Statement" },
+	{ 1, "Airborne" },
+	{ 2, "Ground/Surface" }
+};
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAircraftPresentDomain()
+{
+	return sizeof(AircraftPresentDomainDescriptor) / sizeof(EnumDescriptor);
+}
 
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAircraftPresentDomain(KUINT32 Index)
+{
+	return &AircraftPresentDomainDescriptor[Index];
+}
 
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAircraftPresentDomain(KINT32 Value)
+{
+	return GetEnumAsString(AircraftPresentDomainDescriptor, sizeof(AircraftPresentDomainDescriptor) / sizeof(EnumDescriptor), Value);
+}
 
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAircraftPresentDomain(const KString & Value, KINT32 & ValueOut)
+{
+	return GetEnumFromString(AircraftPresentDomainDescriptor, sizeof(AircraftPresentDomainDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+}
 
+#else
 
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAircraftPresentDomain()
+{
+	return 0;
+}
 
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAircraftPresentDomain(KUINT32 Index)
+{
+	return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAircraftPresentDomain(KINT32 Value)
+{
+	KStringStream ss;
+	ss << Value;
+	return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAircraftPresentDomain(const KString & Value, KINT32 & ValueOut)
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
 
 #endif // Endif DIS Version > 6

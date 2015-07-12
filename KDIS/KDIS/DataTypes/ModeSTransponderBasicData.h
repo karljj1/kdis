@@ -54,6 +54,10 @@ protected:
 	ModeSTransponderStatus m_Status;
 
 	ModeSLevelsPresent m_LvlsPresent;
+
+	KUINT8 m_ui8AirPresDom;
+
+	// TODO: YOU ARE HERE Aircraft Identification. B.2.35
 	/*
 	KUINT16 m_ui16PIN;
 
@@ -73,7 +77,7 @@ protected:
 */
 public:
 
-    static const KUINT16 MODE_5_TRANSPONDER_BASIC_DATA_SIZE = 16; 
+	static const KUINT16 MODE_S_TRANSPONDER_BASIC_DATA_SIZE = 16;
 
     ModeSTransponderBasicData();
 
@@ -94,7 +98,6 @@ public:
 	void SetStatus( const ModeSTransponderStatus & S );
 	const ModeSTransponderStatus & GetStatus() const;
 	ModeSTransponderStatus & GetStatus();
-		
 	
 	//************************************
 	// FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::SetLevelsPresent
@@ -105,6 +108,17 @@ public:
 	void SetLevelsPresent( const ModeSLevelsPresent & LP );
 	const ModeSLevelsPresent & GetLevelsPresent() const;
 	ModeSLevelsPresent & GetLevelsPresent();
+
+	//************************************
+	// FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::SetAircraftPresentDomain
+	//              KDIS::DATA_TYPE::ModeSTransponderBasicData::GetAircraftPresentDomain	
+	// Description: Navigation source for this transponder.
+	// Parameter:   KDIS::DATA_TYPE::ENUMS::AircraftPresentDomain AD
+	//************************************
+	void SetAircraftPresentDomain( KDIS::DATA_TYPE::ENUMS::AircraftPresentDomain AD );
+	KDIS::DATA_TYPE::ENUMS::AircraftPresentDomain GetAircraftPresentDomain() const;
+
+
 
 	//************************************
     // FullName:    KDIS::DATA_TYPE::ModeSTransponderBasicData::GetAsString
