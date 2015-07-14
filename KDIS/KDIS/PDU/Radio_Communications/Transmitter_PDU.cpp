@@ -55,6 +55,18 @@ Transmitter_PDU::Transmitter_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
+Transmitter_PDU::Transmitter_PDU( const Header & H ) :
+	Radio_Communications_Header( H ),    
+	m_ui16Padding1( 0 ),
+    m_ui16AntennaPatternLength( 0 ),
+    m_ui8LengthOfModulationParam( 0 ),
+    m_ui16Padding2( 0 ),
+    m_ui8Padding3( 0 )	
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Transmitter_PDU::Transmitter_PDU( KDataStream & stream ) throw( KException )
 {
     Decode( stream, false );

@@ -94,6 +94,8 @@ public:
     static const KUINT16 TRANSMITTER_PDU_SIZE = 104; // Min Size
 
     Transmitter_PDU();
+	
+	Transmitter_PDU( const Header & H );
 
     Transmitter_PDU( KDataStream & stream ) throw( KException );
 

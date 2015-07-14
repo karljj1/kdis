@@ -64,6 +64,15 @@ Link16_Transmitter_PDU::Link16_Transmitter_PDU( KDataStream & stream ) throw( KE
 {
 	Decode( stream );
 }
+
+//////////////////////////////////////////////////////////////////////////
+
+Link16_Transmitter_PDU::Link16_Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Transmitter_PDU( H )
+{
+    Decode( stream, true );
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 Link16_Transmitter_PDU::Link16_Transmitter_PDU( const RadioEntityType & Type, TransmitState TS, RadioInputSource IS,
@@ -201,13 +210,13 @@ KString Link16_Transmitter_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Link16_Transmitter_PDU::Decode( KDataStream & stream ) throw( KException )
+void Link16_Transmitter_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
 	if( stream.GetBufferSize() < LINK16_TRANSMITTER_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
 	m_vAntennaPattern.clear();
 
-	Radio_Communications_Header::Decode( stream );
+	Radio_Communications_Header::Decode( stream, ignoreHeader );
 
 	stream >> KDIS_STREAM m_RadioEntityType
 		   >> m_ui8TransmitterState

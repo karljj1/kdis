@@ -68,6 +68,14 @@ Link16_Signal_PDU::Link16_Signal_PDU( KDataStream & stream ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
+Link16_Signal_PDU::Link16_Signal_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+	Signal_PDU( H )
+{
+	Decode( stream, true );
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 Link16_Signal_PDU::Link16_Signal_PDU( const EntityIdentifier & ID, KUINT16 RadioID, const EncodingScheme & ES,
 									  KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength,
 									  KUINT16 NPG, KUINT8 NN, KUINT8 TSEC, KUINT8 MSEC, Link16MessageType MT,
@@ -260,11 +268,11 @@ KString Link16_Signal_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Link16_Signal_PDU::Decode( KDataStream & stream ) throw( KException )
+void Link16_Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
 	if( stream.GetBufferSize() < LINK16_SIGNAL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-	Radio_Communications_Header::Decode( stream );
+	Radio_Communications_Header::Decode( stream, ignoreHeader );
 
 	stream >> KDIS_STREAM m_EncodingScheme
 		   >> m_ui32SampleRate
