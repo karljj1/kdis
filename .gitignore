@@ -51,3 +51,4 @@ CMakeCache.txt
 *.sdf
 KDIS/CMakeFiles/TargetDirectories.txt
 KDIS/CMakeFiles/generate.stamp.list
+KDIS/KDIS.opensdf

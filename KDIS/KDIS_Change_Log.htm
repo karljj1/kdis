@@ -61,6 +61,7 @@
 <ul>	
     <li>Added GetEnumSize<ENUM> and GetEnumDescriptor<ENUM>, this exposes the internal EnumDescriptor arrays used for GetEnumAsString and GetEnumFromString, it is now possible to iterate through an enumeration using these 2 functions. An example can be found here<INSERT LINK>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</li>			    
 	<li>Added get and set functions to EntityKind that support integers as well as enums for kind, domain and country. Makes it simpler when using values that may not be standard of implemented in the enums.</li>
+	<li>Added Connection::SetBlockingTimeOut to allow for setting a timeout for blocking mode.</li>
 	<li>Added copy constructor and assignment operator to Entity_State_PDU.</li>
 	<li>Fixed bug in FixedDatum:GetDatumValue. Was using strncpy to return data which causes issues when the data was not a string.</li>
     <li>Fixed bug in Intercom Control PDU and IntercomCommunicationParameters. Some values were not initialized so caused unexpected behaviours during encode/decode. <a href="http://sourceforge.net/p/kdis/bugs/42/">Ticket</a></li>

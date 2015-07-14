@@ -27,6 +27,8 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
+#include <ostream>
+#include <iostream>
 #include "./Connection.h"
 
 #if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 ) // Windows Headers //
@@ -337,6 +339,9 @@ Connection::Connection( const KString & SendAddress, KUINT32 Port /* = 3000 */, 
 {
     m_iSocket[SEND_SOCK] = 0;
     m_iSocket[RECEIVE_SOCK] = 0;
+	
+	m_blockingTimeout.tv_sec = 0;
+	m_blockingTimeout.tv_usec = 0;
 
     startup();
 
@@ -469,6 +474,14 @@ KBOOL Connection::IsBlockingModeEnabled() const
 }
 
 //////////////////////////////////////////////////////////////////////////
+ 
+void Connection::SetBlockingTimeOut( KINT32 sec, KINT32 usec )
+{
+    m_blockingTimeout.tv_sec = sec;
+    m_blockingTimeout.tv_usec = usec;
+}
+
+//////////////////////////////////////////////////////////////////////////
 
 void Connection::AddSubscriber( ConnectionSubscriber * S )
 {
@@ -568,7 +581,7 @@ KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderI
     fd_set fd;
     FD_ZERO( &fd );
     FD_SET( m_iSocket[RECEIVE_SOCK], &fd );
-    timeval * pTimeout = 0;
+    timeval pTimeout;
 
     if( !m_bBlockingSocket )
     {
@@ -577,11 +590,20 @@ KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderI
         timeval tval;
         tval.tv_sec  = 0;
         tval.tv_usec = 1;
-        pTimeout = &tval;
+        pTimeout = tval;
     }
-
+    else
+    {
+        // Even in blocking mode, it can be useful to return
+        // occasionally after a long period without data.
+        // where (long period == a second or so).
+        // This can make clean exits a joy and allow status messages
+        // from the same thread
+        pTimeout = m_blockingTimeout;
+	}
+	
     // Check the socket, do we have data waiting?
-    KINT32 uiErr = select( m_iSocket[RECEIVE_SOCK] + 1, &fd, 0, 0, pTimeout );
+    KINT32 uiErr = select( m_iSocket[RECEIVE_SOCK] + 1, &fd, 0, 0, &pTimeout );
 
     if( uiErr == SOCKET_ERROR )
     {

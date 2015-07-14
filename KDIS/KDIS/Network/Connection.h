@@ -72,6 +72,8 @@ protected:
     KINT32 m_iSocket[2]; // 1 for sending & 1 for receiving.
 
     KUINT32 m_uiPort;
+	
+	timeval m_blockingTimeout;
 
     sockaddr_in m_SendToAddr;
     KString m_sSendAddress;
@@ -151,6 +153,17 @@ public:
     //************************************
     void SetBlockingModeEnabled( KBOOL E );
     KBOOL IsBlockingModeEnabled() const;
+	
+     //************************************
+    // FullName:    KDIS::NETWORK::Connection::SetBlockingTimeout
+    // Description: Sets the timeout for blocking I/O.
+    //              Note: This is useful for reporting when there has been no socket
+	//				I/O for a long time. Where long time == 1 second or so. 
+	//				Make it short enough, and you make it non-blocking I/O.
+    // Parameter:   KINT32 sec
+	// Parameter:   KINT32 usec
+    //************************************
+    void SetBlockingTimeOut( KINT32 sec, KINT32 usec );	
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::AddSubscriber
