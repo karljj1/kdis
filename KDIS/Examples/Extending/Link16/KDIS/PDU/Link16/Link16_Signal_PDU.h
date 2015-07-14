@@ -52,12 +52,13 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/PDU/Radio_Communications/Signal_PDU.h"
 #include "./../../DataTypes/Enums/EnumLink16.h"
+#include "./../../KDefinesLink16.h"
 
 namespace KDIS {
 namespace PDU {
 namespace LINK16 {
 
-class Link16_Signal_PDU : public Signal_PDU
+class KDIS_EXPORT_LINK16 Link16_Signal_PDU : public Signal_PDU
 {
 protected:
 

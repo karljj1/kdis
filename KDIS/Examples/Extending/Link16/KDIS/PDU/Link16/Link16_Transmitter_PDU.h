@@ -71,12 +71,13 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./../../DataTypes/Enums/EnumLink16.h"
 #include "KDIS/PDU/Radio_Communications/Transmitter_PDU.h"
+#include "./../../KDefinesLink16.h"
 
 namespace KDIS {
 namespace PDU {
 namespace LINK16 {
 
-class Link16_Transmitter_PDU : public Transmitter_PDU
+class KDIS_EXPORT_LINK16 Link16_Transmitter_PDU : public Transmitter_PDU
 {
 protected:
 	

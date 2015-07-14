@@ -38,11 +38,12 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "KDIS/Extras/PDU_Factory.h"
+#include "./../KDefinesLink16.h"
 
 namespace KDIS {
 namespace UTILS {
 
-class KDIS_EXPORT PDU_FactoryLink16 : PDU_Factory
+class KDIS_EXPORT_LINK16 PDU_FactoryLink16 : PDU_Factory
 {
 public:
 
