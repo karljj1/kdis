@@ -43,7 +43,7 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace UTILS {
 
-class KDIS_EXPORT_LINK16 PDU_FactoryLink16 : PDU_Factory
+class KDIS_EXPORT_LINK16 PDU_FactoryLink16 : public PDU_Factory
 {
 public:
 
