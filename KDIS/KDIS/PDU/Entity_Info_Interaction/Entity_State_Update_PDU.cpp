@@ -278,6 +278,7 @@ void Entity_State_Update_PDU::Decode( KDataStream & stream, bool ignoreHeader /*
     Header::Decode( stream, ignoreHeader );	
 
     stream >> KDIS_STREAM m_EntityID
+		   >> m_ui8Padding1
            >> m_ui8NumOfVariableParams
            >> KDIS_STREAM m_EntityLinearVelocity
            >> KDIS_STREAM m_EntityLocation
@@ -340,6 +341,7 @@ void Entity_State_Update_PDU::Encode( KDataStream & stream ) const
 {
     Header::Encode( stream );
     stream << KDIS_STREAM m_EntityID
+		   << m_ui8Padding1
            << m_ui8NumOfVariableParams
            << KDIS_STREAM m_EntityLinearVelocity
            << KDIS_STREAM m_EntityLocation
