@@ -189,7 +189,7 @@ int main()
 			VarDtmPtr pVd = ourRecPDU->GetVariableDatum()[0];
 
 			// Now up cast so we get our data type.
-			TargetPosition * pMyRecvTargetPos = dynamic_cast<TargetPosition*>( pVd.GetPtr() );
+			TargetPosition * pMyRecvTargetPos = dynamic_cast<TargetPosition*>( ( VariableDatum * )pVd );
 			
 			if( pMyRecvTargetPos )
 			{

@@ -177,7 +177,7 @@ int main()
 			VarDtmPtr pVd = ourRecPDU->GetVariableDatum()[0];
 
 			// Now upcast so we get our data type.
-			MyCustomClass * pMyClass = dynamic_cast<MyCustomClass*>( pVd.GetPtr() );
+			MyCustomClass * pMyClass = dynamic_cast<MyCustomClass*>( ( VariableDatum * )pVd );
 			
 			if( pMyClass )
 			{

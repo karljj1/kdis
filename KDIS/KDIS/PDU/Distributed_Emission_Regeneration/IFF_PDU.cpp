@@ -373,8 +373,15 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw
 			default: throw KException( __FUNCTION__, UNSUPPORTED_DATATYPE, hdr.GetLayerNumber() );						
 		}
 
-		m_vLayers.push_back( layer );
-		remainingData -= layer->GetLayerLength();
+		if( layer )
+		{
+			m_vLayers.push_back( layer );
+			remainingData -= layer->GetLayerLength();
+		}
+		else
+		{
+			throw KException( __FUNCTION__, INVALID_OPERATION, "Layer is null" );
+		}
 	}
 }
 

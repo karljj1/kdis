@@ -261,6 +261,15 @@ public:
         return *m_pRef;
     };
 
+	//************************************
+	// FullName:    KRef_Ptr<Type>::operator Type *
+	// Description: Implicit conversion support.
+	//************************************
+	operator Type *() 
+	{ 
+		return m_pRef;
+	}
+
     //************************************
     // FullName:    KRef_Ptr<Type>::operator->
     // Description: Returns the referenced pointer.
