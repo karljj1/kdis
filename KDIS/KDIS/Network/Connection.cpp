@@ -700,7 +700,7 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
 				return pdu;
 			}
 		}
-		catch( exception e )
+		catch( const exception & e )
 		{
 			// Something went wrong, the stream is likely corrupted now so wipe it or we will have issues in the next GetNextPDU call.
 			m_stream.Clear();
