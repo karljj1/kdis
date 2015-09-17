@@ -93,6 +93,13 @@ KBOOL LifeFormAppearance::IsEntityFlashLightsOn() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void LifeFormAppearance::SetEntityLifeformState( KDIS::DATA_TYPE::ENUMS::EntityLifeformAppearance EA )
+{
+    m_LifeformState = EA;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EntityLifeformAppearance LifeFormAppearance::GetEntityLifeformState() const
 {
     return ( EntityLifeformAppearance )m_LifeformState;
