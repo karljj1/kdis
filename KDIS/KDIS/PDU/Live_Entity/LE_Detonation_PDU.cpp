@@ -28,6 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "./LE_Detonation_PDU.h"
+#include <cassert>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,20 +42,29 @@ using namespace UTILS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Detonation_PDU::checkSiteApplicationFlags()
+void LE_Detonation_PDU::checkFlagsAndPDULength()
 {
-    // Check if the munition's's site and application values
-    // are the same, if they are we don't include them.
-    if( m_EntID.GetSiteID() == m_MunitionID.GetSiteID() &&
-            m_EntID.GetApplicationID() == m_MunitionID.GetApplicationID() )
+    // Check if the Munition ID field is included and set dependent
+    // values accordingly.
+    if( GetMunitionEntityIDFlag() )
     {
-        // They match so don't include the fields
-        SetMunitionEntityIDSiteAppIncludedFlag( false );
+        // Check if the munition's's site and application values
+        // are the same, if they are we don't include them.
+        if( m_EntID.GetSiteID() == m_MunitionID.GetSiteID() &&
+                m_EntID.GetApplicationID() == m_MunitionID.GetApplicationID() )
+        {
+            // They match so don't include the fields
+            SetMunitionEntityIDSiteAppIncludedFlag( false );
+        }
+        else
+        {
+            // They don't match so we need to send these fields.
+            SetMunitionEntityIDSiteAppIncludedFlag( true );
+        }
     }
     else
     {
-        // They don't match so we need to send these fields.
-        SetMunitionEntityIDSiteAppIncludedFlag( true );
+        SetMunitionEntityIDSiteAppIncludedFlag( false );
     }
 
     // Now check the event's site and application values
@@ -67,6 +77,34 @@ void LE_Detonation_PDU::checkSiteApplicationFlags()
     {
         SetEventIDSiteAppIncludedFlag( true );
     }
+
+    // Check if the Event Number field or the Munition Orientation field
+    // are set. Make sure that the Flag Octet 2 is set accordingly.
+    if( GetMunitionOrientationFlag() || GetEventNumberIncludedFlag() )
+    {
+        SetFlag2Flag( true );
+    }
+    else
+    {
+        SetFlag2Flag( false );
+    }
+
+#ifdef _DEBUG
+    {
+        // Verify PDU length
+        const KUINT16 ui16ExpectedPDULength = 32
+            + 1*m_DetonationFlag1Union.m_ui8Flag2
+            + 4*m_DetonationFlag1Union.m_ui8TargetId
+            + (2*m_DetonationFlag1Union.m_ui8MunitionSiteApp + 2)*m_DetonationFlag1Union.m_ui8MunitionId
+            + (2*m_DetonationFlag1Union.m_ui8EventSiteAppId + 2)*m_DetonationFlag2Union.m_ui8EventNum
+            + 8*(1 - m_DetonationFlag1Union.m_ui8LocationTyp)
+            + 6*m_DetonationFlag2Union.m_ui8MunitionOri
+            + 4*m_DetonationFlag1Union.m_ui8WarheadFuse
+            + 4*m_DetonationFlag1Union.m_ui8QuantRate
+            + 6*m_DetonationFlag1Union.m_ui8LocationTyp;
+        assert(ui16ExpectedPDULength == m_ui16PDULength);
+    }
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -271,7 +309,7 @@ void LE_Detonation_PDU::SetLocationInEntityCoordinatesFlag( KBOOL F )
 {
     if( ( KUINT8 )F == m_DetonationFlag1Union.m_ui8LocationTyp )return;
 
-    m_DetonationFlag1Union.m_ui8QuantRate = F;
+    m_DetonationFlag1Union.m_ui8LocationTyp = F;
 
     if( F )
     {
@@ -289,7 +327,7 @@ void LE_Detonation_PDU::SetLocationInEntityCoordinatesFlag( KBOOL F )
 
 KBOOL LE_Detonation_PDU::GetLocationInEntityCoordinatesFlag() const
 {
-    return m_DetonationFlag1Union.m_ui8QuantRate;
+    return m_DetonationFlag1Union.m_ui8LocationTyp;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -323,11 +361,12 @@ void LE_Detonation_PDU::SetMunitionOrientationFlag( KBOOL F )
 {
     if( ( KUINT8 )F == m_DetonationFlag2Union.m_ui8MunitionOri )return;
 
-    m_DetonationFlag1Union.m_ui8Flag2 = F;
+    m_DetonationFlag2Union.m_ui8MunitionOri = F;
+
+    SetFlag2Flag( m_DetonationFlag2Union.m_ui8Flag != 0 );
 
     if( F )
     {
-        SetFlag2Flag( F );
         m_ui16PDULength += LE_Vector16_3::LE_VECTOR_SIZE;
     }
     else
@@ -349,11 +388,12 @@ void LE_Detonation_PDU::SetEventNumberIncludedFlag( KBOOL F )
 {
     if( ( KUINT8 )F == m_DetonationFlag2Union.m_ui8EventNum )return;
 
-    m_DetonationFlag1Union.m_ui8Flag2 = F;
+    m_DetonationFlag2Union.m_ui8EventNum = F;
+
+    SetFlag2Flag( m_DetonationFlag2Union.m_ui8Flag != 0 );
 
     if( F )
     {
-        SetFlag2Flag( F );
         m_ui16PDULength += 2; // 2 = size of event number field
     }
     else
@@ -669,11 +709,18 @@ void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true
 
     stream >> m_DetonationFlag1Union.m_ui8Flag;
 
+    // F7: Flag Octet 2
     if( m_DetonationFlag1Union.m_ui8Flag2 )
     {
         stream >> m_DetonationFlag2Union.m_ui8Flag;
     }
+    else
+    {
+        // Make sure no flags are set in Flag Octet 2
+        m_DetonationFlag2Union.m_ui8Flag = 0;
+    }
 
+    // F0: Target Entity ID
     if( m_DetonationFlag1Union.m_ui8TargetId )
     {
         stream >> KDIS_STREAM m_TargetID;
@@ -681,9 +728,10 @@ void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true
 
     KUINT16 tmp = 0;
 
-    // Munition ID
+    // F2: Munition ID
     if( m_DetonationFlag1Union.m_ui8MunitionId )
     {
+        // F1: Site Number and Application Number
         if( m_DetonationFlag1Union.m_ui8MunitionSiteApp )
         {
             stream >> KDIS_STREAM m_MunitionID;
@@ -700,9 +748,10 @@ void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true
         }
     }
 
-    // Event ID
+    // G1: Event Number
     if( m_DetonationFlag2Union.m_ui8EventNum )
     {
+        // F3: Event ID
         if( m_DetonationFlag1Union.m_ui8EventSiteAppId )
         {
             stream >> KDIS_STREAM m_EventID;
@@ -719,53 +768,49 @@ void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true
         }
     }
 
-    // Is the location in world coordinates?
+    // F6: Is the location in world coordinates?
     if( !m_DetonationFlag1Union.m_ui8LocationTyp ) // false means location is in world coords
     {
         stream >> KDIS_STREAM m_LocWrldCoord;
     }
 
+    // Velocity
     stream >> KDIS_STREAM m_Vel;
 
+    // G0: Munition Orientation
     if( m_DetonationFlag2Union.m_ui8MunitionOri )
     {
         stream >> KDIS_STREAM m_Ori;
     }
 
     // Munition Descriptor
-    if( !m_DetonationFlag1Union.m_ui8WarheadFuse && !m_DetonationFlag1Union.m_ui8QuantRate )
+    m_MunitionDesc.SetType( EntityType( stream ) );
+    // F4: Warhead and Fuse fields of the Munition Descriptor record
+    if( m_DetonationFlag1Union.m_ui8WarheadFuse )
     {
-        stream >> KDIS_STREAM m_MunitionDesc;
+        stream >> tmp;
+        m_MunitionDesc.SetWarhead( ( WarheadType )tmp );
+
+        stream >> tmp;
+        m_MunitionDesc.SetFuse( ( FuseType )tmp );
     }
-    else
+    // F5: Quantity and Rate fields of the Munition Descriptor record
+    if( m_DetonationFlag1Union.m_ui8QuantRate )
     {
-		m_MunitionDesc.SetType( EntityType( stream ) );
+        stream >> tmp;
+        m_MunitionDesc.SetQuantity( tmp );
 
-        if( m_DetonationFlag1Union.m_ui8WarheadFuse )
-        {
-            stream >> tmp;
-            m_MunitionDesc.SetWarhead( ( WarheadType )tmp );
-
-            stream >> tmp;
-            m_MunitionDesc.SetFuse( ( FuseType )tmp );
-        }
-
-        if( m_DetonationFlag1Union.m_ui8QuantRate )
-        {
-            stream >> tmp;
-            m_MunitionDesc.SetQuantity( tmp );
-
-            stream >> tmp;
-            m_MunitionDesc.SetRate( tmp );
-        }
+        stream >> tmp;
+        m_MunitionDesc.SetRate( tmp );
     }
 
-    // Is the location in entity coordinates?
+    // F6: Is the location in entity coordinates?
     if( m_DetonationFlag1Union.m_ui8LocationTyp ) // true means location is in entity coords
     {
         stream >> KDIS_STREAM m_LocEntCoord;
     }
 
+    // Detonation Result
     stream >> m_ui8DetonationResult;
 }
 
@@ -784,27 +829,31 @@ KDataStream LE_Detonation_PDU::Encode() const
 
 void LE_Detonation_PDU::Encode( KDataStream & stream ) const
 {
-    LE_Header::Encode( stream );
-
     // We need to cast away the const so we can check the flag values are correct
+    // Must check the flags before encoding the header since PDU length may change
     LE_Detonation_PDU * self = const_cast<LE_Detonation_PDU*>( this );
-    self->checkSiteApplicationFlags();
+    self->checkFlagsAndPDULength();
+
+    LE_Header::Encode( stream );
 
     stream << m_DetonationFlag1Union.m_ui8Flag;
 
+    // F7: Flag Octet 2
     if( m_DetonationFlag1Union.m_ui8Flag2 )
     {
         stream << m_DetonationFlag2Union.m_ui8Flag;
     }
 
+    // F0: Target Entity ID
     if( m_DetonationFlag1Union.m_ui8TargetId )
     {
         stream << KDIS_STREAM m_TargetID;
     }
 
-    // Munition ID
+    // F2: Munition ID
     if( m_DetonationFlag1Union.m_ui8MunitionId )
     {
+        // F1: Site Number and Application Number
         if( m_DetonationFlag1Union.m_ui8MunitionSiteApp )
         {
             stream << KDIS_STREAM m_MunitionID;
@@ -816,9 +865,10 @@ void LE_Detonation_PDU::Encode( KDataStream & stream ) const
         }
     }
 
-    // Event ID
+    // G1: Event Number
     if( m_DetonationFlag2Union.m_ui8EventNum )
     {
+        // F3: Event ID
         if( m_DetonationFlag1Union.m_ui8EventSiteAppId )
         {
             stream << KDIS_STREAM m_EventID;
@@ -826,43 +876,38 @@ void LE_Detonation_PDU::Encode( KDataStream & stream ) const
         else
         {
             // We cant use the standard encode/decode functions here as not all fields are included.
-            m_EventID.GetEntityID();
+            stream << m_EventID.GetEntityID();
         }
     }
 
-    // Is the location in world coordinates?
+    // F6: Is the location in world coordinates?
     if( !m_DetonationFlag1Union.m_ui8LocationTyp ) // false means location is in world coords
     {
         stream << KDIS_STREAM m_LocWrldCoord;
     }
 
+    // Velocity
     stream << KDIS_STREAM m_Vel;
 
+    // G0: Munition Orientation
     if( m_DetonationFlag2Union.m_ui8MunitionOri )
     {
         stream << KDIS_STREAM m_Ori;
     }
 
-    // Munition
-    if( !m_DetonationFlag1Union.m_ui8WarheadFuse && !m_DetonationFlag1Union.m_ui8QuantRate )
+    // Munition Descriptor
+    stream << KDIS_STREAM m_MunitionDesc.GetType();
+    // F4: Warhead and Fuse fields of the Munition Descriptor record
+    if( m_DetonationFlag1Union.m_ui8WarheadFuse )
     {
-        stream << KDIS_STREAM m_MunitionDesc;
+        stream << ( KUINT16 )m_MunitionDesc.GetWarhead()
+               << ( KUINT16 )m_MunitionDesc.GetFuse();
     }
-    else
+    // F5: Quantity and Rate fields of the Munition Descriptor record
+    if( m_DetonationFlag1Union.m_ui8QuantRate )
     {
-		stream << KDIS_STREAM m_MunitionDesc.GetType();
-
-        if( m_DetonationFlag1Union.m_ui8WarheadFuse )
-        {
-            stream << ( KUINT16 )m_MunitionDesc.GetWarhead()
-                   << ( KUINT16 )m_MunitionDesc.GetFuse();
-        }
-
-        if( m_DetonationFlag1Union.m_ui8QuantRate )
-        {
-            stream << m_MunitionDesc.GetQuantity()
-                   << m_MunitionDesc.GetRate();
-        }
+        stream << m_MunitionDesc.GetQuantity()
+               << m_MunitionDesc.GetRate();
     }
 
     // Is the location in entity coordinates?
@@ -871,8 +916,12 @@ void LE_Detonation_PDU::Encode( KDataStream & stream ) const
         stream << KDIS_STREAM m_LocEntCoord;
     }
 
+    // Detonation Result
     stream << m_ui8DetonationResult;
+
+    assert(stream.GetBufferSize() == m_ui16PDULength);
 }
+
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL LE_Detonation_PDU::operator == ( const LE_Detonation_PDU & Value ) const

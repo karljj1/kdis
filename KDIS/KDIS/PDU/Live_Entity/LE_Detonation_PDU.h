@@ -57,14 +57,28 @@ protected:
     {
         struct
         {
-            KUINT8 m_ui8TargetId        : 1;
-            KUINT8 m_ui8MunitionSiteApp : 1;
-            KUINT8 m_ui8MunitionId      : 1;
-            KUINT8 m_ui8EventSiteAppId  : 1;
-            KUINT8 m_ui8WarheadFuse     : 1;
-            KUINT8 m_ui8QuantRate       : 1;
-            KUINT8 m_ui8LocationTyp     : 1;
-            KUINT8 m_ui8Flag2           : 1;
+            KUINT8 m_ui8TargetId        : 1; // F0 : 0 = Target Entity ID field is not included
+                                             //      1 = Target Entity ID field is included
+            KUINT8 m_ui8MunitionSiteApp : 1; // F1 : 0 = Site Number and Application Number data are the same as the firing
+                                             //          entity’s and are not included in the Munition ID
+                                             //      1 = Site Number and Application Number fields are included in the Munition ID
+            KUINT8 m_ui8MunitionId      : 1; // F2 : 0 = Munition ID field is not included
+                                             //      1 = Munition ID field is included
+            KUINT8 m_ui8EventSiteAppId  : 1; // F3 : 0 = Site Number and Application Number data are the same as the firing
+                                             //          entity’s and are not included in the Event ID
+                                             //      1 = Site Number and Application Number fields are included in the Event ID
+            KUINT8 m_ui8WarheadFuse     : 1; // F4 : 0 = Warhead and Fuse fields of the Munition Descriptor record are not
+                                             //          included (use munition default)
+                                             //      1 = Warhead and Fuse fields of the Munition Descriptor record are present
+            KUINT8 m_ui8QuantRate       : 1; // F5 : 0 = Quantity and Rate fields of the Munition Descriptor record are not
+                                             //          included
+                                             //      1 = Quantity and Rate fields of the Munition Descriptor record are included
+            KUINT8 m_ui8LocationTyp     : 1; // F6 : 0 = Location in Entity Coordinates field is not included; Location in
+                                             //          Relative World Coordinates field is included
+                                             //      1 = Location in Entity Coordinates field is included; Location in Relative
+                                             //          World Coordinates field is not included
+            KUINT8 m_ui8Flag2           : 1; // F7 : 0 = Flag Octet 2 is not included
+                                             //      1 = Flag Octet 2 is included
         };
         KUINT8 m_ui8Flag;
     } m_DetonationFlag1Union;
@@ -73,8 +87,10 @@ protected:
     {
         struct
         {
-            KUINT8 m_ui8MunitionOri     : 1;
-            KUINT8 m_ui8EventNum        : 1;
+            KUINT8 m_ui8MunitionOri     : 1; // G0 : 0 = Munition Orientation field is not included
+                                             //      1 = Munition Orientation field is included
+            KUINT8 m_ui8EventNum        : 1; // G1 : 0 = Event Number field is not included in Event ID
+                                             //      1 = Event Number field is included in Event ID
             KUINT8 m_ui8Unused          : 5;
             KUINT8 m_ui8Reserved        : 1;
         };
@@ -99,13 +115,13 @@ protected:
     KUINT8 m_ui8DetonationResult;
 
     //************************************
-    // FullName:    KDIS::PDU::LE_Detonation_PDU::checkSiteApplicationFlags
+    // FullName:    KDIS::PDU::LE_Detonation_PDU::checkFlagsAndPDULength
     // Description: Checks the site and application values to see if we need to include them during
     //              encoding. The values are set when the set id functions are called however it is
     //              possible that a change may have occurred since, I.E by calling the GetID function
     //              and setting through it.
     //************************************
-    void checkSiteApplicationFlags();
+    void checkFlagsAndPDULength();
 
 public:
 
