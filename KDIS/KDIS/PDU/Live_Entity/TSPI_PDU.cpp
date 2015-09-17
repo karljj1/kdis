@@ -47,7 +47,7 @@ TSPI_PDU::TSPI_PDU() :
 {
     m_ui8PDUType = TSPI_PDU_Type;
     m_ui16PDULength = TSPI_PDU_SIZE;
-    m_TSPIFlagUnion.m_ui8Data = 0;
+    m_TSPIFlagUnion.m_ui8Flag = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ TSPI_PDU::TSPI_PDU( const LE_EntityIdentifier & ID ) :
     m_EntID = ID;
     m_ui8PDUType = TSPI_PDU_Type;
     m_ui16PDULength = TSPI_PDU_SIZE;
-    m_TSPIFlagUnion.m_ui8Data = 0;
+    m_TSPIFlagUnion.m_ui8Flag = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -476,7 +476,7 @@ KString TSPI_PDU::GetAsString() const
        << "\tOrientation Error:        " << ( KUINT16 )m_TSPIFlagUnion.m_ui8OriErr << "\n"
        << "\tDead Reckoning Parameter: " << ( KUINT16 )m_TSPIFlagUnion.m_ui8DRM    << "\n"
        << "\tMeasured Speed:           " << ( KUINT16 )m_TSPIFlagUnion.m_ui8Spd    << "\n"
-       << "\tSystem Specific Data:     " << ( KUINT16 )m_TSPIFlagUnion.m_ui8Spd    << "\n"
+       << "\tSystem Specific Data:     " << ( KUINT16 )m_TSPIFlagUnion.m_ui8Data   << "\n"
        << "Location - "                << m_Loc.GetAsString();
 
     if( m_TSPIFlagUnion.m_ui8LinVel )
@@ -634,7 +634,7 @@ void TSPI_PDU::Encode( KDataStream & stream ) const
         stream << KDIS_STREAM m_MeasureSpd;
     }
 
-    if( m_TSPIFlagUnion.m_ui8Spd )
+    if( m_TSPIFlagUnion.m_ui8Data )
     {
         stream << m_ui8SSDLen;
 

@@ -28,6 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "./LE_Fire_PDU.h"
+#include <cassert>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,20 +42,29 @@ using namespace UTILS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Fire_PDU::checkSiteApplicationFlags()
+void LE_Fire_PDU::checkFlagsAndPDULength()
 {
-    // Check if the munition's's site and application values
-    // are the same, if they are we don't include them.
-    if( m_EntID.GetSiteID() == m_MunitionID.GetSiteID() &&
-            m_EntID.GetApplicationID() == m_MunitionID.GetApplicationID() )
+    // Check if Munition ID field is included and set dependent
+    // values accordingly.
+    if( GetMunitionEntityIDFlag() )
     {
-        // They match so don't include the fields
-        SetMunitionEntityIDSiteAppIncludedFlag( false );
+        // Check if the munition's's site and application values
+        // are the same, if they are we don't include them.
+        if( m_EntID.GetSiteID() == m_MunitionID.GetSiteID() &&
+                m_EntID.GetApplicationID() == m_MunitionID.GetApplicationID() )
+        {
+            // They match so don't include the fields
+            SetMunitionEntityIDSiteAppIncludedFlag( false );
+        }
+        else
+        {
+            // They don't match so we need to send these fields.
+            SetMunitionEntityIDSiteAppIncludedFlag( true );
+        }
     }
     else
     {
-        // They don't match so we need to send these fields.
-        SetMunitionEntityIDSiteAppIncludedFlag( true );
+        SetMunitionEntityIDSiteAppIncludedFlag( false );
     }
 
     // Now check the event's site and application values
@@ -67,6 +77,20 @@ void LE_Fire_PDU::checkSiteApplicationFlags()
     {
         SetEventIDSiteAppIncludedFlag( true );
     }
+
+#ifdef _DEBUG
+    {
+        // Verify PDU length
+        const KUINT16 ui16ExpectedPDULength = 35 
+            + (4*m_FireFlagUnion.m_ui8TargetId) 
+            + ((2*m_FireFlagUnion.m_ui8MunitionSiteApp + 2)*m_FireFlagUnion.m_ui8MunitionId) 
+            + (2*m_FireFlagUnion.m_ui8EventSiteAppId) 
+            + (8*m_FireFlagUnion.m_ui8Location) 
+            + (4*m_FireFlagUnion.m_ui8WarheadFuse) 
+            + (4*m_FireFlagUnion.m_ui8QuantRate);
+        assert(ui16ExpectedPDULength == m_ui16PDULength);
+    }
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -506,6 +530,7 @@ void LE_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) t
 
     stream >> m_FireFlagUnion.m_ui8Flag;
 
+    // F0: Target Entity ID
     if( m_FireFlagUnion.m_ui8TargetId )
     {
         stream >> KDIS_STREAM m_TargetID;
@@ -513,9 +538,10 @@ void LE_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) t
 
     KUINT16 tmp = 0;
 
-    // Munition ID
+    // F2: Munition ID
     if( m_FireFlagUnion.m_ui8MunitionId )
     {
+        // F1: Site Number and Application Number
         if( m_FireFlagUnion.m_ui8MunitionSiteApp )
         {
             stream >> KDIS_STREAM m_MunitionID;
@@ -532,8 +558,12 @@ void LE_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) t
         }
     }
 
-    // Event ID
+    // F3: Event ID
     if( m_FireFlagUnion.m_ui8EventSiteAppId )
+    {
+        stream >> KDIS_STREAM m_EventID;
+    }
+    else
     {
         // We cant use the standard encode/decode functions here as not all fields are included.
 
@@ -543,45 +573,35 @@ void LE_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) t
         stream >> tmp;
         m_EventID.SetEntityID( tmp );
     }
-    else
-    {
-        stream >> KDIS_STREAM m_EventID;
-    }
 
-    // Location
+    // F6: Location
     if( m_FireFlagUnion.m_ui8Location )
     {
         stream >> KDIS_STREAM m_Loc;
     }
 
     // Munition Descriptor
-    if( !m_FireFlagUnion.m_ui8WarheadFuse && !m_FireFlagUnion.m_ui8QuantRate )
+    m_MunitionDesc.SetType( EntityType( stream ) );
+    // F4: Warhead and Fuse fields of the Munition Descriptor record
+    if( m_FireFlagUnion.m_ui8WarheadFuse )
     {
-        stream >> KDIS_STREAM m_MunitionDesc;
+        stream >> tmp;
+        m_MunitionDesc.SetWarhead( ( WarheadType )tmp );
+
+        stream >> tmp;
+        m_MunitionDesc.SetFuse( ( FuseType )tmp );
     }
-    else
+    // F5: Quantity and Rate fields of the Munition Descriptor record
+    if( m_FireFlagUnion.m_ui8QuantRate )
     {
-		m_MunitionDesc.SetType( EntityType( stream ) );
+        stream >> tmp;
+        m_MunitionDesc.SetQuantity( tmp );
 
-        if( m_FireFlagUnion.m_ui8WarheadFuse )
-        {
-            stream >> tmp;
-            m_MunitionDesc.SetWarhead( ( WarheadType )tmp );
-
-            stream >> tmp;
-            m_MunitionDesc.SetFuse( ( FuseType )tmp );
-        }
-
-        if( m_FireFlagUnion.m_ui8QuantRate )
-        {
-            stream >> tmp;
-            m_MunitionDesc.SetQuantity( tmp );
-
-            stream >> tmp;
-            m_MunitionDesc.SetRate( tmp );
-        }
+        stream >> tmp;
+        m_MunitionDesc.SetRate( tmp );
     }
 
+    // Velocity and Range
     stream >> KDIS_STREAM m_Vel
            >> m_ui16Range;
 }
@@ -601,22 +621,25 @@ KDataStream LE_Fire_PDU::Encode() const
 
 void LE_Fire_PDU::Encode( KDataStream & stream ) const
 {
-    LE_Header::Encode( stream );
-
     // We need to cast away the const so we can check the flag values are correct
+    // Must check the flags before encoding the header since PDU length may change
     LE_Fire_PDU * self = const_cast<LE_Fire_PDU*>( this );
-    self->checkSiteApplicationFlags();
+    self->checkFlagsAndPDULength();
+
+    LE_Header::Encode( stream );
 
     stream << m_FireFlagUnion.m_ui8Flag;
 
+    // F0: Target Entity ID
     if( m_FireFlagUnion.m_ui8TargetId )
     {
         stream << KDIS_STREAM m_TargetID;
     }
 
-    // Munition ID
+    // F2: Munition ID
     if( m_FireFlagUnion.m_ui8MunitionId )
     {
+        // F1: Site Number and Application Number
         if( m_FireFlagUnion.m_ui8MunitionSiteApp )
         {
             stream << KDIS_STREAM m_MunitionID;
@@ -628,47 +651,43 @@ void LE_Fire_PDU::Encode( KDataStream & stream ) const
         }
     }
 
-    // Event ID
+    // F3: Event ID
     if( m_FireFlagUnion.m_ui8EventSiteAppId )
+    {
+        stream << KDIS_STREAM m_EventID;
+    }
+    else
     {
         // We cant use the standard encode/decode functions here as not all fields are included.
         stream << m_EventID.GetEntityID();
     }
-    else
-    {
-        stream << KDIS_STREAM m_EventID;
-    }
 
-    // Location
+    // F6: Location
     if( m_FireFlagUnion.m_ui8Location )
     {
         stream << KDIS_STREAM m_Loc;
     }
 
     // Munition
-    if( !m_FireFlagUnion.m_ui8WarheadFuse && !m_FireFlagUnion.m_ui8QuantRate )
+    stream << KDIS_STREAM m_MunitionDesc.GetType();
+    // F4: Warhead and Fuse fields of the Munition Descriptor record
+    if( m_FireFlagUnion.m_ui8WarheadFuse )
     {
-        stream << KDIS_STREAM m_MunitionDesc;
+        stream << ( KUINT16 )m_MunitionDesc.GetWarhead()
+               << ( KUINT16 )m_MunitionDesc.GetFuse();
     }
-    else
+    // F5: Quantity and Rate fields of the Munition Descriptor record
+    if( m_FireFlagUnion.m_ui8QuantRate )
     {
-		stream << KDIS_STREAM m_MunitionDesc.GetType();
-
-        if( m_FireFlagUnion.m_ui8WarheadFuse )
-        {
-            stream << ( KUINT16 )m_MunitionDesc.GetWarhead()
-                   << ( KUINT16 )m_MunitionDesc.GetFuse();
-        }
-
-        if( m_FireFlagUnion.m_ui8QuantRate )
-        {
-            stream << m_MunitionDesc.GetQuantity()
-                   << m_MunitionDesc.GetRate();
-        }
+        stream << m_MunitionDesc.GetQuantity()
+               << m_MunitionDesc.GetRate();
     }
 
+    // Velocity and Range
     stream << KDIS_STREAM m_Vel
            << m_ui16Range;
+
+    assert(stream.GetBufferSize() == m_ui16PDULength);
 }
 
 //////////////////////////////////////////////////////////////////////////

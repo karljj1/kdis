@@ -56,13 +56,24 @@ protected:
     {
         struct
         {
-            KUINT8 m_ui8TargetId        : 1;
-            KUINT8 m_ui8MunitionSiteApp : 1;
-            KUINT8 m_ui8MunitionId      : 1;
-            KUINT8 m_ui8EventSiteAppId  : 1;
-            KUINT8 m_ui8WarheadFuse     : 1;
-            KUINT8 m_ui8QuantRate       : 1;
-            KUINT8 m_ui8Location        : 1;
+            KUINT8 m_ui8TargetId        : 1; // F0 : 0 = Target Entity ID field is not included
+                                             //      1 = Target Entity ID field is included
+            KUINT8 m_ui8MunitionSiteApp : 1; // F1 : 0 = Site Number and Application Number data are the same as the firing
+                                             //          entity’s and are not included in the Munition ID
+                                             //      1 = Site Number and Application Number fields are included in the Munition ID
+            KUINT8 m_ui8MunitionId      : 1; // F2 : 0 = Munition ID field is not included
+                                             //      1 = Munition ID field is included
+            KUINT8 m_ui8EventSiteAppId  : 1; // F3 : 0 = Site Number and Application Number data are the same as the firing
+                                             //          entity’s and are not included in the Event ID
+                                             //      1 = Site Number and Application Number fields are included in the Event ID
+            KUINT8 m_ui8WarheadFuse     : 1; // F4 : 0 = Warhead and Fuse fields of the Munition Descriptor record are not
+                                             //          included (use munition default)
+                                             //      1 = Warhead and Fuse fields of the Munition Descriptor record are present
+            KUINT8 m_ui8QuantRate       : 1; // F5 : 0 = Quantity and Rate fields of the Munition Descriptor record are not
+                                             //          included
+                                             //      1 = Quantity and Rate fields of the Munition Descriptor record are included
+            KUINT8 m_ui8Location        : 1; // F6 : 0 = Location field from which fire event occurs is not included
+                                             //      1 = Location field from which fire event occurs is included
             KUINT8 m_ui8Reserved        : 1;
         };
         KUINT8 m_ui8Flag;
@@ -83,13 +94,13 @@ protected:
     KUINT16 m_ui16Range;
 
     //************************************
-    // FullName:    KDIS::PDU::LE_Header::checkSiteApplicationFlags
+    // FullName:    KDIS::PDU::LE_Header::checkFlagsAndPDULength
     // Description: Checks the site and application values to see if we need to include them during
     //              encoding. The values are set when the set id functions are called however it is
     //              possible that a change may have occurred since, I.E by calling the GetID function
     //              and setting through it.
     //************************************
-    void checkSiteApplicationFlags();
+    void checkFlagsAndPDULength();
 
 public:
 
