@@ -59,6 +59,10 @@ namespace DATA_TYPE {
 template<class Type, KUINT8 BinaryPoint>
 class KDIS_EXPORT KFIXED : public DataTypeBase
 {
+public:
+
+    typedef Type ValueType;
+
 protected:
 
     Type m_Val;

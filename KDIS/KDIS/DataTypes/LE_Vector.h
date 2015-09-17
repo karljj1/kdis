@@ -57,7 +57,7 @@ protected:
 
 public:
 
-    static const KUINT16 LE_VECTOR_SIZE = sizeof( Type ) * 3;
+    static const KUINT16 LE_VECTOR_SIZE = sizeof( Type::ValueType ) * 3;
 
     LE_Vector();
 
@@ -133,8 +133,8 @@ public:
 // LE_Vectorx_y
 // x = Size of data type in bits
 // y = The position of the binary point.
-typedef LE_Vector<KFIXED16_3> LE_Vector8_3;
-typedef LE_Vector<KFIXED8_3> LE_Vector16_3;
+typedef LE_Vector<KFIXED8_3> LE_Vector8_3;
+typedef LE_Vector<KFIXED16_3> LE_Vector16_3;
 
 } // END namespace DATA_TYPES
 } // END namespace KDIS
