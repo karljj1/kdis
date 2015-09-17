@@ -128,9 +128,9 @@ KString RelativeWorldCoordinates::GetAsString() const
 
     ss << "Relative World Coordinates\n"
        << "\n\tReference Point: " << m_ui16RefPnt
-       << "X: " << m_DelX.GetAsFloat32()
-       << "Y: " << m_DelY.GetAsFloat32()
-       << "Z: " << m_DelZ.GetAsFloat32()
+       << ",  X: " << m_DelX.GetAsFloat32()
+       << ",  Y: " << m_DelY.GetAsFloat32()
+       << ",  Z: " << m_DelZ.GetAsFloat32()
        << "\n";
 
     return ss.str();
