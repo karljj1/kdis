@@ -74,6 +74,8 @@ class KRef_Ptr
 {
 private:
 
+    typedef KRef_Ptr<Type> ThisType;
+
     Type * m_pRef;
 
     RefCounter * m_piCount;
@@ -321,6 +323,23 @@ public:
     {
         return m_pRef != p.m_pRef;
     };
+
+    //************************************
+    // FullName:    KRef_Ptr<Type>::operator bool() const
+    // Description: This conversion operator allows KRef_Ptr objects to be used in boolean contexts, like if(p && p->valid()) {}.
+    //************************************
+    typedef Type * ThisType::*UnspecifiedBoolType;
+
+    operator UnspecifiedBoolType() const // never throws
+    {
+        return m_pRef == 0? 0: &ThisType::m_pRef;
+    }
+
+    // operator! is redundant, but some compilers need it
+    KBOOL operator! () const // never throws
+    {
+        return m_pRef == 0;
+    }
 };
 
 
