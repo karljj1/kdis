@@ -101,7 +101,7 @@ IsGroupOf_PDU::IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude,
     {
         SetGED( GED );
     }
-    catch( KException & e )
+    catch( const std::exception & e )
     {
         m_ui8NumOfGroupedEnts = 0;
         throw;
