@@ -28,6 +28,8 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "./Header6.h"
+#include <iomanip>
+#include <limits>
 
 using namespace KDIS;
 using namespace PDU;
@@ -190,7 +192,18 @@ void Header6::Decode( KDataStream & stream, bool ignoreHeader /*= false*/  ) thr
 {
 	if( !ignoreHeader )
 	{
-		if( stream.GetBufferSize() < HEADER6_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+		if( stream.GetBufferSize() < HEADER6_PDU_SIZE )
+        {
+            const KUINT16 bufferSize = stream.GetBufferSize();
+            KStringStream ss;
+            ss << "Received " << stream.GetBufferSize() << " bytes. Expected minimum " << HEADER6_PDU_SIZE << " bytes.\nData: ";
+            for(KUINT16 i = 0; i < bufferSize; i++)
+            {
+                ss << std::setfill('0') << std::setw(std::numeric_limits<KUOCTET>::digits/4) << std::hex << static_cast<KUINT32>(stream.GetBuffer()[i]) << " ";
+            }
+            ss << "\n";
+            throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER, ss.str() );
+        }
 
 		stream >> m_ui8ProtocolVersion
 			   >> m_ui8ExerciseID
