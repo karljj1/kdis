@@ -104,8 +104,7 @@ KUINT32 VariableDatum::GetDatumLength() const
 
 KUINT32 VariableDatum::GetPDULength() const
 {
-    // Return the length in octets for inclusion in the PDU.  This is based on the number of 8 byte entries
-    return m_v8DatumValue.size() * 8;
+    return VARIABLE_DATUM_SIZE + ( m_v8DatumValue.size() * 8 );
 }
 
 //////////////////////////////////////////////////////////////////////////
