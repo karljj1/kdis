@@ -337,15 +337,15 @@ void Underwater_Acoustic_PDU::Decode( KDataStream & stream, bool ignoreHeader /*
 
     Header::Decode( stream, ignoreHeader );	
 
-    stream << KDIS_STREAM m_EmittingEntityID
-           << KDIS_STREAM m_EventID
-           << m_ui8StateUpdateIndicator
-           << m_ui8Padding1
-           << m_ui16PassiveParamIndex
-           << m_ui8PropPlantConfig
-           << m_ui8NumShafts
-           << m_ui8NumAPA
-           << m_ui8NumEmitterSys;
+    stream >> KDIS_STREAM m_EmittingEntityID
+           >> KDIS_STREAM m_EventID
+           >> m_ui8StateUpdateIndicator
+           >> m_ui8Padding1
+           >> m_ui16PassiveParamIndex
+           >> m_ui8PropPlantConfig
+           >> m_ui8NumShafts
+           >> m_ui8NumAPA
+           >> m_ui8NumEmitterSys;
 
     m_vShafts.clear();
     m_vAPA.clear();
