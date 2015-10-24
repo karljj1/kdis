@@ -159,7 +159,7 @@ void Data_Query_PDU::SetFixedDatum( const vector<KUINT32> & FD )
 {
 	m_vFixedDatum = FD;
 	m_ui32NumFixedDatum = FD.size();
-	m_ui16PDULength = ( m_ui32NumFixedDatum + m_ui32NumVariableDatum ) * 4; // Size of KUINT32
+	m_ui16PDULength = DATA_QUERY_PDU_SIZE + ( m_ui32NumFixedDatum + m_ui32NumVariableDatum ) * 4; // Size of KUINT32
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -184,7 +184,7 @@ void Data_Query_PDU::SetVariableDatum( const vector<KUINT32> & VD )
 {
 	m_vVariableDatum = VD;
 	m_ui32NumVariableDatum = VD.size();
-	m_ui16PDULength = ( m_ui32NumFixedDatum + m_ui32NumVariableDatum ) * 4; // Size of KUINT32
+	m_ui16PDULength = DATA_QUERY_PDU_SIZE + ( m_ui32NumFixedDatum + m_ui32NumVariableDatum ) * 4; // Size of KUINT32
 }
 
 //////////////////////////////////////////////////////////////////////////
