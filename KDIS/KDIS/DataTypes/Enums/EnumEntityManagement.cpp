@@ -885,7 +885,8 @@ const EnumDescriptor RelationshipNatureDescriptor[] =
     { 6 , "VehicleCarriedAsCargo" },
     { 7 , "EmitterMountedOnHost" },
     { 8 , "MobileCommandAndControlEntityCarriedAboardHost" },
-    { 9 , "EntityStationedAt" }
+    { 9 , "EntityStationedAt" },
+    { 10 , "TeamMemberInFormationWith" } 
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRelationshipNature()
