@@ -1289,7 +1289,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLights( const KString & Val
 const EnumDescriptor EntityCamouflageDescriptor[] =
 {
     { 0 , "DesertCamouflage" },
-    { 1 , "WKINT32erCamouflage" },
+    { 1 , "WinterCamouflage" },
     { 2 , "ForestCamouflage" }
 };
 

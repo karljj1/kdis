@@ -349,7 +349,7 @@ const EnumDescriptor ActionIDDescriptor[] =
     { 5 , "InformSMofEvent_MobilityDisabled" },
     { 6 , "InformSMofEvent_FireDisabled" },
     { 7 , "InformSMofEvent_RanOutOfFuel" },
-    { 8 , "RecallCheckPoKINT32Data" },
+    { 8 , "RecallCheckPointData" },
     { 9 , "RecallInitialParameters" },
     { 10 , "InitiateTether_Lead" },
     { 11 , "InitiateTether_Follow" },
