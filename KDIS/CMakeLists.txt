@@ -11,7 +11,6 @@ SET(EXAMPLES_USE_STATIC_OR_SHARED_LIB STATIC CACHE STRING "If BUILD_EXAMPLES_TO_
 SET(DIS_VERSION 7 CACHE STRING "The version of DIS to use. IEEE 1278.1-1995(5), IEEE 1278.1A-1998(6) or IEEE 1278.1x-2012(7). This parameter will decide what files should be included in the example projects.")
 OPTION(KDIS_USE_ENUM_DESCRIPTORS "Use enumeration descriptors. These allow enum values to be turned into their text labels. This increase the memory footprint of your application so do not enable if you do not plan to use." ON)
 OPTION(BUILD_EXAMPLES "Create example projects" ON)
-OPTION(BUILD_EXAMPLES "Create example projects" ON)
 OPTION(USE_SOLUTION_FOLDERS "Organise all projects into folders in your solution. At the moment this feature seems to be Visual Studio Professional(Not Express) only." ON)
 
 IF(NOT DIS_VERSION MATCHES 5 AND NOT DIS_VERSION GREATER 5 AND NOT DIS_VERSION GREATER 6)
