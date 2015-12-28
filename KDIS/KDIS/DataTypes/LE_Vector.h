@@ -57,7 +57,7 @@ protected:
 
 public:
 
-    static const KUINT16 LE_VECTOR_SIZE = sizeof( Type::ValueType ) * 3;
+    static const KUINT16 LE_VECTOR_SIZE = sizeof( typename Type::ValueType ) * 3;
 
     LE_Vector();
 
