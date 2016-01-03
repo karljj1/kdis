@@ -12,8 +12,7 @@ SET(DIS_VERSION 7 CACHE STRING "The version of DIS to use. IEEE 1278.1-1995(5), 
 OPTION(KDIS_USE_ENUM_DESCRIPTORS "Use enumeration descriptors. These allow enum values to be turned into their text labels. This increase the memory footprint of your application so do not enable if you do not plan to use." ON)
 OPTION(BUILD_EXAMPLES "Create example projects" ON)
 OPTION(USE_SOLUTION_FOLDERS "Organise all projects into folders in your solution. At the moment this feature seems to be Visual Studio Professional(Not Express) only." ON)
-
-OPTION(BUILD_TESTS "Build the KDIS unit tests")
+OPTION(BUILD_TESTS "Build the KDIS unit tests. Uses the google test framework.")
 
 IF(NOT DIS_VERSION MATCHES 5 AND NOT DIS_VERSION GREATER 5 AND NOT DIS_VERSION GREATER 6)
 MESSAGE(FATAL_ERROR "Invalid DIS version, only 5, 6 and 7 are supported")
@@ -417,7 +416,7 @@ SET(KDIS_SRC_ENUMS_H
     ${ENUMS_DIR}/KDISEnums.h
     ${ENUMS_DIR}/EnumEntityManagement.h
     ${ENUMS_DIR}/EnumSimulationManagement.h
-    ${ENUMS_DIR}/EnumSyntheticEnviroment.h
+    ${ENUMS_DIR}/EnumSyntheticEnvironment.h
     ${ENUMS_DIR}/EnumDescriptor.h
 	${ENUMS_DIR}/EnumMinefield.h	
 )
@@ -444,7 +443,7 @@ SET(KDIS_SRC_ENUMS_CPP
     ${ENUMS_DIR}/EnumRadio.cpp
     ${ENUMS_DIR}/EnumSimulationManagement.cpp
     ${ENUMS_DIR}/EnumSupply.cpp
-    ${ENUMS_DIR}/EnumSyntheticEnviroment.cpp
+    ${ENUMS_DIR}/EnumSyntheticEnvironment.cpp
     ${ENUMS_DIR}/EnumSystemIdentifier.cpp
     ${ENUMS_DIR}/EnumDescriptor.cpp      
 	${ENUMS_DIR}/EnumMinefield.cpp	
@@ -817,11 +816,11 @@ IF(DIS_VERSION GREATER 5)
 
 ENDIF(DIS_VERSION GREATER 5)
 
-#Synthetic_Enviroment------------------------------------#
+#Synthetic_Environment------------------------------------#
 
-SET(PDU_SE_DIRNAME PDU/Synthetic_Enviroment)
+SET(PDU_SE_DIRNAME PDU/Synthetic_Environment)
 #DIS 6 - ALL
-SET(PDU_SE_DIR ${BASE_DIR}/PDU/Synthetic_Enviroment)
+SET(PDU_SE_DIR ${BASE_DIR}/PDU/Synthetic_Environment)
 
 IF(DIS_VERSION GREATER 5)
     
@@ -952,7 +951,10 @@ SET(KDIS_SRC_NET_CPP
 )
 
 ADD_SUBDIRECTORY(Examples)
-ADD_SUBDIRECTORY(Tests)
+
+IF(BUILD_TESTS)
+	ADD_SUBDIRECTORY(Tests)
+ENDIF(BUILD_TESTS)
 
 INSTALL(TARGETS ${KDIS_DLL} LIBRARY DESTINATION lib)
 

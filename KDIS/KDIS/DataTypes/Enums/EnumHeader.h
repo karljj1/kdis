@@ -210,7 +210,7 @@ enum ProtocolFamily
     Experimental_CGF                                                  = 129,
     Experimental_Entity_Infomation_Field_Instrumentation              = 130,
     Experimental_Warfare_Field_Instrumentation                        = 131,
-    Experimental_Enviroment_Object_Infomation_Interaction             = 132,
+    Experimental_Environment_Object_Infomation_Interaction             = 132,
     Experimental_Entity_Management                                    = 133
 };
 

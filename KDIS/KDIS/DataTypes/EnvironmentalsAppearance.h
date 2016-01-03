@@ -32,7 +32,7 @@ http://p.sf.net/kdis/UserGuide
     created:    22/09/2008 - Updated May 2012
     author:     Karl Jones
 
-    purpose:    Represents the appearance of the Enviromentals.
+    purpose:    Represents the appearance of the Environmentals.
                 Implemented as struct so as to prevent the size from
                 changing due to RTTI etc. This struct will be part of a
                 union with all specific appearance values so it is implemented

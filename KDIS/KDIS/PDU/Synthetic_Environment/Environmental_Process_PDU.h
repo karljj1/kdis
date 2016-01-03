@@ -98,7 +98,7 @@ protected:
 
     KUINT16 m_ui16SeqNum;
 
-    std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> m_vEnvRecords;
+    std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> m_vEnvRecords;
 
 public:
 
@@ -116,7 +116,7 @@ public:
 
     Environmental_Process_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, const KDIS::DATA_TYPE::EnvironmentType & ET,
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
-							   KUINT16 SequenceNumber, const std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> & ERL );
+							   KUINT16 SequenceNumber, const std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> & ERL );
 
     virtual ~Environmental_Process_PDU();
 
@@ -198,10 +198,10 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::SetEnvironmentRecords
     //              KDIS::PDU::Environmental_Process_PDU::GetEnvironmentRecords
-    //              KDIS::PDU::Environmental_Process_PDU::AddEnviromentRecord
-	//				KDIS::PDU::Environmental_Process_PDU::ClearEnviromentRecords
+    //              KDIS::PDU::Environmental_Process_PDU::AddEnvironmentRecord
+	//				KDIS::PDU::Environmental_Process_PDU::ClearEnvironmentRecords
     // Description: Contains specific geometry, state, or bounding volume information.
-    //              EnviromentRecordLst is a vector of safe pointers(referenced) to EnviromentRecord base classes.
+    //              EnvironmentRecordLst is a vector of safe pointers(referenced) to EnvironmentRecord base classes.
     //
     //              - Geometry Records -
     //              These records describe a geometry within the engagement space. They may also describe the method by
@@ -239,12 +239,12 @@ public:
     //              -   COMBICState
     //              -   FlareState
     //
-    // Parameter:   const EnviromentRecordLst & ER, void, const EnviromentRecordPtr & ER
+    // Parameter:   const EnvironmentRecordLst & ER, void, const EnvironmentRecordPtr & ER
     //************************************
-    void SetEnvironmentRecords( const std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> & ER );
-    const std::vector<KDIS::DATA_TYPE::EnviromentRecordPtr> & GetEnvironmentRecords() const;
-    void AddEnviromentRecord( KDIS::DATA_TYPE::EnviromentRecordPtr ER );
-	void ClearEnviromentRecords();
+    void SetEnvironmentRecords( const std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> & ER );
+    const std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> & GetEnvironmentRecords() const;
+    void AddEnvironmentRecord( KDIS::DATA_TYPE::EnvironmentRecordPtr ER );
+	void ClearEnvironmentRecords();
 
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::GetAsString

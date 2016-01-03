@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnumSyntheticEnviroment.h"
+#include "./EnumSyntheticEnvironment.h"
 
 using namespace KDIS;
 using namespace DATA_TYPE;

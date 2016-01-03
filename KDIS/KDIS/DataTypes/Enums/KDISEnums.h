@@ -49,7 +49,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./EnumIFF.h"
 #include "./EnumEntityManagement.h"
 #include "./EnumSimulationManagement.h"
-#include "./EnumSyntheticEnviroment.h"
+#include "./EnumSyntheticEnvironment.h"
 #include "./EnumMinefield.h"
 
 #if DIS_VERSION > 6

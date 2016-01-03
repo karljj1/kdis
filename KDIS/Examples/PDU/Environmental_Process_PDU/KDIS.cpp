@@ -36,7 +36,7 @@ in our simulation which will represent a cloud.
 *********************************************************************/
 
 #include <iostream>
-#include "KDIS/PDU/Synthetic_Enviroment/Environmental_Process_PDU.h"
+#include "KDIS/PDU/Synthetic_Environment/Environmental_Process_PDU.h"
 #include "KDIS/Network/Connection.h" // A cross platform connection class.
 
 using namespace std;
@@ -67,7 +67,7 @@ int main()
     WorldCoordinates loc( GeoX, GeoY, GeoZ );
     ourEnvProcPDU.SetEnvironmentStatusOn( true );
     ourEnvProcPDU.SetSequenceNumber( EP_NO_SEQUENCE );
-    ourEnvProcPDU.AddEnviromentRecord( EnviromentRecordPtr( new PointRecord1( 0, loc ) ) );
+    ourEnvProcPDU.AddEnvironmentRecord( EnvironmentRecordPtr( new PointRecord1( 0, loc ) ) );
 
     // Set the PDU Header values
     ourEnvProcPDU.SetExerciseID( 1 );

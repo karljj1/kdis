@@ -117,7 +117,7 @@ KString EnvironmentRecord::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-EnviromentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord( KDataStream & stream ) throw( KException )
+EnvironmentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord( KDataStream & stream ) throw( KException )
 {
     // We now need to "peak" at the next 4 bytes to determine the Environment Record type,
     // once we have determined the type we need to return the buffers write positon as this
@@ -134,7 +134,7 @@ EnviromentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord( KDataStre
 	EnvironmentRecord * pRec = FactoryDecode( ui32RecType, stream );
 	if( pRec )
 	{
-		return EnviromentRecordPtr( pRec );
+		return EnvironmentRecordPtr( pRec );
 	}
 
     switch( ui32RecType )

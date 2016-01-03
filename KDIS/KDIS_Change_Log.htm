@@ -364,7 +364,7 @@
 	<li>Changed ENTITY_DESTINATION_RECORD, GROUP_DESTINATION_RECORD, GROUP_ASSIGNMENT_RECORD from a macro to static const KUINT16.</li>
 	<li>Added SetSupplies to Resupply_Received_PDU.</li>
 	<li>Rename ENTITY_DESTINATION_RECORD, GROUP_DESTINATION_RECORD, GROUP_ASSIGNMENT_RECORD to [NAME]_SIZE.</li>
-	<li>Moved GEDItem, GEDList, GridAxisDescriptor, GridDataPtr, EnviromentRecordPtr and EnviromentRecordLst from PDU namespace to DATA_TYPE.</li>
+	<li>Moved GEDItem, GEDList, GridAxisDescriptor, GridDataPtr, EnvironmentRecordPtr and EnvironmentRecordLst from PDU namespace to DATA_TYPE.</li>
 </ul>
 
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table2">
@@ -419,7 +419,7 @@
 	<li>Fixed bug in CreateTokenisedString, the extra value was not being added to the string.</li>
 	<li>Fixed bug with GetEnumAsString.. for minefield enums. Functions were not correctly defined.</li>
 	<li>Changed EnumMinefield so all GetAsString functions were using the optimised GetAsString function instead of the old linear search method.</li>
-	<li>Fixed PDUType enum bug, I had some incorrect values (over 135), this effects linear, object and point state PDU from the Synthetic_Enviroment family.</li>
+	<li>Fixed PDUType enum bug, I had some incorrect values (over 135), this effects linear, object and point state PDU from the Synthetic_Environment family.</li>
 	<li>Fixed bug in LinearObjectAppearance and ArealObjectAppearance Encode & Decode function, 1 extra octet was being encoded/decoded.</li>
 	<li>Typo fix: SIMULATION_IDENTIFER_SIZE to SIMULATION_IDENTIFIER_SIZE.</li>
 	<li>Fixed bug in SpecificAppearance::GetAsString, was using Kind value instead of Domain.(Thanks David).</li>

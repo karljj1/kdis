@@ -92,7 +92,7 @@ Environmental_Process_PDU::Environmental_Process_PDU( const EntityIdentifier & E
 
 Environmental_Process_PDU::Environmental_Process_PDU( const EntityIdentifier & EnvironmentalProcessID, const EnvironmentType & ET,
         KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
-        KUINT16 SequenceNumber, const vector<EnviromentRecordPtr> & ERL ) :
+        KUINT16 SequenceNumber, const vector<EnvironmentRecordPtr> & ERL ) :
     m_EnvProcID( EnvironmentalProcessID ),
     m_EnvType( ET ),
     m_ui8ModelType( ModelType ),
@@ -244,15 +244,15 @@ KUINT16 Environmental_Process_PDU::GetSequenceNumber() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Environmental_Process_PDU::SetEnvironmentRecords( const vector<EnviromentRecordPtr> & ER )
+void Environmental_Process_PDU::SetEnvironmentRecords( const vector<EnvironmentRecordPtr> & ER )
 {
     // Reset the PDU length.
     m_ui16PDULength = ENVIROMENTAL_PROCESS_PDU_SIZE;
     m_vEnvRecords = ER;
     m_ui16NumEnvRec = m_vEnvRecords.size();
 
-    vector<EnviromentRecordPtr>::const_iterator citr = m_vEnvRecords.begin();
-    vector<EnviromentRecordPtr>::const_iterator citrEnd = m_vEnvRecords.end();
+    vector<EnvironmentRecordPtr>::const_iterator citr = m_vEnvRecords.begin();
+    vector<EnvironmentRecordPtr>::const_iterator citrEnd = m_vEnvRecords.end();
 
     // Calculate the new PDU length
     for( ; citr != citrEnd; ++citr )
@@ -264,14 +264,14 @@ void Environmental_Process_PDU::SetEnvironmentRecords( const vector<EnviromentRe
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<EnviromentRecordPtr> & Environmental_Process_PDU::GetEnvironmentRecords() const
+const vector<EnvironmentRecordPtr> & Environmental_Process_PDU::GetEnvironmentRecords() const
 {
     return m_vEnvRecords;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Environmental_Process_PDU::AddEnviromentRecord( EnviromentRecordPtr ER )
+void Environmental_Process_PDU::AddEnvironmentRecord( EnvironmentRecordPtr ER )
 {
     m_vEnvRecords.push_back( ER );
     ++m_ui16NumEnvRec;
@@ -280,7 +280,7 @@ void Environmental_Process_PDU::AddEnviromentRecord( EnviromentRecordPtr ER )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Environmental_Process_PDU::ClearEnviromentRecords()
+void Environmental_Process_PDU::ClearEnvironmentRecords()
 {
     // Reset the PDU length.
     m_ui16PDULength = ENVIROMENTAL_PROCESS_PDU_SIZE;
@@ -299,14 +299,14 @@ KString Environmental_Process_PDU::GetAsString() const
        << IndentString( m_EnvProcID.GetAsString(), 1 )
        << "Environment Type: "             << m_EnvType.GetAsString()
        << "Model Type:		 "             << ( KUINT16 )m_ui8ModelType     << "\n"
-       << "Enviroment Status:"                                              << "\n"
+       << "Environment Status:"                                              << "\n"
        << "\tLast PDU: "                   << ( KUINT16 )m_ui8EnvStatusBit0 << "\n"
        << "\tActive: "                     << ( KUINT16 )m_ui8EnvStatusBit1 << "\n"
-       << "Number Of Enviroment Records: " << m_ui16NumEnvRec               << "\n"
+       << "Number Of Environment Records: " << m_ui16NumEnvRec               << "\n"
        << "Sequence Number: "              << m_ui16SeqNum                  << "\n";
 
-    vector<EnviromentRecordPtr>::const_iterator citr = m_vEnvRecords.begin();
-    vector<EnviromentRecordPtr>::const_iterator citrEnd = m_vEnvRecords.end();
+    vector<EnvironmentRecordPtr>::const_iterator citr = m_vEnvRecords.begin();
+    vector<EnvironmentRecordPtr>::const_iterator citrEnd = m_vEnvRecords.end();
 
     for( ; citr != citrEnd; ++citr )
     {
@@ -374,8 +374,8 @@ void Environmental_Process_PDU::Encode( KDataStream & stream ) const
            << m_ui16NumEnvRec
            << m_ui16SeqNum;
 
-    vector<EnviromentRecordPtr>::const_iterator citr = m_vEnvRecords.begin();
-    vector<EnviromentRecordPtr>::const_iterator citrEnd = m_vEnvRecords.end();
+    vector<EnvironmentRecordPtr>::const_iterator citr = m_vEnvRecords.begin();
+    vector<EnvironmentRecordPtr>::const_iterator citrEnd = m_vEnvRecords.end();
     for( ; citr != citrEnd; ++citr )
     {
         ( *citr )->Encode( stream );

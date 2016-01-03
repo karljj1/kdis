@@ -255,7 +255,7 @@ const EnumDescriptor ProtocolFamilyDescriptor[] =
     { 129 , "Experimental_CGF" },
     { 130 , "Experimental_Entity_Infomation_Field_Instrumentation" },
     { 131 , "Experimental_Warfare_Field_Instrumentation" },
-    { 132 , "Experimental_Enviroment_Object_Infomation_Interaction" },
+    { 132 , "Experimental_Environment_Object_Infomation_Interaction" },
     { 133 , "Experimental_Entity_Management" }
 };
 

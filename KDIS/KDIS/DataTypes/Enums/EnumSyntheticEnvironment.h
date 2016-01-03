@@ -28,11 +28,11 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    EnumSyntheticEnviroment
+    EnumSyntheticEnvironment
     created:    27/06/2009
     author:     Karl Jones
 
-    purpose:    Enums used in Synthetic Enviroment PDUs
+    purpose:    Enums used in Synthetic Environment PDUs
 *********************************************************************/
 
 #pragma once

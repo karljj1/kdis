@@ -52,3 +52,6 @@ CMakeCache.txt
 KDIS/CMakeFiles/TargetDirectories.txt
 KDIS/CMakeFiles/generate.stamp.list
 KDIS/KDIS.opensdf
+KDIS/Tests/gtest/src/googletest/src/gtest_main.cc
+KDIS/Tests/gtest/
+*.bin

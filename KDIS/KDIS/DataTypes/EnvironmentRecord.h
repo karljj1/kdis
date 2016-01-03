@@ -53,8 +53,8 @@ namespace DATA_TYPE {
 // pointer or one of your own then simply change it below.
 /************************************************************************/
 class EnvironmentRecord;
-typedef KDIS::UTILS::KRef_Ptr<EnvironmentRecord> EnviromentRecordPtr; // Ref counter
-//typedef EnvironmentRecord* EnviromentRecordPtr; // Weak ref
+typedef KDIS::UTILS::KRef_Ptr<EnvironmentRecord> EnvironmentRecordPtr; // Ref counter
+//typedef EnvironmentRecord* EnvironmentRecordPtr; // Weak ref
 
 class KDIS_EXPORT EnvironmentRecord : public DataTypeBase, public FactoryDecoderUser<EnvironmentRecord>
 {
@@ -112,7 +112,7 @@ public:
     //              too small(NOT_ENOUGH_DATA_IN_BUFFER).
     // Parameter:   KDataStream & stream
     //************************************
-    static EnviromentRecordPtr FactoryDecodeEnvironmentRecord(  KDataStream & stream ) throw( KException );
+    static EnvironmentRecordPtr FactoryDecodeEnvironmentRecord(  KDataStream & stream ) throw( KException );
 
     KBOOL operator == ( const EnvironmentRecord & Value )const;
     KBOOL operator != ( const EnvironmentRecord & Value )const;
