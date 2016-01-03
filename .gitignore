@@ -55,3 +55,7 @@ KDIS/KDIS.opensdf
 KDIS/Tests/gtest/src/googletest/src/gtest_main.cc
 KDIS/Tests/gtest/
 *.bin
+*.db
+KDIS/CMakeFiles/
+*.tcl
+*.opendb
