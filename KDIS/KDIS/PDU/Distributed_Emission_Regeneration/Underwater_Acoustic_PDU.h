@@ -33,8 +33,8 @@ http://p.sf.net/kdis/UserGuide
     created:    2008/10/19
     author:     Karl Jones
 
-    purpose:    Contains infomation about under water acoustic emissions
-    Size:       272 bits / 34 octets - min size
+    purpose:    Contains information about under water acoustic emissions
+    Size:       256 bits / 32 octets - min size
 *********************************************************************/
 
 #pragma once
@@ -80,7 +80,7 @@ protected:
 
 public:
 
-    static const KUINT16 UNDERWATER_ACOUSTIC_PDU_SIZE = 34; // Min Size
+    static const KUINT16 UNDERWATER_ACOUSTIC_PDU_SIZE = 32; // Min Size
 
     Underwater_Acoustic_PDU();
 
