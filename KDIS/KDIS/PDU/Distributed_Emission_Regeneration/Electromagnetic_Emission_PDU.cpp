@@ -43,6 +43,8 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU() :
+    m_ui8StateUpdateIndicator( 0 ),
+    m_ui8NumberOfEmissionSystems( 0 ),
     m_ui16Padding( 0 )
 {
     m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
