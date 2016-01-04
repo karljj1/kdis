@@ -59,3 +59,4 @@ KDIS/Tests/gtest/
 KDIS/CMakeFiles/
 *.tcl
 *.opendb
+*.rej
