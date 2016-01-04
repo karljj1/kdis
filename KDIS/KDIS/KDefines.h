@@ -86,7 +86,7 @@ http://p.sf.net/kdis/UserGuide
 // We can use this to know what PDUs we should allow use off and what features.
 // E.G DIS version 7 uses some of the headers padding to add an extra field.
 #ifndef DIS_VERSION
-	#pragma message("No DIS version specified, defaulting to 6. If you wish to use 5 define 'DIS_VERSION 5' in your project. You may also define DIS version 7 for the draft 15 standard.")
+	#pragma message("No DIS version specified, defaulting to 6. Other options available are 'DIS_VERSION 5' and 'DIS_VERSION 7'")
 	#define DIS_VERSION 6
 #endif
 
