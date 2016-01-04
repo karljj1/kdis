@@ -152,179 +152,179 @@ const KCHAR8 * Connection::getErrorText( KINT32 ErrorCode ) const
     switch ( ErrorCode )
     {
 #if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
-    case /* 10004 */ WSAEINTR           :
-        return "Invalid interrupt number";
-    case /* 10009 */ WSAEBADF           :
-        return "Invalid file number";
-    case /* 10013 */ WSAEACCES          :
-        return "WSAEACCES";
-    case /* 10014 */ WSAEFAULT          :
-        return "WSAEFAULT - The buf parameter is not completely contained in a valid part of the user address space.";
-    case /* 10022 */ WSAEINVAL          :
-        return "WSAEINVAL, Invalid argument";
-    case /* 10024 */ WSAEMFILE          :
-        return "WSAEMFILE, Is a File";
-    case /* 10035 */ WSAEWOULDBLOCK     :
-        return "Function would block";
-    case /* 10036 */ WSAEINPROGRESS     :
-        return "Winsock blocking function in progress";
-    case /* 10037 */ WSAEALREADY        :
-        return "WSAEALREADY";
-    case /* 10038 */ WSAENOTSOCK        :
-        return "WSAENOTSOCK";
-    case /* 10039 */ WSAEDESTADDRREQ    :
-        return "WSAEDESTADDRREQ";
-    case /* 10040 */ WSAEMSGSIZE        :
-        return "WSAEMSGSIZE";
-    case /* 10041 */ WSAEPROTOTYPE      :
-        return "WSAEPROTOTYPE";
-    case /* 10042 */ WSAENOPROTOOPT     :
-        return "WSAENOPROTOOPT";
-    case /* 10043 */ WSAEPROTONOSUPPORT :
-        return "Protocol not supported.";
-    case /* 10044 */ WSAESOCKTNOSUPPORT :
-        return "Socket type not supported.";
-    case /* 10045 */ WSAEOPNOTSUPP      :
-        return "Operation not supported.";
-    case /* 10046 */ WSAEPFNOSUPPORT    :
-        return "Protocol family not supported.";
-    case /* 10047 */ WSAEAFNOSUPPORT    :
-        return "Address family not supported by protocol family.";
-    case /* 10048 */ WSAEADDRINUSE      :
-        return "Address is already in use";
-    case /* 10049 */ WSAEADDRNOTAVAIL   :
-        return "Address is not available";
-    case /* 10050 */ WSAENETDOWN        :
-        return "Network is down";
-    case /* 10051 */ WSAENETUNREACH     :
-        return "Network is unreachable";
-    case /* 10052 */ WSAENETRESET       :
-        return "Network has been reset";
-    case /* 10053 */ WSAECONNABORTED    :
-        return "Connection aborted";
-    case /* 10054 */ WSAECONNRESET      :
-        return "Connection has been reset";
-    case /* 10056 */ WSAEISCONN         :
-        return "Socket Is Already Connected. ";
-    case /* 10057 */ WSAENOTCONN        :
-        return "Socket not connected";
-    case /* 10058 */ WSAESHUTDOWN       :
-        return "Socket has been shutdown";
-    case /* 10059 */ WSAETOOMANYREFS    :
-        return "Too many references";
-    case /* 10060 */ WSAETIMEDOUT       :
-        return "Operation timed out";
-    case /* 10061 */ WSAECONNREFUSED    :
-        return "Connection refused";
-    case /* 10062 */ WSAELOOP           :
-        return "WSAELOOP";
-    case /* 10063 */ WSAENAMETOOLONG    :
-        return "Name too long";
-    case /* 10064 */ WSAEHOSTDOWN       :
-        return "Host is down";
-    case /* 10065 */ WSAEHOSTUNREACH    :
-        return "Host is unreachable";
-    case /* 10066 */ WSAENOTEMPTY       :
-        return "WSAENOTEMPTY";
-    case /* 10067 */ WSAEPROCLIM        :
-        return "WSAEPROCLIM";
-    case /* 10068 */ WSAEUSERS          :
-        return "WSAEUSERS";
-    case /* 10069 */ WSAEDQUOT          :
-        return "WSAEUSERS";
-    case /* 10070 */ WSAESTALE          :
-        return "WSAESTALE";
-    case /* 10071 */ WSAEREMOTE         :
-        return "WSAEREMOTE";
-    case /* 10091 */ WSASYSNOTREADY     :
-        return "System not ready";               // WSAStartup
-    case /* 10092 */ WSAVERNOTSUPPORTED :
-        return "Version not supported";          // WSAStartup
-    case /* 10093 */ WSANOTINITIALISED  :
-        return "Winsock not initialised";        // WSAStartup not called
-    case /* 10101 */ WSAEDISCON         :
-        return "Remote party has disconnected";
-    case /* 11001 */ WSAHOST_NOT_FOUND  :
-        return "Host not found";
-    case /* 11002 */ WSATRY_AGAIN       :
-        return "Try again";
-    case /* 11003 */ WSANO_RECOVERY     :
-        return "No recovery";
-    case /* 11004 */ WSANO_DATA         :
-        return "No data";
+        case /* 10004 */ WSAEINTR:
+            return "WSAEINTR: Invalid interrupt number";
+        case /* 10009 */ WSAEBADF:
+            return "WSAEBADF: Invalid file number";
+        case /* 10013 */ WSAEACCES:
+            return "WSAEACCES";
+        case /* 10014 */ WSAEFAULT:
+            return "WSAEFAULT - The buf parameter is not completely contained in a valid part of the user address space.";
+        case /* 10022 */ WSAEINVAL:
+            return "WSAEINVAL, Invalid argument";
+        case /* 10024 */ WSAEMFILE:
+            return "WSAEMFILE, Is a File";
+        case /* 10035 */ WSAEWOULDBLOCK:
+            return "WSAEWOULDBLOCK: Function would block";
+        case /* 10036 */ WSAEINPROGRESS:
+            return "WSAEINPROGRESS: Winsock blocking function in progress";
+        case /* 10037 */ WSAEALREADY:
+            return "WSAEALREADY";
+        case /* 10038 */ WSAENOTSOCK:
+            return "WSAENOTSOCK";
+        case /* 10039 */ WSAEDESTADDRREQ:
+            return "WSAEDESTADDRREQ";
+        case /* 10040 */ WSAEMSGSIZE:
+            return "WSAEMSGSIZE";
+        case /* 10041 */ WSAEPROTOTYPE:
+            return "WSAEPROTOTYPE";
+        case /* 10042 */ WSAENOPROTOOPT:
+            return "WSAENOPROTOOPT";
+        case /* 10043 */ WSAEPROTONOSUPPORT:
+            return "WSAEPROTONOSUPPORT: Protocol not supported.";
+        case /* 10044 */ WSAESOCKTNOSUPPORT:
+            return "WSAESOCKTNOSUPPORT: Socket type not supported.";
+        case /* 10045 */ WSAEOPNOTSUPP:
+            return "Operation not supported.";
+        case /* 10046 */ WSAEPFNOSUPPORT:
+            return "WSAEPFNOSUPPORT: Protocol family not supported.";
+        case /* 10047 */ WSAEAFNOSUPPORT:
+            return "WSAEAFNOSUPPORT: Address family not supported by protocol family.";
+        case /* 10048 */ WSAEADDRINUSE:
+            return "WSAEADDRINUSE: Address is already in use";
+        case /* 10049 */ WSAEADDRNOTAVAIL:
+            return "WSAEADDRNOTAVAIL: Address is not available";
+        case /* 10050 */ WSAENETDOWN:
+            return "WSAENETDOWN: Network is down";
+        case /* 10051 */ WSAENETUNREACH:
+            return "WSAENETUNREACH: Network is unreachable";
+        case /* 10052 */ WSAENETRESET:
+            return "WSAENETRESET: Network has been reset";
+        case /* 10053 */ WSAECONNABORTED:
+            return "WSAECONNABORTED: Connection aborted";
+        case /* 10054 */ WSAECONNRESET:
+            return "WSAECONNRESET: Connection has been reset";
+        case /* 10056 */ WSAEISCONN:
+            return "WSAEISCONN: Socket Is Already Connected. ";
+        case /* 10057 */ WSAENOTCONN:
+            return "WSAENOTCONN: Socket not connected";
+        case /* 10058 */ WSAESHUTDOWN:
+            return "WSAESHUTDOWN: Socket has been shutdown";
+        case /* 10059 */ WSAETOOMANYREFS:
+            return "WSAETOOMANYREFS: Too many references";
+        case /* 10060 */ WSAETIMEDOUT:
+            return "WSAETIMEDOUT: Operation timed out";
+        case /* 10061 */ WSAECONNREFUSED:
+            return "WSAECONNREFUSED: Connection refused";
+        case /* 10062 */ WSAELOOP:
+            return "WSAELOOP";
+        case /* 10063 */ WSAENAMETOOLONG:
+            return "WSAENAMETOOLONG: Name too long";
+        case /* 10064 */ WSAEHOSTDOWN:
+            return "WSAEHOSTDOWN: Host is down";
+        case /* 10065 */ WSAEHOSTUNREACH:
+            return "WSAEHOSTUNREACH: Host is unreachable";
+        case /* 10066 */ WSAENOTEMPTY:
+            return "WSAENOTEMPTY";
+        case /* 10067 */ WSAEPROCLIM:
+            return "WSAEPROCLIM";
+        case /* 10068 */ WSAEUSERS:
+            return "WSAEUSERS";
+        case /* 10069 */ WSAEDQUOT:
+            return "WSAEUSERS";
+        case /* 10070 */ WSAESTALE:
+            return "WSAESTALE";
+        case /* 10071 */ WSAEREMOTE:
+            return "WSAEREMOTE";
+        case /* 10091 */ WSASYSNOTREADY:
+            return "WSASYSNOTREADY: System not ready"; // WSAStartup
+        case /* 10092 */ WSAVERNOTSUPPORTED:
+            return "WSAVERNOTSUPPORTED: Version not supported"; // WSAStartup
+        case /* 10093 */ WSANOTINITIALISED:
+            return "WSANOTINITIALISED: Winsock not initialised"; // WSAStartup not called
+        case /* 10101 */ WSAEDISCON:
+            return "WSAEDISCON: Remote party has disconnected";
+        case /* 11001 */ WSAHOST_NOT_FOUND:
+            return "Host not found";
+        case /* 11002 */ WSATRY_AGAIN:
+            return "WSATRY_AGAIN: Try again";
+        case /* 11003 */ WSANO_RECOVERY:
+            return "WSANO_RECOVERY: No recovery";
+        case /* 11004 */ WSANO_DATA:
+            return "WSANO_DATA: No data";
 #else
-    case /* 00001 */ EPERM              :
-        return "Operation not permitted";
-    case /* 00002 */ ENOENT             :
-        return "No such file or directory";
-    case /* 00003 */ ESRCH              :
-        return "No such process";
-    case /* 00004 */ EINTR              :
-        return "Interrupted system call";
-    case /* 00005 */ EIO                :
-        return "I/O error";
-    case /* 00006 */ ENXIO              :
-        return "No such device or address";
-    case /* 00007 */ E2BIG              :
-        return "Argument list too long";
-    case /* 00008 */ ENOEXEC            :
-        return "Exec format error";
-    case /* 00009 */ EBADF              :
-        return "Bad file number";
-    case /* 00010 */ ECHILD             :
-        return "No child processes";
-    case /* 00011 */ EAGAIN             :
-        return "Try again";
-    case /* 00012 */ ENOMEM             :
-        return "Out of memory";
-    case /* 00013 */ EACCES             :
-        return "Permission denied";
-    case /* 00014 */ EFAULT             :
-        return "Bad address";
-    case /* 00015 */ ENOTBLK            :
-        return "Block device required";
-    case /* 00016 */ EBUSY              :
-        return "Device or resource busy";
-    case /* 00017 */ EEXIST             :
-        return "File exists";
-    case /* 00018 */ EXDEV              :
-        return "Cross-device link";
-    case /* 00019 */ ENODEV             :
-        return "No such device";
-    case /* 00020 */ ENOTDIR            :
-        return "Not a directory";
-    case /* 00021 */ EISDIR             :
-        return "Is a directory";
-    case /* 00022 */ EINVAL             :
-        return "Invalid argument";
-    case /* 00023 */ ENFILE             :
-        return "File table overflow";
-    case /* 00024 */ EMFILE             :
-        return "Too many open files";
-    case /* 00025 */ ENOTTY             :
-        return "Not a typewriter";
-    case /* 00026 */ ETXTBSY            :
-        return "Text file busy";
-    case /* 00027 */ EFBIG              :
-        return "File too large";
-    case /* 00028 */ ENOSPC             :
-        return "No space left on device";
-    case /* 00029 */ ESPIPE             :
-        return "Illegal seek";
-    case /* 00030 */ EROFS              :
-        return "Read-only file system";
-    case /* 00031 */ EMLINK             :
-        return "Too many links";
-    case /* 00032 */ EPIPE              :
-        return "Broken pipe";
-    case /* 00033 */ EDOM               :
-        return "Math argument out of domain of func";
-    case /* 00034 */ ERANGE             :
-        return "Math result not representable";
+        case /* 00001 */ EPERM:
+            return "EPERM: Operation not permitted";
+        case /* 00002 */ ENOENT:
+            return "ENOENT: No such file or directory";
+        case /* 00003 */ ESRCH:
+            return "ESRCH: No such process";
+        case /* 00004 */ EINTR:
+            return "EINTR: Interrupted system call";
+        case /* 00005 */ EIO:
+            return "EIO: I/O error";
+        case /* 00006 */ ENXIO:
+            return "ENXIO: No such device or address";
+        case /* 00007 */ E2BIG:
+            return "E2BIG: Argument list too long";
+        case /* 00008 */ ENOEXEC:
+            return "ENOEXEC: Exec format error";
+        case /* 00009 */ EBADF:
+            return "EBADF: Bad file number";
+        case /* 00010 */ ECHILD:
+            return "ECHILD: No child processes";
+        case /* 00011 */ EAGAIN:
+            return "EAGAIN: Try again";
+        case /* 00012 */ ENOMEM:
+            return "ENOMEM: Out of memory";
+        case /* 00013 */ EACCES:
+            return "EACCES: Permission denied";
+        case /* 00014 */ EFAULT:
+            return "EFAULT: Bad address";
+        case /* 00015 */ ENOTBLK:
+            return "ENOTBLK: Block device required";
+        case /* 00016 */ EBUSY:
+            return "EBUSY: Device or resource busy";
+        case /* 00017 */ EEXIST:
+            return "EEXIST: File exists";
+        case /* 00018 */ EXDEV:
+            return "EXDEV: Cross-device link";
+        case /* 00019 */ ENODEV:
+            return "ENODEV: No such device";
+        case /* 00020 */ ENOTDIR:
+            return "ENOTDIR: Not a directory";
+        case /* 00021 */ EISDIR:
+            return "EISDIR: Is a directory";
+        case /* 00022 */ EINVAL:
+            return "Invalid argument";
+        case /* 00023 */ ENFILE:
+            return "ENFILE: File table overflow";
+        case /* 00024 */ EMFILE:
+            return "EMFILE: Too many open files";
+        case /* 00025 */ ENOTTY:
+            return "ENOTTY: Not a typewriter";
+        case /* 00026 */ ETXTBSY:
+            return "ETXTBSY: Text file busy";
+        case /* 00027 */ EFBIG:
+            return "EFBIG: File too large";
+        case /* 00028 */ ENOSPC:
+            return "ENOSPC: No space left on device";
+        case /* 00029 */ ESPIPE:
+            return "ESPIPE: Illegal seek";
+        case /* 00030 */ EROFS:
+            return "EROFS: Read-only file system";
+        case /* 00031 */ EMLINK:
+            return "EMLINK: Too many links";
+        case /* 00032 */ EPIPE:
+            return "EPIPE: Broken pipe";
+        case /* 00033 */ EDOM:
+            return "EDOM: Math argument out of domain of func";
+        case /* 00034 */ ERANGE:
+            return "ERANGE: Math result not representable";
 #endif
 
-    default :
-        return "Unknown Error";
+        default:
+            return "Unknown Socket Error";
     }
 }
 

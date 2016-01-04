@@ -135,7 +135,8 @@ enum ErrorCodes
     INVALID_DATA                                        = 8,
     UNSUPPORTED_DATATYPE                                = 9,
     INVALID_OPERATION                                   = 10,
-	PDU_TOO_LARGE                                       = 11
+	PDU_TOO_LARGE                                       = 11,
+	CONNECTION_SOCKET_ERROR                             = 12
 };
 
 /************************************************************************/
@@ -169,7 +170,9 @@ static KString GetErrorText( KUINT16 ErrorCode )
 		case INVALID_OPERATION:
 			return "Invalid Operation. ";
 		case PDU_TOO_LARGE:
-			return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes.";			
+			return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes.";
+		case CONNECTION_SOCKET_ERROR:
+			return "Socket error.";
 		default:
 			return "Unknown KDIS Error. ";
     }
