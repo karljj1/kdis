@@ -45,6 +45,7 @@ using namespace UTILS;
 IO_Report_PDU::IO_Report_PDU() :
     m_ui16SimSrc( 0 ),
     m_ui8RptTyp( 0 ),
+    m_ui8Padding( 0 ),
     m_ui32Padding( 0 ),
     m_ui16NumStdVarRec( 0 )
 {
@@ -254,6 +255,7 @@ void IO_Report_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ )
 
     stream >> m_ui16SimSrc
            >> m_ui8RptTyp
+           >> m_ui8Padding
            >> KDIS_STREAM m_AtkEntityID
            >> KDIS_STREAM m_TgtEntityID
            >> m_ui32Padding
@@ -285,6 +287,7 @@ void IO_Report_PDU::Encode( KDataStream & stream ) const
 
     stream << m_ui16SimSrc
            << m_ui8RptTyp
+           << m_ui8Padding
            << KDIS_STREAM m_AtkEntityID
            << KDIS_STREAM m_TgtEntityID
            << m_ui32Padding

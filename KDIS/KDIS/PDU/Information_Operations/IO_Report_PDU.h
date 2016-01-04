@@ -61,6 +61,8 @@ protected:
 
     KUINT8 m_ui8RptTyp;
 
+	KUINT8 m_ui8Padding;
+
     KDIS::DATA_TYPE::EntityIdentifier m_AtkEntityID;
 
     KDIS::DATA_TYPE::EntityIdentifier m_TgtEntityID;

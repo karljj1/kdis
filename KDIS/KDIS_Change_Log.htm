@@ -59,6 +59,7 @@
 </table>
 <hr>
 <ul>	
+	<li>Added unit tests using googletest framework. See here TODO:ADD LINK HERE!!!!!!!!!!!!!!!!! for more info.</li>
     <li>Added GetEnumSize<ENUM> and GetEnumDescriptor<ENUM>, this exposes the internal EnumDescriptor arrays used for GetEnumAsString and GetEnumFromString, it is now possible to iterate through an enumeration using these 2 functions. An example can be found here<INSERT LINK>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</li			    
 	<li>Added get and set functions to EntityKind that support integers as well as enums for kind, domain and country. Makes it simpler when using values that may not be standard of implemented in the enums.</li>
 	<li>Added Connection::SetBlockingTimeOut to allow for setting a timeout for blocking mode.</li>
@@ -72,6 +73,7 @@
 	<li>Fixed bug decode/encode in Entity_State_Update_PDU, was not handling padding.</li>
 	<li>Fixed exception handling bug in Connection and IsGroupOf_PDU.</li>
 	<li>Fixed VariableDatum::GetPDULength returning the incorrect value.</li>
+	<li>Fixed missing padding in IO_Report_PDU.</li>
 	<li>Fixed bug in Underwater_Acoustic_PDU::Decode, was encoding by mistake.</li>
 	<li>Fixed size calculation in SetFixedDatum and SetVariableDatum.</li>
 	<li>Added implicit conversion support to KRef_Ptr. Fixes compile bug when using weak references.</li>
