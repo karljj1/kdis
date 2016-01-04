@@ -48,7 +48,7 @@ http://p.sf.net/kdis/UserGuide
 
 #endif
 
-#define THROW_ERROR throw KException( getErrorText( ERROR_CODE ), ERROR_CODE )
+#define THROW_ERROR throw KException( getErrorText( ERROR_CODE ), CONNECTION_SOCKET_ERROR )
 #define SEND_SOCK 0
 #define RECEIVE_SOCK 1
 
