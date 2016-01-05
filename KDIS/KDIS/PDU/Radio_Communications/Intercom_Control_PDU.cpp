@@ -54,6 +54,8 @@ Intercom_Control_PDU::Intercom_Control_PDU() :
 	m_ui32IntrParamLen( 0 )
 {
     m_ui8PDUType = IntercomControl_PDU_Type;
+    m_ui8ProtocolFamily = Radio_Communications;
+    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
     m_ui16PDULength = INTERCOM_CONTROL_PDU_SIZE;
 }
 
@@ -332,7 +334,7 @@ void Intercom_Control_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= t
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < INTERCOM_CONTROL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Encode( stream );
+    Header::Decode( stream );
 
     stream >> m_ui8CtrlTyp
            >> KDIS_STREAM m_CommChannelType
