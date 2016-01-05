@@ -232,25 +232,25 @@ KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFIXED<
 template<class Type, KUINT8 BinaryPoint>                                                                    \
 KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFLOAT32 Value ) const                                 \
 {                                                                                                           \
-    return m_Val == convert( Value );                                                                       \
+    return m_Val OPERATOR convert( Value );                                                                 \
 }                                                                                                           \
                                                                                                             \
 template<class Type, KUINT8 BinaryPoint>                                                                    \
 KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFLOAT64 Value ) const                                 \
 {                                                                                                           \
-    return m_Val == convert( Value );                                                                       \
+    return m_Val OPERATOR convert( Value );                                                                 \
 }                                                                                                           \
                                                                                                             \
 template<class Type, KUINT8 BinaryPoint>                                                                    \
 KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( Type Value ) const                                     \
 {                                                                                                           \
-    return m_Val == m_Val;                                                                                  \
+    return m_Val OPERATOR m_Val;                                                                            \
 }                                                                                                           \
                                                                                                             \
 template<class Type, KUINT8 BinaryPoint>                                                                    \
 KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFIXED<Type, BinaryPoint> Value ) const                \
 {                                                                                                           \
-    return m_Val == Value.m_Val;                                                                            \
+    return m_Val OPERATOR Value.m_Val;                                                                      \
 }
 
 //***************************** End Macros ******************************************************************
