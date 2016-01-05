@@ -32,7 +32,7 @@ http://p.sf.net/kdis/UserGuide
     created:    17/09/2008
     author:     Karl Jones
 
-    purpose:    Defines some of the core data types that KDIS uses.                
+    purpose:    Defines some of the core data types that KDIS uses.
 *********************************************************************/
 
 #pragma once
