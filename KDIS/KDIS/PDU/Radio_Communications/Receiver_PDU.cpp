@@ -190,7 +190,7 @@ KDataStream Receiver_PDU::Encode() const
 {
     KDataStream stream;
 
-    Radio_Communications_Header::Encode( stream );
+    Receiver_PDU::Encode( stream );
 
     return stream;
 }
