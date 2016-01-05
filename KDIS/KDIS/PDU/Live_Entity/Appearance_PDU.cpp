@@ -601,7 +601,11 @@ void Appearance_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < APPEARANCE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    LE_Header::Decode( stream, ignoreHeader );	
+    LE_Header::Decode( stream, ignoreHeader );
+
+    // Reset flags
+    m_AppearanceFlag1Union.m_ui8Flag = 0;
+    m_AppearanceFlag2Union.m_ui8Flag = 0;
 
     stream >> m_AppearanceFlag1Union.m_ui8Flag;
 
