@@ -234,8 +234,10 @@ KDataStream IntercomCommunicationParameters::Encode() const
 void IntercomCommunicationParameters::Encode( KDataStream & stream ) const
 {
     stream << m_ui16Type
-           << m_ui16Length
-           << KDIS_STREAM m_pRecord;
+           << m_ui16Length;
+
+    if( m_pRecord )
+        m_pRecord->Encode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -247,32 +249,32 @@ KBOOL IntercomCommunicationParameters::operator == ( const IntercomCommunication
 
     switch( m_ui16Type )
     {
-    case EntityDestinationRecord_Type:
-    {
-        const EntityDestinationRecord *  pl = ( EntityDestinationRecord * )m_pRecord,
-                                         *  pr = ( EntityDestinationRecord * )Value.m_pRecord;
+        case EntityDestinationRecord_Type:
+        {
+            const EntityDestinationRecord *  pl = ( EntityDestinationRecord * )m_pRecord,
+                                          *  pr = ( EntityDestinationRecord * )Value.m_pRecord;
 
-        if( *pl != *pr ) return false;
-    }
-    break;
+            if( *pl != *pr ) return false;
+        }
+        break;
 
-    case GroupDestinationRecord_Type:
-    {
-        const GroupDestinationRecord  *  pl = ( GroupDestinationRecord * )m_pRecord,
-                                         *  pr = ( GroupDestinationRecord * )Value.m_pRecord;
+        case GroupDestinationRecord_Type:
+        {
+            const GroupDestinationRecord  *  pl = ( GroupDestinationRecord * )m_pRecord,
+                                          *  pr = ( GroupDestinationRecord * )Value.m_pRecord;
 
-        if( *pl != *pr ) return false;
-    }
-    break;
+            if( *pl != *pr ) return false;
+        }
+        break;
 
-    case GroupAssignmentRecord_Type:
-    {
-        const GroupAssignmentRecord *  pl = ( GroupAssignmentRecord * )m_pRecord,
-                                       *  pr = ( GroupAssignmentRecord * )Value.m_pRecord;
+        case GroupAssignmentRecord_Type:
+        {
+            const GroupAssignmentRecord *  pl = ( GroupAssignmentRecord * )m_pRecord,
+                                        *  pr = ( GroupAssignmentRecord * )Value.m_pRecord;
 
-        if( *pl != *pr ) return false;
-    }
-    break;
+            if( *pl != *pr ) return false;
+        }
+        break;
     }
 
     return true;
