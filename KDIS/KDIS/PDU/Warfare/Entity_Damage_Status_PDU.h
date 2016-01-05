@@ -34,13 +34,13 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Used to communicate detailed damage information sustained by an entity regardless
-	            of the source of the damage.
+                of the source of the damage.
                 The cause of the damage may be a weapon fired at the entity, a collision with 
-				another object, or some other reason. The Entity Damage Status PDU enables damage 
-				to a specific location on an entity to be conveyed whether or not that location 
-				is associated with an articulated or attached part.
-				The information conveyed in this PDU augments damage information communicated in 
-				the Entity State and other PDUs.
+                another object, or some other reason. The Entity Damage Status PDU enables damage 
+                to a specific location on an entity to be conveyed whether or not that location 
+                is associated with an articulated or attached part.
+                The information conveyed in this PDU augments damage information communicated in 
+                the Entity State and other PDUs.
 
     Size:       192 bits / 24 octets - Min size
 *********************************************************************/
@@ -58,13 +58,13 @@ class KDIS_EXPORT Entity_Damage_Status_PDU : public Header
 {
 protected:
 
-	KDIS::DATA_TYPE::EntityIdentifier m_DmgEnt;
+    KDIS::DATA_TYPE::EntityIdentifier m_DmgEnt;
 
-	KUINT32 m_ui32Padding;
+    KUINT32 m_ui32Padding;
 
-	KUINT16 m_ui16NumDmgDescRecs;
+    KUINT16 m_ui16NumDmgDescRecs;
 
-	std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDdRec;
+    std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDdRec;
 
 public:
 
@@ -72,11 +72,11 @@ public:
 
     Entity_Damage_Status_PDU();
 
-	Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException );
+    Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException );
 
-	Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Entity_Damage_Status_PDU( const KDIS::DATA_TYPE::EntityIdentifier & DamagedEntityID );
+    Entity_Damage_Status_PDU( const KDIS::DATA_TYPE::EntityIdentifier & DamagedEntityID );
 
     virtual ~Entity_Damage_Status_PDU();
 
@@ -94,21 +94,21 @@ public:
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetNumberOfDamageDescriptionRecords    
     // Description: The Number of Damage Description records stored in this PDU.
     //************************************
-	KUINT16 GetNumberOfDamageDescriptionRecords() const;
+    KUINT16 GetNumberOfDamageDescriptionRecords() const;
 
-	//************************************
+    //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::AddDamageDescriptionRecord
     //              KDIS::PDU::Directed_Energy_Fire_PDU::SetDamageDescriptionRecords
     //              KDIS::PDU::Directed_Energy_Fire_PDU::GetDamageDescriptionRecords
     //              KDIS::PDU::Directed_Energy_Fire_PDU::ClearDamageDescriptionRecords
     // Description: This field can contain one or more DD records and may also contain 
-	//				other Standard Variable records.
+    //              other Standard Variable records.
     // Parameter:   StdVarPtr DD, const vector<StdVarPtr> & DD
-	//************************************    
+    //************************************    
     void AddDamageDescriptionRecord( KDIS::DATA_TYPE::StdVarPtr DD );
     void SetDamageDescriptionRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DD );
     const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDamageDescriptionRecords() const;
-	void ClearDamageDescriptionRecords();
+    void ClearDamageDescriptionRecords();
   
     //************************************
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetAsString

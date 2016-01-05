@@ -81,6 +81,7 @@
 	<li>Fixed size calculation in SetFixedDatum and SetVariableDatum.</li>
 	<li>Added implicit conversion support to KRef_Ptr. Fixes compile bug when using weak references.</li>
 	<li>Fixed incorrect PDU size in Underwater_Acoustic_PDU.</li>
+	<li>Fixed encode/decode bug in Entity_Damage_Status_PDU. Was not including padding.</li>
 	<li>Fixed TSPI_PDU::m_ui8SSDLen not being initialised to 0 in some constructors.</li>
 	<li>Fixed decode bug in Intercom_Control_PDU.</li>
 	<li>Fixed encode bug in Receiver_PDU.</li>
