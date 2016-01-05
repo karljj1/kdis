@@ -52,7 +52,8 @@ TSPI_PDU::TSPI_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException )
+TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException ) :
+    m_ui8SSDLen( 0 )
 {
     Decode( stream, false );
 }
@@ -60,7 +61,8 @@ TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 TSPI_PDU::TSPI_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	LE_Header( H )
+    LE_Header( H ),
+    m_ui8SSDLen( 0 )
 {
     Decode( stream, true );
 }
