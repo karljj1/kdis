@@ -57,7 +57,7 @@ protected:
 
     EntityType m_EntTyp;
 
-	std::vector<EntityAppearance> m_vEA;
+    std::vector<EntityAppearance> m_vEA;
 
 public:
 

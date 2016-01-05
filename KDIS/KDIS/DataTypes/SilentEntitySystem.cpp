@@ -40,7 +40,8 @@ using namespace DATA_TYPE;
 //////////////////////////////////////////////////////////////////////////
 
 SilentEntitySystem::SilentEntitySystem() :
-    m_ui16NumEnts( 0 )
+    m_ui16NumEnts( 0 ),
+    m_ui16NumOfAppearanceRecords( 0 )
 {
 }
 
