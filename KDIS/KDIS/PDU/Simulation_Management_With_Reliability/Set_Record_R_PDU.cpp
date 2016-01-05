@@ -230,8 +230,8 @@ void Set_Record_R_PDU::Encode( KDataStream & stream ) const
     stream << m_ui32RqId
            << m_ui8ReqRelSrv
            << m_ui8Padding
-		   << m_ui16Padding
-		   << m_ui32Padding
+           << m_ui16Padding
+           << m_ui32Padding
            << m_ui32NumRecSets;
 
     vector<RecordSet>::const_iterator citr = m_vRecs.begin();

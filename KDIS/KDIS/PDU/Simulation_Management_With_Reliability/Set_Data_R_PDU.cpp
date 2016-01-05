@@ -58,7 +58,7 @@ Set_Data_R_PDU::Set_Data_R_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Set_Data_R_PDU::Set_Data_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Data_R_PDU( H )
+    Data_R_PDU( H )
 {
     Decode( stream, true );
 }
@@ -94,17 +94,17 @@ KString Set_Data_R_PDU::GetAsString() const
        << "\nNumber Variable Datum:      " << m_ui32NumVariableDatum
        << "\n";
 
-	ss << "Fixed Datum\n";
+    ss << "Fixed Datum\n";
     vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-	vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
         ss << IndentString( ( *citrFixed )->GetAsString() );
     }
 
-	ss << "Variable Datum\n";
+    ss << "Variable Datum\n";
     vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-	vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
         ss << IndentString( ( *citrVar )->GetAsString() );
@@ -119,7 +119,7 @@ void Set_Data_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SET_DATA_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );	
+    Simulation_Management_Header::Decode( stream, ignoreHeader );
     Reliability_Header::Decode( stream );
 
     stream >> m_ui32RequestID
@@ -129,53 +129,53 @@ void Set_Data_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
     // FixedDatum
     for( KUINT16 i = 0; i < m_ui32NumFixedDatum; ++i )
     {
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT32 datumID;
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT32 datumID;
 
-		// Extract the datum id then reset the stream.
-		stream >> datumID;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the datum id then reset the stream.
+        stream >> datumID;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		FixedDatum * p = FixedDatum::FactoryDecode( datumID, stream );
+        // Use the factory decoder. 
+        FixedDatum * p = FixedDatum::FactoryDecode( datumID, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vFixedDatum.push_back( FixDtmPtr( p ) );
-		}
-		else
-		{
-			// Default
-			m_vFixedDatum.push_back( FixDtmPtr( new FixedDatum( stream ) ) );
-		}
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vFixedDatum.push_back( FixDtmPtr( p ) );
+        }
+        else
+        {
+            // Default
+            m_vFixedDatum.push_back( FixDtmPtr( new FixedDatum( stream ) ) );
+        }
     }
 
-	// VariableDatum
+    // VariableDatum
     for( KUINT16 i = 0; i < m_ui32NumVariableDatum; ++i )
     {
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT32 datumID;
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT32 datumID;
 
-		// Extract the datum id then reset the stream.
-		stream >> datumID;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the datum id then reset the stream.
+        stream >> datumID;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		VariableDatum * p = VariableDatum::FactoryDecode( datumID, stream );
+        // Use the factory decoder. 
+        VariableDatum * p = VariableDatum::FactoryDecode( datumID, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vVariableDatum.push_back( VarDtmPtr( p ) );
-		}
-		else
-		{
-			// Default
-			m_vVariableDatum.push_back( VarDtmPtr( new VariableDatum( stream ) ) );
-		}
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vVariableDatum.push_back( VarDtmPtr( p ) );
+        }
+        else
+        {
+            // Default
+            m_vVariableDatum.push_back( VarDtmPtr( new VariableDatum( stream ) ) );
+        }
     }
 }
 
@@ -202,14 +202,14 @@ void Set_Data_R_PDU::Encode( KDataStream & stream ) const
            << m_ui32NumVariableDatum;
 
     vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-	vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
         ( *citrFixed )->Encode( stream );
     }
 
     vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-	vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
         ( *citrVar )->Encode( stream );
@@ -218,16 +218,16 @@ void Set_Data_R_PDU::Encode( KDataStream & stream ) const
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Set_Data_R_PDU::operator == (const Set_Data_R_PDU & Value) const
+KBOOL Set_Data_R_PDU::operator == ( const Set_Data_R_PDU & Value ) const
 {
-	return Data_R_PDU::operator !=(Value);
+    return Data_R_PDU::operator == ( Value );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Set_Data_R_PDU::operator != (const Set_Data_R_PDU & Value) const
+KBOOL Set_Data_R_PDU::operator != ( const Set_Data_R_PDU & Value ) const
 {
-	return !(*this == Value);
+    return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -42,7 +42,8 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_PDU::Start_Resume_PDU()
+Start_Resume_PDU::Start_Resume_PDU() :
+    m_ui32RequestID( 0 )
 {
     m_ui8PDUType = Start_Resume_PDU_Type;
     m_ui16PDULength = START_RESUME_PDU_SIZE;
@@ -51,7 +52,8 @@ Start_Resume_PDU::Start_Resume_PDU()
 //////////////////////////////////////////////////////////////////////////
 
 Start_Resume_PDU::Start_Resume_PDU( const Header & H ) :
-	Simulation_Management_Header( H )
+    Simulation_Management_Header( H ),
+    m_ui32RequestID( 0 )
 {
 }
 
@@ -65,7 +67,7 @@ Start_Resume_PDU::Start_Resume_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Start_Resume_PDU::Start_Resume_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Simulation_Management_Header( H )
+    Simulation_Management_Header( H )
 {
     Decode( stream, true );
 }
