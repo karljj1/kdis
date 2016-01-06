@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -32,11 +32,11 @@ http://p.sf.net/kdis/UserGuide
     updated:    08/03/2013
     author:     Karl Jones
 
-    purpose:    The Articulated Part VP record is used to represent the state of the movable parts of an entity. 
-				Examples of movable parts include the turret on a tank and the periscope on a submarine.
-				An Articulated Part VP record shall represent the value of only one parameter of a movable, 
-				or articulated, part. Thus, it may require multiple Articulated Part VP records to describe  
-				the state of a single articulated part. 
+    purpose:    The Articulated Part VP record is used to represent the state of the movable parts of an entity.
+                Examples of movable parts include the turret on a tank and the periscope on a submarine.
+                An Articulated Part VP record shall represent the value of only one parameter of a movable,
+                or articulated, part. Thus, it may require multiple Articulated Part VP records to describe
+                the state of a single articulated part.
 
     size:       128 bits / 16 octets
 *********************************************************************/
@@ -57,10 +57,10 @@ protected:
     KUINT16 m_ui16AttachementID;
 
     KUINT32 m_ui32ParamTypeVariant;
-  
+
     KFLOAT32 m_f32ParamValue;
 
-	KUINT32 m_ui32Padding;
+    KUINT32 m_ui32Padding;
 
 public:
 
@@ -68,8 +68,8 @@ public:
 
     ArticulatedPart( KDataStream & stream ) throw( KException );
 
-	ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass C, 
-		             KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric M, KFLOAT32 Value );
+    ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass C,
+                     KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric M, KFLOAT32 Value );
 
     ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KUINT32 TypeVariant, KFLOAT32 Value );
 
@@ -109,14 +109,14 @@ public:
     // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariantMetric
     //              KDIS::DATA_TYPE::ArticulatedPart::GetTypeVariantMetric
     // Description: Identifies the transformation to be applied to the articulated part.
-	//              Recommended type of metric:
-	//			       Horizontal control surfaces  -  Elevation
-	//                 Vertical control surfaces    -  Azimuth
-	//                 Extendible items             -  Extension
-	//                 Fixed path items             -  Position
-	//                 Turrets                      -  Azimuth
-	//                 Guns                         -  Elevation
-	//                 Movable missile launcher     -  Azimuth and elevation
+    //              Recommended type of metric:
+    //			       Horizontal control surfaces  -  Elevation
+    //                 Vertical control surfaces    -  Azimuth
+    //                 Extendible items             -  Extension
+    //                 Fixed path items             -  Position
+    //                 Turrets                      -  Azimuth
+    //                 Guns                         -  Elevation
+    //                 Movable missile launcher     -  Azimuth and elevation
     // Parameter:   ArticulatedPartsMetric M
     //************************************
     void SetTypeVariantMetric( KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric M );
@@ -125,7 +125,7 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariant
     //              KDIS::DATA_TYPE::ArticulatedPart::GetTypeVariant
-    // Description: TV = Metric + Class. 
+    // Description: TV = Metric + Class.
     // Parameter:   KUINT32 TV
     //************************************
     void SetTypeVariant( KUINT32 TV );

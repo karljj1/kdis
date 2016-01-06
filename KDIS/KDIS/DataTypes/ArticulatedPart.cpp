@@ -43,11 +43,11 @@ using namespace ENUMS;
 ArticulatedPart::ArticulatedPart() :
     m_ui8ParmeterChange( 0 ),
     m_ui16AttachementID( 0 ),
-	m_ui32ParamTypeVariant( 0 ),
+    m_ui32ParamTypeVariant( 0 ),
     m_f32ParamValue( 0 ),
-	m_ui32Padding( 0 )
+    m_ui32Padding( 0 )
 {    
-	m_ui8VarParamType = ArticulatedPartType;
+    m_ui8VarParamType = ArticulatedPartType;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -60,25 +60,25 @@ ArticulatedPart::ArticulatedPart( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 ArticulatedPart::ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, ArticulatedPartsClass C, 
-											    ArticulatedPartsMetric M, KFLOAT32 Value ) :
+                                                ArticulatedPartsMetric M, KFLOAT32 Value ) :
     m_ui8ParmeterChange( ParamChangeIndicator ),
     m_ui16AttachementID( AttachID ),	
     m_f32ParamValue( Value ),
-	m_ui32Padding( 0 )
+    m_ui32Padding( 0 )
 {
-	m_ui8VarParamType = ArticulatedPartType;
-	m_ui32ParamTypeVariant = C + M;
+    m_ui8VarParamType = ArticulatedPartType;
+    m_ui32ParamTypeVariant = C + M;
 }
 //////////////////////////////////////////////////////////////////////////
 
 ArticulatedPart::ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KUINT32 TypeVariant, KFLOAT32 Value ) :
     m_ui8ParmeterChange( ParamChangeIndicator ),
     m_ui16AttachementID( AttachID ),
-	m_ui32ParamTypeVariant( TypeVariant ),
+    m_ui32ParamTypeVariant( TypeVariant ),
     m_f32ParamValue( Value ),
-	m_ui32Padding( 0 )
+    m_ui32Padding( 0 )
 {
-	m_ui8VarParamType = ArticulatedPartType;
+    m_ui8VarParamType = ArticulatedPartType;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ ArticulatedPartsClass ArticulatedPart::GetTypeVariantClass() const
 
 void ArticulatedPart::SetTypeVariantMetric( ArticulatedPartsMetric M )
 {
-	m_ui32ParamTypeVariant = m_ui32ParamTypeVariant - ( m_ui32ParamTypeVariant % 32 ) + M;    
+    m_ui32ParamTypeVariant = m_ui32ParamTypeVariant - ( m_ui32ParamTypeVariant % 32 ) + M;    
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -199,7 +199,7 @@ void ArticulatedPart::Decode( KDataStream & stream ) throw( KException )
            >> m_ui16AttachementID
            >> m_ui32ParamTypeVariant
            >> m_f32ParamValue
-		   >> m_ui32Padding;
+           >> m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -222,7 +222,7 @@ void ArticulatedPart::Encode( KDataStream & stream ) const
            << m_ui16AttachementID
            << m_ui32ParamTypeVariant
            << m_f32ParamValue
-		   << m_ui32Padding;
+           << m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
