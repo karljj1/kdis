@@ -22,6 +22,7 @@ TEST(PDU_EncodeDecode7, Attribute_PDU)
     KDataStream stream = pduIn.Encode();
     Attribute_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -34,6 +35,7 @@ TEST(PDU_EncodeDecode7, IO_Action_PDU)
     KDataStream stream = pduIn.Encode();
     IO_Action_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(PDU_EncodeDecode7, IO_Report_PDU)
@@ -42,6 +44,7 @@ TEST(PDU_EncodeDecode7, IO_Report_PDU)
     KDataStream stream = pduIn.Encode();
     IO_Report_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 #endif
