@@ -136,6 +136,7 @@ TEST(DataType_EncodeDecode, AcousticEmitterSystem)
 	KDataStream stream = dtIn.Encode();
 	AcousticEmitterSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, AggregateIdentifier)
@@ -144,6 +145,7 @@ TEST(DataType_EncodeDecode, AggregateIdentifier)
 	KDataStream stream = dtIn.Encode();
 	AggregateIdentifier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, AggregateMarking)
@@ -152,6 +154,7 @@ TEST(DataType_EncodeDecode, AggregateMarking)
 	KDataStream stream = dtIn.Encode();
 	AggregateMarking dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, AggregateType)
@@ -160,6 +163,7 @@ TEST(DataType_EncodeDecode, AggregateType)
 	KDataStream stream = dtIn.Encode();
 	AggregateType dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, AntennaLocation)
@@ -168,6 +172,7 @@ TEST(DataType_EncodeDecode, AntennaLocation)
 	KDataStream stream = dtIn.Encode();
 	AntennaLocation dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, APA)
@@ -176,6 +181,7 @@ TEST(DataType_EncodeDecode, APA)
 	KDataStream stream = dtIn.Encode();
 	APA dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ArealObjectAppearance)
@@ -184,6 +190,7 @@ TEST(DataType_EncodeDecode, ArealObjectAppearance)
 	KDataStream stream = dtIn.Encode();
 	ArealObjectAppearance dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ArticulatedPart)
@@ -192,6 +199,7 @@ TEST(DataType_EncodeDecode, ArticulatedPart)
 	KDataStream stream = dtIn.Encode();
 	ArticulatedPart dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, AttachedPart)
@@ -200,6 +208,7 @@ TEST(DataType_EncodeDecode, AttachedPart)
 	KDataStream stream = dtIn.Encode();
 	AttachedPart dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, AttributeRecordSet)
@@ -208,6 +217,7 @@ TEST(DataType_EncodeDecode, AttributeRecordSet)
 	KDataStream stream = dtIn.Encode();
 	AttributeRecordSet dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, BeamData)
@@ -216,6 +226,7 @@ TEST(DataType_EncodeDecode, BeamData)
 	KDataStream stream = dtIn.Encode();
 	BeamData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, BoundingSphereRecord)
@@ -224,6 +235,7 @@ TEST(DataType_EncodeDecode, BoundingSphereRecord)
 	KDataStream stream = dtIn.Encode();
 	BoundingSphereRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ClockTime)
@@ -232,6 +244,7 @@ TEST(DataType_EncodeDecode, ClockTime)
 	KDataStream stream = dtIn.Encode();
 	ClockTime dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, COMBICState)
@@ -240,6 +253,7 @@ TEST(DataType_EncodeDecode, COMBICState)
 	KDataStream stream = dtIn.Encode();
 	COMBICState dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, CommunicationsChannelType)
@@ -248,6 +262,7 @@ TEST(DataType_EncodeDecode, CommunicationsChannelType)
 	KDataStream stream = dtIn.Encode();
 	CommunicationsChannelType dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, CommunicationsNodeID)
@@ -256,6 +271,7 @@ TEST(DataType_EncodeDecode, CommunicationsNodeID)
 	KDataStream stream = dtIn.Encode();
 	CommunicationsNodeID dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ConeRecord1)
@@ -264,6 +280,7 @@ TEST(DataType_EncodeDecode, ConeRecord1)
 	KDataStream stream = dtIn.Encode();
 	ConeRecord1 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ConeRecord2)
@@ -272,6 +289,7 @@ TEST(DataType_EncodeDecode, ConeRecord2)
 	KDataStream stream = dtIn.Encode();
 	ConeRecord2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, CryptoSystem)
@@ -280,6 +298,7 @@ TEST(DataType_EncodeDecode, CryptoSystem)
 	KDataStream stream = dtIn.Encode();
 	CryptoSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, DeadReckoningParameter)
@@ -288,6 +307,7 @@ TEST(DataType_EncodeDecode, DeadReckoningParameter)
 	KDataStream stream = dtIn.Encode();
 	DeadReckoningParameter dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, DEAreaAimpoint)
@@ -296,6 +316,7 @@ TEST(DataType_EncodeDecode, DEAreaAimpoint)
 	KDataStream stream = dtIn.Encode();
 	DEAreaAimpoint dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Descriptor)
@@ -304,6 +325,7 @@ TEST(DataType_EncodeDecode, Descriptor)
 	KDataStream stream = dtIn.Encode();
 	Descriptor dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EllipsoidRecord1)
@@ -312,6 +334,7 @@ TEST(DataType_EncodeDecode, EllipsoidRecord1)
 	KDataStream stream = dtIn.Encode();
 	EllipsoidRecord1 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EllipsoidRecord2)
@@ -320,6 +343,7 @@ TEST(DataType_EncodeDecode, EllipsoidRecord2)
 	KDataStream stream = dtIn.Encode();
 	EllipsoidRecord2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EmissionSystem)
@@ -328,6 +352,7 @@ TEST(DataType_EncodeDecode, EmissionSystem)
 	KDataStream stream = dtIn.Encode();
 	EmissionSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EmitterBeam)
@@ -336,6 +361,7 @@ TEST(DataType_EncodeDecode, EmitterBeam)
 	KDataStream stream = dtIn.Encode();
 	EmitterBeam dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EmitterSystem)
@@ -344,6 +370,7 @@ TEST(DataType_EncodeDecode, EmitterSystem)
 	KDataStream stream = dtIn.Encode();
 	EmitterSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EncodingScheme)
@@ -352,6 +379,7 @@ TEST(DataType_EncodeDecode, EncodingScheme)
 	KDataStream stream = dtIn.Encode();
 	EncodingScheme dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EnhancedMode1Code)
@@ -360,6 +388,7 @@ TEST(DataType_EncodeDecode, EnhancedMode1Code)
 	KDataStream stream = dtIn.Encode();
 	EnhancedMode1Code dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EntityAppearance)
@@ -368,6 +397,7 @@ TEST(DataType_EncodeDecode, EntityAppearance)
 	KDataStream stream = dtIn.Encode();
 	EntityAppearance dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EntityCapabilities)
@@ -376,6 +406,7 @@ TEST(DataType_EncodeDecode, EntityCapabilities)
 	KDataStream stream = dtIn.Encode();
 	EntityCapabilities dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EntityDestinationRecord)
@@ -384,6 +415,7 @@ TEST(DataType_EncodeDecode, EntityDestinationRecord)
 	KDataStream stream = dtIn.Encode();
 	EntityDestinationRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EntityIdentifier)
@@ -392,6 +424,7 @@ TEST(DataType_EncodeDecode, EntityIdentifier)
 	KDataStream stream = dtIn.Encode();
 	EntityIdentifier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EntityMarking)
@@ -400,6 +433,7 @@ TEST(DataType_EncodeDecode, EntityMarking)
 	KDataStream stream = dtIn.Encode();
 	EntityMarking dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EntityType)
@@ -408,6 +442,7 @@ TEST(DataType_EncodeDecode, EntityType)
 	KDataStream stream = dtIn.Encode();
 	EntityType dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EnvironmentType)
@@ -416,6 +451,7 @@ TEST(DataType_EncodeDecode, EnvironmentType)
 	KDataStream stream = dtIn.Encode();
 	EnvironmentType dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, EulerAngles)
@@ -424,6 +460,7 @@ TEST(DataType_EncodeDecode, EulerAngles)
 	KDataStream stream = dtIn.Encode();
 	EulerAngles dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ExplosionDescriptor)
@@ -432,6 +469,7 @@ TEST(DataType_EncodeDecode, ExplosionDescriptor)
 	KDataStream stream = dtIn.Encode();
 	ExplosionDescriptor dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, FixedDatum)
@@ -440,6 +478,7 @@ TEST(DataType_EncodeDecode, FixedDatum)
 	KDataStream stream = dtIn.Encode();
 	FixedDatum dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, FlareState)
@@ -448,6 +487,7 @@ TEST(DataType_EncodeDecode, FlareState)
 	KDataStream stream = dtIn.Encode();
 	FlareState dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, FundamentalOperationalData)
@@ -456,6 +496,7 @@ TEST(DataType_EncodeDecode, FundamentalOperationalData)
 	KDataStream stream = dtIn.Encode();
 	FundamentalOperationalData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, FundamentalParameterData)
@@ -464,6 +505,7 @@ TEST(DataType_EncodeDecode, FundamentalParameterData)
 	KDataStream stream = dtIn.Encode();
 	FundamentalParameterData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GaussianPlumeRecord)
@@ -472,6 +514,7 @@ TEST(DataType_EncodeDecode, GaussianPlumeRecord)
 	KDataStream stream = dtIn.Encode();
 	GaussianPlumeRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GaussianPuffRecord)
@@ -480,6 +523,7 @@ TEST(DataType_EncodeDecode, GaussianPuffRecord)
 	KDataStream stream = dtIn.Encode();
 	GaussianPuffRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_BasicFixedWingAircraft)
@@ -488,6 +532,7 @@ TEST(DataType_EncodeDecode, GED_BasicFixedWingAircraft)
 	KDataStream stream = dtIn.Encode();
 	GED_BasicFixedWingAircraft dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_BasicGroundCombatSoldier)
@@ -496,6 +541,7 @@ TEST(DataType_EncodeDecode, GED_BasicGroundCombatSoldier)
 	KDataStream stream = dtIn.Encode();
 	GED_BasicGroundCombatSoldier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_BasicGroundCombatVehicle)
@@ -504,6 +550,7 @@ TEST(DataType_EncodeDecode, GED_BasicGroundCombatVehicle)
 	KDataStream stream = dtIn.Encode();
 	GED_BasicGroundCombatVehicle dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_BasicRotorWingAircraft)
@@ -512,6 +559,7 @@ TEST(DataType_EncodeDecode, GED_BasicRotorWingAircraft)
 	KDataStream stream = dtIn.Encode();
 	GED_BasicRotorWingAircraft dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_EnhancedFixedWingAircraft)
@@ -520,6 +568,7 @@ TEST(DataType_EncodeDecode, GED_EnhancedFixedWingAircraft)
 	KDataStream stream = dtIn.Encode();
 	GED_EnhancedFixedWingAircraft dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_EnhancedGroundCombatSoldier)
@@ -528,6 +577,7 @@ TEST(DataType_EncodeDecode, GED_EnhancedGroundCombatSoldier)
 	KDataStream stream = dtIn.Encode();
 	GED_EnhancedGroundCombatSoldier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_EnhancedGroundCombatVehicle)
@@ -536,6 +586,7 @@ TEST(DataType_EncodeDecode, GED_EnhancedGroundCombatVehicle)
 	KDataStream stream = dtIn.Encode();
 	GED_EnhancedGroundCombatVehicle dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_EnhancedRotaryWingAircraft)
@@ -544,6 +595,7 @@ TEST(DataType_EncodeDecode, GED_EnhancedRotaryWingAircraft)
 	KDataStream stream = dtIn.Encode();
 	GED_EnhancedRotaryWingAircraft dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GED_GroundLogisticsVehicle)
@@ -552,6 +604,7 @@ TEST(DataType_EncodeDecode, GED_GroundLogisticsVehicle)
 	KDataStream stream = dtIn.Encode();
 	GED_GroundLogisticsVehicle dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GridAxisIrregular)
@@ -560,6 +613,7 @@ TEST(DataType_EncodeDecode, GridAxisIrregular)
 	KDataStream stream = dtIn.Encode();
 	GridAxisIrregular dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GridAxisRegular)
@@ -568,6 +622,7 @@ TEST(DataType_EncodeDecode, GridAxisRegular)
 	KDataStream stream = dtIn.Encode();
 	GridAxisRegular dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GridDataType0)
@@ -576,6 +631,7 @@ TEST(DataType_EncodeDecode, GridDataType0)
 	KDataStream stream = dtIn.Encode();
 	GridDataType0 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GridDataType1)
@@ -584,6 +640,7 @@ TEST(DataType_EncodeDecode, GridDataType1)
 	KDataStream stream = dtIn.Encode();
 	GridDataType1 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GridDataType2)
@@ -592,6 +649,7 @@ TEST(DataType_EncodeDecode, GridDataType2)
 	KDataStream stream = dtIn.Encode();
 	GridDataType2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GroupAssignmentRecord)
@@ -600,6 +658,7 @@ TEST(DataType_EncodeDecode, GroupAssignmentRecord)
 	KDataStream stream = dtIn.Encode();
 	GroupAssignmentRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, GroupDestinationRecord)
@@ -608,6 +667,7 @@ TEST(DataType_EncodeDecode, GroupDestinationRecord)
 	KDataStream stream = dtIn.Encode();
 	GroupDestinationRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IFF_ATC_NAVAIDS_FundamentalParameterData)
@@ -616,6 +676,7 @@ TEST(DataType_EncodeDecode, IFF_ATC_NAVAIDS_FundamentalParameterData)
 	KDataStream stream = dtIn.Encode();
 	IFF_ATC_NAVAIDS_FundamentalParameterData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IFF_Layer2)
@@ -624,6 +685,7 @@ TEST(DataType_EncodeDecode, IFF_Layer2)
 	KDataStream stream = dtIn.Encode();
 	IFF_Layer2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IFF_Layer3)
@@ -632,6 +694,7 @@ TEST(DataType_EncodeDecode, IFF_Layer3)
 	KDataStream stream = dtIn.Encode();
 	IFF_Layer3 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IFF_Layer3Interrogator)
@@ -640,6 +703,7 @@ TEST(DataType_EncodeDecode, IFF_Layer3Interrogator)
 	KDataStream stream = dtIn.Encode();
 	IFF_Layer3Interrogator dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IFF_Layer3Transponder)
@@ -648,6 +712,7 @@ TEST(DataType_EncodeDecode, IFF_Layer3Transponder)
 	KDataStream stream = dtIn.Encode();
 	IFF_Layer3Transponder dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IntercomCommunicationParameters)
@@ -656,6 +721,7 @@ TEST(DataType_EncodeDecode, IntercomCommunicationParameters)
 	KDataStream stream = dtIn.Encode();
 	IntercomCommunicationParameters dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IOCommunicationsNode)
@@ -664,6 +730,7 @@ TEST(DataType_EncodeDecode, IOCommunicationsNode)
 	KDataStream stream = dtIn.Encode();
 	IOCommunicationsNode dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, IOEffect)
@@ -672,6 +739,7 @@ TEST(DataType_EncodeDecode, IOEffect)
 	KDataStream stream = dtIn.Encode();
 	IOEffect dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LayerHeader)
@@ -680,6 +748,7 @@ TEST(DataType_EncodeDecode, LayerHeader)
 	KDataStream stream = dtIn.Encode();
 	LayerHeader dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LE_DeadReckoningParameter)
@@ -688,6 +757,7 @@ TEST(DataType_EncodeDecode, LE_DeadReckoningParameter)
 	KDataStream stream = dtIn.Encode();
 	LE_DeadReckoningParameter dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LE_EntityIdentifier)
@@ -696,6 +766,7 @@ TEST(DataType_EncodeDecode, LE_EntityIdentifier)
 	KDataStream stream = dtIn.Encode();
 	LE_EntityIdentifier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LE_EulerAngles)
@@ -704,6 +775,7 @@ TEST(DataType_EncodeDecode, LE_EulerAngles)
 	KDataStream stream = dtIn.Encode();
 	LE_EulerAngles dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LinearObjectAppearance)
@@ -712,6 +784,7 @@ TEST(DataType_EncodeDecode, LinearObjectAppearance)
 	KDataStream stream = dtIn.Encode();
 	LinearObjectAppearance dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LinearSegmentParameter)
@@ -720,6 +793,7 @@ TEST(DataType_EncodeDecode, LinearSegmentParameter)
 	KDataStream stream = dtIn.Encode();
 	LinearSegmentParameter dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LineRecord1)
@@ -728,6 +802,7 @@ TEST(DataType_EncodeDecode, LineRecord1)
 	KDataStream stream = dtIn.Encode();
 	LineRecord1 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, LineRecord2)
@@ -736,6 +811,7 @@ TEST(DataType_EncodeDecode, LineRecord2)
 	KDataStream stream = dtIn.Encode();
 	LineRecord2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, MinefieldAppearance)
@@ -744,6 +820,7 @@ TEST(DataType_EncodeDecode, MinefieldAppearance)
 	KDataStream stream = dtIn.Encode();
 	MinefieldAppearance dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, MinefieldDataFilter)
@@ -752,6 +829,7 @@ TEST(DataType_EncodeDecode, MinefieldDataFilter)
 	KDataStream stream = dtIn.Encode();
 	MinefieldDataFilter dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, MineFusing)
@@ -760,6 +838,7 @@ TEST(DataType_EncodeDecode, MineFusing)
 	KDataStream stream = dtIn.Encode();
 	MineFusing dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, MinePaintScheme)
@@ -768,6 +847,7 @@ TEST(DataType_EncodeDecode, MinePaintScheme)
 	KDataStream stream = dtIn.Encode();
 	MinePaintScheme dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Mode5InterrogatorBasicData)
@@ -776,6 +856,7 @@ TEST(DataType_EncodeDecode, Mode5InterrogatorBasicData)
 	KDataStream stream = dtIn.Encode();
 	Mode5InterrogatorBasicData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Mode5InterrogatorStatus)
@@ -784,6 +865,7 @@ TEST(DataType_EncodeDecode, Mode5InterrogatorStatus)
 	KDataStream stream = dtIn.Encode();
 	Mode5InterrogatorStatus dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Mode5TransponderBasicData)
@@ -792,6 +874,7 @@ TEST(DataType_EncodeDecode, Mode5TransponderBasicData)
 	KDataStream stream = dtIn.Encode();
 	Mode5TransponderBasicData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Mode5TransponderStatus)
@@ -800,6 +883,7 @@ TEST(DataType_EncodeDecode, Mode5TransponderStatus)
 	KDataStream stream = dtIn.Encode();
 	Mode5TransponderStatus dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Mode5TransponderSupplementalData)
@@ -808,6 +892,7 @@ TEST(DataType_EncodeDecode, Mode5TransponderSupplementalData)
 	KDataStream stream = dtIn.Encode();
 	Mode5TransponderSupplementalData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ModeXCodeRecord)
@@ -816,6 +901,7 @@ TEST(DataType_EncodeDecode, ModeXCodeRecord)
 	KDataStream stream = dtIn.Encode();
 	ModeXCodeRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ModulationType)
@@ -824,6 +910,7 @@ TEST(DataType_EncodeDecode, ModulationType)
 	KDataStream stream = dtIn.Encode();
 	ModulationType dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, MunitionDescriptor)
@@ -832,6 +919,7 @@ TEST(DataType_EncodeDecode, MunitionDescriptor)
 	KDataStream stream = dtIn.Encode();
 	MunitionDescriptor dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, NamedLocationIdentifier)
@@ -840,6 +928,7 @@ TEST(DataType_EncodeDecode, NamedLocationIdentifier)
 	KDataStream stream = dtIn.Encode();
 	NamedLocationIdentifier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ObjectAppearance)
@@ -848,6 +937,7 @@ TEST(DataType_EncodeDecode, ObjectAppearance)
 	KDataStream stream = dtIn.Encode();
 	ObjectAppearance dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, ObjectType)
@@ -856,6 +946,7 @@ TEST(DataType_EncodeDecode, ObjectType)
 	KDataStream stream = dtIn.Encode();
 	ObjectType dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, OrientationError)
@@ -864,6 +955,7 @@ TEST(DataType_EncodeDecode, OrientationError)
 	KDataStream stream = dtIn.Encode();
 	OrientationError dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, PerimeterPointCoordinate)
@@ -872,6 +964,7 @@ TEST(DataType_EncodeDecode, PerimeterPointCoordinate)
 	KDataStream stream = dtIn.Encode();
 	PerimeterPointCoordinate dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, PointObjectAppearance)
@@ -880,6 +973,7 @@ TEST(DataType_EncodeDecode, PointObjectAppearance)
 	KDataStream stream = dtIn.Encode();
 	PointObjectAppearance dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, PointRecord1)
@@ -888,6 +982,7 @@ TEST(DataType_EncodeDecode, PointRecord1)
 	KDataStream stream = dtIn.Encode();
 	PointRecord1 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, PointRecord2)
@@ -896,6 +991,7 @@ TEST(DataType_EncodeDecode, PointRecord2)
 	KDataStream stream = dtIn.Encode();
 	PointRecord2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, PositionError)
@@ -904,6 +1000,7 @@ TEST(DataType_EncodeDecode, PositionError)
 	KDataStream stream = dtIn.Encode();
 	PositionError dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, PropulsionSystem)
@@ -912,6 +1009,7 @@ TEST(DataType_EncodeDecode, PropulsionSystem)
 	KDataStream stream = dtIn.Encode();
 	PropulsionSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, RadioEntityType)
@@ -920,6 +1018,7 @@ TEST(DataType_EncodeDecode, RadioEntityType)
 	KDataStream stream = dtIn.Encode();
 	RadioEntityType dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, RecordSet)
@@ -928,6 +1027,7 @@ TEST(DataType_EncodeDecode, RecordSet)
 	KDataStream stream = dtIn.Encode();
 	RecordSet dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, RectangularVolumeRecord1)
@@ -936,6 +1036,7 @@ TEST(DataType_EncodeDecode, RectangularVolumeRecord1)
 	KDataStream stream = dtIn.Encode();
 	RectangularVolumeRecord1 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, RectangularVolumeRecord2)
@@ -944,6 +1045,7 @@ TEST(DataType_EncodeDecode, RectangularVolumeRecord2)
 	KDataStream stream = dtIn.Encode();
 	RectangularVolumeRecord2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, RectangularVolumeRecord3)
@@ -952,6 +1054,7 @@ TEST(DataType_EncodeDecode, RectangularVolumeRecord3)
 	KDataStream stream = dtIn.Encode();
 	RectangularVolumeRecord3 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, RelationshipRecord)
@@ -960,6 +1063,7 @@ TEST(DataType_EncodeDecode, RelationshipRecord)
 	KDataStream stream = dtIn.Encode();
 	RelationshipRecord dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, RelativeWorldCoordinates)
@@ -968,6 +1072,7 @@ TEST(DataType_EncodeDecode, RelativeWorldCoordinates)
 	KDataStream stream = dtIn.Encode();
 	RelativeWorldCoordinates dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, SecondaryOperationalData)
@@ -976,6 +1081,7 @@ TEST(DataType_EncodeDecode, SecondaryOperationalData)
 	KDataStream stream = dtIn.Encode();
 	SecondaryOperationalData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Shaft)
@@ -984,6 +1090,7 @@ TEST(DataType_EncodeDecode, Shaft)
 	KDataStream stream = dtIn.Encode();
 	Shaft dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, SilentAggregateSystem)
@@ -992,6 +1099,7 @@ TEST(DataType_EncodeDecode, SilentAggregateSystem)
 	KDataStream stream = dtIn.Encode();
 	SilentAggregateSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, SilentEntitySystem)
@@ -1000,6 +1108,7 @@ TEST(DataType_EncodeDecode, SilentEntitySystem)
 	KDataStream stream = dtIn.Encode();
 	SilentEntitySystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, SimulationIdentifier)
@@ -1008,6 +1117,7 @@ TEST(DataType_EncodeDecode, SimulationIdentifier)
 	KDataStream stream = dtIn.Encode();
 	SimulationIdentifier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, SphereRecord1)
@@ -1016,6 +1126,7 @@ TEST(DataType_EncodeDecode, SphereRecord1)
 	KDataStream stream = dtIn.Encode();
 	SphereRecord1 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, SphereRecord2)
@@ -1024,6 +1135,7 @@ TEST(DataType_EncodeDecode, SphereRecord2)
 	KDataStream stream = dtIn.Encode();
 	SphereRecord2 dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, StandardVariable)
@@ -1032,6 +1144,7 @@ TEST(DataType_EncodeDecode, StandardVariable)
 	KDataStream stream = dtIn.Encode();
 	StandardVariable dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Supplies)
@@ -1040,6 +1153,7 @@ TEST(DataType_EncodeDecode, Supplies)
 	KDataStream stream = dtIn.Encode();
 	Supplies dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, SystemIdentifier)
@@ -1048,6 +1162,7 @@ TEST(DataType_EncodeDecode, SystemIdentifier)
 	KDataStream stream = dtIn.Encode();
 	SystemIdentifier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, TimeStamp)
@@ -1056,6 +1171,7 @@ TEST(DataType_EncodeDecode, TimeStamp)
 	KDataStream stream = dtIn.Encode();
 	TimeStamp dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, TrackJamTargetIdentifier)
@@ -1064,6 +1180,7 @@ TEST(DataType_EncodeDecode, TrackJamTargetIdentifier)
 	KDataStream stream = dtIn.Encode();
 	TrackJamTargetIdentifier dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, UnderwaterAcousticEmitterBeam)
@@ -1072,6 +1189,7 @@ TEST(DataType_EncodeDecode, UnderwaterAcousticEmitterBeam)
 	KDataStream stream = dtIn.Encode();
 	UnderwaterAcousticEmitterBeam dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, UnderwaterAcousticEmitterSystem)
@@ -1080,6 +1198,7 @@ TEST(DataType_EncodeDecode, UnderwaterAcousticEmitterSystem)
 	KDataStream stream = dtIn.Encode();
 	UnderwaterAcousticEmitterSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, UnderwaterAcousticFundamentalParameterData)
@@ -1088,6 +1207,7 @@ TEST(DataType_EncodeDecode, UnderwaterAcousticFundamentalParameterData)
 	KDataStream stream = dtIn.Encode();
 	UnderwaterAcousticFundamentalParameterData dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, VariableDatum)
@@ -1096,6 +1216,7 @@ TEST(DataType_EncodeDecode, VariableDatum)
 	KDataStream stream = dtIn.Encode();
 	VariableDatum dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, VariableParameter)
@@ -1104,6 +1225,7 @@ TEST(DataType_EncodeDecode, VariableParameter)
 	KDataStream stream = dtIn.Encode();
 	VariableParameter dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, Vector)
@@ -1112,6 +1234,7 @@ TEST(DataType_EncodeDecode, Vector)
 	KDataStream stream = dtIn.Encode();
 	Vector dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, VectoringNozzleSystem)
@@ -1120,6 +1243,7 @@ TEST(DataType_EncodeDecode, VectoringNozzleSystem)
 	KDataStream stream = dtIn.Encode();
 	VectoringNozzleSystem dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode, WorldCoordinates)
@@ -1128,4 +1252,5 @@ TEST(DataType_EncodeDecode, WorldCoordinates)
 	KDataStream stream = dtIn.Encode();
 	WorldCoordinates dtOut(stream);
 	EXPECT_EQ(dtIn, dtOut);
+	EXPECT_EQ(0, stream.GetBufferSize());
 }

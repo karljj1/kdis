@@ -51,6 +51,7 @@ TEST(PDU_EncodeDecode6, IFF_PDU)
     KDataStream stream = pduIn.Encode();
     IFF_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(PDU_EncodeDecode6, SEES_PDU)
@@ -59,6 +60,7 @@ TEST(PDU_EncodeDecode6, SEES_PDU)
     KDataStream stream = pduIn.Encode();
     SEES_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(PDU_EncodeDecode6, Underwater_Acoustic_PDU)
@@ -67,6 +69,7 @@ TEST(PDU_EncodeDecode6, Underwater_Acoustic_PDU)
     KDataStream stream = pduIn.Encode();
     Underwater_Acoustic_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -79,6 +82,7 @@ TEST(PDU_EncodeDecode6, Collision_Elastic_PDU)
     KDataStream stream = pduIn.Encode();
     Collision_Elastic_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(PDU_EncodeDecode6, Entity_State_Update_PDU)
@@ -87,6 +91,7 @@ TEST(PDU_EncodeDecode6, Entity_State_Update_PDU)
     KDataStream stream = pduIn.Encode();
     Entity_State_Update_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -99,6 +104,7 @@ TEST(PDU_EncodeDecode6, IO_Action_PDU)
     KDataStream stream = pduIn.Encode();
     IO_Action_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(PDU_EncodeDecode6, IO_Report_PDU)
@@ -107,6 +113,7 @@ TEST(PDU_EncodeDecode6, IO_Report_PDU)
     KDataStream stream = pduIn.Encode();
     IO_Report_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -119,6 +126,7 @@ TEST(PDU_EncodeDecode6, Intercom_Control_PDU)
     KDataStream stream = pduIn.Encode();
     Intercom_Control_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(PDU_EncodeDecode6, Intercom_Signal_PDU)
@@ -127,6 +135,7 @@ TEST(PDU_EncodeDecode6, Intercom_Signal_PDU)
     KDataStream stream = pduIn.Encode();
     Intercom_Signal_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -139,6 +148,7 @@ TEST(PDU_EncodeDecode6, Acknowledge_R_PDU)
     KDataStream stream = pduIn.Encode();
     Acknowledge_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Action_Request_R_PDU)
@@ -147,6 +157,7 @@ TEST(R_PDU_EncodeDecode6, Action_Request_R_PDU)
     KDataStream stream = pduIn.Encode();
     Action_Request_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Action_Response_R_PDU)
@@ -155,6 +166,7 @@ TEST(R_PDU_EncodeDecode6, Action_Response_R_PDU)
     KDataStream stream = pduIn.Encode();
     Action_Response_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Comment_R_PDU)
@@ -163,6 +175,7 @@ TEST(R_PDU_EncodeDecode6, Comment_R_PDU)
     KDataStream stream = pduIn.Encode();
     Comment_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Create_Entity_R_PDU)
@@ -171,6 +184,7 @@ TEST(R_PDU_EncodeDecode6, Create_Entity_R_PDU)
     KDataStream stream = pduIn.Encode();
     Create_Entity_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Data_Query_R_PDU)
@@ -179,6 +193,7 @@ TEST(R_PDU_EncodeDecode6, Data_Query_R_PDU)
     KDataStream stream = pduIn.Encode();
     Data_Query_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Data_R_PDU)
@@ -187,6 +202,7 @@ TEST(R_PDU_EncodeDecode6, Data_R_PDU)
     KDataStream stream = pduIn.Encode();
     Data_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Event_Report_R_PDU)
@@ -195,6 +211,7 @@ TEST(R_PDU_EncodeDecode6, Event_Report_R_PDU)
     KDataStream stream = pduIn.Encode();
     Event_Report_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Record_Query_R_PDU)
@@ -203,6 +220,7 @@ TEST(R_PDU_EncodeDecode6, Record_Query_R_PDU)
     KDataStream stream = pduIn.Encode();
     Record_Query_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Record_R_PDU)
@@ -211,6 +229,7 @@ TEST(R_PDU_EncodeDecode6, Record_R_PDU)
     KDataStream stream = pduIn.Encode();
     Record_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Remove_Entity_R_PDU)
@@ -219,6 +238,7 @@ TEST(R_PDU_EncodeDecode6, Remove_Entity_R_PDU)
     KDataStream stream = pduIn.Encode();
     Remove_Entity_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Set_Data_R_PDU)
@@ -227,6 +247,7 @@ TEST(R_PDU_EncodeDecode6, Set_Data_R_PDU)
     KDataStream stream = pduIn.Encode();
     Set_Data_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Set_Record_R_PDU)
@@ -235,6 +256,7 @@ TEST(R_PDU_EncodeDecode6, Set_Record_R_PDU)
     KDataStream stream = pduIn.Encode();
     Set_Record_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Start_Resume_R_PDU)
@@ -243,6 +265,7 @@ TEST(R_PDU_EncodeDecode6, Start_Resume_R_PDU)
     KDataStream stream = pduIn.Encode();
     Start_Resume_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Stop_Freeze_R_PDU)
@@ -251,6 +274,7 @@ TEST(R_PDU_EncodeDecode6, Stop_Freeze_R_PDU)
     KDataStream stream = pduIn.Encode();
     Stop_Freeze_R_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -263,6 +287,7 @@ TEST(PDU_EncodeDecode6, Areal_Object_State_PDU)
     KDataStream stream = pduIn.Encode();
     Areal_Object_State_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Environmental_Process_PDU)
@@ -271,6 +296,7 @@ TEST(R_PDU_EncodeDecode6, Environmental_Process_PDU)
     KDataStream stream = pduIn.Encode();
     Environmental_Process_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Gridded_Data_PDU)
@@ -279,6 +305,7 @@ TEST(R_PDU_EncodeDecode6, Gridded_Data_PDU)
     KDataStream stream = pduIn.Encode();
     Gridded_Data_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Linear_Object_State_PDU)
@@ -287,6 +314,7 @@ TEST(R_PDU_EncodeDecode6, Linear_Object_State_PDU)
     KDataStream stream = pduIn.Encode();
     Linear_Object_State_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(R_PDU_EncodeDecode6, Point_Object_State_PDU)
@@ -295,6 +323,7 @@ TEST(R_PDU_EncodeDecode6, Point_Object_State_PDU)
     KDataStream stream = pduIn.Encode();
     Point_Object_State_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 #endif
