@@ -38,7 +38,8 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking()
+AggregateMarking::AggregateMarking() :
+    m_ui8AggregateMarkingCharacterSet( EntityMarkingCharacterSet::ASCII )
 {
     memset( m_sAggregateMarkingString, 0x00, 32 );
 }
@@ -123,6 +124,7 @@ void AggregateMarking::Decode( KDataStream & stream ) throw( KException )
     {
         stream >> m_sAggregateMarkingString[i];
     }
+    m_sAggregateMarkingString[31] = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -153,7 +155,7 @@ void AggregateMarking::Encode( KDataStream & stream ) const
 KBOOL AggregateMarking::operator == ( const AggregateMarking & Value ) const
 {
     if( m_ui8AggregateMarkingCharacterSet != Value.m_ui8AggregateMarkingCharacterSet )return false;
-    if( memcmp( m_sAggregateMarkingString, Value.m_sAggregateMarkingString, 32 ) != 0 )return false;
+    if( memcmp( m_sAggregateMarkingString, Value.m_sAggregateMarkingString, 31 ) != 0 )return false;
     return true;
 }
 
