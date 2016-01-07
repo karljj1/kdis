@@ -39,7 +39,7 @@ using namespace ENUMS;
 //////////////////////////////////////////////////////////////////////////
 
 AggregateMarking::AggregateMarking() :
-    m_ui8AggregateMarkingCharacterSet( EntityMarkingCharacterSet::ASCII )
+    m_ui8AggregateMarkingCharacterSet( ASCII )
 {
     memset( m_sAggregateMarkingString, 0x00, 32 );
 }
