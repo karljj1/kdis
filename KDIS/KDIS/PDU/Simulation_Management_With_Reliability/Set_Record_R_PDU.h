@@ -55,7 +55,7 @@ protected:
 
     KUINT32 m_ui32NumRecSets;
 
-    KUINT8 m_ui8Padding;
+    KUINT8 m_ui8Padding1;
 
     KUINT16 m_ui16Padding;
 

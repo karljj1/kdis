@@ -182,7 +182,6 @@ KBOOL LE_EntityIdentifier::operator <  ( const LE_EntityIdentifier & Value ) con
     ui32OtherCmpVal = Value.m_ui8SiteID | ( KUINT32 )Value.m_ui8ApplicationID << 8 | ( KUINT32 )Value.m_ui16EntityID << 16;
 
     return ui32ThisCmpVal < ui32OtherCmpVal;
-    return true;
 }
 
 //////////////////////////////////////////////////////////////////////////

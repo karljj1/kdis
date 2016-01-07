@@ -219,8 +219,7 @@ void UnderwaterAcousticEmitterSystem::Encode( KDataStream & stream ) const
 
     vector<UnderwaterAcousticEmitterBeam>::const_iterator citr = m_vUAEB.begin();
     vector<UnderwaterAcousticEmitterBeam>::const_iterator citrEnd = m_vUAEB.end();
-
-    for( ; citr != m_vUAEB.end(); ++citr )
+    for( ; citr != citrEnd; ++citr )
     {
         stream << KDIS_STREAM *citr;
     }

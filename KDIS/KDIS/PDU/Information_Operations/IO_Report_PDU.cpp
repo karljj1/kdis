@@ -186,7 +186,6 @@ void IO_Report_PDU::SetStandardVariableRecords( const vector<StdVarPtr> & SVR )
     m_ui16PDULength = IO_REPORT_PDU_SIZE;
 
     // Calculate the new pdu length.
-    KUINT16 ui16Length = 0;
     vector<StdVarPtr>::const_iterator citr = m_vStdVarRecs.begin();
     vector<StdVarPtr>::const_iterator citrEnd = m_vStdVarRecs.end();
     for( ; citr != citrEnd; ++citr )

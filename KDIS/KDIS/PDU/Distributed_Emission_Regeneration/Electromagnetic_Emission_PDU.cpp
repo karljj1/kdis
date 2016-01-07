@@ -289,8 +289,7 @@ void Electromagnetic_Emission_PDU::Encode( KDataStream & stream ) const
 
     vector<EmissionSystem>::const_iterator citr = m_vEmissionSystem.begin();
     vector<EmissionSystem>::const_iterator citrEnd = m_vEmissionSystem.end();
-
-    for( ; citr != m_vEmissionSystem.end(); ++citr )
+    for( ; citr != citrEnd; ++citr )
     {
         citr->Encode( stream );
     }

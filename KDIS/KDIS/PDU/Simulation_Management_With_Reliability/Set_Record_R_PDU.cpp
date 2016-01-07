@@ -45,7 +45,7 @@ using namespace UTILS;
 Set_Record_R_PDU::Set_Record_R_PDU() :
     m_ui32RqId( 0 ),
     m_ui32NumRecSets( 0 ),
-	m_ui8Padding( 0 ),
+	m_ui8Padding1( 0 ),
 	m_ui16Padding( 0 ),
 	m_ui32Padding( 0 )
 {
@@ -199,7 +199,7 @@ void Set_Record_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
 
     stream >> m_ui32RqId
            >> m_ui8ReqRelSrv
-           >> m_ui8Padding
+           >> m_ui8Padding1
            >> m_ui16Padding
            >> m_ui32Padding
            >> m_ui32NumRecSets;
@@ -229,7 +229,7 @@ void Set_Record_R_PDU::Encode( KDataStream & stream ) const
 
     stream << m_ui32RqId
            << m_ui8ReqRelSrv
-           << m_ui8Padding
+           << m_ui8Padding1
            << m_ui16Padding
            << m_ui32Padding
            << m_ui32NumRecSets;

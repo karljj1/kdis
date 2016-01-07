@@ -101,7 +101,6 @@ void IFF_Layer3::SetDataRecords( const std::vector<StdVarPtr> & DRS )
 	m_ui16LayerLength = IFF_LAYER3_SIZE;
 
     // Calculate the new length.
-    KUINT16 ui16Length = 0;
     vector<StdVarPtr>::const_iterator citr = m_vStdVarRecs.begin();
     vector<StdVarPtr>::const_iterator citrEnd = m_vStdVarRecs.end();
     for( ; citr != citrEnd; ++citr )

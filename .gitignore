@@ -60,3 +60,5 @@ KDIS/CMakeFiles/
 *.tcl
 *.opendb
 *.rej
+*.xml
+*.lastcodeanalysissucceeded

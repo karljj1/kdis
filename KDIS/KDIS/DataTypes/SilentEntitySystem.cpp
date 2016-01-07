@@ -198,8 +198,7 @@ void SilentEntitySystem::Encode( KDataStream & stream ) const
 
     vector<EntityAppearance>::const_iterator citr = m_vEA.begin();
     vector<EntityAppearance>::const_iterator citrEnd = m_vEA.end();
-
-    for( ; citr != m_vEA.end(); ++citr )
+    for( ; citr != citrEnd; ++citr )
     {
         citr->Encode( stream );
     }

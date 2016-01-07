@@ -90,11 +90,12 @@ void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize ) throw( KExc
 {
 	if( DataSize > 15 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 
-	// Clear data
-	memset( m_Data, 0, 15 );
-
 	// Set
 	memcpy( m_Data, D, DataSize );
+		
+	// Clear extra space
+	if( DataSize < 15 )
+		memset( m_Data, DataSize, 15 - DataSize );
 }
 
 //////////////////////////////////////////////////////////////////////////
