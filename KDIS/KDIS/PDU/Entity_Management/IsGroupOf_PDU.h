@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -99,9 +99,9 @@ public:
 
     IsGroupOf_PDU( KDataStream & stream ) throw( KException );
 
-	IsGroupOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    IsGroupOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GED, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude );
+    IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GED, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude );
 
     IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const KDIS::DATA_TYPE::GEDList & GED ) throw( KException );
 
@@ -123,8 +123,8 @@ public:
     // Description: Describes the type of entities constituting a group.
     // Parameter:   const GroupedEntityCategor GED
     //************************************
-	void SetGroupedEntityCategory( KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GED );
-	KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
+    void SetGroupedEntityCategory( KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GED );
+    KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
 
     //************************************
     // FullName:    KDIS::PDU::IsGroupOf_PDU::GetNumberOfGroupedEntities
@@ -190,7 +190,7 @@ public:
     // FullName:    KDIS::PDU::IsGroupOf_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
