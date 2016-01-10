@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -67,17 +67,17 @@ Entity_State_PDU::Entity_State_PDU( KDataStream & stream ) throw( KException ) :
 //////////////////////////////////////////////////////////////////////////
 
 Entity_State_PDU::Entity_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H ),
-	m_pDrCalc( 0 )
+    Header( H ),
+    m_pDrCalc( 0 )
 {
-	Decode( stream, true );
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 Entity_State_PDU::Entity_State_PDU( const Entity_State_PDU & ESPDU ) :
-	Header( ESPDU ),
-	m_EntityID( ESPDU.m_EntityID ),
+    Header( ESPDU ),
+    m_EntityID( ESPDU.m_EntityID ),
     m_ui8ForceID( ESPDU.m_ui8ForceID ),
     m_ui8NumOfVariableParams( ESPDU.m_ui8NumOfVariableParams ),
     m_EntityType( ESPDU.m_EntityType ),
@@ -89,8 +89,8 @@ Entity_State_PDU::Entity_State_PDU( const Entity_State_PDU & ESPDU ) :
     m_DeadReckoningParameter( ESPDU.m_DeadReckoningParameter ),
     m_EntityMarking( ESPDU.m_EntityMarking ),
     m_EntityCapabilities( ESPDU.m_EntityCapabilities ),
-	m_vVariableParameters( ESPDU.m_vVariableParameters ),
-	m_pDrCalc( ESPDU.m_pDrCalc ? new DeadReckoningCalculator( *ESPDU.m_pDrCalc ) : NULL )
+    m_vVariableParameters( ESPDU.m_vVariableParameters ),
+    m_pDrCalc( ESPDU.m_pDrCalc ? new DeadReckoningCalculator( *ESPDU.m_pDrCalc ) : NULL )
 {
 }
 
@@ -413,7 +413,7 @@ void Entity_State_PDU::AddVariableParameter( VarPrmPtr VP )
 {
     m_vVariableParameters.push_back( VP );
     ++m_ui8NumOfVariableParams;
-	m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
+    m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -468,7 +468,7 @@ KString Entity_State_PDU::GetAsString() const
     vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
     for( ; citr != citrEnd; ++ citr )
     {
-		ss << ( *citr )->GetAsString();
+        ss << ( *citr )->GetAsString();
     }
 
     return ss.str();
@@ -481,8 +481,8 @@ void Entity_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENTITY_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     m_vVariableParameters.clear();
-	
-	Header::Decode( stream, ignoreHeader );	
+
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_EntityID
            >> m_ui8ForceID
@@ -499,40 +499,40 @@ void Entity_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
 
     for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
     {
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT8 paramTyp;
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT8 paramTyp;
 
-		// Extract the  type then reset the stream.
-		stream >> paramTyp;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the  type then reset the stream.
+        stream >> paramTyp;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
+        // Use the factory decoder.
+        VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vVariableParameters.push_back( VarPrmPtr( p ) );
-		}
-		else
-		{
-			// Default internals
-			switch( paramTyp )
-			{
-				case ArticulatedPartType:				
-					m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
-					break;
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vVariableParameters.push_back( VarPrmPtr( p ) );
+        }
+        else
+        {
+            // Default internals
+            switch( paramTyp )
+            {
+                case ArticulatedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
+                    break;
 
-				case AttachedPartType:
-					m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
-					break;
-						
-				default:
-					m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
-					break;
-			}
-		}
+                case AttachedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
+                    break;
+
+                default:
+                    m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
+                    break;
+            }
+        }
     }
 }
 
@@ -578,8 +578,8 @@ void Entity_State_PDU::Encode( KDataStream & stream ) const
 
 Entity_State_PDU & Entity_State_PDU::operator=( const Entity_State_PDU & Other )
 {
-	Header::operator=( Other );
-	m_EntityID = Other.m_EntityID;
+    Header::operator=( Other );
+    m_EntityID = Other.m_EntityID;
     m_ui8ForceID = Other.m_ui8ForceID;
     m_ui8NumOfVariableParams = Other.m_ui8NumOfVariableParams;
     m_EntityType = Other.m_EntityType;
@@ -591,9 +591,9 @@ Entity_State_PDU & Entity_State_PDU::operator=( const Entity_State_PDU & Other )
     m_DeadReckoningParameter = Other.m_DeadReckoningParameter;
     m_EntityMarking = Other.m_EntityMarking;
     m_EntityCapabilities = Other.m_EntityCapabilities;
-	m_vVariableParameters = Other.m_vVariableParameters;
-	m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
-	return *this;
+    m_vVariableParameters = Other.m_vVariableParameters;
+    m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
+    return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////

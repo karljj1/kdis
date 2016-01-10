@@ -70,7 +70,7 @@ Appearance_PDU::Appearance_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Appearance_PDU::Appearance_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	LE_Header( H )
+    LE_Header( H )
 {
     Decode( stream, true );
 }
@@ -533,16 +533,22 @@ KString Appearance_PDU::GetAsString() const
     ss << LE_Header::GetAsString()
        << "-Appearance PDU-\n"
        << "Optional Field Flags:\n"
-       << "\tForce ID:				" << GetEnumAsStringForceID( m_AppearanceFlag1Union.m_ui8ForceId ) << "\n"
-       << "\tEntity Type:			" << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Typ     << "\n"
-       << "\tAlternate Entity Type:	" << ( KUINT16 )m_AppearanceFlag1Union.m_ui8AltTyp  << "\n"
-       << "\tEntity Marking:	    " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Mark   << "\n"
-       << "\tCapabilities:			" << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Cap    << "\n"
-       << "\tAppearance-Visual:		" << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Vis    << "\n"
-       << "\tAppearance-IR:			" << ( KUINT16 )m_AppearanceFlag1Union.m_ui8IR    << "\n"
-       << "\tFlag2:					" << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Flag2   << "\n"
-       << "\tAppearance-EM:			" << ( KUINT16 )m_AppearanceFlag2Union.m_ui8EM    << "\n"
-       << "\tAppearance-Audio:		" << ( KUINT16 )m_AppearanceFlag2Union.m_ui8Audio   << "\n";
+       << "\tForce ID:              " << GetEnumAsStringForceID( m_AppearanceFlag1Union.m_ui8ForceId ) << "\n"
+       << "\tEntity Type:           " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Typ    << "\n"
+       << "\tAlternate Entity Type: " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8AltTyp << "\n"
+       << "\tEntity Marking:        " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Mark   << "\n"
+       << "\tCapabilities:          " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Cap    << "\n"
+       << "\tAppearance-Visual:     " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Vis    << "\n"
+       << "\tAppearance-IR:         " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8IR     << "\n"
+       << "\tFlag2:                 " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Flag2  << "\n"
+       << "\tAppearance-EM:         " << ( KUINT16 )m_AppearanceFlag2Union.m_ui8EM     << "\n"
+       << "\tAppearance-Audio:      " << ( KUINT16 )m_AppearanceFlag2Union.m_ui8Audio  << "\n";
+
+    if (m_AppearanceFlag1Union.m_ui8Flag2)
+    {
+        ss << "\tAppearance-EM:         " << (KUINT16)m_AppearanceFlag2Union.m_ui8EM << "\n"
+           << "\tAppearance-Audio:      " << (KUINT16)m_AppearanceFlag2Union.m_ui8Audio << "\n";
+    }
 
     if( m_AppearanceFlag1Union.m_ui8ForceId )
     {

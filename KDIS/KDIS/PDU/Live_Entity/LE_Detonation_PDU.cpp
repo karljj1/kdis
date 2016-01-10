@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -119,7 +119,7 @@ LE_Detonation_PDU::LE_Detonation_PDU() :
     m_ui8PDUType = LEDetonation_PDU_Type;
     m_ui16PDULength = LE_DETONATION_PDU_SIZE;
 }
-	
+
 //////////////////////////////////////////////////////////////////////////
 
 LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
@@ -130,7 +130,7 @@ LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 LE_Detonation_PDU::LE_Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	LE_Header( H )
+    LE_Header( H )
 {
     Decode( stream, true );
 }
@@ -648,16 +648,20 @@ KString LE_Detonation_PDU::GetAsString() const
     ss << LE_Header::GetAsString()
        << "-LE Detonation PDU-\n"
        << "Optional Field Flags:\n"
-       << "\tTarget ID:							   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8TargetId        << "\n"
-       << "\tMunition ID:						   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8MunitionId      << "\n"
+       << "\tTarget ID:                            " << ( KUINT16 )m_DetonationFlag1Union.m_ui8TargetId        << "\n"
+       << "\tMunition ID:                          " << ( KUINT16 )m_DetonationFlag1Union.m_ui8MunitionId      << "\n"
        << "\tMunition Site & Application Included: " << ( KUINT16 )m_DetonationFlag1Union.m_ui8MunitionSiteApp << "\n"
        << "\tEvent Site & Application Included:    " << ( KUINT16 )m_DetonationFlag1Union.m_ui8EventSiteAppId  << "\n"
-       << "\tWarhead & Fuse Included:			   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8WarheadFuse     << "\n"
-       << "\tQuantity & Rate Included:			   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8QuantRate       << "\n"
-       << "\tLocation In Entity Coordinates:	   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8LocationTyp     << "\n"
-       << "\tFlag 2:							   " << ( KUINT16 )m_DetonationFlag1Union.m_ui8Flag2           << "\n"
-       << "\tMunition Orientation:				   " << ( KUINT16 )m_DetonationFlag2Union.m_ui8MunitionOri     << "\n"
-       << "\tEvent Number:						   " << ( KUINT16 )m_DetonationFlag2Union.m_ui8EventNum        << "\n";
+       << "\tWarhead & Fuse Included:              " << ( KUINT16 )m_DetonationFlag1Union.m_ui8WarheadFuse     << "\n"
+       << "\tQuantity & Rate Included:             " << ( KUINT16 )m_DetonationFlag1Union.m_ui8QuantRate       << "\n"
+       << "\tLocation In Entity Coordinates:       " << ( KUINT16 )m_DetonationFlag1Union.m_ui8LocationTyp     << "\n"
+       << "\tFlag 2:                               " << ( KUINT16 )m_DetonationFlag1Union.m_ui8Flag2           << "\n";
+    
+    if (m_DetonationFlag1Union.m_ui8Flag2)
+    {
+        ss << "\tMunition Orientation:                 " << (KUINT16)m_DetonationFlag2Union.m_ui8MunitionOri   << "\n"
+           << "\tEvent Number:                         " << (KUINT16)m_DetonationFlag2Union.m_ui8EventNum      << "\n";
+    }
 
     if( m_DetonationFlag1Union.m_ui8TargetId )
     {
@@ -669,7 +673,7 @@ KString LE_Detonation_PDU::GetAsString() const
         ss << "Munition ID: " << m_MunitionID.GetAsString();
     }
 
-    if( m_DetonationFlag2Union.m_ui8EventNum || m_DetonationFlag1Union.m_ui8EventSiteAppId )
+    if( ( m_DetonationFlag1Union.m_ui8Flag2 && m_DetonationFlag2Union.m_ui8EventNum ) || m_DetonationFlag1Union.m_ui8EventSiteAppId )
     {
         ss << "Event ID: " << m_EventID.GetAsString();
     }
@@ -687,7 +691,7 @@ KString LE_Detonation_PDU::GetAsString() const
 
     ss << "Velocity: " << m_Vel.GetAsString();
 
-    if( m_DetonationFlag2Union.m_ui8MunitionOri )
+    if( m_DetonationFlag1Union.m_ui8Flag2 && m_DetonationFlag2Union.m_ui8MunitionOri )
     {
         ss << "Munition Orienation: " << m_Ori.GetAsString();
     }
@@ -705,7 +709,7 @@ void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LE_DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    LE_Header::Decode( stream, ignoreHeader );	
+    LE_Header::Decode( stream, ignoreHeader );
 
     stream >> m_DetonationFlag1Union.m_ui8Flag;
 
