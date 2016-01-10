@@ -90,6 +90,7 @@
 	<li>Fixed null reference crash when encoding IntercomCommunicationParameters with no record.</li>
 	<li>Fixed protocol version not being set in Intercom_Control_PDU.</li>
 	<li>Fixed Uninitialised variables in SetData_R_PDU.</li>
+	<li>Fixed decode issue when handling padding in Aggregate_State_PDU.</li>
 	<li>Fixed AggregateMarking::Decode not setting the last char in m_sAggregateMarkingString to zero. Caused comparison issues.</li>
 	<li>Fixed comparison operator == in Set_Data_R_PDU.</li>
 	<li>Added fix where incorrect size was assigned to LE_VECTOR_SIZE.</li>

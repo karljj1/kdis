@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -44,25 +44,20 @@ using namespace UTILS;
 
 void Aggregate_State_PDU::calcPadding()
 {
-    // Do we need to pad the PDU?
-    // The PDU should be aligned to a 32 bit / 4 octet boundary.
-    // We will either need 2 octet pad or 0 depeding on how many Aggregate & Entitys are included.
-    if( m_bNeedsPadding )
-    {
-        m_ui16PDULength -= 2;
-    }
+    const KUINT16 ui16NumBytesToConsider = ( ( AggregateIdentifier::AGGREGATE_IDENTIFER_SIZE * m_ui16NumAggregates ) + ( EntityIdentifier::ENTITY_IDENTIFER_SIZE * m_ui16NumEntities ) ) % 4;
+    m_ui16NumberOfPaddingOctets = ui16NumBytesToConsider == 0 ? 0 : 4 - ui16NumBytesToConsider;
+}
 
-    KUINT8 ui8PaddingNeeded = ( m_vAI.size() + m_vEI.size() ) % 2;
+void Aggregate_State_PDU::updatePadding()
+{
+    m_ui16PDULength -= m_ui16NumberOfPaddingOctets;
+    calcPadding();
+    m_ui16PDULength += m_ui16NumberOfPaddingOctets;
+}
 
-    if( ui8PaddingNeeded )
-    {
-        m_bNeedsPadding = true;
-        m_ui16PDULength += 2;
-    }
-    else
-    {
-        m_bNeedsPadding = false;
-    }
+bool Aggregate_State_PDU::needsPadding() const
+{
+    return m_ui16NumberOfPaddingOctets > 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -79,6 +74,7 @@ Aggregate_State_PDU::Aggregate_State_PDU() :
     m_ui16NumSilentEntityTypes( 0 ),
     m_bNeedsPadding( false ),
     m_ui16Padding1( 0 ),
+    m_ui16NumberOfPaddingOctets( 0 ),
     m_ui32NumVariableDatum( 0 )
 {
     m_ui8ProtocolFamily = EntityManagement;
@@ -97,7 +93,7 @@ Aggregate_State_PDU::Aggregate_State_PDU( KDataStream & stream ) throw( KExcepti
 //////////////////////////////////////////////////////////////////////////
 
 Aggregate_State_PDU::Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H )
+    Header( H )
 {
     Decode( stream, true );
 }
@@ -124,6 +120,7 @@ Aggregate_State_PDU::Aggregate_State_PDU( const AggregateIdentifier & AI, ForceI
     m_ui16NumSilentEntityTypes( 0 ),
     m_bNeedsPadding( false ),
     m_ui16Padding1( 0 ),
+    m_ui16NumberOfPaddingOctets( 0 ),
     m_ui32NumVariableDatum( 0 )
 {
     m_ui8ProtocolFamily = EntityManagement;
@@ -368,7 +365,7 @@ void Aggregate_State_PDU::AddAggregateID( const AggregateIdentifier & AI )
     m_vAI.push_back( AI );
     m_ui16NumAggregates = m_vAI.size();
     m_ui16PDULength += AggregateIdentifier::AGGREGATE_IDENTIFER_SIZE;
-    calcPadding();
+    updatePadding();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -376,12 +373,12 @@ void Aggregate_State_PDU::AddAggregateID( const AggregateIdentifier & AI )
 void Aggregate_State_PDU::SetAggregateIDList( const vector<AggregateIdentifier> & AI )
 {
     // Reset the PDU length field
-    m_ui16PDULength -= m_vAI.size() * AggregateIdentifier::AGGREGATE_IDENTIFER_SIZE;
+    m_ui16PDULength -= m_ui16NumAggregates * AggregateIdentifier::AGGREGATE_IDENTIFER_SIZE;
 
     m_vAI = AI;
     m_ui16NumAggregates = m_vAI.size();
-    m_ui16PDULength += m_vAI.size() * AggregateIdentifier::AGGREGATE_IDENTIFER_SIZE;
-    calcPadding();
+    m_ui16PDULength += m_ui16NumAggregates * AggregateIdentifier::AGGREGATE_IDENTIFER_SIZE;
+    updatePadding();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -398,7 +395,7 @@ void Aggregate_State_PDU::AddEntityID( const EntityIdentifier & EI )
     m_vEI.push_back( EI );
     m_ui16NumEntities = m_vEI.size();
     m_ui16PDULength += EntityIdentifier::ENTITY_IDENTIFER_SIZE;
-    calcPadding();
+    updatePadding();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -406,12 +403,12 @@ void Aggregate_State_PDU::AddEntityID( const EntityIdentifier & EI )
 void Aggregate_State_PDU::SetEntityIDList( const vector<EntityIdentifier> & EI )
 {
     // Reset the PDU length field
-    m_ui16PDULength -= m_vEI.size() * EntityIdentifier::ENTITY_IDENTIFER_SIZE;
+    m_ui16PDULength -= m_ui16NumEntities * EntityIdentifier::ENTITY_IDENTIFER_SIZE;
 
     m_vEI = EI;
     m_ui16NumEntities = m_vEI.size();
-    m_ui16PDULength += m_vEI.size() * EntityIdentifier::ENTITY_IDENTIFER_SIZE;
-    calcPadding();
+    m_ui16PDULength += m_ui16NumEntities * EntityIdentifier::ENTITY_IDENTIFER_SIZE;
+    updatePadding();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -436,11 +433,11 @@ void Aggregate_State_PDU::AddSilentAggregateSystem( const SilentAggregateSystem 
 void Aggregate_State_PDU::SetSilentAggregateSystemList( const vector<SilentAggregateSystem> & SAS )
 {
     // Reset the PDU length
-    m_ui16PDULength -= m_vSASL.size() * SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE;
+    m_ui16PDULength -= m_ui16NumSilentAggregateTypes * SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE;
 
     m_vSASL = SAS;
-    m_ui16PDULength += m_vSASL.size() * SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE;
     m_ui16NumSilentAggregateTypes = m_vSASL.size();
+    m_ui16PDULength += m_ui16NumSilentAggregateTypes * SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -502,8 +499,8 @@ void Aggregate_State_PDU::AddVariableDatum( VarDtmPtr VD )
 {
     m_vVD.push_back( VD );
 
-	// Calculate the size, note get datum length only returns length of the value and does not 
-	// include the datum id or length field so we use VARIABLE_DATUM_SIZE to get this.
+    // Calculate the size, note get datum length only returns length of the value and does not
+    // include the datum id or length field so we use VARIABLE_DATUM_SIZE to get this.
     m_ui16PDULength += VariableDatum::VARIABLE_DATUM_SIZE + ( VD->GetDatumLength() / 8 );
     ++m_ui32NumVariableDatum;
 }
@@ -512,11 +509,11 @@ void Aggregate_State_PDU::AddVariableDatum( VarDtmPtr VD )
 
 void Aggregate_State_PDU::SetVariableDatumList( const vector<VarDtmPtr> & VD )
 {
-	ClearVariableDatumList();
+    ClearVariableDatumList();
 
     m_vVD = VD;
 
-	vector<VarDtmPtr>::const_iterator citr = m_vVD.begin();
+    vector<VarDtmPtr>::const_iterator citr = m_vVD.begin();
     vector<VarDtmPtr>::const_iterator citrEnd = m_vVD.end();
     for( citr = m_vVD.begin(); citr != m_vVD.end(); ++citr )
     {
@@ -530,7 +527,7 @@ void Aggregate_State_PDU::SetVariableDatumList( const vector<VarDtmPtr> & VD )
 
 void Aggregate_State_PDU::ClearVariableDatumList()
 {
-	// Reset the PDU length
+    // Reset the PDU length
     vector<VarDtmPtr>::const_iterator citr = m_vVD.begin();
     vector<VarDtmPtr>::const_iterator citrEnd = m_vVD.end();
     for( ; citr != citrEnd; ++citr )
@@ -538,7 +535,8 @@ void Aggregate_State_PDU::ClearVariableDatumList()
         m_ui16PDULength -= VariableDatum::VARIABLE_DATUM_SIZE + ( ( *citr )->GetDatumLength() / 8 );
     }
 
-	m_vVD.clear();
+    m_vVD.clear();
+    m_ui32NumVariableDatum = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -586,6 +584,11 @@ KString Aggregate_State_PDU::GetAsString() const
         ss << citrEI->GetAsString();
     }
 
+    if (needsPadding())
+    {
+        ss << "Padding:                 " << m_ui16NumberOfPaddingOctets << " octets\n";
+    }
+
     vector<SilentAggregateSystem>::const_iterator citrSAS = m_vSASL.begin();
     vector<SilentAggregateSystem>::const_iterator citrSASEnd = m_vSASL.end();
     for( ; citrSAS != citrSASEnd; ++citrSAS )
@@ -616,16 +619,22 @@ KString Aggregate_State_PDU::GetAsString() const
 
 void Aggregate_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
 {
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < AGGREGATE_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Header::Decode( stream, ignoreHeader );	
-
     m_bNeedsPadding = false;
+    m_ui16NumberOfPaddingOctets = 0;
     m_vAI.clear();
     m_vEI.clear();
     m_vSASL.clear();
     m_vSESL.clear();
     m_vVD.clear();
+    m_ui16NumAggregates = 0;
+    m_ui16NumEntities = 0;
+    m_ui16NumSilentAggregateTypes = 0;
+    m_ui16NumSilentEntityTypes = 0;
+    m_ui32NumVariableDatum = 0;
+
+    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < AGGREGATE_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_AggregateID
            >> m_ui8ForceID
@@ -641,6 +650,18 @@ void Aggregate_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tr
            >> m_ui16NumEntities
            >> m_ui16NumSilentAggregateTypes
            >> m_ui16NumSilentEntityTypes;
+
+    // Does the PDU contain padding?
+    calcPadding();
+
+    if( needsPadding() )
+    {
+        KUINT8 ui8Padding = 0;
+        for( KUINT16 p = 0; p < m_ui16NumberOfPaddingOctets; ++p )
+        {
+            stream >> ui8Padding;
+        }
+    }
 
     for( KUINT16 i = 0; i < m_ui16NumAggregates; ++i )
     {
@@ -672,31 +693,31 @@ void Aggregate_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tr
 
     stream >> m_ui32NumVariableDatum;
 
-	// VariableDatum
+    // VariableDatum
     for( KUINT16 n = 0; n < m_ui32NumVariableDatum; ++n )
     {
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT32 datumID;
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT32 datumID;
 
-		// Extract the datum id then reset the stream.
-		stream >> datumID;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the datum id then reset the stream.
+        stream >> datumID;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		VariableDatum * p = VariableDatum::FactoryDecode( datumID, stream );
+        // Use the factory decoder.
+        VariableDatum * p = VariableDatum::FactoryDecode( datumID, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vVD.push_back( VarDtmPtr( p ) );
-		}
-		else
-		{
-			// Default
-			m_vVD.push_back( VarDtmPtr( new VariableDatum( stream ) ) );
-		}
-    }    
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vVD.push_back( VarDtmPtr( p ) );
+        }
+        else
+        {
+            // Default
+            m_vVD.push_back( VarDtmPtr( new VariableDatum( stream ) ) );
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -743,9 +764,13 @@ void Aggregate_State_PDU::Encode( KDataStream & stream ) const
         citrEI->Encode( stream );
     }
 
-    if( m_bNeedsPadding )
+    if( needsPadding() )
     {
-        stream << m_ui16Padding1;
+        const KUINT8 ui8Padding = 0;
+        for( KUINT16 p = 0; p < m_ui16NumberOfPaddingOctets; ++p )
+        {
+            stream << ui8Padding;
+        }
     }
 
     vector<SilentAggregateSystem>::const_iterator citrSAS = m_vSASL.begin();

@@ -87,26 +87,41 @@ protected:
 
     KUINT16 m_ui16NumSilentEntityTypes;
 
-	std::vector<KDIS::DATA_TYPE::AggregateIdentifier> m_vAI;
+    std::vector<KDIS::DATA_TYPE::AggregateIdentifier> m_vAI;
 
-	std::vector<KDIS::DATA_TYPE::EntityIdentifier> m_vEI;
+    std::vector<KDIS::DATA_TYPE::EntityIdentifier> m_vEI;
 
     KBOOL m_bNeedsPadding;
     KUINT16 m_ui16Padding1;
+    KUINT16 m_ui16NumberOfPaddingOctets;
 
-	std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> m_vSASL;
+    std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> m_vSASL;
 
-	std::vector<KDIS::DATA_TYPE::SilentEntitySystem> m_vSESL;
+    std::vector<KDIS::DATA_TYPE::SilentEntitySystem> m_vSESL;
 
     KUINT32 m_ui32NumVariableDatum;
 
-	std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVD;
+    std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVD;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::calcPadding
     // Description: Calculates the padding so the PDU lies on a 32 bit boundary.
     //************************************
     void calcPadding();
+
+    //************************************
+    // FullName:    KDIS::PDU::Aggregate_State_PDU::updatePadding
+    // Description: Calculates the padding so the PDU lies on a 32 bit boundary.
+    //              Updates local member m_ui16NumberOfPaddingOctets and also
+    //              inherited Header6::m_ui16PDULength.
+    //************************************
+    void updatePadding();
+
+    //************************************
+    // FullName:    KDIS::PDU::Aggregate_State_PDU::needsPadding
+    // Description: Returns true if padding is needed.
+    //************************************
+    bool needsPadding() const;
 
 public:
 
@@ -116,10 +131,10 @@ public:
 
     Aggregate_State_PDU( KDataStream & stream ) throw( KException );
 
-	Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Aggregate_State_PDU( const KDIS::DATA_TYPE::AggregateIdentifier & AI, KDIS::DATA_TYPE::ENUMS::ForceID FID, KDIS::DATA_TYPE::ENUMS::AggregateState AS,
-		                 const KDIS::DATA_TYPE::AggregateType & AT, KDIS::DATA_TYPE::ENUMS::Formation F, const KDIS::DATA_TYPE::AggregateMarking & AM,
+    Aggregate_State_PDU( const KDIS::DATA_TYPE::AggregateIdentifier & AI, KDIS::DATA_TYPE::ENUMS::ForceID FID, KDIS::DATA_TYPE::ENUMS::AggregateState AS,
+                         const KDIS::DATA_TYPE::AggregateType & AT, KDIS::DATA_TYPE::ENUMS::Formation F, const KDIS::DATA_TYPE::AggregateMarking & AM,
                          const KDIS::DATA_TYPE::Vector & Dimensions, const KDIS::DATA_TYPE::EulerAngles & Orientation,
                          const KDIS::DATA_TYPE::WorldCoordinates & CenterOfMass, const KDIS::DATA_TYPE::Vector & Velocity );
 
@@ -268,8 +283,8 @@ public:
     // Parameter:   const AggregateIdentifier & AI, const vector<AggregateIdentifier> & AI
     //************************************
     void AddAggregateID( const KDIS::DATA_TYPE::AggregateIdentifier & AI );
-	void SetAggregateIDList( const std::vector<KDIS::DATA_TYPE::AggregateIdentifier> & AI );
-	const std::vector<KDIS::DATA_TYPE::AggregateIdentifier> & GetAggregateIDList() const;
+    void SetAggregateIDList( const std::vector<KDIS::DATA_TYPE::AggregateIdentifier> & AI );
+    const std::vector<KDIS::DATA_TYPE::AggregateIdentifier> & GetAggregateIDList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::AddEntityID
@@ -280,8 +295,8 @@ public:
     // Parameter:   const EntityIdentifier & EI, const vector<EntityIdentifier> & EI
     //************************************
     void AddEntityID( const KDIS::DATA_TYPE::EntityIdentifier & EI );
-	void SetEntityIDList( const std::vector<KDIS::DATA_TYPE::EntityIdentifier> & EI );
-	const std::vector<KDIS::DATA_TYPE::EntityIdentifier> & GetEntityIDList() const;
+    void SetEntityIDList( const std::vector<KDIS::DATA_TYPE::EntityIdentifier> & EI );
+    const std::vector<KDIS::DATA_TYPE::EntityIdentifier> & GetEntityIDList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::AddSilentAggregateSystem
@@ -292,8 +307,8 @@ public:
     // Parameter:   const SilentAggregateSystem & SAS, const vector<SilentAggregateSystem> & SAS
     //************************************
     void AddSilentAggregateSystem( const KDIS::DATA_TYPE::SilentAggregateSystem & SAS );
-	void SetSilentAggregateSystemList( const std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> & SAS );
-	const std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> & GetSilentAggregateSystemList() const;
+    void SetSilentAggregateSystemList( const std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> & SAS );
+    const std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> & GetSilentAggregateSystemList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::AddSilentEntitySystem
@@ -304,8 +319,8 @@ public:
     // Parameter:   const SilentEntitySystem & SES, const vector<SilentEntitySystem> & SES
     //************************************
     void AddSilentEntitySystem( const KDIS::DATA_TYPE::SilentEntitySystem & SES );
-	void SetSilentEntitySystemList( const std::vector<KDIS::DATA_TYPE::SilentEntitySystem> & SES );
-	const std::vector<KDIS::DATA_TYPE::SilentEntitySystem> & GetSilentEntitySystemList() const;
+    void SetSilentEntitySystemList( const std::vector<KDIS::DATA_TYPE::SilentEntitySystem> & SES );
+    const std::vector<KDIS::DATA_TYPE::SilentEntitySystem> & GetSilentEntitySystemList() const;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::GetNumberOfVariableDatums
@@ -317,7 +332,7 @@ public:
     // FullName:    KDIS::PDU::Aggregate_State_PDU::AddVariableDatum
     //              KDIS::PDU::Aggregate_State_PDU::GetVariableDatumList
     //              KDIS::PDU::Aggregate_State_PDU::GetVariableDatumList
-	//              KDIS::PDU::Aggregate_State_PDU::ClearVariableDatumList
+    //              KDIS::PDU::Aggregate_State_PDU::ClearVariableDatumList
     // Description: Specifies extra data that is used by the entity-level and
     //              aggregate-level simulations to transfer control and correlate the
     //              simulation of entities in an aggregate.
@@ -328,9 +343,9 @@ public:
     // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
     //************************************
     void AddVariableDatum( KDIS::DATA_TYPE::VarDtmPtr VD );
-	void SetVariableDatumList( const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD );
-	const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & GetVariableDatumList() const;
-	void ClearVariableDatumList();
+    void SetVariableDatumList( const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD );
+    const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & GetVariableDatumList() const;
+    void ClearVariableDatumList();
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::GetAsString
@@ -342,7 +357,7 @@ public:
     // FullName:    KDIS::PDU::Aggregate_State_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
