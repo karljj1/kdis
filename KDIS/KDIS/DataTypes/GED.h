@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      GED
-    created:    07:06:2009
+    created:    07/06/2009
     author:     Karl Jones
 
     purpose:    Abstract class for all Grouped Entity Descriptors.
@@ -37,13 +37,13 @@ http://p.sf.net/kdis/UserGuide
     The following derived classes exist:
 
                 GED_BasicGroundCombatVehicle
-                    GED_EnhancedGroundCombatVehicle
+                GED_EnhancedGroundCombatVehicle
                 GED_BasicGroundCombatSoldier
-                    GED_EnhancedGroundCombatSoldier
+                GED_EnhancedGroundCombatSoldier
                 GED_BasicRotorWingAircraft
-                    GED_EnhancedRotaryWingAircraft
+                GED_EnhancedRotaryWingAircraft
                 GED_BasicFixedWingAircraft
-                    GED_EnhancedFixedWingAircraft
+                GED_EnhancedFixedWingAircraft
                 GED_GroundLogisticsVehicle
 
     size:       N/A
