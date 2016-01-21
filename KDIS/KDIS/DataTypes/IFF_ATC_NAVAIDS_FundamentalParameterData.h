@@ -67,7 +67,7 @@ protected:
 
 public:
 
-    static const KUINT16 IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE = 40;
+    static const KUINT16 IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE = 24;
 
     IFF_ATC_NAVAIDS_FundamentalParameterData();
 
