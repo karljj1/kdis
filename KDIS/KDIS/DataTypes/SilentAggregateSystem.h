@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      SilentAggregateSystem
-    created:    2009/02/08
+    updated:    21/01/2016
     author:     Karl Jones
 
     purpose:    Contains information about subaggregates not producing
