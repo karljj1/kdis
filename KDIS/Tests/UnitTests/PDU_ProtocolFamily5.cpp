@@ -7,20 +7,6 @@
 #include "KDIS/PDU/Entity_Info_Interaction/Collision_PDU.h"
 #include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.h"
 
-#include "KDIS/PDU/Entity_Management/Aggregate_State_PDU.h"
-#include "KDIS/PDU/Entity_Management/IsGroupOf_PDU.h"
-#include "KDIS/PDU/Entity_Management/IsPartOf_PDU.h"
-#include "KDIS/PDU/Entity_Management/Transfer_Control_Request_PDU.h"
-
-#include "KDIS/PDU/Information_Operations/IO_Action_PDU.h"
-#include "KDIS/PDU/Information_Operations/IO_Report_PDU.h"
-
-#include "KDIS/PDU/Live_Entity/Appearance_PDU.h"
-#include "KDIS/PDU/Live_Entity/Articulated_Parts_PDU.h"
-#include "KDIS/PDU/Live_Entity/LE_Detonation_PDU.h"
-#include "KDIS/PDU/Live_Entity/LE_Fire_PDU.h"
-#include "KDIS/PDU/Live_Entity/TSPI_PDU.h"
-
 #include "KDIS/PDU/Logistics/Repair_Complete_PDU.h"
 #include "KDIS/PDU/Logistics/Repair_Response_PDU.h"
 #include "KDIS/PDU/Logistics/Resupply_Cancel_PDU.h"
@@ -46,8 +32,6 @@
 #include "KDIS/PDU/Simulation_Management/Stop_Freeze_PDU.h"
 
 #include "KDIS/PDU/Warfare/Detonation_PDU.h"
-#include "KDIS/PDU/Warfare/Directed_Energy_Fire_PDU.h"
-#include "KDIS/PDU/Warfare/Entity_Damage_Status_PDU.h"
 #include "KDIS/PDU/Warfare/Fire_PDU.h"
 
 using namespace KDIS;
@@ -84,84 +68,6 @@ TEST(PDU_ProtocolFamily5, Entity_State_PDU)
 {
     Entity_State_PDU pdu;
     EXPECT_EQ(ProtocolFamily::Entity_Information_Interaction, pdu.GetProtocolFamily());
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Entity Management
-//////////////////////////////////////////////////////////////////////////
-
-TEST(PDU_ProtocolFamily5, Aggregate_State_PDU)
-{
-    Aggregate_State_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, IsGroupOf_PDU)
-{
-    IsGroupOf_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, IsPartOf_PDU)
-{
-    IsPartOf_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, Transfer_Control_Request_PDU)
-{
-    Transfer_Control_Request_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Information Operations
-//////////////////////////////////////////////////////////////////////////
-
-TEST(PDU_ProtocolFamily5, IO_Action_PDU)
-{
-    IO_Action_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Information_Operations, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, IO_Report_PDU)
-{
-    IO_Report_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Information_Operations, pdu.GetProtocolFamily());
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Live Entity
-//////////////////////////////////////////////////////////////////////////
-
-TEST(PDU_ProtocolFamily5, Appearance_PDU)
-{
-    Appearance_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, Articulated_Parts_PDU)
-{
-    Articulated_Parts_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, LE_Detonation_PDU)
-{
-    LE_Detonation_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, LE_Fire_PDU)
-{
-    LE_Fire_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, TSPI_PDU)
-{
-    TSPI_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -309,18 +215,6 @@ TEST(PDU_ProtocolFamily5, Stop_Freeze_PDU)
 TEST(PDU_ProtocolFamily5, Detonation_PDU)
 {
     Detonation_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Warfare, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, Directed_Energy_Fire_PDU)
-{
-    Directed_Energy_Fire_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Warfare, pdu.GetProtocolFamily());
-}
-
-TEST(PDU_ProtocolFamily5, Entity_Damage_Status_PDU)
-{
-    Entity_Damage_Status_PDU pdu;
     EXPECT_EQ(ProtocolFamily::Warfare, pdu.GetProtocolFamily());
 }
 

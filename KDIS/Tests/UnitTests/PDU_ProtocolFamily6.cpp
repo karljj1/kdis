@@ -10,11 +10,16 @@
 #include "KDIS/PDU/Entity_Info_Interaction/Collision_Elastic_PDU.h"
 #include "KDIS/PDU/Entity_Info_Interaction/Entity_State_Update_PDU.h"
 
-#include "KDIS/PDU/Information_Operations/IO_Action_PDU.h"
-#include "KDIS/PDU/Information_Operations/IO_Report_PDU.h"
+#include "KDIS/PDU/Entity_Management/Aggregate_State_PDU.h"
+#include "KDIS/PDU/Entity_Management/IsGroupOf_PDU.h"
+#include "KDIS/PDU/Entity_Management/IsPartOf_PDU.h"
+#include "KDIS/PDU/Entity_Management/Transfer_Control_Request_PDU.h"
 
-#include "KDIS/PDU/Radio_Communications/Intercom_Control_PDU.h"
-#include "KDIS/PDU/Radio_Communications/Intercom_Signal_PDU.h"
+#include "KDIS/PDU/Live_Entity/Appearance_PDU.h"
+#include "KDIS/PDU/Live_Entity/Articulated_Parts_PDU.h"
+#include "KDIS/PDU/Live_Entity/LE_Detonation_PDU.h"
+#include "KDIS/PDU/Live_Entity/LE_Fire_PDU.h"
+#include "KDIS/PDU/Live_Entity/TSPI_PDU.h"
 
 #include "KDIS/PDU/Simulation_Management_With_Reliability/Acknowledge_R_PDU.h"
 #include "KDIS/PDU/Simulation_Management_With_Reliability/Action_Request_R_PDU.h"
@@ -81,35 +86,65 @@ TEST(PDU_ProtocolFamily6, Entity_State_Update_PDU)
 }
 
 //////////////////////////////////////////////////////////////////////////
-// Information Operations
+// Entity Management
 //////////////////////////////////////////////////////////////////////////
 
-TEST(PDU_ProtocolFamily6, IO_Action_PDU)
+TEST(PDU_ProtocolFamily5, Aggregate_State_PDU)
 {
-    IO_Action_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Information_Operations, pdu.GetProtocolFamily());
+    Aggregate_State_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
 }
 
-TEST(PDU_ProtocolFamily6, IO_Report_PDU)
+TEST(PDU_ProtocolFamily5, IsGroupOf_PDU)
 {
-    IO_Report_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Information_Operations, pdu.GetProtocolFamily());
+    IsGroupOf_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
+}
+
+TEST(PDU_ProtocolFamily5, IsPartOf_PDU)
+{
+    IsPartOf_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
+}
+
+TEST(PDU_ProtocolFamily5, Transfer_Control_Request_PDU)
+{
+    Transfer_Control_Request_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
-// Radio Communications
+// Live Entity
 //////////////////////////////////////////////////////////////////////////
 
-TEST(PDU_ProtocolFamily6, Intercom_Control_PDU)
+TEST(PDU_ProtocolFamily5, Appearance_PDU)
 {
-    Intercom_Control_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Radio_Communications, pdu.GetProtocolFamily());
+    Appearance_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
 }
 
-TEST(PDU_ProtocolFamily6, Intercom_Signal_PDU)
+TEST(PDU_ProtocolFamily5, Articulated_Parts_PDU)
 {
-    Intercom_Signal_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Radio_Communications, pdu.GetProtocolFamily());
+    Articulated_Parts_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+}
+
+TEST(PDU_ProtocolFamily5, LE_Detonation_PDU)
+{
+    LE_Detonation_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+}
+
+TEST(PDU_ProtocolFamily5, LE_Fire_PDU)
+{
+    LE_Fire_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+}
+
+TEST(PDU_ProtocolFamily5, TSPI_PDU)
+{
+    TSPI_PDU pdu;
+    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////

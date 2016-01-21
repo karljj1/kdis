@@ -60,11 +60,11 @@ public:
 
     Action_Request_PDU();
 
-	Action_Request_PDU( const Header & H );
+    Action_Request_PDU( const Header & H );
 
     Action_Request_PDU( KDataStream & stream ) throw( KException );
 
-	Action_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Action_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Action_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                         KUINT32 RequestID, KUINT32 ActionID );

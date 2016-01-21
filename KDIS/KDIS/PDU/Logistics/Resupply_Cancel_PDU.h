@@ -52,9 +52,9 @@ public:
 
     Resupply_Cancel_PDU();
 
-	Resupply_Cancel_PDU( KDataStream & stream ) throw( KException );
+    Resupply_Cancel_PDU( KDataStream & stream ) throw( KException );
 
-	Resupply_Cancel_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Resupply_Cancel_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Resupply_Cancel_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
 

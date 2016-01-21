@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 /********************************************************************
     class:      IsPartOf_PDU
     DIS:        (6) 1278.1A - 1998
-    created:    26:06:2009
+    created:    26/06/2009
     author:     Karl Jones
 
     purpose:    Communicates the joining of two or more simulation entities to form a
@@ -70,7 +70,7 @@ public:
 
     IsPartOf_PDU( KDataStream & stream ) throw( KException );
 
-	IsPartOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    IsPartOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     IsPartOf_PDU( const KDIS::DATA_TYPE::RelationshipRecord & RR, const KDIS::DATA_TYPE::Vector & LocationOfPart,
                   const KDIS::DATA_TYPE::NamedLocationIdentifier & NLI, const KDIS::DATA_TYPE::EntityType & PartType );

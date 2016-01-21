@@ -7,20 +7,6 @@
 #include "KDIS/PDU/Entity_Info_Interaction/Collision_PDU.h"
 #include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.h"
 
-#include "KDIS/PDU/Entity_Management/Aggregate_State_PDU.h"
-#include "KDIS/PDU/Entity_Management/IsGroupOf_PDU.h"
-#include "KDIS/PDU/Entity_Management/IsPartOf_PDU.h"
-#include "KDIS/PDU/Entity_Management/Transfer_Control_Request_PDU.h"
-
-#include "KDIS/PDU/Information_Operations/IO_Action_PDU.h"
-#include "KDIS/PDU/Information_Operations/IO_Report_PDU.h"
-
-#include "KDIS/PDU/Live_Entity/Appearance_PDU.h"
-#include "KDIS/PDU/Live_Entity/Articulated_Parts_PDU.h"
-#include "KDIS/PDU/Live_Entity/LE_Detonation_PDU.h"
-#include "KDIS/PDU/Live_Entity/LE_Fire_PDU.h"
-#include "KDIS/PDU/Live_Entity/TSPI_PDU.h"
-
 #include "KDIS/PDU/Logistics/Repair_Complete_PDU.h"
 #include "KDIS/PDU/Logistics/Repair_Response_PDU.h"
 #include "KDIS/PDU/Logistics/Resupply_Cancel_PDU.h"
@@ -46,8 +32,6 @@
 #include "KDIS/PDU/Simulation_Management/Stop_Freeze_PDU.h"
 
 #include "KDIS/PDU/Warfare/Detonation_PDU.h"
-#include "KDIS/PDU/Warfare/Directed_Energy_Fire_PDU.h"
-#include "KDIS/PDU/Warfare/Entity_Damage_Status_PDU.h"
 #include "KDIS/PDU/Warfare/Fire_PDU.h"
 
 using namespace KDIS;
@@ -93,117 +77,6 @@ TEST(PDU_EncodeDecode5, Entity_State_PDU)
     Entity_State_PDU pduIn;
     KDataStream stream = pduIn.Encode();
     Entity_State_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Entity Management
-//////////////////////////////////////////////////////////////////////////
-
-TEST(PDU_EncodeDecode5, Aggregate_State_PDU)
-{
-    Aggregate_State_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    Aggregate_State_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, IsGroupOf_PDU)
-{
-    IsGroupOf_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    IsGroupOf_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, IsPartOf_PDU)
-{
-    IsPartOf_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    IsPartOf_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, Transfer_Control_Request_PDU)
-{
-    Transfer_Control_Request_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    Transfer_Control_Request_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Information Operations
-//////////////////////////////////////////////////////////////////////////
-
-TEST(PDU_EncodeDecode5, IO_Action_PDU)
-{
-    IO_Action_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    IO_Action_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, IO_Report_PDU)
-{
-    IO_Report_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    IO_Report_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Live Entity
-//////////////////////////////////////////////////////////////////////////
-
-TEST(PDU_EncodeDecode5, Appearance_PDU)
-{
-    Appearance_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    Appearance_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, Articulated_Parts_PDU)
-{
-    Articulated_Parts_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    Articulated_Parts_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, LE_Detonation_PDU)
-{
-    LE_Detonation_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    LE_Detonation_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, LE_Fire_PDU)
-{
-    LE_Fire_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    LE_Fire_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, TSPI_PDU)
-{
-    TSPI_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    TSPI_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
     EXPECT_EQ(0, stream.GetBufferSize());
 }
@@ -418,24 +291,6 @@ TEST(PDU_EncodeDecode5, Detonation_PDU)
     Detonation_PDU pduIn;
     KDataStream stream = pduIn.Encode();
     Detonation_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, Directed_Energy_Fire_PDU)
-{
-    Directed_Energy_Fire_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    Directed_Energy_Fire_PDU pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-}
-
-TEST(PDU_EncodeDecode5, Entity_Damage_Status_PDU)
-{
-    Entity_Damage_Status_PDU pduIn;
-    KDataStream stream = pduIn.Encode();
-    Entity_Damage_Status_PDU pduOut(stream);
     EXPECT_EQ(pduIn, pduOut);
     EXPECT_EQ(0, stream.GetBufferSize());
 }

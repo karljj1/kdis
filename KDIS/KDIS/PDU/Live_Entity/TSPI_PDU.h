@@ -91,7 +91,7 @@ protected:
 
     KUINT8 m_ui8SSDLen;
 
-	std::vector<KOCTET> m_vSSD;
+    std::vector<KOCTET> m_vSSD;
 
 public:
 
@@ -99,9 +99,9 @@ public:
 
     TSPI_PDU();
 
-	TSPI_PDU( KDataStream & stream ) throw( KException );
+    TSPI_PDU( KDataStream & stream ) throw( KException );
 
-	TSPI_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    TSPI_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     TSPI_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
@@ -249,9 +249,9 @@ public:
     // Parameter:   const vector<KOCTET> & SSD, const KOCTET * Data
     // Parameter:   KUINT8 Length
     //************************************
-	void SetSystemSpecificData( const std::vector<KOCTET> & SSD );
+    void SetSystemSpecificData( const std::vector<KOCTET> & SSD );
     void SetSystemSpecificData( const KOCTET * Data, KUINT8 Length );
-	const std::vector<KOCTET> & GetSystemSpecificData() const;
+    const std::vector<KOCTET> & GetSystemSpecificData() const;
     void ClearSystemSpecificData();
 
     //************************************

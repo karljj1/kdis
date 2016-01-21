@@ -28,20 +28,20 @@ using namespace DATA_TYPE;
 
 TEST(DataType_EncodeDecode7, AttributeRecordSet)
 {
-	AttributeRecordSet dtIn;
-	KDataStream stream = dtIn.Encode();
-	AttributeRecordSet dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    AttributeRecordSet dtIn;
+    KDataStream stream = dtIn.Encode();
+    AttributeRecordSet dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, CommunicationsNodeID)
 {
-	CommunicationsNodeID dtIn;
-	KDataStream stream = dtIn.Encode();
-	CommunicationsNodeID dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    CommunicationsNodeID dtIn;
+    KDataStream stream = dtIn.Encode();
+    CommunicationsNodeID dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 //TEST(DataType_EncodeDecode7, DEAreaAimpoint)
@@ -55,128 +55,128 @@ TEST(DataType_EncodeDecode7, CommunicationsNodeID)
 
 TEST(DataType_EncodeDecode7, EnhancedMode1Code)
 {
-	EnhancedMode1Code dtIn;
-	KDataStream stream = dtIn.Encode();
-	EnhancedMode1Code dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EnhancedMode1Code dtIn;
+    KDataStream stream = dtIn.Encode();
+    EnhancedMode1Code dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, ExplosionDescriptor)
 {
-	ExplosionDescriptor dtIn;
-	KDataStream stream = dtIn.Encode();
-	ExplosionDescriptor dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    ExplosionDescriptor dtIn;
+    KDataStream stream = dtIn.Encode();
+    ExplosionDescriptor dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, IFF_Layer3)
 {
-	IFF_Layer3 dtIn;
-	KDataStream stream = dtIn.Encode();
-	IFF_Layer3 dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    IFF_Layer3 dtIn;
+    KDataStream stream = dtIn.Encode();
+    IFF_Layer3 dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, IFF_Layer3Interrogator)
 {
-	IFF_Layer3Interrogator dtIn;
-	KDataStream stream = dtIn.Encode();
-	IFF_Layer3Interrogator dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    IFF_Layer3Interrogator dtIn;
+    KDataStream stream = dtIn.Encode();
+    IFF_Layer3Interrogator dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, IFF_Layer3Transponder)
 {
-	IFF_Layer3Transponder dtIn;
-	KDataStream stream = dtIn.Encode();
-	IFF_Layer3Transponder dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    IFF_Layer3Transponder dtIn;
+    KDataStream stream = dtIn.Encode();
+    IFF_Layer3Transponder dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, IOCommunicationsNode)
 {
-	IOCommunicationsNode dtIn;
-	KDataStream stream = dtIn.Encode();
-	IOCommunicationsNode dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    IOCommunicationsNode dtIn;
+    KDataStream stream = dtIn.Encode();
+    IOCommunicationsNode dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, IOEffect)
 {
-	IOEffect dtIn;
-	KDataStream stream = dtIn.Encode();
-	IOEffect dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    IOEffect dtIn;
+    KDataStream stream = dtIn.Encode();
+    IOEffect dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, Mode5InterrogatorBasicData)
 {
-	Mode5InterrogatorBasicData dtIn;
-	KDataStream stream = dtIn.Encode();
-	Mode5InterrogatorBasicData dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    Mode5InterrogatorBasicData dtIn;
+    KDataStream stream = dtIn.Encode();
+    Mode5InterrogatorBasicData dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, Mode5InterrogatorStatus)
 {
-	Mode5InterrogatorStatus dtIn;
-	KDataStream stream = dtIn.Encode();
-	Mode5InterrogatorStatus dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    Mode5InterrogatorStatus dtIn;
+    KDataStream stream = dtIn.Encode();
+    Mode5InterrogatorStatus dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, Mode5TransponderBasicData)
 {
-	Mode5TransponderBasicData dtIn;
-	KDataStream stream = dtIn.Encode();
-	Mode5TransponderBasicData dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    Mode5TransponderBasicData dtIn;
+    KDataStream stream = dtIn.Encode();
+    Mode5TransponderBasicData dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, Mode5TransponderStatus)
 {
-	Mode5TransponderStatus dtIn;
-	KDataStream stream = dtIn.Encode();
-	Mode5TransponderStatus dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    Mode5TransponderStatus dtIn;
+    KDataStream stream = dtIn.Encode();
+    Mode5TransponderStatus dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, Mode5TransponderSupplementalData)
 {
-	Mode5TransponderSupplementalData dtIn;
-	KDataStream stream = dtIn.Encode();
-	Mode5TransponderSupplementalData dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    Mode5TransponderSupplementalData dtIn;
+    KDataStream stream = dtIn.Encode();
+    Mode5TransponderSupplementalData dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, ModeXCodeRecord)
 {
-	ModeXCodeRecord dtIn;
-	KDataStream stream = dtIn.Encode();
-	ModeXCodeRecord dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    ModeXCodeRecord dtIn;
+    KDataStream stream = dtIn.Encode();
+    ModeXCodeRecord dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode7, StandardVariable)
 {
-	StandardVariable dtIn;
-	KDataStream stream = dtIn.Encode();
-	StandardVariable dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    StandardVariable dtIn;
+    KDataStream stream = dtIn.Encode();
+    StandardVariable dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 #endif

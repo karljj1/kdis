@@ -37,261 +37,261 @@ using namespace DATA_TYPE;
 
 TEST(DataType_EncodeDecode5, AntennaLocation)
 {
-	AntennaLocation dtIn;
-	KDataStream stream = dtIn.Encode();
-	AntennaLocation dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    AntennaLocation dtIn;
+    KDataStream stream = dtIn.Encode();
+    AntennaLocation dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, ArticulatedPart)
 {
-	ArticulatedPart dtIn;
-	KDataStream stream = dtIn.Encode();
-	ArticulatedPart dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    ArticulatedPart dtIn;
+    KDataStream stream = dtIn.Encode();
+    ArticulatedPart dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, AttachedPart)
 {
-	AttachedPart dtIn;
-	KDataStream stream = dtIn.Encode();
-	AttachedPart dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    AttachedPart dtIn;
+    KDataStream stream = dtIn.Encode();
+    AttachedPart dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, ClockTime)
 {
-	ClockTime dtIn;
-	KDataStream stream = dtIn.Encode();
-	ClockTime dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    ClockTime dtIn;
+    KDataStream stream = dtIn.Encode();
+    ClockTime dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, CryptoSystem)
 {
-	CryptoSystem dtIn;
-	KDataStream stream = dtIn.Encode();
-	CryptoSystem dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    CryptoSystem dtIn;
+    KDataStream stream = dtIn.Encode();
+    CryptoSystem dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, DeadReckoningParameter)
 {
-	DeadReckoningParameter dtIn;
-	KDataStream stream = dtIn.Encode();
-	DeadReckoningParameter dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    DeadReckoningParameter dtIn;
+    KDataStream stream = dtIn.Encode();
+    DeadReckoningParameter dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EmissionSystem)
 {
-	EmissionSystem dtIn;
-	KDataStream stream = dtIn.Encode();
-	EmissionSystem dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EmissionSystem dtIn;
+    KDataStream stream = dtIn.Encode();
+    EmissionSystem dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EmitterBeam)
 {
-	EmitterBeam dtIn;
-	KDataStream stream = dtIn.Encode();
-	EmitterBeam dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EmitterBeam dtIn;
+    KDataStream stream = dtIn.Encode();
+    EmitterBeam dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EmitterSystem)
 {
-	EmitterSystem dtIn;
-	KDataStream stream = dtIn.Encode();
-	EmitterSystem dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EmitterSystem dtIn;
+    KDataStream stream = dtIn.Encode();
+    EmitterSystem dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EncodingScheme)
 {
-	EncodingScheme dtIn;
-	KDataStream stream = dtIn.Encode();
-	EncodingScheme dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EncodingScheme dtIn;
+    KDataStream stream = dtIn.Encode();
+    EncodingScheme dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EntityAppearance)
 {
-	EntityAppearance dtIn;
-	KDataStream stream = dtIn.Encode();
-	EntityAppearance dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EntityAppearance dtIn;
+    KDataStream stream = dtIn.Encode();
+    EntityAppearance dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EntityCapabilities)
 {
-	EntityCapabilities dtIn;
-	KDataStream stream = dtIn.Encode();
-	EntityCapabilities dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EntityCapabilities dtIn;
+    KDataStream stream = dtIn.Encode();
+    EntityCapabilities dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EntityIdentifier)
 {
-	EntityIdentifier dtIn;
-	KDataStream stream = dtIn.Encode();
-	EntityIdentifier dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EntityIdentifier dtIn;
+    KDataStream stream = dtIn.Encode();
+    EntityIdentifier dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EntityMarking)
 {
-	EntityMarking dtIn;
-	KDataStream stream = dtIn.Encode();
-	EntityMarking dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EntityMarking dtIn;
+    KDataStream stream = dtIn.Encode();
+    EntityMarking dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EntityType)
 {
-	EntityType dtIn;
-	KDataStream stream = dtIn.Encode();
-	EntityType dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EntityType dtIn;
+    KDataStream stream = dtIn.Encode();
+    EntityType dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, EulerAngles)
 {
-	EulerAngles dtIn;
-	KDataStream stream = dtIn.Encode();
-	EulerAngles dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    EulerAngles dtIn;
+    KDataStream stream = dtIn.Encode();
+    EulerAngles dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, FixedDatum)
 {
-	FixedDatum dtIn;
-	KDataStream stream = dtIn.Encode();
-	FixedDatum dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    FixedDatum dtIn;
+    KDataStream stream = dtIn.Encode();
+    FixedDatum dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, FundamentalParameterData)
 {
-	FundamentalParameterData dtIn;
-	KDataStream stream = dtIn.Encode();
-	FundamentalParameterData dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    FundamentalParameterData dtIn;
+    KDataStream stream = dtIn.Encode();
+    FundamentalParameterData dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, ModulationType)
 {
-	ModulationType dtIn;
-	KDataStream stream = dtIn.Encode();
-	ModulationType dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    ModulationType dtIn;
+    KDataStream stream = dtIn.Encode();
+    ModulationType dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, MunitionDescriptor)
 {
-	MunitionDescriptor dtIn;
-	KDataStream stream = dtIn.Encode();
-	MunitionDescriptor dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    MunitionDescriptor dtIn;
+    KDataStream stream = dtIn.Encode();
+    MunitionDescriptor dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, RadioEntityType)
 {
-	RadioEntityType dtIn;
-	KDataStream stream = dtIn.Encode();
-	RadioEntityType dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    RadioEntityType dtIn;
+    KDataStream stream = dtIn.Encode();
+    RadioEntityType dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, SimulationIdentifier)
 {
-	SimulationIdentifier dtIn;
-	KDataStream stream = dtIn.Encode();
-	SimulationIdentifier dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    SimulationIdentifier dtIn;
+    KDataStream stream = dtIn.Encode();
+    SimulationIdentifier dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, Supplies)
 {
-	Supplies dtIn;
-	KDataStream stream = dtIn.Encode();
-	Supplies dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    Supplies dtIn;
+    KDataStream stream = dtIn.Encode();
+    Supplies dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, TimeStamp)
 {
-	TimeStamp dtIn;
-	KDataStream stream = dtIn.Encode();
-	TimeStamp dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    TimeStamp dtIn;
+    KDataStream stream = dtIn.Encode();
+    TimeStamp dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, TrackJamTargetIdentifier)
 {
-	TrackJamTargetIdentifier dtIn;
-	KDataStream stream = dtIn.Encode();
-	TrackJamTargetIdentifier dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    TrackJamTargetIdentifier dtIn;
+    KDataStream stream = dtIn.Encode();
+    TrackJamTargetIdentifier dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, VariableDatum)
 {
-	VariableDatum dtIn;
-	KDataStream stream = dtIn.Encode();
-	VariableDatum dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    VariableDatum dtIn;
+    KDataStream stream = dtIn.Encode();
+    VariableDatum dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, VariableParameter)
 {
-	VariableParameter dtIn;
-	KDataStream stream = dtIn.Encode();
-	VariableParameter dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    VariableParameter dtIn;
+    KDataStream stream = dtIn.Encode();
+    VariableParameter dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, Vector)
 {
-	Vector dtIn;
-	KDataStream stream = dtIn.Encode();
-	Vector dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    Vector dtIn;
+    KDataStream stream = dtIn.Encode();
+    Vector dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, WorldCoordinates)
 {
-	WorldCoordinates dtIn;
-	KDataStream stream = dtIn.Encode();
-	WorldCoordinates dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
+    WorldCoordinates dtIn;
+    KDataStream stream = dtIn.Encode();
+    WorldCoordinates dtOut(stream);
+    EXPECT_EQ(dtIn, dtOut);
+    EXPECT_EQ(0, stream.GetBufferSize());
 }
