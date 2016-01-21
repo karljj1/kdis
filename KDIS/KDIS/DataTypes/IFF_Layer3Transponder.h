@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -33,7 +33,7 @@ http://p.sf.net/kdis/UserGuide
     created:    27/06/2014
     author:     Karl Jones
 
-    purpose:    Layer 3 Mode 5 transponder functional data.	            
+    purpose:    Layer 3 Mode 5 transponder functional data.
 
     Size:       224 bits / 28 octets - min size
 *********************************************************************/
@@ -51,21 +51,21 @@ class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3
 {
 protected:
 
-	Mode5TransponderBasicData m_BasicData;
-		
+    Mode5TransponderBasicData m_BasicData;
+
 public:
-	
+
     IFF_Layer3Transponder();
 
     IFF_Layer3Transponder( KDataStream & stream ) throw( KException );
 
-	IFF_Layer3Transponder( const SimulationIdentifier & ReportingSimulation, const Mode5TransponderBasicData & Data,
-		                   std::vector<StdVarPtr> & Records );
+    IFF_Layer3Transponder( const SimulationIdentifier & ReportingSimulation, const Mode5TransponderBasicData & Data,
+                           std::vector<StdVarPtr> & Records );
 
     IFF_Layer3Transponder( const LayerHeader & H, KDataStream & stream ) throw( KException );
 
     virtual ~IFF_Layer3Transponder();
-	
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::SetBasicData
     //              KDIS::DATA_TYPE::IFF_Layer3Transponder::GetBasicData
@@ -75,10 +75,10 @@ public:
     void SetBasicData( const Mode5TransponderBasicData & BD );
     const Mode5TransponderBasicData & GetBasicData() const;
     Mode5TransponderBasicData & GetBasicDatan();
-	
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetAsString
-    // Description: Returns a string representation 
+    // Description: Returns a string representation
     //************************************
     virtual KString GetAsString() const;
 
@@ -86,7 +86,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

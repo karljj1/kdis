@@ -44,14 +44,14 @@ TEST(DataType_EncodeDecode7, CommunicationsNodeID)
 	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode7, DEAreaAimpoint)
-{
-	DEAreaAimpoint dtIn;
-	KDataStream stream = dtIn.Encode();
-	DEAreaAimpoint dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
-}
+//TEST(DataType_EncodeDecode7, DEAreaAimpoint)
+//{
+//	DEAreaAimpoint dtIn;
+//	KDataStream stream = dtIn.Encode();
+//	DEAreaAimpoint dtOut(stream);
+//	EXPECT_EQ(dtIn, dtOut);
+//	EXPECT_EQ(0, stream.GetBufferSize());
+//}
 
 TEST(DataType_EncodeDecode7, EnhancedMode1Code)
 {
