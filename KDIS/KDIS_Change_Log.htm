@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Language" content="en-gb">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>KDIS Change Log&nbsp;&nbsp; Version Number</title>
+<title>KDIS Change Log Version Number</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
 		<table cellspacing="0" cellpadding="5" border="2">
 			<tr>
 				<td><br>
-				<a href="http://sourceforge.net/projects/kdis/">KDIS</a> Change 
+				<a href="http://sourceforge.net/projects/kdis/">KDIS</a> Change
 				Log <br>
 				<br>
 				Version Numbers: <br>
@@ -21,16 +21,15 @@
 				<br>
 				<div style="color: red">
 					X - Major Change, changing DIS version.</div>
-&nbsp;
 					<div style="color: blue">
-						Y - Medium, introduction of new features, data types or 
+						Y - Medium, introduction of new features, data types or
 						PDU etc</div>
 				<br>
 				Z - Minor, small changes, new functions, comments, bug fix etc.
 				<br>
 				<br>
 				Please post bugs/suggestions/comments to the
-				<a href="http://sourceforge.net/projects/kdis/">SourceForge</a> 
+				<a href="http://sourceforge.net/projects/kdis/">SourceForge</a>
 				forum/tracker <br>
 				</td>
 			</tr>
@@ -42,66 +41,73 @@
 		<hr>Plans for future releases are currently:
 		<ul>
 			<li>More work to come on IFF.</li>
-			<li>Dead Reckoning - verify all algorithms work correctly.</li>			
+			<li>Dead Reckoning - verify all algorithms work correctly.</li>
 			<li>Conversions for multiple datum's and orientation representations.</li>
-			<li>Improve GetAsString formatting.</li>	
+			<li>Improve GetAsString formatting.</li>
 			<li>Finish/Improve Link 16 integration.</li>
 </ul>
 <br>
 <br>
 
-<!-- Version x-x-x !-->
+<!-- Version 2-9-0 !-->
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table2">
 	<tr>
-		<td><b>Version x-x-x </b></td>
-		<td><b>xx x 201x</b></td>
+		<td><b>Version 2-9-0 </b></td>
+		<td><b>21 January 2016</b></td>
 	</tr>
 </table>
 <hr>
-<ul>	
-	<li>Added unit tests using googletest framework. See here TODO:ADD LINK HERE!!!!!!!!!!!!!!!!! for more info.</li>
-    <li>Added GetEnumSize<ENUM> and GetEnumDescriptor<ENUM>, this exposes the internal EnumDescriptor arrays used for GetEnumAsString and GetEnumFromString, it is now possible to iterate through an enumeration using these 2 functions. 
-	An example can be found here<INSERT LINK>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</li>		    
-	<li>Added get and set functions to EntityKind that support integers as well as enums for kind, domain and country. Makes it simpler when using values that may not be standard of implemented in the enums.</li>
-	<li>Added Connection::SetBlockingTimeOut to allow for setting a timeout for blocking mode.</li>
-	<li>Added PDU_FactoryLink16 to Link 16 example.</li>	
-	<li>Updated Link16 example code to now support partial decoding.</li>
-	<li>Link 16 example is now built as a dynamic library.</li>
-	<li>Added copy constructor and assignment operator to Entity_State_PDU.</li>
-	<li>Fixed bug in FixedDatum:GetDatumValue. Was using strncpy to return data which causes issues when the data was not a string.</li>
-    <li>Fixed bug in Intercom Control PDU and IntercomCommunicationParameters. Some values were not initialized so caused unexpected behaviours during encode/decode. <a href="http://sourceforge.net/p/kdis/bugs/42/">Ticket</a></li>
-    <li>Fixed bug in IFF_PDU::Decode. More info <a href="http://sourceforge.net/p/kdis/bugs/43/">here</a></li>
-	<li>Fixed bug decode/encode in Entity_State_Update_PDU, was not handling padding.</li>
-	<li>Fixed exception handling bug in Connection and IsGroupOf_PDU.</li>
-	<li>Fixed VariableDatum::GetPDULength returning the incorrect value.</li>
-	<li>Fixed missing padding in IO_Report_PDU.</li>
-	<li>Fixed comparison operator bug in KFIXED.</li>
-	<li>Fixed bug in Appearance_PDU decode when no flags were used.</li>
-	<li>Fixed bug in Underwater_Acoustic_PDU::Decode, was encoding by mistake.</li>
-	<li>Fixed size calculation in SetFixedDatum and SetVariableDatum.</li>
-	<li>Added implicit conversion support to KRef_Ptr. Fixes compile bug when using weak references.</li>
-	<li>Fixed incorrect PDU size in Underwater_Acoustic_PDU.</li>
-	<li>Fixed encode/decode bug in Entity_Damage_Status_PDU. Was not including padding.</li>
-	<li>Fixed TSPI_PDU::m_ui8SSDLen not being initialised to 0 in some constructors.</li>
-	<li>Fixed decode bug in Intercom_Control_PDU.</li>
-	<li>Fixed bug in AttachedPart not encoding/decoding the part type.</li>
-	<li>Fixed encode bug in Receiver_PDU.</li>
-	<li>Fixed SilentEntitySystem not initialising m_ui16NumOfAppearanceRecords to 0. Caused encode/decode failure.</li>
-	<li>Fixed null reference crash when encoding IntercomCommunicationParameters with no record.</li>
-	<li>Fixed protocol version not being set in Intercom_Control_PDU.</li>
-	<li>Fixed Uninitialised variables in SetData_R_PDU.</li>
-	<li>Fixed decode issue when handling padding in Aggregate_State_PDU.</li>
-	<li>Fixed AggregateMarking::Decode not setting the last char in m_sAggregateMarkingString to zero. Caused comparison issues.</li>
-	<li>Fixed comparison operator == in Set_Data_R_PDU.</li>
-	<li>Added fix where incorrect size was assigned to LE_VECTOR_SIZE.</li>
-	<li>Added missing implementation of LifeFormAppearance::SetEntityLifeformState.</li>
-	<li>Changed the format in RelativeWorldCoordinates::GetAsString().</li>
+<ul>
+	<div style="color: blue">
+		<li>Added unit tests using googletest framework. See <a href="http://sourceforge.net/p/kdis/wiki/Tests/">here</a> for more info.</li>
+	</div>
 	<li>Added a bool-operator for convenience to KRef_Ptr.</li>
-	<li>Improved debugging information in header when a PDU has too small a buffer.</li>
-	<li>Improved Connection socket error messages.</li>
-	<li>Several fixes for LE_FIRE_PDU and LE_Detonation_PDU from public submission(Thanks Göran!).</li>
+	<li>Added Connection::SetBlockingTimeOut to allow for setting a timeout for blocking mode.</li>
+	<li>Added copy constructor and assignment operator to Entity_State_PDU.</li>
+	<li>Added fix where incorrect size was assigned to LE_VECTOR_SIZE.</li>
+	<li>Added get and set functions to EntityKind that support integers as well as enums for kind, domain and country. Makes it simpler when using values that may not be standard of implemented in the enums.</li>
+	<li>Added GetEnumSize<ENUM> and GetEnumDescriptor<ENUM>, this exposes the internal EnumDescriptor arrays used for GetEnumAsString and GetEnumFromString, it is now possible to iterate through an enumeration using these 2 functions.
+	<li>Added implicit conversion support to KRef_Ptr. Fixes compile bug when using weak references.</li>
+	<li>Added missing implementation of LifeFormAppearance::SetEntityLifeformState.</li>
+	<li>Added PDU_FactoryLink16 to Link 16 example.</li>
+	<li>Added missing padding to SilentAggregateSystem.</li>
+	<li>Added missing padding to Mode5TransponderBasicData.</li>
+	<li>Changed the format in RelativeWorldCoordinates::GetAsString().</li>
+	<li>Fixed AggregateMarking::Decode not setting the last char in m_sAggregateMarkingString to zero. Caused comparison issues.</li>
+	<li>Fixed bug decode/encode in Entity_State_Update_PDU, was not handling padding.</li>
+	<li>Fixed bug in Appearance_PDU decode when no flags were used.</li>
+	<li>Fixed bug in AttachedPart not encoding/decoding the part type.</li>
+	<li>Fixed bug in FixedDatum:GetDatumValue. Was using strncpy to return data which causes issues when the data was not a string.</li>
+	<li>Fixed bug in IFF_PDU::Decode. More info <a href="http://sourceforge.net/p/kdis/bugs/43/">here</a></li>
+	<li>Fixed bug in Intercom Control PDU and IntercomCommunicationParameters. Some values were not initialized so caused unexpected behaviours during encode/decode. <a href="http://sourceforge.net/p/kdis/bugs/42/">Ticket</a></li>
+	<li>Fixed bug in Underwater_Acoustic_PDU::Decode, was encoding by mistake.</li>
+	<li>Fixed bug in SphereRecord2::Encode(), was calling the wrong Encode function internally.</li>
+	<li>Fixed bug in GED_BasicFixedWingAircraft and GED_BasicFixedWingAircraft, using 8 bit int instead of 16 for speed.</li>
 	<li>Fixed cmake for KDIS_LIB that was causing it to build a shared library instead of static.</li>
 	<li>Fixed cmake for MinGW when building lib/dll version of KDIS.</li>
+	<li>Fixed comparison operator == in Set_Data_R_PDU.</li>
+	<li>Fixed comparison operator bug in KFIXED.</li>
+	<li>Fixed decode bug in Intercom_Control_PDU.</li>
+	<li>Fixed decode issue when handling padding in Aggregate_State_PDU.</li>
+	<li>Fixed encode bug in Receiver_PDU.</li>
+	<li>Fixed encode/decode bug in Entity_Damage_Status_PDU. Was not including padding.</li>
+	<li>Fixed exception handling bug in Connection and IsGroupOf_PDU.</li>
+	<li>Fixed incorrect PDU min size for GridDataType 0 and 1.</li>
+	<li>Fixed incorrect PDU size in Underwater_Acoustic_PDU.</li>
+	<li>Fixed incorrect PDU size in IFF_ATC_NAVAIDS_FundamentalParameterData.</li>
+	<li>Fixed missing padding in IO_Report_PDU.</li>
+	<li>Fixed null reference crash when encoding IntercomCommunicationParameters with no record.</li>
+	<li>Fixed protocol version not being set in Intercom_Control_PDU.</li>
+	<li>Fixed SilentEntitySystem not initialising m_ui16NumOfAppearanceRecords to 0. Caused encode/decode failure.</li>
+	<li>Fixed size calculation in SetFixedDatum and SetVariableDatum.</li>
+	<li>Fixed TSPI_PDU::m_ui8SSDLen not being initialised to 0 in some constructors.</li>
+	<li>Fixed Uninitialised variables in SetData_R_PDU.</li>
+	<li>Fixed VariableDatum::GetPDULength returning the incorrect value.</li>
+	<li>Improved Connection socket error messages.</li>
+	<li>Improved debugging information in header when a PDU has too small a buffer.</li>
+	<li>Link 16 example is now built as a dynamic library.</li>
+	<li>Several fixes for LE_FIRE_PDU and LE_Detonation_PDU from public submission(Thanks Göran!).</li>
+	<li>Updated Link16 example code to now support partial decoding.</li>
 </ul>
 
 <!-- Version 2-8-0 !-->
@@ -112,18 +118,18 @@
 	</tr>
 </table>
 <hr>
-<ul>			
+<ul>
 	<div style="color: blue">
 	<li>Added IFF_PDU which replaces IFF_ATC_NAVAIDS_L1_PDU</li>
 	<li>Removed IFF_ATC_NAVAIDS_L2_PDU, it is now a data type class called IFF_Layer2 which is a property of IFF_PDU.</li>
-	<li>Added IFF Layer 3 classes: IFF_Layer3Transponder & IFF_Layer3Interrogator.</li>	
+	<li>Added IFF Layer 3 classes: IFF_Layer3Transponder & IFF_Layer3Interrogator.</li>
 	<li>Added VariableParamaters class. This replaces all ArticulationParamaters classes as the base class. See the <a href="http://sourceforge.net/p/kdis/wiki/Migration_Guide/">migration</a> guide for more details.
 	<li>Renamed ArticulationParamaters to ArticulatedPart.</li>
 	<li>Added AttachedPart class.</li>
 	<li>Added CryptoSystem::SetKeyID & CryptoSystem::GetKeyID.</li>
-	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>	
-	<li>Replaced BurstDescriptor in LE Fire & LE Detonation PDU with MunitionDescriptor. This class is the same except the Set/GetMuntion function is now named Set/GetType.</li>	
-	</div>			
+	<li>Removed BurstDescriptor. Fire PDU and Detonation PDU now use the Descriptor class. Fire PDU has Munition and Expendable descriptor. Detonation has Munition, Expendable or Explosion descriptor. This is in line with the DIS 7 standard. If you wish to support pre DIS 7 then use the Munition Descriptor class.</li>
+	<li>Replaced BurstDescriptor in LE Fire & LE Detonation PDU with MunitionDescriptor. This class is the same except the Set/GetMuntion function is now named Set/GetType.</li>
+	</div>
 	<li>Fixed no operation bug in CryptoSystem::SetCryptoSystemType.</li>
 	<li>Fixed no operation bug in Aggregate_State_PDU::SetAggregateState.</li>
 	<li>Fixed incorrect size values for DATA_R_PDU , SET_RECORD_R_PDU_SIZE and STOP_FREEZE_R_PDU_SIZE.</li>
@@ -141,28 +147,28 @@
 	<li>Fixed enum CollisionType, inelastic and elastic values were mixed up. Removed OtherCollision, it was not valid.</li>
 	<li>Fixed bug compiling Link 16 example when using a dll version of KDIS.</li>
 	<li>Fixed Data_PDU::RequestID was not set to 0 by default causing junk values.</li>
-    <li>Fixed bug in Directed_Energy_Fire_PDU Encode/Decode. Was not including padding.</li>
+	<li>Fixed bug in Directed_Energy_Fire_PDU Encode/Decode. Was not including padding.</li>
 	<li>Fixed bug in FactoryDecoder when calling the clear function. If a single object was used to handle more than 1 enum it would attempt to delete it multiple times(one per enum). The FactoryDecoder now uses the KRef_Ptr class.</li>
 	<li>Fixed bug with GuidedMunitionsAppearance when using a DLL version of KDIS.</li>
-    <li>Fixed bug in GetNextPDU when an error occurs, the next call was using corrupted data.</li>
+	<li>Fixed bug in GetNextPDU when an error occurs, the next call was using corrupted data.</li>
 	<li>Fixed incorrect function name in EllipsoidRecord2. Function GetSigma should have been GetDOverDt.</li>
 	<li>Fixed some invalid Symbolic names.</li>
-	<li>Fixed compile bug when using Visual Studio 2010 Express Edition, WIN32 was not defined.</li>	
+	<li>Fixed compile bug when using Visual Studio 2010 Express Edition, WIN32 was not defined.</li>
 	<li>Added missing implementations of LinearVelocity, EntityLocation, EntityOrientation, EntityAppearance into Entity_State_Update_PDU.</li>
 	<li>Added missing implementation for Fire_PDU::SetPDUStatusFireType and Fire_PDU::GetPDUStatusFireType.</li>
 	<li>Added missing get/set for ResponseCode, ResponsePowerReduction & ResponseRadarEnhancement to FundamentalOperationalData_RRB.</li>
 	<li>Added missing get/set for NumBurst to PointObjectAppearance.</li>
-	<li>Added missing get/set for AttackerEntityID to AttackerEntityID.</li>	
+	<li>Added missing get/set for AttackerEntityID to AttackerEntityID.</li>
 	<li>Added WorldCoordinates::Set to set all values in one call.</li>
 	<li>Added Vector::Set to set all values in one call.</li>
-	<li>Added Vector::Lerp.</li>	
+	<li>Added Vector::Lerp.</li>
 	<li>Added WorldCoordinates::Lerp</li>
-	<li>Added SystemDesignator and SystemSpecificData to IFF_ATC_NAVAIDS_L1_PDU, they are DIS 7 features.</li>	
+	<li>Added SystemDesignator and SystemSpecificData to IFF_ATC_NAVAIDS_L1_PDU, they are DIS 7 features.</li>
 	<li>Added SetTCASVersion to FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData_MarkXInterrogator.</li>
 	<li>Added some missing enums to StationName.</li>
 	<li>Added missing enum to WarfareType.</li>
 	<li>Added missing enums to EncodingType.</li>
-	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>		
+	<li>Added Automatic Dependent Surveillance - Broadcast to EntityCapabilities.</li>
 	<li>Linux - Added "make install" target and fixed the "you have to cmake . cmake . before building". Thanks Bud Davis!</li>
 	<li>Renamed EnumFundamentalOperationalData .h & .cpp to EnumIFF.</li>
 	<li>Renamed enum WarheadType::GlassBladsWarhead to WarheadType::GlassBeadsWarhead.</li>
@@ -170,11 +176,12 @@
 	<li>Changed define COMM_CHANNEL_TYPE to a static KUINT16 COMM_CHANNEL_TYPE_SIZE.</li>
 	<li>Removed KDIS_VERSION macro. It was never used and I often forgot to update it.</li>
 	<li>Cleaned up namespaces. namespaces had become polluted, for example the following was possible: KDIS::PDU::Header, KDIS::NETWORK::Header, KDIS::UTILS::Header, KDIS::PDU::Header should have been the only one possible.</li>
+	<li>Cleaned up GetAsString for many classes.</li>
 	<li>Performance Improvements In Decoding. ignoreHeader parameter added to Decode function on PDU's, this will help performance by not decoding the Header twice each time a PDU is received. PDU_Factory now uses this technique.</li>
-	<li>Lots of improvements to comments. More details, fixes etc.</li>   
-	<li>Fixed some files missing their license text.</li>	
+	<li>Lots of improvements to comments. More details, fixes etc.</li>
+	<li>Fixed some files missing their license text.</li>
 	<li>Changed Copyright 2013 KDIS to Copyright 2013 Karl Jones.</li>
-    <li>Added UNLICENSE statement to examples(Except Link16).</li>			
+	<li>Added UNLICENSE statement to examples(Except Link16).</li>
 </ul>
 
 <!-- Version 2-7-0 !-->
@@ -185,7 +192,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<div style="color: blue">
 	<li>Changed license from LGPL to FreeBSD.</li>
 	</div>
@@ -202,7 +209,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<div style="color: blue">
 	<li>Added KDIS::PDU::Bundle class to support sending PDU Bundles.</li>
 	</div>
@@ -212,7 +219,7 @@
 	<li>Added Connection::Send( const KDataStream & stream ).</li>
 	<li>Changed CopyFromBuffer parameter SerialData to const.</li>
 	<li>Fixed bug in CulturalFeatureAppearance::SetEntityExteriorLights. Invalid value being assigned.</li>
-	<li>Added comment to SetProtocolVersion to clear up some common questions about how KDIS sets the ProtocolVersion</li>	
+	<li>Added comment to SetProtocolVersion to clear up some common questions about how KDIS sets the ProtocolVersion</li>
 	<li>Fixed bug in Transmitter_PDU::Encode().</li>
 </ul>
 
@@ -224,7 +231,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<li>Changes have been made to the EntityAppearance class. Removed General and Specific Appearance classes. Extended the appearance type classes so they now contain all the appearance data instead of just the specific. The general appearance data was not always used in the same way so it made more sense to do it like this which is more flexible.</li>
 	<li>Added 2 missing appearances - Cultural & Sensor/Emitter.</li>
 	<li>Updated Data_Query_PDU and Data_Query_R_PDU Time Interval field to now use the TimeStamp class instead of a KUINT32.</li>
@@ -247,11 +254,11 @@
 			<li>Link16_Signal_PDU</li>
 			<li>Link16_Transmitter_PDU</li>
 		</ul>
-	</li>	
+	</li>
 	</div>
 	<li>Added GetEnumFromString..., It is now possible to convert an enums name to its value as well as value to enum. More info <a href="http://sourceforge.net/p/kdis/wiki/Converting_Enumerations_Into_Their_String_Values_Tutorial/">here</a>.</li>
-	<li>Fixed bug in Data_Query_PDU and Data_Query_R_PDU. Variable and Fixed Datum's were being used instead of just ID's.</li>	
-	<li>Some improvements to DeadReckoningCalculator::GenerateSmoothingPoints</li>	
+	<li>Fixed bug in Data_Query_PDU and Data_Query_R_PDU. Variable and Fixed Datum's were being used instead of just ID's.</li>
+	<li>Some improvements to DeadReckoningCalculator::GenerateSmoothingPoints</li>
 	<li>Some reorganizing of the examples. Examples are now sorted in sub folders by category.</li>
 	<li>Changed cmake files to generate solution folders to better organise projects, This is not supported on all IDE, its mainly a Visual Studio Pro(Not Express) feature. Controlled by a new CMake flag called </b>USE_SOLUTION_FOLDERS</b></li>
 	<li>Fixed bug in cmake file for DIS 7 when using KDIS as a DLL. Was including EnumInformationOperations.cpp.</li>
@@ -259,7 +266,7 @@
 	<li>Fixed bug in several GetEnumAsStrings, some of the functions were passing the incorrect size value for their descriptors.</li>
 	<li>Fixed. Some classes were not setting variables to 0 by default.</li>
 	<li>Fixed bug in EncodingScheme, incorrect size.</li>
-	<li>EmitterName - Fixed some invalid enums and added some missing ones.</li>	
+	<li>EmitterName - Fixed some invalid enums and added some missing ones.</li>
 	<li>Renamed enum descriptors in EnumInformationOperations.cpp to align with naming convention used in other enum files.</li>
 </ul>
 
@@ -278,10 +285,10 @@
 			<li>Directed_Energy_Fire_PDU</li>
 			<li>Entity_Damage_Status_PDU</li>
 		</ul>
-	</li>	
+	</li>
 	</div>
 	<li>EntityMarking - Added support for strings instead of char arrays.</li>
-	<li>Added some new useful functions:- Vector::GetMagnitude, Vector::GetDistance, WorldCoordinates::GetDistance</li>	
+	<li>Added some new useful functions:- Vector::GetMagnitude, Vector::GetDistance, WorldCoordinates::GetDistance</li>
 	<li>Connection send functions now return the number of bytes sent instead of void.</li>
 	<li>Removed LGPL licence from examples. All the examples of using KDIS are now unlicenced. Please note the KDIS library is still LGPL. See <a href="http://sourceforge.net/projects/kdis/forums/forum/879756/topic/4586403/index/page/1">here</a> for further details.</li>
 	<li>Updated PDU_Factory with new PDU's.</li>
@@ -303,12 +310,12 @@
 		<ul>
 			<li>Attribute_PDU</li>
 		</ul>
-	</li>	
+	</li>
 	</div>
-	<li>Added FactoryDecoder, this class can be used to add your own decoders. E,G you can add support for your own implementations of VariableDatum etc. See example 
-	<a href="https://sourceforge.net/apps/mediawiki/kdis/index.php?title=How_to_extend_the_KDIS_Data_Types_using_the_FactoryDecoder">FactoryDecoder</a> 
+	<li>Added FactoryDecoder, this class can be used to add your own decoders. E,G you can add support for your own implementations of VariableDatum etc. See example
+	<a href="https://sourceforge.net/apps/mediawiki/kdis/index.php?title=How_to_extend_the_KDIS_Data_Types_using_the_FactoryDecoder">FactoryDecoder</a>
 	for details. Current data types that now support this feature are: VariableDatum, FixedDatum, EnvironmentRecord and StandardVariable. More to come.</li>
-	<li>In order to support custom data types(See above) some PDU now store internal objects as pointers, some PDU interfaces have had to change to reflect this. StandardVariable Factory Decode functions have also been changed. Apologies!</li>	
+	<li>In order to support custom data types(See above) some PDU now store internal objects as pointers, some PDU interfaces have had to change to reflect this. StandardVariable Factory Decode functions have also been changed. Apologies!</li>
 	<li>Some performance improvments to KDataStream Encode/Decode functions. I found I had a 20%~ performance improvment.</li>
 	<li>Added further enumerations for DatumID field taken from SISO-REF-010-2010 RC3</li>
 	<li>Renamed "LE" folder to "Live_Entity" to fit more in line with the naming style of other PDU family folders.</li>
@@ -316,10 +323,10 @@
 	<li>Added ConnectionAddressFilter to NETWORK namespace and example to show use. This class allows filtering by IP address.</li>
 	<li>Added new function to EnvironmentRecord called FactoryDecode, all derived classes can now be decoded using this function. Changed Environment_Process_PDU decode function to now use this.</li>
 	<li>Fixed bug in Transmitter_PDU::GetAsString, Length Of Modulation Param was not being output correctly.</li>
-	<li>Fixed bug in PDU_Factory decoding that prevented PDU bundling.</li>	
+	<li>Fixed bug in PDU_Factory decoding that prevented PDU bundling.</li>
 	<li>Fixed compile bug in Connection.cpp for some versions of Linux. Connection::SendPDU( Header * H ) did not match the header version.</li>
 	<li>Fixed bug in Connection::GetNextPDU. When using none blocking sockets the OnDataReceived event was called even when no data was received.</li>
-	<li>Corrected DetonationType enum values.</li> 
+	<li>Corrected DetonationType enum values.</li>
 	<li>Added ClearVariableDatumList to Aggregate_State_PDU</li>
 	<li>Fixed Warning. Some compilers were issuing warnings due to files not ending in a newline, this is now fixed.</li>
 	<li>Added option to CMake to BUILD_EXAMPLES.</li>
@@ -334,7 +341,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<li>Added SendPDU to Connection class and changed Env Proc PDU example to show this in use.</li>
 	<li>Small change to ConnectionSubscriber to allow for making changes on pdu transmit</li>
 </ul>
@@ -346,7 +353,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<div style="color: blue">
 		<li>New PDU from DIS 7 draft 15:
 			<ul>
@@ -379,7 +386,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<li>Large refactoring of code, removing unnecessary using namespace statements and replaced with using statements to allow for intelisense to correctly display the contents of a namespace. Typo fixes.</li>
 	<li>Moved EMITTER_BEAM_SIZE, EMITTER_SYSTEM_SIZE, OBJECT_TYPE_SIZE AND POINT_OBJECT_APPEARANCE_SIZE, SUPPLIES_SIZE to class scopes.</li>
 	<li>Changed ENTITY_DESTINATION_RECORD, GROUP_DESTINATION_RECORD, GROUP_ASSIGNMENT_RECORD from a macro to static const KUINT16.</li>
@@ -395,7 +402,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 <div style="color: red">
 		<li>All DIS version 6 (IEEE 1278.1a) PDU's have now been implemented. This version includes the final 5 PDU's from the Live Entity(LE) family:</div>
 		<div style="color: blue">
@@ -422,7 +429,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 <div style="color: blue">
 		<li>New PDU:
 			<ul>
@@ -456,7 +463,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<li>Fixed PDU length bug in Minefield_State_PDU.</li>
 	<li>Fixed bug in MinefieldAppearance. struct and union were in the wrong order.</li>
 </ul>
@@ -468,7 +475,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 <div style="color: blue">
 		<li>New PDU:
 			<ul>
@@ -504,7 +511,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 <div style="color: blue">
 		<li>New PDU:
 			<ul>
@@ -524,7 +531,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 <div style="color: blue">
 		<li>New PDU:
 			<ul>
@@ -547,18 +554,18 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 	<li>Changed EntityIdentifier and AggregateIdentifier data types to now derive from SimulationIdentifier.</li>
 </li>
-	<li>Chnaged VaribaleDatum to pass const KString refs. Small change to allow 
+	<li>Chnaged VaribaleDatum to pass const KString refs. Small change to allow
 	for passing temporaries (Thanks Anthony).</li>
 	<li>Added new constructor to Gridded_Data_PDU.</li>
-	<li>Fixed bug in Gridded_Data_PDU, GRIDDED_DATA_PDU_SIZE was incorrectly set 
+	<li>Fixed bug in Gridded_Data_PDU, GRIDDED_DATA_PDU_SIZE was incorrectly set
 	to 32, should be 64.</li>
-	<li>Changed SimulationIdentifier GetAsString to now say &quot;Object&quot; instead of 
+	<li>Changed SimulationIdentifier GetAsString to now say &quot;Object&quot; instead of
 	&quot;Entity&quot;.</li>
-	<li>Fixed issue that caused all protected PDU status member variables 
-	belonging to the Header class to become public, this was caused by using 
+	<li>Fixed issue that caused all protected PDU status member variables
+	belonging to the Header class to become public, this was caused by using
 	anonymous unions.</li>
 	<li>Fixed bug that caused "Compiler Error C2635" when you tried to cast from Header to a derived class. This was caused by virtual inheritance.</li>
 </ul>
@@ -570,7 +577,7 @@
 	</tr>
 </table>
 <hr>
-<ul>	
+<ul>
 <div style="color: blue">
 		<li>New PDU:
 			<ul>
@@ -621,31 +628,31 @@
 	</div>
 	<li>Added new example Environmental_Process_PDU.</li>
 	<li>Added DecimalToDMS and DMSTODecimal to KConversions.h</li>
-	<li>I have begun to make some small changes in preparation for adding DIS 
-	version 7. You may now specify DIS version 7 (DIS_VERSION=7). This can be 
+	<li>I have begun to make some small changes in preparation for adding DIS
+	version 7. You may now specify DIS version 7 (DIS_VERSION=7). This can be
 	done through CMake or the pre-processor definitions.</li>
-	<li>Added PDUStatus to Header, this is a DIS version 7 feature. PDUStatus 
+	<li>Added PDUStatus to Header, this is a DIS version 7 feature. PDUStatus
 	includes:
 			<ul>
-				<li>Added Get/Set PDUStatusTransferredEntityIndicator and 
-				PDUStatusLVCIndicator to Entity_State_PDU, 
-				Electromagnetic_Emission_PDU, Designator_PDU, , 
-				Radio_Communications_Header, IFF_ATC_NAVAIDS_PDU, 
+				<li>Added Get/Set PDUStatusTransferredEntityIndicator and
+				PDUStatusLVCIndicator to Entity_State_PDU,
+				Electromagnetic_Emission_PDU, Designator_PDU, ,
+				Radio_Communications_Header, IFF_ATC_NAVAIDS_PDU,
 				Electromagnetic_Emission_PDU, Entity_State_Update_PDU </li>
-				<li>Added Get/Set PDUStatusFireType to Fire_PDU, this is a DIS 
+				<li>Added Get/Set PDUStatusFireType to Fire_PDU, this is a DIS
 				version 7 feature.</li>
 				<li>Added Get/Set PDUStatusDetonationType to Detonation_PDU.</li>
-				<li>Added Get/Set PDUStatusAttachedIndicator to Transmitter_PDU, 
-				Signal_PDU, Receiver_PDU, Intercom_System_PDU, 
+				<li>Added Get/Set PDUStatusAttachedIndicator to Transmitter_PDU,
+				Signal_PDU, Receiver_PDU, Intercom_System_PDU,
 				Intercom_Control_PDU.</li>
 	</ul>
 	</li>
-	<li>Fixed a problem where some of the Vector operators would return the 
-	referenced objects and not the new copy of the object. This effected 
+	<li>Fixed a problem where some of the Vector operators would return the
+	referenced objects and not the new copy of the object. This effected
 	operator *, operator + and operator -.(Thanks Michael) </li>
-	<li>Updated the Send example so it uses a while loop to continuously send the 
+	<li>Updated the Send example so it uses a while loop to continuously send the
 	PDU, some applications didn't always pick up the first PDU.</li>
-	<li>Added SetWritePositon and GetWritePositon to KDataStream. These 
+	<li>Added SetWritePositon and GetWritePositon to KDataStream. These
 	functions allow for &quot;peaking&quot; at data.</li>
 	<li>Updated PDU_Factory with some missing PDUs.</li>
 	<li>Fixed typo in VariableDatum::GetAsString(). "Fixed Datum:" should have been "Variable Datum:".</li>
@@ -660,20 +667,20 @@
 </table>
 <hr>
 <ul>
-	<li><font color="#0000FF">Dead Reckoning is here. New class 
-	DeadReckoningCalculator can be found in the Extras folder. This class will 
-	calculate dead reckoning transformations for all dead reckoning algorithms. 
-	This class is currently in a BETA state until I can verify that all 
-	algorithms work correctly. Any help people can provide to validate/test/fix 
+	<li><font color="#0000FF">Dead Reckoning is here. New class
+	DeadReckoningCalculator can be found in the Extras folder. This class will
+	calculate dead reckoning transformations for all dead reckoning algorithms.
+	This class is currently in a BETA state until I can verify that all
+	algorithms work correctly. Any help people can provide to validate/test/fix
 	these algorithms will be greatly appreciated :)</font></li>
-	<li>Added &lt; operator to EntityType, AggregateType, AggregateIdentifier and 
+	<li>Added &lt; operator to EntityType, AggregateType, AggregateIdentifier and
 	ClockTime.</li>
-	<li>Added *, +, +=, -, -= and [] operators to EulerAngles, WorldCoordinates 
+	<li>Added *, +, +=, -, -= and [] operators to EulerAngles, WorldCoordinates
 	and Vector.</li>
-	<li>All namespaces are now no longer global when you include a KDIS header. 
-	This will prevent KDIS from conflicting with other class/struct/enums that 
-	have the same name. If you have any problems compiling when you add this new 
-	version try adding some using namespace directives to your code., E.G using 
+	<li>All namespaces are now no longer global when you include a KDIS header.
+	This will prevent KDIS from conflicting with other class/struct/enums that
+	have the same name. If you have any problems compiling when you add this new
+	version try adding some using namespace directives to your code., E.G using
 	namespace KDIS; using namespace DATA_TYPE; etc.</li>
 	<li>Added ApplyDeadReckoning function to Entity_State_PDU.</li>
 </ul>
@@ -686,11 +693,11 @@
 <hr>
 <ul>
 	<li>Added missing destructor implementation to Action_Response_R_PDU.</li>
-	<li>Added virtual to all destructors so they are always called correctly 
+	<li>Added virtual to all destructors so they are always called correctly
 	even when a base pointer is deleted.</li>
 	<li>Added == and != operators to all data types and PDUs.</li>
 	<li>Added &lt; operator to EntityIdentifier, TimeStamp.</li>
-	<li>Further improvements to comments, fixed some incorrect namespace 
+	<li>Further improvements to comments, fixed some incorrect namespace
 	references in function comments.</li>
 </ul>
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table2">
@@ -701,37 +708,37 @@
 </table>
 <hr>
 <ul>
-	<li>Added additional comments to several PDUs such as the Entity_State_PDU 
-	to help further explain each field and removed a lot of the junk from 
+	<li>Added additional comments to several PDUs such as the Entity_State_PDU
+	to help further explain each field and removed a lot of the junk from
 	comments that was self explanatory. such as Method name etc.</li>
-	<li>Moved remaining enumerations from KDISEnums.h to 
+	<li>Moved remaining enumerations from KDISEnums.h to
 	EnumEntityInfoInteraction.h, this is where they belonged.</li>
 	<li>Replaced all uses of strnset with memset.</li>
-	<li>Changed all default constructors so that they initialise all data types 
+	<li>Changed all default constructors so that they initialise all data types
 	to zero if they didn't already.</li>
-	<li>Fixed bug in FixedDatum, KDIS_EXPORT was defined inside the template 
-	functions, caused by a replace all at some point in the past. Would have 
+	<li>Fixed bug in FixedDatum, KDIS_EXPORT was defined inside the template
+	functions, caused by a replace all at some point in the past. Would have
 	caused problems if compiling to use a DLL.</li>
-	<li>Added new function to all enumerations - GetEnumAsString<i>&lt;Enum Name&gt;</i>( 
-	KINT32 Value ). These functions will return the string value for an 
-	enumeration. E.G If you wanted to know what the value 39 represented in the 
+	<li>Added new function to all enumerations - GetEnumAsString<i>&lt;Enum Name&gt;</i>(
+	KINT32 Value ). These functions will return the string value for an
+	enumeration. E.G If you wanted to know what the value 39 represented in the
 	enumeration <i>EmitterFunction </i>you would call <i>
-	GetEnumAsStringEmitterFunction( 39 ) </i>and in this case the returned value 
-	would be <i>&quot;ClickJammingFunction&quot;.</i> This feature can be enabled/disable 
-	by declaring a macro KDIS_USE_ENUM_DESCRIPTORS in the pre-processor 
-	definitions or the KDefines.h file. This feature can make your generated 
-	exe/dll/lib significantly larger so disable it if you don't plan to use it. 
-	When disabled the GetEnumAsString functions will simply return the 
-	enumerated value as a string. E.G <i>GetEnumAsStringEmitterFunction( 39 )</i> 
-	would now return <i>&quot;39&quot;</i>. I am currently applying this change to all 
+	GetEnumAsStringEmitterFunction( 39 ) </i>and in this case the returned value
+	would be <i>&quot;ClickJammingFunction&quot;.</i> This feature can be enabled/disable
+	by declaring a macro KDIS_USE_ENUM_DESCRIPTORS in the pre-processor
+	definitions or the KDefines.h file. This feature can make your generated
+	exe/dll/lib significantly larger so disable it if you don't plan to use it.
+	When disabled the GetEnumAsString functions will simply return the
+	enumerated value as a string. E.G <i>GetEnumAsStringEmitterFunction( 39 )</i>
+	would now return <i>&quot;39&quot;</i>. I am currently applying this change to all
 	GetAsString function in Data types and PDU. More infomation can be found
 	<a target="_blank" href="http://sourceforge.net/p/kdis/wiki/Converting_Enumerations_Into_Their_String_Values_Tutorial/">
 	here</a>. This feature can also be enabled/disabled from CMake.</li>
-	<li>KDIS has a new website based on MediaWiki. This site will feature all 
+	<li>KDIS has a new website based on MediaWiki. This site will feature all
 	documentation for KDIS including class docs, tutorials etc. You can find it
 	<a target="_blank" href="http://sourceforge.net/p/kdis/wiki/Main_Page/">
 	here</a>.</li>
-	<li>Small change to the Send example showing how to correctly use the time 
+	<li>Small change to the Send example showing how to correctly use the time
 	stamp, a tutorial is now available for this example
 	<a target="_blank" href="http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Sending_a_Entity_State_PDU_Tutorial">
 	here</a>.</li>
@@ -755,15 +762,15 @@
 		</li>
 	</div>
 	<li>Added MAX_PDU_SIZE 8192 taken from 1278.1-200X standard. </li>
-	<li>Removed all using namespace std; directives from header files to prevent 
-	std attributes becoming exposed in the global namespace and causing 
+	<li>Removed all using namespace std; directives from header files to prevent
+	std attributes becoming exposed in the global namespace and causing
 	potential clashes with other peoples code. </li>
-	<li>Added KRef_Ptr class. This is an implementation of referenced pointer, 
-	designed to prevent memory leaks where memory needs to be dynamically 
+	<li>Added KRef_Ptr class. This is an implementation of referenced pointer,
+	designed to prevent memory leaks where memory needs to be dynamically
 	allocated. </li>
-	<li>Fixed potential bug, some exception handling catch blocks were catching 
+	<li>Fixed potential bug, some exception handling catch blocks were catching
 	exception and instead of KException. </li>
-	<li>Changed Country Type in EntityType constructor from KUINT8 to KUINT16. 
+	<li>Changed Country Type in EntityType constructor from KUINT8 to KUINT16.
 	</li>
 	<li>Added HeadingPitchRollToEuler to KConversions.h</li>
 </ul>
@@ -775,26 +782,26 @@
 </table>
 <hr>
 <ul>
-	<li>Several changes to help with compiling on linux platforms(Thanks 
+	<li>Several changes to help with compiling on linux platforms(Thanks
 	Anthony) including:
-            <ul>
-				<li>KEncoderDecoders - Removed refrence to winsock2.h from 
-				KEncoderDecoders, changed a refrence to UINT16 to KUINT16 and 
+			<ul>
+				<li>KEncoderDecoders - Removed refrence to winsock2.h from
+				KEncoderDecoders, changed a refrence to UINT16 to KUINT16 and
 				changed all 'sizeof DataType' to 'sizeof( DataType )'.</li>
-				<li>Changed all incldues to use forward slashes instead of back, 
-				E.G #include&quot;.\AggregateIdentifier.h&quot; to 
+				<li>Changed all incldues to use forward slashes instead of back,
+				E.G #include&quot;.\AggregateIdentifier.h&quot; to
 				#include&quot;./AggregateIdentifier.h&quot;</li>
 				<li>FixedDatum - changed all 'sizeof Type' to 'sizeof( Type )'.</li>
-				<li>SystemIdentifier - small bug. union and struct were in the 
+				<li>SystemIdentifier - small bug. union and struct were in the
 				wrong order.</li>
 				<li>Changed all includes to match the case of the file names.</li>
 				<li>Added ./ to all relative includes</li>
 	</ul>
 	</li>
-	<li>Removed additonal IntercomCommunicationsParameter includes from Cmake 
+	<li>Removed additonal IntercomCommunicationsParameter includes from Cmake
 	file</li>
 	<li>DIS_Logger_Record.cpp - throw qualifier missing on writeToFile.
-        </li>
+		</li>
 </ul>
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table1">
 	<tr>
@@ -804,7 +811,7 @@
 </table>
 <hr>
 <ul>
-	<li>Fixed major bug in SwapBytes that caused the endian to not be correclty 
+	<li>Fixed major bug in SwapBytes that caused the endian to not be correclty
 	swapped</li>
 </ul>
 <table border="0" cellSpacing="0" cellPadding="0" width="95%" ID="Table1">
@@ -824,13 +831,13 @@
 		</ul>
 		</li>
 	</div>
-	<li><font color="#0000FF">Removed <strong>RecordSpecification</strong> data 
-	type. Record Sets are now placed directly into a PDU, When a change was made 
-	to the RecordSpecification parameter it was not allways possible to update 
-	the PDU size. Removing RecordSpecification fixes this problem. This will 
+	<li><font color="#0000FF">Removed <strong>RecordSpecification</strong> data
+	type. Record Sets are now placed directly into a PDU, When a change was made
+	to the RecordSpecification parameter it was not allways possible to update
+	the PDU size. Removing RecordSpecification fixes this problem. This will
 	only effect the Transfer_Control_PDU.</font></li>
-	<li>Fixed a bug in FixedDatumn that caused template functions to give linker 
-	errors. This was due to me implementing the function in the cpp files, they 
+	<li>Fixed a bug in FixedDatumn that caused template functions to give linker
+	errors. This was due to me implementing the function in the cpp files, they
 	should be in the h files. </li>
 </ul>
 <table cellspacing="0" cellpadding="0" border="0" width="95%">
@@ -855,10 +862,10 @@
 		</ul>
 		</li>
 	</div>
-	<li>Added some additional comments to existing PDU's to further explain 
+	<li>Added some additional comments to existing PDU's to further explain
 	their use.
 			</li>
-	<li>Fixed some duplicate includes in the CMake file and added missing 
+	<li>Fixed some duplicate includes in the CMake file and added missing
 	Intercom_Control_PDU entry.
 			</li>
 	<li>Set_Data_PDU - New constructor.
@@ -869,15 +876,15 @@
 			</li>
 	<li>Event_Report_PDU - New constructor.
 			</li>
-	<li>Data_PDU - Changed constructor Data_PDU( KUINT32 RequestID ) to 
-	Data_PDU( <font COLOR="#0000ff">const</font> EntityIdentifier &amp; 
-	OriginatingEntityID, <font COLOR="#0000ff">const</font> EntityIdentifier &amp; 
+	<li>Data_PDU - Changed constructor Data_PDU( KUINT32 RequestID ) to
+	Data_PDU( <font COLOR="#0000ff">const</font> EntityIdentifier &amp;
+	OriginatingEntityID, <font COLOR="#0000ff">const</font> EntityIdentifier &amp;
 	ReceivingEntityID, KUINT32 RequestID );
 			</li>
-	<li>Action_Request_PDU/Action_Request_R_PDU- Changed constructor 
-	Action_Request_PDU( KUINT32 RequestID, KUINT32 ActionID ) to 
-	Action_Request_PDU( <font COLOR="#0000ff">const</font> EntityIdentifier &amp; 
-	OriginatingEntityID, <font COLOR="#0000ff">const</font> EntityIdentifier &amp; 
+	<li>Action_Request_PDU/Action_Request_R_PDU- Changed constructor
+	Action_Request_PDU( KUINT32 RequestID, KUINT32 ActionID ) to
+	Action_Request_PDU( <font COLOR="#0000ff">const</font> EntityIdentifier &amp;
+	OriginatingEntityID, <font COLOR="#0000ff">const</font> EntityIdentifier &amp;
 	ReceivingEntityID, KUINT32 RequestID, KUINT32 ActionID );
 			</li>
 	<li>Updated PDU_Factory to support all new PDU.</li>
@@ -914,7 +921,7 @@
 		</ul>
 		</li>
 	</div>
-	<li><font color="#0000ff">IFF_ATC_NAVAIDS_L2_PDU - This PDU was missing some 
+	<li><font color="#0000ff">IFF_ATC_NAVAIDS_L2_PDU - This PDU was missing some
 	fundamental parts which are now in place.</font>
 			</li>
 	<li>Fixed bug in GetData in the Signal_PDU.
@@ -923,29 +930,29 @@
 			</li>
 	<li>Removed KDIS_NEWORK_ENDIAN from KDefines.h - Unused.
 			</li>
-	<li>Moved all enumerations that belong to Entiy Info/Interaction into one 
-	file(EnumEntityInfoInteraction.h) and the same for Simulation 
+	<li>Moved all enumerations that belong to Entiy Info/Interaction into one
+	file(EnumEntityInfoInteraction.h) and the same for Simulation
 	Management(EnumSimulationManagement.h)
 			</li>
-	<li>Changed DatumID enumerations, they are now appended with 'Record' 
-	instead of 'Datum'. Added additional enumeration values taken from 
+	<li>Changed DatumID enumerations, they are now appended with 'Record'
+	instead of 'Datum'. Added additional enumeration values taken from
 	'SISO-REF-010 Changes'
 			</li>
-	<li>Fixed a bug in 'CMakeLists.txt, Entity_State_Update_PDU.h was not being 
+	<li>Fixed a bug in 'CMakeLists.txt, Entity_State_Update_PDU.h was not being
 	included in projects.
 			</li>
 	<li>Start_Resume_PDU - Added new constructors
 			</li>
 	<li>Stop_Freeze_R_PDU - Added new constructors.
 			</li>
-	<li>Simulation_Management_Header - Fixed bug in constructor protocol family 
+	<li>Simulation_Management_Header - Fixed bug in constructor protocol family
 	not being set.
 			</li>
 	<li>SEES - Fixed bug in constructor protocol family not being set..
 			</li>
 	<li>All PDU now automatically set the Protocol Version.
 			</li>
-	<li>Example_Send - Removed line that sets the Protocl Family as this is now 
+	<li>Example_Send - Removed line that sets the Protocl Family as this is now
 	done automatically in the constructor.
 			</li>
 	<li>Electromagnetic_Emission_PDU - Added 2 new constructors.
@@ -980,7 +987,7 @@
 			</li>
 	<li>Some small comment fixes/spelling mistakes etc
 			</li>
-	<li>Fixed the changelog, Microsoft Word filled the source with useless junk 
+	<li>Fixed the changelog, Microsoft Word filled the source with useless junk
 	so re wrote by hand.</li>
 </ul>
 <table cellspacing="0" cellpadding="0" border="0" width="95%">
@@ -991,10 +998,10 @@
 </table>
 <hr>
 <ul>
-	<li>Fixed Comment_PDU constructor, PDU type and length were not 
+	<li>Fixed Comment_PDU constructor, PDU type and length were not
 	initialising.
 			</li>
-	<li>DESIGNATOR_PDU_SIZE was incorrect, should be 88. This is due to a typo 
+	<li>DESIGNATOR_PDU_SIZE was incorrect, should be 88. This is due to a typo
 	in the IEEE standard.
 			</li>
 	<li>EncodingScheme bits were incorrect on Big Endian machines.</li>
@@ -1030,24 +1037,24 @@
 		</ul>
 		</li>
 	</div>
-	<li>Changed KDataStream To only accept KUINT16 instead of KUINT32, this 
+	<li>Changed KDataStream To only accept KUINT16 instead of KUINT32, this
 	could have caused some buffer overrun problems.
 			</li>
-	<li>Added new examples KDIS_LIB(Builds a&nbsp;static library version)&nbsp;and 
+	<li>Added new examples KDIS_LIB(Builds a&nbsp;static library version)&nbsp;and
 	KDIS_DLL(Builds a&nbsp;shared library version)
 			</li>
-	<li>I have now introduced <a href="http://www.cmake.org/">CMake</a> into 
-	KDIS, CMake is a cross-platform, open-source build system. It will allow 
-	users to build custom project files for the compiler they choose. I have 
-	added some options to the CMake file to allow users to specify what version 
-	of DIS they want to use(5 or 6) and if they wish to link against a library 
+	<li>I have now introduced <a href="http://www.cmake.org/">CMake</a> into
+	KDIS, CMake is a cross-platform, open-source build system. It will allow
+	users to build custom project files for the compiler they choose. I have
+	added some options to the CMake file to allow users to specify what version
+	of DIS they want to use(5 or 6) and if they wish to link against a library
 	version(Static or Shared). A tutorial for using CMake with KDIS can be found
-	<a href="http://www.karl-jones.com/KDIS/CMake.html">here.</a> The visual 
-	studio 2008 examples are still included; however any future examples will 
+	<a href="http://www.karl-jones.com/KDIS/CMake.html">here.</a> The visual
+	studio 2008 examples are still included; however any future examples will
 	require using CMake.
 			</li>
-	<li>Changed how the KDIS_EXPORT macro works, it now looks for preproccesor 
-	deflagrate in the project. use either EXPORT_KDIS&nbsp;or IMPORT_KDIS. E.g: /D 
+	<li>Changed how the KDIS_EXPORT macro works, it now looks for preproccesor
+	deflagrate in the project. use either EXPORT_KDIS&nbsp;or IMPORT_KDIS. E.g: /D
 	&quot;EXPORT_KDIS&quot;.</li>
 </ul>
 <table cellspacing="0" cellpadding="0" border="0" width="95%">
@@ -1065,16 +1072,16 @@
 		</ul>
 		</li>
 	</div>
-	<li><font color="#0000FF">DIS_Logger_Record and DIS_Logger_Playback added to 
+	<li><font color="#0000FF">DIS_Logger_Record and DIS_Logger_Playback added to
 	Extras, Logs PDUs to a text file so that they can be played back later.</font></li>
-	<li>Added Examples DIS_Logger_Record and DIS_Logger_Playback. I have 
-	included some data I captured with theese examples (Generated by MAK 
+	<li>Added Examples DIS_Logger_Record and DIS_Logger_Playback. I have
+	included some data I captured with theese examples (Generated by MAK
 	VR-Forces 3.10).&nbsp;
 			</li>
-	<li>Added GetAsString and ReadFromString to KDataStream. This will allow you 
-	to convert a data stream into a hex string for debugging, using 
-	ReadFromString will convert the string back into a KDataStream. With theese 
-	2 functions DIS data can be logged to a file and read at a later time. This 
+	<li>Added GetAsString and ReadFromString to KDataStream. This will allow you
+	to convert a data stream into a hex string for debugging, using
+	ReadFromString will convert the string back into a KDataStream. With theese
+	2 functions DIS data can be logged to a file and read at a later time. This
 	is how the DIS_Loggers work.
 			</li>
 </ul>
@@ -1086,7 +1093,7 @@
 </table>
 <hr>
 <ul>
-	<li>Removed references to Intercom_Signal_PDU from PDU_Factory. This is an 
+	<li>Removed references to Intercom_Signal_PDU from PDU_Factory. This is an
 	unfinished PDU that should not have been in v1-3-1</li>
 </ul>
 <table cellspacing="0" cellpadding="0" border="0" width="95%">
@@ -1097,13 +1104,13 @@
 </table>
 <hr>
 <ul>
-	<li>Fixed bugs in Signal_PDU, SetData did not set the DataSize and GetData 
+	<li>Fixed bugs in Signal_PDU, SetData did not set the DataSize and GetData
 	was returning the padding that was added to the data.
 			</li>
-	<li>Fixed bug in Entity_State_PDU. EntityAppearance was being encoded 
+	<li>Fixed bug in Entity_State_PDU. EntityAppearance was being encoded
 	incorrectly.
 			</li>
-	<li>Fixed typing error in SurfacePlatformAppearance::GetAsString - It said 
+	<li>Fixed typing error in SurfacePlatformAppearance::GetAsString - It said
 	&quot;Space Platform Appearance&quot; instead of &quot;Surface Platform Appearance&quot;.</li>
 </ul>
 <table cellspacing="0" cellpadding="0" border="0" width="95%">
@@ -1125,35 +1132,35 @@
 		</ul>
 		</li>
 	</div>
-	<li><font color="#0000FF">Added new class PDU_Factory, found in Extras 
-	folder. This class will convert a data stream into the correct PDU and 
+	<li><font color="#0000FF">Added new class PDU_Factory, found in Extras
+	folder. This class will convert a data stream into the correct PDU and
 	return a auto_ptr to the new PDU. </font></li>
-	<li><font color="#0000FF">Added new example to show how to use the 
-	PDU_Factory and also re structured all examples into one directory. All 
-	examples now use an updated version of KSOCKETS, however I still recommend 
+	<li><font color="#0000FF">Added new example to show how to use the
+	PDU_Factory and also re structured all examples into one directory. All
+	examples now use an updated version of KSOCKETS, however I still recommend
 	you use your own socket library. </font></li>
-	<li><font color="#0000FF">Changed all GetFunctions that return an object to 
+	<li><font color="#0000FF">Changed all GetFunctions that return an object to
 	return a reference/const reference. </font></li>
 	<li><font color="#0000FF">Introduced a new namespace UTILS. </font></li>
-	<li><font color="#0000FF">KConversions.h added to UTILS, holds RadToDeg, 
+	<li><font color="#0000FF">KConversions.h added to UTILS, holds RadToDeg,
 	DegToRad, MetersToFeet, FeetToMeters, GeodeticToGeocentric</font></li>
-	<li><font color="#0000FF">Renamed Electronmagnetic_Emission_PDU to 
+	<li><font color="#0000FF">Renamed Electronmagnetic_Emission_PDU to
 	Electromagnetic_Emission_PDU </font></li>
 	<li><font color="#0000FF">Changed Licence text from GPL to LGPL </font></li>
-	<li>Removed #ifdef _win32 for primitive data types in KDefines.h, this was 
+	<li>Removed #ifdef _win32 for primitive data types in KDefines.h, this was
 	preventing
 			</li>
 	<li>KDIS from working on any other OS.
 			</li>
 	<li>Converted change log to Html
 			</li>
-	<li>Changed IsMachineBigEndian to use static variables. Should provide a 
+	<li>Changed IsMachineBigEndian to use static variables. Should provide a
 	very small performance boost.
 			</li>
 	<li>Added the DIS version a PDU belongs to in the header comments.
 			</li>
-	<li>Fixed a bug in Comment_PDU, PDU Length when reading variable datum 
-	lengths was incorrect due to the returned variable datum lengths value being 
+	<li>Fixed a bug in Comment_PDU, PDU Length when reading variable datum
+	lengths was incorrect due to the returned variable datum lengths value being
 	in bits.
 			</li>
 </ul>
@@ -1175,22 +1182,22 @@
 </table>
 <hr>
 <ul>
-	<li>Fixed bug in vc9 example - was checking for a Data_PDU instead of 
+	<li>Fixed bug in vc9 example - was checking for a Data_PDU instead of
 	Entity_State_PDU
 			</li>
 	<li>AntennaLocation - Added new constructor.
 			</li>
-	<li>BurstDescriptor - Added new constructor / changed SetMunition to pass by 
+	<li>BurstDescriptor - Added new constructor / changed SetMunition to pass by
 	refrence.
 			</li>
 	<li>Renamed m_ui16Fire to m_ui16Fuse.
 			</li>
-	<li>DeadReckoningParameter - Added new constructor / changed 
+	<li>DeadReckoningParameter - Added new constructor / changed
 	setDeadReckoningAlgorithm function to pass by value.
 			</li>
 	<li>EmissionSystem - Added new constructor.
 			</li>
-	<li>EmitterBeam - Added new constructor. Removed typing error in 
+	<li>EmitterBeam - Added new constructor. Removed typing error in
 	Set6BeamParamIndex.and Get6BeamParamIndex.
 			</li>
 	<li>EncodingScheme - Added 2 new constructors.
@@ -1217,7 +1224,7 @@
 			</li>
 	<li>
 	<div style="color: blue">
-		Acknowledge_PDU - Added new constructors to auto generate a response 
+		Acknowledge_PDU - Added new constructors to auto generate a response
 		depending on the PDU.</div>
 	</li>
 </ul>
