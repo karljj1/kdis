@@ -209,12 +209,12 @@ KString GridAxisRegular::GetAsString() const
 
     ss << "Grid Axis Regular:"
        << "\n\tDomain Initial Xi:   " << m_f64DomainInitialXi
-       << "\n\tDomain Final Xi:		" << m_f64DomainFinalXi
-       << "\n\tDomain Points Xi:	" << m_ui16DomainPointsXi
-       << "\n\tInterleaf Factor:	" << ( KUINT16 )m_ui8InterleafFactor
-       << "\n\tAxis Type:			" << m_ui8AxisType
-       << "\n\tNumber Of Points:	" << m_ui16NumPoints
-       << "\n\tInitial Index:		" << m_ui16InitialIndex
+       << "\n\tDomain Final Xi:     " << m_f64DomainFinalXi
+       << "\n\tDomain Points Xi:    " << m_ui16DomainPointsXi
+       << "\n\tInterleaf Factor:    " << ( KUINT16 )m_ui8InterleafFactor
+       << "\n\tAxis Type:           " << ( KUINT16 )m_ui8AxisType
+       << "\n\tNumber Of Points:    " << m_ui16NumPoints
+       << "\n\tInitial Index:       " << m_ui16InitialIndex
        << "\n";
 
     return ss.str();

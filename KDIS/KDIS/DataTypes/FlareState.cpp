@@ -161,11 +161,11 @@ KString FlareState::GetAsString() const
     KStringStream ss;
 
     ss << EnvironmentRecord::GetAsString()
-       << "\tTime Since Creation:	" << m_ui32TSC                 << "\n"
-       << "\tSource:				" << m_Src.GetAsString()
+       << "\tTime Since Creation:   " << m_ui32TSC                 << "\n"
+       << "\tSource:                " << m_Src.GetAsString()
        << "\tNumber Intensity:      " << m_ui32NumInt            << "\n"
-       << "\tNumber Of Sources:		" << m_ui32NumSrcs          << "\n"
-       << "\tGeometry Index:		" << m_ui16GeometryIndex   << "\n";
+       << "\tNumber Of Sources:     " << m_ui32NumSrcs          << "\n"
+       << "\tGeometry Index:        " << m_ui16GeometryIndex   << "\n";
 
     return ss.str();
 }

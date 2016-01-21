@@ -140,9 +140,9 @@ KString GroupDestinationRecord::GetAsString() const
     KStringStream ss;
 
     ss << "Group Destination Record"
-       << "\nGroup Bit Field:		" << m_ui32GrpBtField
-       << "\nPriority:				" << ( KUINT16 )m_ui8DstPriority
-       << "\nLine State Command:	" << ( KUINT16 )m_ui8LnStCmd
+       << "\nGroup Bit Field:       " << m_ui32GrpBtField
+       << "\nPriority:              " << ( KUINT16 )m_ui8DstPriority
+       << "\nLine State Command:    " << ( KUINT16 )m_ui8LnStCmd
        << "\n";
 
     return ss.str();

@@ -266,12 +266,12 @@ KString LinearSegmentParameter::GetAsString() const
        << "\t\tLocation:      " << ( KUINT16 )m_ModificationUnion.m_ui8LocBit << "\n"
        << "\t\tOrientation:   " << ( KUINT16 )m_ModificationUnion.m_ui8OriBit << "\n"
        << IndentString( m_ObjApr.GetAsString(), 1 )
-       << "\tLocation:		  " << m_Loc.GetAsString()
+       << "\tLocation:        " << m_Loc.GetAsString()
        << "\tOrientation:     " << m_Ori.GetAsString()
-       << "\tLength:		  " << m_ui16Length                                 << "\n"
-       << "\tWidth:			  " << m_ui16Width                                  << "\n"
-       << "\tHeight:		  " << m_ui16Height                                 << "\n"
-       << "\tDepth:			  " << m_ui16Depth                                  << "\n";
+       << "\tLength:          " << m_ui16Length                                 << "\n"
+       << "\tWidth:           " << m_ui16Width                                  << "\n"
+       << "\tHeight:          " << m_ui16Height                                 << "\n"
+       << "\tDepth:           " << m_ui16Depth                                  << "\n";
 
     return ss.str();
 }

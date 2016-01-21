@@ -98,8 +98,8 @@ KString MinePaintScheme::GetAsString() const
     KStringStream ss;
 
     ss << "MinePaintScheme:"
-       << "\n\tAlgae:			" << GetEnumAsStringMineAlgae( m_PntScmUnion.m_ui8Alg )
-       << "\n\tPaint Scheme:	" << GetEnumAsStringPaintScheme( m_PntScmUnion.m_ui8Scm )
+       << "\n\tAlgae:           " << GetEnumAsStringMineAlgae( m_PntScmUnion.m_ui8Alg )
+       << "\n\tPaint Scheme:    " << GetEnumAsStringPaintScheme( m_PntScmUnion.m_ui8Scm )
        << "\n";
 
     return ss.str();

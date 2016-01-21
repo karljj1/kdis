@@ -251,13 +251,13 @@ KString COMBICState::GetAsString() const
     KStringStream ss;
 
     ss << EnvironmentRecord::GetAsString()
-       << "\tTime Since Creation:		" << m_ui32TSC                    << "\n"
-       << "\tMunition Source:			" << m_MunSrc.GetAsString()
-       << "\tNumber Of Sources:			" << m_ui32NumSrcs                 << "\n"
-       << "\tGeometry Index:			" << m_ui16GeometryIndex      << "\n"
-       << "\tSource Type:				" << m_ui32SrcType              << "\n"
-       << "\tBarrage Rate:				" << m_f32BarrageRate          << "\n"
-       << "\tBarrage Duration:			" << m_f32BarrageDuration       << "\n"
+       << "\tTime Since Creation:       " << m_ui32TSC                   << "\n"
+       << "\tMunition Source:           " << m_MunSrc.GetAsString()
+       << "\tNumber Of Sources:         " << m_ui32NumSrcs               << "\n"
+       << "\tGeometry Index:            " << m_ui16GeometryIndex         << "\n"
+       << "\tSource Type:               " << m_ui32SrcType               << "\n"
+       << "\tBarrage Rate:              " << m_f32BarrageRate            << "\n"
+       << "\tBarrage Duration:          " << m_f32BarrageDuration        << "\n"
        << "\tBarrage Crosswind Length:  " << m_f32BarrageCrosswindLength << "\n"
        << "\tBarrage Downwind Length:   " << m_f32BarrageDownwindLength  << "\n"
        << "\tDetonation Velocity:       " << m_DetVel.GetAsString();

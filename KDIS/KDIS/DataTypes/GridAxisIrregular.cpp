@@ -199,12 +199,12 @@ KString GridAxisIrregular::GetAsString() const
 
     ss << "Grid Axis Irregular:"
        << "\n\tDomain Initial Xi:    " << m_f64DomainInitialXi
-       << "\n\tDomain Final Xi:		 " << m_f64DomainFinalXi
-       << "\n\tDomain Points Xi:	 " << m_ui16DomainPointsXi
-       << "\n\tInterleaf Factor:	 " << m_ui8InterleafFactor
-       << "\n\tAxis Type:			 " << ( KUINT16 )m_ui8AxisType
-       << "\n\tNumber Of Points:	 " << m_ui16NumPoints
-       << "\n\tInitial Index:		 " << m_ui16InitialIndex
+       << "\n\tDomain Final Xi:      " << m_f64DomainFinalXi
+       << "\n\tDomain Points Xi:     " << m_ui16DomainPointsXi
+       << "\n\tInterleaf Factor:     " << ( KUINT16 )m_ui8InterleafFactor
+       << "\n\tAxis Type:            " << ( KUINT16 )m_ui8AxisType
+       << "\n\tNumber Of Points:     " << m_ui16NumPoints
+       << "\n\tInitial Index:        " << m_ui16InitialIndex
        << "\n\tCoordinate Scale Xi:  " << m_f64CoordScaleXi
        << "\n\tCoordinate Offset Xi: " << m_f64CoordOffsetXi
        << "\n\tXi Values:";

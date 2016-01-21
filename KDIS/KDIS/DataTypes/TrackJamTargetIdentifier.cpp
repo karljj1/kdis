@@ -108,11 +108,11 @@ KString TrackJamTargetIdentifier::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "Site:	    " << m_ui16SiteID          << "\n"
-       << "Application: " << m_ui16ApplicationID    << "\n"
-       << "Entity:      " << m_ui16EntityID         << "\n"
-       << "Emitter ID:  " << m_ui8EmitterID         << "\n"
-       << "Beam ID:     " << m_ui8BeamID            << "\n";
+    ss << "Site:        " << m_ui16SiteID              << "\n"
+       << "Application: " << m_ui16ApplicationID       << "\n"
+       << "Entity:      " << m_ui16EntityID            << "\n"
+       << "Emitter ID:  " << ( KUINT16 )m_ui8EmitterID << "\n"
+       << "Beam ID:     " << ( KUINT16 )m_ui8BeamID    << "\n";
 
     return ss.str();
 }

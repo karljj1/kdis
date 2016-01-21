@@ -200,12 +200,12 @@ KString GaussianPlumeRecord::GetAsString() const
     KStringStream ss;
 
     ss << EnvironmentRecord::GetAsString()
-       << "\tLocation:					   " << m_SrcLocation.GetAsString()
-       << "\tOrientation:				   " << m_Ori.GetAsString()
+       << "\tLocation:                     " << m_SrcLocation.GetAsString()
+       << "\tOrientation:                  " << m_Ori.GetAsString()
        << "\tPlume Length, Width, Height:  " << m_PlumeLWH.GetAsString()
-       << "\td/dt:						   " << m_DDTLEH.GetAsString()
+       << "\td/dt:                         " << m_DDTLEH.GetAsString()
        << "\tLeading Edge Centroid Height: " << m_f32LdEdgeCenHght << "\n"
-       << "\tLeading Edge Velocity:		   " << m_LdEdgeVel.GetAsString();
+       << "\tLeading Edge Velocity:        " << m_LdEdgeVel.GetAsString();
 
     return ss.str();
 }

@@ -164,8 +164,8 @@ KString UnderwaterAcousticFundamentalParameterData::GetAsString() const
     KStringStream ss;
 
     ss << "Underwater Acoustic Fundamental Parameter Data:"
-       << "\n\tAEPI:				" << GetEnumAsStringActiveEmissionParameterIndex( m_ui16AEPI )
-       << "\n\tScan Pattern:		" << GetEnumAsStringScanPattern( m_ui16ScanPattern )
+       << "\n\tAEPI:                " << GetEnumAsStringActiveEmissionParameterIndex( m_ui16AEPI )
+       << "\n\tScan Pattern:        " << GetEnumAsStringScanPattern( m_ui16ScanPattern )
        << "\n\tBeam Center Azimuth: " << m_f32BeamCenterAzimuth
        << "\n\tAzimuthal Beamwidth: " << m_f32AzimuthalBeamWidth
        << "\n\tBeam Center D/E:     " << m_f32BeamCenterDE

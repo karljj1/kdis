@@ -165,7 +165,7 @@ KString GroupAssignmentRecord::GetAsString() const
     KStringStream ss;
 
     ss << "Group Assignment Record"
-       << "\nGroup Bit Field:		  " << m_ui32GrpBtField
+       << "\nGroup Bit Field:         " << m_ui32GrpBtField
        << "Entity ID:\n"                << IndentString( m_Entity.GetAsString(), 1 )
        << "Communication Device ID:   " << m_ui16DstCommsDvcID
        << "\nLine ID:                 " << ( KUINT16 )m_ui8DstLineID

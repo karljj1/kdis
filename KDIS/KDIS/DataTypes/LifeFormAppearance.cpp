@@ -210,18 +210,18 @@ KString LifeFormAppearance::GetAsString() const
     KStringStream ss;
 
     ss << "Lifeform Appearance:"
-       << "\n\tPaint Scheme:        " << GetEnumAsStringPaintScheme( m_PaintScheme )
-	   << "\n\tDamage:              " << GetEnumAsStringEntityDamage( m_Damage )
-	   << "\nCompliance:           " << GetEnumAsStringEntityCompliance( m_Compliance )
-	   << "\nFlash Lights:          " << m_Flashlight
-       << "\n\tLifeform State:      " << GetEnumAsStringEntityLifeformAppearance( m_LifeformState )
-       << "\n\tFrozen Status:       " << m_FrozenStatus
-       << "\n\tState:               " << m_State
-       << "\n\tWeapon 1:            " << GetEnumAsStringEntityLifeformWeapon( m_Weapon1 )
-       << "\n\tWeapon 2:            " << GetEnumAsStringEntityLifeformWeapon( m_Weapon2 )
-	   << "\n\tCamouflage:          " << GetEnumAsStringEntityCamouflage( m_Camouflage )
-	   << "\nConcealed Stationary:  " << m_ConcealedStationary
-	   << "\nConcealed Movement:    " << m_ConcealedMovement
+       << "\n\tPaint Scheme:         " << GetEnumAsStringPaintScheme( m_PaintScheme )
+	   << "\n\tDamage:               " << GetEnumAsStringEntityDamage( m_Damage )
+	   << "\n\tCompliance:           " << GetEnumAsStringEntityCompliance( m_Compliance )
+	   << "\n\tFlash Lights:         " << m_Flashlight
+       << "\n\tLifeform State:       " << GetEnumAsStringEntityLifeformAppearance( m_LifeformState )
+       << "\n\tFrozen Status:        " << m_FrozenStatus
+       << "\n\tState:                " << m_State
+       << "\n\tWeapon 1:             " << GetEnumAsStringEntityLifeformWeapon( m_Weapon1 )
+       << "\n\tWeapon 2:             " << GetEnumAsStringEntityLifeformWeapon( m_Weapon2 )
+	   << "\n\tCamouflage:           " << GetEnumAsStringEntityCamouflage( m_Camouflage )
+	   << "\n\tConcealed Stationary: " << m_ConcealedStationary
+	   << "\n\tConcealed Movement:   " << m_ConcealedMovement
 	   << "\n";
 
     return ss.str();

@@ -114,9 +114,9 @@ KString MineFusing::GetAsString() const
     KStringStream ss;
 
     ss << "MineFusing:"
-       << "\n\tPrimary Fuse:			" << GetEnumAsStringMineFuse( m_FuseUnion.m_ui16Primary )
-       << "\n\tSecondary Fuse:			" << GetEnumAsStringMineFuse( m_FuseUnion.m_ui16Secondary )
-       << "\n\tAnti-Handling Device:	" << m_FuseUnion.m_ui16AHD
+       << "\n\tPrimary Fuse:            " << GetEnumAsStringMineFuse( m_FuseUnion.m_ui16Primary )
+       << "\n\tSecondary Fuse:          " << GetEnumAsStringMineFuse( m_FuseUnion.m_ui16Secondary )
+       << "\n\tAnti-Handling Device:    " << m_FuseUnion.m_ui16AHD
        << "\n";
 
     return ss.str();

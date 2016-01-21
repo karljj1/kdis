@@ -139,7 +139,7 @@ KString EncodingScheme::GetAsString() const
     ss << "Encoding Scheme:"
        << "\n\tClass:    " << GetEnumAsStringEncodingClass( m_EncodingSchemeUnion.m_ui16Class )
        << "\n\tType:     " << m_EncodingSchemeUnion.m_ui16Type
-       << "\n\tTDL:	     " << GetEnumAsStringTDLType( m_ui16TDLType )
+       << "\n\tTDL:      " << GetEnumAsStringTDLType( m_ui16TDLType )
        << "\n";
 
     return ss.str();

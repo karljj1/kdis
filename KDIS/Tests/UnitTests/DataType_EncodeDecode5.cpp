@@ -89,15 +89,6 @@ TEST(DataType_EncodeDecode5, DeadReckoningParameter)
 	EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode5, Descriptor)
-{
-	Descriptor dtIn;
-	KDataStream stream = dtIn.Encode();
-	Descriptor dtOut(stream);
-	EXPECT_EQ(dtIn, dtOut);
-	EXPECT_EQ(0, stream.GetBufferSize());
-}
-
 TEST(DataType_EncodeDecode5, EmissionSystem)
 {
 	EmissionSystem dtIn;

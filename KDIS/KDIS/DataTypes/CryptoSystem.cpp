@@ -131,8 +131,8 @@ KString CryptoSystem::GetAsString() const
 
     ss << "Crypto System:"
        << "\n\tEquipment:   " << GetEnumAsStringCryptoSystemType( m_ui16CryptoSystemType )
-       << "\n\tMode:		" << GetEnumAsStringEncryptionMode( m_ui16EncryptionMode )
-       << "\n\tKey:			" << m_ui16KeyID
+       << "\n\tMode:        " << GetEnumAsStringEncryptionMode( m_ui16EncryptionMode )
+       << "\n\tKey:         " << m_ui16KeyID
        << "\n";
 
     return ss.str();

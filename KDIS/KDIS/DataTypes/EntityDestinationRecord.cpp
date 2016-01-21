@@ -161,9 +161,9 @@ KString EntityDestinationRecord::GetAsString() const
 
     ss << "Entity Destination Record\n"
        << "Entity ID:\n"          << IndentString( m_Entity.GetAsString(), 1 )
-       << "Device ID:			" << m_ui16DstCommsDvcID
-       << "\nLine ID:		  	  " << ( KUINT16 )m_ui8DstLineID
-       << "\nPriority:			  " << ( KUINT16 )m_ui8DstPriority
+       << "Device ID:           " << m_ui16DstCommsDvcID
+       << "\nLine ID:             " << ( KUINT16 )m_ui8DstLineID
+       << "\nPriority:            " << ( KUINT16 )m_ui8DstPriority
        << "\nLine State Command:  " << ( KUINT16 )m_ui8LnStCmd
        << "\n";
 

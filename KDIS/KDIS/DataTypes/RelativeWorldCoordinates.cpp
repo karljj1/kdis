@@ -126,11 +126,11 @@ KString RelativeWorldCoordinates::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "Relative World Coordinates\n"
+    ss << "Relative World Coordinates"
        << "\n\tReference Point: " << m_ui16RefPnt
-       << ",  X: " << m_DelX.GetAsFloat32()
-       << ",  Y: " << m_DelY.GetAsFloat32()
-       << ",  Z: " << m_DelZ.GetAsFloat32()
+       << ", Delta-X: " << m_DelX.GetAsFloat32()
+       << ", Delta-Y: " << m_DelY.GetAsFloat32()
+       << ", Delta-Z: " << m_DelZ.GetAsFloat32()
        << "\n";
 
     return ss.str();

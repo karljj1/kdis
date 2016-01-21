@@ -84,7 +84,7 @@ KString GridData::GetAsString() const
     KStringStream ss;
 
     ss << "GridData:"
-       << "\n\tSample Type:	" << m_ui16SmpTyp
+       << "\n\tSample Type:         " << m_ui16SmpTyp
        << "\n\tData Representation: " << GetEnumAsStringGridDataRepresentation( m_ui16DtRep )
        << "\n";
 
