@@ -29,11 +29,11 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      SphereRecord2
-    created:    18/08/2009
+    created:    18:08:2009
     author:     Karl Jones
 
     purpose:    A geometry record representing a moving sphere.
-    size:       448 bits / 56 octets
+    size:       512 bits / 64 octets
 *********************************************************************/
 
 #pragma once
@@ -56,7 +56,7 @@ protected:
 
 public:
 
-    static const KUINT16 SPHERE_RECORD_2_SIZE = 56;
+    static const KUINT16 SPHERE_RECORD_2_SIZE = 64;
 
     SphereRecord2();
 
