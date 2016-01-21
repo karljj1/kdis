@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      GridDataType1
-    created:    20/11/2009
+    updated:    21/01/2016
     author:     Karl Jones
 
     purpose:    The Grid Data record contains the actual environmental state variable data for
@@ -37,7 +37,7 @@ http://p.sf.net/kdis/UserGuide
                 which the data are represented, feld scale factor and offset values,
                 and the actual data values in 16-bit.
 
-    size:       128 bits / 16 octets - Min size
+    size:       112 bits / 14 octets - Min size
 *********************************************************************/
 
 #pragma once
@@ -64,7 +64,7 @@ protected:
 
 public:
 
-    static const KUINT16 GRID_DATA_TYPE1_SIZE = 16; // Min size
+    static const KUINT16 GRID_DATA_TYPE1_SIZE = 14; // Min size
 
     GridDataType1();
 

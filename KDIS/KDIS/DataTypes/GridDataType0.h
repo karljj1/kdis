@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      GridDataType0
-    created:    19/11/2009
+    updated:    21/01/2016
     author:     Karl Jones
 
     purpose:    The Grid Data record contains the actual environmental state variable data for
@@ -39,7 +39,7 @@ http://p.sf.net/kdis/UserGuide
                 NOTE: Data Representation Type 0 is specifcally designed to be fexible to accommodate anything
                 from character data to data expressed as foating point numbers.
 
-    size:       64 bits / 8 octets - Min size
+    size:       48 bits / 6 octets - Min size
 *********************************************************************/
 
 #pragma once
@@ -64,7 +64,7 @@ protected:
 
 public:
 
-    static const KUINT16 GRID_DATA_TYPE0_SIZE = 8; // Min size
+    static const KUINT16 GRID_DATA_TYPE0_SIZE = 6; // Min size
 
     GridDataType0();
 
