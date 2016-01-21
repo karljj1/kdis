@@ -163,7 +163,7 @@ KDataStream SphereRecord2::Encode() const
 {
     KDataStream stream;
 
-    BoundingSphereRecord::Encode( stream );
+    SphereRecord2::Encode( stream );
 
     return stream;
 }
@@ -172,8 +172,6 @@ KDataStream SphereRecord2::Encode() const
 
 void SphereRecord2::Encode( KDataStream & stream ) const
 {
-    BoundingSphereRecord::Encode( stream );
-
     stream << m_ui32EnvRecTyp
            << m_ui16Length
            << m_ui8Index
