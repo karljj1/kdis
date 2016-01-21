@@ -52,6 +52,8 @@ protected:
 
     KUINT16 m_ui16NumAggregates;
 
+    KUINT16 m_ui16Padding;
+
     AggregateType m_AggTyp;
 
 public:

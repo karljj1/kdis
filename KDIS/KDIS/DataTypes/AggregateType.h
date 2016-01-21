@@ -68,7 +68,7 @@ public:
     AggregateType();
 
     AggregateType( KDIS::DATA_TYPE::ENUMS::AggregateKind Kind, KUINT8 Domain, KDIS::DATA_TYPE::ENUMS::Country Country,
-				   KUINT8  Categoy, KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );
+                   KUINT8  Categoy, KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );
 
     AggregateType( KUINT8 Kind, KUINT8  Domain, KUINT8 Country, KUINT8  Categoy,
                    KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );

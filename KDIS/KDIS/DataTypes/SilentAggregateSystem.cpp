@@ -37,7 +37,8 @@ using namespace DATA_TYPE;
 //////////////////////////////////////////////////////////////////////////
 
 SilentAggregateSystem::SilentAggregateSystem() :
-    m_ui16NumAggregates( 0 )
+    m_ui16NumAggregates( 0 ),
+    m_ui16Padding( 0 )
 {
 }
 
@@ -52,6 +53,7 @@ SilentAggregateSystem::SilentAggregateSystem( KDataStream & stream ) throw( KExc
 
 SilentAggregateSystem::SilentAggregateSystem( KUINT16 NumAggregates, const AggregateType & T ) :
     m_ui16NumAggregates( NumAggregates ),
+    m_ui16Padding( 0 ),
     m_AggTyp( T )
 {
 }
@@ -117,7 +119,8 @@ void SilentAggregateSystem::Decode( KDataStream & stream ) throw( KException )
     if( stream.GetBufferSize() < SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
     stream >> m_ui16NumAggregates
-           >> KDIS_STREAM m_AggTyp;
+           >> KDIS_STREAM m_AggTyp
+           >> m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -136,7 +139,8 @@ KDataStream SilentAggregateSystem::Encode() const
 void SilentAggregateSystem::Encode( KDataStream & stream ) const
 {
     stream << m_ui16NumAggregates
-           << KDIS_STREAM m_AggTyp;
+           << KDIS_STREAM m_AggTyp
+           << m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
