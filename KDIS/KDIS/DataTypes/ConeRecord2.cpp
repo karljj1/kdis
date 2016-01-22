@@ -157,7 +157,7 @@ KString ConeRecord2::GetAsString() const
        << "\tHeight:           " << m_f32Height    << "\n"
        << "\td(Height)/dt:     " << m_f32ddtHeight << "\n"
        << "\tPeak Angle:       " << m_f32PeakAngle << "\n"
-       << "\td(Peak Angle)/dt: " << m_f32ddtPeak   < "\n";
+       << "\td(Peak Angle)/dt: " << m_f32ddtPeak   << "\n";
 
     return ss.str();
 }

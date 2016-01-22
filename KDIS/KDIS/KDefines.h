@@ -65,29 +65,29 @@ http://p.sf.net/kdis/UserGuide
 /************************************************************************/
 
 #ifdef EXPORT_KDIS
-	#ifdef IMPORT_KDIS
-		#pragma error( "IMPORT_KDIS & EXPORT_KDIS Can Not Be Both Defined" )
-	#endif
+    #ifdef IMPORT_KDIS
+        #pragma error( "IMPORT_KDIS & EXPORT_KDIS Can Not Be Both Defined" )
+    #endif
 #endif
 
 #if defined( WIN32 ) | defined( WIN64 )
-	#if defined EXPORT_KDIS
-		#define KDIS_EXPORT __declspec( dllexport )
-	#elif defined IMPORT_KDIS
-		#define KDIS_EXPORT __declspec( dllimport  )
-	#else
-		#define KDIS_EXPORT
-	#endif
+    #if defined EXPORT_KDIS
+        #define KDIS_EXPORT __declspec( dllexport )
+    #elif defined IMPORT_KDIS
+        #define KDIS_EXPORT __declspec( dllimport  )
+    #else
+        #define KDIS_EXPORT
+    #endif
 #else
-	#define KDIS_EXPORT
+    #define KDIS_EXPORT
 #endif
 
 // Used when we include both DIS 5, 6, or 7 PDUs in a component, such as the PDU_Factory.
 // We can use this to know what PDUs we should allow use off and what features.
 // E.G DIS version 7 uses some of the headers padding to add an extra field.
 #ifndef DIS_VERSION
-	#pragma message("No DIS version specified, defaulting to 6. Other options available are 'DIS_VERSION 5' and 'DIS_VERSION 7'")
-	#define DIS_VERSION 6
+    #pragma message("No DIS version specified, defaulting to 6. Other options available are 'DIS_VERSION 5' and 'DIS_VERSION 7'")
+    #define DIS_VERSION 6
 #endif
 
 /************************************************************************/
@@ -135,8 +135,8 @@ enum ErrorCodes
     INVALID_DATA                                        = 8,
     UNSUPPORTED_DATATYPE                                = 9,
     INVALID_OPERATION                                   = 10,
-	PDU_TOO_LARGE                                       = 11,
-	CONNECTION_SOCKET_ERROR                             = 12
+    PDU_TOO_LARGE                                       = 11,
+    CONNECTION_SOCKET_ERROR                             = 12
 };
 
 /************************************************************************/
@@ -147,34 +147,34 @@ static KString GetErrorText( KUINT16 ErrorCode )
 {
     switch( ErrorCode )
     {
-		case NO_ERRORS:
-			return "No Errors. ";
-		case BUFFER_TOO_SMALL:
-			return "Buffer Is Too Small. ";
-		case NOT_ENOUGH_DATA_IN_BUFFER:
-			return "Buffer Does Not Contain Enough Information To Decode. ";
-		case STRING_PDU_SIZE_TOO_BIG:
-			return "String Size Too Big. ";
-		case DATA_TYPE_TOO_LARGE:
-			return "Data Type Is Too Large. ";
-		case WRONG_PDU_TYPE_IN_HEADER:
-			return "Incorrect PDU Type Specified In Header. ";
-		case FILE_NOT_OPEN:
-			return "Could Not Open File For Reading/Writing. ";
-		case OUT_OF_BOUNDS:
-			return "Parameter Is Out Of Bounds/Range Of Acceptable Values. ";
-		case INVALID_DATA:
-			return "Invalid Data. ";
-		case UNSUPPORTED_DATATYPE:
-			return "Unsupported Data Type, Can Not Decode. ";
-		case INVALID_OPERATION:
-			return "Invalid Operation. ";
-		case PDU_TOO_LARGE:
-			return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes.";
-		case CONNECTION_SOCKET_ERROR:
-			return "Socket error.";
-		default:
-			return "Unknown KDIS Error. ";
+        case NO_ERRORS:
+            return "No Errors. ";
+        case BUFFER_TOO_SMALL:
+            return "Buffer Is Too Small. ";
+        case NOT_ENOUGH_DATA_IN_BUFFER:
+            return "Buffer Does Not Contain Enough Information To Decode. ";
+        case STRING_PDU_SIZE_TOO_BIG:
+            return "String Size Too Big. ";
+        case DATA_TYPE_TOO_LARGE:
+            return "Data Type Is Too Large. ";
+        case WRONG_PDU_TYPE_IN_HEADER:
+            return "Incorrect PDU Type Specified In Header. ";
+        case FILE_NOT_OPEN:
+            return "Could Not Open File For Reading/Writing. ";
+        case OUT_OF_BOUNDS:
+            return "Parameter Is Out Of Bounds/Range Of Acceptable Values. ";
+        case INVALID_DATA:
+            return "Invalid Data. ";
+        case UNSUPPORTED_DATATYPE:
+            return "Unsupported Data Type, Can Not Decode. ";
+        case INVALID_OPERATION:
+            return "Invalid Operation. ";
+        case PDU_TOO_LARGE:
+            return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes.";
+        case CONNECTION_SOCKET_ERROR:
+            return "Socket error.";
+        default:
+            return "Unknown KDIS Error. ";
     }
 };
 
@@ -203,11 +203,10 @@ public:
 
     template<class T>
     KException( KString Text, KUINT16 EC, T AdditonalInfo ) :
-        m_ui16ErrorCode( EC ),
-        m_sErrorText( Text + ": " + GetErrorText( EC ) )
+        m_ui16ErrorCode( EC )
     {
         KStringStream ss;
-        ss << m_sErrorText << AdditonalInfo;
+        ss << Text << ": " << GetErrorText( EC ) << m_sErrorText << AdditonalInfo;
         m_sErrorText = ss.str();
     };
 

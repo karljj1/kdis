@@ -41,7 +41,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./../KDefines.h"
 
 #ifndef _USE_MATH_DEFINES
-	#define _USE_MATH_DEFINES
+    #define _USE_MATH_DEFINES
 #endif
 
 #include <math.h>
@@ -457,7 +457,7 @@ inline void HeadingPitchRollToEuler( Type H, Type P, Type R, Type Lat, Type Lon,
                                      Type & Phi )
 {
     // local NED
-    Type const  D0[3] = { 1.0 , 0.0 , 0.0 };
+    //Type const  D0[3] = { 1.0 , 0.0 , 0.0 };
     Type const  E0[3] = { 0.0 , 1.0 , 0.0 };
     Type const  N0[3] = { 0.0 , 0.0 , 1.0 };
     Type        me[3];
