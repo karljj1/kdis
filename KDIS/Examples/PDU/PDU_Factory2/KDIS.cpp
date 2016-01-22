@@ -31,7 +31,7 @@ For more information, please refer to <http://unlicense.org/>
 For Further Information on KDIS:
 http://p.sf.net/kdis/UserGuide
 This example is the same as PDU Factory example 1 however it uses some of the new features provided by the Connection class.
-https://sourceforge.net/apps/mediawiki/kdis/index.php?title=PDU_Factory2
+https://sourceforge.net/p/kdis/wiki/PDU_Factory2/
 *********************************************************************/
 
 #include <iostream>
@@ -99,7 +99,7 @@ int main()
         {
             try
             {
-				// Note: GetNextPDU supports PDU Bundling, which Receive does not.
+                // Note: GetNextPDU supports PDU Bundling, which Receive does not.
                 conn.GetNextPDU();
             }
             catch( exception & e )

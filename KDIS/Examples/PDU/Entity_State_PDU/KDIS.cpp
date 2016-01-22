@@ -32,7 +32,7 @@ For Further Information on KDIS:
 http://p.sf.net/kdis/UserGuide
 
 For a tutorial on sending the Entity State PDU see:
-http://sourceforge.net/apps/mediawiki/kdis/index.php?title=Sending_a_Entity_State_PDU_Tutorial
+https://sourceforge.net/p/kdis/wiki/Sending_a_Entity_State_PDU_Tutorial/
 
 This example shows the older method for sending a PDU, to see how the connection class can further help see the Environmental_Process_PDU example.
 *********************************************************************/
@@ -69,7 +69,7 @@ int main()
 
     WorldCoordinates EntityLocation( GeoX, GeoY, GeoZ );
     EulerAngles EntityOrientation( Psi, Theta , Phi );
-    EntityAppearance EntEA; 
+    EntityAppearance EntEA;
     DeadReckoningParameter DRP( Static, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
     EntityMarking EntMarking( ASCII, "KARL", 4 );
     EntityCapabilities EntEC( false, false, false, false );
@@ -83,7 +83,7 @@ int main()
 
     // Set the time stamp to automatically calculate each time encode is called.
     Entity.SetTimeStamp( TimeStamp( RelativeTime, 0, true ) );
-	
+
     try
     {
         // Note: This address will probably be different for your network.

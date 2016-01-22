@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -33,11 +33,11 @@ http://p.sf.net/kdis/UserGuide
     created:    22/10/2008
     author:     Karl Jones
 
-    purpose:    The Signal PDU contains the content of a radio transmission. 
-				This content may be digitized audio, binary data, or an index 
-				into a database that defines the signal.
-				A Signal PDU shall be issued whenever voice or data is being transmitted.
-	
+    purpose:    The Signal PDU contains the content of a radio transmission.
+                This content may be digitized audio, binary data, or an index
+                into a database that defines the signal.
+                A Signal PDU shall be issued whenever voice or data is being transmitted.
+
     size:       256 bits / 32 - min size
 *********************************************************************/
 
@@ -62,7 +62,7 @@ protected:
 
     KUINT16 m_ui16Samples;
 
-	std::vector<KOCTET> m_vData;
+    std::vector<KOCTET> m_vData;
 
 public:
 
@@ -70,11 +70,11 @@ public:
 
     Signal_PDU();
 
-	Signal_PDU( const Header & H );
+    Signal_PDU( const Header & H );
 
     Signal_PDU( KDataStream & stream ) throw( KException );
 
-	Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
                 KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
@@ -141,7 +141,7 @@ public:
     // FullName:    KDIS::PDU::Signal_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

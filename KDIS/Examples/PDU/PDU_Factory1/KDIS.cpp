@@ -31,10 +31,10 @@ For more information, please refer to <http://unlicense.org/>
 For Further Information on KDIS:
 http://p.sf.net/kdis/UserGuide
 A guide to this example can be found at:
-http://sourceforge.net/apps/mediawiki/kdis/index.php?title=PDU_Factory_Tutorial
+https://sourceforge.net/p/kdis/wiki/PDU_Factory_Tutorial/
 
-NOTE: This method does not support PDU bundling, please see PDU_Factory2 
-to see how to use GetNextPDU which does support bundling. 
+NOTE: This method does not support PDU bundling, please see PDU_Factory2
+to see how to use GetNextPDU which does support bundling.
 *********************************************************************/
 
 #include <iostream>

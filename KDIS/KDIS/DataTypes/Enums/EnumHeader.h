@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -59,7 +59,7 @@ enum ProtocolVersion
     DIS_PDU_Version_2_Fourth_Draft                                    = 4,
     IEEE_1278_1_1995                                                  = 5,
     IEEE_1278_1A_1998                                                 = 6,
-    IEEE_1278_1_2012                                                  = 7  
+    IEEE_1278_1_2012                                                  = 7
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -67,7 +67,7 @@ enum ProtocolVersion
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeProtocolVersion();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorProtocolVersion( KUINT32 Index );
@@ -75,7 +75,7 @@ const EnumDescriptor * GetEnumDescriptorProtocolVersion( KUINT32 Index );
 KString GetEnumAsStringProtocolVersion( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringProtocolVersion( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringProtocolVersion( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* PDU Type                                                             */
@@ -174,7 +174,7 @@ enum PDUType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizePDUType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorPDUType( KUINT32 Index );
@@ -182,7 +182,7 @@ const EnumDescriptor * GetEnumDescriptorPDUType( KUINT32 Index );
 KString GetEnumAsStringPDUType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringPDUType( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringPDUType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Protocol Family                                                      */
@@ -219,7 +219,7 @@ enum ProtocolFamily
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeProtocolFamily();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorProtocolFamily( KUINT32 Index );
@@ -227,7 +227,7 @@ const EnumDescriptor * GetEnumDescriptorProtocolFamily( KUINT32 Index );
 KString GetEnumAsStringProtocolFamily( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringProtocolFamily( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringProtocolFamily( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Time Stamp Type                                                      */
@@ -252,7 +252,7 @@ enum TimeStampType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeTimeStampType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorTimeStampType( KUINT32 Index );
@@ -260,7 +260,7 @@ const EnumDescriptor * GetEnumDescriptorTimeStampType( KUINT32 Index );
 KString GetEnumAsStringTimeStampType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringTimeStampType( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringTimeStampType( const KString & Value, KINT32 & ValueOut );
 
 #if DIS_VERSION > 6
 
@@ -286,7 +286,7 @@ enum LVCIndicator
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeLVCIndicator();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorLVCIndicator( KUINT32 Index );
@@ -294,7 +294,7 @@ const EnumDescriptor * GetEnumDescriptorLVCIndicator( KUINT32 Index );
 KString GetEnumAsStringLVCIndicator( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringLVCIndicator( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringLVCIndicator( const KString & Value, KINT32 & ValueOut );
 
 #endif // DIS 7
 
