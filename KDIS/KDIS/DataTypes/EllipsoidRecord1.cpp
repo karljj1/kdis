@@ -139,8 +139,8 @@ KString EllipsoidRecord1::GetAsString() const
 
     ss << EnvironmentRecord::GetAsString()
        << "\tCentroid Location: " << m_CentLocation.GetAsString()
-       << "\tSigma:   " << m_Sigma.GetAsString()
-       << "\tOritantaion: " << m_Ori.GetAsString();
+       << "\tSigma:             " << m_Sigma.GetAsString()
+       << "\tOrientation:       " << m_Ori.GetAsString();
 
     return ss.str();
 }

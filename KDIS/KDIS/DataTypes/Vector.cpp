@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -112,38 +112,38 @@ KFLOAT32 Vector::GetZ() const
 
 void Vector::Set( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z )
 {
-	m_f32X = X;
-	m_f32Y = Y;
-	m_f32Z = Z;
+    m_f32X = X;
+    m_f32Y = Y;
+    m_f32Z = Z;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KFLOAT32 Vector::GetMagnitude() const
 {
-	return sqrt( ( m_f32X * m_f32X ) + ( m_f32Y * m_f32Y ) + ( m_f32Z * m_f32Z ) );
+    return sqrt( ( m_f32X * m_f32X ) + ( m_f32Y * m_f32Y ) + ( m_f32Z * m_f32Z ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KFLOAT32 Vector::GetDistance( const Vector & Other )
 {
-	Vector v = *this - Other;
-	return v.GetMagnitude();
+    Vector v = *this - Other;
+    return v.GetMagnitude();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 Vector Vector::Lerp( const Vector & From, const Vector & To, KFLOAT32 T )
 {
-	return From + ( ( To - From ) * T );	
+    return From + ( ( To - From ) * T );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Vector::Lerp( const Vector & To, KFLOAT32 T )
 {
-	*this = Lerp( *this, To, T );
+    *this = Lerp( *this, To, T );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -288,10 +288,10 @@ KFLOAT32 & Vector::operator [] ( KUINT16 i ) throw( KException )
 {
     switch( i )
     {
-		case 0: 	return m_f32X;
-		case 1:		return m_f32Y;
-		case 2:		return m_f32Z;
-		default:	throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+        case 0: 	return m_f32X;
+        case 1:		return m_f32Y;
+        case 2:		return m_f32Z;
+        default:	throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 
@@ -301,10 +301,10 @@ const KFLOAT32 & Vector::operator [] ( KUINT16 i ) const throw( KException )
 {
     switch( i )
     {
-		case 0:		return m_f32X;
-		case 1:		return m_f32Y;
-		case 2:		return m_f32Z;
-		default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+        case 0:		return m_f32X;
+        case 1:		return m_f32Y;
+        case 2:		return m_f32Z;
+        default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 

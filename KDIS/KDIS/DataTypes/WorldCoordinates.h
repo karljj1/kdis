@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -32,11 +32,11 @@ http://p.sf.net/kdis/UserGuide
     created:    18/08/2008
     author:     Karl Jones
 
-    purpose:    World coordinate system.     
-				Using a right-handed, geocentric Cartesian coordinate system.
-				The origin of the coordinate system is the centroid of the World 
-				Geodetic System 1984 (WGS 84) reference frame.
-				Scale is 1 unit equals 1m.
+    purpose:    World coordinate system.
+                Using a right-handed, geocentric Cartesian coordinate system.
+                The origin of the coordinate system is the centroid of the World
+                Geodetic System 1984 (WGS 84) reference frame.
+                Scale is 1 unit equals 1m.
 
     size:       192 bits / 24 octets
 *********************************************************************/
@@ -99,33 +99,33 @@ public:
     KFLOAT64 GetZ() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Set  
+    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Set
     // Description: Sets x,y and z.
     // Parameter:   KFLOAT64 X
-	// Parameter:   KFLOAT64 Y
-	// Parameter:   KFLOAT64 Z
+    // Parameter:   KFLOAT64 Y
+    // Parameter:   KFLOAT64 Z
     //************************************
-	void Set( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z );
+    void Set( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetDistance
-    // Description: Calculates the distance from this WorldCoordinates to an other. 
+    // Description: Calculates the distance from this WorldCoordinates to an other.
     //************************************
-	KFLOAT64 GetDistance( const WorldCoordinates & Other );
+    KFLOAT64 GetDistance( const WorldCoordinates & Other );
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Lerp
-    // Description: Linearly interpolate between From and To by T. 
-	//              T should be between 0 and 1(its not checked).
-	//              T 0 = From
-	//              1 = to 
-	//              0.5 = halfway between From and To.
-    // Parameter:   const WorldCoordinates & From
-	// Parameter:   const WorldCoordinates & To
-	// Parameter:   KFLOAT32 T  
     //************************************
-	static WorldCoordinates Lerp( const WorldCoordinates & From, const WorldCoordinates & To, KFLOAT32 T );
-	void Lerp( const WorldCoordinates & To, KFLOAT32 T );
+    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Lerp
+    // Description: Linearly interpolate between From and To by T.
+    //              T should be between 0 and 1(its not checked).
+    //              T 0 = From
+    //              1 = to
+    //              0.5 = halfway between From and To.
+    // Parameter:   const WorldCoordinates & From
+    // Parameter:   const WorldCoordinates & To
+    // Parameter:   KFLOAT32 T
+    //************************************
+    static WorldCoordinates Lerp( const WorldCoordinates & From, const WorldCoordinates & To, KFLOAT32 T );
+    void Lerp( const WorldCoordinates & To, KFLOAT32 T );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetAsString
@@ -152,7 +152,7 @@ public:
     KBOOL operator != ( const WorldCoordinates & Value ) const;
     WorldCoordinates operator * ( const WorldCoordinates & Value ) const;
     WorldCoordinates operator * ( KFLOAT64 Value ) const;
-	WorldCoordinates operator * ( KFLOAT32 Value ) const;
+    WorldCoordinates operator * ( KFLOAT32 Value ) const;
     WorldCoordinates operator + ( const WorldCoordinates & Value ) const;
     WorldCoordinates operator + ( const Vector & Value ) const;
     WorldCoordinates & operator += ( const Vector & Value );

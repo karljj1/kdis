@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      EllipsoidRecord1
-    created:    18:08:2009
+    created:    18/08/2009
     author:     Karl Jones
 
     purpose:    A geometry record representing an elipsoid.

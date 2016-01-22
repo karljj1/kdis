@@ -141,7 +141,7 @@ KString RectangularVolumeRecord1::GetAsString() const
     ss << EnvironmentRecord::GetAsString()
        << "\tCorner Location: "  << m_CornerLocation.GetAsString()
        << "\tRectangle Length: " << m_RecLength.GetAsString()
-       << "\tOritantaion: "      << m_Ori.GetAsString();
+       << "\tOrientation: "      << m_Ori.GetAsString();
 
     return ss.str();
 }

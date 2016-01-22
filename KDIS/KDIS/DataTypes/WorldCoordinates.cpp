@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -111,32 +111,32 @@ KFLOAT64 WorldCoordinates::GetZ() const
 
 void WorldCoordinates::Set( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z )
 {
-	m_f64X = X;
-	m_f64Y = Y;
-	m_f64Z = Z;
+    m_f64X = X;
+    m_f64Y = Y;
+    m_f64Z = Z;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KFLOAT64 WorldCoordinates::GetDistance( const WorldCoordinates & Other )
 {
-	WorldCoordinates w = *this - Other;
-	KFLOAT64 f = ( w.m_f64X * w.m_f64X ) + ( w.m_f64Y * w.m_f64Y ) + ( w.m_f64Z * w.m_f64Z );
-	return sqrt( f );
+    WorldCoordinates w = *this - Other;
+    KFLOAT64 f = ( w.m_f64X * w.m_f64X ) + ( w.m_f64Y * w.m_f64Y ) + ( w.m_f64Z * w.m_f64Z );
+    return sqrt( f );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 WorldCoordinates WorldCoordinates::Lerp( const WorldCoordinates & From, const WorldCoordinates & To, KFLOAT32 T )
 {
-	return From + ( ( To - From ) * T );	
+    return From + ( ( To - From ) * T );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void WorldCoordinates::Lerp( const WorldCoordinates & To, KFLOAT32 T )
 {
-	*this = Lerp( *this, To, T );
+    *this = Lerp( *this, To, T );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -302,10 +302,10 @@ KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) throw( KException )
 {
     switch( i )
     {
-		case 0:		return m_f64X;
-		case 1:     return m_f64Y;
-		case 2:     return m_f64Z;
-		default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+        case 0:		return m_f64X;
+        case 1:     return m_f64Y;
+        case 2:     return m_f64Z;
+        default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 
@@ -315,10 +315,10 @@ const KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) const throw( KExcepti
 {
     switch( i )
     {
-		case 0:		return m_f64X;
-		case 1:		return m_f64Y;
-		case 2:		return m_f64Z;
-		default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+        case 0:		return m_f64X;
+        case 1:		return m_f64Y;
+        case 2:		return m_f64Z;
+        default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
     }
 }
 

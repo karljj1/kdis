@@ -141,8 +141,8 @@ KString EllipsoidRecord2::GetAsString() const
     KStringStream ss;
 
     ss << EllipsoidRecord1::GetAsString()
-       << "\td(Sigma)/dt: "      << m_DDT.GetAsString()
-       << "\tVelocity: "         << m_Velocity.GetAsString()
+       << "\td(Sigma)/dt:      " << m_DDT.GetAsString()
+       << "\tVelocity:         " << m_Velocity.GetAsString()
        << "\tAngular Velocity: " << m_AngularVelocity.GetAsString();
 
     return ss.str();
@@ -156,7 +156,14 @@ void EllipsoidRecord2::Decode( KDataStream & stream ) throw( KException )
 
     EllipsoidRecord1::Decode( stream );
 
-    stream >> KDIS_STREAM m_DDT
+    stream >> m_ui32EnvRecTyp
+           >> m_ui16Length
+           >> m_ui8Index
+           >> m_ui8Padding
+           >> KDIS_STREAM m_CentLocation
+           >> KDIS_STREAM m_Sigma
+           >> KDIS_STREAM m_DDT
+           >> KDIS_STREAM m_Ori
            >> KDIS_STREAM m_Velocity
            >> KDIS_STREAM m_AngularVelocity
            >> m_ui32Padding;
@@ -177,12 +184,17 @@ KDataStream EllipsoidRecord2::Encode() const
 
 void EllipsoidRecord2::Encode( KDataStream & stream ) const
 {
-    EllipsoidRecord1::Encode( stream );
-
-    stream << KDIS_STREAM m_DDT
+    stream << m_ui32EnvRecTyp
+           << m_ui16Length
+           << m_ui8Index
+           << m_ui8Padding
+           << KDIS_STREAM m_CentLocation
+           << KDIS_STREAM m_Sigma
+           << KDIS_STREAM m_DDT
+           << KDIS_STREAM m_Ori
            << KDIS_STREAM m_Velocity
            << KDIS_STREAM m_AngularVelocity
-           << m_ui32Padding;
+           << m_ui32Padding; // padding to 64 bit boundary.
 }
 
 //////////////////////////////////////////////////////////////////////////

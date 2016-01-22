@@ -104,10 +104,10 @@ public:
     //************************************
     virtual KString GetAsString() const;
 
-	//************************************
+    //************************************
     // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::FactoryDecodeEnvironmentRecord
     // Description: Decode method for decoding any EnvironmentRecord child classes.
-	//				First checks for a custom decode, if one can not be found then uses one of the KDIS EnvironmentRecord data types.
+    //              First checks for a custom decode, if one can not be found then uses one of the KDIS EnvironmentRecord data types.
     //              Throws exception for unknown records(UNSUPPORTED_DATATYPE) or when stream is
     //              too small(NOT_ENOUGH_DATA_IN_BUFFER).
     // Parameter:   KDataStream & stream

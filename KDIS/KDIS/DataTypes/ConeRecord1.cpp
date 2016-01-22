@@ -150,9 +150,9 @@ KString ConeRecord1::GetAsString() const
 
     ss << EnvironmentRecord::GetAsString()
        << "\tVertex Location: " << m_Loc.GetAsString()
-       << "\tOritantaion: "     << m_Ori.GetAsString()
-       << "\tHeight: "          << m_f32Height          << "\n"
-       << "\tPeak Angle: "      << m_f32PeakAngle       << "\n";
+       << "\tOrientation:     " << m_Ori.GetAsString()
+       << "\tHeight:          " << m_f32Height         << "\n"
+       << "\tPeak Angle:      " << m_f32PeakAngle      << "\n";
 
     return ss.str();
 }

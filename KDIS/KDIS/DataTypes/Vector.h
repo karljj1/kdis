@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -37,24 +37,24 @@ http://p.sf.net/kdis/UserGuide
                 A Vector has 4 different representations:
 
                 1)Entity Coordinate Vector
-					Location with respect to a particular entity shall be specified with respect
-					to three orthogonal axes whose origin shall be the geometric center of the 
-					bounding volume of the entity excluding its articulated and attached parts. 
-					The x-axis extends in the positive direction out the front of the entity. 
-					The y-axis extends in the positive direction out the right side of the entity 
-					as viewed from above, facing in the direction of the positive x-axis. 
-					The z-axis extends in the positive direction out the bottom of the entity. 
-					Each vector component shall represent meters from the origin.
+                    Location with respect to a particular entity shall be specified with respect
+                    to three orthogonal axes whose origin shall be the geometric center of the
+                    bounding volume of the entity excluding its articulated and attached parts.
+                    The x-axis extends in the positive direction out the front of the entity.
+                    The y-axis extends in the positive direction out the right side of the entity
+                    as viewed from above, facing in the direction of the positive x-axis.
+                    The z-axis extends in the positive direction out the bottom of the entity.
+                    Each vector component shall represent meters from the origin.
 
                 2)Linear Acceleration Vector - m/s2
-					Represented as a vector with components in either world coordinate system or
-					entity’s coordinate system depending on the value in the Dead Reckoning Algorithm
-					field. Each vector component shall represent acceleration in meters per second squared.
+                    Represented as a vector with components in either world coordinate system or
+                    entity’s coordinate system depending on the value in the Dead Reckoning Algorithm
+                    field. Each vector component shall represent acceleration in meters per second squared.
 
                 3)Linear Velocity Vector - m/s
-					Represented as a vector with three components in either world coordinate system or 
-					entity’s coordinate system depending on the value in the Dead Reckoning Algorithm 
-					field. Each vector component shall represent velocity in meters per second. 
+                    Represented as a vector with three components in either world coordinate system or
+                    entity’s coordinate system depending on the value in the Dead Reckoning Algorithm
+                    field. Each vector component shall represent velocity in meters per second.
 
                 4)Aggregate dimensions box size
 
@@ -118,41 +118,41 @@ public:
     KFLOAT32 GetZ() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Vector::Set  
+    // FullName:    KDIS::DATA_TYPE::Vector::Set
     // Description: Sets x,y and z.
     // Parameter:   KFLOAT32 X
-	// Parameter:   KFLOAT32 Y
-	// Parameter:   KFLOAT32 Z
+    // Parameter:   KFLOAT32 Y
+    // Parameter:   KFLOAT32 Z
     //************************************
-	void Set( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z );
+    void Set( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::GetMagnitude
     // Description: Calculates and returns the magnitude or length.
-	//				E.G If the vector represented a velocity then this would be the speed.    
+    //				E.G If the vector represented a velocity then this would be the speed.
     //************************************
-	KFLOAT32 GetMagnitude() const;
+    KFLOAT32 GetMagnitude() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::GetDistance
-    // Description: Calculates the distance from this vector to an other. 
+    // Description: Calculates the distance from this vector to an other.
     // Parameter:   KFLOAT32 Z
     //************************************
-	KFLOAT32 GetDistance( const Vector & Other );
+    KFLOAT32 GetDistance( const Vector & Other );
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::Vector::Lerp
-    // Description: Linearly interpolate between From and To by T. 
-	//              T should be between 0 and 1(its not checked).
-	//              T 0 = From
-	//              1 = to 
-	//              0.5 = halfway between From and To.
-    // Parameter:   const Vector & From
-	// Parameter:   const Vector & To
-	// Parameter:   KFLOAT32 T  
     //************************************
-	static Vector Lerp( const Vector & From, const Vector & To, KFLOAT32 T );
-	void Lerp( const Vector & To, KFLOAT32 T );
+    // FullName:    KDIS::DATA_TYPE::Vector::Lerp
+    // Description: Linearly interpolate between From and To by T.
+    //              T should be between 0 and 1(its not checked).
+    //              T 0 = From
+    //              1 = to
+    //              0.5 = halfway between From and To.
+    // Parameter:   const Vector & From
+    // Parameter:   const Vector & To
+    // Parameter:   KFLOAT32 T
+    //************************************
+    static Vector Lerp( const Vector & From, const Vector & To, KFLOAT32 T );
+    void Lerp( const Vector & To, KFLOAT32 T );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::GetAsString
@@ -179,7 +179,7 @@ public:
     KBOOL operator != ( const Vector & Value ) const;
     Vector operator * ( const Vector & Value ) const;
     Vector operator * ( KFLOAT64 Value ) const;
-	Vector operator * ( KFLOAT32 Value ) const;
+    Vector operator * ( KFLOAT32 Value ) const;
     Vector operator + ( const Vector & Value ) const;
     Vector & operator += ( const Vector & Value );
     Vector operator - ( const Vector & Value ) const;
