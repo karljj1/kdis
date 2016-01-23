@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -85,7 +85,7 @@ Minefield_Data_PDU::Minefield_Data_PDU() :
     m_SeqNumUnion.m_ui16SeqNum = 0;
 }
 
-	
+
 //////////////////////////////////////////////////////////////////////////
 
 Minefield_Data_PDU::Minefield_Data_PDU( KDataStream & stream ) throw( KException )
@@ -96,7 +96,7 @@ Minefield_Data_PDU::Minefield_Data_PDU( KDataStream & stream ) throw( KException
 //////////////////////////////////////////////////////////////////////////
 
 Minefield_Data_PDU::Minefield_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Minefield_Header( H )
+    Minefield_Header( H )
 {
     Decode( stream, true );
 }
@@ -299,8 +299,8 @@ void Minefield_Data_PDU::AddMine( const Mine & M ) throw( KException )
     if( M.MinefieldDataFilter::operator != ( m_DataFilter ) )
     {
         throw KException( __FUNCTION__, INVALID_OPERATION, "The Mine filter does not match the PDU MinefieldDataFilter.			\
-															All mines must have the same optional values set as specified by	\
-															the PDU MinefieldDataFilter. This mine has been ignored." );
+                                                            All mines must have the same optional values set as specified by	\
+                                                            the PDU MinefieldDataFilter. This mine has been ignored." );
     }
 
     m_vMines.push_back( M );
@@ -320,8 +320,8 @@ void Minefield_Data_PDU::SetMines( const std::vector<Mine> & M ) throw( KExcepti
         if( citr->MinefieldDataFilter::operator != ( m_DataFilter ) )
         {
             throw KException( __FUNCTION__, INVALID_OPERATION, "One or more mines do not have the correct filters.				\
-																They must have the same filter as the PDU MinefieldDataFilter.	\
-																This set request has been ignored" );
+                                                                They must have the same filter as the PDU MinefieldDataFilter.	\
+                                                                This set request has been ignored" );
         }
     }
 
@@ -409,7 +409,7 @@ void Minefield_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tru
     m_vui16SensorTypes.clear();
     m_vMines.clear();
 
-    Minefield_Header::Decode( stream, ignoreHeader );	
+    Minefield_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_ReqID
            >> m_SeqNumUnion.m_ui16SeqNum
@@ -515,7 +515,7 @@ void Minefield_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tru
             vNumVerts.push_back( ui8Tmp );
         }
 
-        // More padding?	
+        // More padding?
         ui8PaddingNeeded = ( vNumVerts.size() % 4 == 0 ? 0 : ( 4 - vNumVerts.size() % 4 ) );
         for( i = 0; i < ui8PaddingNeeded; ++i )
         {
@@ -648,8 +648,8 @@ void Minefield_Data_PDU::Encode( KDataStream & stream ) const throw( KException 
                                             if( m_ui8NumSensTyp != citrMn->GetScalarDetectionCoefficientValues().size() )
                                             {
                                                 throw KException( __FUNCTION__, INVALID_DATA, "Mine does not have the correct number of scalar detection \
-															  coefficient values. Each mine must have the same number of \
-															  SDC values as sensor types" );
+                                                              coefficient values. Each mine must have the same number of \
+                                                              SDC values as sensor types" );
                                             }
 
                                             vector<KUINT8>::const_iterator citrSDC = citrMn->GetScalarDetectionCoefficientValues().begin();

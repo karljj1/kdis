@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -69,7 +69,7 @@ protected:
 
     KUINT32 m_ui32NumRecSets;
 
-	std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
+    std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
 
 public:
 
@@ -79,7 +79,7 @@ public:
 
     Transfer_Control_Request_PDU( KDataStream & stream ) throw( KException );
 
-	Transfer_Control_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Transfer_Control_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Transfer_Control_Request_PDU( KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS, KDIS::DATA_TYPE::ENUMS::TransferType TT,
                                   const KDIS::DATA_TYPE::EntityIdentifier & TrnsEntID );
@@ -139,8 +139,8 @@ public:
     // Parameter:   const RecordSet & RS, vector<RecordSet> & RC
     //************************************
     void AddRecordSet( const KDIS::DATA_TYPE::RecordSet & RS );
-	void SetRecordSets( const std::vector<KDIS::DATA_TYPE::RecordSet> & RS );
-	const std::vector<KDIS::DATA_TYPE::RecordSet> & GetRecordSets() const;
+    void SetRecordSets( const std::vector<KDIS::DATA_TYPE::RecordSet> & RS );
+    const std::vector<KDIS::DATA_TYPE::RecordSet> & GetRecordSets() const;
 
     //************************************
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::GetAsString
@@ -152,7 +152,7 @@ public:
     // FullName:    KDIS::PDU::Transfer_Control_Request_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

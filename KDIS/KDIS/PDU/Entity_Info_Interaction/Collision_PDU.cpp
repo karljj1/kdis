@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -61,7 +61,7 @@ Collision_PDU::Collision_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Collision_PDU::Collision_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H )
+    Header( H )
 {
     Decode( stream, true );
 }
@@ -253,7 +253,7 @@ void Collision_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ )
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < COLLISION_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream, ignoreHeader );	
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_IssuingEntityID
            >> KDIS_STREAM m_CollidingEntityID
@@ -261,7 +261,7 @@ void Collision_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ )
            >> m_ui8CollisionType
            >> m_ui8Padding
            >> KDIS_STREAM m_Velocity
-		   >> m_f32Mass
+           >> m_f32Mass
            >> KDIS_STREAM m_Location;
 }
 
@@ -287,7 +287,7 @@ void Collision_PDU::Encode( KDataStream & stream ) const
            << m_ui8CollisionType
            << m_ui8Padding
            << KDIS_STREAM m_Velocity
-		   << m_f32Mass
+           << m_f32Mass
            << KDIS_STREAM m_Location;
 }
 
@@ -301,7 +301,7 @@ KBOOL Collision_PDU::operator == ( const Collision_PDU & Value ) const
     if( m_EventID            != Value.m_EventID )            return false;
     if( m_ui8CollisionType   != Value.m_ui8CollisionType )   return false;
     if( m_Velocity           != Value.m_Velocity )           return false;
-	if( m_f32Mass            != Value.m_f32Mass )            return false;	
+    if( m_f32Mass            != Value.m_f32Mass )            return false;
     if( m_Location           != Value.m_Location )           return false;
     return true;
 }

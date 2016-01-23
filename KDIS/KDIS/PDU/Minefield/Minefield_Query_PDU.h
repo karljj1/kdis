@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -67,9 +67,9 @@ protected:
 
     KDIS::DATA_TYPE::EntityType m_MineTypFilter;
 
-	std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> m_vPoints;
+    std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> m_vPoints;
 
-	std::vector<KUINT16> m_vui16SensorTypes;
+    std::vector<KUINT16> m_vui16SensorTypes;
     KBOOL m_bNeedsPadding;
     KUINT16 m_ui16Padding1;
 
@@ -85,9 +85,9 @@ public:
 
     Minefield_Query_PDU();
 
-	Minefield_Query_PDU( KDataStream & stream ) throw( KException );
+    Minefield_Query_PDU( KDataStream & stream ) throw( KException );
 
-	Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Minefield_Query_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                          KUINT8 RequestID, const KDIS::DATA_TYPE::MinefieldDataFilter & DF, const KDIS::DATA_TYPE::EntityType & MineTypeFilter );
@@ -162,8 +162,8 @@ public:
     // Parameter:   const PerimeterPointCoordinate & PPC, vector<PerimeterPointCoordinate> & PPC
     //************************************
     void AddRequestedPerimeterPointCoordinate( const KDIS::DATA_TYPE::PerimeterPointCoordinate & PPC );
-	void SetRequestedPerimeterPointCoordinates( const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & PPC );
-	const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & GetRequestedPerimeterPointCoordinates() const;
+    void SetRequestedPerimeterPointCoordinates( const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & PPC );
+    const std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> & GetRequestedPerimeterPointCoordinates() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::AddSensorType
@@ -179,9 +179,9 @@ public:
     //              correctly for each sensor type.
     // Parameter:   SensorType ST, vector<KUINT16> & ST
     //************************************
-	void AddSensorType( KDIS::DATA_TYPE::ENUMS::SensorType ST );
-	void SetSensorTypes( const std::vector<KUINT16> & ST );
-	const std::vector<KUINT16> & GetSensorTypes() const;
+    void AddSensorType( KDIS::DATA_TYPE::ENUMS::SensorType ST );
+    void SetSensorTypes( const std::vector<KUINT16> & ST );
+    const std::vector<KUINT16> & GetSensorTypes() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::GetAsString
@@ -193,7 +193,7 @@ public:
     // FullName:    KDIS::PDU::Minefield_Query_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

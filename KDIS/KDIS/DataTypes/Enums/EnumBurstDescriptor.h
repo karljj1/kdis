@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -127,7 +127,7 @@ enum WarheadType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeWarheadType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorWarheadType( KUINT32 Index );
@@ -135,7 +135,7 @@ const EnumDescriptor * GetEnumDescriptorWarheadType( KUINT32 Index );
 KString GetEnumAsStringWarheadType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringWarheadType( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringWarheadType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Fuse Type                                                            */
@@ -260,7 +260,7 @@ enum FuseType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeFuseType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorFuseType( KUINT32 Index );
@@ -268,7 +268,7 @@ const EnumDescriptor * GetEnumDescriptorFuseType( KUINT32 Index );
 KString GetEnumAsStringFuseType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringFuseType( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringFuseType( const KString & Value, KINT32 & ValueOut );
 
 #if DIS_VERSION > 6
 /************************************************************************/
@@ -290,7 +290,7 @@ enum FireType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeFireType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorFireType( KUINT32 Index );
@@ -298,7 +298,7 @@ const EnumDescriptor * GetEnumDescriptorFireType( KUINT32 Index );
 KString GetEnumAsStringFireType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringFireType( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringFireType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Detonation Type                                                      */
@@ -312,7 +312,7 @@ enum DetonationType
 {
     MunitionDTI                                                       = 0,
     ExpendableDTI                                                     = 1,
-	NonMunitionExplosionDTI                                           = 2
+    NonMunitionExplosionDTI                                           = 2
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -320,7 +320,7 @@ enum DetonationType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeDetonationType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorDetonationType( KUINT32 Index );
@@ -328,7 +328,7 @@ const EnumDescriptor * GetEnumDescriptorDetonationType( KUINT32 Index );
 KString GetEnumAsStringDetonationType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Explosive Material                                                   */
@@ -338,9 +338,9 @@ KBOOL GetEnumFromStringDetonationType( const KString & Value, KINT32 & ValueOut 
 /*  Explosive Descriptor                                                */
 /************************************************************************/
 
-enum ExplosiveMaterial 
+enum ExplosiveMaterial
 {
-    GeneralExplosiveMaterial                                          = 0,                
+    GeneralExplosiveMaterial                                          = 0,
     LiquidAviationMissileFuels                                        = 1,
     LiquidOtherFuels                                                  = 2,
     LiquidExplosiveMaterial                                           = 3,
@@ -348,7 +348,7 @@ enum ExplosiveMaterial
     Gaseous                                                           = 5,
     DustMaterial                                                      = 6,
     AVGAS_AviationGas                                                 = 10,
-    JetFuelUnspecified                                                = 11, 
+    JetFuelUnspecified                                                = 11,
     JP4_F40JETB                                                       = 12,
     JP5_F44JETA                                                       = 13,
     JP7                                                               = 14,
@@ -360,8 +360,8 @@ enum ExplosiveMaterial
     JetB                                                              = 20,
     JetBiofuel                                                        = 21,
     GasolinePetrol_UnspecifiedOctane                                  = 151,
-	Ethanol                                                           = 153,
-	E85Ethanol                                                        = 154,    	        
+    Ethanol                                                           = 153,
+    E85Ethanol                                                        = 154,
     FuelOil                                                           = 155,
     Kerosene                                                          = 156,
     CrudeOil_Unspecified                                              = 157,
@@ -369,9 +369,9 @@ enum ExplosiveMaterial
     LiquidPetroleumGas                                                = 159,
     RP1RocketFuel                                                     = 160,
     LH2RocketFuel                                                     = 161,
-    LOXRocketFuel                                                     = 162,    
+    LOXRocketFuel                                                     = 162,
     Alcohol                                                           = 164,
-	HydrogenLiquid                                                    = 166,
+    HydrogenLiquid                                                    = 166,
     Nitroglycerin                                                     = 301,
     ANFO                                                              = 302,
     Dynamite                                                          = 451,
@@ -386,7 +386,7 @@ enum ExplosiveMaterial
     Propane                                                           = 603,
     Helium                                                            = 604,
     HydrogenGaseous                                                   = 605,
-    DustUnspecifiedType                                               = 801, 
+    DustUnspecifiedType                                               = 801,
     GrainDust                                                         = 802,
     FlourDust                                                         = 803,
     SugarDust                                                         = 804
@@ -397,7 +397,7 @@ enum ExplosiveMaterial
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeExplosiveMaterial ();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorExplosiveMaterial ( KUINT32 Index );
@@ -405,7 +405,7 @@ const EnumDescriptor * GetEnumDescriptorExplosiveMaterial ( KUINT32 Index );
 KString GetEnumAsStringExplosiveMaterial( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringExplosiveMaterial( const KString & Value, KINT32 & ValueOut ); 
+KBOOL GetEnumFromStringExplosiveMaterial( const KString & Value, KINT32 & ValueOut );
 
 #endif
 

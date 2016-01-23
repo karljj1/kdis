@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -29,8 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Detonation_PDU
-    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012(when using descriptors that are not MunitionDescriptors)    
-	updated:    22/04/2013
+    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012(when using descriptors that are not MunitionDescriptors)
+    updated:    22/04/2013
     author:     Karl Jones
 
     purpose:    Communicates detonation or impact of munitions.
@@ -66,7 +66,7 @@ protected:
 
     KUINT16 m_ui16Padding1;
 
-	std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
+    std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
 public:
 
@@ -76,21 +76,21 @@ public:
 
     Detonation_PDU( KDataStream & stream ) throw( KException );
 
-	Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Detonation_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FiringEntID, const KDIS::DATA_TYPE::EntityIdentifier & TargetEntID,
                     const KDIS::DATA_TYPE::EntityIdentifier & MunitionID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
                     const KDIS::DATA_TYPE::Vector & Velocity, const KDIS::DATA_TYPE::WorldCoordinates & LocationWorldCoords,
                     KDIS::DATA_TYPE::DescPtr Desc, const KDIS::DATA_TYPE::Vector & LocationEntityCoords,
-					KDIS::DATA_TYPE::ENUMS::DetonationResult DetonationResult );
+                    KDIS::DATA_TYPE::ENUMS::DetonationResult DetonationResult );
 
     Detonation_PDU( const Warfare_Header & WarfareHeader, const KDIS::DATA_TYPE::Vector & Velocity,
                     const KDIS::DATA_TYPE::WorldCoordinates & LocationWorldCoords, KDIS::DATA_TYPE::DescPtr Desc,
-					const KDIS::DATA_TYPE::Vector & LocationEntityCoords, KDIS::DATA_TYPE::ENUMS::DetonationResult DetonationResult );
+                    const KDIS::DATA_TYPE::Vector & LocationEntityCoords, KDIS::DATA_TYPE::ENUMS::DetonationResult DetonationResult );
 
     virtual ~Detonation_PDU();
 
-	#if DIS_VERSION > 6
+    #if DIS_VERSION > 6
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetPDUStatusDetonationType
     //              KDIS::PDU::Detonation_PDU::GetPDUStatusDetonationType
@@ -99,7 +99,7 @@ public:
     //************************************
     void SetPDUStatusDetonationType( KDIS::DATA_TYPE::ENUMS::DetonationType DT );
     KDIS::DATA_TYPE::ENUMS::DetonationType GetPDUStatusDetonationType() const;
-	#endif
+    #endif
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetVelocity
@@ -125,14 +125,14 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::SetDescriptor
     //              KDIS::PDU::Detonation_PDU::GetDescriptor
-    // Description: Descriptor, describes type of detonation. 
-	//              Pre DIS 7 this will always be a MunitionDescriptor. 
-	//              In DIS 7 a Detonation PDU can send a Munition, Expendable or an Explosion descriptor.
-	//              Setting this in DIS 7 will automatically set the DTI (PDUStatusDetonationType) field and will 
-	//              cause the protocol version to change to 7 if the type is Expendable or Explosion.
-	//              I leave it as default if the type is Munition.
-	//              Note: By default this value will be a MunitionDescriptor, it is not null by default.
-	//              Example usage in DIS 7: SetDescriptor( DescPtr( new MunitionDescriptor() ) );
+    // Description: Descriptor, describes type of detonation.
+    //              Pre DIS 7 this will always be a MunitionDescriptor.
+    //              In DIS 7 a Detonation PDU can send a Munition, Expendable or an Explosion descriptor.
+    //              Setting this in DIS 7 will automatically set the DTI (PDUStatusDetonationType) field and will
+    //              cause the protocol version to change to 7 if the type is Expendable or Explosion.
+    //              I leave it as default if the type is Munition.
+    //              Note: By default this value will be a MunitionDescriptor, it is not null by default.
+    //              Example usage in DIS 7: SetDescriptor( DescPtr( new MunitionDescriptor() ) );
     // Parameter:   DescPtr D
     //************************************
     void SetDescriptor( KDIS::DATA_TYPE::DescPtr D );
@@ -176,8 +176,8 @@ public:
     // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
     //************************************
     void AddVariableParameter( KDIS::DATA_TYPE::VarPrmPtr VP );
-	void SetVariableParameters( const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & VP );
-	const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & GetVariableParameters() const;
+    void SetVariableParameters( const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & VP );
+    const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & GetVariableParameters() const;
     void ClearVariableParameters();
 
     //************************************
@@ -190,7 +190,7 @@ public:
     // FullName:    KDIS::PDU::Detonation_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -81,12 +81,12 @@ void LE_Fire_PDU::checkFlagsAndPDULength()
 #ifdef _DEBUG
     {
         // Verify PDU length
-        const KUINT16 ui16ExpectedPDULength = 35 
-            + (4*m_FireFlagUnion.m_ui8TargetId) 
-            + ((2*m_FireFlagUnion.m_ui8MunitionSiteApp + 2)*m_FireFlagUnion.m_ui8MunitionId) 
-            + (2*m_FireFlagUnion.m_ui8EventSiteAppId) 
-            + (8*m_FireFlagUnion.m_ui8Location) 
-            + (4*m_FireFlagUnion.m_ui8WarheadFuse) 
+        const KUINT16 ui16ExpectedPDULength = 35
+            + (4*m_FireFlagUnion.m_ui8TargetId)
+            + ((2*m_FireFlagUnion.m_ui8MunitionSiteApp + 2)*m_FireFlagUnion.m_ui8MunitionId)
+            + (2*m_FireFlagUnion.m_ui8EventSiteAppId)
+            + (8*m_FireFlagUnion.m_ui8Location)
+            + (4*m_FireFlagUnion.m_ui8WarheadFuse)
             + (4*m_FireFlagUnion.m_ui8QuantRate);
         assert(ui16ExpectedPDULength == m_ui16PDULength);
     }
@@ -126,7 +126,7 @@ LE_Fire_PDU::LE_Fire_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 LE_Fire_PDU::LE_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	LE_Header( H )
+    LE_Header( H )
 {
     Decode( stream, true );
 }
@@ -492,13 +492,13 @@ KString LE_Fire_PDU::GetAsString() const
     ss << LE_Header::GetAsString()
        << "-LE Fire PDU-\n"
        << "Optional Field Flags:\n"
-       << "\tTarget ID:							   " << ( KUINT16 )m_FireFlagUnion.m_ui8TargetId         << "\n"
-       << "\tMunition ID:						   " << ( KUINT16 )m_FireFlagUnion.m_ui8MunitionId       << "\n"
+       << "\tTarget ID:                            " << ( KUINT16 )m_FireFlagUnion.m_ui8TargetId         << "\n"
+       << "\tMunition ID:                          " << ( KUINT16 )m_FireFlagUnion.m_ui8MunitionId       << "\n"
        << "\tMunition Site & Application Included: " << ( KUINT16 )m_FireFlagUnion.m_ui8MunitionSiteApp  << "\n"
        << "\tEvent Site & Application Included:    " << ( KUINT16 )m_FireFlagUnion.m_ui8EventSiteAppId   << "\n"
-       << "\tWarhead & Fuse Included:			   " << ( KUINT16 )m_FireFlagUnion.m_ui8WarheadFuse      << "\n"
-       << "\tQuantity & Rate Included:			   " << ( KUINT16 )m_FireFlagUnion.m_ui8QuantRate        << "\n"
-       << "\tLocation:							   " << ( KUINT16 )m_FireFlagUnion.m_ui8Location         << "\n";
+       << "\tWarhead & Fuse Included:              " << ( KUINT16 )m_FireFlagUnion.m_ui8WarheadFuse      << "\n"
+       << "\tQuantity & Rate Included:             " << ( KUINT16 )m_FireFlagUnion.m_ui8QuantRate        << "\n"
+       << "\tLocation:                             " << ( KUINT16 )m_FireFlagUnion.m_ui8Location         << "\n";
 
     if( m_FireFlagUnion.m_ui8TargetId )
     {
@@ -526,7 +526,7 @@ void LE_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) t
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LE_FIRE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    LE_Header::Decode( stream, ignoreHeader );	
+    LE_Header::Decode( stream, ignoreHeader );
 
     stream >> m_FireFlagUnion.m_ui8Flag;
 
@@ -694,15 +694,15 @@ void LE_Fire_PDU::Encode( KDataStream & stream ) const
 
 KBOOL LE_Fire_PDU::operator == ( const LE_Fire_PDU & Value ) const
 {
-    if( LE_Header::operator       != ( Value ) )                      return false;
-    if( m_FireFlagUnion.m_ui8Flag != Value.m_FireFlagUnion.m_ui8Flag )return false;
-    if( m_TargetID                != Value.m_TargetID )               return false;
-    if( m_MunitionID              != Value.m_MunitionID )             return false;
-    if( m_EventID                 != Value.m_EventID )                return false;
-    if( m_MunitionDesc            != Value.m_MunitionDesc )           return false;
-    if( m_Loc                     != Value.m_Loc )                    return false;
-    if( m_Vel                     != Value.m_Vel )                    return false;
-    if( m_ui16Range               != Value.m_ui16Range )              return false;
+    if( LE_Header::operator       != ( Value ) )                       return false;
+    if( m_FireFlagUnion.m_ui8Flag != Value.m_FireFlagUnion.m_ui8Flag ) return false;
+    if( m_TargetID                != Value.m_TargetID )                return false;
+    if( m_MunitionID              != Value.m_MunitionID )              return false;
+    if( m_EventID                 != Value.m_EventID )                 return false;
+    if( m_MunitionDesc            != Value.m_MunitionDesc )            return false;
+    if( m_Loc                     != Value.m_Loc )                     return false;
+    if( m_Vel                     != Value.m_Vel )                     return false;
+    if( m_ui16Range               != Value.m_ui16Range )               return false;
     return true;
 }
 

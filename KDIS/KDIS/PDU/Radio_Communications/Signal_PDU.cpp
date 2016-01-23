@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -43,9 +43,9 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Signal_PDU::Signal_PDU() :
-	m_ui32SampleRate( 0 ),
+    m_ui32SampleRate( 0 ),
     m_ui16DataLength( 0 ),
-	m_ui16Samples( 0 )
+    m_ui16Samples( 0 )
 {
     m_ui8PDUType = Signal_PDU_Type;
     m_ui16PDULength = SIGNAL_PDU_SIZE;
@@ -54,10 +54,10 @@ Signal_PDU::Signal_PDU() :
 //////////////////////////////////////////////////////////////////////////
 
 Signal_PDU::Signal_PDU( const Header & H ) :
-	Radio_Communications_Header( H ),
-	m_ui32SampleRate( 0 ),
+    Radio_Communications_Header( H ),
+    m_ui32SampleRate( 0 ),
     m_ui16DataLength( 0 ),
-	m_ui16Samples( 0 )
+    m_ui16Samples( 0 )
 {
 }
 
@@ -71,7 +71,7 @@ Signal_PDU::Signal_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Signal_PDU::Signal_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Radio_Communications_Header( H )
+    Radio_Communications_Header( H )
 {
     Decode( stream, true );
 }
@@ -160,20 +160,20 @@ void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
 {
     // If we already have data clear it first.
     m_ui16PDULength = SIGNAL_PDU_SIZE;
-    m_vData.clear();	
+    m_vData.clear();
 
     // Copy data into the vector
     KUINT16 uiDataSz = Length / 8;
-	m_vData.reserve( uiDataSz );
+    m_vData.reserve( uiDataSz );
     for( KUINT16 i = 0; i < uiDataSz; ++i, ++D )
     {
         m_vData.push_back( *D );
     }
 
-	// Data length does not include the padding
-	m_ui16DataLength = m_vData.size() * 8;
+    // Data length does not include the padding
+    m_ui16DataLength = m_vData.size() * 8;
 
-	// Do we need to apply padding, the PDU size should be a multiple
+    // Do we need to apply padding, the PDU size should be a multiple
     // of 32 bits / 4 octets.
     KUINT8 ui8PaddingNeeded = m_vData.size() % 4 == 0 ? 0 : (4 - m_vData.size() % 4); // Add padding;
     for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
@@ -181,7 +181,7 @@ void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
         m_vData.push_back( 0 );
     }
 
-	// Update lengths    
+    // Update lengths
     m_ui16PDULength += m_vData.size();
 }
 
@@ -226,7 +226,7 @@ void Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) th
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SIGNAL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Radio_Communications_Header::Decode( stream, ignoreHeader );	
+    Radio_Communications_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_EncodingScheme
            >> m_ui32SampleRate
@@ -234,13 +234,13 @@ void Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) th
            >> m_ui16Samples;
 
     KUINT16 dl =  m_ui16DataLength / 8;
-	dl += ( dl % 4 == 0 ? 0 : ( 4 - dl % 4 ) ); // Add padding
+    dl += ( dl % 4 == 0 ? 0 : ( 4 - dl % 4 ) ); // Add padding
     for( KUINT16 i = 0; i < dl; ++i )
     {
         KOCTET o;
         stream >> o;
         m_vData.push_back( o );
-    }	
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -277,12 +277,12 @@ void Signal_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Signal_PDU::operator == ( const Signal_PDU & Value ) const
 {
-    if( Radio_Communications_Header::operator   !=( Value ) )               return false;
-    if( m_EncodingScheme                        != Value.m_EncodingScheme ) return false;
-    if( m_ui32SampleRate                        != Value.m_ui32SampleRate ) return false;
-    if( m_ui16DataLength                        != Value.m_ui16DataLength ) return false;
-    if( m_ui16Samples                           != Value.m_ui16Samples )    return false;
-    if( m_vData                                 != Value.m_vData )          return false;
+    if( Radio_Communications_Header::operator !=( Value ) )               return false;
+    if( m_EncodingScheme                      != Value.m_EncodingScheme ) return false;
+    if( m_ui32SampleRate                      != Value.m_ui32SampleRate ) return false;
+    if( m_ui16DataLength                      != Value.m_ui16DataLength ) return false;
+    if( m_ui16Samples                         != Value.m_ui16Samples )    return false;
+    if( m_vData                               != Value.m_vData )          return false;
     return true;
 }
 

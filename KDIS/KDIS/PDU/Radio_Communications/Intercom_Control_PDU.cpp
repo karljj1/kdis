@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -43,15 +43,15 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Intercom_Control_PDU::Intercom_Control_PDU() :
-	m_ui8CtrlTyp( 0 ),
-	m_ui16SrcCommDevID( 0 ),
-	m_ui8SrcLineID( 0 ),
-	m_ui8TransmitPriority( 0 ),
-	m_ui8TransmitLineState( 0 ),
-	m_ui8Command( 0 ),
-	m_ui16MstrCommDeviceID( 0 ),
-	m_ui16MstrChannelID( 0 ),
-	m_ui32IntrParamLen( 0 )
+    m_ui8CtrlTyp( 0 ),
+    m_ui16SrcCommDevID( 0 ),
+    m_ui8SrcLineID( 0 ),
+    m_ui8TransmitPriority( 0 ),
+    m_ui8TransmitLineState( 0 ),
+    m_ui8Command( 0 ),
+    m_ui16MstrCommDeviceID( 0 ),
+    m_ui16MstrChannelID( 0 ),
+    m_ui32IntrParamLen( 0 )
 {
     m_ui8PDUType = IntercomControl_PDU_Type;
     m_ui8ProtocolFamily = Radio_Communications;
@@ -69,7 +69,7 @@ Intercom_Control_PDU::Intercom_Control_PDU( KDataStream & stream ) throw( KExcep
 //////////////////////////////////////////////////////////////////////////
 
 Intercom_Control_PDU::Intercom_Control_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H )
+    Header( H )
 {
     Decode( stream, true );
 }
@@ -303,7 +303,7 @@ KString Intercom_Control_PDU::GetAsString() const
 
     ss << Header::GetAsString()
        << "-Intercom Control PDU-\n"
-       << "Control Type:				     " << GetEnumAsStringControlType( m_ui8CtrlTyp ) << "\n"
+       << "Control Type:                     " << GetEnumAsStringControlType( m_ui8CtrlTyp ) << "\n"
        << m_CommChannelType.GetAsString()
        << "Source Entity:\n"
        << IndentString( m_SrcEnt.GetAsString(), 1 )
@@ -407,20 +407,20 @@ void Intercom_Control_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Intercom_Control_PDU::operator == ( const Intercom_Control_PDU & Value ) const
 {
-    if( Header::operator        !=( Value ) )                     return false;
-    if( m_ui8CtrlTyp            != Value.m_ui8CtrlTyp )           return false;
-    if( m_CommChannelType       != Value.m_CommChannelType )      return false;
-    if( m_SrcEnt                != Value.m_SrcEnt )               return false;
-    if( m_ui16SrcCommDevID      != Value.m_ui16SrcCommDevID )     return false;
-    if( m_ui8SrcLineID          != Value.m_ui8SrcLineID )         return false;
-    if( m_ui8TransmitPriority   != Value.m_ui8TransmitPriority )  return false;
-    if( m_ui8TransmitLineState  != Value.m_ui8TransmitLineState ) return false;
-    if( m_ui8Command            != Value.m_ui8Command )           return false;
-    if( m_MstrEntID             != Value.m_MstrEntID )            return false;
-    if( m_ui16MstrCommDeviceID  != Value.m_ui16MstrCommDeviceID ) return false;
-    if( m_ui16MstrChannelID     != Value.m_ui16MstrChannelID )    return false;
-    if( m_ui32IntrParamLen      != Value.m_ui32IntrParamLen )     return false;
-    if( m_vICP                  != Value.m_vICP )                 return false;
+    if( Header::operator       !=( Value ) )                     return false;
+    if( m_ui8CtrlTyp           != Value.m_ui8CtrlTyp )           return false;
+    if( m_CommChannelType      != Value.m_CommChannelType )      return false;
+    if( m_SrcEnt               != Value.m_SrcEnt )               return false;
+    if( m_ui16SrcCommDevID     != Value.m_ui16SrcCommDevID )     return false;
+    if( m_ui8SrcLineID         != Value.m_ui8SrcLineID )         return false;
+    if( m_ui8TransmitPriority  != Value.m_ui8TransmitPriority )  return false;
+    if( m_ui8TransmitLineState != Value.m_ui8TransmitLineState ) return false;
+    if( m_ui8Command           != Value.m_ui8Command )           return false;
+    if( m_MstrEntID            != Value.m_MstrEntID )            return false;
+    if( m_ui16MstrCommDeviceID != Value.m_ui16MstrCommDeviceID ) return false;
+    if( m_ui16MstrChannelID    != Value.m_ui16MstrChannelID )    return false;
+    if( m_ui32IntrParamLen     != Value.m_ui32IntrParamLen )     return false;
+    if( m_vICP                 != Value.m_vICP )                 return false;
     return true;
 }
 

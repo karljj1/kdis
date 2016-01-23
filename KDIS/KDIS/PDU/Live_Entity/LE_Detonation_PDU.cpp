@@ -659,8 +659,8 @@ KString LE_Detonation_PDU::GetAsString() const
     
     if (m_DetonationFlag1Union.m_ui8Flag2)
     {
-        ss << "\tMunition Orientation:                 " << (KUINT16)m_DetonationFlag2Union.m_ui8MunitionOri   << "\n"
-           << "\tEvent Number:                         " << (KUINT16)m_DetonationFlag2Union.m_ui8EventNum      << "\n";
+        ss << "\tMunition Orientation: " << (KUINT16)m_DetonationFlag2Union.m_ui8MunitionOri << "\n"
+           << "\tEvent Number: " << (KUINT16)m_DetonationFlag2Union.m_ui8EventNum            << "\n";
     }
 
     if( m_DetonationFlag1Union.m_ui8TargetId )

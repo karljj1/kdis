@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -29,23 +29,23 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Bundle
-	DIS:        1278.2 - draft
+    DIS:        1278.2 - draft
     created:    14/12/2012
     author:     Karl Jones
 
-    purpose:    Bundling is defined as the process of concatenating two or more PDUs 
-				into a single network datagram so that they can be transmitted and relayed 
-				through the network in one operation. The increase in network efficiency by 
-				the use of bundling works best when there are many PDUs ready to be transmitted 
-				at the same time. Simulations may choose to delay transmission of a PDU for a
-				short amount of time to allow more PDUs to become ready to add to the bundle. 
-				However, this increases latency, which is undesirable. The latency increase should be
-				weighed against network performance gains in determining the bundling delay.
-				Bundling is also useful when two or more PDUs have to be delivered in order as a single
-				coherent unit. Network layers do not split datagrams so bundled PDUs will arrive 
-				at the receiver in their original concatenated format.
+    purpose:    Bundling is defined as the process of concatenating two or more PDUs
+                into a single network datagram so that they can be transmitted and relayed
+                through the network in one operation. The increase in network efficiency by
+                the use of bundling works best when there are many PDUs ready to be transmitted
+                at the same time. Simulations may choose to delay transmission of a PDU for a
+                short amount of time to allow more PDUs to become ready to add to the bundle.
+                However, this increases latency, which is undesirable. The latency increase should be
+                weighed against network performance gains in determining the bundling delay.
+                Bundling is also useful when two or more PDUs have to be delivered in order as a single
+                coherent unit. Network layers do not split datagrams so bundled PDUs will arrive
+                at the receiver in their original concatenated format.
 
-				This class allows you to package multiple PDU up for sending, it is not used for receiving data.				
+                This class allows you to package multiple PDU up for sending, it is not used for receiving data.
 
 *********************************************************************/
 
@@ -71,62 +71,62 @@ class KDIS_EXPORT Bundle
 {
 protected:
 
-	std::vector<KDataStream> m_vStreams;
+    std::vector<KDataStream> m_vStreams;
 
-	std::vector<PduPtr> m_vRefHeaders;
+    std::vector<PduPtr> m_vRefHeaders;
 
-	KUINT16 m_ui16Length;
+    KUINT16 m_ui16Length;
 
     //************************************
     // FullName:    KDIS::PDU::Bundle::AddPDU
-    // Description: Calculate the total length of the Bundle.    
+    // Description: Calculate the total length of the Bundle.
     //************************************
-	void calculateLength();
+    void calculateLength();
 
 public:
 
     Bundle();
 
     virtual ~Bundle();
-	
+
     //************************************
     // FullName:    KDIS::PDU::Bundle::AddPDU
-    // Description: Adds a PDU stream or referenced PDU to the bundle.	
-	//              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
+    // Description: Adds a PDU stream or referenced PDU to the bundle.
+    //              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
     // Parameter:   const Header & H, PduPtr H.
     //************************************
-	void AddPDU( const KDataStream & K ) throw( KException );
-	void AddPDU( PduPtr H ) throw( KException );
+    void AddPDU( const KDataStream & K ) throw( KException );
+    void AddPDU( PduPtr H ) throw( KException );
 
-	//************************************
+    //************************************
     // FullName:    KDIS::PDU::Bundle::SetPDUs
-    // Description: Set multiple PDU. 
-	//              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
+    // Description: Set multiple PDU.
+    //              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
     // Parameter:   const vector<KDataStream> & P, const vector<PduPtr> & P
     //************************************
     void SetPDUs( const std::vector<KDataStream> & P ) throw( KException );
-	void SetPDUs( const std::vector<PduPtr> & P ) throw( KException );
-	void SetPDUs( const std::vector<KDataStream> & Streams, const std::vector<PduPtr> & References ) throw( KException );
+    void SetPDUs( const std::vector<PduPtr> & P ) throw( KException );
+    void SetPDUs( const std::vector<KDataStream> & Streams, const std::vector<PduPtr> & References ) throw( KException );
 
-	//************************************
-    // FullName:    KDIS::PDU::Bundle::GetPDUStreams
-	//				KDIS::PDU::Bundle::GetRefPDUs
-    // Description: Gets the stored PDU stremas or referenced PDUs.  
     //************************************
-	const std::vector<KDataStream> & GetPDUStreams() const;
-	const std::vector<PduPtr> & GetRefPDUs() const;
+    // FullName:    KDIS::PDU::Bundle::GetPDUStreams
+    //              KDIS::PDU::Bundle::GetRefPDUs
+    // Description: Gets the stored PDU stremas or referenced PDUs.
+    //************************************
+    const std::vector<KDataStream> & GetPDUStreams() const;
+    const std::vector<PduPtr> & GetRefPDUs() const;
 
-	//************************************
-    // FullName:    KDIS::PDU::Bundle::ClearPDUs	
-    // Description: Clears stored PDUs.  
+    //************************************
+    // FullName:    KDIS::PDU::Bundle::ClearPDUs
+    // Description: Clears stored PDUs.
     //************************************
     void ClearPDUs();
 
-	//************************************
-    // FullName:    KDIS::PDU::Bundle::ClearPDUs	
+    //************************************
+    // FullName:    KDIS::PDU::Bundle::ClearPDUs
     // Description: Returns total length of all PDU in bytes.
     //************************************
-	KUINT16 GetLength();
+    KUINT16 GetLength();
 
     //************************************
     // FullName:    KDIS::PDU::Bundle::GetAsString

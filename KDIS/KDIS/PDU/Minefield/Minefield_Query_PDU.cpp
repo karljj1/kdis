@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -110,7 +110,7 @@ Minefield_Query_PDU::Minefield_Query_PDU( KDataStream & stream ) throw( KExcepti
 //////////////////////////////////////////////////////////////////////////
 
 Minefield_Query_PDU::Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Minefield_Header( H )
+    Minefield_Header( H )
 {
     Decode( stream, true );
 }
@@ -283,12 +283,12 @@ KString Minefield_Query_PDU::GetAsString() const
     ss << Header::GetAsString()
        << "-Minefield Query PDU-\n"
        << Minefield_Header::GetAsString()
-       << "Requesting ID:			" << IndentString( m_ReqID.GetAsString(), 1 )
-       << "Request ID:				" << ( KUINT16 )m_ui8ReqID                     << "\n"
-       << "Number Of Permim Points: " << ( KUINT16 )m_ui8NumPerimPoints          << "\n"
-       << "Number Of Sensor Types:  " << ( KUINT16 )m_ui8NumSensTyp              << "\n"
+       << "Requesting ID:           " << IndentString( m_ReqID.GetAsString(), 1 )
+       << "Request ID:              " << ( KUINT16 )m_ui8ReqID          << "\n"
+       << "Number Of Permim Points: " << ( KUINT16 )m_ui8NumPerimPoints << "\n"
+       << "Number Of Sensor Types:  " << ( KUINT16 )m_ui8NumSensTyp     << "\n"
        << m_DataFilter.GetAsString()
-       << "Mine Type Filter:		" << m_MineTypFilter.GetAsString()
+       << "Mine Type Filter:        " << m_MineTypFilter.GetAsString()
        << "Perimeter Points:\n";
 
     std::vector<PerimeterPointCoordinate>::const_iterator citrPnt = m_vPoints.begin();
@@ -319,7 +319,7 @@ void Minefield_Query_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tr
     m_vPoints.clear();
     m_vui16SensorTypes.clear();
 
-    Minefield_Header::Decode( stream, ignoreHeader );	
+    Minefield_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_ReqID
            >> m_ui8ReqID
@@ -398,14 +398,14 @@ void Minefield_Query_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Minefield_Query_PDU::operator == ( const Minefield_Query_PDU & Value ) const
 {
-    if( Minefield_Header::operator  != ( Value ) )                  return false;
-    if( m_ReqID                     != Value.m_ReqID )              return false;
-    if( m_ui8ReqID                  != Value.m_ui8ReqID )           return false;
-    if( m_ui8NumPerimPoints         != Value.m_ui8NumPerimPoints )  return false;
-    if( m_ui8NumSensTyp             != Value.m_ui8NumSensTyp )      return false;
-    if( m_MineTypFilter             != Value.m_MineTypFilter )      return false;
-    if( m_vPoints                   != Value.m_vPoints )            return false;
-    if( m_vui16SensorTypes          != Value.m_vui16SensorTypes )   return false;
+    if( Minefield_Header::operator != ( Value ) )                 return false;
+    if( m_ReqID                    != Value.m_ReqID )             return false;
+    if( m_ui8ReqID                 != Value.m_ui8ReqID )          return false;
+    if( m_ui8NumPerimPoints        != Value.m_ui8NumPerimPoints ) return false;
+    if( m_ui8NumSensTyp            != Value.m_ui8NumSensTyp )     return false;
+    if( m_MineTypFilter            != Value.m_MineTypFilter )     return false;
+    if( m_vPoints                  != Value.m_vPoints )           return false;
+    if( m_vui16SensorTypes         != Value.m_vui16SensorTypes )  return false;
     return true;
 }
 

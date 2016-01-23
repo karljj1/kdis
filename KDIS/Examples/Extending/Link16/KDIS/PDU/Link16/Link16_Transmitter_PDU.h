@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -114,7 +114,7 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTimeSlotAllocationMode
-	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTimeSlotAllocationMode
+	//              KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTimeSlotAllocationMode
 	// Description: TSA Level.
 	// Parameter:   TimeSlotAllocationMode TSA
 	//************************************
@@ -123,7 +123,7 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTransmittingTerminalPrimaryMode
-	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTransmittingTerminalPrimaryMode
+	//              KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTransmittingTerminalPrimaryMode
 	// Description: Primary mode of operation of the transmitting terminal.
 	// Parameter:   TransmittingTerminalPrimaryMode TTPM
 	//************************************
@@ -132,7 +132,7 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetTransmittingTerminalSecondaryMode
-	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTransmittingTerminalSecondaryMode
+	//              KDIS::PDU::Link16::Link16_Transmitter_PDU::GetTransmittingTerminalSecondaryMode
 	// Description: Secondary mode of operation of the transmitting terminal.
 	// Parameter:   TransmittingTerminalSecondaryMode TTSM
 	//************************************
@@ -150,11 +150,11 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::SetNetworkSyncID
-	//				KDIS::PDU::Link16::Link16_Transmitter_PDU::GetNetworkSyncID
+	//              KDIS::PDU::Link16::Link16_Transmitter_PDU::GetNetworkSyncID
 	// Description: Set automatically when the TSA level is set.
-	//				For TSA levels 0-2, it shall be set to zero. 
-	//				For TSA levels 3-4 it shall be a random number
-	//				generated using the DIS Timestamp as a seed.
+	//              For TSA levels 0-2, it shall be set to zero. 
+	//              For TSA levels 3-4 it shall be a random number
+	//              generated using the DIS Timestamp as a seed.
 	// Parameter:   TransmittingTerminalSecondaryMode TTSM
 	//************************************
 	void SetNetworkSyncID( KUINT32 ID );
@@ -170,7 +170,7 @@ public:
     // FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

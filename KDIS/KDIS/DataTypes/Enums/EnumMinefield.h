@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -62,7 +62,7 @@ enum MinefieldType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeMinefieldType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorMinefieldType( KUINT32 Index );
@@ -91,7 +91,7 @@ enum MinefieldProtocolMode
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeMinefieldProtocolMode();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorMinefieldProtocolMode( KUINT32 Index );
@@ -170,7 +170,7 @@ enum SensorType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeSensorType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorSensorType( KUINT32 Index );
@@ -203,7 +203,7 @@ enum MineFuse
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeMineFuse();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorMineFuse( KUINT32 Index );
@@ -233,7 +233,7 @@ enum MineAlgae
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeMineAlgae();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorMineAlgae( KUINT32 Index );
@@ -278,7 +278,7 @@ enum PaintScheme
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizePaintScheme();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorPaintScheme( KUINT32 Index );

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -50,7 +50,7 @@ Simulation_Management_Header::Simulation_Management_Header()
 //////////////////////////////////////////////////////////////////////////
 
 Simulation_Management_Header::Simulation_Management_Header( const Header & H ) :
-	Header( H )
+    Header( H )
 {
 }
 
@@ -64,7 +64,7 @@ Simulation_Management_Header::Simulation_Management_Header( KDataStream & stream
 //////////////////////////////////////////////////////////////////////////
 
 Simulation_Management_Header::Simulation_Management_Header( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H )
+    Header( H )
 {
     Decode( stream, true );
 }
@@ -147,7 +147,7 @@ void Simulation_Management_Header::Decode( KDataStream & stream, bool ignoreHead
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SIMULATION_MANAGEMENT_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream, ignoreHeader );	
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_OriginatingEntityID
            >> KDIS_STREAM m_ReceivingEntityID;
@@ -177,9 +177,9 @@ void Simulation_Management_Header::Encode( KDataStream & stream ) const
 
 KBOOL Simulation_Management_Header::operator == ( const Simulation_Management_Header & Value ) const
 {
-    if( Header::operator        !=( Value ) )                    return false;
-    if( m_OriginatingEntityID   != Value.m_OriginatingEntityID ) return false;
-    if( m_ReceivingEntityID     != Value.m_ReceivingEntityID )   return false;
+    if( Header::operator      !=( Value ) )                    return false;
+    if( m_OriginatingEntityID != Value.m_OriginatingEntityID ) return false;
+    if( m_ReceivingEntityID   != Value.m_ReceivingEntityID )   return false;
     return true;
 }
 

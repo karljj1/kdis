@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -34,10 +34,10 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    The Receiver PDU may be used to communicate the state of a particular
-				radio receiver. 
-				Its primary application is in communicating state information to radio
-				network monitors, data loggers, and similar applications for use in debugging,
-				supervision, and after-action review.
+                radio receiver.
+                Its primary application is in communicating state information to radio
+                network monitors, data loggers, and similar applications for use in debugging,
+                supervision, and after-action review.
 
     size:       288 bits / 36
 *********************************************************************/
@@ -72,9 +72,9 @@ public:
 
     Receiver_PDU( KDataStream & stream ) throw( KException );
 
-	Receiver_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Receiver_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Receiver_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, KDIS::DATA_TYPE::ENUMS::TransmitState TS,
+    Receiver_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, KDIS::DATA_TYPE::ENUMS::TransmitState TS,
                   KFLOAT32 ReceivingPower, const KDIS::DATA_TYPE::EntityIdentifier & TransmitterID,
                   KUINT16 TransmitterRadioID );
 
@@ -86,8 +86,8 @@ public:
     // Description: Radio Receiver State, on or off.
     // Parameter:   TransmitState TS
     //************************************
-	void SetReceiverState( KDIS::DATA_TYPE::ENUMS::TransmitState TS );
-	KDIS::DATA_TYPE::ENUMS::TransmitState GetReceiverState() const;
+    void SetReceiverState( KDIS::DATA_TYPE::ENUMS::TransmitState TS );
+    KDIS::DATA_TYPE::ENUMS::TransmitState GetReceiverState() const;
 
     //************************************
     // FullName:    KDIS::PDU::Receiver_PDU::SetReceiverPower
@@ -113,8 +113,7 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Receiver_PDU::SetTransmitterRadioID
     //              KDIS::PDU::Receiver_PDU::GetTransmitterRadioID
-    // Description: Identifies the particular radio within the transmitting
-    //              entity.
+    // Description: Identifies the particular radio within the transmitting entity.
     // Parameter:   KUINT16 ID
     //************************************
     void SetTransmitterRadioID( KUINT16 ID );
@@ -130,7 +129,7 @@ public:
     // FullName:    KDIS::PDU::Receiver_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

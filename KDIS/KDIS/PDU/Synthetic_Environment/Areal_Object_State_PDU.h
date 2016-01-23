@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -76,7 +76,7 @@ protected:
 
     KDIS::DATA_TYPE::SimulationIdentifier m_RecvID;
 
-	std::vector<KDIS::DATA_TYPE::WorldCoordinates> m_vPoints;
+    std::vector<KDIS::DATA_TYPE::WorldCoordinates> m_vPoints;
 
 public:
 
@@ -86,14 +86,14 @@ public:
 
     Areal_Object_State_PDU( KDataStream & stream ) throw( KException );
 
-	Areal_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Areal_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Areal_Object_State_PDU( KUINT8 Modification, const KDIS::DATA_TYPE::ObjectType & T, const KDIS::DATA_TYPE::ArealObjectAppearance & A,
                             const KDIS::DATA_TYPE::SimulationIdentifier & RequestorID, const KDIS::DATA_TYPE::SimulationIdentifier & ReceivingID );
 
     Areal_Object_State_PDU( KUINT8 Modification, const KDIS::DATA_TYPE::ObjectType & T, const KDIS::DATA_TYPE::ArealObjectAppearance & A,
                             const KDIS::DATA_TYPE::SimulationIdentifier & RequestorID, const KDIS::DATA_TYPE::SimulationIdentifier & ReceivingID,
-							const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & Points );
+                            const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & Points );
 
     virtual ~Areal_Object_State_PDU();
 
@@ -168,8 +168,8 @@ public:
     // Parameter:   const WorldCoordinates & P, const vector<WorldCoordinates> & P, void
     //************************************
     void AddPoint( const KDIS::DATA_TYPE::WorldCoordinates & P );
-	void SetPoints( const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & P );
-	const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & GetPoints() const;
+    void SetPoints( const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & P );
+    const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & GetPoints() const;
 
     //************************************
     // FullName:    KDIS::PDU::Areal_Object_State_PDU::GetAsString
@@ -181,7 +181,7 @@ public:
     // FullName:    KDIS::PDU::Areal_Object_State_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

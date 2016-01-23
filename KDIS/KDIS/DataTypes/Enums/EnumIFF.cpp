@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -47,12 +47,12 @@ const EnumDescriptor AlternateParameter4Descriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAlternateParameter4()
 {
-	return sizeof( AlternateParameter4Descriptor ) / sizeof( EnumDescriptor );
+    return sizeof( AlternateParameter4Descriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAlternateParameter4( KUINT32 Index )
 {
-	return &AlternateParameter4Descriptor[Index];
+    return &AlternateParameter4Descriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAlternateParameter4( KINT32 Value )
@@ -62,19 +62,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAlternateParameter4( KINT32 Value
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAlternateParameter4( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( AlternateParameter4Descriptor, sizeof( AlternateParameter4Descriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( AlternateParameter4Descriptor, sizeof( AlternateParameter4Descriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAlternateParameter4()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAlternateParameter4( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAlternateParameter4( KINT32 Value )
@@ -86,7 +86,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAlternateParameter4( KINT32 Value
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAlternateParameter4( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -105,12 +105,12 @@ const EnumDescriptor TCASDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTCAS()
 {
-	return sizeof( TCASDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( TCASDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTCAS( KUINT32 Index )
 {
-	return &TCASDescriptor[Index];
+    return &TCASDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTCAS( KINT32 Value )
@@ -120,19 +120,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTCAS( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTCAS( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( TCASDescriptor, sizeof( TCASDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( TCASDescriptor, sizeof( TCASDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTCAS()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTCAS( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTCAS( KINT32 Value )
@@ -144,7 +144,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTCAS( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTCAS( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -164,12 +164,12 @@ const EnumDescriptor Mode5MessageFormatDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMode5MessageFormat()
 {
-	return sizeof( Mode5MessageFormatDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( Mode5MessageFormatDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMode5MessageFormat( KUINT32 Index )
 {
-	return &Mode5MessageFormatDescriptor[Index];
+    return &Mode5MessageFormatDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value )
@@ -179,19 +179,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value 
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( Mode5MessageFormatDescriptor, sizeof( Mode5MessageFormatDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( Mode5MessageFormatDescriptor, sizeof( Mode5MessageFormatDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMode5MessageFormat()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMode5MessageFormat( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value )
@@ -203,7 +203,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5MessageFormat( KINT32 Value 
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -218,18 +218,18 @@ const EnumDescriptor Mode5ReplyDescriptor[] =
 {
     { 0 , "No Response" },
     { 1 , "Valid Reply" },
-	{ 2 , "Invalid Reply" },
-	{ 3 , "Unable To Verify" }
+    { 2 , "Invalid Reply" },
+    { 3 , "Unable To Verify" }
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMode5Reply()
 {
-	return sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMode5Reply( KUINT32 Index )
 {
-	return &Mode5ReplyDescriptor[Index];
+    return &Mode5ReplyDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
@@ -239,19 +239,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( Mode5MessageFormatDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( Mode5MessageFormatDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMode5Reply()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMode5Reply( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
@@ -263,7 +263,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -277,19 +277,19 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value
 const EnumDescriptor AntennaSelectionDescriptor[] =
 {
     { 0 , "No Statement" },
-	{ 1 , "Top" },
-	{ 2 , "Bottom" },
-	{ 3 , "Diversity" }
+    { 1 , "Top" },
+    { 2 , "Bottom" },
+    { 3 , "Diversity" }
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAntennaSelection()
 {
-	return sizeof( AntennaSelectionDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( AntennaSelectionDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAntennaSelection( KUINT32 Index )
 {
-	return &AntennaSelectionDescriptor[Index];
+    return &AntennaSelectionDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
@@ -299,19 +299,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( AntennaSelectionDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( AntennaSelectionDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAntennaSelection()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAntennaSelection( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
@@ -323,7 +323,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -337,17 +337,17 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection( const KString &
 const EnumDescriptor PlatformTypeDescriptor[] =
 {
     { 0 , "Ground" },
-	{ 1 , "Air" },	
+    { 1 , "Air" },
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePlatformType()
 {
-	return sizeof( PlatformTypeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( PlatformTypeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPlatformType( KUINT32 Index )
 {
-	return &PlatformTypeDescriptor[Index];
+    return &PlatformTypeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
@@ -357,19 +357,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( PlatformTypeDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( PlatformTypeDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePlatformType()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPlatformType( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
@@ -381,7 +381,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -395,19 +395,19 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Val
 const EnumDescriptor NavigationSourceDescriptor[] =
 {
     { 0 , "No Statement" },
-	{ 1 , "GPS" },
-	{ 2 , "INS" },
-	{ 3 , "INS/GPS" },	
+    { 1 , "GPS" },
+    { 2 , "INS" },
+    { 3 , "INS/GPS" },
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeNavigationSource()
 {
-	return sizeof( NavigationSourceDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( NavigationSourceDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorNavigationSource( KUINT32 Index )
 {
-	return &NavigationSourceDescriptor[Index];
+    return &NavigationSourceDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationSource( KINT32 Value )
@@ -417,19 +417,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationSource( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( NavigationSourceDescriptor, sizeof( NavigationSourceDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( NavigationSourceDescriptor, sizeof( NavigationSourceDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeNavigationSource()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorNavigationSource( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationSource( KINT32 Value )
@@ -441,7 +441,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationSource( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif

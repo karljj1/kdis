@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -56,12 +56,12 @@ Transmitter_PDU::Transmitter_PDU() :
 //////////////////////////////////////////////////////////////////////////
 
 Transmitter_PDU::Transmitter_PDU( const Header & H ) :
-	Radio_Communications_Header( H ),    
-	m_ui16Padding1( 0 ),
+    Radio_Communications_Header( H ),
+    m_ui16Padding1( 0 ),
     m_ui16AntennaPatternLength( 0 ),
     m_ui8LengthOfModulationParam( 0 ),
     m_ui16Padding2( 0 ),
-    m_ui8Padding3( 0 )	
+    m_ui8Padding3( 0 )
 {
 }
 
@@ -75,7 +75,7 @@ Transmitter_PDU::Transmitter_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Transmitter_PDU::Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Radio_Communications_Header( H )
+    Radio_Communications_Header( H )
 {
     Decode( stream, true );
 }
@@ -315,7 +315,7 @@ void Transmitter_PDU::SetModulationParameters( const KOCTET * MP, KUINT8 Length 
     // Check if we need to add any padding, the length should be a
     // multiple of 8.
     KUINT8 ui8PaddingNeeded = ( Length % 8 == 0 ? 0 : ( 8 - Length % 8 ) );
-	
+
     // Add the padding, if needed.
     for( KUINT8 i = 0; i < ui8PaddingNeeded; ++ i )
     {
@@ -418,7 +418,7 @@ void Transmitter_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < TRANSMITTER_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Radio_Communications_Header::Decode( stream, ignoreHeader );	
+    Radio_Communications_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_RadioEntityType
            >> m_ui8TransmitterState
@@ -503,19 +503,19 @@ void Transmitter_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Transmitter_PDU::operator == ( const Transmitter_PDU & Value ) const
 {
-    if( Radio_Communications_Header::operator   !=( Value ) )                           return false;
-    if( m_RadioEntityType                       != Value.m_RadioEntityType )            return false;
-    if( m_ui8TransmitterState                   != Value.m_ui8TransmitterState )        return false;
-    if( m_ui8InputSource                        != Value.m_ui8InputSource )             return false;
-    if( m_AntennaLocation                       != Value.m_AntennaLocation )            return false;
-    if( m_ui16AntennaPatternType                != Value.m_ui16AntennaPatternType )     return false;
-    if( m_ui16AntennaPatternLength              != Value.m_ui16AntennaPatternLength )   return false;
-    if( m_ui64Freq                              != Value.m_ui64Freq )                   return false;
-    if( m_f32TransmitFreqBW                     != Value.m_f32TransmitFreqBW )          return false;
-    if( m_f32Power                              != Value.m_f32Power )                   return false;
-    if( m_ModulationType                        != Value.m_ModulationType )             return false;
-    if( m_CryptoSystem                          != Value.m_CryptoSystem )               return false;
-    if( m_ui8LengthOfModulationParam            != Value.m_ui8LengthOfModulationParam ) return false;
+    if( Radio_Communications_Header::operator !=( Value ) )                           return false;
+    if( m_RadioEntityType                     != Value.m_RadioEntityType )            return false;
+    if( m_ui8TransmitterState                 != Value.m_ui8TransmitterState )        return false;
+    if( m_ui8InputSource                      != Value.m_ui8InputSource )             return false;
+    if( m_AntennaLocation                     != Value.m_AntennaLocation )            return false;
+    if( m_ui16AntennaPatternType              != Value.m_ui16AntennaPatternType )     return false;
+    if( m_ui16AntennaPatternLength            != Value.m_ui16AntennaPatternLength )   return false;
+    if( m_ui64Freq                            != Value.m_ui64Freq )                   return false;
+    if( m_f32TransmitFreqBW                   != Value.m_f32TransmitFreqBW )          return false;
+    if( m_f32Power                            != Value.m_f32Power )                   return false;
+    if( m_ModulationType                      != Value.m_ModulationType )             return false;
+    if( m_CryptoSystem                        != Value.m_CryptoSystem )               return false;
+    if( m_ui8LengthOfModulationParam          != Value.m_ui8LengthOfModulationParam ) return false;
     return true;
 }
 

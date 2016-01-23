@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -54,7 +54,7 @@ Resupply_Received_PDU::Resupply_Received_PDU() :
 //////////////////////////////////////////////////////////////////////////
 
 Resupply_Received_PDU::Resupply_Received_PDU( const Header & H ) :
-	Logistics_Header( H ),
+    Logistics_Header( H ),
     m_ui16Padding1( 0 ),
     m_ui8Padding2( 0 ),
     m_ui8NumSupplyTypes( 0 )
@@ -71,7 +71,7 @@ Resupply_Received_PDU::Resupply_Received_PDU( KDataStream & stream ) throw( KExc
 //////////////////////////////////////////////////////////////////////////
 
 Resupply_Received_PDU::Resupply_Received_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Logistics_Header( H )
+    Logistics_Header( H )
 {
     Decode( stream, true );
 }
@@ -174,7 +174,7 @@ void Resupply_Received_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RESUPPLY_RECEIVED_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Logistics_Header::Decode( stream, ignoreHeader );	
+    Logistics_Header::Decode( stream, ignoreHeader );
 
     stream >> m_ui8NumSupplyTypes
            >> m_ui16Padding1

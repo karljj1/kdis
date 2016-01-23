@@ -4,13 +4,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -35,8 +35,8 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    PDU Sent upon a collision event. This could be between a simulated
-				entity or another object in the simulated world (e.g., a cultural
-				feature such as a bridge or building).
+                entity or another object in the simulated world (e.g., a cultural
+                feature such as a bridge or building).
 
     Size:       480 bits / 60 octets
 *********************************************************************/
@@ -78,10 +78,10 @@ public:
 
     Collision_PDU( KDataStream & stream ) throw( KException );
 
-	Collision_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Collision_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Collision_PDU( const KDIS::DATA_TYPE::EntityIdentifier & IssuingID, const KDIS::DATA_TYPE::EntityIdentifier & CollidingID,
-				   const KDIS::DATA_TYPE::EntityIdentifier & EventID, KDIS::DATA_TYPE::ENUMS::CollisionType CT,const KDIS::DATA_TYPE::Vector & Velocity,
+                   const KDIS::DATA_TYPE::EntityIdentifier & EventID, KDIS::DATA_TYPE::ENUMS::CollisionType CT,const KDIS::DATA_TYPE::Vector & Velocity,
                    KFLOAT32 Mass, const KDIS::DATA_TYPE::Vector & Location );
 
     virtual ~Collision_PDU();
@@ -125,8 +125,8 @@ public:
     // Description: Describes the type of collision that occurred
     // Parameter:   CollisionType CT
     //************************************
-	void SetCollisionType( KDIS::DATA_TYPE::ENUMS::CollisionType CT );
-	KDIS::DATA_TYPE::ENUMS::CollisionType GetCollisionType() const;
+    void SetCollisionType( KDIS::DATA_TYPE::ENUMS::CollisionType CT );
+    KDIS::DATA_TYPE::ENUMS::CollisionType GetCollisionType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::SetVelocity
@@ -171,7 +171,7 @@ public:
     // FullName:    KDIS::PDU::Collision_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

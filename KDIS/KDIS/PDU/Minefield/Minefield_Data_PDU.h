@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -58,7 +58,7 @@ class KDIS_EXPORT Minefield_Data_PDU : public Minefield_Header
 {
 protected:
 
-	KDIS::DATA_TYPE::EntityIdentifier m_ReqID;
+    KDIS::DATA_TYPE::EntityIdentifier m_ReqID;
 
     union
     {
@@ -86,9 +86,9 @@ protected:
 
     KDIS::DATA_TYPE::EntityType m_MineTyp;
 
-	std::vector<KUINT16> m_vui16SensorTypes;
+    std::vector<KUINT16> m_vui16SensorTypes;
 
-	std::vector<KDIS::DATA_TYPE::Mine> m_vMines;
+    std::vector<KDIS::DATA_TYPE::Mine> m_vMines;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::calcPaddingPaintScheme
@@ -110,9 +110,9 @@ public:
 
     Minefield_Data_PDU();
 
-	Minefield_Data_PDU( KDataStream & stream ) throw( KException );
+    Minefield_Data_PDU( KDataStream & stream ) throw( KException );
 
-	Minefield_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Minefield_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Minefield_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                         KUINT16 SeqNum, KUINT8 RequestID, KUINT8 PduSeqNum, KUINT8 NumPdus,
@@ -224,9 +224,9 @@ public:
     //              correctly for each sensor type.
     // Parameter:   SensorType ST, vector<KUINT16> & ST
     //************************************
-	void AddSensorType( KDIS::DATA_TYPE::ENUMS::SensorType ST );
-	void SetSensorTypes( const std::vector<KUINT16> & ST );
-	const std::vector<KUINT16> & GetSensorTypes() const;
+    void AddSensorType( KDIS::DATA_TYPE::ENUMS::SensorType ST );
+    void SetSensorTypes( const std::vector<KUINT16> & ST );
+    const std::vector<KUINT16> & GetSensorTypes() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::AddMine
@@ -238,8 +238,8 @@ public:
     // Parameter:   const Mine & M, const vector<Mine> & M
     //************************************
     void AddMine( const KDIS::DATA_TYPE::Mine & M ) throw( KException );
-	void SetMines( const std::vector<KDIS::DATA_TYPE::Mine> & M ) throw( KException );
-	const std::vector<KDIS::DATA_TYPE::Mine> & GetMines() const;
+    void SetMines( const std::vector<KDIS::DATA_TYPE::Mine> & M ) throw( KException );
+    const std::vector<KDIS::DATA_TYPE::Mine> & GetMines() const;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::GetAsString
@@ -251,7 +251,7 @@ public:
     // FullName:    KDIS::PDU::Minefield_Data_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

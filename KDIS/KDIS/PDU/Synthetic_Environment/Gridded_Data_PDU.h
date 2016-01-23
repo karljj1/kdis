@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -95,9 +95,9 @@ protected:
     KUINT16 m_ui16Padding1; // 24 bits unused for alignment of Grid Axis Descriptor
     KUINT8 m_ui8Padding1;
 
-	std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> m_vpGridAxisDesc;
+    std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> m_vpGridAxisDesc;
 
-	std::vector<KDIS::DATA_TYPE::GridDataPtr> m_vGridData;
+    std::vector<KDIS::DATA_TYPE::GridDataPtr> m_vGridData;
 
 public:
 
@@ -107,11 +107,11 @@ public:
 
     Gridded_Data_PDU( KDataStream & stream ) throw( KException );
 
-	Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Gridded_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, KUINT16 FieldNumber, KUINT16 PduNum,
                       KUINT16 PduTotal, KDIS::DATA_TYPE::ENUMS::CoordinateSystem CS, KDIS::DATA_TYPE::ENUMS::ConstantGrid CG, 
-					  const KDIS::DATA_TYPE::EnvironmentType & ET, const KDIS::DATA_TYPE::EulerAngles & Ori, KUINT64 SampleTime );
+                      const KDIS::DATA_TYPE::EnvironmentType & ET, const KDIS::DATA_TYPE::EulerAngles & Ori, KUINT64 SampleTime );
 
     virtual ~Gridded_Data_PDU();
 
@@ -251,8 +251,8 @@ public:
     // Parameter:   const GridAxisDescriptor & GAD, const vector<GridAxisDescriptor> & GADS
     //************************************
     void AddGridAxisDescriptor( const KDIS::DATA_TYPE::GridAxisDescriptor & GAD );
-	void SetGridAxisDescriptors( const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> & GADS );
-	const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> & GetSetGridAxisDescriptors() const;
+    void SetGridAxisDescriptors( const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> & GADS );
+    const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> & GetSetGridAxisDescriptors() const;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::AddGridData
@@ -263,8 +263,8 @@ public:
     // Parameter:   const GridDataPtr & GD, const vector<GridDataPtr> & GD
     //************************************
     void AddGridData( const KDIS::DATA_TYPE::GridDataPtr & GD );
-	void SetGridData( const std::vector<KDIS::DATA_TYPE::GridDataPtr> & GD );
-	const std::vector<KDIS::DATA_TYPE::GridDataPtr> & GetGridData() const;
+    void SetGridData( const std::vector<KDIS::DATA_TYPE::GridDataPtr> & GD );
+    const std::vector<KDIS::DATA_TYPE::GridDataPtr> & GetGridData() const;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::GetAsString
@@ -276,7 +276,7 @@ public:
     // FullName:    KDIS::PDU::Gridded_Data_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

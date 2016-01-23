@@ -129,7 +129,7 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::GetMagnitude
     // Description: Calculates and returns the magnitude or length.
-    //				E.G If the vector represented a velocity then this would be the speed.
+    //              E.G If the vector represented a velocity then this would be the speed.
     //************************************
     KFLOAT32 GetMagnitude() const;
 

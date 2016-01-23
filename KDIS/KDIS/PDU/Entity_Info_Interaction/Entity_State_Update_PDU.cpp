@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -64,7 +64,7 @@ Entity_State_Update_PDU::Entity_State_Update_PDU( KDataStream & stream ) throw( 
 //////////////////////////////////////////////////////////////////////////
 
 Entity_State_Update_PDU::Entity_State_Update_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H )
+    Header( H )
 {
     Decode( stream, true );
 }
@@ -212,7 +212,7 @@ void Entity_State_Update_PDU::AddVariableParameter( VarPrmPtr VP )
 {
     m_vVariableParameters.push_back( VP );
     ++m_ui8NumOfVariableParams;
-	m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
+    m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -275,53 +275,53 @@ void Entity_State_Update_PDU::Decode( KDataStream & stream, bool ignoreHeader /*
 
     m_vVariableParameters.clear();
 
-    Header::Decode( stream, ignoreHeader );	
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_EntityID
-		   >> m_ui8Padding1
+           >> m_ui8Padding1
            >> m_ui8NumOfVariableParams
            >> KDIS_STREAM m_EntityLinearVelocity
            >> KDIS_STREAM m_EntityLocation
            >> KDIS_STREAM m_EntityOrientation
            >> KDIS_STREAM m_EntityAppearance;
 
-	for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
-	{
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT8 paramTyp;
+    for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
+    {
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT8 paramTyp;
 
-		// Extract the  type then reset the stream.
-		stream >> paramTyp;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the  type then reset the stream.
+        stream >> paramTyp;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
+        // Use the factory decoder.
+        VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vVariableParameters.push_back( VarPrmPtr( p ) );
-		}
-		else
-		{
-			// Default internals
-			switch( paramTyp )
-			{
-				case ArticulatedPartType:				
-					m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
-					break;
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vVariableParameters.push_back( VarPrmPtr( p ) );
+        }
+        else
+        {
+            // Default internals
+            switch( paramTyp )
+            {
+                case ArticulatedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
+                    break;
 
-				case AttachedPartType:
-					m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
-					break;
+                case AttachedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
+                    break;
 
-				default:
-					m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
-					break;
-			}
-		}
-	}
+                default:
+                    m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
+                    break;
+            }
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -341,7 +341,7 @@ void Entity_State_Update_PDU::Encode( KDataStream & stream ) const
 {
     Header::Encode( stream );
     stream << KDIS_STREAM m_EntityID
-		   << m_ui8Padding1
+           << m_ui8Padding1
            << m_ui8NumOfVariableParams
            << KDIS_STREAM m_EntityLinearVelocity
            << KDIS_STREAM m_EntityLocation
@@ -361,14 +361,14 @@ void Entity_State_Update_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Entity_State_Update_PDU::operator == ( const Entity_State_Update_PDU & Value ) const
 {
-    if( Header::operator                !=( Value ) )                           return false;
-    if( m_EntityID                      != Value.m_EntityID )                   return false;
-    if( m_ui8NumOfVariableParams    != Value.m_ui8NumOfVariableParams ) return false;
-    if( m_EntityLinearVelocity          != Value.m_EntityLinearVelocity )       return false;
-    if( m_EntityLocation                != Value.m_EntityLocation )             return false;
-    if( m_EntityOrientation             != Value.m_EntityOrientation )          return false;
-    if( m_EntityAppearance              != Value.m_EntityAppearance )           return false;
-    if( m_vVariableParameters       != Value.m_vVariableParameters )    return false;
+    if( Header::operator         !=( Value ) )                       return false;
+    if( m_EntityID               != Value.m_EntityID )               return false;
+    if( m_ui8NumOfVariableParams != Value.m_ui8NumOfVariableParams ) return false;
+    if( m_EntityLinearVelocity   != Value.m_EntityLinearVelocity )   return false;
+    if( m_EntityLocation         != Value.m_EntityLocation )         return false;
+    if( m_EntityOrientation      != Value.m_EntityOrientation )      return false;
+    if( m_EntityAppearance       != Value.m_EntityAppearance )       return false;
+    if( m_vVariableParameters    != Value.m_vVariableParameters )    return false;
     return true;
 }
 

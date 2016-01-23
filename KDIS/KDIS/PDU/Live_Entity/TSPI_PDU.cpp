@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -536,7 +536,7 @@ void TSPI_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) thro
 
     m_vSSD.clear();
 
-    LE_Header::Decode( stream, ignoreHeader );	
+    LE_Header::Decode( stream, ignoreHeader );
 
     stream >> m_TSPIFlagUnion.m_ui8Flag
            >> KDIS_STREAM m_Loc;
@@ -654,17 +654,17 @@ void TSPI_PDU::Encode( KDataStream & stream ) const
 
 KBOOL TSPI_PDU::operator == ( const TSPI_PDU & Value ) const
 {
-    if( LE_Header::operator         != ( Value ) )                      return false;
-    if( m_TSPIFlagUnion.m_ui8Flag   != Value.m_TSPIFlagUnion.m_ui8Flag )return false;
-    if( m_Loc                       != Value.m_Loc )                    return false;
-    if( m_LinVel                    != Value.m_LinVel )                 return false;
-    if( m_Ori                       != Value.m_Ori )                    return false;
-    if( m_PosErr                    != Value.m_PosErr )                 return false;
-    if( m_OriErr                    != Value.m_OriErr )                 return false;
-    if( m_DeadReckoningParameter    != Value.m_DeadReckoningParameter ) return false;
-    if( m_MeasureSpd                != Value.m_MeasureSpd )             return false;
-    if( m_ui8SSDLen                 != Value.m_ui8SSDLen )              return false;
-    if( m_vSSD                      != Value.m_vSSD )                   return false;
+    if( LE_Header::operator       != ( Value ) )                       return false;
+    if( m_TSPIFlagUnion.m_ui8Flag != Value.m_TSPIFlagUnion.m_ui8Flag ) return false;
+    if( m_Loc                     != Value.m_Loc )                     return false;
+    if( m_LinVel                  != Value.m_LinVel )                  return false;
+    if( m_Ori                     != Value.m_Ori )                     return false;
+    if( m_PosErr                  != Value.m_PosErr )                  return false;
+    if( m_OriErr                  != Value.m_OriErr )                  return false;
+    if( m_DeadReckoningParameter  != Value.m_DeadReckoningParameter )  return false;
+    if( m_MeasureSpd              != Value.m_MeasureSpd )              return false;
+    if( m_ui8SSDLen               != Value.m_ui8SSDLen )               return false;
+    if( m_vSSD                    != Value.m_vSSD )                    return false;
     return true;
 }
 

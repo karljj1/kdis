@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -66,7 +66,7 @@ enum WarfareType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeWarfareType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorWarfareType( KUINT32 Index );
@@ -95,7 +95,7 @@ enum ActionType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeActionType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorActionType( KUINT32 Index );
@@ -128,7 +128,7 @@ enum ActionPhase
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeActionPhase();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorActionPhase( KUINT32 Index );
@@ -160,7 +160,7 @@ enum StandardVariableType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeStandardVariableType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorStandardVariableType( KUINT32 Index );
@@ -190,7 +190,7 @@ enum IOCommunicationsNodeType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeIOCommunicationsNodeType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorIOCommunicationsNodeType( KUINT32 Index );
@@ -225,7 +225,7 @@ enum IOStatus
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeIOStatus();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorIOStatus( KUINT32 Index );
@@ -255,7 +255,7 @@ enum IOLinkType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeIOLinkType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorIOLinkType( KUINT32 Index );
@@ -287,7 +287,7 @@ enum IOEffectType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeIOEffectType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorIOEffectType( KUINT32 Index );
@@ -316,7 +316,7 @@ enum IOReportType
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 GetEnumSizeIOReportType();
 
-// Returns the EnumDescriptor value for the specified index. 
+// Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * GetEnumDescriptorIOReportType( KUINT32 Index );

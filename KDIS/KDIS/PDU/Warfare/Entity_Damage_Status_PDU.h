@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -35,11 +35,11 @@ http://p.sf.net/kdis/UserGuide
 
     purpose:    Used to communicate detailed damage information sustained by an entity regardless
                 of the source of the damage.
-                The cause of the damage may be a weapon fired at the entity, a collision with 
-                another object, or some other reason. The Entity Damage Status PDU enables damage 
-                to a specific location on an entity to be conveyed whether or not that location 
+                The cause of the damage may be a weapon fired at the entity, a collision with
+                another object, or some other reason. The Entity Damage Status PDU enables damage
+                to a specific location on an entity to be conveyed whether or not that location
                 is associated with an articulated or attached part.
-                The information conveyed in this PDU augments damage information communicated in 
+                The information conveyed in this PDU augments damage information communicated in
                 the Entity State and other PDUs.
 
     Size:       192 bits / 24 octets - Min size
@@ -91,7 +91,7 @@ public:
     KDIS::DATA_TYPE::EntityIdentifier & GetDamagedEntityID();
 
     //************************************
-    // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetNumberOfDamageDescriptionRecords    
+    // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetNumberOfDamageDescriptionRecords
     // Description: The Number of Damage Description records stored in this PDU.
     //************************************
     KUINT16 GetNumberOfDamageDescriptionRecords() const;
@@ -101,15 +101,15 @@ public:
     //              KDIS::PDU::Directed_Energy_Fire_PDU::SetDamageDescriptionRecords
     //              KDIS::PDU::Directed_Energy_Fire_PDU::GetDamageDescriptionRecords
     //              KDIS::PDU::Directed_Energy_Fire_PDU::ClearDamageDescriptionRecords
-    // Description: This field can contain one or more DD records and may also contain 
+    // Description: This field can contain one or more DD records and may also contain
     //              other Standard Variable records.
     // Parameter:   StdVarPtr DD, const vector<StdVarPtr> & DD
-    //************************************    
+    //************************************
     void AddDamageDescriptionRecord( KDIS::DATA_TYPE::StdVarPtr DD );
     void SetDamageDescriptionRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DD );
     const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDamageDescriptionRecords() const;
     void ClearDamageDescriptionRecords();
-  
+
     //************************************
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetAsString
     // Description: Returns a string representation of the PDU.
@@ -120,7 +120,7 @@ public:
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

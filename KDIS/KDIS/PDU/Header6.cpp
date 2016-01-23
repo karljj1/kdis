@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -46,7 +46,7 @@ Header6::Header6() :
     m_ui8PDUType( 0 ),
     m_ui8ProtocolFamily( 0 ),
     m_ui16PDULength( 0 ),
-	m_ui8Padding1( 0 ),
+    m_ui8Padding1( 0 ),
     m_ui8Padding2( 0 )
 {
 }
@@ -67,7 +67,7 @@ Header6::Header6( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFam
     m_ui8ProtocolFamily( PF ),
     m_TimeStamp( TS ),
     m_ui16PDULength( PDULength ),
-	m_ui8Padding1( 0 ),
+    m_ui8Padding1( 0 ),
     m_ui8Padding2( 0 )
 {
 }
@@ -176,12 +176,13 @@ KString Header6::GetAsString() const
     KStringStream ss;
 
     ss << "-PDU Header-\n"
-       << "Protocol Version: " << GetEnumAsStringProtocolVersion( m_ui8ProtocolVersion )    << "\n"
-       << "Exercise ID:      " << ( KUINT16 )GetExerciseID()                                << "\n"
-       << "PDU Type:         " << GetEnumAsStringPDUType( m_ui8PDUType )                    << "\n"
-       << "Protocol Family:  " << GetEnumAsStringProtocolFamily( m_ui8ProtocolFamily )      << "\n"
+       << "Protocol Version: " << GetEnumAsStringProtocolVersion( m_ui8ProtocolVersion ) << "\n"
+       << "Exercise ID:      " << ( KUINT16 )GetExerciseID()                             << "\n"
+       << "PDU Type:         " << GetEnumAsStringPDUType( m_ui8PDUType )                 << "\n"
+       << "Protocol Family:  " << GetEnumAsStringProtocolFamily( m_ui8ProtocolFamily )   << "\n"
        << m_TimeStamp.GetAsString()
-       << "PDU Length:       " << m_ui16PDULength                                           << "\n";
+       << "PDU Length:       " << m_ui16PDULength
+       << "\n";
 
     return ss.str();
 }
@@ -190,9 +191,9 @@ KString Header6::GetAsString() const
 
 void Header6::Decode( KDataStream & stream, bool ignoreHeader /*= false*/  ) throw( KException )
 {
-	if( !ignoreHeader )
-	{
-		if( stream.GetBufferSize() < HEADER6_PDU_SIZE )
+    if( !ignoreHeader )
+    {
+        if( stream.GetBufferSize() < HEADER6_PDU_SIZE )
         {
             const KUINT16 bufferSize = stream.GetBufferSize();
             KStringStream ss;
@@ -205,15 +206,15 @@ void Header6::Decode( KDataStream & stream, bool ignoreHeader /*= false*/  ) thr
             throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER, ss.str() );
         }
 
-		stream >> m_ui8ProtocolVersion
-			   >> m_ui8ExerciseID
-			   >> m_ui8PDUType
-			   >> m_ui8ProtocolFamily
-			   >> KDIS_STREAM m_TimeStamp
-			   >> m_ui16PDULength
-			   >> m_ui8Padding1
-			   >> m_ui8Padding2;
-	}
+        stream >> m_ui8ProtocolVersion
+               >> m_ui8ExerciseID
+               >> m_ui8PDUType
+               >> m_ui8ProtocolFamily
+               >> KDIS_STREAM m_TimeStamp
+               >> m_ui16PDULength
+               >> m_ui8Padding1
+               >> m_ui8Padding2;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -245,12 +246,12 @@ void Header6::Encode( KDataStream & stream ) const
 
 KBOOL Header6::operator == ( const Header6 & Value ) const
 {
-    if( m_ui8ProtocolVersion    != Value.m_ui8ProtocolVersion )  return false;
-    if( m_ui8ExerciseID         != Value.m_ui8ExerciseID )       return false;
-    if( m_ui8PDUType            != Value.m_ui8PDUType )          return false;
-    if( m_ui8ProtocolFamily     != Value.m_ui8ProtocolFamily )   return false;
-    if( m_TimeStamp             != Value.m_TimeStamp )           return false;
-    if( m_ui16PDULength         != Value.m_ui16PDULength )       return false;
+    if( m_ui8ProtocolVersion != Value.m_ui8ProtocolVersion ) return false;
+    if( m_ui8ExerciseID      != Value.m_ui8ExerciseID )      return false;
+    if( m_ui8PDUType         != Value.m_ui8PDUType )         return false;
+    if( m_ui8ProtocolFamily  != Value.m_ui8ProtocolFamily )  return false;
+    if( m_TimeStamp          != Value.m_TimeStamp )          return false;
+    if( m_ui16PDULength      != Value.m_ui16PDULength )      return false;
     return true;
 }
 

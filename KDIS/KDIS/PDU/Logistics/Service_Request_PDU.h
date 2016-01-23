@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -59,10 +59,10 @@ public:
 
     Service_Request_PDU( KDataStream & stream ) throw( KException );
 
-	Service_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Service_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Service_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, 
-		                 KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
+    Service_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
+                         KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
 
     virtual ~Service_Request_PDU();
 
@@ -72,8 +72,8 @@ public:
     // Description: Describes type of service being requested
     // Parameter:   ServiceTypeRequested  STR, void
     //************************************
-	void SetServiceTypeRequested( KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
-	KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested GetServiceTypeRequested() const;
+    void SetServiceTypeRequested( KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
+    KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested GetServiceTypeRequested() const;
 
     //************************************
     // FullName:    KDIS::PDU::Service_Request_PDU::GetAsString
@@ -85,7 +85,7 @@ public:
     // FullName:    KDIS::PDU::Service_Request_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

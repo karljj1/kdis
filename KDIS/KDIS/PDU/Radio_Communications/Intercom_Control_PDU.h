@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -86,7 +86,7 @@ protected:
 
     KUINT32 m_ui32IntrParamLen;
 
-	std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> m_vICP;
+    std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> m_vICP;
 
 public:
 
@@ -96,7 +96,7 @@ public:
 
     Intercom_Control_PDU( KDataStream & stream ) throw( KException );
 
-	Intercom_Control_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Intercom_Control_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     virtual ~Intercom_Control_PDU();
 
@@ -114,7 +114,7 @@ public:
     //              KDIS::PDU::Intercom_Control_PDU::GetCommunicationsChannelType
     // Description: Identifies the Communications Channel Type, class & type.
     // Parameter:   const CommunicationsChannelType & CCT
-	//************************************
+    //************************************
     void SetCommunicationsChannelType( const KDIS::DATA_TYPE::CommunicationsChannelType & CCT );
     const KDIS::DATA_TYPE::CommunicationsChannelType & GetCommunicationsChannelType() const;
     KDIS::DATA_TYPE::CommunicationsChannelType & GetCommunicationsChannelType();
@@ -237,8 +237,8 @@ public:
     // Parameter:   const IntercomCommunicationParameters & ICP
     //************************************
     void AddIntercomCommunicationParameters( const KDIS::DATA_TYPE::IntercomCommunicationParameters & ICP );
-	void SetIntercomCommunicationParameters( const std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> & ICP );
-	const std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> & GetIntercomCommunicationParameters() const;
+    void SetIntercomCommunicationParameters( const std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> & ICP );
+    const std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> & GetIntercomCommunicationParameters() const;
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::GetAsString
@@ -250,7 +250,7 @@ public:
     // FullName:    KDIS::PDU::Intercom_Control_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

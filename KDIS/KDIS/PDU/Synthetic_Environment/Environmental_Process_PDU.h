@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -108,7 +108,7 @@ public:
 
     Environmental_Process_PDU( KDataStream & stream ) throw( KException );
 
-	Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Environmental_Process_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, const KDIS::DATA_TYPE::EnvironmentType & ET,
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
@@ -116,7 +116,7 @@ public:
 
     Environmental_Process_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, const KDIS::DATA_TYPE::EnvironmentType & ET,
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
-							   KUINT16 SequenceNumber, const std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> & ERL );
+                               KUINT16 SequenceNumber, const std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> & ERL );
 
     virtual ~Environmental_Process_PDU();
 
@@ -199,7 +199,7 @@ public:
     // FullName:    KDIS::PDU::Environmental_Process_PDU::SetEnvironmentRecords
     //              KDIS::PDU::Environmental_Process_PDU::GetEnvironmentRecords
     //              KDIS::PDU::Environmental_Process_PDU::AddEnvironmentRecord
-	//				KDIS::PDU::Environmental_Process_PDU::ClearEnvironmentRecords
+    //              KDIS::PDU::Environmental_Process_PDU::ClearEnvironmentRecords
     // Description: Contains specific geometry, state, or bounding volume information.
     //              EnvironmentRecordLst is a vector of safe pointers(referenced) to EnvironmentRecord base classes.
     //
@@ -244,7 +244,7 @@ public:
     void SetEnvironmentRecords( const std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> & ER );
     const std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> & GetEnvironmentRecords() const;
     void AddEnvironmentRecord( KDIS::DATA_TYPE::EnvironmentRecordPtr ER );
-	void ClearEnvironmentRecords();
+    void ClearEnvironmentRecords();
 
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::GetAsString
@@ -256,7 +256,7 @@ public:
     // FullName:    KDIS::PDU::Environmental_Process_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -50,7 +50,7 @@ Articulated_Parts_PDU::Articulated_Parts_PDU() :
     m_ui8PDUType = ArticulatedParts_PDU_Type;
     m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
 }
-	
+
 //////////////////////////////////////////////////////////////////////////
 
 Articulated_Parts_PDU::Articulated_Parts_PDU( KDataStream & stream ) throw( KException )
@@ -61,7 +61,7 @@ Articulated_Parts_PDU::Articulated_Parts_PDU( KDataStream & stream ) throw( KExc
 //////////////////////////////////////////////////////////////////////////
 
 Articulated_Parts_PDU::Articulated_Parts_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	LE_Header( H )
+    LE_Header( H )
 {
     Decode( stream, true );
 }
@@ -96,7 +96,7 @@ void Articulated_Parts_PDU::AddVariableParameter( VarPrmPtr VP )
 {
     m_vVariableParameters.push_back( VP );
     ++m_ui8NumOfVariableParams;
-	m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
+    m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -153,47 +153,47 @@ void Articulated_Parts_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= 
 
     m_vVariableParameters.clear();
 
-    LE_Header::Decode( stream, ignoreHeader );	
+    LE_Header::Decode( stream, ignoreHeader );
 
     stream >> m_ui8NumOfVariableParams;
 
-	for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
-	{
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT8 paramTyp;
+    for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
+    {
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT8 paramTyp;
 
-		// Extract the  type then reset the stream.
-		stream >> paramTyp;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the  type then reset the stream.
+        stream >> paramTyp;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
+        // Use the factory decoder.
+        VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vVariableParameters.push_back( VarPrmPtr( p ) );
-		}
-		else
-		{
-			// Default internals
-			switch( paramTyp )
-			{
-				case ArticulatedPartType:				
-					m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
-					break;
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vVariableParameters.push_back( VarPrmPtr( p ) );
+        }
+        else
+        {
+            // Default internals
+            switch( paramTyp )
+            {
+                case ArticulatedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
+                    break;
 
-				case AttachedPartType:
-					m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
-					break;
+                case AttachedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
+                    break;
 
-				default:
-					m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
-					break;
-			}
-		}
-	}
+                default:
+                    m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
+                    break;
+            }
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////

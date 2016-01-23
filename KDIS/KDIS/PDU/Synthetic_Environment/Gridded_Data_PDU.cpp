@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -71,7 +71,7 @@ Gridded_Data_PDU::Gridded_Data_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Gridded_Data_PDU::Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H )
+    Header( H )
 {
     Decode( stream, true );
 }
@@ -429,7 +429,7 @@ void Gridded_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
     m_vpGridAxisDesc.clear();
     m_vGridData.clear();
 
-    Header::Decode( stream, ignoreHeader );	
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_EnvProcID
            >> m_ui16FieldNum

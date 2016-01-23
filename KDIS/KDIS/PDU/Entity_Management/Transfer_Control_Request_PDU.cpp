@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -64,15 +64,14 @@ Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( KDataStream & stream
 //////////////////////////////////////////////////////////////////////////
 
 Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Simulation_Management_Header( H )
+    Simulation_Management_Header( H )
 {
     Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( KUINT32 ReqID, RequiredReliabilityService RRS, TransferType TT,
-        const EntityIdentifier & TrnsEntID ) :
+Transfer_Control_Request_PDU::Transfer_Control_Request_PDU( KUINT32 ReqID, RequiredReliabilityService RRS, TransferType TT, const EntityIdentifier & TrnsEntID ) :
     m_ui32ReqID( ReqID ),
     m_ui8ReqRelSrv( RRS ),
     m_ui8TrnTyp( TT ),
@@ -231,7 +230,7 @@ void Transfer_Control_Request_PDU::Decode( KDataStream & stream, bool ignoreHead
 
     m_vRecs.clear();
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );	
+    Simulation_Management_Header::Decode( stream, ignoreHeader );
 
     stream >> m_ui32ReqID
            >> m_ui8ReqRelSrv
@@ -281,13 +280,13 @@ void Transfer_Control_Request_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Transfer_Control_Request_PDU::operator == ( const Transfer_Control_Request_PDU & Value ) const
 {
-    if( Simulation_Management_Header::operator  !=( Value ) )               return false;
-    if( m_ui32ReqID                             != Value.m_ui32ReqID )      return false;
-    if( m_ui8ReqRelSrv                          != Value.m_ui8ReqRelSrv )   return false;
-    if( m_ui8TrnTyp                             != Value.m_ui8TrnTyp )      return false;
-    if( m_TrnsEntID                             != Value.m_TrnsEntID )      return false;
-    if( m_ui32NumRecSets                        != Value.m_ui32NumRecSets ) return false;
-    if( m_vRecs                                 != Value.m_vRecs )          return false;
+    if( Simulation_Management_Header::operator !=( Value ) )               return false;
+    if( m_ui32ReqID                            != Value.m_ui32ReqID )      return false;
+    if( m_ui8ReqRelSrv                         != Value.m_ui8ReqRelSrv )   return false;
+    if( m_ui8TrnTyp                            != Value.m_ui8TrnTyp )      return false;
+    if( m_TrnsEntID                            != Value.m_TrnsEntID )      return false;
+    if( m_ui32NumRecSets                       != Value.m_ui32NumRecSets ) return false;
+    if( m_vRecs                                != Value.m_vRecs )          return false;
     return true;
 }
 

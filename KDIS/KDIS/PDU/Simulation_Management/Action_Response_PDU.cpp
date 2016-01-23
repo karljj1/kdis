@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -51,7 +51,7 @@ Action_Response_PDU::Action_Response_PDU()
 //////////////////////////////////////////////////////////////////////////
 
 Action_Response_PDU::Action_Response_PDU( const Header & H ) :
-	Data_PDU( H )
+    Data_PDU( H )
 {
 }
 
@@ -65,7 +65,7 @@ Action_Response_PDU::Action_Response_PDU( KDataStream & stream ) throw( KExcepti
 //////////////////////////////////////////////////////////////////////////
 
 Action_Response_PDU::Action_Response_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Data_PDU( H )
+    Data_PDU( H )
 {
     Decode( stream, true );
 }
@@ -123,17 +123,17 @@ KString Action_Response_PDU::GetAsString() const
        << "\n\tNumber Variable Datum:    " << m_ui32NumVariableDatum
        << "\n";
 
-	ss << "Fixed Datum:\n";
+    ss << "Fixed Datum:\n";
     vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-	vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
         ss << IndentString( ( *citrFixed )->GetAsString() );
     }
 
-	ss << "Variable Datum:\n";
+    ss << "Variable Datum:\n";
     vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-	vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
         ss << IndentString( ( *citrVar )->GetAsString() );
@@ -148,63 +148,63 @@ void Action_Response_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tr
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ACTION_RESPONSE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );	
+    Simulation_Management_Header::Decode( stream, ignoreHeader );
 
     stream >> m_ui32RequestID
            >> m_ui32RequestStatus
            >> m_ui32NumFixedDatum
            >> m_ui32NumVariableDatum;
 
-	// FixedDatum
+    // FixedDatum
     for( KUINT16 i = 0; i < m_ui32NumFixedDatum; ++i )
     {
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT32 datumID;
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT32 datumID;
 
-		// Extract the datum id then reset the stream.
-		stream >> datumID;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the datum id then reset the stream.
+        stream >> datumID;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		FixedDatum * p = FixedDatum::FactoryDecode( datumID, stream );
+        // Use the factory decoder.
+        FixedDatum * p = FixedDatum::FactoryDecode( datumID, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vFixedDatum.push_back( FixDtmPtr( p ) );
-		}
-		else
-		{
-			// Default
-			m_vFixedDatum.push_back( FixDtmPtr( new FixedDatum( stream ) ) );
-		}
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vFixedDatum.push_back( FixDtmPtr( p ) );
+        }
+        else
+        {
+            // Default
+            m_vFixedDatum.push_back( FixDtmPtr( new FixedDatum( stream ) ) );
+        }
     }
 
-	// VariableDatum
+    // VariableDatum
     for( KUINT16 i = 0; i < m_ui32NumVariableDatum; ++i )
     {
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT32 datumID;
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT32 datumID;
 
-		// Extract the datum id then reset the stream.
-		stream >> datumID;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the datum id then reset the stream.
+        stream >> datumID;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		VariableDatum * p = VariableDatum::FactoryDecode( datumID, stream );
+        // Use the factory decoder.
+        VariableDatum * p = VariableDatum::FactoryDecode( datumID, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vVariableDatum.push_back( VarDtmPtr( p ) );
-		}
-		else
-		{
-			// Default
-			m_vVariableDatum.push_back( VarDtmPtr( new VariableDatum( stream ) ) );
-		}
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vVariableDatum.push_back( VarDtmPtr( p ) );
+        }
+        else
+        {
+            // Default
+            m_vVariableDatum.push_back( VarDtmPtr( new VariableDatum( stream ) ) );
+        }
     }
 }
 
@@ -230,14 +230,14 @@ void Action_Response_PDU::Encode( KDataStream & stream ) const
            << m_ui32NumVariableDatum;
 
     vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-	vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
         ( *citrFixed )->Encode( stream );
     }
 
     vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-	vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
         ( *citrVar )->Encode( stream );

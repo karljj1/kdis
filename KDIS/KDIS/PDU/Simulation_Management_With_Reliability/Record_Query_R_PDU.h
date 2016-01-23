@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -48,7 +48,7 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Record_Query_R_PDU : public Simulation_Management_Header,
-									   public Reliability_Header
+                                       public Reliability_Header
 {
 protected:
 
@@ -60,7 +60,7 @@ protected:
 
     KUINT32 m_ui32NumRecs;
 
-	std::vector<KUINT32> m_vui32RecID;
+    std::vector<KUINT32> m_vui32RecID;
 
 public:
 
@@ -70,7 +70,7 @@ public:
 
     Record_Query_R_PDU( KDataStream & stream ) throw( KException );
 
-	Record_Query_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Record_Query_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Record_Query_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
                         KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS, KDIS::DATA_TYPE::ENUMS::EventType ET, KUINT32 Time );
@@ -122,8 +122,8 @@ public:
     // Parameter:   vector<KUINT32> & ID
     //************************************
     void AddRecordID( const KUINT32 ID );
-	void SetRecordIDs( const std::vector<KUINT32> & ID );
-	const std::vector<KUINT32> & GetRecordIDs() const;
+    void SetRecordIDs( const std::vector<KUINT32> & ID );
+    const std::vector<KUINT32> & GetRecordIDs() const;
 
     //************************************
     // FullName:    KDIS::PDU::Record_Query_R_PDU::GetAsString
@@ -135,7 +135,7 @@ public:
     // FullName:    KDIS::PDU::Record_Query_R_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -55,7 +55,7 @@ IO_Action_PDU::IO_Action_PDU() :
     m_ui8PDUType = IO_Action_PDU_Type;
     m_ui16PDULength = IO_ACTION_PDU_SIZE;
 }
-	
+
 //////////////////////////////////////////////////////////////////////////
 
 IO_Action_PDU::IO_Action_PDU( KDataStream & stream ) throw( KException )
@@ -66,7 +66,7 @@ IO_Action_PDU::IO_Action_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 IO_Action_PDU::IO_Action_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	IO_Header( H )
+    IO_Header( H )
 {
     Decode( stream, true );
 }
@@ -328,7 +328,7 @@ void IO_Action_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ )
 
     m_vStdVarRecs.clear();
 
-    IO_Header::Decode( stream, ignoreHeader );	
+    IO_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_RecEntityID
            >> m_ui32ReqId

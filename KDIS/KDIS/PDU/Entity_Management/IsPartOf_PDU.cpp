@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -59,7 +59,7 @@ IsPartOf_PDU::IsPartOf_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 IsPartOf_PDU::IsPartOf_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Simulation_Management_Header( H )
+    Simulation_Management_Header( H )
 {
     Decode( stream, true );
 }
@@ -192,7 +192,7 @@ void IsPartOf_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IS_PART_OF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );	
+    Simulation_Management_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_RelRec
            >> KDIS_STREAM m_LocPrt
@@ -227,11 +227,11 @@ void IsPartOf_PDU::Encode( KDataStream & stream ) const
 
 KBOOL IsPartOf_PDU::operator == ( const IsPartOf_PDU & Value ) const
 {
-    if( Simulation_Management_Header::operator    !=( Value ) )        return false;
-    if( m_RelRec                                  != Value.m_RelRec )  return false;
-    if( m_LocPrt                                  != Value.m_LocPrt )  return false;
-    if( m_NmLocID                                 != Value.m_NmLocID ) return false;
-    if( m_PrtTyp                                  != Value.m_PrtTyp )  return false;
+    if( Simulation_Management_Header::operator !=( Value ) )        return false;
+    if( m_RelRec                               != Value.m_RelRec )  return false;
+    if( m_LocPrt                               != Value.m_LocPrt )  return false;
+    if( m_NmLocID                              != Value.m_NmLocID ) return false;
+    if( m_PrtTyp                               != Value.m_PrtTyp )  return false;
     return true;
 }
 

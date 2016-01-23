@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -49,7 +49,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCodeName( KINT32 Value 
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( DesignatorCodeNameDescriptor, sizeof( DesignatorCodeNameDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( DesignatorCodeNameDescriptor, sizeof( DesignatorCodeNameDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
@@ -63,7 +63,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCodeName( KINT32 Value 
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -86,7 +86,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCode( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( DesignatorCodeDescriptor, sizeof( DesignatorCodeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( DesignatorCodeDescriptor, sizeof( DesignatorCodeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
@@ -100,7 +100,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCode( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -119,8 +119,8 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode( const KString & V
 const EnumDescriptor BeamSpotShapeDescriptor[] =
 {
     { 0 , "OtherBeamSpotShape" },
-	{ 1 , "Gaussian" },
-	{ 2 , "TopHat" }
+    { 1 , "Gaussian" },
+    { 2 , "TopHat" }
 };
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape( KINT32 Value )
@@ -130,7 +130,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( BeamSpotShapeDescriptor, sizeof( BeamSpotShapeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( BeamSpotShapeDescriptor, sizeof( BeamSpotShapeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
@@ -144,7 +144,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif

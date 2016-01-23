@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -746,18 +746,18 @@ void Appearance_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Appearance_PDU::operator == ( const Appearance_PDU & Value ) const
 {
-    if( LE_Header::operator              != ( Value ) )                             return false;
-    if( m_AppearanceFlag1Union.m_ui8Flag != Value.m_AppearanceFlag1Union.m_ui8Flag )return false;
-    if( m_AppearanceFlag2Union.m_ui8Flag != Value.m_AppearanceFlag2Union.m_ui8Flag )return false;
-    if( m_ui8ForceID                     != Value.m_ui8ForceID )                    return false;
-    if( m_EntityType                     != Value.m_EntityType )                    return false;
-    if( m_AltEntityType                  != Value.m_AltEntityType )                 return false;
-    if( m_EntityMarking                  != Value.m_EntityMarking )                 return false;
-    if( m_EntityCapabilities             != Value.m_EntityCapabilities )            return false;
-    if( m_VisApp                         != Value.m_VisApp )                        return false;
-    if( m_IRApp                          != Value.m_IRApp )                         return false;
-    if( m_EMApp                          != Value.m_EMApp )                         return false;
-    if( m_AudApp                         != Value.m_AudApp )                        return false;
+    if( LE_Header::operator              != ( Value ) )                              return false;
+    if( m_AppearanceFlag1Union.m_ui8Flag != Value.m_AppearanceFlag1Union.m_ui8Flag ) return false;
+    if( m_AppearanceFlag2Union.m_ui8Flag != Value.m_AppearanceFlag2Union.m_ui8Flag ) return false;
+    if( m_ui8ForceID                     != Value.m_ui8ForceID )                     return false;
+    if( m_EntityType                     != Value.m_EntityType )                     return false;
+    if( m_AltEntityType                  != Value.m_AltEntityType )                  return false;
+    if( m_EntityMarking                  != Value.m_EntityMarking )                  return false;
+    if( m_EntityCapabilities             != Value.m_EntityCapabilities )             return false;
+    if( m_VisApp                         != Value.m_VisApp )                         return false;
+    if( m_IRApp                          != Value.m_IRApp )                          return false;
+    if( m_EMApp                          != Value.m_EMApp )                          return false;
+    if( m_AudApp                         != Value.m_AudApp )                         return false;
     return true;
 }
 

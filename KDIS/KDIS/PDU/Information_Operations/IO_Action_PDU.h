@@ -4,13 +4,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -83,7 +83,7 @@ protected:
 
     KUINT16 m_ui16NumStdVarRec;
 
-	std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
+    std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
 
 public:
 
@@ -91,9 +91,9 @@ public:
 
     IO_Action_PDU();
 
-	IO_Action_PDU( KDataStream & stream ) throw( KException );
+    IO_Action_PDU( KDataStream & stream ) throw( KException );
 
-	IO_Action_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    IO_Action_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     IO_Action_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OrigID, const KDIS::DATA_TYPE::EntityIdentifier & RecvID, KUINT32 ReqID,
                    KDIS::DATA_TYPE::ENUMS::WarfareType WT, KUINT16 SimSrc, KDIS::DATA_TYPE::ENUMS::ActionType AT, KDIS::DATA_TYPE::ENUMS::ActionPhase AP,
@@ -201,8 +201,8 @@ public:
     // Parameter:   StdVarPtr SVR, const vector<StdVarPtr> & SVR
     //************************************
     void AddStandardVariableRecord( KDIS::DATA_TYPE::StdVarPtr SVR );
-	void SetStandardVariableRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & SVR );
-	const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetStandardVariableRecords() const;
+    void SetStandardVariableRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & SVR );
+    const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetStandardVariableRecords() const;
     void ClearStandardVariableRecords();
 
     //************************************
@@ -215,7 +215,7 @@ public:
     // FullName:    KDIS::PDU::IO_Action_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -35,8 +35,8 @@ http://p.sf.net/kdis/UserGuide
 
     purpose:    PDU Header. Contains infomation used to identify
                 the PDU type that is represented by the datagram.
-				This header contains all features upto DIS version 6(1278.1a),
-				for DIS 7 features use Header7.
+                This header contains all features upto DIS version 6(1278.1a),
+                for DIS 7 features use Header7.
     Size:       96 bits / 12 octets
 *********************************************************************/
 
@@ -68,7 +68,7 @@ protected:
 
     KUINT16 m_ui16PDULength;
 
-	KUINT8 m_ui8Padding1;  // Padding except for Live Entity family which uses it for Sub protocol Number, if DIS version > 6 then used for sub protocol.
+    KUINT8 m_ui8Padding1;  // Padding except for Live Entity family which uses it for Sub protocol Number, if DIS version > 6 then used for sub protocol.
 
     KUINT8 m_ui8Padding2;
 
@@ -81,7 +81,7 @@ public:
     Header6( KDataStream & stream ) throw( KException );
 
     Header6( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KUINT8 ExerciseID, KDIS::DATA_TYPE::ENUMS::PDUType PT,
-		     KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF, const KDIS::DATA_TYPE::TimeStamp & TS, KUINT16 PDULength );
+             KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF, const KDIS::DATA_TYPE::TimeStamp & TS, KUINT16 PDULength );
 
     virtual ~Header6();
 
@@ -89,9 +89,9 @@ public:
     // FullName:    KDIS::PDU::Header6::SetProtocolVersion
     //              KDIS::PDU::Header6::GetProtocolVersion
     // Description: DIS protocol version.
-	//              In KDIS the version is automatically set by each PDU
-    //              to the mimimum version of DIS required to support the current PDU.	
-	// Parameter:   ProtocolVersion PV
+    //              In KDIS the version is automatically set by each PDU
+    //              to the mimimum version of DIS required to support the current PDU.
+    // Parameter:   ProtocolVersion PV
     //************************************
     void SetProtocolVersion( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV );
     KDIS::DATA_TYPE::ENUMS::ProtocolVersion GetProtocolVersion() const;
@@ -160,7 +160,7 @@ public:
     // FullName:    KDIS::PDU::Header6::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-	// Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

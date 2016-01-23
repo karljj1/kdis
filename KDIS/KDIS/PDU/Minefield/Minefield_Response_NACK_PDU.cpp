@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -59,7 +59,7 @@ Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( KDataStream & stream )
 //////////////////////////////////////////////////////////////////////////
 
 Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Minefield_Header( H )
+    Minefield_Header( H )
 {
     Decode( stream, true );
 }
@@ -206,7 +206,7 @@ void Minefield_Response_NACK_PDU::Decode( KDataStream & stream, bool ignoreHeade
 
     m_vSeqNums.clear();
 
-    Minefield_Header::Decode( stream, ignoreHeader );	
+    Minefield_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_ReqID
            >> m_ui8ReqID
@@ -253,11 +253,11 @@ void Minefield_Response_NACK_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Minefield_Response_NACK_PDU::operator == ( const Minefield_Response_NACK_PDU & Value ) const
 {
-    if( Minefield_Header::operator  != ( Value ) )              return false;
-    if( m_ReqID                     != Value.m_ReqID )          return false;
-    if( m_ui8ReqID                  != Value.m_ui8ReqID )       return false;
-    if( m_ui8NumMisPdus             != Value.m_ui8NumMisPdus )  return false;
-    if( m_vSeqNums                  != Value.m_vSeqNums )       return false;
+    if( Minefield_Header::operator != ( Value ) )             return false;
+    if( m_ReqID                    != Value.m_ReqID )         return false;
+    if( m_ui8ReqID                 != Value.m_ui8ReqID )      return false;
+    if( m_ui8NumMisPdus            != Value.m_ui8NumMisPdus ) return false;
+    if( m_vSeqNums                 != Value.m_vSeqNums )      return false;
     return true;
 }
 

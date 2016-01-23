@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -129,11 +129,11 @@ void Connection::shutdown() throw( KException )
     {
         if( m_iSocket[i] )
         {
-			#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
-				KINT32 iError = closesocket( m_iSocket[i] );
-			#else
-				KINT32 iError = close( m_iSocket[i] );
-			#endif
+            #if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
+                KINT32 iError = closesocket( m_iSocket[i] );
+            #else
+                KINT32 iError = close( m_iSocket[i] );
+            #endif
 
             if( iError == SOCKET_ERROR )
             {
@@ -339,9 +339,9 @@ Connection::Connection( const KString & SendAddress, KUINT32 Port /* = 3000 */, 
 {
     m_iSocket[SEND_SOCK] = 0;
     m_iSocket[RECEIVE_SOCK] = 0;
-	
-	m_blockingTimeout.tv_sec = 0;
-	m_blockingTimeout.tv_usec = 0;
+
+    m_blockingTimeout.tv_sec = 0;
+    m_blockingTimeout.tv_usec = 0;
 
     startup();
 
@@ -365,7 +365,7 @@ Connection::Connection( const KString & SendAddress, KUINT32 Port /* = 3000 */, 
 Connection::~Connection()
 {
     shutdown();
-	delete m_pPduFact;	
+    delete m_pPduFact;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -474,7 +474,7 @@ KBOOL Connection::IsBlockingModeEnabled() const
 }
 
 //////////////////////////////////////////////////////////////////////////
- 
+
 void Connection::SetBlockingTimeOut( KINT32 sec, KINT32 usec )
 {
     m_blockingTimeout.tv_sec = sec;
@@ -542,15 +542,15 @@ KINT32 Connection::Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KExceptio
     {
         THROW_ERROR;
     }
-	
-	return iBytesSent;
+
+    return iBytesSent;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KINT32 Connection::Send( const KDataStream & stream ) throw ( KException )
 {
-	return Send( stream.GetBufferPtr(), stream.GetBufferSize() );
+    return Send( stream.GetBufferPtr(), stream.GetBufferSize() );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -600,8 +600,8 @@ KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderI
         // This can make clean exits a joy and allow status messages
         // from the same thread
         pTimeout = m_blockingTimeout;
-	}
-	
+    }
+
     // Check the socket, do we have data waiting?
     KINT32 uiErr = select( m_iSocket[RECEIVE_SOCK] + 1, &fd, 0, 0, &pTimeout );
 
@@ -635,78 +635,78 @@ KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderI
 //////////////////////////////////////////////////////////////////////////
 
 auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( KException )
-{  
-	// Are we currently dealing with a PDU Bundle, if so then dont read any new data.
-	if( m_stream.GetBufferSize() == 0 )
-	{	
-		// Get some new data from the network
-		// Create a buffer to store network data
-		KOCTET Buffer[MAX_PDU_SIZE];
-		KINT32 iSz = Receive( Buffer, MAX_PDU_SIZE, &m_sLastIP );
+{
+    // Are we currently dealing with a PDU Bundle, if so then dont read any new data.
+    if( m_stream.GetBufferSize() == 0 )
+    {
+        // Get some new data from the network
+        // Create a buffer to store network data
+        KOCTET Buffer[MAX_PDU_SIZE];
+        KINT32 iSz = Receive( Buffer, MAX_PDU_SIZE, &m_sLastIP );
 
-		if( iSz )
-		{
-			// Fire the first event, this event can also be used to inform us if we should stop
-			vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
-			vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
-			for( ; itr != itrEnd; ++itr )
-			{
-				if( !( *itr )->OnDataReceived( Buffer, iSz, m_sLastIP ) )
-				{
-					// We should quit
-					return auto_ptr<Header>( 0 );
-				}
-			}
-		
-			// Create a new data stream
-			m_stream.Clear();
-			m_stream.CopyFromBuffer( Buffer, iSz );
-		}
-	}
-	
-	// Now process the stream
-	if( m_stream.GetBufferSize() > 0 )
-	{
-		// Do they want the IP address returned?
-		if( SenderIp )
-		{
-			*SenderIp = m_sLastIP;
-	    }
+        if( iSz )
+        {
+            // Fire the first event, this event can also be used to inform us if we should stop
+            vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
+            vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
+            for( ; itr != itrEnd; ++itr )
+            {
+                if( !( *itr )->OnDataReceived( Buffer, iSz, m_sLastIP ) )
+                {
+                    // We should quit
+                    return auto_ptr<Header>( 0 );
+                }
+            }
 
-		// Get the current write position
-		KUINT16 currentPos = m_stream.GetCurrentWritePosition();
+            // Create a new data stream
+            m_stream.Clear();
+            m_stream.CopyFromBuffer( Buffer, iSz );
+        }
+    }
 
-		try
-		{
-			// Get the next/only PDU from the stream
-			auto_ptr<Header> pdu = m_pPduFact->Decode( m_stream );
+    // Now process the stream
+    if( m_stream.GetBufferSize() > 0 )
+    {
+        // Do they want the IP address returned?
+        if( SenderIp )
+        {
+            *SenderIp = m_sLastIP;
+        }
 
-			// If the PDU was decoded successfully then fire the next event
-			if( pdu.get() )
-			{ 
-				vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
-				vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
-				for( ; itr != itrEnd; ++itr )
-				{
-					( *itr )->OnPDUReceived( pdu.get() );
-				}
+        // Get the current write position
+        KUINT16 currentPos = m_stream.GetCurrentWritePosition();
 
-				// Set the write pos for the next pdu.
-				m_stream.SetCurrentWritePosition( currentPos + pdu->GetPDULength() );
+        try
+        {
+            // Get the next/only PDU from the stream
+            auto_ptr<Header> pdu = m_pPduFact->Decode( m_stream );
 
-				// Now return the decoded pdu
-				return pdu;
-			}
-		}
-		catch( const exception & e )
-		{
-			// Something went wrong, the stream is likely corrupted now so wipe it or we will have issues in the next GetNextPDU call.
-			m_stream.Clear();
-			throw;
-		}
-	}
-	
-	return auto_ptr<Header>( 0 ); // No data so Null ptr     
+            // If the PDU was decoded successfully then fire the next event
+            if( pdu.get() )
+            {
+                vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
+                vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
+                for( ; itr != itrEnd; ++itr )
+                {
+                    ( *itr )->OnPDUReceived( pdu.get() );
+                }
+
+                // Set the write pos for the next pdu.
+                m_stream.SetCurrentWritePosition( currentPos + pdu->GetPDULength() );
+
+                // Now return the decoded pdu
+                return pdu;
+            }
+        }
+        catch( const exception & e )
+        {
+            // Something went wrong, the stream is likely corrupted now so wipe it or we will have issues in the next GetNextPDU call.
+            m_stream.Clear();
+            throw;
+        }
+    }
+
+    return auto_ptr<Header>( 0 ); // No data so Null ptr
 }
 
 //////////////////////////////////////////////////////////////////////////

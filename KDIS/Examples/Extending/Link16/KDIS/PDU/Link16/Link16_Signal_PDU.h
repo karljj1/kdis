@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -110,11 +110,11 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetNetworkParticipationGroup
-	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetNetworkParticipationGroup
+	//              KDIS::PDU::Link16::Link16_Signal_PDU::GetNetworkParticipationGroup
 	// Description: Network Participation Group 
-	//				Valid values are 0-511. If outside of this range it will be set to 511
-	//				Used to segregate information within a JTIDS/MIDS network.
-	//				Creates virtual networks of participants.
+	//              Valid values are 0-511. If outside of this range it will be set to 511
+	//              Used to segregate information within a JTIDS/MIDS network.
+	//              Creates virtual networks of participants.
 	// Parameter:   KUINT16 NPG
 	//************************************
 	void SetNetworkParticipationGroup( KUINT16 NPG );
@@ -122,10 +122,10 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetNetworkParticipationGroup
-	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetNetworkParticipationGroup
+	//              KDIS::PDU::Link16::Link16_Signal_PDU::GetNetworkParticipationGroup
 	// Description: Network Number. Used to create virtual sub-circuits 
-	//				within NPG for stacked nets or between NPGs for multi-net.
-	//				Valid values are 0-127. If outside of this range it will be set to 127
+	//              within NPG for stacked nets or between NPGs for multi-net.
+	//              Valid values are 0-127. If outside of this range it will be set to 127
 	// Parameter:   KUINT16 NPG
 	//************************************
 	void SetNetNumber( KUINT8 NN );
@@ -133,11 +133,11 @@ public:
 
 	//************************************	
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetTransmissionSecurity
-	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetTransmissionSecurity
+	//              KDIS::PDU::Link16::Link16_Signal_PDU::GetTransmissionSecurity
 	// Description: Identification of the crypto variable used for
-	//				JTIDS transmission encryption.
-	//				Valid values are 0-127. If outside of this range it 
-	//				will be set to 255 to indicate no statement/wildcard.
+	//              JTIDS transmission encryption.
+	//              Valid values are 0-127. If outside of this range it 
+	//              will be set to 255 to indicate no statement/wildcard.
 	// Parameter:   KUINT8 TSEC
 	//************************************
 	void SetTransmissionSecurity( KUINT8 TSEC );
@@ -145,11 +145,11 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetMessageSecurity
-	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetMessageSecurity
+	//              KDIS::PDU::Link16::Link16_Signal_PDU::GetMessageSecurity
 	// Description: Identification of the crypto variable used for
-	//				JTIDS message encryption.
-	//				Valid values are 0-127. If outside of this range it 
-	//				will be set to 255 to indicate no statement/wildcard.
+	//              JTIDS message encryption.
+	//              Valid values are 0-127. If outside of this range it 
+	//              will be set to 255 to indicate no statement/wildcard.
 	// Parameter:   KUINT8 MSEC
 	//************************************
 	void SetMessageSecurity( KUINT8 MSEC );
@@ -157,7 +157,7 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetMessageType
-	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetMessageType
+	//              KDIS::PDU::Link16::Link16_Signal_PDU::GetMessageType
 	// Description: Link 16 message type. 
 	// Parameter:   Link16MessageType MT
 	//************************************
@@ -166,12 +166,12 @@ public:
 
 	//************************************
 	// FullName:    KDIS::DATA_TYPE::Link16_Signal_PDU::SetTimeSlotNumber
-	//				KDIS::DATA_TYPE::Link16_Signal_PDU::GetTimeSlotNumber
+	//              KDIS::DATA_TYPE::Link16_Signal_PDU::GetTimeSlotNumber
 	// Description: 0 value represents time slot A-1,
-	//				time slot 98303 represents C-32767. 
-	//				When the epoch is 112, the last valid time slot
-	//				is 45151 (end of the day).
-	//				Valid range 0-98303.
+	//              time slot 98303 represents C-32767. 
+	//              When the epoch is 112, the last valid time slot
+	//              is 45151 (end of the day).
+	//              Valid range 0-98303.
 	// Parameter:   KUINT32 TSN
 	//************************************
 	void SetTimeSlotNumber( KUINT32 TSN );
@@ -181,8 +181,8 @@ public:
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetEpoch
 	//			    KDIS::PDU::Link16::Link16_Signal_PDU::GetEpoch
 	// Description: An epoch is 12.8 minutes long, 112.5
-	//				Epochs in a 24 hour day. 
-	//				Valid range 0-112.
+	//              Epochs in a 24 hour day. 
+	//              Valid range 0-112.
 	// Parameter:   KUINT32 E
 	//************************************
 	void SetEpoch( KUINT32 E );
@@ -190,15 +190,15 @@ public:
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::SetPerceivedTransmitTime
-	//				KDIS::PDU::Link16::Link16_Signal_PDU::GetPerceivedTransmitTime
+	//              KDIS::PDU::Link16::Link16_Signal_PDU::GetPerceivedTransmitTime
 	// Description: NTP timestamp format-- NTP timestamps
-	//				are represented as a 64-bit unsigned
-	//				fixed-point number, in seconds relative to
-	//				0 hours on 1 January 1900 UTC. 
-	//				The integer part is in the first 32 bits 
-	//				and the fraction part in the last 32 bits. The precision of
-	//				All Fs (4294967295) in both fields shall indicate
-	//				a no statement/wildcard.
+	//              are represented as a 64-bit unsigned
+	//              fixed-point number, in seconds relative to
+	//              0 hours on 1 January 1900 UTC. 
+	//              The integer part is in the first 32 bits 
+	//              and the fraction part in the last 32 bits. The precision of
+	//              All Fs (4294967295) in both fields shall indicate
+	//              a no statement/wildcard.
 	// Parameter:   KUINT32
 	//************************************
 	void SetPerceivedTransmitTimeInteger( KUINT32 PTTI );
@@ -217,7 +217,7 @@ public:
     // FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

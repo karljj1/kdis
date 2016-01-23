@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -53,7 +53,7 @@ Detonation_PDU::Detonation_PDU() :
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;
-	SetDescriptor( DescPtr( new MunitionDescriptor() ) );
+    SetDescriptor( DescPtr( new MunitionDescriptor() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ Detonation_PDU::Detonation_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Detonation_PDU::Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Warfare_Header( H )
+    Warfare_Header( H )
 {
     Decode( stream, true );
 }
@@ -88,7 +88,7 @@ Detonation_PDU::Detonation_PDU( const EntityIdentifier & FiringEntID, const Enti
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;
-	SetDescriptor( Desc );
+    SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ Detonation_PDU::Detonation_PDU( const Warfare_Header & WarfareHeader, const Vect
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;
-	SetDescriptor( Desc );
+    SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -120,14 +120,14 @@ Detonation_PDU::~Detonation_PDU()
 
 void Detonation_PDU::SetPDUStatusDetonationType( DetonationType DT )
 {
-	m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = DT;
+    m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = DT;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 DetonationType Detonation_PDU::GetPDUStatusDetonationType() const
 {
-	return ( DetonationType )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI;
+    return ( DetonationType )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI;
 }
 
 #endif
@@ -177,41 +177,41 @@ WorldCoordinates & Detonation_PDU::GetLocationInWorldCoords()
 
 void Detonation_PDU::SetDescriptor( DescPtr D )
 {
-	m_pDescriptor = D;
+    m_pDescriptor = D;
 
-	#if DIS_VERSION > 6 
-	
-	// Determine the FTI
-	if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
-	{
-		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = MunitionDTI;
-	}
-	else if( dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
-	{
-		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = ExpendableDTI;		
-		m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
-	}
-	else
-	{
-		m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = NonMunitionExplosionDTI;		
-		m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
-	}
+    #if DIS_VERSION > 6
 
-	#endif
+    // Determine the FTI
+    if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+    {
+        m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = MunitionDTI;
+    }
+    else if( dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
+    {
+        m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = ExpendableDTI;
+        m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
+    }
+    else
+    {
+        m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = NonMunitionExplosionDTI;
+        m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
+    }
+
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const DescPtr Detonation_PDU::GetDescriptor() const
 {
-	return m_pDescriptor;
+    return m_pDescriptor;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 DescPtr Detonation_PDU::GetDescriptor()
 {
-	return m_pDescriptor;
+    return m_pDescriptor;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -262,7 +262,7 @@ void Detonation_PDU::AddVariableParameter( VarPrmPtr VP )
 {
     m_vVariableParameters.push_back( VP );
     ++m_ui8NumOfVariableParams;
-	m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
+    m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -301,7 +301,7 @@ KString Detonation_PDU::GetAsString() const
        << Warfare_Header::GetAsString()
        << "Velocity:                 " << m_Velocity.GetAsString()
        << "World Location:           " << m_LocationWorldCoords.GetAsString()
-	   << m_pDescriptor->GetAsString()
+       << m_pDescriptor->GetAsString()
        << "Entity Location:          " << m_LocationEntityCoords.GetAsString()
        << "Detonation Result:        " << GetEnumAsStringDetonationResult( m_ui8DetonationResult ) << "\n"
        << "Num Articulation Params:  " << ( KUINT16 )m_ui8NumOfVariableParams
@@ -324,58 +324,58 @@ void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-	m_vVariableParameters.clear();
+    m_vVariableParameters.clear();
 
-    Warfare_Header::Decode( stream, ignoreHeader );	
+    Warfare_Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_Velocity
            >> KDIS_STREAM m_LocationWorldCoords;
 
-	#if DIS_VERSION < 7 
+    #if DIS_VERSION < 7
 
-	if( !m_pDescriptor.GetPtr() )
-	{
-		m_pDescriptor = DescPtr( new MunitionDescriptor() );
-	}	
+    if( !m_pDescriptor.GetPtr() )
+    {
+        m_pDescriptor = DescPtr( new MunitionDescriptor() );
+    }
 
-	#else
+    #else
 
-	// If the protocol version is not 7 then treat it as a MunitionDesc
-	if( m_ui8ProtocolVersion < 7 )
-	{
-		if( !m_pDescriptor.GetPtr() )
-		{
-			m_pDescriptor = DescPtr( new MunitionDescriptor() );
-		}	
-	}
-	else // DIS 7 
-	{			
-		if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == MunitionDTI ) // Munition
-		{
-			// Create a descriptor if the desc is null or the incorrect type
-			if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
-			{
-				m_pDescriptor = DescPtr( new MunitionDescriptor() );
-			}				
-		}
-		else if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == ExpendableDTI ) // Expendable
-		{
-			// Create a descriptor if the desc is null or the incorrect type
-			if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
-			{
-				m_pDescriptor = DescPtr( new ExpendableDescriptor() );
-			}
-		}
-		else // Explosion
-		{
-			// Create a descriptor if the desc is null or the incorrect type
-			if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExplosionDescriptor*>( m_pDescriptor.GetPtr() ) )
-			{
-				m_pDescriptor = DescPtr( new ExplosionDescriptor() );
-			}
-		}
-	}
-	#endif
+    // If the protocol version is not 7 then treat it as a MunitionDesc
+    if( m_ui8ProtocolVersion < 7 )
+    {
+        if( !m_pDescriptor.GetPtr() )
+        {
+            m_pDescriptor = DescPtr( new MunitionDescriptor() );
+        }
+    }
+    else // DIS 7
+    {
+        if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == MunitionDTI ) // Munition
+        {
+            // Create a descriptor if the desc is null or the incorrect type
+            if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+            {
+                m_pDescriptor = DescPtr( new MunitionDescriptor() );
+            }
+        }
+        else if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == ExpendableDTI ) // Expendable
+        {
+            // Create a descriptor if the desc is null or the incorrect type
+            if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
+            {
+                m_pDescriptor = DescPtr( new ExpendableDescriptor() );
+            }
+        }
+        else // Explosion
+        {
+            // Create a descriptor if the desc is null or the incorrect type
+            if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExplosionDescriptor*>( m_pDescriptor.GetPtr() ) )
+            {
+                m_pDescriptor = DescPtr( new ExplosionDescriptor() );
+            }
+        }
+    }
+    #endif
 
     m_pDescriptor->Decode( stream );
 
@@ -384,43 +384,43 @@ void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
            >> m_ui8NumOfVariableParams
            >> m_ui16Padding1;
 
-	for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
-	{
-		// Save the current write position so we can peek.
-		KUINT16 pos = stream.GetCurrentWritePosition();
-		KUINT8 paramTyp;
+    for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
+    {
+        // Save the current write position so we can peek.
+        KUINT16 pos = stream.GetCurrentWritePosition();
+        KUINT8 paramTyp;
 
-		// Extract the  type then reset the stream.
-		stream >> paramTyp;
-		stream.SetCurrentWritePosition( pos );
+        // Extract the  type then reset the stream.
+        stream >> paramTyp;
+        stream.SetCurrentWritePosition( pos );
 
-		// Use the factory decoder. 
-		VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
+        // Use the factory decoder.
+        VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
 
-		// Did we find a custom decoder? if not then use the default.
-		if( p )
-		{
-			m_vVariableParameters.push_back( VarPrmPtr( p ) );
-		}
-		else
-		{
-			// Default internals
-			switch( paramTyp )
-			{
-				case ArticulatedPartType:				
-					m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
-					break;
+        // Did we find a custom decoder? if not then use the default.
+        if( p )
+        {
+            m_vVariableParameters.push_back( VarPrmPtr( p ) );
+        }
+        else
+        {
+            // Default internals
+            switch( paramTyp )
+            {
+                case ArticulatedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
+                    break;
 
-				case AttachedPartType:
-					m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
-					break;
+                case AttachedPartType:
+                    m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
+                    break;
 
-				default:
-					m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
-					break;
-			}
-		}
-	}
+                default:
+                    m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
+                    break;
+            }
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -443,16 +443,16 @@ void Detonation_PDU::Encode( KDataStream & stream ) const
     stream << KDIS_STREAM m_Velocity
            << KDIS_STREAM m_LocationWorldCoords;
 
-	if( !m_pDescriptor.GetPtr() )
-	{
-		// Create a temp to fill the buffer.
-		MunitionDescriptor md;
-		stream << KDIS_STREAM md;		
-	}		
-	else
-	{
-		m_pDescriptor->Encode( stream );
-	}	
+    if( !m_pDescriptor.GetPtr() )
+    {
+        // Create a temp to fill the buffer.
+        MunitionDescriptor md;
+        stream << KDIS_STREAM md;
+    }
+    else
+    {
+        m_pDescriptor->Encode( stream );
+    }
 
     stream << KDIS_STREAM m_LocationEntityCoords
            << m_ui8DetonationResult

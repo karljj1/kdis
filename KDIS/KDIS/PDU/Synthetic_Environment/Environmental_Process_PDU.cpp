@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -64,7 +64,7 @@ Environmental_Process_PDU::Environmental_Process_PDU( KDataStream & stream ) thr
 //////////////////////////////////////////////////////////////////////////
 
 Environmental_Process_PDU::Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Header( H )
+    Header( H )
 {
     Decode( stream, true );
 }
@@ -284,7 +284,7 @@ void Environmental_Process_PDU::ClearEnvironmentRecords()
 {
     // Reset the PDU length.
     m_ui16PDULength = ENVIROMENTAL_PROCESS_PDU_SIZE;
-	m_vEnvRecords.clear();
+    m_vEnvRecords.clear();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -298,11 +298,11 @@ KString Environmental_Process_PDU::GetAsString() const
        << "Environmental Process ID:\n"
        << IndentString( m_EnvProcID.GetAsString(), 1 )
        << "Environment Type: "             << m_EnvType.GetAsString()
-       << "Model Type:		 "             << ( KUINT16 )m_ui8ModelType     << "\n"
-       << "Environment Status:"                                              << "\n"
+       << "Model Type:       "             << ( KUINT16 )m_ui8ModelType     << "\n"
+       << "Environment Status:\n"
        << "\tLast PDU: "                   << ( KUINT16 )m_ui8EnvStatusBit0 << "\n"
        << "\tActive: "                     << ( KUINT16 )m_ui8EnvStatusBit1 << "\n"
-       << "Number Of Environment Records: " << m_ui16NumEnvRec               << "\n"
+       << "Number Of Environment Records: " << m_ui16NumEnvRec              << "\n"
        << "Sequence Number: "              << m_ui16SeqNum                  << "\n";
 
     vector<EnvironmentRecordPtr>::const_iterator citr = m_vEnvRecords.begin();
@@ -324,7 +324,7 @@ void Environmental_Process_PDU::Decode( KDataStream & stream, bool ignoreHeader 
 
     m_vEnvRecords.clear();
 
-    Header::Decode( stream, ignoreHeader );	
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_EnvProcID
            >> KDIS_STREAM m_EnvType
@@ -346,7 +346,7 @@ void Environmental_Process_PDU::Decode( KDataStream & stream, bool ignoreHeader 
         // We now know what type of record we should create, we need to reset the buffer so this value can be re-read.
         stream.SetCurrentWritePosition( ui16CurrentWritePos );
 
-		m_vEnvRecords.push_back( EnvironmentRecord::FactoryDecodeEnvironmentRecord( stream ) );		
+        m_vEnvRecords.push_back( EnvironmentRecord::FactoryDecodeEnvironmentRecord( stream ) );
     }
 }
 

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -60,7 +60,7 @@ Data_Query_R_PDU::Data_Query_R_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Data_Query_R_PDU::Data_Query_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Data_Query_PDU( H )
+    Data_Query_PDU( H )
 {
     Decode( stream, true );
 }
@@ -80,24 +80,24 @@ KString Data_Query_R_PDU::GetAsString() const
     ss << Header::GetAsString()
        << "-Data Query PDU-R-\n"
        << Simulation_Management_Header::GetAsString()
-	   << Reliability_Header::GetAsString()
+       << Reliability_Header::GetAsString()
        << "Request ID:                   " << m_ui32RequestID
        << "\nTime Interval:            \n" << IndentString( m_TimeInterval.GetAsString() )
        << "\nNumber Fixed Datum:         " << m_ui32NumFixedDatum
        << "\nNumber Variable Datum:      " << m_ui32NumVariableDatum
        << "\n";
 
-	ss << "Fixed Datum ID's\n";
+    ss << "Fixed Datum ID's\n";
     vector<KUINT32>::const_iterator citrFixed = m_vFixedDatum.begin();
-	vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+    vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
         ss << "\t" << *citrFixed << "\n";
     }
 
-	ss << "Variable Datum ID's\n";
+    ss << "Variable Datum ID's\n";
     vector<KUINT32>::const_iterator citrVar = m_vVariableDatum.begin();
-	vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
+    vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
         ss << "\t" << *citrVar << "\n";
@@ -113,28 +113,28 @@ void Data_Query_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DATA_QUERY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );	
+    Simulation_Management_Header::Decode( stream, ignoreHeader );
     Reliability_Header::Decode( stream );
 
-	stream >> m_ui32RequestID
+    stream >> m_ui32RequestID
            >> KDIS_STREAM m_TimeInterval
            >> m_ui32NumFixedDatum
            >> m_ui32NumVariableDatum;
 
-	KUINT32 tmp = 0;
+    KUINT32 tmp = 0;
 
-	// FixedDatum
+    // FixedDatum
     for( KUINT16 i = 0; i < m_ui32NumFixedDatum; ++i )
     {
-		stream >> tmp;
-		m_vFixedDatum.push_back( tmp );
+        stream >> tmp;
+        m_vFixedDatum.push_back( tmp );
     }
 
-	// VariableDatum
+    // VariableDatum
     for( KUINT16 i = 0; i < m_ui32NumVariableDatum; ++i )
     {
-		stream >> tmp;
-		m_vVariableDatum.push_back( tmp );
+        stream >> tmp;
+        m_vVariableDatum.push_back( tmp );
     }
 }
 
@@ -162,14 +162,14 @@ void Data_Query_R_PDU::Encode( KDataStream & stream ) const
            << m_ui32NumVariableDatum;
 
     vector<KUINT32>::const_iterator citrFixed = m_vFixedDatum.begin();
-	vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+    vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
         stream << *citrFixed;
     }
 
     vector<KUINT32>::const_iterator citrVar = m_vVariableDatum.begin();
-	vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
+    vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
         stream << *citrVar;

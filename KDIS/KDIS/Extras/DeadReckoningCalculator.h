@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -259,7 +259,7 @@ protected:
     TMATRIX m_wwMatrix;
     TMATRIX m_SkewOmegaMatrix;
 
-	KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm m_DRA; // The selected dead reckoning algorithm
+    KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm m_DRA; // The selected dead reckoning algorithm
 
     void positionReset( const KDIS::DATA_TYPE::WorldCoordinates & Position );
     void orientationReset( const KDIS::DATA_TYPE::EulerAngles & Orientation );
@@ -325,7 +325,7 @@ public:
     // Parameter:   DeadReckoningAlgorithm DRA
     //************************************
     void Reset( const KDIS::DATA_TYPE::Vector & LinearVelocity, const KDIS::DATA_TYPE::Vector & LinearAcceleration, const KDIS::DATA_TYPE::Vector & AngularVelocity,
-		        const KDIS::DATA_TYPE::WorldCoordinates & Position, const KDIS::DATA_TYPE::EulerAngles & Orientation, const KDIS::DATA_TYPE::Vector & QuatAxis, KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA );
+                const KDIS::DATA_TYPE::WorldCoordinates & Position, const KDIS::DATA_TYPE::EulerAngles & Orientation, const KDIS::DATA_TYPE::Vector & QuatAxis, KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA );
 
     //************************************
     // FullName:    KDIS::UTILS::DeadReckoningCalculator::RunAlgorithm
@@ -338,7 +338,7 @@ public:
     //************************************
     void RunAlgorithm( const KFLOAT32 TotalTimeSinceReset, KDIS::DATA_TYPE::WorldCoordinates & PositionOut, KDIS::DATA_TYPE::EulerAngles & OrientationOut );
 
-	//************************************
+    //************************************
     // FullName:    KDIS::DeadReckoningCalculator::GenerateSmoothingPoints
     // Description: When a new update of position is received from another entity, a correction
     //              in position is usually required so that the entity may be depicted in simulation
@@ -349,7 +349,7 @@ public:
     // Parameter:   const WorldCoordinates & EndPosition,
     // Parameter:   KUINT32 NumberOfPoints
     //************************************
-	std::vector<KDIS::DATA_TYPE::WorldCoordinates> GenerateSmoothingPoints( const KDIS::DATA_TYPE::WorldCoordinates & StartPosition, const KDIS::DATA_TYPE::WorldCoordinates & EndPosition, KUINT32 NumberOfPoints );
+    std::vector<KDIS::DATA_TYPE::WorldCoordinates> GenerateSmoothingPoints( const KDIS::DATA_TYPE::WorldCoordinates & StartPosition, const KDIS::DATA_TYPE::WorldCoordinates & EndPosition, KUINT32 NumberOfPoints );
 
     //************************************
     // FullName:    KDIS::DeadReckoningCalculator::GenerateSmoothingPoints
@@ -367,7 +367,7 @@ public:
     // Parameter:   KUINT32 NumberOfPoints
     // Parameter:   vector<WorldCoordinates> & v
     //************************************
-	void GenerateSmoothingPoints( const KDIS::DATA_TYPE::WorldCoordinates & StartPosition, const KDIS::DATA_TYPE::WorldCoordinates & EndPosition, KUINT32 NumberOfPoints, std::vector<KDIS::DATA_TYPE::WorldCoordinates> & v );
+    void GenerateSmoothingPoints( const KDIS::DATA_TYPE::WorldCoordinates & StartPosition, const KDIS::DATA_TYPE::WorldCoordinates & EndPosition, KUINT32 NumberOfPoints, std::vector<KDIS::DATA_TYPE::WorldCoordinates> & v );
 };
 
 } // END namespace UTILS

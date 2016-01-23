@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -51,12 +51,12 @@ const EnumDescriptor ProtocolVersionDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolVersion()
 {
-	return sizeof( ProtocolVersionDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( ProtocolVersionDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolVersion( KUINT32 Index )
 {
-	return &ProtocolVersionDescriptor[Index];
+    return &ProtocolVersionDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )
@@ -66,19 +66,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolVersion( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ProtocolVersionDescriptor, sizeof( ProtocolVersionDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( ProtocolVersionDescriptor, sizeof( ProtocolVersionDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolVersion()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolVersion( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )
@@ -90,7 +90,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolVersion( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolVersion( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -186,12 +186,12 @@ const EnumDescriptor PDUTypeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePDUType()
 {
-	return sizeof( PDUTypeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( PDUTypeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPDUType( KUINT32 Index )
 {
-	return &PDUTypeDescriptor[Index];
+    return &PDUTypeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPDUType( KINT32 Value )
@@ -201,19 +201,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPDUType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPDUType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( PDUTypeDescriptor, sizeof( PDUTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( PDUTypeDescriptor, sizeof( PDUTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePDUType()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPDUType( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPDUType( KINT32 Value )
@@ -225,7 +225,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPDUType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPDUType( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -261,12 +261,12 @@ const EnumDescriptor ProtocolFamilyDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolFamily()
 {
-	return sizeof( ProtocolFamilyDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( ProtocolFamilyDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolFamily( KUINT32 Index )
 {
-	return &ProtocolFamilyDescriptor[Index];
+    return &ProtocolFamilyDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolFamily( KINT32 Value )
@@ -276,19 +276,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolFamily( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolFamily( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ProtocolFamilyDescriptor, sizeof( ProtocolFamilyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( ProtocolFamilyDescriptor, sizeof( ProtocolFamilyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeProtocolFamily()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorProtocolFamily( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolFamily( KINT32 Value )
@@ -300,7 +300,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringProtocolFamily( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringProtocolFamily( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -319,12 +319,12 @@ const EnumDescriptor TimeStampTypeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTimeStampType()
 {
-	return sizeof( TimeStampTypeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( TimeStampTypeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTimeStampType( KUINT32 Index )
 {
-	return &TimeStampTypeDescriptor[Index];
+    return &TimeStampTypeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTimeStampType( KINT32 Value )
@@ -334,19 +334,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTimeStampType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTimeStampType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( TimeStampTypeDescriptor, sizeof( TimeStampTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( TimeStampTypeDescriptor, sizeof( TimeStampTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeTimeStampType()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorTimeStampType( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTimeStampType( KINT32 Value )
@@ -358,7 +358,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringTimeStampType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTimeStampType( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -380,12 +380,12 @@ const EnumDescriptor LVCIndicatorDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeLVCIndicator()
 {
-	return sizeof( LVCIndicatorDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( LVCIndicatorDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorLVCIndicator( KUINT32 Index )
 {
-	return &LVCIndicatorDescriptor[Index];
+    return &LVCIndicatorDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLVCIndicator( KINT32 Value )
@@ -395,19 +395,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLVCIndicator( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLVCIndicator( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( LVCIndicatorDescriptor, sizeof( LVCIndicatorDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( LVCIndicatorDescriptor, sizeof( LVCIndicatorDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeLVCIndicator()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorLVCIndicator( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLVCIndicator( KINT32 Value )
@@ -419,7 +419,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringLVCIndicator( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLVCIndicator( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif

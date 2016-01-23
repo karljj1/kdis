@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -46,7 +46,7 @@ Fire_PDU::Fire_PDU()
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;
-	SetDescriptor( DescPtr( new MunitionDescriptor() ) );
+    SetDescriptor( DescPtr( new MunitionDescriptor() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ Fire_PDU::Fire_PDU( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 Fire_PDU::Fire_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Warfare_Header( H )
+    Warfare_Header( H )
 {
     Decode( stream, true );
 }
@@ -76,7 +76,7 @@ Fire_PDU::Fire_PDU( const Warfare_Header & WarfareHeader, KUINT32 FireMissionInd
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;
-	SetDescriptor( Desc );
+    SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ Fire_PDU::Fire_PDU( const EntityIdentifier & FiringEntID, const EntityIdentifier
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;
-	SetDescriptor( Desc );
+    SetDescriptor( Desc );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -106,14 +106,14 @@ Fire_PDU::~Fire_PDU()
 
 void Fire_PDU::SetPDUStatusFireType( FireType FT )
 {
-	m_PDUStatusUnion.m_ui8PDUStatusFTI = FT;
+    m_PDUStatusUnion.m_ui8PDUStatusFTI = FT;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 FireType Fire_PDU::GetPDUStatusFireType() const
 {
-	return ( FireType )m_PDUStatusUnion.m_ui8PDUStatusFTI;
+    return ( FireType )m_PDUStatusUnion.m_ui8PDUStatusFTI;
 }
 
 #endif
@@ -156,36 +156,36 @@ WorldCoordinates & Fire_PDU::GetLocation()
 
 void Fire_PDU::SetDescriptor( DescPtr D )
 {
-	m_pDescriptor = D;
+    m_pDescriptor = D;
 
-	#if DIS_VERSION > 6 
-	
-	// Determine the FTI
-	if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
-	{
-		m_PDUStatusUnion.m_ui8PDUStatusFTI = MunitionFTI;
-	}
-	else
-	{
-		m_PDUStatusUnion.m_ui8PDUStatusFTI = ExpendableFTI;		
-		m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
-	}
+    #if DIS_VERSION > 6
 
-	#endif
+    // Determine the FTI
+    if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+    {
+        m_PDUStatusUnion.m_ui8PDUStatusFTI = MunitionFTI;
+    }
+    else
+    {
+        m_PDUStatusUnion.m_ui8PDUStatusFTI = ExpendableFTI;
+        m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
+    }
+
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const DescPtr Fire_PDU::GetDescriptor() const
 {
-	return m_pDescriptor;
+    return m_pDescriptor;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 DescPtr Fire_PDU::GetDescriptor()
 {
-	return m_pDescriptor;
+    return m_pDescriptor;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -247,52 +247,52 @@ void Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) thro
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < FIRE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Warfare_Header::Decode( stream, ignoreHeader );	
+    Warfare_Header::Decode( stream, ignoreHeader );
 
     stream >> m_ui32FireMissionIndex
            >> KDIS_STREAM m_Location;
 
-	#if DIS_VERSION < 7 
+    #if DIS_VERSION < 7
 
-	if( !m_pDescriptor.GetPtr() )
-	{
-		m_pDescriptor = DescPtr( new MunitionDescriptor() );
-	}	
+    if( !m_pDescriptor.GetPtr() )
+    {
+        m_pDescriptor = DescPtr( new MunitionDescriptor() );
+    }
 
-	#else
+    #else
 
-	// If the protocol version is not 7 then treat it as a MunitionDesc
-	if( m_ui8ProtocolVersion < 7 )
-	{
-		if( !m_pDescriptor.GetPtr() )
-		{
-			m_pDescriptor = DescPtr( new MunitionDescriptor() );
-		}	
-	}
-	else // DIS 7 
-	{	
-		if( m_PDUStatusUnion.m_ui8PDUStatusFTI == MunitionFTI )
-		{
-			// Create a descriptor if the desc is null or the incorrect type
-			if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
-			{
-				m_pDescriptor = DescPtr( new MunitionDescriptor() );
-			}				
-		}
-		else
-		{
-			// Create a descriptor if the desc is null or the incorrect type
-			if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
-			{
-				m_pDescriptor = DescPtr( new ExpendableDescriptor() );
-			}
-		}
-	}
-	#endif
+    // If the protocol version is not 7 then treat it as a MunitionDesc
+    if( m_ui8ProtocolVersion < 7 )
+    {
+        if( !m_pDescriptor.GetPtr() )
+        {
+            m_pDescriptor = DescPtr( new MunitionDescriptor() );
+        }
+    }
+    else // DIS 7
+    {
+        if( m_PDUStatusUnion.m_ui8PDUStatusFTI == MunitionFTI )
+        {
+            // Create a descriptor if the desc is null or the incorrect type
+            if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
+            {
+                m_pDescriptor = DescPtr( new MunitionDescriptor() );
+            }
+        }
+        else
+        {
+            // Create a descriptor if the desc is null or the incorrect type
+            if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
+            {
+                m_pDescriptor = DescPtr( new ExpendableDescriptor() );
+            }
+        }
+    }
+    #endif
 
     m_pDescriptor->Decode( stream );
 
-	stream >> KDIS_STREAM m_Velocity
+    stream >> KDIS_STREAM m_Velocity
            >> m_f32Range;
 }
 
@@ -314,17 +314,17 @@ void Fire_PDU::Encode( KDataStream & stream ) const
     Warfare_Header::Encode( stream );
     stream << m_ui32FireMissionIndex
            << KDIS_STREAM m_Location;
-	
-	if( !m_pDescriptor.GetPtr() )
-	{
-		// Create a temp to fill the buffer.
-		MunitionDescriptor md;
-		stream << KDIS_STREAM md;		
-	}		
-	else
-	{
-		m_pDescriptor->Encode( stream );
-	}	
+
+    if( !m_pDescriptor.GetPtr() )
+    {
+        // Create a temp to fill the buffer.
+        MunitionDescriptor md;
+        stream << KDIS_STREAM md;
+    }
+    else
+    {
+        m_pDescriptor->Encode( stream );
+    }
 
     stream << KDIS_STREAM m_Velocity
            << m_f32Range;

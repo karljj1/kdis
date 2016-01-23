@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -57,11 +57,11 @@ public:
 
     Action_Response_PDU();
 
-	Action_Response_PDU( const Header & H );
+    Action_Response_PDU( const Header & H );
 
     Action_Response_PDU( KDataStream & stream ) throw( KException );
 
-	Action_Response_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Action_Response_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     // Generate a response from a PDU.
     Action_Response_PDU( const Action_Request_PDU & pdu, KDIS::DATA_TYPE::ENUMS::RequestStatus RS );
@@ -87,7 +87,7 @@ public:
     // FullName:    KDIS::PDU::Action_Response_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

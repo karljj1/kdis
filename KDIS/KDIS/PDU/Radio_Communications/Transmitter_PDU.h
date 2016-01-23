@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -33,8 +33,8 @@ http://p.sf.net/kdis/UserGuide
     created:    21/10/2008
     author:     Karl Jones
 
-    purpose:    Used to communicate the state of a particular radio 
-				transmitter or simple intercom.
+    purpose:    Used to communicate the state of a particular radio
+                transmitter or simple intercom.
 
     size:       832 bits / 104 octets - min size
 *********************************************************************/
@@ -85,23 +85,23 @@ protected:
 
     KUINT8 m_ui8Padding3;
 
-	std::vector<KOCTET> m_vModulationParams;
+    std::vector<KOCTET> m_vModulationParams;
 
-	std::vector<KOCTET> m_vAntennaPattern;
+    std::vector<KOCTET> m_vAntennaPattern;
 
 public:
 
     static const KUINT16 TRANSMITTER_PDU_SIZE = 104; // Min Size
 
     Transmitter_PDU();
-	
-	Transmitter_PDU( const Header & H );
+
+    Transmitter_PDU( const Header & H );
 
     Transmitter_PDU( KDataStream & stream ) throw( KException );
 
-	Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Transmitter_PDU( const KDIS::DATA_TYPE::RadioEntityType & Type, KDIS::DATA_TYPE::ENUMS::TransmitState TS, KDIS::DATA_TYPE::ENUMS::RadioInputSource IS,
+    Transmitter_PDU( const KDIS::DATA_TYPE::RadioEntityType & Type, KDIS::DATA_TYPE::ENUMS::TransmitState TS, KDIS::DATA_TYPE::ENUMS::RadioInputSource IS,
                      const KDIS::DATA_TYPE::AntennaLocation & AL, KDIS::DATA_TYPE::ENUMS::AntennaPatternType APT, KUINT64 Freq,
                      KFLOAT32 FreqBW, KFLOAT32 Power, const KDIS::DATA_TYPE::ModulationType & MT,
                      const KDIS::DATA_TYPE::CryptoSystem & CS, const KOCTET * ModulationParams,
@@ -260,7 +260,7 @@ public:
     // FullName:    KDIS::PDU::Transmitter_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

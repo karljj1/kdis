@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -42,7 +42,7 @@ http://p.sf.net/kdis/UserGuide
 
 namespace KDIS {
 namespace DATA_TYPE {
-namespace ENUMS {	
+namespace ENUMS {
 
 struct EnumDescriptor
 {
@@ -63,7 +63,7 @@ KDIS_EXPORT KString GetEnumAsString( const EnumDescriptor * pArray, KUINT32 NumE
 //************************************
 // FullName:    KDIS::DATA_TYPE::ENUMS::GetEnumFromString
 // Description: Uses a linear search to find the enum value from a string. Search is case sensitive..
-//				Returns true if a match was found else false.
+//              Returns true if a match was found else false.
 // Parameter:   const EnumDescriptor * pArray
 // Parameter:   KUINT32 NumElements
 // Parameter:   const KString & Value

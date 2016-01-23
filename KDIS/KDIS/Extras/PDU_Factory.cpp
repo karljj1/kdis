@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -198,8 +198,8 @@ auto_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )throw
 //////////////////////////////////////////////////////////////////////////
 
 auto_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )throw( KException )
-{    
-	return Decode( Header( Stream ), Stream );
+{
+    return Decode( Header( Stream ), Stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -296,7 +296,7 @@ auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )th
         return applyFilters( new Collision_Elastic_PDU( H, Stream ) );
 
     case IFF_ATC_NAVAIDS_PDU_Type:
-            return applyFilters( new IFF_PDU( H, Stream ) );       
+            return applyFilters( new IFF_PDU( H, Stream ) );
 
     case UnderwaterAcoustic_PDU_Type:
         return applyFilters( new Underwater_Acoustic_PDU( H, Stream ) );
@@ -412,27 +412,27 @@ auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )th
     case EntityStateUpdate_PDU_Type:
         return applyFilters( new Entity_State_Update_PDU( H, Stream ) );
 
-	#endif
+    #endif
 
-	// The following are DIS version 7 PDUs.
-	#if DIS_VERSION >= 7
+    // The following are DIS version 7 PDUs.
+    #if DIS_VERSION >= 7
 
-	case DirectedEnergyFire_PDU_Type:
-		return applyFilters( new Directed_Energy_Fire_PDU( H, Stream ) );
-		
-	case EntityDamageStatus_PDU_Type:
-		return applyFilters( new Entity_Damage_Status_PDU( H, Stream ) );
+    case DirectedEnergyFire_PDU_Type:
+        return applyFilters( new Directed_Energy_Fire_PDU( H, Stream ) );
 
-	case IO_Action_PDU_Type:
-		return applyFilters( new IO_Action_PDU( H, Stream ) );
+    case EntityDamageStatus_PDU_Type:
+        return applyFilters( new Entity_Damage_Status_PDU( H, Stream ) );
 
-	case IO_Report_PDU_Type:
-		return applyFilters( new IO_Report_PDU( H, Stream ) );
+    case IO_Action_PDU_Type:
+        return applyFilters( new IO_Action_PDU( H, Stream ) );
 
-	case Attribute_PDU_Type:
-		return applyFilters( new Attribute_PDU( H, Stream ) );
+    case IO_Report_PDU_Type:
+        return applyFilters( new IO_Report_PDU( H, Stream ) );
 
-	#endif
+    case Attribute_PDU_Type:
+        return applyFilters( new Attribute_PDU( H, Stream ) );
+
+    #endif
     }
 
     // We could not decode the PDU

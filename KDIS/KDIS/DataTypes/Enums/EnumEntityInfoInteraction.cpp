@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -45,12 +45,12 @@ const EnumDescriptor CollisionTypeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCollisionType()
 {
-	return sizeof( CollisionTypeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( CollisionTypeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCollisionType( KUINT32 Index )
 {
-	return &CollisionTypeDescriptor[Index];
+    return &CollisionTypeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCollisionType( KINT32 Value )
@@ -60,19 +60,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCollisionType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCollisionType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( CollisionTypeDescriptor, sizeof( CollisionTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( CollisionTypeDescriptor, sizeof( CollisionTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCollisionType()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCollisionType( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCollisionType( KINT32 Value )
@@ -84,7 +84,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCollisionType( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCollisionType( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -111,12 +111,12 @@ const EnumDescriptor EntityKindDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityKind()
 {
-	return sizeof( EntityKindDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityKindDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityKind( KUINT32 Index )
 {
-	return &EntityKindDescriptor[Index];
+    return &EntityKindDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityKind( KINT32 Value )
@@ -126,19 +126,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityKind( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityKind( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityKindDescriptor, sizeof( EntityKindDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityKindDescriptor, sizeof( EntityKindDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityKind()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityKind( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityKind( KINT32 Value )
@@ -150,7 +150,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityKind( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityKind( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -173,12 +173,12 @@ const EnumDescriptor EntityDomainDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityDomain()
 {
-	return sizeof( EntityDomainDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityDomainDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityDomain( KUINT32 Index )
 {
-	return &EntityDomainDescriptor[Index];
+    return &EntityDomainDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDomain( KINT32 Value )
@@ -188,19 +188,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDomain( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDomain( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityDomainDescriptor, sizeof( EntityDomainDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityDomainDescriptor, sizeof( EntityDomainDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityDomain()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityDomain( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDomain( KINT32 Value )
@@ -212,7 +212,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDomain( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDomain( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -492,12 +492,12 @@ const EnumDescriptor CountryDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCountry()
 {
-	return sizeof( CountryDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( CountryDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCountry( KUINT32 Index )
 {
-	return &CountryDescriptor[Index];
+    return &CountryDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCountry( KINT32 Value )
@@ -507,19 +507,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCountry( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( CountryDescriptor, sizeof( CountryDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( CountryDescriptor, sizeof( CountryDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCountry()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCountry( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCountry( KINT32 Value )
@@ -531,7 +531,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCountry( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -550,12 +550,12 @@ const EnumDescriptor VariableParameterTypeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeVariableParameterType()
 {
-	return sizeof( VariableParameterTypeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( VariableParameterTypeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorVariableParameterType( KUINT32 Index )
 {
-	return &VariableParameterTypeDescriptor[Index];
+    return &VariableParameterTypeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Value )
@@ -565,19 +565,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Val
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( VariableParameterTypeDescriptor, sizeof( VariableParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( VariableParameterTypeDescriptor, sizeof( VariableParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeVariableParameterType()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorVariableParameterType( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Value )
@@ -589,7 +589,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringVariableParameterType( KINT32 Val
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -622,12 +622,12 @@ const EnumDescriptor ArticulatedPartsMetricDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeArticulatedPartsMetric()
 {
-	return sizeof( ArticulatedPartsMetricDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( ArticulatedPartsMetricDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorArticulatedPartsMetric( KUINT32 Index )
 {
-	return &ArticulatedPartsMetricDescriptor[Index];
+    return &ArticulatedPartsMetricDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsMetric( KINT32 Value )
@@ -637,19 +637,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsMetric( KINT32 Va
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ArticulatedPartsMetricDescriptor, sizeof( ArticulatedPartsMetricDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( ArticulatedPartsMetricDescriptor, sizeof( ArticulatedPartsMetricDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeArticulatedPartsMetric()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorArticulatedPartsMetric( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsMetric( KINT32 Value )
@@ -661,7 +661,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsMetric( KINT32 Va
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -806,12 +806,12 @@ const EnumDescriptor ArticulatedPartsClassDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeArticulatedPartsClass()
 {
-	return sizeof( ArticulatedPartsClassDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( ArticulatedPartsClassDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorArticulatedPartsClass( KUINT32 Index )
 {
-	return &ArticulatedPartsClassDescriptor[Index];
+    return &ArticulatedPartsClassDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsClass( KINT32 Value )
@@ -821,19 +821,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsClass( KINT32 Val
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ArticulatedPartsClassDescriptor, sizeof( ArticulatedPartsClassDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( ArticulatedPartsClassDescriptor, sizeof( ArticulatedPartsClassDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeArticulatedPartsClass()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorArticulatedPartsClass( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsClass( KINT32 Value )
@@ -845,7 +845,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringArticulatedPartsClass( KINT32 Val
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -860,28 +860,28 @@ const EnumDescriptor AttachedPartParameterTypeDescriptor[] =
 {
     { 1   , "ModelSpecificStations" },
     { 512 , "FuselageStations" },
-	{ 640 , "LeftWingStations" },
-	{ 768 , "RightWingStations" },
-	{ 896 , "M16A42Rifle" },
-	{ 897 , "M249SAW" },
-	{ 898 , "M60MachineGun" },
-	{ 899 , "M203GrenadeLauncher" },
-	{ 900 , "M136AT4" },
-	{ 901 , "M47Dragon" },
-	{ 902 , "AAWSMJavelin" },
-	{ 903 , "M18A1ClaymoreMine" },
-	{ 904 , "MK19GrenadeLauncher" },
-	{ 905 , "M2MachineGun" }
+    { 640 , "LeftWingStations" },
+    { 768 , "RightWingStations" },
+    { 896 , "M16A42Rifle" },
+    { 897 , "M249SAW" },
+    { 898 , "M60MachineGun" },
+    { 899 , "M203GrenadeLauncher" },
+    { 900 , "M136AT4" },
+    { 901 , "M47Dragon" },
+    { 902 , "AAWSMJavelin" },
+    { 903 , "M18A1ClaymoreMine" },
+    { 904 , "MK19GrenadeLauncher" },
+    { 905 , "M2MachineGun" }
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAttachedPartParameterType()
 {
-	return sizeof( AttachedPartParameterTypeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( AttachedPartParameterTypeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAttachedPartParameterType( KUINT32 Index )
 {
-	return &AttachedPartParameterTypeDescriptor[Index];
+    return &AttachedPartParameterTypeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedPartParameterType( KINT32 Value )
@@ -891,19 +891,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedPartParameterType( KINT32
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( AttachedPartParameterTypeDescriptor, sizeof( AttachedPartParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( AttachedPartParameterTypeDescriptor, sizeof( AttachedPartParameterTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAttachedPartParameterType()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAttachedPartParameterType( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedPartParameterType( KINT32 Value )
@@ -915,7 +915,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAttachedPartParameterType( KINT32
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -934,12 +934,12 @@ const EnumDescriptor EntityPaintSchemeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityPaintScheme()
 {
-	return sizeof( EntityPaintSchemeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityPaintSchemeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityPaintScheme( KUINT32 Index )
 {
-	return &EntityPaintSchemeDescriptor[Index];
+    return &EntityPaintSchemeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityPaintScheme( KINT32 Value )
@@ -949,19 +949,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityPaintScheme( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityPaintScheme( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityPaintSchemeDescriptor, sizeof( EntityPaintSchemeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityPaintSchemeDescriptor, sizeof( EntityPaintSchemeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityPaintScheme()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityPaintScheme( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityPaintScheme( KINT32 Value )
@@ -973,7 +973,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityPaintScheme( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityPaintScheme( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -994,12 +994,12 @@ const EnumDescriptor EntityDamageDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityDamage()
 {
-	return sizeof( EntityDamageDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityDamageDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityDamage( KUINT32 Index )
 {
-	return &EntityDamageDescriptor[Index];
+    return &EntityDamageDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDamage( KINT32 Value )
@@ -1009,19 +1009,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDamage( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDamage( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityDamageDescriptor, sizeof( EntityDamageDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityDamageDescriptor, sizeof( EntityDamageDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityDamage()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityDamage( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDamage( KINT32 Value )
@@ -1033,7 +1033,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDamage( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDamage( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1054,12 +1054,12 @@ const EnumDescriptor EntitySmokeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntitySmoke()
 {
-	return sizeof( EntitySmokeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntitySmokeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntitySmoke( KUINT32 Index )
 {
-	return &EntitySmokeDescriptor[Index];
+    return &EntitySmokeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntitySmoke( KINT32 Value )
@@ -1069,19 +1069,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntitySmoke( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntitySmoke( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntitySmokeDescriptor, sizeof( EntitySmokeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntitySmokeDescriptor, sizeof( EntitySmokeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntitySmoke()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntitySmoke( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntitySmoke( KINT32 Value )
@@ -1093,7 +1093,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntitySmoke( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntitySmoke( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1114,12 +1114,12 @@ const EnumDescriptor EntityTrailingEffectDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityTrailingEffect()
 {
-	return sizeof( EntityTrailingEffectDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityTrailingEffectDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityTrailingEffect( KUINT32 Index )
 {
-	return &EntityTrailingEffectDescriptor[Index];
+    return &EntityTrailingEffectDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityTrailingEffect( KINT32 Value )
@@ -1129,19 +1129,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityTrailingEffect( KINT32 Valu
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityTrailingEffect( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityTrailingEffectDescriptor, sizeof( EntityTrailingEffectDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityTrailingEffectDescriptor, sizeof( EntityTrailingEffectDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityTrailingEffect()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityTrailingEffect( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityTrailingEffect( KINT32 Value )
@@ -1153,7 +1153,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityTrailingEffect( KINT32 Valu
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityTrailingEffect( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1176,12 +1176,12 @@ const EnumDescriptor EntityHatchStateDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityHatchState()
 {
-	return sizeof( EntityHatchStateDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityHatchStateDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityHatchState( KUINT32 Index )
 {
-	return &EntityHatchStateDescriptor[Index];
+    return &EntityHatchStateDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityHatchState( KINT32 Value )
@@ -1191,19 +1191,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityHatchState( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityHatchState( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityHatchStateDescriptor, sizeof( EntityHatchStateDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityHatchStateDescriptor, sizeof( EntityHatchStateDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityHatchState()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityHatchState( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityHatchState( KINT32 Value )
@@ -1215,7 +1215,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityHatchState( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityHatchState( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1236,12 +1236,12 @@ const EnumDescriptor EntityLightsDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityLights()
 {
-	return sizeof( EntityLightsDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityLightsDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityLights( KUINT32 Index )
 {
-	return &EntityLightsDescriptor[Index];
+    return &EntityLightsDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLights( KINT32 Value )
@@ -1251,19 +1251,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLights( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLights( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityLightsDescriptor, sizeof( EntityLightsDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityLightsDescriptor, sizeof( EntityLightsDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityLights()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityLights( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLights( KINT32 Value )
@@ -1275,7 +1275,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLights( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLights( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1295,12 +1295,12 @@ const EnumDescriptor EntityCamouflageDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityCamouflage()
 {
-	return sizeof( EntityCamouflageDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityCamouflageDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityCamouflage( KUINT32 Index )
 {
-	return &EntityCamouflageDescriptor[Index];
+    return &EntityCamouflageDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCamouflage( KINT32 Value )
@@ -1310,19 +1310,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCamouflage( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityCamouflage( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityCamouflageDescriptor, sizeof( EntityCamouflageDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityCamouflageDescriptor, sizeof( EntityCamouflageDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityCamouflage()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityCamouflage( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCamouflage( KINT32 Value )
@@ -1334,7 +1334,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCamouflage( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityCamouflage( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1356,22 +1356,22 @@ const EnumDescriptor EntityLifeformAppearanceDescriptor[] =
     { 7 , "Swimming" },
     { 8 , "Parachuting" },
     { 9 , "Jumping" },
-	{ 10 , "Sitting" },
-	{ 11 , "Squatting" },
-	{ 12 , "Crouching" },
-	{ 13 , "Wading" },
-	{ 14 , "SurrenderAppearance" },
-	{ 15 , "DetainedAppearance" }	
+    { 10 , "Sitting" },
+    { 11 , "Squatting" },
+    { 12 , "Crouching" },
+    { 13 , "Wading" },
+    { 14 , "SurrenderAppearance" },
+    { 15 , "DetainedAppearance" }
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityLifeformAppearance()
 {
-	return sizeof( EntityLifeformAppearanceDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityLifeformAppearanceDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityLifeformAppearance( KUINT32 Index )
 {
-	return &EntityLifeformAppearanceDescriptor[Index];
+    return &EntityLifeformAppearanceDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformAppearance( KINT32 Value )
@@ -1381,19 +1381,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformAppearance( KINT32 
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLifeformAppearance( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityLifeformAppearanceDescriptor, sizeof( EntityLifeformAppearanceDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityLifeformAppearanceDescriptor, sizeof( EntityLifeformAppearanceDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityLifeformAppearance()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityLifeformAppearance( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformAppearance( KINT32 Value )
@@ -1405,7 +1405,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformAppearance( KINT32 
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLifeformAppearance( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1426,12 +1426,12 @@ const EnumDescriptor EntityLifeformWeaponDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityLifeformWeapon()
 {
-	return sizeof( EntityLifeformWeaponDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityLifeformWeaponDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityLifeformWeapon( KUINT32 Index )
 {
-	return &EntityLifeformWeaponDescriptor[Index];
+    return &EntityLifeformWeaponDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformWeapon( KINT32 Value )
@@ -1441,19 +1441,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformWeapon( KINT32 Valu
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLifeformWeapon( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityLifeformWeaponDescriptor, sizeof( EntityLifeformWeaponDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityLifeformWeaponDescriptor, sizeof( EntityLifeformWeaponDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityLifeformWeapon()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityLifeformWeapon( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformWeapon( KINT32 Value )
@@ -1465,7 +1465,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityLifeformWeapon( KINT32 Valu
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityLifeformWeapon( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1487,12 +1487,12 @@ const EnumDescriptor EntityDensityDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityDensity()
 {
-	return sizeof( EntityDensityDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityDensityDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityDensity( KUINT32 Index )
 {
-	return &EntityDensityDescriptor[Index];
+    return &EntityDensityDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDensity( KINT32 Value )
@@ -1502,19 +1502,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDensity( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDensity( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityDensityDescriptor, sizeof( EntityDensityDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityDensityDescriptor, sizeof( EntityDensityDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityDensity()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityDensity( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDensity( KINT32 Value )
@@ -1526,7 +1526,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityDensity( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityDensity( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1543,27 +1543,27 @@ const EnumDescriptor EntityComplianceDescriptor[] =
     { 2 , "Surrender" },
     { 3 , "UsingFists" },
     { 4 , "VerbalAbuseLevel1" },
-	{ 5 , "VerbalAbuseLevel2" },
-	{ 6 , "VerbalAbuseLevel3" },
-	{ 7 , "PassiveResistanceLevel1" },
-	{ 8 , "PassiveResistanceLevel2" },
-	{ 9 , "PassiveResistanceLevel3" },
-	{ 10 , "UsingNonLethalWeapon1" },
-	{ 11 , "UsingNonLethalWeapon2" },
-	{ 12 , "UsingNonLethalWeapon3" },
-	{ 13 , "UsingNonLethalWeapon4" },
-	{ 14 , "UsingNonLethalWeapon5" },
-	{ 15 , "UsingNonLethalWeapon6" }
+    { 5 , "VerbalAbuseLevel2" },
+    { 6 , "VerbalAbuseLevel3" },
+    { 7 , "PassiveResistanceLevel1" },
+    { 8 , "PassiveResistanceLevel2" },
+    { 9 , "PassiveResistanceLevel3" },
+    { 10 , "UsingNonLethalWeapon1" },
+    { 11 , "UsingNonLethalWeapon2" },
+    { 12 , "UsingNonLethalWeapon3" },
+    { 13 , "UsingNonLethalWeapon4" },
+    { 14 , "UsingNonLethalWeapon5" },
+    { 15 , "UsingNonLethalWeapon6" }
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityCompliance()
 {
-	return sizeof( EntityComplianceDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityComplianceDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityCompliance( KUINT32 Index )
 {
-	return &EntityComplianceDescriptor[Index];
+    return &EntityComplianceDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCompliance( KINT32 Value )
@@ -1573,19 +1573,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCompliance( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityComplianceDescriptor, sizeof( EntityComplianceDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityComplianceDescriptor, sizeof( EntityComplianceDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityCompliance()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityCompliance( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCompliance( KINT32 Value )
@@ -1597,7 +1597,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityCompliance( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1624,12 +1624,12 @@ const EnumDescriptor DeadReckoningAlgorithmDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDeadReckoningAlgorithm()
 {
-	return sizeof( DeadReckoningAlgorithmDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( DeadReckoningAlgorithmDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDeadReckoningAlgorithm( KUINT32 Index )
 {
-	return &DeadReckoningAlgorithmDescriptor[Index];
+    return &DeadReckoningAlgorithmDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDeadReckoningAlgorithm( KINT32 Value )
@@ -1639,19 +1639,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDeadReckoningAlgorithm( KINT32 Va
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDeadReckoningAlgorithm( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( DeadReckoningAlgorithmDescriptor, sizeof( DeadReckoningAlgorithmDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( DeadReckoningAlgorithmDescriptor, sizeof( DeadReckoningAlgorithmDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDeadReckoningAlgorithm()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDeadReckoningAlgorithm( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDeadReckoningAlgorithm( KINT32 Value )
@@ -1663,7 +1663,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDeadReckoningAlgorithm( KINT32 Va
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDeadReckoningAlgorithm( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1683,12 +1683,12 @@ const EnumDescriptor EntityMarkingCharacterSetDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityMarkingCharacterSet()
 {
-	return sizeof( EntityMarkingCharacterSetDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( EntityMarkingCharacterSetDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityMarkingCharacterSet( KUINT32 Index )
 {
-	return &EntityMarkingCharacterSetDescriptor[Index];
+    return &EntityMarkingCharacterSetDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityMarkingCharacterSet( KINT32 Value )
@@ -1698,19 +1698,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityMarkingCharacterSet( KINT32
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityMarkingCharacterSet( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( EntityMarkingCharacterSetDescriptor, sizeof( EntityMarkingCharacterSetDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( EntityMarkingCharacterSetDescriptor, sizeof( EntityMarkingCharacterSetDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityMarkingCharacterSet()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorEntityMarkingCharacterSet( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityMarkingCharacterSet( KINT32 Value )
@@ -1722,7 +1722,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringEntityMarkingCharacterSet( KINT32
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringEntityMarkingCharacterSet( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1770,12 +1770,12 @@ const EnumDescriptor ForceIDDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeForceID()
 {
-	return sizeof( ForceIDDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( ForceIDDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorForceID( KUINT32 Index )
 {
-	return &ForceIDDescriptor[Index];
+    return &ForceIDDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringForceID( KINT32 Value )
@@ -1785,19 +1785,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringForceID( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringForceID( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ForceIDDescriptor, sizeof( ForceIDDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( ForceIDDescriptor, sizeof( ForceIDDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeForceID()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorForceID( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringForceID( KINT32 Value )
@@ -1809,7 +1809,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringForceID( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringForceID( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -1829,12 +1829,12 @@ const EnumDescriptor ActionCodeDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeActionCode()
 {
-	return sizeof( ActionCodeDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( ActionCodeDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorActionCode( KUINT32 Index )
 {
-	return &ActionCodeDescriptor[Index];
+    return &ActionCodeDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionCode( KINT32 Value )
@@ -1844,19 +1844,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionCode( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ActionCodeDescriptor, sizeof( ActionCodeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( ActionCodeDescriptor, sizeof( ActionCodeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeActionCode()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorActionCode( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionCode( KINT32 Value )
@@ -1868,7 +1868,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringActionCode( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif

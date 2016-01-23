@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -63,7 +63,7 @@ public:
 
     Warfare_Header();
 
-	Warfare_Header( const Header & H );
+    Warfare_Header( const Header & H );
 
     Warfare_Header( const KDIS::DATA_TYPE::EntityIdentifier & FiringEntID, const KDIS::DATA_TYPE::EntityIdentifier & TargetEntID,
                     const KDIS::DATA_TYPE::EntityIdentifier & MunitionID, const KDIS::DATA_TYPE::EntityIdentifier & EventID );
@@ -124,7 +124,7 @@ public:
     // FullName:    KDIS::PDU::Warfare_Header::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

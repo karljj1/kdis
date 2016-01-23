@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -29,11 +29,11 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      Fire_PDU
-    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012(when using descriptors that are not MunitionDescriptors)    
-	updated:    22/04/2013
+    DIS:        (5) 1278.1 - 1995 & (7) 1278.1-2012(when using descriptors that are not MunitionDescriptors)
+    updated:    22/04/2013
     author:     Karl Jones
 
-    purpose:    Communicates firing of munitions. 
+    purpose:    Communicates firing of munitions.
     Size:       768 bits / 96 octets
 *********************************************************************/
 
@@ -55,7 +55,7 @@ protected:
 
     KDIS::DATA_TYPE::WorldCoordinates m_Location;
 
-	KDIS::DATA_TYPE::DescPtr m_pDescriptor;
+    KDIS::DATA_TYPE::DescPtr m_pDescriptor;
 
     KDIS::DATA_TYPE::Vector m_Velocity;
 
@@ -69,7 +69,7 @@ public:
 
     Fire_PDU( KDataStream & stream ) throw( KException );
 
-	Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Fire_PDU( const Warfare_Header & WarfareHeader, KUINT32 FireMissionIndex, const KDIS::DATA_TYPE::WorldCoordinates & Location,
               KDIS::DATA_TYPE::DescPtr Desc, const KDIS::DATA_TYPE::Vector & Velocity, KFLOAT32 Range );
@@ -81,16 +81,16 @@ public:
 
     virtual ~Fire_PDU();
 
-	#if DIS_VERSION > 6
+    #if DIS_VERSION > 6
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetPDUStatusFireType
     //              KDIS::PDU::Fire_PDU::GetPDUStatusFireType
     // Description: Indicates the descriptor type used. FTI.
     // Parameter:   FireType FT
     //************************************
-	void SetPDUStatusFireType( KDIS::DATA_TYPE::ENUMS::FireType FT );
-	KDIS::DATA_TYPE::ENUMS::FireType GetPDUStatusFireType() const;
-	#endif
+    void SetPDUStatusFireType( KDIS::DATA_TYPE::ENUMS::FireType FT );
+    KDIS::DATA_TYPE::ENUMS::FireType GetPDUStatusFireType() const;
+    #endif
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetFireMissionIndex
@@ -116,14 +116,14 @@ public:
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::SetDescriptor
     //              KDIS::PDU::Fire_PDU::GetDescriptor
-    // Description: Descriptor, describes type of munition. 
-	//              Pre DIS 7 this will always be a MunitionDescriptor. 
-	//              In DIS 7 a Fire PDU can send a Munition Descriptor or an Expendable
-	//              Descriptor. Setting this in DIS 7 will automatically set the 
-	//              FTI (PDUStatusFireType) field and will cause the protocol version to change to
-	//              7 if the type is Expendable. I leave it as default if the type is Munition.
-	//              Note: By default this value will be a MunitionDescriptor, it is not null by default.
-	//              Example usage in DIS 7: SetDescriptor( DescPtr( new ExplosionDescriptor() ) );
+    // Description: Descriptor, describes type of munition.
+    //              Pre DIS 7 this will always be a MunitionDescriptor.
+    //              In DIS 7 a Fire PDU can send a Munition Descriptor or an Expendable
+    //              Descriptor. Setting this in DIS 7 will automatically set the
+    //              FTI (PDUStatusFireType) field and will cause the protocol version to change to
+    //              7 if the type is Expendable. I leave it as default if the type is Munition.
+    //              Note: By default this value will be a MunitionDescriptor, it is not null by default.
+    //              Example usage in DIS 7: SetDescriptor( DescPtr( new ExplosionDescriptor() ) );
     // Parameter:   DescPtr D
     //************************************
     void SetDescriptor( KDIS::DATA_TYPE::DescPtr D );
@@ -160,7 +160,7 @@ public:
     // FullName:    KDIS::PDU::Fire_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -60,7 +60,7 @@ Event_Report_R_PDU::Event_Report_R_PDU( KDataStream & stream ) throw( KException
 //////////////////////////////////////////////////////////////////////////
 
 Event_Report_R_PDU::Event_Report_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Event_Report_PDU( H )
+    Event_Report_PDU( H )
 {
     Decode( stream, true );
 }
@@ -99,15 +99,15 @@ KString Event_Report_R_PDU::GetAsString() const
 
     ss << "Fixed Datumn";
     vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-	vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
         ss << IndentString( ( *citrFixed )->GetAsString() );
     }
 
-	ss << "Variable Datumn";
+    ss << "Variable Datumn";
     vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-	vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
         ss << IndentString( ( *citrVar )->GetAsString() );

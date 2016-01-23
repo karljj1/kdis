@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -52,7 +52,7 @@ Minefield_State_PDU::Minefield_State_PDU() :
     m_SeqNumUnion.m_ui16SeqNum = 0;
     m_ui16ProtocolModeUnion.m_ui16ProtocolMode16 = 0;
 }
-	
+
 //////////////////////////////////////////////////////////////////////////
 
 Minefield_State_PDU::Minefield_State_PDU( KDataStream & stream ) throw( KException )
@@ -63,7 +63,7 @@ Minefield_State_PDU::Minefield_State_PDU( KDataStream & stream ) throw( KExcepti
 //////////////////////////////////////////////////////////////////////////
 
 Minefield_State_PDU::Minefield_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
-	Minefield_Header( H )
+    Minefield_Header( H )
 {
     Decode( stream, true );
 }
@@ -342,7 +342,7 @@ void Minefield_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tr
     m_vPoints.clear();
     m_vMineTypes.clear();
 
-    Minefield_Header::Decode( stream, ignoreHeader );	
+    Minefield_Header::Decode( stream, ignoreHeader );
 
     stream >> m_SeqNumUnion.m_ui16SeqNum
            >> m_ui8ForceID
@@ -411,18 +411,18 @@ void Minefield_State_PDU::Encode( KDataStream & stream ) const
 
 KBOOL Minefield_State_PDU::operator == ( const Minefield_State_PDU & Value ) const
 {
-    if( Minefield_Header::operator  != ( Value ) )                          return false;
-    if( m_SeqNumUnion.m_ui16SeqNum  != Value.m_SeqNumUnion.m_ui16SeqNum )   return false;
-    if( m_ui8ForceID                != Value.m_ui8ForceID )                 return false;
-    if( m_ui8NumPerimPoints         != Value.m_ui8NumPerimPoints )          return false;
-    if( m_MinefieldType             != Value.m_MinefieldType )              return false;
-    if( m_ui16NumMineTypes          != Value.m_ui16NumMineTypes )           return false;
-    if( m_Loc                       != Value.m_Loc )                        return false;
-    if( m_Ori                       != Value.m_Ori )                        return false;
-    if( m_App                       != Value.m_App )                        return false;
+    if( Minefield_Header::operator != ( Value ) )                        return false;
+    if( m_SeqNumUnion.m_ui16SeqNum != Value.m_SeqNumUnion.m_ui16SeqNum ) return false;
+    if( m_ui8ForceID               != Value.m_ui8ForceID )               return false;
+    if( m_ui8NumPerimPoints        != Value.m_ui8NumPerimPoints )        return false;
+    if( m_MinefieldType            != Value.m_MinefieldType )            return false;
+    if( m_ui16NumMineTypes         != Value.m_ui16NumMineTypes )         return false;
+    if( m_Loc                      != Value.m_Loc )                      return false;
+    if( m_Ori                      != Value.m_Ori )                      return false;
+    if( m_App                      != Value.m_App )                      return false;
     if( m_ui16ProtocolModeUnion.m_ui16ProtocolMode16 != Value.m_ui16ProtocolModeUnion.m_ui16ProtocolMode16 ) return false;
-    if( m_vPoints                   != Value.m_vPoints )                    return false;
-    if( m_vMineTypes                != Value.m_vMineTypes )                 return false;
+    if( m_vPoints                  != Value.m_vPoints )                  return false;
+    if( m_vMineTypes               != Value.m_vMineTypes )               return false;
     return true;
 }
 

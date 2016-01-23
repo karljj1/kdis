@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -58,7 +58,7 @@ protected:
 
     KUINT8 m_ui8NumMisPdus;
 
-	std::vector<KUINT8> m_vSeqNums;
+    std::vector<KUINT8> m_vSeqNums;
 
 public:
 
@@ -66,16 +66,16 @@ public:
 
     Minefield_Response_NACK_PDU();
 
-	Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException );
+    Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException );
 
-	Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Minefield_Response_NACK_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                                  KUINT8 ReqID );
 
     Minefield_Response_NACK_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
-		                         KUINT8 ReqID, const std::vector<KUINT8> & MissingSeqNums );
-   
+                                 KUINT8 ReqID, const std::vector<KUINT8> & MissingSeqNums );
+
 
     virtual ~Minefield_Response_NACK_PDU();
 
@@ -119,8 +119,8 @@ public:
     // Parameter:   KUINT8 N, const vector<KUINT8> & N
     //************************************
     void AddMissingPDUSequenceNumber( KUINT8 N );
-	void SetMissingPDUSequenceNumbers( const std::vector<KUINT8> & N );
-	const std::vector<KUINT8> & GetMissingPDUSequenceNumbers() const;
+    void SetMissingPDUSequenceNumbers( const std::vector<KUINT8> & N );
+    const std::vector<KUINT8> & GetMissingPDUSequenceNumbers() const;
     void ClearMissingPDUSequenceNumbers();
 
     //************************************
@@ -133,7 +133,7 @@ public:
     // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -46,12 +46,12 @@ const EnumDescriptor ServiceTypeRequestedDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeServiceTypeRequested()
 {
-	return sizeof( ServiceTypeRequestedDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( ServiceTypeRequestedDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorServiceTypeRequested( KUINT32 Index )
 {
-	return &ServiceTypeRequestedDescriptor[Index];
+    return &ServiceTypeRequestedDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringServiceTypeRequested( KINT32 Value )
@@ -61,19 +61,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringServiceTypeRequested( KINT32 Valu
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringServiceTypeRequested( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( ServiceTypeRequestedDescriptor, sizeof( ServiceTypeRequestedDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( ServiceTypeRequestedDescriptor, sizeof( ServiceTypeRequestedDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeServiceTypeRequested()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorServiceTypeRequested( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringServiceTypeRequested( KINT32 Value )
@@ -85,7 +85,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringServiceTypeRequested( KINT32 Valu
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringServiceTypeRequested( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -186,12 +186,12 @@ const EnumDescriptor RepairTypePerformedDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairTypePerformed()
 {
-	return sizeof( RepairTypePerformedDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( RepairTypePerformedDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairTypePerformed( KUINT32 Index )
 {
-	return &RepairTypePerformedDescriptor[Index];
+    return &RepairTypePerformedDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairTypePerformed( KINT32 Value )
@@ -201,19 +201,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairTypePerformed( KINT32 Value
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairTypePerformed( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( RepairTypePerformedDescriptor, sizeof( RepairTypePerformedDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( RepairTypePerformedDescriptor, sizeof( RepairTypePerformedDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairTypePerformed()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairTypePerformed( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairTypePerformed( KINT32 Value )
@@ -225,7 +225,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairTypePerformed( KINT32 Value
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairTypePerformed( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif
@@ -247,12 +247,12 @@ const EnumDescriptor RepairResultDescriptor[] =
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairResult()
 {
-	return sizeof( RepairResultDescriptor ) / sizeof( EnumDescriptor );
+    return sizeof( RepairResultDescriptor ) / sizeof( EnumDescriptor );
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairResult( KUINT32 Index )
 {
-	return &RepairResultDescriptor[Index];
+    return &RepairResultDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairResult( KINT32 Value )
@@ -262,19 +262,19 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairResult( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairResult( const KString & Value, KINT32 & ValueOut )
 {
-	return GetEnumFromString( RepairResultDescriptor, sizeof( RepairResultDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( RepairResultDescriptor, sizeof( RepairResultDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRepairResult()
 {
-	return 0;
+    return 0;
 }
 
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorRepairResult( KUINT32 Index )
 {
-	return NULL;
+    return NULL;
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairResult( KINT32 Value )
@@ -286,7 +286,7 @@ KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringRepairResult( KINT32 Value )
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringRepairResult( const KString & Value, KINT32 & ValueOut )
 {
-	return false; // Maybe throw an exception?
+    return false; // Maybe throw an exception?
 }
 
 #endif

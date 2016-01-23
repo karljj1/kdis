@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -72,21 +72,21 @@ protected:
     KINT32 m_iSocket[2]; // 1 for sending & 1 for receiving.
 
     KUINT32 m_uiPort;
-	
-	timeval m_blockingTimeout;
+
+    timeval m_blockingTimeout;
 
     sockaddr_in m_SendToAddr;
     KString m_sSendAddress;
 
     KBOOL m_bBlockingSocket;
 
-	std::vector<ConnectionSubscriber*> m_vpSubscribers;
+    std::vector<ConnectionSubscriber*> m_vpSubscribers;
 
     KDIS::UTILS::PDU_Factory * m_pPduFact;
 
-	// Allows us to handle pdu bundles
-	KDataStream m_stream;
-	KString m_sLastIP;
+    // Allows us to handle pdu bundles
+    KDataStream m_stream;
+    KString m_sLastIP;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::startup
@@ -153,17 +153,17 @@ public:
     //************************************
     void SetBlockingModeEnabled( KBOOL E );
     KBOOL IsBlockingModeEnabled() const;
-	
+
      //************************************
     // FullName:    KDIS::NETWORK::Connection::SetBlockingTimeout
     // Description: Sets the timeout for blocking I/O.
     //              Note: This is useful for reporting when there has been no socket
-	//				I/O for a long time. Where long time == 1 second or so. 
-	//				Make it short enough, and you make it non-blocking I/O.
+    //              I/O for a long time. Where long time == 1 second or so.
+    //              Make it short enough, and you make it non-blocking I/O.
     // Parameter:   KINT32 sec
-	// Parameter:   KINT32 usec
+    // Parameter:   KINT32 usec
     //************************************
-    void SetBlockingTimeOut( KINT32 sec, KINT32 usec );	
+    void SetBlockingTimeOut( KINT32 sec, KINT32 usec );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::AddSubscriber
@@ -198,12 +198,12 @@ public:
     // Parameter:   KUINT32 DataSz
     //************************************
     KINT32 Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KException );
-	KINT32 Send( const KDataStream & stream ) throw ( KException );
+    KINT32 Send( const KDataStream & stream ) throw ( KException );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SendPDU
     // Description: Sends a PDU over the network, fires the OnPDUTransmit event.
-	//				Returns number of bytes sent.
+    //              Returns number of bytes sent.
     // Parameter:   Header * H
     //************************************
     KINT32 SendPDU( KDIS::PDU::Header * H ) throw ( KException );
@@ -223,13 +223,13 @@ public:
     //************************************
     // FullName:    KDIS::NETWORK::Connection::GetNextPDU
     // Description: Checks the network for new data using Receive if not curently handling a pdu bundle,
-	//				then decodes the data using the PDU factory and finally returns the decoded PDU.
+    //              then decodes the data using the PDU factory and finally returns the decoded PDU.
     //              If the connection is none blocking then a NULL ptr will be returned if no data is available.
     //              Note: This function DOES fire subscriber events.
-	//				Note: This function supports PDU Bundles. 
+    //              Note: This function supports PDU Bundles.
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
-	std::auto_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
+    std::auto_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
 };
 
 } // END namespace NETWORK

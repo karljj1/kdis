@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -42,7 +42,7 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Entity_Damage_Status_PDU::Entity_Damage_Status_PDU() : 
+Entity_Damage_Status_PDU::Entity_Damage_Status_PDU() :
     m_ui32Padding( 0 ),
     m_ui16NumDmgDescRecs( 0 )
 {
@@ -165,7 +165,7 @@ KString Entity_Damage_Status_PDU::GetAsString() const
        << "-Entity Damage Status PDU-\n"
        << "Damaged Entity ID:\n"
        << IndentString( m_DmgEnt.GetAsString(), 1 )
-       << "Number Of DD Records: " << m_ui16NumDmgDescRecs 
+       << "Number Of DD Records: " << m_ui16NumDmgDescRecs
        << "\nDE Records:\n";
 
     vector<StdVarPtr>::const_iterator citr = m_vDdRec.begin();
@@ -186,7 +186,7 @@ void Entity_Damage_Status_PDU::Decode( KDataStream & stream, bool ignoreHeader /
 
     m_vDdRec.clear();
 
-    Header::Decode( stream, ignoreHeader );	
+    Header::Decode( stream, ignoreHeader );
 
     stream >> KDIS_STREAM m_DmgEnt
            >> m_ui32Padding
@@ -202,7 +202,7 @@ void Entity_Damage_Status_PDU::Decode( KDataStream & stream, bool ignoreHeader /
         stream >> datumID;
         stream.SetCurrentWritePosition( pos );
 
-        // Use the factory decoder. 
+        // Use the factory decoder.
         StandardVariable * p = StandardVariable::FactoryDecode( datumID, stream );
 
         // Did we find a custom decoder? if not then use the default.

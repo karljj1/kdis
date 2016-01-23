@@ -4,13 +4,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -34,11 +34,11 @@ http://p.sf.net/kdis/UserGuide
     created:    08/11/2008
     author:     Karl Jones
 
-    purpose:    The Collision-Elastic PDU is a member of a commercially 
-				available set of Newtonian Protocols and in that protocol
-				set is named the Newtonian Collision PDU. 
-				The Newtonian Protocol provides a mechanism for introducing
-				high fidelity interactions in DIS exercises.
+    purpose:    The Collision-Elastic PDU is a member of a commercially
+                available set of Newtonian Protocols and in that protocol
+                set is named the Newtonian Collision PDU.
+                The Newtonian Protocol provides a mechanism for introducing
+                high fidelity interactions in DIS exercises.
 
     Size:       800 bits / 100 octets
 *********************************************************************/
@@ -97,7 +97,7 @@ public:
 
     Collision_Elastic_PDU( KDataStream & stream ) throw( KException );
 
-	Collision_Elastic_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Collision_Elastic_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     virtual ~Collision_Elastic_PDU();
 
@@ -188,8 +188,7 @@ public:
     KFLOAT32 GetCollisionIntermediateResultYY() const;
     KFLOAT32 GetCollisionIntermediateResultYZ() const;
     KFLOAT32 GetCollisionIntermediateResultZZ() const;
-    void SetCollisionIntermediateResult( KFLOAT32 XX, KFLOAT32 XY, KFLOAT32 XZ,
-                                         KFLOAT32 YY, KFLOAT32 YZ, KFLOAT32 ZZ );
+    void SetCollisionIntermediateResult( KFLOAT32 XX, KFLOAT32 XY, KFLOAT32 XZ, KFLOAT32 YY, KFLOAT32 YZ, KFLOAT32 ZZ );
 
     //************************************
     // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetUnitSurfaceNormal
@@ -224,7 +223,7 @@ public:
     // FullName:    KDIS::PDU::Collision_Elastic_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

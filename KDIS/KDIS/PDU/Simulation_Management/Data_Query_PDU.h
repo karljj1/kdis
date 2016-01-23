@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -34,7 +34,7 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Requests for data from an entity are communicated by a Data Query PDU
-	size:       320 bits/ 40 octets - not including variable param sizes
+    size:       320 bits/ 40 octets - not including variable param sizes
 *********************************************************************/
 
 #pragma once
@@ -47,18 +47,18 @@ namespace PDU {
 class KDIS_EXPORT Data_Query_PDU : public Simulation_Management_Header
 {
 protected:
-	
+
     KUINT32 m_ui32RequestID;
 
-	KDIS::DATA_TYPE::TimeStamp m_TimeInterval;	
-	
-	KUINT32 m_ui32NumFixedDatum;
+    KDIS::DATA_TYPE::TimeStamp m_TimeInterval;
+
+    KUINT32 m_ui32NumFixedDatum;
 
     KUINT32 m_ui32NumVariableDatum;
 
-	std::vector<KUINT32> m_vFixedDatum;
+    std::vector<KUINT32> m_vFixedDatum;
 
-	std::vector<KUINT32> m_vVariableDatum;    
+    std::vector<KUINT32> m_vVariableDatum;
 
 public:
 
@@ -66,17 +66,17 @@ public:
 
     Data_Query_PDU();
 
-	Data_Query_PDU( const Header & H );
+    Data_Query_PDU( const Header & H );
 
     Data_Query_PDU( KDataStream & stream ) throw( KException );
 
-	Data_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Data_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Data_Query_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                     KUINT32 RequestID );
 
     virtual ~Data_Query_PDU();
-	
+
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::SetRequestID
     //              KDIS::PDU::Data_Query_PDU::GetRequestID
@@ -85,7 +85,7 @@ public:
     // Parameter:   KUINT32 ID
     //************************************
     void SetRequestID( KUINT32 ID );
-    KUINT32 GetRequestID() const;	
+    KUINT32 GetRequestID() const;
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::SetTimeInterval
@@ -97,7 +97,7 @@ public:
     //************************************
     void SetTimeInterval( const KDIS::DATA_TYPE::TimeStamp & TI );
     const KDIS::DATA_TYPE::TimeStamp & GetTimeInterval() const;
-	KDIS::DATA_TYPE::TimeStamp & GetTimeInterval();
+    KDIS::DATA_TYPE::TimeStamp & GetTimeInterval();
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::GetNumberFIxedDatum
@@ -119,8 +119,8 @@ public:
     // Parameter:   KUINT32 FD, const vector<KUINT32> & FD
     //************************************
     void AddFixedDatum( KUINT32 FD );
-	void SetFixedDatum( const std::vector<KUINT32> & FD );
-	const std::vector<KUINT32> & GetFixedDatum() const;
+    void SetFixedDatum( const std::vector<KUINT32> & FD );
+    const std::vector<KUINT32> & GetFixedDatum() const;
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::AddVariableDatum
@@ -130,8 +130,8 @@ public:
     // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
     //************************************
     void AddVariableDatum( KUINT32 VD );
-	void SetVariableDatum( const std::vector<KUINT32> & VD );
-	const std::vector<KUINT32> & GetVariableDatum() const;
+    void SetVariableDatum( const std::vector<KUINT32> & VD );
+    const std::vector<KUINT32> & GetVariableDatum() const;
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_PDU::GetAsString
@@ -143,7 +143,7 @@ public:
     // FullName:    KDIS::PDU::Data_Query_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 

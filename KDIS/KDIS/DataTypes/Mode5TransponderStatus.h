@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -153,10 +153,10 @@ public:
 	//              Set as follows:
 	//              1) Ground Vehicle (0) if the Entity Type record, Domain field is 
 	//              Land (1) regardless of whether the entity is actually a land vehicle or
-	//				some other type of land platform.
-	//				2) Air Vehicle (1) if the Entity Type record, Domain field is Air (2)
-	//				regardless of whether the entity is actually an aircraft or some other 
-	//				type of air platform (e.g., a blimp).
+	//              some other type of land platform.
+	//              2) Air Vehicle (1) if the Entity Type record, Domain field is Air (2)
+	//              regardless of whether the entity is actually an aircraft or some other 
+	//              type of air platform (e.g., a blimp).
     // Parameter:   PlatformType PT
     //************************************	
 	void SetPlatformType( KDIS::DATA_TYPE::ENUMS::PlatformType PT );

@@ -3,13 +3,13 @@ Copyright 2013 Karl Jones
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -33,14 +33,14 @@ http://p.sf.net/kdis/UserGuide
     created:    04/07/2011
     author:     Karl Jones
 
-    purpose:    The Directed Energy Fire PDU shall be used to communicate information associated 
-				with the firing of a directed energy (DE) weapon. A DE weapon may be directed at 
-				a specific target or at an area possibly containing several targets. Distinct 
-				aimpoint record types are defined to describe these two general cases.
-				When firing at a specific target a Precision Aimpoint is employed. The DE Precision
-				Aimpoint record is most commonly used to represent the firing of a High Energy Laser.
-				Other types of directed energy weapons propagate effects over a wide region.
-				Representation of these weapons uses the Area Aimpoint record to describe characteristics and effects.
+    purpose:    The Directed Energy Fire PDU shall be used to communicate information associated
+                with the firing of a directed energy (DE) weapon. A DE weapon may be directed at
+                a specific target or at an area possibly containing several targets. Distinct
+                aimpoint record types are defined to describe these two general cases.
+                When firing at a specific target a Precision Aimpoint is employed. The DE Precision
+                Aimpoint record is most commonly used to represent the firing of a High Energy Laser.
+                Other types of directed energy weapons propagate effects over a wide region.
+                Representation of these weapons uses the Area Aimpoint record to describe characteristics and effects.
 
     Size:       704 bits / 88 octets - Min size
 *********************************************************************/
@@ -61,48 +61,48 @@ class KDIS_EXPORT Directed_Energy_Fire_PDU : public Header
 {
 protected:
 
-	KDIS::DATA_TYPE::EntityIdentifier m_FiringEntityID;
+    KDIS::DATA_TYPE::EntityIdentifier m_FiringEntityID;
 
-	KDIS::DATA_TYPE::EntityIdentifier m_EventID;
+    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
-	KDIS::DATA_TYPE::EntityType m_MunTyp;
+    KDIS::DATA_TYPE::EntityType m_MunTyp;
 
-	KDIS::DATA_TYPE::ClockTime m_ShotStartTime;
+    KDIS::DATA_TYPE::ClockTime m_ShotStartTime;
 
-	KFLOAT32 m_f32CumulativeShotTime;
+    KFLOAT32 m_f32CumulativeShotTime;
 
-	KDIS::DATA_TYPE::Vector m_EmitterLoc;
+    KDIS::DATA_TYPE::Vector m_EmitterLoc;
 
-	KFLOAT32 m_f32AperDiameter;
+    KFLOAT32 m_f32AperDiameter;
 
-	KFLOAT32 m_f32Wavelength;
+    KFLOAT32 m_f32Wavelength;
 
-	KFLOAT32 m_f32PeakIrradiance;
+    KFLOAT32 m_f32PeakIrradiance;
 
-	KFLOAT32 m_f32PulseRepFreq;
+    KFLOAT32 m_f32PulseRepFreq;
 
-	KFLOAT32 m_f32PulseWidth;
+    KFLOAT32 m_f32PulseWidth;
 
     union
     {
         struct
         {
-			KUINT16 m_ui16WeaponState : 1;
-			KUINT16 m_ui16StateUpdate : 1;
-			KUINT16 m_ui16Reserved    : 14;
+            KUINT16 m_ui16WeaponState : 1;
+            KUINT16 m_ui16StateUpdate : 1;
+            KUINT16 m_ui16Reserved    : 14;
         };
         KUINT16 m_ui16Flags;
     } m_DeUnion;
 
-	KUINT8 m_ui8PulseShp;
+    KUINT8 m_ui8PulseShp;
 
-	KUINT8 m_ui8Padding1;
-	KUINT32 m_ui32Padding2;
-	KUINT16 m_ui16Padding3;
+    KUINT8 m_ui8Padding1;
+    KUINT32 m_ui32Padding2;
+    KUINT16 m_ui16Padding3;
 
-	KUINT16 m_ui16NumDERecs;
+    KUINT16 m_ui16NumDERecs;
 
-	std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDeRec;
+    std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDeRec;
 
 public:
 
@@ -110,16 +110,16 @@ public:
 
     Directed_Energy_Fire_PDU();
 
-	Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException );
+    Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException );
 
-	Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Directed_Energy_Fire_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FireID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
-                              const KDIS::DATA_TYPE::EntityType & MunitionType, const KDIS::DATA_TYPE::ClockTime & ShotStartTime, 
-	                          KFLOAT32 CumulativeShotTime, const KDIS::DATA_TYPE::Vector & EmitterLocation, 
-                              KFLOAT32 ApertureDiameter, KFLOAT32 Wavelength, KFLOAT32 PeakIrradiance, 
-	                          KFLOAT32 PulseRepetitionFrequency, KFLOAT32 PulseWidth, 
-							  KBOOL WeaponState, KBOOL UpdateState, KDIS::DATA_TYPE::ENUMS::BeamSpotShape PS );
+    Directed_Energy_Fire_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FireID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
+                              const KDIS::DATA_TYPE::EntityType & MunitionType, const KDIS::DATA_TYPE::ClockTime & ShotStartTime,
+                              KFLOAT32 CumulativeShotTime, const KDIS::DATA_TYPE::Vector & EmitterLocation,
+                              KFLOAT32 ApertureDiameter, KFLOAT32 Wavelength, KFLOAT32 PeakIrradiance,
+                              KFLOAT32 PulseRepetitionFrequency, KFLOAT32 PulseWidth,
+                              KBOOL WeaponState, KBOOL UpdateState, KDIS::DATA_TYPE::ENUMS::BeamSpotShape PS );
 
     virtual ~Directed_Energy_Fire_PDU();
 
@@ -171,14 +171,14 @@ public:
     // Description: The current cumulative duration of the shot in units of seconds.
     // Parameter:   KFLOAT32 CST
     //************************************
-	void SetCumulativeShotTime( KFLOAT32 CST );
-	KFLOAT32 GetCumulativeShotTime() const;
+    void SetCumulativeShotTime( KFLOAT32 CST );
+    KFLOAT32 GetCumulativeShotTime() const;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetEmitterLocation
     //              KDIS::PDU::Directed_Energy_Fire_PDU::GetEmitterLocation
     // Description: Location of the DE weapon aperture/emitter.
-	//				Represented by an Entity Coordinate Vector.
+    //              Represented by an Entity Coordinate Vector.
     // Parameter:   const Vector & EL
     //************************************
     void SetEmitterLocation( const KDIS::DATA_TYPE::Vector & EL );
@@ -191,8 +191,8 @@ public:
     // Description: The beam diameter at the aperture/emitter. In meters.
     // Parameter:   KFLOAT32 AD
     //************************************
-	void SetApertureDiameter( KFLOAT32 AD );
-	KFLOAT32 GetApertureDiameter() const;
+    void SetApertureDiameter( KFLOAT32 AD );
+    KFLOAT32 GetApertureDiameter() const;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetWavelength
@@ -200,26 +200,26 @@ public:
     // Description: Emissions wavelength in units of meters.
     // Parameter:   KFLOAT32 AD
     //************************************
-	void SetWavelength( KFLOAT32 W );
-	KFLOAT32 GetWavelength() const;
-	
+    void SetWavelength( KFLOAT32 W );
+    KFLOAT32 GetWavelength() const;
+
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetPeakIrradiance
     //              KDIS::PDU::Directed_Energy_Fire_PDU::GetPeakIrradiance
-    // Description: Current peak irradiance of emissions in units of Watts per square meter. 
+    // Description: Current peak irradiance of emissions in units of Watts per square meter.
     // Parameter:   KFLOAT32 PI
     //************************************
-	void SetPeakIrradiance( KFLOAT32 PI );
-	KFLOAT32 GetPeakIrradiance() const;
-	
+    void SetPeakIrradiance( KFLOAT32 PI );
+    KFLOAT32 GetPeakIrradiance() const;
+
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetPulseRepetitionFrequency
     //              KDIS::PDU::Directed_Energy_Fire_PDU::GetPulseRepetitionFrequency
     // Description: Current pulse repetition frequency in units of cycles per second (Hertz).
     // Parameter:   KFLOAT32 PRF
     //************************************
-	void SetPulseRepetitionFrequency( KFLOAT32 PRF );
-	KFLOAT32 GetPulseRepetitionFrequency() const;
+    void SetPulseRepetitionFrequency( KFLOAT32 PRF );
+    KFLOAT32 GetPulseRepetitionFrequency() const;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetPulseWidth
@@ -227,8 +227,8 @@ public:
     // Description: Pulse width emissions in units of seconds.
     // Parameter:   KFLOAT32 PW
     //************************************
-	void SetPulseWidth( KFLOAT32 PW );
-	KFLOAT32 GetPulseWidth() const;
+    void SetPulseWidth( KFLOAT32 PW );
+    KFLOAT32 GetPulseWidth() const;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetFlagWeaponState
@@ -236,8 +236,8 @@ public:
     // Description: true = weapon on, false = weapon off
     // Parameter:   KBOOL WS
     //************************************
-	void SetFlagWeaponState( KBOOL WS );
-	KBOOL GetFlagWeaponState() const;
+    void SetFlagWeaponState( KBOOL WS );
+    KBOOL GetFlagWeaponState() const;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetFlagStateUpdate
@@ -245,8 +245,8 @@ public:
     // Description: true = state changed, false = update due to heartbeat timer
     // Parameter:   KFLOAT32 SU
     //************************************
-	void SetFlagStateUpdate( KBOOL SU );
-	KBOOL GetFlagStateUpdate() const;
+    void SetFlagStateUpdate( KBOOL SU );
+    KBOOL GetFlagStateUpdate() const;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::SetPulseShape
@@ -254,28 +254,28 @@ public:
     // Description: Identifies the pulse shape .
     // Parameter:   BeamSpotShape PS
     //************************************
-	void SetPulseShape( KDIS::DATA_TYPE::ENUMS::BeamSpotShape PS );
-	KDIS::DATA_TYPE::ENUMS::BeamSpotShape GetPulseShape() const;
+    void SetPulseShape( KDIS::DATA_TYPE::ENUMS::BeamSpotShape PS );
+    KDIS::DATA_TYPE::ENUMS::BeamSpotShape GetPulseShape() const;
 
     //************************************
-    // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::GetNumberOfDirectedEnergyRecords    
+    // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::GetNumberOfDirectedEnergyRecords
     // Description: Number of Directed Energy records stored in this PDU.
     //************************************
-	KUINT16 GetNumberOfDirectedEnergyRecords() const;
+    KUINT16 GetNumberOfDirectedEnergyRecords() const;
 
-	//************************************
+    //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::AddDirectedEnergyRecord
     //              KDIS::PDU::Directed_Energy_Fire_PDU::SetDirectedEnergyRecords
     //              KDIS::PDU::Directed_Energy_Fire_PDU::GetDirectedEnergyRecords
     //              KDIS::PDU::Directed_Energy_Fire_PDU::ClearDirectedEnergyRecords
-    // Description: This field can contain one or more DE records and may also contain 
-	//				other Standard Variable records.
+    // Description: This field can contain one or more DE records and may also contain
+    //              other Standard Variable records.
     // Parameter:   StdVarPtr DE, const vector<StdVarPtr> & DE
-	//************************************    
+    //************************************
     void AddDirectedEnergyRecord( KDIS::DATA_TYPE::StdVarPtr DE );
     void SetDirectedEnergyRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DE );
     const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDirectedEnergyRecords() const;
-	void ClearDirectedEnergyRecords();
+    void ClearDirectedEnergyRecords();
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::GetAsString
@@ -287,7 +287,7 @@ public:
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream? 
+    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
     virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
 
