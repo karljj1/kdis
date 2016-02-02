@@ -154,8 +154,6 @@ void EllipsoidRecord2::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < ELIPSOID_RECORD_2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    EllipsoidRecord1::Decode( stream );
-
     stream >> m_ui32EnvRecTyp
            >> m_ui16Length
            >> m_ui8Index
