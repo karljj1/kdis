@@ -500,7 +500,7 @@ void Connection::RemoveSubscriber( ConnectionSubscriber * S )
         // Perform a linear search for the subscriber.
         vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
         vector<ConnectionSubscriber*>::iterator itrEnd = m_vpSubscribers.end();
-        for( ; itr != itrEnd; ++itr )
+        while( itr != itrEnd )
         {
             if( *itr == S )
             {
@@ -509,6 +509,10 @@ void Connection::RemoveSubscriber( ConnectionSubscriber * S )
                 itrEnd = m_vpSubscribers.end();
 
                 // Now continue searching, the subscriber may have been added twice...
+            }
+            else
+            {
+                ++itr;
             }
         }
     }
