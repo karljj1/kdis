@@ -395,7 +395,10 @@ inline void GeocentricToGeodetic( Type x, Type y, Type z,Type & lat, Type & lon,
 
     Type  Q = sqrt( 1.0 + 2.0 * e4 * P );
 
-    Type r0 = -( P * e2 * r ) / ( 1.0 + Q ) + sqrt( 0.5 * a2 * ( 1.0 + 1.0 / Q ) - ( P * ( 1 - e2 ) * z2 ) / ( Q * ( 1.0 + Q ) ) - 0.5 * P * r2 );
+    Type temp = 0.5 * a2 * ( -1.0 + 1.0 / Q ) - ( P *( 1 - e2 ) * z2 )/( Q * ( -1.0 + Q ) ) - 0.5*P*r2;
+    if( temp < 0 )
+        temp = 0;
+    Type r0 = -( P * e2 * r ) / ( 1.0 + Q ) + sqrt( temp );
 
     t = r - e2 * r0;
     Type  U = sqrt( t * t + z2 );
