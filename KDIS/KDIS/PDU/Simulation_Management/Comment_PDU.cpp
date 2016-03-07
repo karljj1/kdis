@@ -145,7 +145,7 @@ void Comment_PDU::AddVariableDatum( VarDtmPtr VD )
 
     ++m_ui32NumVariableDatum;
 
-    m_ui16PDULength += ( VariableDatum::VARIABLE_DATUM_SIZE + VD->GetPDULength() );
+    m_ui16PDULength += VD->GetPDULength();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -163,7 +163,7 @@ void Comment_PDU::SetVariableDatum( const vector<VarDtmPtr> & VD )
     vector<VarDtmPtr>::const_iterator citrEnd = m_vVariableDatum.end();
     for( ; citr != citrEnd; ++citr )
     {
-        m_ui16PDULength += ( VariableDatum::VARIABLE_DATUM_SIZE + ( ( *citr )->GetPDULength() ) );
+        m_ui16PDULength += ( *citr )->GetPDULength();
     }
 }
 
