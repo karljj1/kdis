@@ -43,17 +43,17 @@ http://p.sf.net/kdis/UserGuide
 #include "./StandardVariable.h"
 
 namespace KDIS {
-namespace DATA_TYPE {	
+namespace DATA_TYPE {
 
 class KDIS_EXPORT AttributeRecordSet : public DataTypeBase
 {
 protected:
 
-	EntityIdentifier m_EntityID;
+    EntityIdentifier m_EntityID;
 
-	KUINT16 m_ui16NumAttrRecs;
+    KUINT16 m_ui16NumAttrRecs;
 
-	std::vector<StdVarPtr> m_vAttrRec;	
+    std::vector<StdVarPtr> m_vAttrRec;
 
 public:
 
@@ -63,25 +63,25 @@ public:
 
     AttributeRecordSet( KDataStream & stream ) throw( KException );
 
-	AttributeRecordSet( const EntityIdentifier & EI );
-	
+    AttributeRecordSet( const EntityIdentifier & EI );
+    
     virtual ~AttributeRecordSet();
 
-	//************************************
+    //************************************
     // FullName:    KDIS::DATA_TYPE::AttributeRecordSet::SetEntityIdentifier
     //              KDIS::DATA_TYPE::AttributeRecordSet::GetEntityIdentifier
-    // Description: The entity or object to which all Attribute records in this set apply.	              
+    // Description: The entity or object to which all Attribute records in this set apply.
     // Parameter:   const EntityIdentifier & EI
     //************************************
     void SetEntityIdentifier( const EntityIdentifier & EI );
     const EntityIdentifier & GetEntityIdentifier() const;
     EntityIdentifier & GetEntityIdentifier();
 
-	//************************************
+    //************************************
     // FullName:    KDIS::DATA_TYPE::AttributeRecordSet::GetNumberOfAttributeRecords
     // Description: The number of Attribute Records contained within this set.
     //************************************
-	KUINT16 GetNumberOfAttributeRecords() const;
+    KUINT16 GetNumberOfAttributeRecords() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AttributeRecordSet::AddAttributeRecord
@@ -91,18 +91,18 @@ public:
     // Description: Add/Set the Attribute Record/s.
     //              Adding will update the Number of Attribute Records Params field.
     // Parameter:   StdVarPtr AR, const vector<StdVarPtr> & AR
-	//************************************    
+    //************************************
     void AddAttributeRecord( StdVarPtr AR );
     void SetAttributeRecords( const std::vector<StdVarPtr> & AR );
     const std::vector<StdVarPtr> & GetAttributeRecords() const;
-	void ClearAttributeRecords();
+    void ClearAttributeRecords();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AttributeRecordSet::GetRecordLength
-    // Description: Returns the length of the set in octets.
-	//              Note: This field is not part of the data type, this is just a helper function.
+    // Description: Returns the total length of the set in octets.
+    //              Note: This field is not part of the data type, this is just a helper function.
     //************************************
-	KUINT16 GetRecordLength() const;
+    KUINT16 GetRecordLength() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AttributeRecordSet::GetAsString

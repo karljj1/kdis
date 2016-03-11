@@ -65,15 +65,15 @@ protected:
 
     KUINT8 m_ui8ExtProtocolVersion;
 
-	KUINT32 m_ui32MasterRecType;
+    KUINT32 m_ui32MasterRecType;
 
-	KUINT8 m_ui8ActionCode;
+    KUINT8 m_ui8ActionCode;
 
-	KUINT8 m_ui8Padding1;
+    KUINT8 m_ui8Padding1;
 
-	KUINT16 m_ui16NumAttrRecSets;
+    KUINT16 m_ui16NumAttrRecSets;
 
-	std::vector<KDIS::DATA_TYPE::AttributeRecordSet> m_vAttributeRecordSets;
+    std::vector<KDIS::DATA_TYPE::AttributeRecordSet> m_vAttributeRecordSets;
 
 public:
 
@@ -83,10 +83,10 @@ public:
 
     Attribute_PDU( KDataStream & stream ) throw( KException );
 
-	Attribute_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Attribute_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
-	Attribute_PDU( const KDIS::DATA_TYPE::SimulationIdentifier & OriginatingID, KDIS::DATA_TYPE::ENUMS::PDUType T, 
-		           KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KDIS::DATA_TYPE::ENUMS::AttributeID MART, KDIS::DATA_TYPE::ENUMS::ActionCode AC );
+    Attribute_PDU( const KDIS::DATA_TYPE::SimulationIdentifier & OriginatingID, KDIS::DATA_TYPE::ENUMS::PDUType T, 
+                   KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KDIS::DATA_TYPE::ENUMS::AttributeID MART, KDIS::DATA_TYPE::ENUMS::ActionCode AC );
 
     virtual ~Attribute_PDU();
 
@@ -122,11 +122,11 @@ public:
     // FullName:    KDIS::PDU::Attribute_PDU::SetMasterAttributeRecordType
     //              KDIS::PDU::Attribute_PDU::GetMasterAttributeRecordType
     // Description: Contains the Attribute record type of the Attribute records
-	//              in the PDU if they all have the same Attribute record type.
+    //              in the PDU if they all have the same Attribute record type.
     // Parameter:   AttributeID MART
     //************************************
-	void SetMasterAttributeRecordType( KDIS::DATA_TYPE::ENUMS::AttributeID MART );
-	KDIS::DATA_TYPE::ENUMS::AttributeID GetMasterAttributeRecordType() const;
+    void SetMasterAttributeRecordType( KDIS::DATA_TYPE::ENUMS::AttributeID MART );
+    KDIS::DATA_TYPE::ENUMS::AttributeID GetMasterAttributeRecordType() const;
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::SetActionCode
@@ -134,14 +134,14 @@ public:
     // Description: Action code applicable to all attribute records in this Attribute_PDU.
     // Parameter:   ActionCode AC
     //************************************
-	void SetActionCode( KDIS::DATA_TYPE::ENUMS::ActionCode AC );
-	KDIS::DATA_TYPE::ENUMS::ActionCode GetActionCode() const;
+    void SetActionCode( KDIS::DATA_TYPE::ENUMS::ActionCode AC );
+    KDIS::DATA_TYPE::ENUMS::ActionCode GetActionCode() const;
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::GetNumberOfAttributeRecordSets    
     // Description: The number of Attribute Record Sets contained within this PDU.    
     //************************************
-	KUINT16 GetNumberOfAttributeRecordSets() const;
+    KUINT16 GetNumberOfAttributeRecordSets() const;
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::AddAttributeRecordSet
@@ -153,8 +153,8 @@ public:
     // Parameter:   const AttributeRecordSet & AR, const vector<AttributeRecordSet> & AR
     //************************************
     void AddAttributeRecordSet( const KDIS::DATA_TYPE::AttributeRecordSet & AR );
-	void SetAttributeRecordSets( const std::vector<KDIS::DATA_TYPE::AttributeRecordSet> & AR );
-	const std::vector<KDIS::DATA_TYPE::AttributeRecordSet> & GetAttributeRecordSets() const;
+    void SetAttributeRecordSets( const std::vector<KDIS::DATA_TYPE::AttributeRecordSet> & AR );
+    const std::vector<KDIS::DATA_TYPE::AttributeRecordSet> & GetAttributeRecordSets() const;
     void ClearAttributeRecordSet();	
 
     //************************************

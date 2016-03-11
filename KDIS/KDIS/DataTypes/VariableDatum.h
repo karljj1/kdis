@@ -35,8 +35,8 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Stores variable data types and their values. Such as strings.
                 Get as string does not know what the data type is so for now assumes
                 each byte is a ASCII char.
-				
-				Note: See FactoryDecoder for a guide to adding support for using your own VariableDatums. 
+                
+                Note: See FactoryDecoder for a guide to adding support for using your own VariableDatums. 
 
     size:       64 bits / 8 octets - Min size
 *********************************************************************/
@@ -62,7 +62,7 @@ typedef KDIS::UTILS::KRef_Ptr<VariableDatum> VarDtmPtr; // Ref counter
 
 class KDIS_EXPORT VariableDatum : public DataTypeBase, public FactoryDecoderUser<VariableDatum>
 {
-protected:		
+protected:
 
     KUINT32 m_ui32DatumID;
 
@@ -79,7 +79,7 @@ protected:
     };
 
     // Holds 64 bits, not all bits may belong to the value as padding is also added.
-	std::vector<DatumEntry> m_v8DatumValue;
+    std::vector<DatumEntry> m_v8DatumValue;
 
 public:
 
@@ -93,7 +93,7 @@ public:
 
     VariableDatum( KDataStream & stream ) throw( KException );
 
-	virtual ~VariableDatum();
+    virtual ~VariableDatum();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableDatum::SetDatumID
@@ -108,7 +108,7 @@ public:
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumLength
     // Description: Returns length of datum VALUE in bits.
-	//              Note: Does not include the datum id or length field.
+    //              Note: Does not include the datum id or length field.
     //************************************
     virtual KUINT32 GetDatumLength() const;
 
@@ -135,8 +135,8 @@ public:
     //************************************
     virtual void GetDatumValueCopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize ) const throw( KException );
     virtual KString GetDatumValueAsKString() const;
-	virtual std::vector<KUINT64> GetDatumValueAsKUINT64() const;
-	virtual std::vector<KFLOAT64> GetDatumValueAsKFLOAT64() const;
+    virtual std::vector<KUINT64> GetDatumValueAsKUINT64() const;
+    virtual std::vector<KFLOAT64> GetDatumValueAsKFLOAT64() const;
     virtual void SetDatumValue( const KString & s );
     virtual void ClearDatumValue();
 
