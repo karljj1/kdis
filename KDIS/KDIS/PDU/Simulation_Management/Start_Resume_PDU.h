@@ -90,7 +90,7 @@ public:
     // FullName:    KDIS::PDU::Start_Resume_PDU::SetSimulationTime
     //              KDIS::PDU::Start_Resume_PDU::GetSimulationTime
     // Description: specify the simulation time at which the entity
-    //              is to start/resume in the exercies.
+    //              is to start/resume in the exercises.
     // Parameter:   const ClockTime & T
     //************************************
     void SetSimulationTime( const KDIS::DATA_TYPE::ClockTime & T );
