@@ -75,9 +75,12 @@ Action_Response_PDU::Action_Response_PDU( const Header & H, KDataStream & stream
 Action_Response_PDU::Action_Response_PDU( const Action_Request_PDU & pdu, RequestStatus RS ) :
     m_ui32RequestStatus( RS )
 {
+    m_ui8ProtocolVersion = pdu.GetProtocolVersion();
+    m_ui8ExerciseID = pdu.GetExerciseID();
     m_ui8PDUType = Action_Response_PDU_Type;
+    m_ui8ProtocolFamily = Simulation_Management;
     m_ui32RequestID = pdu.GetRequestID();
-    m_OriginatingEntityID = pdu.GetOriginatingEntityID();
+    m_ReceivingEntityID = pdu.GetOriginatingEntityID();
     m_OriginatingEntityID = pdu.GetReceivingEntityID();
     m_vVariableDatum = pdu.GetVariableDatum();
     m_vFixedDatum = pdu.GetFixedDatum();
@@ -85,7 +88,7 @@ Action_Response_PDU::Action_Response_PDU( const Action_Request_PDU & pdu, Reques
     m_ui32NumVariableDatum = m_vVariableDatum.size();
 
     // Calculate the size
-    m_ui16PDULength = ACTION_RESPONSE_PDU_SIZE + ( Action_Request_PDU::ACTION_REQUEST_PDU_SIZE - pdu.GetPDULength() );
+    m_ui16PDULength = pdu.GetPDULength() - Action_Request_PDU::ACTION_REQUEST_PDU_SIZE + ACTION_RESPONSE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
