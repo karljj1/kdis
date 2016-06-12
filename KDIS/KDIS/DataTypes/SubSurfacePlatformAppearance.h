@@ -63,12 +63,12 @@ protected:
     KUINT32 m_HatchState            : 3; // 9-11
     KUINT32 m_RunningLights         : 1; // 12
     KUINT32 m_Unused3               : 2; // 13-14
-    KUINT32 m_FlamingEffectField    : 1; // 15    
-    KUINT32 m_Unused4               : 5; // 16-20        
+    KUINT32 m_FlamingEffectField    : 1; // 15
+    KUINT32 m_Unused4               : 5; // 16-20
     KUINT32 m_FrozenStatus          : 1; // 21
     KUINT32 m_PowerPlantStatus      : 1; // 22
-    KUINT32 m_State                 : 1; // 23     
-    KUINT32 m_Unused5               : 8; // 24-31			
+    KUINT32 m_State                 : 1; // 23
+    KUINT32 m_Unused5               : 8; // 24-31
 
 public:
 

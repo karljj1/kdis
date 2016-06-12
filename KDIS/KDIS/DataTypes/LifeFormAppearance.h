@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      LifeFormAppearance
-    created:    22/09/2008 - Updated May 2012   
+    created:    22/09/2008 - Updated May 2012
     author:     Karl Jones
 
     purpose:    Represents the appearance of a life form.
@@ -57,21 +57,21 @@ protected:
     KUINT32 m_PaintScheme           : 1; // 0
     KUINT32 m_Unused1               : 2; // 1-2
     KUINT32 m_Damage                : 2; // 3-4
-	KUINT32 m_Compliance            : 4; // 5-8
-	KUINT32 m_Unused2               : 3; // 9-11
-	KUINT32 m_Flashlight            : 1; // 12
-	KUINT32 m_Unused3               : 3; // 13-15
+    KUINT32 m_Compliance            : 4; // 5-8
+    KUINT32 m_Unused2               : 3; // 9-11
+    KUINT32 m_Flashlight            : 1; // 12
+    KUINT32 m_Unused3               : 3; // 13-15
     KUINT32 m_LifeformState         : 4; // 16-19
     KUINT32 m_Unused4               : 1; // 20
-	KUINT32 m_FrozenStatus          : 1; // 21
-    KUINT32 m_Unused5               : 1; // 22 
+    KUINT32 m_FrozenStatus          : 1; // 21
+    KUINT32 m_Unused5               : 1; // 22
     KUINT32 m_State                 : 1; // 23
     KUINT32 m_Weapon1               : 2; // 24-25
     KUINT32 m_Weapon2               : 2; // 26-27
-	KUINT32 m_Camouflage            : 2; // 28-29
-	KUINT32 m_ConcealedStationary   : 1; // 30
-	KUINT32 m_ConcealedMovement     : 1; // 31
-	
+    KUINT32 m_Camouflage            : 2; // 28-29
+    KUINT32 m_ConcealedStationary   : 1; // 30
+    KUINT32 m_ConcealedMovement     : 1; // 31
+    
 public:
 
     //************************************
@@ -162,7 +162,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetConcealedStationary
     //              KDIS::DATA_TYPE::LifeFormAppearance::IsConcealedStationary
     // Description: Describes the type of stationary concealment. 
-	//              False - Not concealed. True - Entity in a prepared concealed position.
+    //              False - Not concealed. True - Entity in a prepared concealed position.
     // Parameter:   KBOOL CS
     //************************************
     void SetConcealedStationary( KBOOL CS );
@@ -172,7 +172,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetConcealedStationary
     //              KDIS::DATA_TYPE::LifeFormAppearance::IsConcealedStationary
     // Description: Describes the type of movement concealment. 
-	//              False - Open movement. True - Rushes between covered positions.
+    //              False - Open movement. True - Rushes between covered positions.
     // Parameter:   KBOOL CM
     //************************************
     void SetConcealedMovement( KBOOL CM );
