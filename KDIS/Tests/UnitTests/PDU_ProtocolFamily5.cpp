@@ -45,13 +45,13 @@ using namespace DATA_TYPE::ENUMS;
 TEST(PDU_ProtocolFamily5, Designator_PDU)
 {
     Designator_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
+    EXPECT_EQ(Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Electromagnetic_Emission_PDU)
 {
     Electromagnetic_Emission_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
+    EXPECT_EQ(Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -61,13 +61,13 @@ TEST(PDU_ProtocolFamily5, Electromagnetic_Emission_PDU)
 TEST(PDU_ProtocolFamily5, Collision_PDU)
 {
     Collision_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Entity_Information_Interaction, pdu.GetProtocolFamily());
+    EXPECT_EQ(Entity_Information_Interaction, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Entity_State_PDU)
 {
     Entity_State_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Entity_Information_Interaction, pdu.GetProtocolFamily());
+    EXPECT_EQ(Entity_Information_Interaction, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -77,37 +77,37 @@ TEST(PDU_ProtocolFamily5, Entity_State_PDU)
 TEST(PDU_ProtocolFamily5, Repair_Complete_PDU)
 {
     Repair_Complete_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Logistics, pdu.GetProtocolFamily());
+    EXPECT_EQ(Logistics, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Repair_Response_PDU)
 {
     Repair_Response_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Logistics, pdu.GetProtocolFamily());
+    EXPECT_EQ(Logistics, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Resupply_Cancel_PDU)
 {
     Resupply_Cancel_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Logistics, pdu.GetProtocolFamily());
+    EXPECT_EQ(Logistics, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Resupply_Offer_PDU)
 {
     Resupply_Offer_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Logistics, pdu.GetProtocolFamily());
+    EXPECT_EQ(Logistics, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Resupply_Received_PDU)
 {
     Resupply_Received_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Logistics, pdu.GetProtocolFamily());
+    EXPECT_EQ(Logistics, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Service_Request_PDU)
 {
     Service_Request_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Logistics, pdu.GetProtocolFamily());
+    EXPECT_EQ(Logistics, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -117,19 +117,19 @@ TEST(PDU_ProtocolFamily5, Service_Request_PDU)
 TEST(PDU_ProtocolFamily5, Receiver_PDU)
 {
     Receiver_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Radio_Communications, pdu.GetProtocolFamily());
+    EXPECT_EQ(Radio_Communications, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Signal_PDU)
 {
     Signal_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Radio_Communications, pdu.GetProtocolFamily());
+    EXPECT_EQ(Radio_Communications, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Transmitter_PDU)
 {
     Transmitter_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Radio_Communications, pdu.GetProtocolFamily());
+    EXPECT_EQ(Radio_Communications, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -139,73 +139,73 @@ TEST(PDU_ProtocolFamily5, Transmitter_PDU)
 TEST(PDU_ProtocolFamily5, Acknowledge_PDU)
 {
     Acknowledge_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Action_Request_PDU)
 {
     Action_Request_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Action_Response_PDU)
 {
     Action_Response_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Comment_PDU)
 {
     Comment_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Create_Entity_PDU)
 {
     Create_Entity_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Data_PDU)
 {
     Data_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Data_Query_PDU)
 {
     Data_Query_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Event_Report_PDU)
 {
     Event_Report_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Remove_Entity_PDU)
 {
     Remove_Entity_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Set_Data_PDU)
 {
     Set_Data_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Start_Resume_PDU)
 {
     Start_Resume_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Stop_Freeze_PDU)
 {
     Stop_Freeze_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Simulation_Management, pdu.GetProtocolFamily());
+    EXPECT_EQ(Simulation_Management, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -215,11 +215,11 @@ TEST(PDU_ProtocolFamily5, Stop_Freeze_PDU)
 TEST(PDU_ProtocolFamily5, Detonation_PDU)
 {
     Detonation_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Warfare, pdu.GetProtocolFamily());
+    EXPECT_EQ(Warfare, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Fire_PDU)
 {
     Fire_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Warfare, pdu.GetProtocolFamily());
+    EXPECT_EQ(Warfare, pdu.GetProtocolFamily());
 }

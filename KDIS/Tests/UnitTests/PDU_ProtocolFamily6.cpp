@@ -54,19 +54,19 @@ using namespace DATA_TYPE::ENUMS;
 TEST(PDU_ProtocolFamily6, IFF_PDU)
 {
     IFF_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
+    EXPECT_EQ(Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, SEES_PDU)
 {
     SEES_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
+    EXPECT_EQ(Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Underwater_Acoustic_PDU)
 {
     Underwater_Acoustic_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
+    EXPECT_EQ(Distributed_Emission_Regeneration, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -76,13 +76,13 @@ TEST(PDU_ProtocolFamily6, Underwater_Acoustic_PDU)
 TEST(PDU_ProtocolFamily6, Collision_Elastic_PDU)
 {
     Collision_Elastic_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Entity_Information_Interaction, pdu.GetProtocolFamily());
+    EXPECT_EQ(Entity_Information_Interaction, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Entity_State_Update_PDU)
 {
     Entity_State_Update_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Entity_Information_Interaction, pdu.GetProtocolFamily());
+    EXPECT_EQ(Entity_Information_Interaction, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -92,25 +92,25 @@ TEST(PDU_ProtocolFamily6, Entity_State_Update_PDU)
 TEST(PDU_ProtocolFamily5, Aggregate_State_PDU)
 {
     Aggregate_State_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
+    EXPECT_EQ(EntityManagement, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, IsGroupOf_PDU)
 {
     IsGroupOf_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
+    EXPECT_EQ(EntityManagement, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, IsPartOf_PDU)
 {
     IsPartOf_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
+    EXPECT_EQ(EntityManagement, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Transfer_Control_Request_PDU)
 {
     Transfer_Control_Request_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::EntityManagement, pdu.GetProtocolFamily());
+    EXPECT_EQ(EntityManagement, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -120,31 +120,31 @@ TEST(PDU_ProtocolFamily5, Transfer_Control_Request_PDU)
 TEST(PDU_ProtocolFamily5, Appearance_PDU)
 {
     Appearance_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+    EXPECT_EQ(LiveEntity, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Articulated_Parts_PDU)
 {
     Articulated_Parts_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+    EXPECT_EQ(LiveEntity, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, LE_Detonation_PDU)
 {
     LE_Detonation_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+    EXPECT_EQ(LiveEntity, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, LE_Fire_PDU)
 {
     LE_Fire_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+    EXPECT_EQ(LiveEntity, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, TSPI_PDU)
 {
     TSPI_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::LiveEntity, pdu.GetProtocolFamily());
+    EXPECT_EQ(LiveEntity, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -154,91 +154,91 @@ TEST(PDU_ProtocolFamily5, TSPI_PDU)
 TEST(PDU_ProtocolFamily6, Acknowledge_R_PDU)
 {
     Acknowledge_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Action_Request_R_PDU)
 {
     Action_Request_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Action_Response_R_PDU)
 {
     Action_Response_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Comment_R_PDU)
 {
     Comment_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Create_Entity_R_PDU)
 {
     Create_Entity_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Data_Query_R_PDU)
 {
     Data_Query_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Data_R_PDU)
 {
     Data_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Event_Report_R_PDU)
 {
     Event_Report_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Record_Query_R_PDU)
 {
     Record_Query_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Record_R_PDU)
 {
     Record_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Remove_Entity_R_PDU)
 {
     Remove_Entity_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Set_Data_R_PDU)
 {
     Set_Data_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Set_Record_R_PDU)
 {
     Set_Record_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Start_Resume_R_PDU)
 {
     Start_Resume_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Stop_Freeze_R_PDU)
 {
     Stop_Freeze_R_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SimulationManagementwithReliability, pdu.GetProtocolFamily());
+    EXPECT_EQ(SimulationManagementwithReliability, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -248,31 +248,31 @@ TEST(PDU_ProtocolFamily6, Stop_Freeze_R_PDU)
 TEST(PDU_ProtocolFamily6, Areal_Object_State_PDU)
 {
     Areal_Object_State_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SyntheticEnvironment, pdu.GetProtocolFamily());
+    EXPECT_EQ(SyntheticEnvironment, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Environmental_Process_PDU)
 {
     Environmental_Process_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SyntheticEnvironment, pdu.GetProtocolFamily());
+    EXPECT_EQ(SyntheticEnvironment, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Gridded_Data_PDU)
 {
     Gridded_Data_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SyntheticEnvironment, pdu.GetProtocolFamily());
+    EXPECT_EQ(SyntheticEnvironment, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Linear_Object_State_PDU)
 {
     Linear_Object_State_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SyntheticEnvironment, pdu.GetProtocolFamily());
+    EXPECT_EQ(SyntheticEnvironment, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily6, Point_Object_State_PDU)
 {
     Point_Object_State_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::SyntheticEnvironment, pdu.GetProtocolFamily());
+    EXPECT_EQ(SyntheticEnvironment, pdu.GetProtocolFamily());
 }
 
 #endif

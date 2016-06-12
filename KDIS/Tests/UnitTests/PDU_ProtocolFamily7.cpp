@@ -23,7 +23,7 @@ using namespace DATA_TYPE::ENUMS;
 TEST(PDU_ProtocolFamily7, Attribute_PDU)
 {
     Attribute_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Entity_Information_Interaction, pdu.GetProtocolFamily());
+    EXPECT_EQ(Entity_Information_Interaction, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -33,13 +33,13 @@ TEST(PDU_ProtocolFamily7, Attribute_PDU)
 TEST(PDU_ProtocolFamily7, IO_Action_PDU)
 {
     IO_Action_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Information_Operations, pdu.GetProtocolFamily());
+    EXPECT_EQ(Information_Operations, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily7, IO_Report_PDU)
 {
     IO_Report_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Information_Operations, pdu.GetProtocolFamily());
+    EXPECT_EQ(Information_Operations, pdu.GetProtocolFamily());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -49,13 +49,13 @@ TEST(PDU_ProtocolFamily7, IO_Report_PDU)
 TEST(PDU_ProtocolFamily5, Directed_Energy_Fire_PDU)
 {
     Directed_Energy_Fire_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Warfare, pdu.GetProtocolFamily());
+    EXPECT_EQ(Warfare, pdu.GetProtocolFamily());
 }
 
 TEST(PDU_ProtocolFamily5, Entity_Damage_Status_PDU)
 {
     Entity_Damage_Status_PDU pdu;
-    EXPECT_EQ(ProtocolFamily::Warfare, pdu.GetProtocolFamily());
+    EXPECT_EQ(Warfare, pdu.GetProtocolFamily());
 }
 
 #endif
