@@ -67,28 +67,28 @@ EntityDamage LifeFormAppearance::GetEntityDamage() const
 
 void LifeFormAppearance::SetEntityEntityCompliance( EntityCompliance EC )
 {
-	m_Compliance = EC;
+    m_Compliance = EC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityCompliance LifeFormAppearance::GetEntityEntityCompliance() const
 {
-	return ( EntityCompliance ) m_Compliance;
+    return ( EntityCompliance ) m_Compliance;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void LifeFormAppearance::SetEntityFlashLights( KBOOL FL )
 {
-	m_Flashlight = FL;
+    m_Flashlight = FL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL LifeFormAppearance::IsEntityFlashLightsOn() const
 {
-	return m_Flashlight;
+    return m_Flashlight;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -179,28 +179,28 @@ EntityCamouflage LifeFormAppearance::GetEntityCamouflage() const
 
 void LifeFormAppearance::SetConcealedStationary( KBOOL CS )
 {
-	m_ConcealedStationary = CS;
+    m_ConcealedStationary = CS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL LifeFormAppearance::IsConcealedStationary() const
 {
-	return m_ConcealedStationary;
+    return m_ConcealedStationary;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void LifeFormAppearance::SetConcealedMovement( KBOOL CM )
 {
-	m_ConcealedMovement = CM;
+    m_ConcealedMovement = CM;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL LifeFormAppearance::IsConcealedMovement() const
 {
-	return m_ConcealedMovement;
+    return m_ConcealedMovement;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -211,18 +211,18 @@ KString LifeFormAppearance::GetAsString() const
 
     ss << "Lifeform Appearance:"
        << "\n\tPaint Scheme:         " << GetEnumAsStringPaintScheme( m_PaintScheme )
-	   << "\n\tDamage:               " << GetEnumAsStringEntityDamage( m_Damage )
-	   << "\n\tCompliance:           " << GetEnumAsStringEntityCompliance( m_Compliance )
-	   << "\n\tFlash Lights:         " << m_Flashlight
+       << "\n\tDamage:               " << GetEnumAsStringEntityDamage( m_Damage )
+       << "\n\tCompliance:           " << GetEnumAsStringEntityCompliance( m_Compliance )
+       << "\n\tFlash Lights:         " << m_Flashlight
        << "\n\tLifeform State:       " << GetEnumAsStringEntityLifeformAppearance( m_LifeformState )
        << "\n\tFrozen Status:        " << m_FrozenStatus
        << "\n\tState:                " << m_State
        << "\n\tWeapon 1:             " << GetEnumAsStringEntityLifeformWeapon( m_Weapon1 )
        << "\n\tWeapon 2:             " << GetEnumAsStringEntityLifeformWeapon( m_Weapon2 )
-	   << "\n\tCamouflage:           " << GetEnumAsStringEntityCamouflage( m_Camouflage )
-	   << "\n\tConcealed Stationary: " << m_ConcealedStationary
-	   << "\n\tConcealed Movement:   " << m_ConcealedMovement
-	   << "\n";
+       << "\n\tCamouflage:           " << GetEnumAsStringEntityCamouflage( m_Camouflage )
+       << "\n\tConcealed Stationary: " << m_ConcealedStationary
+       << "\n\tConcealed Movement:   " << m_ConcealedMovement
+       << "\n";
 
     return ss.str();
 }
@@ -231,11 +231,11 @@ KString LifeFormAppearance::GetAsString() const
 
 KBOOL LifeFormAppearance::operator == ( const LifeFormAppearance & Value ) const
 {
-	// Lets do a single comparison instead of checking every field. 
-	// This struct is basically a KUINT32 so lets cast it to one and compare.
+    // Lets do a single comparison instead of checking every field. 
+    // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-	KUINT32 a = *( KUINT32 * )this;
-	KUINT32 b = *( KUINT32 * )&Value;
+    KUINT32 a = *( KUINT32 * )this;
+    KUINT32 b = *( KUINT32 * )&Value;
 
     if( a != b )return false;
     return true;

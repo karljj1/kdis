@@ -60,9 +60,9 @@ protected:
     KUINT32 m_Damage                : 2; // 3-4
     KUINT32 m_Smoke                 : 2; // 5-6
     KUINT32 m_Unused2               : 2; // 7-8
-	KUINT32 m_HatchState            : 3; // 9-11
+    KUINT32 m_HatchState            : 3; // 9-11
     KUINT32 m_RunningLights         : 1; // 12
-	KUINT32 m_Unused3               : 2; // 13-14
+    KUINT32 m_Unused3               : 2; // 13-14
     KUINT32 m_FlamingEffectField    : 1; // 15    
     KUINT32 m_Unused4               : 5; // 16-20        
     KUINT32 m_FrozenStatus          : 1; // 21
@@ -112,7 +112,7 @@ public:
     // FullName:    KDIS::DATA_TYPE::SubSurfacePlatformAppearance::SetEntityCanopyState
     //              KDIS::DATA_TYPE::SubSurfacePlatformAppearance::GetEntityCanopyState
     // Description: Is the hatch open or closed? Note: Only PrimaryHatchIsClosed
-	//              or PrimaryHatchIsOpen are acceptable values when using aircraft.
+    //              or PrimaryHatchIsOpen are acceptable values when using aircraft.
     // Parameter:   EntityHatchState EHS
     //************************************
     void SetEntityHatchState( KDIS::DATA_TYPE::ENUMS::EntityHatchState EHS );
@@ -136,13 +136,13 @@ public:
     void SetEntityFlamingEffect( KBOOL EFE );
     KBOOL IsEntityFlaming() const;
 
-	//************************************
+    //************************************
     // FullName:    KDIS::DATA_TYPE::SubSurfacePlatformAppearance::SetEntityFrozenStatus
     //              KDIS::DATA_TYPE::SubSurfacePlatformAppearance::IsEntityFrozen
     // Description: Is the entity frozen?
     //              Note: Frozen entities should not be dead-reckoned, they should remain 
-	//              frozen in place. You would likely freeze entites when your application is
-	//              in a paused state.
+    //              frozen in place. You would likely freeze entites when your application is
+    //              in a paused state.
     // Parameter:   KBOOL EFS
     //************************************
     void SetEntityFrozenStatus( KBOOL EFS );

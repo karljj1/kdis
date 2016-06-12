@@ -95,14 +95,28 @@ EntitySmoke SubSurfacePlatformAppearance::GetEntitySmoke() const
 
 void SubSurfacePlatformAppearance::SetEntityHatchState( EntityHatchState ECS )
 {
-	m_HatchState = ECS;
+    m_HatchState = ECS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityHatchState SubSurfacePlatformAppearance::GetEntityHatchState() const
 {
-	return ( EntityHatchState )m_HatchState;
+    return ( EntityHatchState )m_HatchState;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SubSurfacePlatformAppearance::SetEntityRunningLights(KBOOL RL)
+{
+    m_RunningLights = RL;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SubSurfacePlatformAppearance::IsEntityRunningLightsOn() const
+{
+    return m_RunningLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -169,11 +183,11 @@ KString SubSurfacePlatformAppearance::GetAsString() const
 
     ss << "Sub Surface Platform Appearance:"
        << "\n\tPaint Scheme:           " << GetEnumAsStringPaintScheme( m_PaintScheme )
-	   << "\n\tMobility Kill:          " << m_MobilityKill       
+       << "\n\tMobility Kill:          " << m_MobilityKill       
        << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
        << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
-	   << "\n\tHatch State:            " << GetEnumAsStringEntityHatchState( m_HatchState )
-	   << "\n\tRunning Lights:         " << m_RunningLights
+       << "\n\tHatch State:            " << GetEnumAsStringEntityHatchState( m_HatchState )
+       << "\n\tRunning Lights:         " << m_RunningLights
        << "\n\tFlaming Effect:         " << m_FlamingEffectField		
        << "\n\tFrozen Status:          " << m_FrozenStatus
        << "\n\tPower Plant:            " << m_PowerPlantStatus
@@ -187,11 +201,11 @@ KString SubSurfacePlatformAppearance::GetAsString() const
 
 KBOOL SubSurfacePlatformAppearance::operator == ( const SubSurfacePlatformAppearance & Value ) const
 {
-	// Lets do a single comparison instead of checking every field. 
-	// This struct is basically a KUINT32 so lets cast it to one and compare.
+    // Lets do a single comparison instead of checking every field. 
+    // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-	KUINT32 a = *( KUINT32 * )this;
-	KUINT32 b = *( KUINT32 * )&Value;
+    KUINT32 a = *( KUINT32 * )this;
+    KUINT32 b = *( KUINT32 * )&Value;
 
     if( a != b )return false;
     return true;
