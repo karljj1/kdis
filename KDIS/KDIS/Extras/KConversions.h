@@ -349,7 +349,6 @@ inline void GeodeticToGeocentric( Type GeodeticLat, Type GeodeticLon, Type Geode
 };
 
 //////////////////////////////////////////////////////////////////////////
-// Author: Tim Jones
 
 //************************************
 // FullName:    KDIS::UTILS<Type>::GeocentricToGeodetic
@@ -366,53 +365,37 @@ inline void GeodeticToGeocentric( Type GeodeticLat, Type GeodeticLon, Type Geode
 template<class Type>
 inline void GeocentricToGeodetic( Type x, Type y, Type z,Type & lat, Type & lon, Type & alt, RefEllipsoid R )
 {
-    Type  a, b, t;
+    // This is the 'closed form solution'
+    // equations described by https://microem.ru/files/2012/08/GPS.G1-X-00006.pdf
+    // and many other places on the web. start at wikipedia, "ECEF"
 
+    Type  a;   // semi-major axis
+    Type  b;   // semi-minor axis
     GetEllipsoidAxis( R, a, b );
 
-    Type const  e2  = 1.0 - ( b * b ) / ( a * a ) ;   // 1st eccentricity sqrd
-    Type const  ed2 = ( a * a ) / ( b * b ) - 1.0 ;   // 2nd eccentricity sqrd
-    Type const  a2  = a * a ;
-    Type const  b2  = b * b ;
-    Type const  z2  = z * z ;
-    Type const  e4  = e2 * e2 ;
-    Type const  r2  = x * x + y * y ;
-    Type const  r   = sqrt( r2 );
+    Type  const e       = sqrt( (a*a-b*b) / (a*a) ); // eccentricity (first)
+    Type  const e_prime = sqrt( (a*a-b*b) / (b*b) ); // eccentricity (second)
+    Type  const f       =  1 - b/a ;   // flattening
 
-    Type  E2 = a2 - b2 ;
+    // 'auxiliary values'
+    Type const p = sqrt(x*x + y*y);
+    Type const theta = atan2 ( (z*a) , (p*b));
 
-    Type  F = 54.0 * b2 * z2 ;
+    // latitude
+    lat = atan2 ( ( z + (e_prime*e_prime) * b * pow (sin(theta),3) ),
+                  ( p - (e*e*a*pow(cos(theta),3))));
 
-    Type  G = r2 + ( 1.0 - e2 ) * z2 - e2 * E2 ;
+    // Radius of curvature
+    Type const N = a / sqrt ( 1 - e*e*sin(lat)*sin(lat));
 
-    Type  C = e4 * F * r2 / ( G * G * G );
+    // altitude
+    alt = p /cos(lat) - N;
 
-    Type  S = pow( 1.0 + C + sqrt( C * C + 2.0 * C ) , 1.0 / 3.0 );
+    // longitude
+    lon = atan2(y,x);
 
-    t = S + 1.0 / S + 1.0 ;
-
-    Type  P = F / ( 3.0 * t * t * G * G );
-
-    Type  Q = sqrt( 1.0 + 2.0 * e4 * P );
-
-    Type temp = 0.5 * a2 * ( -1.0 + 1.0 / Q ) - ( P *( 1 - e2 ) * z2 )/( Q * ( -1.0 + Q ) ) - 0.5*P*r2;
-    if( temp < 0 )
-        temp = 0;
-    Type r0 = -( P * e2 * r ) / ( 1.0 + Q ) + sqrt( temp );
-
-    t = r - e2 * r0;
-    Type  U = sqrt( t * t + z2 );
-    Type  V = sqrt( t * t + ( 1.0 - e2 ) * z2 );
-
-    t = b2 / ( a * V );
-
-    alt = U * ( 1.0 - t );
-    lat = atan2( z + ed2 * t * z , r );
-    lon = atan2( y, x );
-
-    // convert to degrees
-    lat = RadToDeg( lat );
     lon = RadToDeg( lon );
+    lat = RadToDeg( lat );
 };
 
 //////////////////////////////////////////////////////////////////////////
