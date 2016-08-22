@@ -89,7 +89,8 @@ void Connection::startup() throw( KException )
         }
 
         // Bind socket for incoming data.
-        bindSocket();
+        if( !m_bSendOnly )
+            bindSocket();
     }
 }
 
@@ -333,9 +334,10 @@ const KCHAR8 * Connection::getErrorText( KINT32 ErrorCode ) const
 //////////////////////////////////////////////////////////////////////////
 
 Connection::Connection( const KString & SendAddress, KUINT32 Port /* = 3000 */, KBOOL SendAddressIsMulticast /* = false */,
-                        KBOOL Blocking /* = true */, PDU_Factory * Custom /* = 0 */ ) :
+                        KBOOL Blocking /* = true */, PDU_Factory * Custom /* = 0 */, KBOOL SendOnly /* = false*/) :
     m_uiPort( Port ),
-    m_bBlockingSocket( Blocking )
+    m_bBlockingSocket( Blocking ),
+    m_bSendOnly( SendOnly )
 {
     m_iSocket[SEND_SOCK] = 0;
     m_iSocket[RECEIVE_SOCK] = 0;

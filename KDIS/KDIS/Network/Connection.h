@@ -80,6 +80,8 @@ protected:
 
     KBOOL m_bBlockingSocket;
 
+    KBOOL m_bSendOnly;
+
     std::vector<ConnectionSubscriber*> m_vpSubscribers;
 
     KDIS::UTILS::PDU_Factory * m_pPduFact;
@@ -117,7 +119,7 @@ public:
 
     // Note: If using multicast you should ensure you use a correct multicast address or an exception will occur.
     Connection( const KString & SendAddress, KUINT32 Port = 3000, KBOOL SendAddressIsMulticast = false,
-                KBOOL Blocking = true, KDIS::UTILS::PDU_Factory * Custom = 0 );
+                KBOOL Blocking = true, KDIS::UTILS::PDU_Factory * Custom = 0, KBOOL SendOnly = false );
 
     virtual ~Connection();
 
