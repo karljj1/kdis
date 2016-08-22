@@ -75,6 +75,8 @@
 	<li>Corrected rounding error in GeocentricToGeodetic.<li>
 	<li>Fixed Comment PDU length incorrect. <a href="http://sourceforge.net/p/kdis/bugs/50/">Bug #50</a></li>
 	<li>Fixed AttributeRecordSet::GetRecordLength not including all fields in size calculation. <a href="http://sourceforge.net/p/kdis/bugs/51/">Bug #51</a></li>
+	<li>Fixed divide by zero issue in DeadReckoningCalculator::computeRotationAxis when axis were zero. </li>
+	<li>Fixed issues in Connection::GetNextPDU when a PDU was not decoded, we now clear the stream and continue. </li>
 </ul>
 
 <!-- Version 2-9-0 !-->

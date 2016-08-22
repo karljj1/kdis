@@ -277,9 +277,12 @@ void DeadReckoningCalculator::computeRotationAxis( const TMATRIX& curOrientation
         // normalise
         KFLOAT32 len = sqrt(x * x + y * y + z * z);
 
-        x /= len;
-        y /= len;
-        z /= len;
+        if (len != 0)
+        {
+            x /= len;
+            y /= len;
+            z /= len;
+        }
 
         m_quatAxis.SetX(x);
         m_quatAxis.SetY(y);

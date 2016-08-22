@@ -697,11 +697,19 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
                     ( *itr )->OnPDUReceived( pdu.get() );
                 }
 
-                // Set the write pos for the next pdu.
+                // Set the write pos for the next pdu. We do this here as its possible that when the PDU was decoded that some data may
+				// have been left un-decoded so to be extra safe we use the reported pdu size and not the current stream.
                 m_stream.SetCurrentWritePosition( currentPos + pdu->GetPDULength() );
 
                 // Now return the decoded pdu
                 return pdu;
+            }
+            else
+            {
+                // If a PDU could not be decoded in the PDU bundle, then we need to throw
+                // out the whole stream. There is no way to know where the next PDU might start
+                // in the data stream.
+                m_stream.Clear();
             }
         }
         catch( const exception & e )
