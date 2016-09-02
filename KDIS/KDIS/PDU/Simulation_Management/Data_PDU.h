@@ -80,6 +80,13 @@ public:
     KUINT32 GetRequestID() const;
 
     //************************************
+    // FullName:    KDIS::PDU::Data_PDU::SetVariableDatum
+    // Description: Sets variable datums and updates PDU length.
+    // Parameter:   const vector<VarDtmPtr> & VD
+    //************************************
+    virtual void SetVariableDatum(const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD);
+
+    //************************************
     // FullName:    KDIS::PDU::Data_PDU::GetAsString
     // Description: Returns a string representation of the PDU.
     //************************************

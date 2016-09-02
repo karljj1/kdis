@@ -113,7 +113,7 @@ public:
     // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
     //************************************
     void AddVariableDatum( KDIS::DATA_TYPE::VarDtmPtr VD );
-    void SetVariableDatum( const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD );
+    virtual void SetVariableDatum( const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD );
     const std::vector<VarDtmPtr> & GetVariableDatum() const;
 
     //************************************

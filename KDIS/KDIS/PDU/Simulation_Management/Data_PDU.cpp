@@ -107,6 +107,16 @@ KUINT32 Data_PDU::GetRequestID() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void KDIS::PDU::Data_PDU::SetVariableDatum(const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD)
+{
+    Comment_PDU::SetVariableDatum(VD);
+
+    // The calculated length uses COMMENT_PDU_SIZE as the default so we need to add any extra on for this PDU.
+    m_ui16PDULength += DATA_PDU_SIZE - COMMENT_PDU_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString Data_PDU::GetAsString() const
 {
     KStringStream ss;

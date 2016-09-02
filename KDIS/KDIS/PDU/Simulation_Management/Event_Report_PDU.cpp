@@ -105,6 +105,16 @@ EventType Event_Report_PDU::GetEventType() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void KDIS::PDU::Event_Report_PDU::SetVariableDatum(const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD)
+{
+    Comment_PDU::SetVariableDatum(VD);
+
+    // The calculated length uses COMMENT_PDU_SIZE as the default so we need to add any extra on for this PDU.
+    m_ui16PDULength += EVENT_REPORT_PDU_SIZE - COMMENT_PDU_SIZE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString Event_Report_PDU::GetAsString() const
 {
     KStringStream ss;
