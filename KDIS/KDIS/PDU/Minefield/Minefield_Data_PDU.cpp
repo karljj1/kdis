@@ -711,7 +711,7 @@ void Minefield_Data_PDU::Encode( KDataStream & stream ) const throw( KException 
         {
             vector<Vector>::const_iterator citrVr = citrWr->second.begin();
             vector<Vector>::const_iterator citrVrEnd = citrWr->second.end();
-            for( ; citrVr != citrVrEnd; citrVr )
+            for( ; citrVr != citrVrEnd; ++citrVr )
             {
                 stream << KDIS_STREAM *citrVr;
             }
