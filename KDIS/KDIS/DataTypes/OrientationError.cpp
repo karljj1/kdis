@@ -80,7 +80,7 @@ KFIXED16_8 OrientationError::GetAzimuthError() const
 
 void OrientationError::SetElevationError( KFIXED16_8 EE )
 {
-    m_ElvErr;
+    m_ElvErr = EE;
 }
 
 //////////////////////////////////////////////////////////////////////////
