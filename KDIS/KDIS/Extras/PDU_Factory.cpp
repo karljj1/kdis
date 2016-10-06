@@ -135,7 +135,8 @@ auto_ptr<Header> PDU_Factory::applyFilters( Header * H )
     {
         if( !( *citr )->ApplyFilter( H ) )
         {
-            // The PDU failed a test so return NULL.
+            // The PDU failed a test so free the memory and return NULL.
+            delete H;
             return auto_ptr<Header>( NULL );
         }
     }
