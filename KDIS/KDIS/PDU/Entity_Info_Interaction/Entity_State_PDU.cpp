@@ -592,6 +592,9 @@ Entity_State_PDU & Entity_State_PDU::operator=( const Entity_State_PDU & Other )
     m_EntityMarking = Other.m_EntityMarking;
     m_EntityCapabilities = Other.m_EntityCapabilities;
     m_vVariableParameters = Other.m_vVariableParameters;
+
+    if (m_pDrCalc && m_pDrCalc != Other.m_pDrCalc)
+        delete m_pDrCalc;
     m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
     return *this;
 }
