@@ -44,7 +44,7 @@ http://p.sf.net/kdis/UserGuide
     #define _USE_MATH_DEFINES
 #endif
 
-#include <math.h>
+#include <cmath>
 
 namespace KDIS {
 namespace UTILS {
@@ -56,13 +56,13 @@ namespace UTILS {
 template<class Type>
 inline Type RadToDeg( Type Rad )
 {
-    return Rad * ( 180.0 / M_PI );
+    return static_cast<Type>(Rad * ( 180.0 / M_PI ));
 };
 
 template<class Type>
 inline Type DegToRad( Type Deg )
 {
-    return Deg * ( M_PI / 180.0 );
+    return static_cast<Type>(Deg * ( M_PI / 180.0 ));
 };
 
 /************************************************************************/
@@ -72,7 +72,7 @@ inline Type DegToRad( Type Deg )
 template<class Type>
 inline Type FeetToMeters( Type Feet )
 {
-    return Feet / 3.2808;
+    return static_cast<Type>(Feet / 3.2808);
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ inline Type FeetToMeters( Type Feet )
 template<class Type>
 inline Type MetersToFeet( Type Meters )
 {
-    return Meters * 3.2808;
+    return static_cast<Type>(Meters * 3.2808);
 };
 
 /************************************************************************/
@@ -128,163 +128,163 @@ inline void GetEllipsoidAxis( RefEllipsoid R, Type & MajorAxis, Type & MinorAxis
     switch( R )
     {
     case Airy:
-        MajorAxis = 6377563.396;
-        MinorAxis = 6356256.909;
+        MajorAxis = static_cast<Type>(6377563.396);
+        MinorAxis = static_cast<Type>(6356256.909);
         // 1/F 299.324965
         break;
 
     case Airy_Modified:
-        MajorAxis = 6377340.189;
-        MinorAxis = 6356034.448;
+        MajorAxis = static_cast<Type>(6377340.189);
+        MinorAxis = static_cast<Type>(6356034.448);
         // 1/F 299.324965
         break;
 
     case Australian_National:
-        MajorAxis = 6378160.000;
-        MinorAxis = 6356774.719;
+        MajorAxis = static_cast<Type>(6378160.000);
+        MinorAxis = static_cast<Type>(6356774.719);
         // 1/F 298.250000
         break;
 
     case Bessel_1841:
-        MajorAxis = 6377397.155;
-        MinorAxis = 6356078.963;
+        MajorAxis = static_cast<Type>(6377397.155);
+        MinorAxis = static_cast<Type>(6356078.963);
         // 1/F 299.152813
         break;
 
     case Bessel_1841_Namibia:
-        MajorAxis = 6377483.865;
-        MinorAxis = 6356078.963;
+        MajorAxis = static_cast<Type>(6377483.865);
+        MinorAxis = static_cast<Type>(6356078.963);
         // 1/F 299.152813
         break;
 
     case Clarke_1866:
-        MajorAxis = 6378206.400;
-        MinorAxis = 6356583.800;
+        MajorAxis = static_cast<Type>(6378206.400);
+        MinorAxis = static_cast<Type>(6356583.800);
         // 1/F 294.978698
         break;
 
     case Clarke_1880:
-        MajorAxis = 6378249.145;
-        MinorAxis = 6356514.870;
+        MajorAxis = static_cast<Type>(6378249.145);
+        MinorAxis = static_cast<Type>(6356514.870);
         // 1/F 293.465000
         break;
 
     case Everest_Sabah_Sarawak:
-        MajorAxis = 6377298.556;
-        MinorAxis = 6356097.550;
+        MajorAxis = static_cast<Type>(6377298.556);
+        MinorAxis = static_cast<Type>(6356097.550);
         // 1/F 300.801700
         break;
 
     case Everest_1830:
-        MajorAxis = 6377276.345;
-        MinorAxis = 6356075.413;
+        MajorAxis = static_cast<Type>(6377276.345);
+        MinorAxis = static_cast<Type>(6356075.413);
         // 1/F 300.801700
         break;
 
     case Everest_1948:
-        MajorAxis = 6377304.063;
-        MinorAxis = 6356103.039;
+        MajorAxis = static_cast<Type>(6377304.063);
+        MinorAxis = static_cast<Type>(6356103.039);
         // 1/F 300.801700
         break;
 
     case Everest_1956:
-        MajorAxis = 6377301.243;
-        MinorAxis = 6356100.228;
+        MajorAxis = static_cast<Type>(6377301.243);
+        MinorAxis = static_cast<Type>(6356100.228);
         // 1/F 300.801700
         break;
 
     case Everest_1969:
-        MajorAxis = 6377295.664;
-        MinorAxis = 6356094.668;
+        MajorAxis = static_cast<Type>(6377295.664);
+        MinorAxis = static_cast<Type>(6356094.668);
         // 1/F 300.801700
         break;
 
     case Fischer_1960:
-        MajorAxis = 6378166.000;
-        MinorAxis = 6356784.284;
+        MajorAxis = static_cast<Type>(6378166.000);
+        MinorAxis = static_cast<Type>(6356784.284);
         // 1/F 298.300000
         break;
 
     case Fischer_1960_Modified:
-        MajorAxis = 6378155.000;
-        MinorAxis = 6356773.320;
+        MajorAxis = static_cast<Type>(6378155.000);
+        MinorAxis = static_cast<Type>(6356773.320);
         // 1/F 298.300000
         break;
 
     case Fischer_1968:
-        MajorAxis = 6378150.000;
-        MinorAxis = 6356768.337;
+        MajorAxis = static_cast<Type>(6378150.000);
+        MinorAxis = static_cast<Type>(6356768.337);
         // 1/F 298.300000
         break;
 
     case GRS_1980:
-        MajorAxis = 6378137.000;
-        MinorAxis = 6356752.314;
+        MajorAxis = static_cast<Type>(6378137.000);
+        MinorAxis = static_cast<Type>(6356752.314);
         // 1/F 298.257222
         break;
 
     case Helmert_1906:
-        MajorAxis = 6378200.000;
-        MinorAxis = 6356818.170;
+        MajorAxis = static_cast<Type>(6378200.000);
+        MinorAxis = static_cast<Type>(6356818.170);
         // 1/F 298.300000
         break;
 
     case Hough:
-        MajorAxis = 6378270.000;
-        MinorAxis = 6356794.343;
+        MajorAxis = static_cast<Type>(6378270.000);
+        MinorAxis = static_cast<Type>(6356794.343);
         // 1/F 297.000000
         break;
 
     case International_1924:
-        MajorAxis = 6378388.000;
-        MinorAxis = 6356911.946;
+        MajorAxis = static_cast<Type>(6378388.000);
+        MinorAxis = static_cast<Type>(6356911.946);
         // 1/F 297.000000
         break;
 
     case Karsovsky_1940:
-        MajorAxis = 6378245.000;
-        MinorAxis = 6356863.019;
+        MajorAxis = static_cast<Type>(6378245.000);
+        MinorAxis = static_cast<Type>(6356863.019);
         // 1/F 298.300000
         break;
 
     case SGS_1985:
-        MajorAxis = 6378136.000;
-        MinorAxis = 6356751.302;
+        MajorAxis = static_cast<Type>(6378136.000);
+        MinorAxis = static_cast<Type>(6356751.302);
         // 1/F 298.257000
         break;
 
     case South_American_1969:
-        MajorAxis = 6378160.000;
-        MinorAxis = 6356774.719;
+        MajorAxis = static_cast<Type>(6378160.000);
+        MinorAxis = static_cast<Type>(6356774.719);
         // 1/F 298.250000
         break;
 
     case Sphere_6371km:
-        MajorAxis = 6371000;
-        MinorAxis = 6371000;
+        MajorAxis = static_cast<Type>(6371000);
+        MinorAxis = static_cast<Type>(6371000);
         break;
 
     case WGS_1960:
-        MajorAxis = 6378165.000;
-        MinorAxis = 6356783.287;
+        MajorAxis = static_cast<Type>(6378165.000);
+        MinorAxis = static_cast<Type>(6356783.287);
         // 1/F 298.300000
         break;
 
     case WGS_1966:
-        MajorAxis = 6378145.000;
-        MinorAxis = 6356759.769;
+        MajorAxis = static_cast<Type>(6378145.000);
+        MinorAxis = static_cast<Type>(6356759.769);
         // 1/F 298.250000
         break;
 
     case WGS_1972:
-        MajorAxis = 6378135.000;
-        MinorAxis = 6356750.520;
+        MajorAxis = static_cast<Type>(6378135.000);
+        MinorAxis = static_cast<Type>(6356750.520);
         // 1/F 298.260000
         break;
 
     case WGS_1984:
-        MajorAxis = 6378137.000;
-        MinorAxis = 6356752.314245;
+        MajorAxis = static_cast<Type>(6378137.000);
+        MinorAxis = static_cast<Type>(6356752.314245);
         // 1/F 298.257224
         break;
     }
@@ -295,16 +295,16 @@ inline void GetEllipsoidAxis( RefEllipsoid R, Type & MajorAxis, Type & MinorAxis
 template<class Type>
 inline void DecimalToDMS( Type Decimal, Type & DegOUT, Type & MinOUT, Type & SecOUT )
 {
-    Decimal = abs( Decimal ); // Make sure the value is not negative
-    DegOUT = ( KUINT32 )Decimal;
+    Decimal = std::abs( Decimal ); // Make sure the value is not negative
+    DegOUT = static_cast<Type>(( KUINT32 )Decimal);
     Decimal -= DegOUT; // Degrees
 
-    MinOUT = Decimal * 60.0;
+    MinOUT = static_cast<Type>(Decimal * 60.0);
 
-    Decimal = MinOUT - ( KUINT32 )MinOUT;
+    Decimal = MinOUT - static_cast<Type>(( KUINT32 )MinOUT);
 
-    MinOUT = ( KUINT32 )MinOUT; // Minutes
-    SecOUT = Decimal * 60.0; // Seconds
+    MinOUT = static_cast<Type>(( KUINT32 )MinOUT); // Minutes
+    SecOUT = static_cast<Type>(Decimal * 60.0); // Seconds
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -312,7 +312,7 @@ inline void DecimalToDMS( Type Decimal, Type & DegOUT, Type & MinOUT, Type & Sec
 template<class Type>
 inline Type DMSToDecimal( Type Deg, Type Min, Type Sec )
 {
-    return Deg + ( Min / 60.0 ) + ( Sec / 3600.0 );
+    return static_cast<Type>(Deg + ( Min / 60.0 ) + ( Sec / 3600.0 ));
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -373,26 +373,31 @@ inline void GeocentricToGeodetic( Type x, Type y, Type z,Type & lat, Type & lon,
     Type  b;   // semi-minor axis
     GetEllipsoidAxis( R, a, b );
 
-    Type  const e       = sqrt( (a*a-b*b) / (a*a) ); // eccentricity (first)
-    Type  const e_prime = sqrt( (a*a-b*b) / (b*b) ); // eccentricity (second)
-    Type  const f       =  1 - b/a ;   // flattening
+    Type  const e2       = (a*a-b*b) / (a*a); // eccentricity (first)
+    Type  const e_prime2 = (a*a-b*b) / (b*b); // eccentricity (second)
+    Type  const f        =  1 - b/a ;   // flattening
 
     // 'auxiliary values'
     Type const p = sqrt(x*x + y*y);
-    Type const theta = atan2 ( (z*a) , (p*b));
+    Type const theta = static_cast<Type>(atan2 ( (z*a) , (p*b)));
 
     // latitude
-    lat = atan2 ( ( z + (e_prime*e_prime) * b * pow (sin(theta),3) ),
-                  ( p - (e*e*a*pow(cos(theta),3))));
+    lat = static_cast<Type>(atan2 ( ( z + (e_prime2) * b * pow (sin(theta),3) ),
+                                    ( p - (e2*a*pow(cos(theta),3)))));
 
     // Radius of curvature
-    Type const N = a / sqrt ( 1 - e*e*sin(lat)*sin(lat));
+    Type const N = a / sqrt ( 1 - e2*sin(lat)*sin(lat));
 
     // altitude
-    alt = p /cos(lat) - N;
+    Type cosLat = cos(lat);
+    Type const COS_THRESHOLD = 0.0000001;
+    if( (cosLat > -COS_THRESHOLD) && (cosLat > -COS_THRESHOLD) ) // Very near the poles
+        alt = std::abs( z ) - b;
+    else
+        alt = p / cosLat - N;
 
     // longitude
-    lon = atan2(y,x);
+    lon = static_cast<Type>(atan2(y,x));
 
     lon = RadToDeg( lon );
     lat = RadToDeg( lat );
@@ -406,9 +411,9 @@ inline void RotateAboutAxis( Type d[3] ,Type const s[3] ,Type const n[3] ,Type  
     double  st = sin( t );
     double  ct = cos( t );
 
-    d[0] = (1.0-ct)*(n[0]*n[0]*s[0] + n[0]*n[1]*s[1] + n[0]*n[2]*s[2]) + ct*s[0] + st*(n[1]*s[2]-n[2]*s[1]);
-    d[1] = (1.0-ct)*(n[0]*n[1]*s[0] + n[1]*n[1]*s[1] + n[1]*n[2]*s[2]) + ct*s[1] + st*(n[2]*s[0]-n[0]*s[2]);
-    d[2] = (1.0-ct)*(n[0]*n[2]*s[0] + n[1]*n[2]*s[1] + n[2]*n[2]*s[2]) + ct*s[2] + st*(n[0]*s[1]-n[1]*s[0]);
+    d[0] = static_cast<Type>((1.0-ct)*(n[0]*n[0]*s[0] + n[0]*n[1]*s[1] + n[0]*n[2]*s[2]) + ct*s[0] + st*(n[1]*s[2]-n[2]*s[1]));
+    d[1] = static_cast<Type>((1.0-ct)*(n[0]*n[1]*s[0] + n[1]*n[1]*s[1] + n[1]*n[2]*s[2]) + ct*s[1] + st*(n[2]*s[0]-n[0]*s[2]));
+    d[2] = static_cast<Type>((1.0-ct)*(n[0]*n[2]*s[0] + n[1]*n[2]*s[1] + n[2]*n[2]*s[2]) + ct*s[2] + st*(n[0]*s[1]-n[1]*s[0]));
 };
 
 template<class Type>
@@ -420,7 +425,7 @@ inline void Cross( Type  d[3] ,Type const  a[3] ,Type const b[3] )
 };
 
 template<class Type>
-inline double Dot( Type const a[3] ,Type const b[3] )
+inline Type Dot( Type const a[3] ,Type const b[3] )
 {
     return  a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
 };
@@ -484,11 +489,11 @@ inline void HeadingPitchRollToEuler( Type H, Type P, Type R, Type Lat, Type Lon,
     Type  z0[3] = { 0.0 , 0.0 , 1.0 };   // == Z0
     Type  y2[3] ;
     Type  z2[3] ;
-    Psi = atan2(  Dot( N3 , y0 ) , Dot( N3 , x0 ) );
-    Theta = atan2( -Dot( N3 , z0 ) , sqrt( pow(Dot( N3 , x0 ), 2) + pow(Dot( N3 , y0 ), 2) ) );
+    Psi = static_cast<Type>(atan2(  Dot( N3 , y0 ) , Dot( N3 , x0 ) ));
+    Theta = static_cast<Type>(atan2( -Dot( N3 , z0 ) , sqrt( pow(Dot( N3 , x0 ), 2) + pow(Dot( N3 , y0 ), 2) ) ));
     RotateAboutAxis( y2 , y0 , z0 , Psi );
     RotateAboutAxis( z2 , z0 , y2 , Theta );
-    Phi = atan2(  Dot( E3 , z2 ) , Dot( E3 , y2 ) );
+    Phi = static_cast<Type>(atan2(  Dot( E3 , z2 ) , Dot( E3 , y2 ) ));
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -561,11 +566,11 @@ void EulerToHeadingPitchRoll( Type Lat, Type Lon, Type Psi, Type Theta, Type Phi
     memcpy( z0 , D , sizeof( Type[3] ) );
     Type  y2[3] ;
     Type  z2[3] ;
-    H = atan2(  Dot( X3 , y0 ) , Dot( X3 , x0 ) );
-    P = atan2( -Dot( X3 , z0 ) , sqrt( pow(Dot( X3 , x0 ), 2) + pow(Dot( X3 , y0 ), 2) ) );
+    H = static_cast<Type>(atan2(  Dot( X3 , y0 ) , Dot( X3 , x0 ) ));
+    P = static_cast<Type>(atan2( -Dot( X3 , z0 ) , sqrt( pow(Dot( X3 , x0 ), 2) + pow(Dot( X3 , y0 ), 2) ) ));
     RotateAboutAxis( y2 , y0 , z0 , H );
     RotateAboutAxis( z2 , z0 , y2 , P );
-    R = atan2(  Dot( Y3 , z2 ) , Dot( Y3 , y2 ) );
+    R = static_cast<Type>(atan2(  Dot( Y3 , z2 ) , Dot( Y3 , y2 ) ));
 }
 
 } // END namespace UTILS
