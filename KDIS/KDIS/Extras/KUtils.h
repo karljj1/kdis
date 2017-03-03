@@ -39,7 +39,9 @@ http://p.sf.net/kdis/UserGuide
 #include "./KConversions.h"
 #include "./../KEncodersDecoders.h"
 
-#define _USE_MATH_DEFINES
+#ifndef _USE_MATH_DEFINES
+    #define _USE_MATH_DEFINES
+#endif
 #include <math.h>
 
 #pragma once
