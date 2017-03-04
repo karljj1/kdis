@@ -35,14 +35,14 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Utility Features
 *********************************************************************/
 
-#include "./../KDefines.h"
-#include "./KConversions.h"
-#include "./../KEncodersDecoders.h"
-
 #ifndef _USE_MATH_DEFINES
     #define _USE_MATH_DEFINES
 #endif
-#include <math.h>
+#include <cmath>
+
+#include "./../KDefines.h"
+#include "./KConversions.h"
+#include "./../KEncodersDecoders.h"
 
 #pragma once
 
