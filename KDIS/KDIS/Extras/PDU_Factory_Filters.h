@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 /********************************************************************
     class:      PDU_Factory_Filters
-    created:    024/03/2010
+    updated:    04/03/2017
     author:     Karl Jones
 
     purpose:    A collection of filters that can be used on the PDU factory.
@@ -59,11 +59,21 @@ public:
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilter
-    // Description: This is our filter function, the pointer that is passed contains the full PDU data so
-    //              you can cast it to the relevant PDU if you wish to filter based on a PDU's contents.
+    // Description: Apply filtering on the PDU header before the body has been decoded.
+    //              We can use this to ignore certain PDU's and help with performance by not decoding PDU's we do not care about.
+    //              Return true for the header to be accepted or false to reject it.
     // Parameter:   const Header * H
     //************************************
-    virtual KBOOL ApplyFilter( const KDIS::PDU::Header * H ) = 0;
+    virtual KBOOL ApplyFilterBeforeDecodingPDUBody(const KDIS::PDU::Header * H) { return true; }
+
+    //************************************
+    // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilter
+    // Description: This is our filter function, the pointer that is passed contains the full PDU data so
+    //              you can cast it to the relevant PDU if you wish to filter based on a PDU's contents.
+    //              Return true for the PDU to be accepted or false to reject it.
+    // Parameter:   const Header * H
+    //************************************
+    virtual KBOOL ApplyFilter(const KDIS::PDU::Header * H) { return true; }
 };
 
 //////////////////////////////////////////////////////////////////////////

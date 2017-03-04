@@ -53,6 +53,13 @@ protected:
     std::vector<PDU_Factory_Filter*> m_vFilters;
 
     //************************************
+    // FullName:    KDIS::UTILS::PDU_Factory::applyFiltersBeforeDecodingPDUBody
+    // Description: Applies the filter/s to the PDU header before the body is decoded.
+    // Parameter:   Header * H
+    //************************************
+    bool applyFiltersBeforeDecodingPDUBody(KDIS::PDU::Header * H);
+
+    //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::applyFilters
     // Description: Applies the filter/s to the PDU and returns a NULL
     //              pointer if the PDU does not pass all filters.

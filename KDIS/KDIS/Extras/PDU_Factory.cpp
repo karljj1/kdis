@@ -125,6 +125,25 @@ using namespace ENUMS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
+bool PDU_Factory::applyFiltersBeforeDecodingPDUBody(Header * H)
+{
+    // Test all the filters
+    vector<PDU_Factory_Filter*>::const_iterator citr = m_vFilters.begin();
+    vector<PDU_Factory_Filter*>::const_iterator citrEnd = m_vFilters.end();
+
+    for (; citr != citrEnd; ++citr)
+    {
+        if (!(*citr)->ApplyFilterBeforeDecodingPDUBody(H))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 auto_ptr<Header> PDU_Factory::applyFilters( Header * H )
 {
     // Test all the filters
@@ -207,6 +226,11 @@ auto_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )throw( KException )
 
 auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )throw( KException )
 {
+    if (!applyFiltersBeforeDecodingPDUBody(H))
+    {
+        return auto_ptr<Header>(NULL);
+    }
+
     switch( H.GetPDUType() )
     {
     case Entity_State_PDU_Type:
