@@ -41,8 +41,8 @@ http://p.sf.net/kdis/UserGuide
 #include "./../KDefines.h"
 #include <cmath>
 
-#ifndef M_PI
-    #define M_PI 3.14159265358979323846
+#ifndef KDIS_PI
+    #define KDIS_PI 3.14159265358979323846
 #endif
 
 namespace KDIS {
@@ -55,13 +55,13 @@ namespace UTILS {
 template<class Type>
 inline Type RadToDeg( Type Rad )
 {
-    return static_cast<Type>(Rad * ( 180.0 / M_PI ));
+    return static_cast<Type>(Rad * ( 180.0 / KDIS_PI ));
 };
 
 template<class Type>
 inline Type DegToRad( Type Deg )
 {
-    return static_cast<Type>(Deg * ( M_PI / 180.0 ));
+    return static_cast<Type>(Deg * ( KDIS_PI / 180.0 ));
 };
 
 /************************************************************************/
@@ -575,4 +575,4 @@ void EulerToHeadingPitchRoll( Type Lat, Type Lon, Type Psi, Type Theta, Type Phi
 } // END namespace UTILS
 } // END namespace KDIS
 
-#undef M_PI
+#undef KDIS_PI

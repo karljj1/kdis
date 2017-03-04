@@ -31,12 +31,12 @@ http://p.sf.net/kdis/UserGuide
 #include <cmath>
 #include <limits>
 
-#ifndef M_PI
-    #define M_PI 3.14159265358979323846
+#ifndef KDIS_PI
+    #define KDIS_PI 3.14159265358979323846
 #endif
 
-#ifndef M_PI_2
-    #define M_PI_2 1.57079632679489661923
+#ifndef KDIS_PI_2
+    #define KDIS_PI_2 1.57079632679489661923
 #endif
 
 //////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ using namespace ENUMS;
 using namespace UTILS;
 
 #define MAGIC_EPSILON 0.00001
-const float PI_TIMES_TWO = 2.0f * M_PI;
+const float PI_TIMES_TWO = 2.0f * KDIS_PI;
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -63,8 +63,8 @@ inline KBOOL equivalent( const T lhs, const T rhs, T epsilon = std::numeric_limi
 
 inline const KFLOAT32 checkAngleHR( const KFLOAT32 a )
 {
-    if (a < -M_PI) return (a + PI_TIMES_TWO);
-    else if (a > M_PI) return (a - PI_TIMES_TWO);
+    if (a < -KDIS_PI) return (a + PI_TIMES_TWO);
+    else if (a > KDIS_PI) return (a - PI_TIMES_TWO);
     return a;
 }
 
@@ -72,8 +72,8 @@ inline const KFLOAT32 checkAngleHR( const KFLOAT32 a )
 
 inline const KFLOAT32 checkAngleP( const KFLOAT32 a )
 {
-    if (a < -M_PI_2)  return (-M_PI-a);
-    else if (a > M_PI_2) return (M_PI-a);
+    if (a < -KDIS_PI_2)  return (-KDIS_PI-a);
+    else if (a > KDIS_PI_2) return (KDIS_PI-a);
     return a;
 }
 
@@ -255,12 +255,12 @@ void DeadReckoningCalculator::calcOrientation_simplified( EulerAngles & Orientat
     OrientationOut = m_initOrientation + m_initEulerAngularVelocity * totalTimeSinceReset;
     // make sure the Pitch is between -90 and +90 degrees
     // also handle the discontinuity when Pitch is very close to +-90
-    if( equivalent<KFLOAT32>( OrientationOut[1], M_PI_2, MAGIC_EPSILON * 100 ) ) {
-        OrientationOut[0] = M_PI - OrientationOut[0]; //reflecting the heading angle, to avoid discontinuity
+    if( equivalent<KFLOAT32>( OrientationOut[1], KDIS_PI_2, MAGIC_EPSILON * 100 ) ) {
+        OrientationOut[0] = KDIS_PI - OrientationOut[0]; //reflecting the heading angle, to avoid discontinuity
         if (OrientationOut[1] < 0)
-            OrientationOut[1] =  (-M_PI_2-OrientationOut[1]);
+            OrientationOut[1] =  (-KDIS_PI_2-OrientationOut[1]);
         else if (OrientationOut[1] > 0)
-            OrientationOut[1] = (M_PI_2-OrientationOut[1]);
+            OrientationOut[1] = (KDIS_PI_2-OrientationOut[1]);
     }
 
     // Make sure the value is within -180 and +180 degrees for Heading and Roll.
@@ -615,5 +615,5 @@ void DeadReckoningCalculator::quatAxisReset( const Vector & QuatAxis )
 
 //////////////////////////////////////////////////////////////////////////
 
-#undef M_PI
-#undef M_PI_2
+#undef KDIS_PI
+#undef KDIS_PI_2
