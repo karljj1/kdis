@@ -125,7 +125,7 @@ using namespace ENUMS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-bool PDU_Factory::applyFiltersBeforeDecodingPDUBody(Header * H)
+bool PDU_Factory::applyFiltersBeforeDecodingPDUBody( const Header * H )
 {
     // Test all the filters
     vector<PDU_Factory_Filter*>::const_iterator citr = m_vFilters.begin();
@@ -226,7 +226,7 @@ auto_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )throw( KException )
 
 auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )throw( KException )
 {
-    if (!applyFiltersBeforeDecodingPDUBody(H))
+    if (!applyFiltersBeforeDecodingPDUBody(&H))
     {
         return auto_ptr<Header>(NULL);
     }

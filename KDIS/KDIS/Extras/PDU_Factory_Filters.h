@@ -58,7 +58,7 @@ public:
     ~PDU_Factory_Filter() {};
 
     //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilter
+    // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilterBeforeDecodingPDUBody
     // Description: Apply filtering on the PDU header before the body has been decoded.
     //              We can use this to ignore certain PDU's and help with performance by not decoding PDU's we do not care about.
     //              Return true for the header to be accepted or false to reject it.
