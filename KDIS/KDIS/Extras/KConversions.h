@@ -39,12 +39,11 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./../KDefines.h"
-
-#ifndef _USE_MATH_DEFINES
-    #define _USE_MATH_DEFINES
-#endif
-
 #include <cmath>
+
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
 
 namespace KDIS {
 namespace UTILS {
@@ -87,7 +86,7 @@ inline Type MetersToFeet( Type Meters )
 /* Conversions to and from Geocentric / Geodetic - ECEF / LLA           */
 /************************************************************************/
 
-// Refrence Ellipsoids, data taken from Wikipedia and DoD, WGS84, DMA TR 8350.2-B,1 Sept. 1991
+// Reference Ellipsoids, data taken from Wikipedia and DoD, WGS84, DMA TR 8350.2-B,1 Sept. 1991
 
 enum RefEllipsoid
 {
@@ -575,3 +574,5 @@ void EulerToHeadingPitchRoll( Type Lat, Type Lon, Type Psi, Type Theta, Type Phi
 
 } // END namespace UTILS
 } // END namespace KDIS
+
+#undef M_PI
