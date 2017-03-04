@@ -57,7 +57,7 @@ protected:
     // Description: Applies the filter/s to the PDU header before the body is decoded.
     // Parameter:   const Header * H
     //************************************
-    bool applyFiltersBeforeDecodingPDUBody( const KDIS::PDU::Header * H );
+	KBOOL applyFiltersBeforeDecodingPDUBody( const KDIS::PDU::Header * H );
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::applyFilters

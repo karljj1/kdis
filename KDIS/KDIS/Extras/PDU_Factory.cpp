@@ -125,7 +125,7 @@ using namespace ENUMS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-bool PDU_Factory::applyFiltersBeforeDecodingPDUBody( const Header * H )
+KBOOL PDU_Factory::applyFiltersBeforeDecodingPDUBody( const Header * H )
 {
     // Test all the filters
     vector<PDU_Factory_Filter*>::const_iterator citr = m_vFilters.begin();
