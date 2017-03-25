@@ -4,6 +4,7 @@ include(ExternalProject)
 
 ExternalProject_Add(googletest
     URL https://googletest.googlecode.com/files/gtest-1.7.0.zip
+    URL_HASH SHA1=f85f6d2481e2c6c4a18539e391aa4ea8ab0394af
     CMAKE_ARGS -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
                -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE:PATH=ReleaseLibs
                -DCMAKE_CXX_FLAGS=${MSVC_COMPILER_DEFS}
