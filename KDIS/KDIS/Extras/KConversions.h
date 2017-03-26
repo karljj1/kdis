@@ -390,7 +390,7 @@ inline void GeocentricToGeodetic( Type x, Type y, Type z,Type & lat, Type & lon,
     // altitude
     Type cosLat = cos(lat);
     Type const COS_THRESHOLD = 0.0000001;
-    if( (cosLat > -COS_THRESHOLD) && (cosLat > -COS_THRESHOLD) ) // Very near the poles
+    if( (cosLat > -COS_THRESHOLD) && (cosLat < COS_THRESHOLD) ) // Very near the poles
         alt = std::abs( z ) - b;
     else
         alt = p / cosLat - N;
