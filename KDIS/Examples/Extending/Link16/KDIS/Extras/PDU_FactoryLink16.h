@@ -57,7 +57,7 @@ public:
     // Parameter:   const Header & H
     // Parameter:   KDataStream & Stream
     //************************************
-    virtual std::auto_ptr<KDIS::PDU::Header> Decode( const KDIS::PDU::Header & H, KDataStream & Stream )throw( KException );
+    virtual std::unique_ptr<KDIS::PDU::Header> Decode( const KDIS::PDU::Header & H, KDataStream & Stream )throw( KException );
 };
 
 } // END namespace UTILS

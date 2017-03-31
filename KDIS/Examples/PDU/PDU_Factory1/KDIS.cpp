@@ -74,7 +74,7 @@ int main()
                 // Note: A none blocking socket will return 0 if no data is waiting.
                 if( ui32Recv )
                 {
-                    auto_ptr<Header> pHeader = Factory.Decode( cBuffer, ui32Recv );
+                    unique_ptr<Header> pHeader = Factory.Decode( cBuffer, ui32Recv );
 
                     // Print out the contents of the PDU.
                     if( pHeader.get() )

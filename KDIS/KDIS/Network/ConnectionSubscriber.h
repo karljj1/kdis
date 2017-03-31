@@ -83,7 +83,7 @@ public:
     // Description: Called after a PDU has been decoded (GetNextPDU). Use this function to handle various PDU,
     //              e.g a data logger or entity manager class.
     //              Note: This function is not for filtering, for PDU based filtering see the PDU_Factory.
-    //              Note: By default this PDU will be deleted unless it is released(auto_ptr) by the function that calls GetNextPDU.
+    //              Note: By default this PDU will be deleted unless it is released(unique_ptr) by the function that calls GetNextPDU.
     // Parameter:   const KOCTET * Data
     //************************************
     virtual void OnPDUReceived( const KDIS::PDU::Header * H )

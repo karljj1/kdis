@@ -68,7 +68,7 @@ int main()
         {
             try
             {
-				auto_ptr<Header> pHeader = conn.GetNextPDU();
+				unique_ptr<Header> pHeader = conn.GetNextPDU();
                 if( pHeader.get() )
 				{
 					cout << pHeader->GetAsString() << endl;	

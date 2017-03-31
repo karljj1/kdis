@@ -231,7 +231,7 @@ public:
     //              Note: This function supports PDU Bundles.
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
-    std::auto_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
+    std::unique_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
 };
 
 } // END namespace NETWORK

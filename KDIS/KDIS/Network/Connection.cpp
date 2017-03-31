@@ -640,7 +640,7 @@ KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderI
 
 //////////////////////////////////////////////////////////////////////////
 
-auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( KException )
+unique_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( KException )
 {
     // Are we currently dealing with a PDU Bundle, if so then dont read any new data.
     if( m_stream.GetBufferSize() == 0 )
@@ -660,7 +660,7 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
                 if( !( *itr )->OnDataReceived( Buffer, iSz, m_sLastIP ) )
                 {
                     // We should quit
-                    return auto_ptr<Header>( 0 );
+                    return unique_ptr<Header>();
                 }
             }
 
@@ -685,7 +685,7 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
         try
         {
             // Get the next/only PDU from the stream
-            auto_ptr<Header> pdu = m_pPduFact->Decode( m_stream );
+            unique_ptr<Header> pdu = m_pPduFact->Decode( m_stream );
 
             // If the PDU was decoded successfully then fire the next event
             if( pdu.get() )
@@ -720,7 +720,7 @@ auto_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( 
         }
     }
 
-    return auto_ptr<Header>( 0 ); // No data so Null ptr
+    return unique_ptr<Header>(); // No data so Null ptr
 }
 
 //////////////////////////////////////////////////////////////////////////

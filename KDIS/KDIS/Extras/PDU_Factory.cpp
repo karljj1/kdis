@@ -144,7 +144,7 @@ KBOOL PDU_Factory::applyFiltersBeforeDecodingPDUBody( const Header * H )
 
 //////////////////////////////////////////////////////////////////////////
 
-auto_ptr<Header> PDU_Factory::applyFilters( Header * H )
+unique_ptr<Header> PDU_Factory::applyFilters( Header * H )
 {
     // Test all the filters
     vector<PDU_Factory_Filter*>::const_iterator citr = m_vFilters.begin();
@@ -156,11 +156,11 @@ auto_ptr<Header> PDU_Factory::applyFilters( Header * H )
         {
             // The PDU failed a test so free the memory and return NULL.
             delete H;
-            return auto_ptr<Header>( NULL );
+            return unique_ptr<Header>();
         }
     }
 
-    return auto_ptr<Header>( H );
+    return unique_ptr<Header>( H );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -209,7 +209,7 @@ void PDU_Factory::RemoveFilter( PDU_Factory_Filter * F )
 
 //////////////////////////////////////////////////////////////////////////
 
-auto_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )throw( KException )
+unique_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )throw( KException )
 {
     KDataStream kd( Buffer, BufferSize );
     return Decode( kd );
@@ -217,18 +217,18 @@ auto_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )throw
 
 //////////////////////////////////////////////////////////////////////////
 
-auto_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )throw( KException )
+unique_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )throw( KException )
 {
     return Decode( Header( Stream ), Stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )throw( KException )
+unique_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )throw( KException )
 {
     if (!applyFiltersBeforeDecodingPDUBody(&H))
     {
-        return auto_ptr<Header>(NULL);
+        return unique_ptr<Header>();
     }
 
     switch( H.GetPDUType() )
@@ -461,7 +461,7 @@ auto_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )th
     }
 
     // We could not decode the PDU
-    return auto_ptr<Header>( NULL );
+    return unique_ptr<Header>();
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -175,7 +175,7 @@ int main()
 		// 6
 		// Now decode the PDU as if we have just received it from the network.		
 		PDU_Factory pduFact;
-		auto_ptr<Header> pdu = pduFact.Decode( stream );
+		unique_ptr<Header> pdu = pduFact.Decode( stream );
 		
 		if( pdu.get() )
 		{

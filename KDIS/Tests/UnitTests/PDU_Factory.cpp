@@ -53,7 +53,7 @@ TEST( PDU_Factory, PDU_Factory_Filter_FiltersAreUsed )
     ASSERT_EQ(0, filter->m_ApplyFilterCalled);
     ASSERT_EQ(0, filter->m_AppplyFilterBeforeDecodingPDUBodyCalled);
 
-    std::auto_ptr<Header> header = factory.Decode(stream);
+    std::unique_ptr<Header> header = factory.Decode(stream);
 
     EXPECT_EQ(1, filter->m_ApplyFilterCalled);
     EXPECT_EQ(1, filter->m_AppplyFilterBeforeDecodingPDUBodyCalled);
@@ -68,7 +68,7 @@ TEST( PDU_Factory, PDU_Factory_Filter_ApplyFilterFalse_RejectsPDU )
     Entity_State_PDU pdu;
     KDataStream stream = pdu.Encode();
 
-    std::auto_ptr<Header> header = factory.Decode(stream);
+    std::unique_ptr<Header> header = factory.Decode(stream);
     EXPECT_FALSE(header.get());
 }
 
@@ -81,6 +81,6 @@ TEST( PDU_Factory, PDU_Factory_Filter_ApplyFilterBeforeDecodingPDUBody_RejectsPD
     Entity_State_PDU pdu;
     KDataStream stream = pdu.Encode();
 
-    std::auto_ptr<Header> header = factory.Decode(stream);
+    std::unique_ptr<Header> header = factory.Decode(stream);
     EXPECT_FALSE(header.get());
 }
