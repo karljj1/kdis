@@ -55,7 +55,7 @@ public:
 
     PDU_Factory_Filter() {};
 
-    ~PDU_Factory_Filter() {};
+    virtual ~PDU_Factory_Filter() {};
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilterBeforeDecodingPDUBody
