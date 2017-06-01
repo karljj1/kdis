@@ -92,8 +92,9 @@ http://p.sf.net/kdis/UserGuide
 
 // Used to provide two C++11 features for older compilers (kinda)
 #if __cplusplus < 201103L
-  #define unique_ptr auto_ptr
-  #define nullptr NULL
+    #include <memory>
+    #define unique_ptr auto_ptr
+    #define nullptr NULL
 #endif
 
 /************************************************************************/
