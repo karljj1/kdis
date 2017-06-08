@@ -53,9 +53,9 @@ class PDU_Factory_Filter
 {
 public:
 
-    PDU_Factory_Filter() {};
+    PDU_Factory_Filter() {}
 
-    virtual ~PDU_Factory_Filter() {};
+    virtual ~PDU_Factory_Filter() {}
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilterBeforeDecodingPDUBody
@@ -90,11 +90,12 @@ private:
 public:
 
     FactoryFilterExerciseID( KUINT8 ID ) :
+        PDU_Factory_Filter(),
         m_ui8ID( ID )
     {
     };
 
-    ~FactoryFilterExerciseID() {};
+    virtual ~FactoryFilterExerciseID() {}
 
     //************************************
     // FullName:    KDIS::UTILS::FactoryFilterExerciseID::ApplyFilter
