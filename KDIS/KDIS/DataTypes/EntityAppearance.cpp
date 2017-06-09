@@ -101,6 +101,13 @@ EntityAppearance::EntityAppearance( const LifeFormAppearance & A )
 
 //////////////////////////////////////////////////////////////////////////
 
+EntityAppearance::EntityAppearance( const NonHumanLifeFormAppearance & A )
+{
+    m_AppearanceUnion.m_NonHumanLifeFormApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EntityAppearance::EntityAppearance( const EnvironmentalsAppearance & A )
 {
     m_AppearanceUnion.m_EnviroApp = A;
@@ -289,6 +296,20 @@ LifeFormAppearance & EntityAppearance::GetAppearanceAsLifeForm()
 
 //////////////////////////////////////////////////////////////////////////
 
+const NonHumanLifeFormAppearance & EntityAppearance::GetAppearanceAsNonHumanLifeForm() const
+{
+    return m_AppearanceUnion.m_NonHumanLifeFormApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+NonHumanLifeFormAppearance & EntityAppearance::GetAppearanceAsNonHumanLifeForm()
+{
+    return m_AppearanceUnion.m_NonHumanLifeFormApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void EntityAppearance::SetAppearance( const EnvironmentalsAppearance & A )
 {
     m_AppearanceUnion.m_EnviroApp = A;
@@ -379,7 +400,14 @@ KString EntityAppearance::GetAsString( const EntityType & EntType ) const
 
         case Munition: return m_AppearanceUnion.m_GuidedMunitionsApp.GetAsString();
 
-        case Lifeform: return m_AppearanceUnion.m_LifeFormApp.GetAsString();
+        case Lifeform:
+        {
+          if( EntType.GetCategory() >= 200 )  //SISO-REF-010-2016-v22. Lifeform category values 200 and above are non-human.
+            return m_AppearanceUnion.m_NonHumanLifeFormApp.GetAsString();
+          else
+            return m_AppearanceUnion.m_LifeFormApp.GetAsString();
+        }
+          break;
 
         case Environmental: return m_AppearanceUnion.m_EnviroApp.GetAsString();
 

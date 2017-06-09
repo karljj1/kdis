@@ -47,6 +47,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./SpacePlatformAppearance.h"
 #include "./GuidedMunitionsAppearance.h"
 #include "./LifeFormAppearance.h"
+#include "./NonHumanLifeFormAppearance.h"
 #include "./EnvironmentalsAppearance.h"
 #include "./CulturalFeatureAppearance.h"
 #include "./SensorEmitterAppearance.h"
@@ -68,6 +69,7 @@ protected:
         SpacePlatformAppearance        m_SpaceApp;
         GuidedMunitionsAppearance      m_GuidedMunitionsApp;
         LifeFormAppearance             m_LifeFormApp;
+        NonHumanLifeFormAppearance     m_NonHumanLifeFormApp;
         EnvironmentalsAppearance       m_EnviroApp;
         CulturalFeatureAppearance      m_CultFeatApp;
         SensorEmitterAppearance        m_SensEmitApp;
@@ -95,6 +97,8 @@ public:
     EntityAppearance( const GuidedMunitionsAppearance & A );
 
     EntityAppearance( const LifeFormAppearance & A );
+
+    EntityAppearance( const NonHumanLifeFormAppearance & A );
 
     EntityAppearance( const EnvironmentalsAppearance & A );
 
@@ -185,6 +189,16 @@ public:
     void SetAppearance( const LifeFormAppearance & A );
     const LifeFormAppearance & GetAppearanceAsLifeForm() const;
     LifeFormAppearance & GetAppearanceAsLifeForm();
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance
+    //              KDIS::DATA_TYPE::EntityAppearance::GetAppearanceAsNonHumanLifeForm
+    // Description: Get/Set the appearance data as life form.
+    // Parameter:   const NonHumanLifeFormAppearance & A
+    //************************************
+    void SetAppearance( const NonHumanLifeFormAppearance & A );
+    const NonHumanLifeFormAppearance & GetAppearanceAsNonHumanLifeForm() const;
+    NonHumanLifeFormAppearance & GetAppearanceAsNonHumanLifeForm();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance
