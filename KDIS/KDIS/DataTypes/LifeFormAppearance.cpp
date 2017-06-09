@@ -79,6 +79,20 @@ EntityCompliance LifeFormAppearance::GetEntityEntityCompliance() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void LifeFormAppearance::SetEntitySignalSmokeInUse( KBOOL SS )
+{
+    m_SignalSmokeInUse = SS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LifeFormAppearance::IsEntitySignalSmokeInUse() const
+{
+    return m_SignalSmokeInUse;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void LifeFormAppearance::SetEntityFlashLights( KBOOL FL )
 {
     m_Flashlight = FL;
@@ -89,6 +103,48 @@ void LifeFormAppearance::SetEntityFlashLights( KBOOL FL )
 KBOOL LifeFormAppearance::IsEntityFlashLightsOn() const
 {
     return m_Flashlight;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LifeFormAppearance::SetEntitySignalMirrorInUse( KBOOL SM )
+{
+    m_SignalMirrorInUse = SM;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LifeFormAppearance::IsEntitySignalMirrorInUse() const
+{
+    return m_SignalMirrorInUse;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LifeFormAppearance::SetEntityIRStrobe( KBOOL IRS )
+{
+    m_IRStrobe = IRS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LifeFormAppearance::IsEntityIRStrobeOn() const
+{
+    return m_IRStrobe;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LifeFormAppearance::SetEntityIRIlluminator( KBOOL IRI )
+{
+    m_IRIlluminator = IRI;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LifeFormAppearance::IsEntityIRIlluminatorOn() const
+{
+    return m_IRIlluminator;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -117,6 +173,20 @@ void LifeFormAppearance::SetEntityFrozenStatus( KBOOL EFS )
 KBOOL LifeFormAppearance::IsEntityFrozen() const
 {
     return m_FrozenStatus;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LifeFormAppearance::SetEntityMountedHoisted( KBOOL MH )
+{
+    m_MountedHoisted = MH;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LifeFormAppearance::IsEntityMountedHoisted() const
+{
+    return m_MountedHoisted;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -213,9 +283,14 @@ KString LifeFormAppearance::GetAsString() const
        << "\n\tPaint Scheme:         " << GetEnumAsStringPaintScheme( m_PaintScheme )
        << "\n\tDamage:               " << GetEnumAsStringEntityDamage( m_Damage )
        << "\n\tCompliance:           " << GetEnumAsStringEntityCompliance( m_Compliance )
+       << "\n\tSignal Smoke In Use:  " << m_SignalSmokeInUse
        << "\n\tFlash Lights:         " << m_Flashlight
+       << "\n\tSignal Mirror In Use: " << m_SignalMirrorInUse
+       << "\n\tIR Strobe On:         " << m_IRStrobe
+       << "\n\tIR Illuminator On:    " << m_IRIlluminator
        << "\n\tLifeform State:       " << GetEnumAsStringEntityLifeformAppearance( m_LifeformState )
        << "\n\tFrozen Status:        " << m_FrozenStatus
+       << "\n\tMounted/Hoisted:      " << m_MountedHoisted
        << "\n\tState:                " << m_State
        << "\n\tWeapon 1:             " << GetEnumAsStringEntityLifeformWeapon( m_Weapon1 )
        << "\n\tWeapon 2:             " << GetEnumAsStringEntityLifeformWeapon( m_Weapon2 )
