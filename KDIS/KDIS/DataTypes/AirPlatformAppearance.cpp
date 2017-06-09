@@ -65,6 +65,20 @@ KBOOL AirPlatformAppearance::DoesEntityMobilityKill() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void AirPlatformAppearance::SetNVGMode( NVGMode NM )
+{
+    m_NVGMode = NM;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+NVGMode AirPlatformAppearance::GetNVGMode() const
+{
+    return static_cast<NVGMode>(m_NVGMode);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void AirPlatformAppearance::SetEntityDamage( EntityDamage ED )
 {
     m_Damage = ED;
@@ -191,6 +205,62 @@ KBOOL AirPlatformAppearance::IsAfterburnerOn() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void AirPlatformAppearance::SetEntityLowerAntiCollisionLight( KBOOL LACL )
+{
+    m_LowerAntiCollisionLight = LACL;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsEntityLowerAntiCollisionLightOn() const
+{
+    return m_LowerAntiCollisionLight;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetEntityUpperAntiCollisionLight( KBOOL UACL )
+{
+    m_UpperAntiCollisionLight = UACL;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsEntityUpperAntiCollisionLightOn() const
+{
+    return m_UpperAntiCollisionLight;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetAntiCollisionLightDayNight( AntiCollisionDayNight ACDN )
+{
+    m_AntiCollisionLightDayNight = ACDN;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+AntiCollisionDayNight AirPlatformAppearance::GetAntiCollisionLightDayNight() const
+{
+    return static_cast<AntiCollisionDayNight>(m_AntiCollisionLightDayNight);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetBlinking( KBOOL B )
+{
+    m_IsBlinking = B;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsBlinking() const
+{
+    return m_IsBlinking;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void AirPlatformAppearance::SetEntityFrozenStatus( KBOOL EFS )
 {
     m_FrozenStatus = EFS;
@@ -235,14 +305,56 @@ KBOOL AirPlatformAppearance::IsEntityStateActive() const
 
 void AirPlatformAppearance::SetEntityFormationLights( KBOOL FL )
 {
-	m_FormationLights = FL;
+  m_FormationLights = FL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL AirPlatformAppearance::IsEntityFormationLightsOn() const
 {
-	return m_FormationLights;
+  return m_FormationLights;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetLandingGearExtended( KBOOL LGE )
+{
+  m_LandingGearExtended = LGE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsLandingGearExtended() const
+{
+  return m_LandingGearExtended;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetCargoDoorsOpened( KBOOL CDO )
+{
+  m_CargoDoorsOpened = CDO;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsCargoDoorsOpened() const
+{
+  return m_CargoDoorsOpened;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetNavigationPositionBrightness( NavigationPositionBrightness NPB )
+{
+  m_NavigationPositionBrightness = NPB;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+NavigationPositionBrightness AirPlatformAppearance::GetNavigationPositionBrightness() const
+{
+  return static_cast<NavigationPositionBrightness>(m_NavigationPositionBrightness);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -263,14 +375,42 @@ KBOOL AirPlatformAppearance::IsEntitySpotLightsOn() const
 
 void AirPlatformAppearance::SetEntityInteriorLights( KBOOL IL )
 {
-	m_InteriorLights = IL;
+  m_InteriorLights = IL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL AirPlatformAppearance::IsEntityInteriorLightsOn() const
 {
-	return m_InteriorLights;
+  return m_InteriorLights;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetReverseThrustEngaged( KBOOL RTE )
+{
+  m_ReverseThrustEngaged = RTE;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsReverseThrustEngaged() const
+{
+  return m_ReverseThrustEngaged;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetWeightOnWheels( KBOOL WOW )
+{
+  m_WeightOnWheels = WOW;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsWeightOnWheels() const
+{
+  return m_WeightOnWheels;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -281,22 +421,32 @@ KString AirPlatformAppearance::GetAsString() const
 
     ss << "Air Platform Appearance:"
        << "\n\tPaint Scheme:           " << GetEnumAsStringPaintScheme( m_PaintScheme )
-	   << "\n\tMobility Kill:          " << m_MobilityKill       
+       << "\n\tMobility Kill:          " << m_MobilityKill
+       << "\n\tNVG Mode:               " << GetEnumAsStringNVGMode( m_NVGMode )
        << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
        << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
        << "\n\tTrailing Effect:        " << GetEnumAsStringEntityTrailingEffect( m_TrailingEffect )
        << "\n\tCanopy State:           " << GetEnumAsStringEntityHatchState( m_CanopyState )
-	   << "\n\tLanding Lights:         " << m_LandingLights
-	   << "\n\tNavigation Lights:      " << m_NavLights
-	   << "\n\tAnti-Collision Lights:  " << m_AntiColLights	   
+       << "\n\tLanding Lights:         " << m_LandingLights
+       << "\n\tNavigation Lights:      " << m_NavLights
+       << "\n\tAnti-Collision Lights:  " << m_AntiColLights
        << "\n\tFlaming Effect:         " << m_FlamingEffectField		
-	   << "\n\tAfterburner:            " << m_Afterburner
+       << "\n\tAfterburner:            " << m_Afterburner
+       << "\n\tLower Anti-Collision Light: " << m_LowerAntiCollisionLight
+       << "\n\tUpper Anti-Collision Light: " << m_UpperAntiCollisionLight
+       << "\n\tAnti-Collision Light:   " << GetEnumAsStringAntiCollisionDayNight( m_AntiCollisionLightDayNight )
+       << "\n\tIs Blinking:            " << m_IsBlinking
        << "\n\tFrozen Status:          " << m_FrozenStatus
        << "\n\tPower Plant:            " << m_PowerPlantStatus
        << "\n\tState:                  " << m_State
-	   << "\n\tFormation Lights:       " << m_FormationLights
-	   << "\n\tSpot Lights:            " << m_SpotLights
-	   << "\n\tInterior Lights:        " << m_InteriorLights
+       << "\n\tFormation Lights:       " << m_FormationLights
+       << "\n\tLanding Gear Extended:  " << m_LandingGearExtended
+       << "\n\tCargo Doors Opened:     " << m_CargoDoorsOpened
+       << "\n\tNavigation/Position Brightness: " << GetEnumAsStringNavigationPositionBrightness( m_NavigationPositionBrightness )
+       << "\n\tSpot Lights:            " << m_SpotLights
+       << "\n\tInterior Lights:        " << m_InteriorLights
+       << "\n\tReverse Thrust Engaged: " << m_ReverseThrustEngaged
+       << "\n\tWeight-on-Wheels:       " << m_WeightOnWheels
        << "\n";
 
     return ss.str();

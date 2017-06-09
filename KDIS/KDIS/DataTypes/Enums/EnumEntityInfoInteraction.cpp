@@ -1873,3 +1873,178 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionCode( const KString & Value
 
 #endif
 #endif // DIS 7
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for Anti-Collision Day/Night
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor AntiCollisionDayNightDescriptor[] =
+{
+    { 0 , "Day" },
+    { 1 , "Night" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAntiCollisionDayNight()
+{
+    return sizeof( AntiCollisionDayNightDescriptor ) / sizeof( AntiCollisionDayNight );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAntiCollisionDayNight( KUINT32 Index )
+{
+    return &AntiCollisionDayNightDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntiCollisionDayNight( KINT32 Value )
+{
+    return GetEnumAsString( AntiCollisionDayNightDescriptor, sizeof( AntiCollisionDayNightDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntiCollisionDayNight( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( AntiCollisionDayNightDescriptor, sizeof( AntiCollisionDayNightDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAntiCollisionDayNight()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAntiCollisionDayNight( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntiCollisionDayNight( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntiCollisionDayNight( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for Navigation Position Brightness
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor NavigationPositionBrightnessDescriptor[] =
+{
+    { 0 , "Dim" },
+    { 1 , "Bright" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeNavigationPositionBrightness()
+{
+    return sizeof( NavigationPositionBrightnessDescriptor ) / sizeof( NavigationPositionBrightness );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorNavigationPositionBrightness( KUINT32 Index )
+{
+    return &NavigationPositionBrightnessDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationPositionBrightness( KINT32 Value )
+{
+    return GetEnumAsString( NavigationPositionBrightnessDescriptor, sizeof( NavigationPositionBrightnessDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( NavigationPositionBrightnessDescriptor, sizeof( NavigationPositionBrightnessDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeNavigationPositionBrightness()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorNavigationPositionBrightness( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNavigationPositionBrightness( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for NVG Mode
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor NVGModeDescriptor[] =
+{
+    { 0 , "OvertLighting" },
+    { 1 , "CovertLighting" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeNVGMode()
+{
+    return sizeof( NVGModeDescriptor ) / sizeof( NVGMode );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorNVGMode( KUINT32 Index )
+{
+    return &NVGModeDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNVGMode( KINT32 Value )
+{
+    return GetEnumAsString( NVGModeDescriptor, sizeof( NVGModeDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( NVGModeDescriptor, sizeof( NVGModeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeNVGMode()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorNVGMode( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringNVGMode( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+

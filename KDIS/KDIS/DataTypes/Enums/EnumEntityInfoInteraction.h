@@ -1175,6 +1175,89 @@ KBOOL GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut );
 
 #endif // DIS 7
 
+/************************************************************************/
+/* Anti-Collision Day/Night                                             */
+/* UID 397 - Anti-Collision Day-Night                                   */
+/* Used In:                                                             */
+/*  AirPlatformAppearance                                               */
+/************************************************************************/
+
+enum AntiCollisionDayNight
+{
+    Day                                                     = 0,
+    Night                                                   = 1
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeAntiCollisionDayNight();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorAntiCollisionDayNight( KUINT32 Index );
+
+KString GetEnumAsStringAntiCollisionDayNight( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringAntiCollisionDayNight( const KString & Value, KINT32 & ValueOut );
+
+/************************************************************************/
+/* Navigation/Position Brightness                                       */
+/* UID 398 - Navigation/Position Brightness                             */
+/* Used In:                                                             */
+/*  AirPlatformAppearance                                               */
+/************************************************************************/
+
+enum NavigationPositionBrightness
+{
+    Dim                                                     = 0,
+    Bright                                                  = 1
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeNavigationPositionBrightness();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorNavigationPositionBrightness( KUINT32 Index );
+
+KString GetEnumAsStringNavigationPositionBrightness( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut );
+
+/************************************************************************/
+/* NVG Mode                                                             */
+/* UID 400 - Type of lighting being used by entity                      */
+/* Used In:                                                             */
+/*  AirPlatformAppearance                                               */
+/************************************************************************/
+
+enum NVGMode
+{
+    OvertLighting                                                     = 0,
+    CovertLighting                                                    = 1
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeNVGMode();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorNVGMode( KUINT32 Index );
+
+KString GetEnumAsStringNVGMode( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut );
 
 } // END namespace ENUMS
 } // END namespace DATA_TYPES
