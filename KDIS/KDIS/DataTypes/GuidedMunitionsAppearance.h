@@ -58,15 +58,16 @@ protected:
     KUINT32 m_Damage                : 2; // 3-4
     KUINT32 m_Smoke                 : 2; // 5-6
     KUINT32 m_TrailingEffect        : 2; // 7-8
-	KUINT32 m_Unused2               : 6; // 9-14	
+    KUINT32 m_Unused2               : 6; // 9-14
     KUINT32 m_FlamingEffectField    : 1; // 15   
-	KUINT32 m_LaunchFlash           : 1; // 16
-	KUINT32 m_Unused3               : 4; // 17-20    
+    KUINT32 m_LaunchFlash           : 1; // 16
+    KUINT32 m_Unused3               : 4; // 17-20
     KUINT32 m_FrozenStatus          : 1; // 21
     KUINT32 m_PowerPlantStatus      : 1; // 22
     KUINT32 m_State                 : 1; // 23     
-    KUINT32 m_Unused4               : 7; // 24-30
-	KUINT32 m_MaskedCloaked         : 1; // 31
+    KUINT32 m_CoverShroudStatus     : 2; // 24-25
+    KUINT32 m_Unused4               : 7; // 26-30
+    KUINT32 m_MaskedCloaked         : 1; // 31
 
 public:
 
@@ -144,6 +145,15 @@ public:
     //************************************
     void SetEntityStateActive( KBOOL ES );
     KBOOL IsEntityStateActive() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::GuidedMunitionsAppearance::SetEntityTrailingEffect
+    //              KDIS::DATA_TYPE::GuidedMunitionsAppearance::GetEntityTrailingEffect
+    // Description: Describes the size of the dust cloud/trailing effect.
+    // Parameter:   EntityTrailingEffect ETE
+    //************************************
+    void SetCoverShroudStatus( KDIS::DATA_TYPE::ENUMS::CoverShroudStatus CSS );
+    KDIS::DATA_TYPE::ENUMS::CoverShroudStatus GetCoverShroudStatus() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GuidedMunitionsAppearance::SetEntityStateActive

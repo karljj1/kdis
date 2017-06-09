@@ -2048,3 +2048,63 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNVGMode( const KString & Value, K
 
 #endif
 
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for NVG Mode
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor CoverShroudStatusDescriptor[] =
+{
+    { 0 , "Closed" },
+    { 1 , "Opening" },
+    { 2 , "Cover/Shroud Blown/Detached" },
+    { 3 , "Open/Attached" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCoverShroudStatus()
+{
+    return sizeof( CoverShroudStatusDescriptor ) / sizeof( CoverShroudStatus );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCoverShroudStatus( KUINT32 Index )
+{
+    return &CoverShroudStatusDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCoverShroudStatus( KINT32 Value )
+{
+    return GetEnumAsString( CoverShroudStatusDescriptor, sizeof( CoverShroudStatusDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( CoverShroudStatusDescriptor, sizeof( CoverShroudStatusDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeCoverShroudStatus()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorCoverShroudStatus( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringCoverShroudStatus( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+

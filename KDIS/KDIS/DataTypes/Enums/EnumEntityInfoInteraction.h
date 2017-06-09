@@ -1259,6 +1259,36 @@ KString GetEnumAsStringNVGMode( KINT32 Value );
 // Returns true if a value was found.
 KBOOL GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut );
 
+/************************************************************************/
+/* Cover/Shroud Status                                                  */
+/* UID 426 - Cover/Shroud Status                                        */
+/* Used In:                                                             */
+/*  GuidedMunitionAppearance                                            */
+/************************************************************************/
+
+enum CoverShroudStatus
+{
+    Closed                                                     = 0,
+    Opening                                                    = 1,
+    CoverShroudBlownDetached                                   = 2,
+    OpenAttached                                               = 3
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeCoverShroudStatus();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorCoverShroudStatus( KUINT32 Index );
+
+KString GetEnumAsStringCoverShroudStatus( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut );
+
 } // END namespace ENUMS
 } // END namespace DATA_TYPES
 } // END namespace KDIS
