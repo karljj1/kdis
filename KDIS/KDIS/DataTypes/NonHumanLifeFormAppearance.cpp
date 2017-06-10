@@ -1,5 +1,6 @@
 /*********************************************************************
-Copyright 2013 Karl Jones
+Copyright 2017 Karl Jones
+               Dale Marchand
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -48,7 +49,7 @@ void NonHumanLifeFormAppearance::SetEntityDamage( EntityDamage ED )
 
 EntityDamage NonHumanLifeFormAppearance::GetEntityDamage() const
 {
-    return ( EntityDamage )m_Damage;
+    return static_cast<EntityDamage>( m_Damage );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -99,10 +100,10 @@ KString NonHumanLifeFormAppearance::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "Lifeform Appearance:"
+    ss << "Non-Human Lifeform Appearance:"
        << "\n\tDamage:               " << GetEnumAsStringEntityDamage( m_Damage )
        << "\n\tFrozen Status:        " << m_FrozenStatus
-       << "\n\Mounted/Hoisted:       " << m_MountedHoisted
+       << "\n\tMounted/Hoisted:      " << m_MountedHoisted
        << "\n\tState:                " << m_State
        << "\n";
 
