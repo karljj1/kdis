@@ -129,6 +129,13 @@ EntityAppearance::EntityAppearance( const SensorEmitterAppearance & A )
 
 //////////////////////////////////////////////////////////////////////////
 
+EntityAppearance::EntityAppearance( const RadioAppearance & A )
+{
+    m_AppearanceUnion.m_RadioApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EntityAppearance::~EntityAppearance()
 {
 }
@@ -373,6 +380,20 @@ SensorEmitterAppearance & EntityAppearance::GetSensorEmitter()
 
 //////////////////////////////////////////////////////////////////////////
 
+const RadioAppearance & EntityAppearance::GetAppearanceAsRadio() const
+{
+    return m_AppearanceUnion.m_RadioApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+RadioAppearance & EntityAppearance::GetAppearanceAsRadio()
+{
+    return m_AppearanceUnion.m_RadioApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString EntityAppearance::GetAsString() const
 {
     KStringStream ss;
@@ -414,6 +435,8 @@ KString EntityAppearance::GetAsString( const EntityType & EntType ) const
         case Culturalfeature: return m_AppearanceUnion.m_CultFeatApp.GetAsString();
 
         case SensorEmitter: return m_AppearanceUnion.m_SensEmitApp.GetAsString();
+
+        case Radio: return m_AppearanceUnion.m_RadioApp.GetAsString();
     }
 
     // Fall back
