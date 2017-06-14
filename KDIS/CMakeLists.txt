@@ -88,6 +88,8 @@ SET(KDIS_SRC_DATATYPES_H
     ${DATATYPES_DIR}/LifeFormAppearance.h
     ${DATATYPES_DIR}/ModulationType.h
     ${DATATYPES_DIR}/MunitionDescriptor.h
+    ${DATATYPES_DIR}/NonHumanLifeFormAppearance.h
+    ${DATATYPES_DIR}/RadioAppearance.h
     ${DATATYPES_DIR}/RadioEntityType.h
     ${DATATYPES_DIR}/SensorEmitterAppearance.h
     ${DATATYPES_DIR}/SimulationIdentifier.h
@@ -256,6 +258,8 @@ SET(KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/LifeFormAppearance.cpp
     ${DATATYPES_DIR}/ModulationType.cpp
     ${DATATYPES_DIR}/MunitionDescriptor.cpp
+    ${DATATYPES_DIR}/NonHumanLifeFormAppearance.cpp
+    ${DATATYPES_DIR}/RadioAppearance.cpp
     ${DATATYPES_DIR}/RadioEntityType.cpp
     ${DATATYPES_DIR}/SensorEmitterAppearance.cpp
     ${DATATYPES_DIR}/SimulationIdentifier.cpp

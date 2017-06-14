@@ -149,9 +149,23 @@ KBOOL GuidedMunitionsAppearance::IsEntityStateActive() const
 
 //////////////////////////////////////////////////////////////////////////
 
+void GuidedMunitionsAppearance::SetCoverShroudStatus( CoverShroudStatus CSS )
+{
+    m_CoverShroudStatus = CSS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+CoverShroudStatus GuidedMunitionsAppearance::GetCoverShroudStatus() const
+{
+    return static_cast<CoverShroudStatus>(m_CoverShroudStatus);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void GuidedMunitionsAppearance::SetMaskedCloaked( KBOOL MC )
 {
-	m_MaskedCloaked = MC;
+  m_MaskedCloaked = MC;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -170,13 +184,14 @@ KString GuidedMunitionsAppearance::GetAsString() const
     ss << "Guided Munitions Appearance:"       	   
        << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
        << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
-	   << "\n\tTrailing Effect:        " << GetEnumAsStringEntityTrailingEffect( m_TrailingEffect )
+       << "\n\tTrailing Effect:        " << GetEnumAsStringEntityTrailingEffect( m_TrailingEffect )
        << "\n\tFlaming Effect:         " << m_FlamingEffectField		
-	   << "\n\tLaunch FLash:           " << m_LaunchFlash	
+       << "\n\tLaunch FLash:           " << m_LaunchFlash
        << "\n\tFrozen Status:          " << m_FrozenStatus
        << "\n\tPower Plant:            " << m_PowerPlantStatus
        << "\n\tState:                  " << m_State
-	   << "\n\tMasked/Cloaked:         " << m_MaskedCloaked
+       << "\n\tCover/Shroud Status:    " << GetEnumAsStringCoverShroudStatus( m_CoverShroudStatus )
+       << "\n\tMasked/Cloaked:         " << m_MaskedCloaked
        << "\n";
 
     return ss.str();

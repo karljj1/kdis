@@ -56,25 +56,31 @@ protected:
                                          // Bits 
     KUINT32 m_PaintScheme           : 1; // 0
     KUINT32 m_MobilityKill          : 1; // 1
-    KUINT32 m_Unused1               : 1; // 2
+    KUINT32 m_NVGMode               : 1; // 2
     KUINT32 m_Damage                : 2; // 3-4
     KUINT32 m_Smoke                 : 2; // 5-6
     KUINT32 m_TrailingEffect        : 2; // 7-8
     KUINT32 m_CanopyState           : 3; // 9-11
     KUINT32 m_LandingLights         : 1; // 12
-	KUINT32 m_NavLights             : 1; // 13
-	KUINT32 m_AntiColLights         : 1; // 14
+    KUINT32 m_NavLights             : 1; // 13
+    KUINT32 m_AntiColLights         : 1; // 14
     KUINT32 m_FlamingEffectField    : 1; // 15
     KUINT32 m_Afterburner           : 1; // 16
-    KUINT32 m_Unused2               : 4; // 17-20        
+    KUINT32 m_LowerAntiCollisionLight : 1; // 17
+    KUINT32 m_UpperAntiCollisionLight : 1; // 18
+    KUINT32 m_AntiCollisionLightDayNight : 1; // 19
+    KUINT32 m_IsBlinking            : 1; // 20
     KUINT32 m_FrozenStatus          : 1; // 21
     KUINT32 m_PowerPlantStatus      : 1; // 22
     KUINT32 m_State                 : 1; // 23 
     KUINT32 m_FormationLights       : 1; // 24
-    KUINT32 m_Unused3               : 3; // 25-27	
-	KUINT32 m_SpotLights            : 1; // 28
-	KUINT32 m_InteriorLights        : 1; // 29
-	KUINT32 m_Unused4               : 2; // 30 - 31
+    KUINT32 m_LandingGearExtended   : 1; // 25
+    KUINT32 m_CargoDoorsOpened      : 1; // 26
+    KUINT32 m_NavigationPositionBrightness : 1; // 27
+    KUINT32 m_SpotLights            : 1; // 28
+    KUINT32 m_InteriorLights        : 1; // 29
+    KUINT32 m_ReverseThrustEngaged  : 1; // 31
+    KUINT32 m_WeightOnWheels        : 1; // 31
 
 public:
 
@@ -95,6 +101,15 @@ public:
     //************************************
     void SetEntityMobilityKill( KBOOL MK );
     KBOOL DoesEntityMobilityKill() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetNVGMode
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::GetNVGMode
+    // Description: NVG Lighting Mode.
+    // Parameter:   NVGMode NM
+    //************************************
+    void SetNVGMode( KDIS::DATA_TYPE::ENUMS::NVGMode NM );
+    KDIS::DATA_TYPE::ENUMS::NVGMode GetNVGMode() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityDamage
@@ -178,13 +193,49 @@ public:
     void SetEntityAfterburner( KBOOL AB );
     KBOOL IsAfterburnerOn() const;
 	
-	//************************************
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityLowerAntiCollisionLight
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsEntityLowerAntiCollisionLightOn
+    // Description: Is the vehicles lower anti-collision light turned on? True = On, False = Off.
+    // Parameter:   KBOOL LACL
+    //************************************
+    void SetEntityLowerAntiCollisionLight( KBOOL LACL );
+    KBOOL IsEntityLowerAntiCollisionLightOn() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityUpperAntiCollisionLight
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsEntityUpperAntiCollisionLightOn
+    // Description: Is the vehicles lower anti-collision light turned on? True = On, False = Off.
+    // Parameter:   KBOOL UACL
+    //************************************
+    void SetEntityUpperAntiCollisionLight( KBOOL UACL );
+    KBOOL IsEntityUpperAntiCollisionLightOn() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetAntiCollisionLightDayNight
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::GetAntiCollisionLightDayNight
+    // Description: Anti-Collision Light Day/Night.
+    // Parameter:   AntiCollisionDayNight ACDN
+    //************************************
+    void SetAntiCollisionLightDayNight( KDIS::DATA_TYPE::ENUMS::AntiCollisionDayNight ACDN );
+    KDIS::DATA_TYPE::ENUMS::AntiCollisionDayNight GetAntiCollisionLightDayNight() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetBlinking
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsBlinking
+    // Description: Are any lights blinking?
+    // Parameter:   KBOOL EFS
+    //***********************************?
+    void SetBlinking( KBOOL B );
+    KBOOL IsBlinking() const;
+
+    //************************************
     // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityFrozenStatus
     //              KDIS::DATA_TYPE::AirPlatformAppearance::IsEntityFrozen
     // Description: Is the entity frozen?
-    //              Note: Frozen entities should not be dead-reckoned, they should remain 
-	//              frozen in place. You would likely freeze entites when your application is
-	//              in a paused state.
+    //              Note: Frozen entities should not be dead-reckoned, they should remain
+    //              frozen in place. You would likely freeze entites when your application is
+    //              in a paused state.
     // Parameter:   KBOOL EFS
     //************************************
     void SetEntityFrozenStatus( KBOOL EFS );
@@ -217,7 +268,34 @@ public:
     void SetEntityFormationLights( KBOOL FL );
     KBOOL IsEntityFormationLightsOn() const;
 
-	//************************************
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetLandingGearExtended
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsLandingGearExtended
+    // Description: Is the landing gear extended or wholly retracted?
+    // Parameter:   KBOOL LGE
+    //***********************************?
+    void SetLandingGearExtended( KBOOL LGE );
+    KBOOL IsLandingGearExtended() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetCargoDoorsOpened
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsCargoDoorsOpened
+    // Description: Is the cargo door (main door) open?
+    // Parameter:   KBOOL LGE
+    //***********************************?
+    void SetCargoDoorsOpened( KBOOL CDO );
+    KBOOL IsCargoDoorsOpened() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetNavigationPositionBrightness
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::GetNavigationPositionBrightness
+    // Description: Brightness of the navigation/position lights
+    // Parameter:   KDIS::DATA_TYPE::ENUMS::NavigationnPositionBrightness NPB
+    //***********************************?
+    void SetNavigationPositionBrightness( KDIS::DATA_TYPE::ENUMS::NavigationPositionBrightness NPB );
+    KDIS::DATA_TYPE::ENUMS::NavigationPositionBrightness GetNavigationPositionBrightness() const;
+
+    //************************************
     // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityBlackoutBrakeLights
     //              KDIS::DATA_TYPE::AirPlatformAppearance::IsEntityBlackoutBrakeLightsOn
     // Description: Are the vehicles spot lights turned on? True = On, False = Off.
@@ -226,7 +304,7 @@ public:
     void SetEntitySpotLights( KBOOL SL );
     KBOOL IsEntitySpotLightsOn() const;
 
-	//************************************
+    //************************************
     // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityInteriorLights
     //              KDIS::DATA_TYPE::AirPlatformAppearance::IsEntityInteriorLightsOn
     // Description: Are the vehicles interior lights turned on? True = On, False = Off.
@@ -234,6 +312,24 @@ public:
     //************************************
     void SetEntityInteriorLights( KBOOL IL );
     KBOOL IsEntityInteriorLightsOn() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetReverseThrustEngaged
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsReverseThrustEngaged
+    // Description: Is reverse thrust engaged?
+    // Parameter:   KBOOL RTE
+    //************************************
+    void SetReverseThrustEngaged( KBOOL RTE );
+    KBOOL IsReverseThrustEngaged() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetWeightOnWheels
+    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsWeightOnWheels
+    // Description: Is weight on the main landing gear?
+    // Parameter:   KBOOL RTE
+    //************************************
+    void SetWeightOnWheels( KBOOL WOW );
+    KBOOL IsWeightOnWheels() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::GetAsString

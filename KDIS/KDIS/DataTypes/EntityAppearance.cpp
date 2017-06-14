@@ -101,6 +101,13 @@ EntityAppearance::EntityAppearance( const LifeFormAppearance & A )
 
 //////////////////////////////////////////////////////////////////////////
 
+EntityAppearance::EntityAppearance( const NonHumanLifeFormAppearance & A )
+{
+    m_AppearanceUnion.m_NonHumanLifeFormApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EntityAppearance::EntityAppearance( const EnvironmentalsAppearance & A )
 {
     m_AppearanceUnion.m_EnviroApp = A;
@@ -118,6 +125,13 @@ EntityAppearance::EntityAppearance( const CulturalFeatureAppearance & A )
 EntityAppearance::EntityAppearance( const SensorEmitterAppearance & A )
 {
     m_AppearanceUnion.m_SensEmitApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityAppearance::EntityAppearance( const RadioAppearance & A )
+{
+    m_AppearanceUnion.m_RadioApp = A;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -289,6 +303,20 @@ LifeFormAppearance & EntityAppearance::GetAppearanceAsLifeForm()
 
 //////////////////////////////////////////////////////////////////////////
 
+const NonHumanLifeFormAppearance & EntityAppearance::GetAppearanceAsNonHumanLifeForm() const
+{
+    return m_AppearanceUnion.m_NonHumanLifeFormApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+NonHumanLifeFormAppearance & EntityAppearance::GetAppearanceAsNonHumanLifeForm()
+{
+    return m_AppearanceUnion.m_NonHumanLifeFormApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void EntityAppearance::SetAppearance( const EnvironmentalsAppearance & A )
 {
     m_AppearanceUnion.m_EnviroApp = A;
@@ -352,6 +380,20 @@ SensorEmitterAppearance & EntityAppearance::GetSensorEmitter()
 
 //////////////////////////////////////////////////////////////////////////
 
+const RadioAppearance & EntityAppearance::GetAppearanceAsRadio() const
+{
+    return m_AppearanceUnion.m_RadioApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+RadioAppearance & EntityAppearance::GetAppearanceAsRadio()
+{
+    return m_AppearanceUnion.m_RadioApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString EntityAppearance::GetAsString() const
 {
     KStringStream ss;
@@ -379,13 +421,22 @@ KString EntityAppearance::GetAsString( const EntityType & EntType ) const
 
         case Munition: return m_AppearanceUnion.m_GuidedMunitionsApp.GetAsString();
 
-        case Lifeform: return m_AppearanceUnion.m_LifeFormApp.GetAsString();
+        case Lifeform:
+        {
+          if( EntType.GetCategory() >= 200 )  //SISO-REF-010-2016-v22. Lifeform category values 200 and above are non-human.
+            return m_AppearanceUnion.m_NonHumanLifeFormApp.GetAsString();
+          else
+            return m_AppearanceUnion.m_LifeFormApp.GetAsString();
+        }
+          break;
 
         case Environmental: return m_AppearanceUnion.m_EnviroApp.GetAsString();
 
         case Culturalfeature: return m_AppearanceUnion.m_CultFeatApp.GetAsString();
 
         case SensorEmitter: return m_AppearanceUnion.m_SensEmitApp.GetAsString();
+
+        case Radio: return m_AppearanceUnion.m_RadioApp.GetAsString();
     }
 
     // Fall back

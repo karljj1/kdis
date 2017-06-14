@@ -47,9 +47,11 @@ http://p.sf.net/kdis/UserGuide
 #include "./SpacePlatformAppearance.h"
 #include "./GuidedMunitionsAppearance.h"
 #include "./LifeFormAppearance.h"
+#include "./NonHumanLifeFormAppearance.h"
 #include "./EnvironmentalsAppearance.h"
 #include "./CulturalFeatureAppearance.h"
 #include "./SensorEmitterAppearance.h"
+#include "./RadioAppearance.h"
 #include "./EntityType.h"
 
 namespace KDIS {
@@ -68,9 +70,11 @@ protected:
         SpacePlatformAppearance        m_SpaceApp;
         GuidedMunitionsAppearance      m_GuidedMunitionsApp;
         LifeFormAppearance             m_LifeFormApp;
+        NonHumanLifeFormAppearance     m_NonHumanLifeFormApp;
         EnvironmentalsAppearance       m_EnviroApp;
         CulturalFeatureAppearance      m_CultFeatApp;
         SensorEmitterAppearance        m_SensEmitApp;
+        RadioAppearance                m_RadioApp;
         KUINT32                        m_ui326Data;
     } m_AppearanceUnion;
 
@@ -96,11 +100,15 @@ public:
 
     EntityAppearance( const LifeFormAppearance & A );
 
+    EntityAppearance( const NonHumanLifeFormAppearance & A );
+
     EntityAppearance( const EnvironmentalsAppearance & A );
 
     EntityAppearance( const CulturalFeatureAppearance & A );
 
     EntityAppearance( const SensorEmitterAppearance & A );
+
+    EntityAppearance( const RadioAppearance & A );
 
     virtual ~EntityAppearance();
 
@@ -188,6 +196,16 @@ public:
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance
+    //              KDIS::DATA_TYPE::EntityAppearance::GetAppearanceAsNonHumanLifeForm
+    // Description: Get/Set the appearance data as life form.
+    // Parameter:   const NonHumanLifeFormAppearance & A
+    //************************************
+    void SetAppearance( const NonHumanLifeFormAppearance & A );
+    const NonHumanLifeFormAppearance & GetAppearanceAsNonHumanLifeForm() const;
+    NonHumanLifeFormAppearance & GetAppearanceAsNonHumanLifeForm();
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance
     //              KDIS::DATA_TYPE::EntityAppearance::GetAppearanceEnvironmentals
     // Description: Get/Set the appearance data as environmental.
     // Parameter:   const EnvironmentalsAppearance & A
@@ -215,6 +233,16 @@ public:
     void SetAppearance( const SensorEmitterAppearance & A );
     const SensorEmitterAppearance & GetSensorEmitter() const;
     SensorEmitterAppearance & GetSensorEmitter();
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance
+    //              KDIS::DATA_TYPE::EntityAppearance::GetAppearanceAsRadio
+    // Description: Get/Set the appearance data as life form.
+    // Parameter:   const RadioAppearance & A
+    //************************************
+    void SetAppearance( const RadioAppearance & A );
+    const RadioAppearance & GetAppearanceAsRadio() const;
+    RadioAppearance & GetAppearanceAsRadio();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityAppearance::GetAsString

@@ -58,13 +58,16 @@ protected:
     KUINT32 m_Unused1               : 2; // 1-2
     KUINT32 m_Damage                : 2; // 3-4
     KUINT32 m_Compliance            : 4; // 5-8
-    KUINT32 m_Unused2               : 3; // 9-11
+    KUINT32 m_Unused2               : 2; // 9-10
+    KUINT32 m_SignalSmokeInUse      : 1; // 11
     KUINT32 m_Flashlight            : 1; // 12
-    KUINT32 m_Unused3               : 3; // 13-15
+    KUINT32 m_SignalMirrorInUse     : 1; // 13
+    KUINT32 m_IRStrobe              : 1; // 14
+    KUINT32 m_IRIlluminator         : 1; // 15
     KUINT32 m_LifeformState         : 4; // 16-19
-    KUINT32 m_Unused4               : 1; // 20
+    KUINT32 m_Unused3               : 1; // 20
     KUINT32 m_FrozenStatus          : 1; // 21
-    KUINT32 m_Unused5               : 1; // 22
+    KUINT32 m_MountedHoisted        : 1; // 22
     KUINT32 m_State                 : 1; // 23
     KUINT32 m_Weapon1               : 2; // 24-25
     KUINT32 m_Weapon2               : 2; // 26-27
@@ -102,8 +105,17 @@ public:
     KDIS::DATA_TYPE::ENUMS::EntityCompliance GetEntityEntityCompliance() const;
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityFlashLights
-    //              KDIS::DATA_TYPE::AirPlatformAppearance::IsEntityFlashLightsOn
+    // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntitySignalSmokeInUse
+    //              KDIS::DATA_TYPE::LifeFormAppearance::IsEntitySignalSmokeInUse
+    // Description: Describes whether signal smoke is being used or not. True - In Use. False - Not In Use.
+    // Parameter:   KBOOL FL
+    //************************************
+    void SetEntitySignalSmokeInUse( KBOOL SS );
+    KBOOL IsEntitySignalSmokeInUse() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityFlashLights
+    //              KDIS::DATA_TYPE::LifeFormAppearance::IsEntityFlashLightsOn
     // Description: Describes whether Flash Lights are on or off. True - On. False - Off.
     // Parameter:   KBOOL FL
     //************************************
@@ -111,6 +123,33 @@ public:
     KBOOL IsEntityFlashLightsOn() const;
 
     //************************************
+    // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntitySignalMirrorInUse
+    //              KDIS::DATA_TYPE::LifeFormAppearance::IsEntitySignalMirrorInUse
+    // Description: Describes whether a signal mirror is being used or not. True - In Use. False - Not In Use.
+    // Parameter:   KBOOL FL
+    //************************************
+    void SetEntitySignalMirrorInUse(KBOOL SM );
+    KBOOL IsEntitySignalMirrorInUse() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityIRStrobe
+    //              KDIS::DATA_TYPE::LifeFormAppearance::IsEntityIRStrobeOn
+    // Description: Describes whether an IR strobe is on or off. True - On. False - Off.
+    // Parameter:   KBOOL FL
+    //************************************
+    void SetEntityIRStrobe( KBOOL IRS );
+    KBOOL IsEntityIRStrobeOn() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityIRIlluminator
+    //              KDIS::DATA_TYPE::LifeFormAppearance::IsEntityIRIlluminatorOn
+    // Description: Describes whether an IR strobe is on or off. True - On. False - Off.
+    // Parameter:   KBOOL FL
+    //************************************
+    void SetEntityIRIlluminator( KBOOL IRI );
+    KBOOL IsEntityIRIlluminatorOn() const;
+
+   //************************************
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityLifeformState
     //              KDIS::DATA_TYPE::LifeFormAppearance::GetEntityLifeformState
     // Description: Entities state/appearance. I.E Posture.
@@ -128,6 +167,15 @@ public:
     //************************************
     void SetEntityFrozenStatus( KBOOL EFS );
     KBOOL IsEntityFrozen() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityMountedHoisted
+    //              KDIS::DATA_TYPE::LifeFormAppearance::IsEntityMountedHoisted
+    // Description: Describes whether the lifeform is mounted/hoisted on another platform. True - Yes. False - No.
+    // Parameter:   KBOOL FL
+    //************************************
+    void SetEntityMountedHoisted(KBOOL MH );
+    KBOOL IsEntityMountedHoisted() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityStateActive
