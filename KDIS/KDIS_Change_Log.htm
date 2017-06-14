@@ -60,6 +60,7 @@
 <ul>
 	<div style="color: blue">
 		<li>Added ApplyFilterBeforeDecodingPDUBody to PDU_Factory_Filter. Can be used to reject PDU's before the body has been decoded. Good for performance and rejecting custom or non-standard PDU's.</li>
+		<li>Added RadioAppearance struct.</li>
 	</div>
 	<li>Added SendOnly option to connection class. The class will not bind if this is true. </li>
 	<li>Added support for unique_ptr when C++11 is supported.</li>
@@ -88,6 +89,11 @@
 	<li>Fixed a logic error in detecting polar regions for the coordinate conversion code.</li>
 	<li>Changed the PDU_Factory_Filter destructor to be virtual to prevent undefined behavior.</li>
 	<li>Added support for CMAKE_INSTALL_PREFIX usage to define alternative install location. Defaults to /usr/include/KDIS.</li> 
+	<li>Added support for Non-Human Life Form Appearance.<li>
+	<li>Updated LifeFormAppearance Struct with additional fields.</li>
+	<li>Updated AirPlatformAppearance Struct with additional fields.</li>
+	<li>Updated GuidedMunitionAppearance Struct with additional fields.</li>
+	<li>Improved GetAsString for NonHumanLifeFormAppearance.</li> 
 </ul>
 
 <!-- Version 2-9-0 !-->
