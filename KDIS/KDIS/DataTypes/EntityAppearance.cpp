@@ -143,6 +143,13 @@ EntityAppearance::EntityAppearance( const ExpendableAppearance & A )
 
 //////////////////////////////////////////////////////////////////////////
 
+EntityAppearance::EntityAppearance( const SupplyAppearance & A )
+{
+    m_AppearanceUnion.m_SupplyApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EntityAppearance::~EntityAppearance()
 {
 }
@@ -436,6 +443,27 @@ ExpendableAppearance & EntityAppearance::GetAppearanceAsExpendable()
 
 //////////////////////////////////////////////////////////////////////////
 
+void EntityAppearance::SetAppearance( const SupplyAppearance & A )
+{
+    m_AppearanceUnion.m_SupplyApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const SupplyAppearance & EntityAppearance::GetAppearanceAsSupply() const
+{
+    return m_AppearanceUnion.m_SupplyApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+SupplyAppearance & EntityAppearance::GetAppearanceAsSupply()
+{
+    return m_AppearanceUnion.m_SupplyApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString EntityAppearance::GetAsString() const
 {
     KStringStream ss;
@@ -481,6 +509,8 @@ KString EntityAppearance::GetAsString( const EntityType & EntType ) const
         case Radio: return m_AppearanceUnion.m_RadioApp.GetAsString();
 
         case Expendable: return m_AppearanceUnion.m_ExpendableApp.GetAsString();
+
+        case Supply: return m_AppearanceUnion.m_SupplyApp.GetAsString();
     }
 
     // Fall back

@@ -1992,6 +1992,66 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationPositionBrightness( con
 
 //////////////////////////////////////////////////////////////////////////
 
+// Implementation of string values for Supply Deployed
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor SupplyDeployedDescriptor[] =
+{
+    { 0 , "Not Applicable" },
+    { 1 , "Stowed" },
+    { 2 , "Deployed" },
+    { 3 , "Deployed and Active" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSupplyDeployed()
+{
+    return sizeof( SupplyDeployedDescriptor ) / sizeof( SupplyDeployed );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSupplyDeployed( KUINT32 Index )
+{
+    return &SupplyDeployedDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSupplyDeployed( KINT32 Value )
+{
+    return GetEnumAsString( SupplyDeployedDescriptor, sizeof( SupplyDeployedDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSupplyDeployed( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( SupplyDeployedDescriptor, sizeof( SupplyDeployedDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSupplyDeployed()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSupplyDeployed( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSupplyDeployed( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSupplyDeployed( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
 // Implementation of string values for NVG Mode
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS

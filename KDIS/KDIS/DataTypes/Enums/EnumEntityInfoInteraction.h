@@ -1232,6 +1232,36 @@ KString GetEnumAsStringNavigationPositionBrightness( KINT32 Value );
 KBOOL GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
+/* SupplyDeployed                                                       */
+/* UID 399 - SupplyDeployed                                             */
+/* Used In:                                                             */
+/*  SupplyAppearance                                                    */
+/************************************************************************/
+
+enum SupplyDeployed
+{
+  SD_NotApplicable                                           = 0,
+  SD_Stowed                                                  = 1,
+  SD_Deployed                                                = 2,
+  SD_DeployedAndActive                                       = 3
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeSupplyDeployed();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorSupplyDeployed( KUINT32 Index );
+
+KString GetEnumAsStringSupplyDeployed( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringSupplyDeployed( const KString & Value, KINT32 & ValueOut );
+
+/************************************************************************/
 /* NVG Mode                                                             */
 /* UID 400 - Type of lighting being used by entity                      */
 /* Used In:                                                             */
