@@ -136,6 +136,13 @@ EntityAppearance::EntityAppearance( const RadioAppearance & A )
 
 //////////////////////////////////////////////////////////////////////////
 
+EntityAppearance::EntityAppearance( const ExpendableAppearance & A )
+{
+    m_AppearanceUnion.m_ExpendableApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EntityAppearance::~EntityAppearance()
 {
 }
@@ -303,6 +310,13 @@ LifeFormAppearance & EntityAppearance::GetAppearanceAsLifeForm()
 
 //////////////////////////////////////////////////////////////////////////
 
+void EntityAppearance::SetAppearance( const NonHumanLifeFormAppearance & A )
+{
+    m_AppearanceUnion.m_NonHumanLifeFormApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 const NonHumanLifeFormAppearance & EntityAppearance::GetAppearanceAsNonHumanLifeForm() const
 {
     return m_AppearanceUnion.m_NonHumanLifeFormApp;
@@ -380,6 +394,13 @@ SensorEmitterAppearance & EntityAppearance::GetSensorEmitter()
 
 //////////////////////////////////////////////////////////////////////////
 
+void EntityAppearance::SetAppearance( const RadioAppearance & A )
+{
+    m_AppearanceUnion.m_RadioApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 const RadioAppearance & EntityAppearance::GetAppearanceAsRadio() const
 {
     return m_AppearanceUnion.m_RadioApp;
@@ -390,6 +411,27 @@ const RadioAppearance & EntityAppearance::GetAppearanceAsRadio() const
 RadioAppearance & EntityAppearance::GetAppearanceAsRadio()
 {
     return m_AppearanceUnion.m_RadioApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EntityAppearance::SetAppearance( const ExpendableAppearance & A )
+{
+    m_AppearanceUnion.m_ExpendableApp = A;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const ExpendableAppearance & EntityAppearance::GetAppearanceAsExpendable() const
+{
+    return m_AppearanceUnion.m_ExpendableApp;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+ExpendableAppearance & EntityAppearance::GetAppearanceAsExpendable()
+{
+    return m_AppearanceUnion.m_ExpendableApp;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -437,6 +479,8 @@ KString EntityAppearance::GetAsString( const EntityType & EntType ) const
         case SensorEmitter: return m_AppearanceUnion.m_SensEmitApp.GetAsString();
 
         case Radio: return m_AppearanceUnion.m_RadioApp.GetAsString();
+
+        case Expendable: return m_AppearanceUnion.m_ExpendableApp.GetAsString();
     }
 
     // Fall back

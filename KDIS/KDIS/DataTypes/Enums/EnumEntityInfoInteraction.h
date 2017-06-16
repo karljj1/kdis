@@ -1260,6 +1260,125 @@ KString GetEnumAsStringNVGMode( KINT32 Value );
 KBOOL GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
+/* Parachute                                                            */
+/* UID 401 - Parachute                                                  */
+/* Used In:                                                             */
+/*  SupplyAppearance                                                    */
+/*  ExpendableAppearance                                                */
+/************************************************************************/
+
+enum Parachute
+{
+  P_None                                                      = 0,
+  P_Deployed                                                  = 1,
+  P_Collapsed                                                 = 2,
+  P_MalfunctionStreamer                                       = 3
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeParachute();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorParachute( KUINT32 Index );
+
+KString GetEnumAsStringParachute( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringParachute( const KString & Value, KINT32 & ValueOut );
+
+/************************************************************************/
+/* Flare/Smoke Color                                                    */
+/* UID 402 - Flare/Smoke Color                                          */
+/* Used In:                                                             */
+/*  ExpendableAppearance                                                */
+/************************************************************************/
+
+enum FlareSmokeColor
+{
+  FS_White                                                 = 0,
+  FS_Red                                                   = 1,
+  FS_Green                                                 = 2,
+  FS_IR                                                    = 3
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeFlareSmokeColor();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorFlareSmokeColor( KUINT32 Index );
+
+KString GetEnumAsStringFlareSmokeColor( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringFlareSmokeColor( const KString & Value, KINT32 & ValueOut );
+
+/************************************************************************/
+/* Flare/Smoke Status                                                   */
+/* UID 403 - Flare/Smoke Status                                         */
+/* Used In:                                                             */
+/*  ExpendableAppearance                                                */
+/************************************************************************/
+
+enum FlareSmokeStatus
+{
+  FS_NotIgnited                                            = 0,
+  FS_Burning                                               = 1,
+  FS_BurnedOut                                             = 2
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeFlareSmokeStatus();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorFlareSmokeStatus( KUINT32 Index );
+
+KString GetEnumAsStringFlareSmokeStatus( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringFlareSmokeStatus( const KString & Value, KINT32 & ValueOut );
+
+/************************************************************************/
+/* Spot Chaff                                                           */
+/* UID 405 - Spot Chaff                                                 */
+/* Used In:                                                             */
+/*  ExpendableAppearance                                                */
+/************************************************************************/
+
+enum SpotChaff
+{
+  SC_None                                               = 0,
+  SC_Deployed                                           = 1,
+  SC_Malfunction                                        = 2
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeSpotChaff();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorSpotChaff( KUINT32 Index );
+
+KString GetEnumAsStringSpotChaff( KINT32 Value );
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringSpotChaff( const KString & Value, KINT32 & ValueOut );
+
+/************************************************************************/
 /* Cover/Shroud Status                                                  */
 /* UID 426 - Cover/Shroud Status                                        */
 /* Used In:                                                             */

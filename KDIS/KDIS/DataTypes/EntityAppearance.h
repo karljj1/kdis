@@ -52,6 +52,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./CulturalFeatureAppearance.h"
 #include "./SensorEmitterAppearance.h"
 #include "./RadioAppearance.h"
+#include "./ExpendableAppearance.h"
 #include "./EntityType.h"
 
 namespace KDIS {
@@ -75,6 +76,7 @@ protected:
         CulturalFeatureAppearance      m_CultFeatApp;
         SensorEmitterAppearance        m_SensEmitApp;
         RadioAppearance                m_RadioApp;
+        ExpendableAppearance           m_ExpendableApp;
         KUINT32                        m_ui326Data;
     } m_AppearanceUnion;
 
@@ -109,6 +111,8 @@ public:
     EntityAppearance( const SensorEmitterAppearance & A );
 
     EntityAppearance( const RadioAppearance & A );
+
+    EntityAppearance( const ExpendableAppearance & A );
 
     virtual ~EntityAppearance();
 
@@ -243,6 +247,16 @@ public:
     void SetAppearance( const RadioAppearance & A );
     const RadioAppearance & GetAppearanceAsRadio() const;
     RadioAppearance & GetAppearanceAsRadio();
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance
+    //              KDIS::DATA_TYPE::EntityAppearance::GetAppearanceAsExpendable
+    // Description: Get/Set the appearance data as life form.
+    // Parameter:   const ExpendableAppearance & A
+    //************************************
+    void SetAppearance( const ExpendableAppearance & A );
+    const ExpendableAppearance & GetAppearanceAsExpendable() const;
+    ExpendableAppearance & GetAppearanceAsExpendable();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityAppearance::GetAsString

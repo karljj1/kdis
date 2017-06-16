@@ -2050,7 +2050,245 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNVGMode( const KString & Value, K
 
 //////////////////////////////////////////////////////////////////////////
 
-// Implementation of string values for NVG Mode
+// Implementation of string values for Parachute
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor ParachuteDescriptor[] =
+{
+    { 0 , "None" },
+    { 1 , "Deployed" },
+    { 2 , "Collapsed" },
+    { 3 , "Malfunction/Streamer" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeParachute()
+{
+    return sizeof( ParachuteDescriptor ) / sizeof( Parachute );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorParachute( KUINT32 Index )
+{
+    return &ParachuteDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringParachute( KINT32 Value )
+{
+    return GetEnumAsString( ParachuteDescriptor, sizeof( ParachuteDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringParachute( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( ParachuteDescriptor, sizeof( ParachuteDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeParachute()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorParachute( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringParachute( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringParachute( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for FlareSmokeColor
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor FlareSmokeColorDescriptor[] =
+{
+    { 0 , "White" },
+    { 1 , "Red" },
+    { 2 , "Green" },
+    { 3 , "IR" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFlareSmokeColor()
+{
+    return sizeof( FlareSmokeColorDescriptor ) / sizeof( FlareSmokeColor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFlareSmokeColor( KUINT32 Index )
+{
+    return &FlareSmokeColorDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFlareSmokeColor( KINT32 Value )
+{
+    return GetEnumAsString( FlareSmokeColorDescriptor, sizeof( FlareSmokeColorDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFlareSmokeColor( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( FlareSmokeColorDescriptor, sizeof( FlareSmokeColorDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFlareSmokeColor()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFlareSmokeColor( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFlareSmokeColor( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFlareSmokeColor( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for FlareSmokeStatus
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor FlareSmokeStatusDescriptor[] =
+{
+    { 0 , "Not Ignited" },
+    { 1 , "Burning" },
+    { 2 , "Burned Out" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFlareSmokeStatus()
+{
+    return sizeof( FlareSmokeStatusDescriptor ) / sizeof( FlareSmokeStatus );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFlareSmokeStatus( KUINT32 Index )
+{
+    return &FlareSmokeStatusDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFlareSmokeStatus( KINT32 Value )
+{
+    return GetEnumAsString( FlareSmokeStatusDescriptor, sizeof( FlareSmokeStatusDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFlareSmokeStatus( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( FlareSmokeStatusDescriptor, sizeof( FlareSmokeStatusDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFlareSmokeStatus()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorFlareSmokeStatus( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringFlareSmokeStatus( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFlareSmokeStatus( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for SpotChaff
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor SpotChaffDescriptor[] =
+{
+    { 0 , "None" },
+    { 1 , "Deployed" },
+    { 2 , "Malfunction" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSpotChaff()
+{
+    return sizeof( SpotChaffDescriptor ) / sizeof( SpotChaff );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSpotChaff( KUINT32 Index )
+{
+    return &SpotChaffDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSpotChaff( KINT32 Value )
+{
+    return GetEnumAsString( SpotChaffDescriptor, sizeof( SpotChaffDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSpotChaff( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( SpotChaffDescriptor, sizeof( SpotChaffDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSpotChaff()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSpotChaff( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSpotChaff( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSpotChaff( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for Cover/Shroud Status
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
