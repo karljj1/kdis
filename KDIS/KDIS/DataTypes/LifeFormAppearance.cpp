@@ -280,7 +280,7 @@ KString LifeFormAppearance::GetAsString() const
     KStringStream ss;
 
     ss << "Lifeform Appearance:"
-       << "\n\tPaint Scheme:         " << GetEnumAsStringPaintScheme( m_PaintScheme )
+       << "\n\tPaint Scheme:         " << GetEnumAsStringEntityPaintScheme( m_PaintScheme )
        << "\n\tDamage:               " << GetEnumAsStringEntityDamage( m_Damage )
        << "\n\tCompliance:           " << GetEnumAsStringEntityCompliance( m_Compliance )
        << "\n\tSignal Smoke In Use:  " << m_SignalSmokeInUse
