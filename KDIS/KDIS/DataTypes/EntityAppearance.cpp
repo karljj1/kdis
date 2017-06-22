@@ -28,6 +28,20 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "./EntityAppearance.h"
+#include "./LandPlatformAppearance.h"
+#include "./AirPlatformAppearance.h"
+#include "./SurfacePlatformAppearance.h"
+#include "./SubSurfacePlatformAppearance.h"
+#include "./SpacePlatformAppearance.h"
+#include "./GuidedMunitionsAppearance.h"
+#include "./LifeFormAppearance.h"
+#include "./NonHumanLifeFormAppearance.h"
+#include "./EnvironmentalsAppearance.h"
+#include "./CulturalFeatureAppearance.h"
+#include "./SensorEmitterAppearance.h"
+#include "./RadioAppearance.h"
+#include "./ExpendableAppearance.h"
+#include "./SupplyAppearance.h"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,9 +52,8 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityAppearance::EntityAppearance()
+EntityAppearance::EntityAppearance() : m_Appearance(0)
 {
-    m_AppearanceUnion.m_ui326Data = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -54,98 +67,98 @@ EntityAppearance::EntityAppearance( KDataStream & stream ) throw( KException )
 
 EntityAppearance::EntityAppearance( const LandPlatformAppearance & A )
 {
-    m_AppearanceUnion.m_LandApp = A;
+    m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const AirPlatformAppearance & A )
 {
-    m_AppearanceUnion.m_AirApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const SurfacePlatformAppearance & A )
 {
-    m_AppearanceUnion.m_SurfaceApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const SubSurfacePlatformAppearance & A )
 {
-    m_AppearanceUnion.m_SubSurfaceApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const SpacePlatformAppearance & A )
 {
-    m_AppearanceUnion.m_SpaceApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const GuidedMunitionsAppearance & A )
 {
-    m_AppearanceUnion.m_GuidedMunitionsApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const LifeFormAppearance & A )
 {
-    m_AppearanceUnion.m_LifeFormApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const NonHumanLifeFormAppearance & A )
 {
-    m_AppearanceUnion.m_NonHumanLifeFormApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const EnvironmentalsAppearance & A )
 {
-    m_AppearanceUnion.m_EnviroApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const CulturalFeatureAppearance & A )
 {
-    m_AppearanceUnion.m_CultFeatApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const SensorEmitterAppearance & A )
 {
-    m_AppearanceUnion.m_SensEmitApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const RadioAppearance & A )
 {
-    m_AppearanceUnion.m_RadioApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const ExpendableAppearance & A )
 {
-    m_AppearanceUnion.m_ExpendableApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance( const SupplyAppearance & A )
 {
-    m_AppearanceUnion.m_SupplyApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -158,308 +171,308 @@ EntityAppearance::~EntityAppearance()
 
 void EntityAppearance::SetData( KUINT32 D )
 {
-    m_AppearanceUnion.m_ui326Data = D;
+  m_Appearance = reinterpret_cast<const KUINT32&>(D);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KUINT32 EntityAppearance::GetData() const
 {
-    return m_AppearanceUnion.m_ui326Data;
+    return m_Appearance;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const LandPlatformAppearance & A )
 {
-    m_AppearanceUnion.m_LandApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const LandPlatformAppearance & EntityAppearance::GetAppearanceAsLandPlatform() const
 {
-    return m_AppearanceUnion.m_LandApp;
+    return reinterpret_cast<const LandPlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 LandPlatformAppearance & EntityAppearance::GetAppearanceAsLandPlatform()
 {
-    return m_AppearanceUnion.m_LandApp;
+  return reinterpret_cast<LandPlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const AirPlatformAppearance & A )
 {
-    m_AppearanceUnion.m_AirApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const AirPlatformAppearance & EntityAppearance::GetAppearanceAsAirPlatform() const
 {
-    return m_AppearanceUnion.m_AirApp;
+  return reinterpret_cast<const AirPlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 AirPlatformAppearance & EntityAppearance::GetAppearanceAsAirPlatform()
 {
-    return m_AppearanceUnion.m_AirApp;
+  return reinterpret_cast<AirPlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const SurfacePlatformAppearance & A )
 {
-    m_AppearanceUnion.m_SurfaceApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const SurfacePlatformAppearance & EntityAppearance::GetAppearanceAsSurfacePlatform() const
 {
-    return m_AppearanceUnion.m_SurfaceApp;
+  return reinterpret_cast<const SurfacePlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 SurfacePlatformAppearance & EntityAppearance::GetAppearanceAsSurfacePlatform()
 {
-    return m_AppearanceUnion.m_SurfaceApp;
+  return reinterpret_cast<SurfacePlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const SubSurfacePlatformAppearance & A )
 {
-    m_AppearanceUnion.m_SubSurfaceApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const SubSurfacePlatformAppearance & EntityAppearance::GetAppearanceAsSubsurfacePlatform() const
 {
-    return m_AppearanceUnion.m_SubSurfaceApp;
+  return reinterpret_cast<const SubSurfacePlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 SubSurfacePlatformAppearance & EntityAppearance::GetAppearanceAsSubsurfacePlatform()
 {
-    return m_AppearanceUnion.m_SubSurfaceApp;
+  return reinterpret_cast<SubSurfacePlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const SpacePlatformAppearance & A )
 {
-    m_AppearanceUnion.m_SpaceApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const SpacePlatformAppearance & EntityAppearance::GetAppearanceAsSpacePlatform() const
 {
-    return m_AppearanceUnion.m_SpaceApp;
+  return reinterpret_cast<const SpacePlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 SpacePlatformAppearance & EntityAppearance::GetAppearanceAsSpacePlatform()
 {
-    return m_AppearanceUnion.m_SpaceApp;
+  return reinterpret_cast<SpacePlatformAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const GuidedMunitionsAppearance & A )
 {
-    m_AppearanceUnion.m_GuidedMunitionsApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const GuidedMunitionsAppearance & EntityAppearance::GetAppearanceAsGuidedMuntions() const
 {
-    return m_AppearanceUnion.m_GuidedMunitionsApp;
+  return reinterpret_cast<const GuidedMunitionsAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 GuidedMunitionsAppearance & EntityAppearance::GetAppearanceAsGuidedMuntions()
 {
-    return m_AppearanceUnion.m_GuidedMunitionsApp;
+  return reinterpret_cast<GuidedMunitionsAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const LifeFormAppearance & A )
 {
-    m_AppearanceUnion.m_LifeFormApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const LifeFormAppearance & EntityAppearance::GetAppearanceAsLifeForm() const
 {
-    return m_AppearanceUnion.m_LifeFormApp;
+  return reinterpret_cast<const LifeFormAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 LifeFormAppearance & EntityAppearance::GetAppearanceAsLifeForm()
 {
-    return m_AppearanceUnion.m_LifeFormApp;
+  return reinterpret_cast<LifeFormAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const NonHumanLifeFormAppearance & A )
 {
-    m_AppearanceUnion.m_NonHumanLifeFormApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const NonHumanLifeFormAppearance & EntityAppearance::GetAppearanceAsNonHumanLifeForm() const
 {
-    return m_AppearanceUnion.m_NonHumanLifeFormApp;
+  return reinterpret_cast<const NonHumanLifeFormAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 NonHumanLifeFormAppearance & EntityAppearance::GetAppearanceAsNonHumanLifeForm()
 {
-    return m_AppearanceUnion.m_NonHumanLifeFormApp;
+  return reinterpret_cast<NonHumanLifeFormAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const EnvironmentalsAppearance & A )
 {
-    m_AppearanceUnion.m_EnviroApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const EnvironmentalsAppearance & EntityAppearance::GetAppearanceEnvironmentals() const
 {
-    return m_AppearanceUnion.m_EnviroApp;
+  return reinterpret_cast<const EnvironmentalsAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 EnvironmentalsAppearance & EntityAppearance::GetAppearanceEnvironmentals()
 {
-    return m_AppearanceUnion.m_EnviroApp;
+  return reinterpret_cast<EnvironmentalsAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const CulturalFeatureAppearance & A )
 {
-    m_AppearanceUnion.m_CultFeatApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const CulturalFeatureAppearance & EntityAppearance::GetAppearanceCultural() const
 {
-    return m_AppearanceUnion.m_CultFeatApp;
+  return reinterpret_cast<const CulturalFeatureAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 CulturalFeatureAppearance & EntityAppearance::GetAppearanceCultural()
 {
-    return m_AppearanceUnion.m_CultFeatApp;
+  return reinterpret_cast<CulturalFeatureAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const SensorEmitterAppearance & A )
 {
-    m_AppearanceUnion.m_SensEmitApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const SensorEmitterAppearance & EntityAppearance::GetSensorEmitter() const
 {
-    return m_AppearanceUnion.m_SensEmitApp;
+  return reinterpret_cast<const SensorEmitterAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 SensorEmitterAppearance & EntityAppearance::GetSensorEmitter()
 {
-    return m_AppearanceUnion.m_SensEmitApp;
+  return reinterpret_cast<SensorEmitterAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const RadioAppearance & A )
 {
-    m_AppearanceUnion.m_RadioApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const RadioAppearance & EntityAppearance::GetAppearanceAsRadio() const
 {
-    return m_AppearanceUnion.m_RadioApp;
+  return reinterpret_cast<const RadioAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 RadioAppearance & EntityAppearance::GetAppearanceAsRadio()
 {
-    return m_AppearanceUnion.m_RadioApp;
+  return reinterpret_cast<RadioAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const ExpendableAppearance & A )
 {
-    m_AppearanceUnion.m_ExpendableApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const ExpendableAppearance & EntityAppearance::GetAppearanceAsExpendable() const
 {
-    return m_AppearanceUnion.m_ExpendableApp;
+  return reinterpret_cast<const ExpendableAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 ExpendableAppearance & EntityAppearance::GetAppearanceAsExpendable()
 {
-    return m_AppearanceUnion.m_ExpendableApp;
+  return reinterpret_cast<ExpendableAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void EntityAppearance::SetAppearance( const SupplyAppearance & A )
 {
-    m_AppearanceUnion.m_SupplyApp = A;
+  m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const SupplyAppearance & EntityAppearance::GetAppearanceAsSupply() const
 {
-    return m_AppearanceUnion.m_SupplyApp;
+  return reinterpret_cast<const SupplyAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 SupplyAppearance & EntityAppearance::GetAppearanceAsSupply()
 {
-    return m_AppearanceUnion.m_SupplyApp;
+  return reinterpret_cast<SupplyAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -468,7 +481,7 @@ KString EntityAppearance::GetAsString() const
 {
     KStringStream ss;
 
-    ss << "Entity Appearance Data: " << m_AppearanceUnion.m_ui326Data << "\n";
+    ss << "Entity Appearance Data: " << m_Appearance << "\n";
 
     return ss.str();
 }
@@ -482,35 +495,35 @@ KString EntityAppearance::GetAsString( const EntityType & EntType ) const
         case Platform:
         switch( EntType.GetDomain() ) // Domain
         {
-            case Land:       return m_AppearanceUnion.m_LandApp.GetAsString();
-            case Air:        return m_AppearanceUnion.m_AirApp.GetAsString();
-            case Surface:    return m_AppearanceUnion.m_SurfaceApp.GetAsString();
-            case Subsurface: return m_AppearanceUnion.m_SubSurfaceApp.GetAsString();
-            case Space:      return m_AppearanceUnion.m_SpaceApp.GetAsString();
+            case Land:       return GetAppearanceAsLandPlatform().GetAsString();
+            case Air:        return GetAppearanceAsAirPlatform().GetAsString();
+            case Surface:    return GetAppearanceAsSurfacePlatform().GetAsString();
+            case Subsurface: return GetAppearanceAsSubsurfacePlatform().GetAsString();
+            case Space:      return GetAppearanceAsSpacePlatform().GetAsString();
         }
 
-        case Munition: return m_AppearanceUnion.m_GuidedMunitionsApp.GetAsString();
+        case Munition: return GetAppearanceAsGuidedMuntions().GetAsString();
 
         case Lifeform:
         {
           if( EntType.GetCategory() >= 200 )  //SISO-REF-010-2016-v22. Lifeform category values 200 and above are non-human.
-            return m_AppearanceUnion.m_NonHumanLifeFormApp.GetAsString();
+            return GetAppearanceAsNonHumanLifeForm().GetAsString();
           else
-            return m_AppearanceUnion.m_LifeFormApp.GetAsString();
+            return GetAppearanceAsLifeForm().GetAsString();
         }
           break;
 
-        case Environmental: return m_AppearanceUnion.m_EnviroApp.GetAsString();
+        case Environmental: return GetAppearanceEnvironmentals().GetAsString();
 
-        case Culturalfeature: return m_AppearanceUnion.m_CultFeatApp.GetAsString();
+        case Culturalfeature: return GetAppearanceCultural().GetAsString();
 
-        case SensorEmitter: return m_AppearanceUnion.m_SensEmitApp.GetAsString();
+        case SensorEmitter: return GetSensorEmitter().GetAsString();
 
-        case Radio: return m_AppearanceUnion.m_RadioApp.GetAsString();
+        case Radio: return GetAppearanceAsRadio().GetAsString();
 
-        case Expendable: return m_AppearanceUnion.m_ExpendableApp.GetAsString();
+        case Expendable: return GetAppearanceAsExpendable().GetAsString();
 
-        case Supply: return m_AppearanceUnion.m_SupplyApp.GetAsString();
+        case Supply: return GetAppearanceAsSupply().GetAsString();
     }
 
     // Fall back
@@ -523,7 +536,7 @@ void EntityAppearance::Decode( KDataStream & stream ) throw( KException )
 {
     if( stream.GetBufferSize() < ENTITY_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    stream >> m_AppearanceUnion.m_ui326Data;
+    stream >> m_Appearance;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -541,14 +554,14 @@ KDataStream EntityAppearance::Encode() const
 
 void EntityAppearance::Encode( KDataStream & stream ) const
 {
-    stream << m_AppearanceUnion.m_ui326Data;
+    stream << m_Appearance;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL EntityAppearance::operator == ( const EntityAppearance & Value ) const
 {
-    if( m_AppearanceUnion.m_ui326Data != Value.m_AppearanceUnion.m_ui326Data ) return false;
+    if( m_Appearance != Value.m_Appearance ) return false;
     return true;
 }
 

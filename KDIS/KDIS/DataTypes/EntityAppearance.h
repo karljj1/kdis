@@ -40,47 +40,30 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./LandPlatformAppearance.h"
-#include "./AirPlatformAppearance.h"
-#include "./SurfacePlatformAppearance.h"
-#include "./SubSurfacePlatformAppearance.h"
-#include "./SpacePlatformAppearance.h"
-#include "./GuidedMunitionsAppearance.h"
-#include "./LifeFormAppearance.h"
-#include "./NonHumanLifeFormAppearance.h"
-#include "./EnvironmentalsAppearance.h"
-#include "./CulturalFeatureAppearance.h"
-#include "./SensorEmitterAppearance.h"
-#include "./RadioAppearance.h"
-#include "./ExpendableAppearance.h"
-#include "./SupplyAppearance.h"
 #include "./EntityType.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
+class LandPlatformAppearance;
+class AirPlatformAppearance;
+class SurfacePlatformAppearance;
+class SubSurfacePlatformAppearance;
+class SpacePlatformAppearance;
+class GuidedMunitionsAppearance;
+class LifeFormAppearance;
+class NonHumanLifeFormAppearance;
+class EnvironmentalsAppearance;
+class CulturalFeatureAppearance;
+class SensorEmitterAppearance;
+class RadioAppearance;
+class ExpendableAppearance;
+class SupplyAppearance;
+
 class KDIS_EXPORT EntityAppearance : public DataTypeBase
 {
 protected:
-
-    union
-    {
-        LandPlatformAppearance         m_LandApp;
-        AirPlatformAppearance          m_AirApp;
-        SurfacePlatformAppearance      m_SurfaceApp;
-        SubSurfacePlatformAppearance   m_SubSurfaceApp;
-        SpacePlatformAppearance        m_SpaceApp;
-        GuidedMunitionsAppearance      m_GuidedMunitionsApp;
-        LifeFormAppearance             m_LifeFormApp;
-        NonHumanLifeFormAppearance     m_NonHumanLifeFormApp;
-        EnvironmentalsAppearance       m_EnviroApp;
-        CulturalFeatureAppearance      m_CultFeatApp;
-        SensorEmitterAppearance        m_SensEmitApp;
-        RadioAppearance                m_RadioApp;
-        ExpendableAppearance           m_ExpendableApp;
-        SupplyAppearance               m_SupplyApp;
-        KUINT32                        m_ui326Data;
-    } m_AppearanceUnion;
+  KUINT32                        m_Appearance;
 
 public:
 
