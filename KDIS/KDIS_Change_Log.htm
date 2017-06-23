@@ -61,6 +61,7 @@
 	<div style="color: blue">
 		<li>Added ApplyFilterBeforeDecodingPDUBody to PDU_Factory_Filter. Can be used to reject PDU's before the body has been decoded. Good for performance and rejecting custom or non-standard PDU's.</li>
 		<li>Added RadioAppearance struct.</li>
+		<li>Added SupplyAppearance struct.</li>
 	</div>
 	<li>Added SendOnly option to connection class. The class will not bind if this is true. </li>
 	<li>Added support for unique_ptr when C++11 is supported.</li>
@@ -94,6 +95,7 @@
 	<li>Updated AirPlatformAppearance Struct with additional fields.</li>
 	<li>Updated GuidedMunitionAppearance Struct with additional fields.</li>
 	<li>Improved GetAsString for NonHumanLifeFormAppearance.</li> 
+	<li>CulturalFeatureAppearance incorrectly supports Engine Smoke bit, Modified the struct to eliminate bit-6 tracking.</li>
 </ul>
 
 <!-- Version 2-9-0 !-->
