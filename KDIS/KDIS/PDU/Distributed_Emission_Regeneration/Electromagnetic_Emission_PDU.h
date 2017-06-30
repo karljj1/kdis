@@ -73,7 +73,7 @@ public:
 
     Electromagnetic_Emission_PDU( KDataStream & stream ) throw( KException );
 
-	Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) throw( KException );
 
     Electromagnetic_Emission_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
                                   KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI );
@@ -129,8 +129,8 @@ public:
     // Parameter:   const EmissionSystem & ES, const vector<EmissionSystem> & ES
     //************************************
     void AddEmissionSystem( const KDIS::DATA_TYPE::EmissionSystem & ES );
-	void SetEmissionSystem( const std::vector<KDIS::DATA_TYPE::EmissionSystem> & ES );
-	const std::vector<KDIS::DATA_TYPE::EmissionSystem> & GetEmissionSystems() const;
+    void SetEmissionSystem( const std::vector<KDIS::DATA_TYPE::EmissionSystem> & ES );
+    const std::vector<KDIS::DATA_TYPE::EmissionSystem> & GetEmissionSystems() const;
     void ClearEmissionSystem();
 
     //************************************

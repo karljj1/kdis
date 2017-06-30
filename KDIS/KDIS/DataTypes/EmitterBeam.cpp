@@ -41,16 +41,46 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EmitterBeam::EmitterBeam()  :
-    m_ui8Padding( 0 ),
-    m_ui8BeamDataLength( EMITTER_BEAM_SIZE / 4  ),
-    m_ui8NumTargetInTrackJamField( 0 )
+
+EmitterBeam::EmitterBeam() :
+    DataTypeBase (),
+    m_ui8BeamDataLength ( EMITTER_BEAM_SIZE / 4 ),
+    m_ui8EmitterBeamIDNumber ( 0u ),
+    m_ui16BeamParamIndex ( 0u ),
+    m_FundamentalParameterData (),
+    m_ui8BeamFunction ( 0u ),
+    m_ui8NumTargetInTrackJamField ( 0u ),
+    m_ui8HighDensityTrackJam ( 0u ),
+#if DIS_VERSION < 7
+    m_ui8Padding ( 0u ),
+    m_ui32JammingModeSequence ( 0u ),
+#elif DIS_VERSION > 6
+    m_BeamStatus (),
+    m_JammingTechnique (),
+#endif
+    m_vTrackJamTargets ()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterBeam::EmitterBeam( KDataStream & stream ) throw( KException )
+EmitterBeam::EmitterBeam( KDataStream & stream ) throw( KException ) :
+  DataTypeBase (),
+  m_ui8BeamDataLength ( EMITTER_BEAM_SIZE / 4 ),
+  m_ui8EmitterBeamIDNumber ( 0u ),
+  m_ui16BeamParamIndex ( 0u ),
+  m_FundamentalParameterData (),
+  m_ui8BeamFunction ( 0u ),
+  m_ui8NumTargetInTrackJamField ( 0u ),
+  m_ui8HighDensityTrackJam ( 0u ),
+#if DIS_VERSION < 7
+  m_ui8Padding ( 0u ),
+  m_ui32JammingModeSequence ( 0u ),
+#elif DIS_VERSION > 6
+  m_BeamStatus (),
+  m_JammingTechnique (),
+#endif
+  m_vTrackJamTargets ()
 {
     Decode( stream );
 }
@@ -59,16 +89,27 @@ EmitterBeam::EmitterBeam( KDataStream & stream ) throw( KException )
 
 EmitterBeam::EmitterBeam( KUINT8 BeamID, KUINT16 BeamParamIndex, const FundamentalParameterData & FPD,
                           EmitterFunction EBF, HighDensityTrackJam HDTJ,
+#if DIS_VERSION < 7
                           KUINT32 JammingModeSequence ) :
-    m_ui8Padding( 0 ),
-    m_ui8BeamDataLength( EMITTER_BEAM_SIZE / 4  ),
-    m_ui8NumTargetInTrackJamField( 0 ),
-    m_ui8EmitterBeamIDNumber( BeamID ),
-    m_ui16BeamParamIndex( BeamParamIndex ),
-    m_FundamentalParameterData( FPD ),
-    m_ui8BeamFunction( EBF ),
-    m_ui8HighDensityTrackJam( HDTJ ),
-    m_ui32JammingModeSequence( JammingModeSequence )
+#elif DIS_VERSION > 6
+                          const BeamStatus & BS, const JammingTechnique & JT ) :
+#endif
+  DataTypeBase (),
+  m_ui8BeamDataLength ( EMITTER_BEAM_SIZE / 4 ),
+  m_ui8EmitterBeamIDNumber ( BeamID ),
+  m_ui16BeamParamIndex ( BeamParamIndex ),
+  m_FundamentalParameterData ( FPD ),
+  m_ui8BeamFunction ( EBF ),
+  m_ui8NumTargetInTrackJamField ( 0u ),
+  m_ui8HighDensityTrackJam ( HDTJ ),
+#if DIS_VERSION < 7
+  m_ui8Padding ( 0u ),
+  m_ui32JammingModeSequence ( JammingModeSequence ),
+#elif DIS_VERSION > 6
+  m_BeamStatus ( BS ),
+  m_JammingTechnique ( JT ),
+#endif
+  m_vTrackJamTargets ()
 {
 }
 
@@ -170,6 +211,8 @@ HighDensityTrackJam EmitterBeam::GetHighDensityTrackJam() const
     return ( HighDensityTrackJam )m_ui8HighDensityTrackJam;
 }
 
+#if DIS_VERSION < 7
+
 //////////////////////////////////////////////////////////////////////////
 
 void EmitterBeam::SetJammingModeSequence( KUINT32 JMS )
@@ -183,6 +226,38 @@ KUINT32 EmitterBeam::GetJammingModeSequence() const
 {
     return m_ui32JammingModeSequence;
 }
+
+#elif DIS_VERSION > 6
+
+//////////////////////////////////////////////////////////////////////////
+
+void EmitterBeam::SetBeamStatus( const BeamStatus & BS )
+{
+    m_BeamStatus = BS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+BeamStatus EmitterBeam::GetBeamStatus() const
+{
+    return m_BeamStatus;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EmitterBeam::SetJammingTechnique( JammingTechnique JT )
+{
+    m_JammingTechnique = JT;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+JammingTechnique EmitterBeam::GetJammingTechnique() const
+{
+    return m_JammingTechnique;
+}
+
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -233,7 +308,12 @@ KString EmitterBeam::GetAsString() const
        << "\tBeam Function:                    "   << GetEnumAsStringEmitterFunction( m_ui8BeamFunction )
        << "\n\tNumber Of Targets Tracked/Jammed: " << ( KUINT16 )m_ui8NumTargetInTrackJamField
        << "\n\tHigh Density Track/Jam:           " <<  GetEnumAsStringHighDensityTrackJam( m_ui8HighDensityTrackJam )
+#if DIS_VERSION < 7
        << "\n\tJamming Mode Sequence:            " << m_ui32JammingModeSequence
+#elif DIS_VERSION > 6
+       << IndentString( m_BeamStatus.GetAsString(), 1 )
+       << IndentString( m_JammingTechnique.GetAsString(), 1 )
+#endif
        << "\n\tTracked/Jammed Targets:\n";
 
     vector<TrackJamTargetIdentifier>::const_iterator citr = m_vTrackJamTargets.begin();
@@ -260,8 +340,13 @@ void EmitterBeam::Decode( KDataStream & stream ) throw( KException )
            >> m_ui8BeamFunction
            >> m_ui8NumTargetInTrackJamField
            >> m_ui8HighDensityTrackJam
+#if DIS_VERSION < 7
            >> m_ui8Padding
            >> m_ui32JammingModeSequence;
+#elif DIS_VERSION > 6
+           >> KDIS_STREAM m_BeamStatus
+           >> KDIS_STREAM m_JammingTechnique;
+#endif
 
     for( KUINT8 i = 0; i < m_ui8NumTargetInTrackJamField; ++i )
     {
@@ -291,8 +376,13 @@ void EmitterBeam::Encode( KDataStream & stream ) const
            << m_ui8BeamFunction
            << m_ui8NumTargetInTrackJamField
            << m_ui8HighDensityTrackJam
+#if DIS_VERSION < 7
            << m_ui8Padding
            << m_ui32JammingModeSequence;
+#elif DIS_VERSION > 6
+           << KDIS_STREAM m_BeamStatus
+           << KDIS_STREAM m_JammingTechnique;
+#endif
 
     vector<TrackJamTargetIdentifier>::const_iterator citr = m_vTrackJamTargets.begin();
     vector<TrackJamTargetIdentifier>::const_iterator citrEnd = m_vTrackJamTargets.end();
@@ -314,7 +404,12 @@ KBOOL EmitterBeam::operator == ( const EmitterBeam & Value ) const
     if( m_ui8BeamFunction               != Value.m_ui8BeamFunction )             return false;
     if( m_ui8NumTargetInTrackJamField   != Value.m_ui8NumTargetInTrackJamField ) return false;
     if( m_ui8HighDensityTrackJam        != Value.m_ui8HighDensityTrackJam )      return false;
+#if DIS_VERSION < 7
     if( m_ui32JammingModeSequence       != Value.m_ui32JammingModeSequence )     return false;
+#elif DIS_VERSION > 6
+    if( m_BeamStatus                    != Value.m_BeamStatus )                  return false;
+    if( m_JammingTechnique              != Value.m_JammingTechnique )            return false;
+#endif
     if( m_vTrackJamTargets              != Value.m_vTrackJamTargets )            return false;
     return true;
 }
