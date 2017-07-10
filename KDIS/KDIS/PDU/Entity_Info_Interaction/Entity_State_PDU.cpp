@@ -32,6 +32,10 @@ http://p.sf.net/kdis/UserGuide
 #include "./../../DataTypes/ArticulatedPart.h"
 #include "./../../DataTypes/AttachedPart.h"
 
+#if DIS_VERSION > 5
+#include "./../../DataTypes/SeparationPart.h"
+#endif 
+
 //////////////////////////////////////////////////////////////////////////
 
 using namespace std;
@@ -527,6 +531,11 @@ void Entity_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
                 case AttachedPartType:
                     m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
                     break;
+
+                #if DIS_VERSION > 5
+                case SeparationPartType:
+                    m_vVariableParameters.push_back(VarPrmPtr(new SeparationPart(stream)));
+                #endif
 
                 default:
                     m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );

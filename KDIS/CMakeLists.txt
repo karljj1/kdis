@@ -197,7 +197,8 @@ IF(DIS_VERSION GREATER 5)
     ${DATATYPES_DIR}/UnderwaterAcousticEmitterSystem.h
     ${DATATYPES_DIR}/UnderwaterAcousticFundamentalParameterData.h
     ${DATATYPES_DIR}/VectoringNozzleSystem.h
-    )
+	${DATATYPES_DIR}/SeparationPart.h
+)
 
 ENDIF(DIS_VERSION GREATER 5)
 
@@ -366,6 +367,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/UnderwaterAcousticEmitterSystem.cpp
     ${DATATYPES_DIR}/UnderwaterAcousticFundamentalParameterData.cpp
     ${DATATYPES_DIR}/VectoringNozzleSystem.cpp
+	${DATATYPES_DIR}/SeparationPart.cpp
    )
 
 ENDIF(DIS_VERSION GREATER 5)

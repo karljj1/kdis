@@ -420,7 +420,11 @@ KBOOL GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut );
 enum VariableParameterType
 {
     ArticulatedPartType                                               = 0,
-    AttachedPartType                                                  = 1
+    AttachedPartType                                                  = 1,
+
+    #if DIS_VERSION > 6
+    SeparationPartType = 3,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -1437,6 +1441,69 @@ KString GetEnumAsStringCoverShroudStatus( KINT32 Value );
 
 // Returns true if a value was found.
 KBOOL GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut );
+
+#if DIS_VERSION > 5
+
+/************************************************************************/
+/* ReasonForSeparation                                                  */
+/* Used In:                                                             */
+/*  SeparationPart                                                      */
+/************************************************************************/
+
+enum ReasonForSeparation
+{
+    NoStatementReasonForSeparation                             = 0,
+    AttachedPartSeparation                                     = 1,
+    SubmunitionSeparation                                      = 2
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizeReasonForSeparation();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorReasonForSeparation(KUINT32 Index);
+
+KString GetEnumAsStringReasonForSeparation(KINT32 Value);
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringReasonForSeparation(const KString & Value, KINT32 & ValueOut);
+
+/************************************************************************/
+/* PreEntityIndicator                                                   */
+/* Indicates whether the entity existed prior to the separation and,    */
+/* if so, in what manner.                                               */
+/* Used In:                                                             */
+/*  SeparationPart                                                      */
+/************************************************************************/
+
+enum PreEntityIndicator
+{
+    NoStatementPreEntityIndicator                             = 0,
+    EntityIdExistedPriorToSeparationWithoutEntityStatePDU      = 1,
+    EntityIdExistedPriorToSeparationWithEntityStatePDUIssued   = 2,
+    EntityInitiallyCreatedAtSeparationEvent                    = 3
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KUINT32 GetEnumSizePreEntityIndicator();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+const EnumDescriptor * GetEnumDescriptorPreEntityIndicator(KUINT32 Index);
+
+KString GetEnumAsStringPreEntityIndicator(KINT32 Value);
+
+// Returns true if a value was found.
+KBOOL GetEnumFromStringPreEntityIndicator(const KString & Value, KINT32 & ValueOut);
+
+#endif // DIS 6
 
 } // END namespace ENUMS
 } // END namespace DATA_TYPES

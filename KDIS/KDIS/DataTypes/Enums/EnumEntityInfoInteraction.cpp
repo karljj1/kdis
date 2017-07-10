@@ -545,7 +545,11 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCountry( const KString & Value, K
 const EnumDescriptor VariableParameterTypeDescriptor[] =
 {
     { 0 , "ArticulatedPartType" },
-    { 1 , "AttachedPartType" }
+    { 1 , "AttachedPartType" },
+
+    #if DIS_VERSION > 6
+    { 3 , "SeparationPartType" },
+    #endif
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeVariableParameterType()
@@ -2406,3 +2410,123 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCoverShroudStatus( const KString 
 
 #endif
 
+#if DIS_VERSION > 5
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for Reason For Separation
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor ReasonForSeparationDescriptor[] =
+{
+    { 0 , "NoStatementReasonForSeparation" },
+    { 1 , "Attached Part Separation" },
+    { 2 , "Submunition Separation" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeReasonForSeparation()
+{
+    return sizeof(ReasonForSeparationDescriptor) / sizeof(ReasonForSeparation);
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorReasonForSeparation(KUINT32 Index)
+{
+    return &ReasonForSeparationDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringReasonForSeparation(KINT32 Value)
+{
+    return GetEnumAsString(ReasonForSeparationDescriptor, sizeof(ReasonForSeparationDescriptor) / sizeof(EnumDescriptor), Value);
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringReasonForSeparation(const KString & Value, KINT32 & ValueOut)
+{
+    return GetEnumFromString(ReasonForSeparationDescriptor, sizeof(ReasonForSeparationDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeReasonForSeparation()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorReasonForSeparation(KUINT32 Index)
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringReasonForSeparation(KINT32 Value)
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringReasonForSeparation(const KString & Value, KINT32 & ValueOut)
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for Pre Entity Indicator
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor PreEntityIndicatorDescriptor[] =
+{
+    { 0 , "NoStatementPreEntityIndicator" },
+    { 1 , "Entity Id Existed Prior To Separation Without Entity State PDU" },
+    { 2 , "Entity Id Existed Prior To Separation With Entity State PDU Issued" },
+    { 2 , "Entity Initially Created At Separation Event" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePreEntityIndicator()
+{
+    return sizeof(PreEntityIndicatorDescriptor) / sizeof(PreEntityIndicator);
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPreEntityIndicator(KUINT32 Index)
+{
+    return &PreEntityIndicatorDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPreEntityIndicator(KINT32 Value)
+{
+    return GetEnumAsString(PreEntityIndicatorDescriptor, sizeof(PreEntityIndicatorDescriptor) / sizeof(EnumDescriptor), Value);
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPreEntityIndicator(const KString & Value, KINT32 & ValueOut)
+{
+    return GetEnumFromString(PreEntityIndicatorDescriptor, sizeof(PreEntityIndicatorDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePreEntityIndicator()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPreEntityIndicator(KUINT32 Index)
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPreEntityIndicator(KINT32 Value)
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPreEntityIndicator(const KString & Value, KINT32 & ValueOut)
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+#endif // DIS_VERSION > 5

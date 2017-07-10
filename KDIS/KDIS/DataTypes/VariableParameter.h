@@ -35,10 +35,11 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Information associated with an entity or detonation, not otherwise accounted
                 for in a PDU.
                 Currently implemented types:
-					ArticulatedParts
-					AttachedPart
+                    ArticulatedParts
+                    AttachedPart
+                    SeparationPart
 
-				Note: See FactoryDecoder for a guide to adding support for using your own VariableParameters. 
+                Note: See FactoryDecoder for a guide to adding support for using your own VariableParameters. 
 
     size:       128 bits / 16 octets 
 *********************************************************************/
@@ -66,23 +67,23 @@ using KDIS::DATA_TYPE::ENUMS::VariableParameterType;
 
 class KDIS_EXPORT VariableParameter : public DataTypeBase, public FactoryDecoderUser<VariableParameter>
 {
-protected:		
+protected:
 
-	KUINT8 m_ui8VarParamType;
+    KUINT8 m_ui8VarParamType;
    
-	KUINT8 m_Data[15];
+    KUINT8 m_Data[15];
 
 public:
 
     static const KUINT16 VARIABLE_PARAMETER_SIZE = 16;    
 
-	VariableParameter();
+    VariableParameter();
 
-	VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize ) throw( KException );
+    VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize ) throw( KException );
 
     VariableParameter( KDataStream & stream ) throw( KException );
 
-	virtual ~VariableParameter();
+    virtual ~VariableParameter();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableParameter::SetVariableParameterType
@@ -98,11 +99,11 @@ public:
     //              KDIS::DATA_TYPE::VariableParameter::GetVariableParameterType
     // Description: Raw VP data. 15 byte array. 
     // Parameter:   const KUINT8 * D
-	// Parameter:   KUINT8 DataSize - Exception thrown if data size is greater than 15.
+    // Parameter:   KUINT8 DataSize - Exception thrown if data size is greater than 15.
     //************************************
-	void SetData( const KUINT8 * D, KUINT8 DataSize ) throw( KException );
-	const KUINT8 * GetData() const;
-	KUINT8 * GetData();
+    void SetData( const KUINT8 * D, KUINT8 DataSize ) throw( KException );
+    const KUINT8 * GetData() const;
+    KUINT8 * GetData();
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableParameter::GetAsString
