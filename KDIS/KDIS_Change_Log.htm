@@ -63,6 +63,7 @@
 		<li>Added RadioAppearance struct.</li>
 		<li>Added SupplyAppearance struct.</li>
 		<li>Added VariableParameter type SeparationPart.</li>
+		<li>Changed EmitterBeam class to use DIS_VERSION define when defining/declaring member variables and method. For DIS 7, introduced the BeamStatus and JammingTechnique classes to replicate the v7 PDU structure. Added a BeamState enum to the EnumEmitter file, base on the UID 318 contents of SISO-REF-010-2016-v22 document.
 	</div>
 	<li>Added SendOnly option to connection class. The class will not bind if this is true. </li>
 	<li>Added support for unique_ptr when C++11 is supported.</li>
