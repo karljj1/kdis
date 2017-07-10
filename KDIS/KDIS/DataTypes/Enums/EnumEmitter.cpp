@@ -1486,6 +1486,68 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringHighDensityTrackJam( const KStrin
 
 #endif
 
+#if DIS_VERSION > 6
+
+//////////////////////////////////////////////////////////////////////////
+
+// Implementation of string values for BeamState
+
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor BeamStateDescriptor[] =
+{
+    { 0 , "Active" },
+    { 1 , "Deactivated" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamState()
+{
+    return sizeof( BeamStateDescriptor ) / sizeof( EnumDescriptor );
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBeamState( KUINT32 Index )
+{
+    return &BeamStateDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamState( KINT32 Value )
+{
+    return GetEnumAsString( BeamStateDescriptor, sizeof( BeamStateDescriptor ) / sizeof( EnumDescriptor ), Value );
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamState( const KString & Value, KINT32 & ValueOut )
+{
+    return GetEnumFromString( BeamStateDescriptor, sizeof( BeamStateDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamState()
+{
+    return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBeamState( KUINT32 Index )
+{
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamState( KINT32 Value )
+{
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamState( const KString & Value, KINT32 & ValueOut )
+{
+    return false; // Maybe throw an exception?
+}
+
+#endif
+
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for PassiveParameterIndex

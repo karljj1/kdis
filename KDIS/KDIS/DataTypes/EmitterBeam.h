@@ -43,6 +43,12 @@ http://p.sf.net/kdis/UserGuide
 #include <vector>
 #include "./TrackJamTargetIdentifier.h"
 
+#if DIS_VERSION > 6
+#include "./JammingTechnique.h"
+#include "./BeamStatus.h"
+#endif
+
+
 namespace KDIS {
 namespace DATA_TYPE {
 
@@ -68,9 +74,19 @@ protected:
 
     KUINT8 m_ui8HighDensityTrackJam;
 
+#if DIS_VERSION < 7
+
     KUINT8 m_ui8Padding;
 
     KUINT32 m_ui32JammingModeSequence;
+
+#elif DIS_VERSION > 6
+
+    BeamStatus m_BeamStatus;
+
+    JammingTechnique m_JammingTechnique;
+
+#endif
 
     vector<TrackJamTargetIdentifier> m_vTrackJamTargets;
 
@@ -84,7 +100,11 @@ public:
 
     EmitterBeam( KUINT8 BeamID, KUINT16 BeamParamIndex, const FundamentalParameterData & FPD,
                  EmitterFunction EBF, HighDensityTrackJam HDTJ,
+#if DIS_VERSION < 7
                  KUINT32 JammingModeSequence );
+#elif DIS_VERSION > 6
+                 const BeamStatus & BS, const JammingTechnique & JT );
+#endif
 
     virtual ~EmitterBeam();
 
@@ -153,6 +173,8 @@ public:
     void SetHighDensityTrackJam( HighDensityTrackJam HDTJ );
     HighDensityTrackJam GetHighDensityTrackJam() const;
 
+#if DIS_VERSION < 7
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmitterBeam::SetJammingModeSequence
     //              KDIS::DATA_TYPE::EmitterBeam::GetJammingModeSequence
@@ -162,6 +184,28 @@ public:
     //************************************
     void SetJammingModeSequence( KUINT32 JMS );
     KUINT32 GetJammingModeSequence() const;
+
+#elif DIS_VERSION > 6
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::EmitterBeam::SetBeamStatus
+    //              KDIS::DATA_TYPE::EmitterBeam::GetBeamStatus
+    // Description: Beam State information.
+    // Parameter:   BeamStatus BS, void
+    //************************************
+    void SetBeamStatus(const BeamStatus &BS );
+    BeamStatus GetBeamStatus() const;
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::EmitterBeam::SetJammingTechnique
+    //              KDIS::DATA_TYPE::EmitterBeam::GetJammingTechnique
+    // Description: Jamming Technique.
+    // Parameter:   JammingTechnique JT, void
+    //************************************
+    void SetJammingTechnique( JammingTechnique JT );
+    JammingTechnique GetJammingTechnique() const;
+
+#endif
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmitterBeam::AddTrackedJammedTarget
