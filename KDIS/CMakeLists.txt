@@ -207,6 +207,7 @@ IF(DIS_VERSION GREATER 6)
 
 LIST(APPEND KDIS_SRC_DATATYPES_H
     ${DATATYPES_DIR}/AttributeRecordSet.h
+    ${DATATYPES_DIR}/BeamStatus.h
     ${DATATYPES_DIR}/CommunicationsNodeID.h
     ${DATATYPES_DIR}/DEAreaAimpoint.h
     ${DATATYPES_DIR}/EnhancedMode1Code.h
@@ -216,6 +217,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
     ${DATATYPES_DIR}/IFF_Layer3Transponder.h
     ${DATATYPES_DIR}/IOCommunicationsNode.h
     ${DATATYPES_DIR}/IOEffect.h
+    ${DATATYPES_DIR}/JammingTechnique.h
     ${DATATYPES_DIR}/Mode5InterrogatorBasicData.h
     ${DATATYPES_DIR}/Mode5InterrogatorStatus.h
     ${DATATYPES_DIR}/Mode5TransponderBasicData.h
@@ -377,6 +379,7 @@ IF(DIS_VERSION GREATER 6)
 
 LIST(APPEND KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/AttributeRecordSet.cpp
+    ${DATATYPES_DIR}/BeamStatus.cpp
     ${DATATYPES_DIR}/CommunicationsNodeID.cpp
     ${DATATYPES_DIR}/DEAreaAimpoint.cpp
     ${DATATYPES_DIR}/EnhancedMode1Code.cpp
@@ -386,6 +389,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/IFF_Layer3Transponder.cpp
     ${DATATYPES_DIR}/IOCommunicationsNode.cpp
     ${DATATYPES_DIR}/IOEffect.cpp
+    ${DATATYPES_DIR}/JammingTechnique.cpp
     ${DATATYPES_DIR}/Mode5InterrogatorBasicData.cpp
     ${DATATYPES_DIR}/Mode5InterrogatorStatus.cpp
     ${DATATYPES_DIR}/Mode5TransponderBasicData.cpp
