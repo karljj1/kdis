@@ -422,7 +422,7 @@ enum VariableParameterType
     ArticulatedPartType                                               = 0,
     AttachedPartType                                                  = 1,
 
-    #if DIS_VERSION > 6
+    #if DIS_VERSION > 5
     SeparationPartType = 3,
     #endif
 };
