@@ -103,6 +103,8 @@ SET(KDIS_SRC_DATATYPES_H
     ${DATATYPES_DIR}/VariableParameter.h
     ${DATATYPES_DIR}/Vector.h
     ${DATATYPES_DIR}/WorldCoordinates.h
+	${DATATYPES_DIR}/SupplyAppearance.h
+	${DATATYPES_DIR}/ExpendableAppearance.h
 )
 
 #DIS 6
@@ -276,6 +278,8 @@ SET(KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/VariableParameter.cpp
     ${DATATYPES_DIR}/Vector.cpp
     ${DATATYPES_DIR}/WorldCoordinates.cpp
+	${DATATYPES_DIR}/SupplyAppearance.cpp
+	${DATATYPES_DIR}/ExpendableAppearance.cpp
 )
 
 
