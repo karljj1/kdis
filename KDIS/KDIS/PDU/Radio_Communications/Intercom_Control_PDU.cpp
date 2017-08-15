@@ -334,7 +334,7 @@ void Intercom_Control_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= t
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < INTERCOM_CONTROL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );
 
     stream >> m_ui8CtrlTyp
            >> KDIS_STREAM m_CommChannelType
