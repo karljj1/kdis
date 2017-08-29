@@ -131,8 +131,8 @@ public:
     // Parameter:   const KString & A
     // Parameter:   KBOOL Multicast = false
     //************************************
-    void SetSendAddress( const KString & A, KBOOL Multicast = false ) throw( KException );
-    const KString & GetSendAddress() const;
+    virtual void SetSendAddress( const KString & A, KBOOL Multicast = false ) throw( KException );
+    virtual const KString & GetSendAddress() const;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::AddMulticastAddress
@@ -143,8 +143,8 @@ public:
     //              Note: You can add multiple groups.
     // Parameter:   const KString & A
     //************************************
-    void AddMulticastAddress( const KString & A ) throw( KException );
-    void RemoveMulticastAddress( const KString & A ) throw( KException );
+    virtual void AddMulticastAddress( const KString & A ) throw( KException );
+    virtual void RemoveMulticastAddress( const KString & A ) throw( KException );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SetBlockingModeEnabled
@@ -153,8 +153,8 @@ public:
     //              return until data has been received on the network.
     // Parameter:   KBOOL E
     //************************************
-    void SetBlockingModeEnabled( KBOOL E );
-    KBOOL IsBlockingModeEnabled() const;
+    virtual void SetBlockingModeEnabled( KBOOL E );
+    virtual KBOOL IsBlockingModeEnabled() const;
 
      //************************************
     // FullName:    KDIS::NETWORK::Connection::SetBlockingTimeout
@@ -165,7 +165,7 @@ public:
     // Parameter:   KINT32 sec
     // Parameter:   KINT32 usec
     //************************************
-    void SetBlockingTimeOut( KINT32 sec, KINT32 usec );
+    virtual void SetBlockingTimeOut( KINT32 sec, KINT32 usec );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::AddSubscriber
@@ -178,8 +178,8 @@ public:
     //              dynamic Subscriber's you will also need to delete them when necessary.
     // Parameter:   const ConnectionSubscriber * S
     //************************************
-    void AddSubscriber( ConnectionSubscriber * S );
-    void RemoveSubscriber( ConnectionSubscriber * S );
+    virtual void AddSubscriber( ConnectionSubscriber * S );
+    virtual void RemoveSubscriber( ConnectionSubscriber * S );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SetPDU_Factory
@@ -189,8 +189,8 @@ public:
     //              Note: Calling set will automatically delete the old PDU_Fatcory.
     // Parameter:   PDU_Factory * P
     //************************************
-    void SetPDU_Factory( KDIS::UTILS::PDU_Factory * P );
-    KDIS::UTILS::PDU_Factory * GetPDU_Factory();
+    virtual void SetPDU_Factory( KDIS::UTILS::PDU_Factory * P );
+    virtual KDIS::UTILS::PDU_Factory * GetPDU_Factory();
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::Send
@@ -199,8 +199,8 @@ public:
     // Parameter:   const KOCTET * Data, KDataStream & stream
     // Parameter:   KUINT32 DataSz
     //************************************
-    KINT32 Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KException );
-    KINT32 Send( const KDataStream & stream ) throw ( KException );
+    virtual KINT32 Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KException );
+    virtual KINT32 Send( const KDataStream & stream ) throw ( KException );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SendPDU
@@ -208,7 +208,7 @@ public:
     //              Returns number of bytes sent.
     // Parameter:   Header * H
     //************************************
-    KINT32 SendPDU( KDIS::PDU::Header * H ) throw ( KException );
+    virtual KINT32 SendPDU( KDIS::PDU::Header * H ) throw ( KException );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::Receive
@@ -220,7 +220,7 @@ public:
     // Parameter:   KUINT32 BufferSz
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
-    KINT32 Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderIp = 0 ) throw ( KException );
+    virtual KINT32 Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderIp = 0 ) throw ( KException );
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::GetNextPDU
@@ -231,7 +231,7 @@ public:
     //              Note: This function supports PDU Bundles.
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
-    std::unique_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
+    virtual std::unique_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
 };
 
 } // END namespace NETWORK

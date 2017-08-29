@@ -45,20 +45,20 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-class LandPlatformAppearance;
-class AirPlatformAppearance;
-class SurfacePlatformAppearance;
-class SubSurfacePlatformAppearance;
-class SpacePlatformAppearance;
-class GuidedMunitionsAppearance;
-class LifeFormAppearance;
-class NonHumanLifeFormAppearance;
-class EnvironmentalsAppearance;
-class CulturalFeatureAppearance;
-class SensorEmitterAppearance;
-class RadioAppearance;
-class ExpendableAppearance;
-class SupplyAppearance;
+struct LandPlatformAppearance;
+struct AirPlatformAppearance;
+struct SurfacePlatformAppearance;
+struct SubSurfacePlatformAppearance;
+struct SpacePlatformAppearance;
+struct GuidedMunitionsAppearance;
+struct LifeFormAppearance;
+struct NonHumanLifeFormAppearance;
+struct EnvironmentalsAppearance;
+struct CulturalFeatureAppearance;
+struct SensorEmitterAppearance;
+struct RadioAppearance;
+struct ExpendableAppearance;
+struct SupplyAppearance;
 
 class KDIS_EXPORT EntityAppearance : public DataTypeBase
 {
