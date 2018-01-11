@@ -50,9 +50,7 @@ Simulation_Management_Header::Simulation_Management_Header()
 //////////////////////////////////////////////////////////////////////////
 
 Simulation_Management_Header::Simulation_Management_Header( const Simulation_Management_Header & H ) :
-    Header( H ),
-    m_ui8ProtocolFamily(H.m_ui8ProtocolFamily),
-    m_ui8ProtocolVersion(H.m_ui8ProtocolVersion)
+    Header( H )
 {
 }
 

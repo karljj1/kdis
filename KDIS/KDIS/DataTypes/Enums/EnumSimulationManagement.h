@@ -351,6 +351,8 @@ enum EventType
     VehicleMasterPowerOn                                              = 13,
     VehicleMasterPowerOff                                             = 14,
     AggregateStateChangeRequested                                     = 15,
+    PreventCollisionDetonation                                        = 16,
+    OwnershipReport                                                   = 17,
     RanOutOfAmmunition                                                = 2,
     KilledInAction                                                    = 3,
     Damage                                                            = 4,
