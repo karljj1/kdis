@@ -91,7 +91,13 @@ http://p.sf.net/kdis/UserGuide
 #endif
 
 // Used to provide two C++11 features for older compilers (kinda)
-#if __cplusplus < 201103L
+// MSVC reports __cplusplus as being C98 since it doesn't conform to all features of the newer standard(s) 
+// The MSVC_LANG approximates the compilers capabilities  
+#ifndef _MSVC_LANG
+	#define _MSCV_LANG __cplusplus
+#endif
+
+#if __cplusplus < 201103L && _MSVC_LANG < 201103L
     #include <memory>
     #define unique_ptr auto_ptr
     #define nullptr NULL
