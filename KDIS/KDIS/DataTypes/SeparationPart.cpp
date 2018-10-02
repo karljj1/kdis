@@ -151,7 +151,7 @@ KString SeparationPart::GetAsString() const
     KStringStream ss;
 
     ss << "Separation Part:"
-        << "\n\ Reason for Separation: " << GetEnumAsStringReasonForSeparation( m_ui8Reason )
+        << "\n\tReason for Separation: " << GetEnumAsStringReasonForSeparation( m_ui8Reason )
         << "\n\tPre-Entity Indicator:  " << GetEnumAsStringPreEntityIndicator( m_ui8PreEntIndicator )
         << "\n\tParent Entity Id:      " << m_ParentEntId.GetAsString()
         << "\n\tStation Location:      " << m_StationLoc.GetAsString();
