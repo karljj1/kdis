@@ -314,7 +314,10 @@ void Entity_State_PDU::SetDeadReckoningParameter( const DeadReckoningParameter &
 
 void Entity_State_PDU::SetDeadReckoningCalculator( DeadReckoningCalculator * DR )
 {
-    m_pDrCalc = DR;
+	if(m_pDrCalc)
+		delete m_pDrCalc;
+
+    m_pDrCalc = DR ? new DeadReckoningCalculator(*DR) : NULL ;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -601,10 +604,8 @@ Entity_State_PDU & Entity_State_PDU::operator=( const Entity_State_PDU & Other )
     m_EntityMarking = Other.m_EntityMarking;
     m_EntityCapabilities = Other.m_EntityCapabilities;
     m_vVariableParameters = Other.m_vVariableParameters;
-
-    if (m_pDrCalc && m_pDrCalc != Other.m_pDrCalc)
-        delete m_pDrCalc;
-    m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
+    //m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
+	SetDeadReckoningCalculator(Other.m_pDrCalc);
     return *this;
 }
 
