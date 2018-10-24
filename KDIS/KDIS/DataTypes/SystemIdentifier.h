@@ -63,6 +63,13 @@ protected:
             KUINT8 m_ui8AltMode4        : 1;
             KUINT8 m_ui8AltModeC        : 1;
             // Bits 3-7 not used
+	        #if DIS_VERSION > 6
+            KUINT8 m_ui8HeartbeatIndicator                  : 1;
+            KUINT8 m_ui8TransponderInterrogatorIndicator    : 1;
+            KUINT8 m_ui8SimulationMode                      : 1;
+            KUINT8 m_ui8InteractiveCapable                  : 1;
+            KUINT8 m_ui8TestMode                            : 1;
+            #endif
         };
 
         KUINT8 m_ui8ChangeOptions;
@@ -127,6 +134,19 @@ public:
     KBOOL GetChangeIndicator() const;
     KBOOL GetAltMode4() const;
     KBOOL GetAltModeC() const;
+
+    #if DIS_VERSION > 6
+    void SetHeartbeatIndicator ( KBOOL HI);
+    void SetTransponderInterrogatorIndicator ( KBOOL TII);
+    void SetSimulationMode ( KBOOL SM);
+    void SetInteractiveCapable ( KBOOL IC);
+    void SetTestMode ( KBOOL TM);
+    KBOOL GetHeartbeatIndicator() const;
+    KBOOL GetTransponderInterrogatorIndicator() const;
+    KBOOL GetSimulationMode() const;
+    KBOOL GetInteractiveCapable() const;
+    KBOOL GetTestMode() const;
+    #endif
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::GetAsString

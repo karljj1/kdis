@@ -43,6 +43,7 @@ http://p.sf.net/kdis/UserGuide
 #include "./../../DataTypes/WorldCoordinates.h"
 #include "./../../DataTypes/Vector.h"
 #include "./../../DataTypes/MunitionDescriptor.h"
+#include "../../DataTypes/ExpendableDescriptor.h"
 
 namespace KDIS {
 namespace PDU {

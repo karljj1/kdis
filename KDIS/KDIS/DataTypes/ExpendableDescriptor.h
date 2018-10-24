@@ -1,5 +1,7 @@
 /*********************************************************************
-Copyright 2013 Karl Jones
+Copyright 2018 Karl Jones
+               Todd Klasik
+               GBL Systems Corporation
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,93 +30,53 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      Descriptor
-    created:    22/04/2013
-    author:     Karl Jones
+    class:      ExpendableDescriptor
+    created:    03/05/2018
+    author:     Todd Klasik
 
-    purpose:    Base class for Descriptor records.  
-
-				In DIS < 7:
-				All descriptors should use the Munition Descriptor record AKA Burst descriptor.
-
-				In DIS  7 onwards:
-				A Fire PDU descriptor can be either a Munition(AKA Burst) or an Expendable descriptor.
-				A Detonation PDU descriptor can be either a Munition(AKA Burst), Expendable or an Explosion descriptor.
-				
+    purpose:    Represents the burst of a chaff expendable or ignition of a flare
+                This descriptor is applicable to the Fire PDU and Detonation PDU.
     size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./EntityType.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "./Descriptor.h"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-/************************************************************************/
-// Define the type of pointer we are using for Descriptor Records,
-// do we want a weak reference or a ref counter?
-// By default we use a ref pointer, however if you want to use a standard
-// pointer or one of your own then simply change it below.
-/************************************************************************/
-class Descriptor;
-typedef KDIS::UTILS::KRef_Ptr<Descriptor> DescPtr; // Ref counter
-//typedef Descriptor* DescPtr; // Weak ref
-
-
-class KDIS_EXPORT Descriptor : public DataTypeBase
+class KDIS_EXPORT ExpendableDescriptor : public Descriptor
 {
 protected:
-
-    EntityType m_Type;
-
+    KUINT64 m_ui64Padding;
 public:
 
-    static const KUINT16 DESCRIPTOR_SIZE = 16;
+    ExpendableDescriptor();
 
-    Descriptor();
+    ExpendableDescriptor( KDataStream & stream )throw( KException );
 
-    Descriptor( KDataStream & stream )throw( KException );
+    ExpendableDescriptor( const EntityType & T);
 
-    Descriptor( const EntityType & T );
-
-    virtual ~Descriptor();
+    virtual ~ExpendableDescriptor();
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::SetMunition
-    //              KDIS::DATA_TYPE::Descriptor::GetMunition
-    // Description: Munition, Explosion or Expendable Type.
-    // Parameter:   const EntityType & T
-    //************************************
-    void SetType( const EntityType & T );
-    const EntityType & GetType() const;
-    EntityType & GetType();
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::Decode
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::Encode
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const Descriptor & Value ) const;
-    KBOOL operator != ( const Descriptor & Value ) const;
+    KBOOL operator == ( const ExpendableDescriptor & Value ) const;
+    KBOOL operator != ( const ExpendableDescriptor & Value ) const;
 };
 
 } // END namespace DATA_TYPES

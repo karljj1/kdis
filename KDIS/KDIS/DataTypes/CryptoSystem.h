@@ -53,8 +53,8 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16EncryptionMode : 1;
             KUINT16 m_ui16KeyID          : 15;
+            KUINT16 m_ui16EncryptionMode : 1;
         };
 
         KUINT16 m_ui16CryptoKey;

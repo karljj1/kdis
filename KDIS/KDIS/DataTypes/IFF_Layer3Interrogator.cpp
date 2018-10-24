@@ -66,7 +66,7 @@ IFF_Layer3Interrogator::IFF_Layer3Interrogator( const SimulationIdentifier & Rep
 IFF_Layer3Interrogator::IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
 	IFF_Layer3( H )
 {
-    Decode( stream, false );
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -58,7 +58,22 @@ enum SystemType
     Mark_X_XII_ATCRBS_ModeS_Interrogator                              = 2,
     Soviet_Transponder                                                = 3,
     Soviet_Interrogator                                               = 4,
-    RRB_Transponder                                                   = 5
+    RRB_Transponder                                                   = 5,
+    #if DIS_VERSION > 6
+    Mark_XIIA_Interrogator                                            = 6,
+    Mode_5_Interrogator                                               = 7,
+    Mode_S_Interrogator                                               = 8,
+    Mark_XIIA_Transponder                                             = 9,
+    Mode_5_Transponder                                                = 10,
+    Mode_S_Transponder                                                = 11,
+    Mark_XIIA_Combined_Interrogator_Transponder_CIT                   = 12,
+    Mark_XII_Combined_Interrogator_Transponder_CIT                    = 13,
+    TCAS_ACAS_Transceiver                                             = 14,
+    Generic_TCAS_I_ACAS_I_Transceiver                                 = 15,
+    Generic_TCAS_II_ACAS_II_Transceiver                               = 16,
+    Generic_Mark_X_A                                                  = 17,
+    Generic_Mark_X_SIF                                                = 18,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -95,8 +110,12 @@ enum SystemName
     Mark_X_XII_ATCRBS                                                 = 6,
     Mark_X_XII_ATCRBS_Mode_S                                          = 7,
     ARI_5954                                                          = 8,
-    ARI_5983                                                          = 9
-    // 10+ Not used
+    ARI_5983                                                          = 9,
+    #if DIS_VERSION > 6
+    Generic_RRB                                                       = 10,
+    Generic_Mark_XIIA                                                 = 11,
+    Generic_Mode_5                                                    = 12,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -124,7 +143,16 @@ KBOOL GetEnumFromStringSystemName( const KString & Value, KINT32 & ValueOut );
 
 enum SystemMode
 {
-    OtherSystemMode                                                   = 0
+    #if DIS_VERSION < 7
+    OtherSystemMode                                                   = 0,
+    #elif DIS_VERSION > 6
+    No_Statement                                                      = 0,
+    OffSystemMode                                                     = 1,
+    Standby                                                           = 2,
+    Normal                                                            = 3,
+    Emergency                                                         = 4,
+    Low_or_Low_Sensitivity                                            = 5,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.

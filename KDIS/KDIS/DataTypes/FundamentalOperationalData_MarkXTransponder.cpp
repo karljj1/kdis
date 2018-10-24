@@ -652,7 +652,7 @@ void FundamentalOperationalData_MarkXTransponder::SetModeCCodeStatus( KBOOL IsAl
     m_ui16ModeCDmg = IsDamaged;
     m_ui16ModeCMalfunction = IsMalfunctioning;
 
-    if( Altitude == 4095 )m_ui16ModeCNegativeAltitude = 1;
+    if( Altitude == 2047 )m_ui16ModeCNegativeAltitude = 1;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -662,7 +662,7 @@ void FundamentalOperationalData_MarkXTransponder::SetModeCAltitude( KBOOL IsAlti
     m_ui16ModeCNegativeAltitude = IsAltitudeNegativeMeanSeaLevel;
     m_ui16ModeCAltitude = Altitude;
 
-    if( Altitude == 4095 )m_ui16ModeCNegativeAltitude = 1;
+    if( Altitude == 2047 )m_ui16ModeCNegativeAltitude = 1;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -704,7 +704,7 @@ KUINT16 FundamentalOperationalData_MarkXTransponder::GetModeCAltitude() const
 
 KBOOL FundamentalOperationalData_MarkXTransponder::IsModeCAlternativeMode5() const
 {
-    if( m_ui16ModeCAltitude == 4095 && m_ui16ModeCNegativeAltitude == 1 )return true;
+    if( m_ui16ModeCAltitude == 2047 && m_ui16ModeCNegativeAltitude == 1 )return true;
     else return false;
 }
 

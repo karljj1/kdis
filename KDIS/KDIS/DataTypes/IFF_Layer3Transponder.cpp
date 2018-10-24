@@ -66,7 +66,7 @@ IFF_Layer3Transponder::IFF_Layer3Transponder( const SimulationIdentifier & Repor
 IFF_Layer3Transponder::IFF_Layer3Transponder( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
     IFF_Layer3( H )
 {
-    Decode( stream, false );
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////

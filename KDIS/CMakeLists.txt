@@ -214,6 +214,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_H
     ${DATATYPES_DIR}/DEAreaAimpoint.h
     ${DATATYPES_DIR}/EnhancedMode1Code.h
     ${DATATYPES_DIR}/ExplosionDescriptor.h
+    ${DATATYPES_DIR}/ExpendableDescriptor.h
     ${DATATYPES_DIR}/IFF_Layer3.h
     ${DATATYPES_DIR}/IFF_Layer3Interrogator.h
     ${DATATYPES_DIR}/IFF_Layer3Transponder.h
@@ -388,6 +389,7 @@ LIST(APPEND KDIS_SRC_DATATYPES_CPP
     ${DATATYPES_DIR}/DEAreaAimpoint.cpp
     ${DATATYPES_DIR}/EnhancedMode1Code.cpp
     ${DATATYPES_DIR}/ExplosionDescriptor.cpp
+    ${DATATYPES_DIR}/ExpendableDescriptor.cpp
     ${DATATYPES_DIR}/IFF_Layer3.cpp
     ${DATATYPES_DIR}/IFF_Layer3Interrogator.cpp
     ${DATATYPES_DIR}/IFF_Layer3Transponder.cpp

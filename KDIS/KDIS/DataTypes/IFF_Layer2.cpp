@@ -58,7 +58,7 @@ IFF_Layer2::IFF_Layer2( KDataStream & stream ) throw( KException )
 IFF_Layer2::IFF_Layer2( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
 	LayerHeader( H )
 {
-    Decode( stream, false );
+    Decode( stream, true );
 }
 
 //////////////////////////////////////////////////////////////////////////
