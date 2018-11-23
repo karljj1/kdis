@@ -47,7 +47,7 @@ ConeRecord2::ConeRecord2() :
 
 //////////////////////////////////////////////////////////////////////////
 
-ConeRecord2::ConeRecord2( KDataStream & stream )throw( KException )
+ConeRecord2::ConeRecord2( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -164,7 +164,7 @@ KString ConeRecord2::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ConeRecord2::Decode( KDataStream & stream ) throw( KException )
+void ConeRecord2::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < CONE_RECORD_2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

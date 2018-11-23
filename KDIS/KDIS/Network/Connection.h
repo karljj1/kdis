@@ -94,7 +94,7 @@ protected:
     // FullName:    KDIS::NETWORK::Connection::startup
     // Description: Setup the socket.
     //************************************
-    void startup() throw ( KException );
+    void startup() ;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::bindSocket
@@ -106,7 +106,7 @@ protected:
     // FullName:    KDIS::NETWORK::Connection::shutdown
     // Description: Shutdown all socket features.
     //************************************
-    void shutdown() throw ( KException );
+    void shutdown() ;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::getErrorText
@@ -131,7 +131,7 @@ public:
     // Parameter:   const KString & A
     // Parameter:   KBOOL Multicast = false
     //************************************
-    virtual void SetSendAddress( const KString & A, KBOOL Multicast = false ) throw( KException );
+    virtual void SetSendAddress( const KString & A, KBOOL Multicast = false ) ;
     virtual const KString & GetSendAddress() const;
 
     //************************************
@@ -143,8 +143,8 @@ public:
     //              Note: You can add multiple groups.
     // Parameter:   const KString & A
     //************************************
-    virtual void AddMulticastAddress( const KString & A ) throw( KException );
-    virtual void RemoveMulticastAddress( const KString & A ) throw( KException );
+    virtual void AddMulticastAddress( const KString & A ) ;
+    virtual void RemoveMulticastAddress( const KString & A ) ;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SetBlockingModeEnabled
@@ -199,8 +199,8 @@ public:
     // Parameter:   const KOCTET * Data, KDataStream & stream
     // Parameter:   KUINT32 DataSz
     //************************************
-    virtual KINT32 Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KException );
-    virtual KINT32 Send( const KDataStream & stream ) throw ( KException );
+    virtual KINT32 Send( const KOCTET * Data, KUINT32 DataSz ) ;
+    virtual KINT32 Send( const KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SendPDU
@@ -208,7 +208,7 @@ public:
     //              Returns number of bytes sent.
     // Parameter:   Header * H
     //************************************
-    virtual KINT32 SendPDU( KDIS::PDU::Header * H ) throw ( KException );
+    virtual KINT32 SendPDU( KDIS::PDU::Header * H ) ;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::Receive
@@ -220,7 +220,7 @@ public:
     // Parameter:   KUINT32 BufferSz
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
-    virtual KINT32 Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderIp = 0 ) throw ( KException );
+    virtual KINT32 Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderIp = 0 ) ;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::GetNextPDU
@@ -231,7 +231,7 @@ public:
     //              Note: This function supports PDU Bundles.
     // Parameter:   KString * SenderIp - Optional field. Pass a none null pointer to get the senders IP address.
     //************************************
-    virtual std::unique_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) throw ( KException );
+    virtual std::unique_ptr<KDIS::PDU::Header> GetNextPDU( KString * SenderIp = 0 ) ;
 };
 
 } // END namespace NETWORK

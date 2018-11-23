@@ -46,14 +46,14 @@ AggregateMarking::AggregateMarking() :
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking( KDataStream & stream ) throw( KException )
+AggregateMarking::AggregateMarking( KDataStream & stream ) 
 {
     Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking( EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) throw( KException )
+AggregateMarking::AggregateMarking( EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) 
 {
     memset( m_sAggregateMarkingString, 0x00, 32 );
     SetAggregateMarkingCharacterSet( MarkingCharSet );
@@ -114,7 +114,7 @@ KString AggregateMarking::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateMarking::Decode( KDataStream & stream ) throw( KException )
+void AggregateMarking::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < AGGREGATE_MARKING_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

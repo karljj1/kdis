@@ -59,7 +59,7 @@ public:
 
     AcousticEmitterSystem();
 
-    AcousticEmitterSystem( KDataStream & stream ) throw( KException );
+    AcousticEmitterSystem( KDataStream & stream ) ;
 
     AcousticEmitterSystem( KDIS::DATA_TYPE::ENUMS::AcousticSystemName ASN, KDIS::DATA_TYPE::ENUMS::AcousticSystemFunction ASF, KUINT8 ID );
 
@@ -104,7 +104,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AcousticEmitterSystem::Encode

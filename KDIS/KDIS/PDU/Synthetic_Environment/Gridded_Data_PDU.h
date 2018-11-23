@@ -105,9 +105,9 @@ public:
 
     Gridded_Data_PDU();
 
-    Gridded_Data_PDU( KDataStream & stream ) throw( KException );
+    Gridded_Data_PDU( KDataStream & stream ) ;
 
-    Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Gridded_Data_PDU( const Header & H, KDataStream & stream ) ;
 
     Gridded_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, KUINT16 FieldNumber, KUINT16 PduNum,
                       KUINT16 PduTotal, KDIS::DATA_TYPE::ENUMS::CoordinateSystem CS, KDIS::DATA_TYPE::ENUMS::ConstantGrid CG, 
@@ -148,7 +148,7 @@ public:
     //************************************
     void SetPDUNumber( KUINT16 PN );
     KUINT16 GetPDUNumber() const;
-    void SetPDUNumberAndTotal( KUINT16 Num, KUINT16 Total ) throw( KException );
+    void SetPDUNumberAndTotal( KUINT16 Num, KUINT16 Total ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::SetPDUTotal
@@ -278,7 +278,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Gridded_Data_PDU::Encode

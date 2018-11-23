@@ -66,7 +66,7 @@ public:
 
     APA();
 
-    APA( KDataStream & stream ) throw( KException );
+    APA( KDataStream & stream ) ;
 
     APA( KDIS::DATA_TYPE::ENUMS::AdditionalPassiveParameterIndex APPI, KBOOL Val1, KBOOL Val2, KINT16 Value );
 
@@ -127,7 +127,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::APA::Encode

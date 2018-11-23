@@ -52,14 +52,14 @@ Acknowledge_R_PDU::Acknowledge_R_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( KDataStream & stream ) throw( KException )
+Acknowledge_R_PDU::Acknowledge_R_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Acknowledge_R_PDU::Acknowledge_R_PDU( const Header & H, KDataStream & stream )  :
     Acknowledge_PDU( H )
 {
     Decode( stream, true );

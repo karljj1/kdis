@@ -77,9 +77,9 @@ public:
     FixedDatum();
 
     template<class Type>
-    FixedDatum( DatumID ID, Type Value ) throw( KException );
+    FixedDatum( DatumID ID, Type Value ) ;
 
-    FixedDatum( KDataStream & stream ) throw( KException );
+    FixedDatum( KDataStream & stream ) ;
 
     virtual ~FixedDatum();
 
@@ -101,9 +101,9 @@ public:
     // Parameter:   Type val
     //************************************
     template<class Type>
-    void SetDatumValue( Type val ) throw( KException );
+    void SetDatumValue( Type val ) ;
     template<class Type>
-    Type GetDatumValue() const throw( KException );
+    Type GetDatumValue() const ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FixedDatum::GetDatumValue
@@ -113,7 +113,7 @@ public:
     //              in the buffer.
     // Parameter:   KOCTET * Buffer
     //************************************
-    virtual void GetDatumValue( KOCTET * Buffer, KUINT16 BufferSize ) const throw( KException );
+    virtual void GetDatumValue( KOCTET * Buffer, KUINT16 BufferSize ) const ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FixedDatum::GetAsString
@@ -126,7 +126,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FixedDatum::Encode
@@ -145,7 +145,7 @@ public:
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-FixedDatum::FixedDatum( DatumID ID, Type Value ) throw( KException )
+FixedDatum::FixedDatum( DatumID ID, Type Value ) 
 {
     m_ui32DatumID = ID;
     SetDatumValue( Value );
@@ -154,7 +154,7 @@ FixedDatum::FixedDatum( DatumID ID, Type Value ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-Type FixedDatum::GetDatumValue() const throw( KException )
+Type FixedDatum::GetDatumValue() const 
 {
     if( sizeof( Type ) > 4 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 
@@ -173,7 +173,7 @@ Type FixedDatum::GetDatumValue() const throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-void FixedDatum::SetDatumValue( Type val ) throw( KException )
+void FixedDatum::SetDatumValue( Type val ) 
 {
     if( sizeof( Type ) > 4 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 

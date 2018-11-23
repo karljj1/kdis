@@ -45,7 +45,7 @@ PointRecord1::PointRecord1()
 
 //////////////////////////////////////////////////////////////////////////
 
-PointRecord1::PointRecord1( KDataStream & stream )throw( KException )
+PointRecord1::PointRecord1( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -101,7 +101,7 @@ KString PointRecord1::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void PointRecord1::Decode( KDataStream & stream ) throw( KException )
+void PointRecord1::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < POINT_RECORD_1_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

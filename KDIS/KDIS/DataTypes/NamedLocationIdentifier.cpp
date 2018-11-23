@@ -53,7 +53,7 @@ NamedLocationIdentifier::NamedLocationIdentifier( StationName SN,  KUINT16 Stati
 
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier::NamedLocationIdentifier( KDataStream & stream ) throw( KException )
+NamedLocationIdentifier::NamedLocationIdentifier( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -108,7 +108,7 @@ KString NamedLocationIdentifier::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void NamedLocationIdentifier::Decode( KDataStream & stream ) throw( KException )
+void NamedLocationIdentifier::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < NAMED_LOCATION_ID_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

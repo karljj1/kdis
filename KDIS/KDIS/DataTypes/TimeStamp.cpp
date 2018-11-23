@@ -51,7 +51,7 @@ TimeStamp::TimeStamp() :
 
 //////////////////////////////////////////////////////////////////////////
 
-TimeStamp::TimeStamp( KDataStream & stream ) throw( KException )
+TimeStamp::TimeStamp( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -165,7 +165,7 @@ KString TimeStamp::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void TimeStamp::Decode( KDataStream & stream ) throw( KException )
+void TimeStamp::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < TIME_STAMP_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

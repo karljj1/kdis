@@ -68,7 +68,7 @@ VariableDatum::VariableDatum( DatumID ID, const KOCTET* data, KUINT32 sizeInBits
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableDatum::VariableDatum( KDataStream & stream ) throw( KException )
+VariableDatum::VariableDatum( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -137,7 +137,7 @@ void VariableDatum::SetDatumValue( const KOCTET * data, KUINT32 sizeInBits )
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableDatum::GetDatumValueCopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize ) const throw( KException )
+void VariableDatum::GetDatumValueCopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize ) const 
 {
     KUINT32 sizeInOctets = ceil( m_ui32DatumLength / 8.0 );
 
@@ -261,7 +261,7 @@ KString VariableDatum::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableDatum::Decode( KDataStream & stream ) throw( KException )
+void VariableDatum::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < VARIABLE_DATUM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

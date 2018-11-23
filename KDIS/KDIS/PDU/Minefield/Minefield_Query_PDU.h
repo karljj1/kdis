@@ -85,9 +85,9 @@ public:
 
     Minefield_Query_PDU();
 
-    Minefield_Query_PDU( KDataStream & stream ) throw( KException );
+    Minefield_Query_PDU( KDataStream & stream ) ;
 
-    Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Minefield_Query_PDU( const Header & H, KDataStream & stream ) ;
 
     Minefield_Query_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                          KUINT8 RequestID, const KDIS::DATA_TYPE::MinefieldDataFilter & DF, const KDIS::DATA_TYPE::EntityType & MineTypeFilter );
@@ -195,7 +195,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Query_PDU::Encode

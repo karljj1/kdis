@@ -56,14 +56,14 @@ Minefield_Header::Minefield_Header( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header( KDataStream & stream ) throw( KException )
+Minefield_Header::Minefield_Header( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header( const Header & H, KDataStream & stream ) throw( KException ) :
+Minefield_Header::Minefield_Header( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -111,7 +111,7 @@ KString Minefield_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Minefield_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

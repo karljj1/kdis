@@ -59,7 +59,7 @@ AggregateIdentifier::AggregateIdentifier( const SimulationIdentifier & SimID, KU
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::AggregateIdentifier( KDataStream & stream ) throw( KException )
+AggregateIdentifier::AggregateIdentifier( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -98,7 +98,7 @@ KString AggregateIdentifier::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateIdentifier::Decode( KDataStream & stream ) throw( KException )
+void AggregateIdentifier::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < AGGREGATE_IDENTIFER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

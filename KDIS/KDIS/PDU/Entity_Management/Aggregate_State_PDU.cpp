@@ -85,14 +85,14 @@ Aggregate_State_PDU::Aggregate_State_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Aggregate_State_PDU::Aggregate_State_PDU( KDataStream & stream ) throw( KException )
+Aggregate_State_PDU::Aggregate_State_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Aggregate_State_PDU::Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Aggregate_State_PDU::Aggregate_State_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -617,7 +617,7 @@ KString Aggregate_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Aggregate_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Aggregate_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     m_bNeedsPadding = false;
     m_ui16NumberOfPaddingOctets = 0;

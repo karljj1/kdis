@@ -53,7 +53,7 @@ Header6::Header6() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Header6::Header6( KDataStream & stream ) throw( KException )
+Header6::Header6( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
@@ -189,7 +189,7 @@ KString Header6::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Header6::Decode( KDataStream & stream, bool ignoreHeader /*= false*/  ) throw( KException )
+void Header6::Decode( KDataStream & stream, bool ignoreHeader /*= false*/  ) 
 {
     if( !ignoreHeader )
     {

@@ -55,7 +55,7 @@ COMBICState::COMBICState() :
 
 //////////////////////////////////////////////////////////////////////////
 
-COMBICState::COMBICState( KDataStream & stream )throw( KException )
+COMBICState::COMBICState( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -267,7 +267,7 @@ KString COMBICState::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void COMBICState::Decode( KDataStream & stream ) throw( KException )
+void COMBICState::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < COMBIC_STATE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -65,7 +65,7 @@ public:
 
     JammingTechnique();
 
-    JammingTechnique( KDataStream & stream )throw( KException );
+    JammingTechnique( KDataStream & stream );
 
     JammingTechnique( KUINT8 KIND, KUINT8 CATEGORY, KUINT8 SUBCATEGORY,
                  KUINT8 SPECIFIC );
@@ -119,7 +119,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::JammingTechnique::Encode

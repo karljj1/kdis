@@ -69,9 +69,9 @@ public:
 
     IO_Header( const Header & H );
 
-    IO_Header( KDataStream & stream ) throw( KException );
+    IO_Header( KDataStream & stream ) ;
 
-    IO_Header( const Header & H, KDataStream & stream ) throw( KException );
+    IO_Header( const Header & H, KDataStream & stream ) ;
 
     IO_Header( const KDIS::DATA_TYPE::EntityIdentifier & OrigID );
 
@@ -99,7 +99,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::IO_Header::Encode

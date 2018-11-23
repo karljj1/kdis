@@ -44,7 +44,7 @@ ObjectAppearance::ObjectAppearance()
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectAppearance::ObjectAppearance( KDataStream & stream ) throw( KException )
+ObjectAppearance::ObjectAppearance( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -52,7 +52,7 @@ ObjectAppearance::ObjectAppearance( KDataStream & stream ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 ObjectAppearance::ObjectAppearance( KUINT8 PerCent, ObjectDamage OD, KBOOL Predist, KBOOL State,
-                                    KBOOL Smoking, KBOOL Flaming ) throw( KException )
+                                    KBOOL Smoking, KBOOL Flaming ) 
 {
     if( PerCent > 100 ) throw KException( __FUNCTION__, INVALID_DATA, "PerCent Acceptable values are 0-100." );
 
@@ -86,7 +86,7 @@ KUINT16 ObjectAppearance::GetGeneralAppearance() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetPercentageComplete( KUINT8 P ) throw( KException )
+void ObjectAppearance::SetPercentageComplete( KUINT8 P ) 
 {
     if( P > 100 ) throw KException( __FUNCTION__, INVALID_DATA, "Acceptable values are 0-100." );
 
@@ -190,7 +190,7 @@ KString ObjectAppearance::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::Decode( KDataStream & stream ) throw( KException )
+void ObjectAppearance::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < OBJECT_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

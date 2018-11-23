@@ -51,7 +51,7 @@ StandardVariable::StandardVariable() :
 
 //////////////////////////////////////////////////////////////////////////
 
-StandardVariable::StandardVariable( KDataStream & stream ) throw( KException )
+StandardVariable::StandardVariable( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -92,7 +92,7 @@ KString StandardVariable::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-StdVarPtr StandardVariable::FactoryDecodeStandardVariable(  KDataStream & stream ) throw( KException )
+StdVarPtr StandardVariable::FactoryDecodeStandardVariable(  KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < STANDARD_VARIABLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -143,7 +143,7 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(  KDataStream & stream
 
 //////////////////////////////////////////////////////////////////////////
 
-void StandardVariable::Decode( KDataStream & stream ) throw( KException )
+void StandardVariable::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < STANDARD_VARIABLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

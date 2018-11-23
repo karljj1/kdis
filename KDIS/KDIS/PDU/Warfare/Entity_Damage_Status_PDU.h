@@ -72,9 +72,9 @@ public:
 
     Entity_Damage_Status_PDU();
 
-    Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException );
+    Entity_Damage_Status_PDU( KDataStream & stream ) ;
 
-    Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) ;
 
     Entity_Damage_Status_PDU( const KDIS::DATA_TYPE::EntityIdentifier & DamagedEntityID );
 
@@ -122,7 +122,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Encode

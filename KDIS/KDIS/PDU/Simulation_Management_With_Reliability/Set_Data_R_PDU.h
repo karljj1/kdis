@@ -52,9 +52,9 @@ public:
 
     Set_Data_R_PDU();
 
-    Set_Data_R_PDU( KDataStream & stream ) throw( KException );
+    Set_Data_R_PDU( KDataStream & stream ) ;
 
-    Set_Data_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Set_Data_R_PDU( const Header & H, KDataStream & stream ) ;
 
     Set_Data_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                     KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
@@ -73,7 +73,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Set_Data_R_PDU::Encode

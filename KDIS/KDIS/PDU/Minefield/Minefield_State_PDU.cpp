@@ -55,14 +55,14 @@ Minefield_State_PDU::Minefield_State_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_State_PDU::Minefield_State_PDU( KDataStream & stream ) throw( KException )
+Minefield_State_PDU::Minefield_State_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_State_PDU::Minefield_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Minefield_State_PDU::Minefield_State_PDU( const Header & H, KDataStream & stream )  :
     Minefield_Header( H )
 {
     Decode( stream, true );
@@ -335,7 +335,7 @@ KString Minefield_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Minefield_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

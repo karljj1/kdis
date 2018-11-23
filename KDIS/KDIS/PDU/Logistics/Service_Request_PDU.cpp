@@ -50,14 +50,14 @@ Service_Request_PDU::Service_Request_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU( KDataStream & stream ) throw( KException )
+Service_Request_PDU::Service_Request_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Service_Request_PDU::Service_Request_PDU( const Header & H, KDataStream & stream )  :
     Resupply_Received_PDU( H )
 {
     Decode( stream, true );
@@ -121,7 +121,7 @@ KString Service_Request_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Service_Request_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Service_Request_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SERVICE_REQUEST_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

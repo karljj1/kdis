@@ -60,9 +60,9 @@ public:
 
     LE_Header( const Header & H );
 
-    LE_Header( KDataStream & stream ) throw( KException );
+    LE_Header( KDataStream & stream ) ;
 
-    LE_Header( const Header & H, KDataStream & stream ) throw( KException );
+    LE_Header( const Header & H, KDataStream & stream ) ;
 
     virtual ~LE_Header();
 
@@ -98,7 +98,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::LE_Header::Encode

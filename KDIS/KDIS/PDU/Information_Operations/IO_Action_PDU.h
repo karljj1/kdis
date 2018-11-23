@@ -91,9 +91,9 @@ public:
 
     IO_Action_PDU();
 
-    IO_Action_PDU( KDataStream & stream ) throw( KException );
+    IO_Action_PDU( KDataStream & stream ) ;
 
-    IO_Action_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    IO_Action_PDU( const Header & H, KDataStream & stream ) ;
 
     IO_Action_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OrigID, const KDIS::DATA_TYPE::EntityIdentifier & RecvID, KUINT32 ReqID,
                    KDIS::DATA_TYPE::ENUMS::WarfareType WT, KUINT16 SimSrc, KDIS::DATA_TYPE::ENUMS::ActionType AT, KDIS::DATA_TYPE::ENUMS::ActionPhase AP,
@@ -217,7 +217,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::IO_Action_PDU::Encode

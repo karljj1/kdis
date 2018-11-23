@@ -52,7 +52,7 @@ TSPI_PDU::TSPI_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException ) :
+TSPI_PDU::TSPI_PDU( KDataStream & stream )  :
     m_ui8SSDLen( 0 )
 {
     Decode( stream, false );
@@ -60,7 +60,7 @@ TSPI_PDU::TSPI_PDU( KDataStream & stream ) throw( KException ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-TSPI_PDU::TSPI_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+TSPI_PDU::TSPI_PDU( const Header & H, KDataStream & stream )  :
     LE_Header( H ),
     m_ui8SSDLen( 0 )
 {
@@ -530,7 +530,7 @@ KString TSPI_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void TSPI_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void TSPI_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < TSPI_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

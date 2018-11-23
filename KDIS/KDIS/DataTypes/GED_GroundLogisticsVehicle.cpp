@@ -51,7 +51,7 @@ GED_GroundLogisticsVehicle::GED_GroundLogisticsVehicle() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_GroundLogisticsVehicle::GED_GroundLogisticsVehicle( KDataStream & stream )throw( KException )
+GED_GroundLogisticsVehicle::GED_GroundLogisticsVehicle( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -281,7 +281,7 @@ KString GED_GroundLogisticsVehicle::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_GroundLogisticsVehicle::Decode( KDataStream & stream ) throw( KException )
+void GED_GroundLogisticsVehicle::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GED_GROUND_LOGISTICS_VEHICLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

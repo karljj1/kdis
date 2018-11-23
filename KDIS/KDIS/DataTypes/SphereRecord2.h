@@ -60,7 +60,7 @@ public:
 
     SphereRecord2();
 
-    SphereRecord2( KDataStream & stream ) throw( KException );
+    SphereRecord2( KDataStream & stream ) ;
 
     SphereRecord2( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius,
                    KFLOAT32 DDT, const Vector & Velocity, const Vector & AngularVelocity );
@@ -109,7 +109,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SphereRecord2::Encode

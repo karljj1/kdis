@@ -63,7 +63,7 @@ public:
 
     BeamData();
 
-    BeamData( KDataStream & stream ) throw( KException );
+    BeamData( KDataStream & stream ) ;
 
     BeamData( KFLOAT32 AziCtr, KFLOAT32 AziSwp, KFLOAT32 EleCtr,
               KFLOAT32 EleSwp, KFLOAT32 SwpSyn );
@@ -138,7 +138,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::BeamData::Encode

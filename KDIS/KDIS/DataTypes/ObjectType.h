@@ -64,7 +64,7 @@ public:
 
     ObjectType( KUINT8 Domain, KUINT8 Kind, KUINT8  Categoy, KUINT8 SubCategory );
 
-    ObjectType( KDataStream & stream ) throw( KException );
+    ObjectType( KDataStream & stream ) ;
 
     virtual ~ObjectType();
 
@@ -115,7 +115,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ObjectType::Encode

@@ -50,7 +50,7 @@ LinearSegmentParameter::LinearSegmentParameter() :
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearSegmentParameter::LinearSegmentParameter( KDataStream & stream ) throw( KException )
+LinearSegmentParameter::LinearSegmentParameter( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -278,7 +278,7 @@ KString LinearSegmentParameter::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::Decode( KDataStream & stream ) throw( KException )
+void LinearSegmentParameter::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < LINEAR_SEGMENT_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

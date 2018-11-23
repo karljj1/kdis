@@ -63,7 +63,7 @@ GridAxisIrregular::GridAxisIrregular() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GridAxisIrregular::GridAxisIrregular( KDataStream & stream ) throw( KException )
+GridAxisIrregular::GridAxisIrregular( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -224,7 +224,7 @@ KString GridAxisIrregular::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridAxisIrregular::Decode( KDataStream & stream ) throw( KException )
+void GridAxisIrregular::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GRID_AXIS_IRREGULAR )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

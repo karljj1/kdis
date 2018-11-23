@@ -72,7 +72,7 @@ public:
     RadioEntityType( KUINT8 Kind, KUINT8 Domain, KUINT8 Country, KUINT8 Categoy,
                      KUINT8 NomenclatureVersion, KUINT16 Nomenclature );
 
-    RadioEntityType( KDataStream & stream ) throw( KException );
+    RadioEntityType( KDataStream & stream ) ;
 
     virtual ~RadioEntityType();
 
@@ -141,7 +141,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RadioEntityType::Encode

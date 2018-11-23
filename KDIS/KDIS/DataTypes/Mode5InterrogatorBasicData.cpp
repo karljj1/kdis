@@ -62,7 +62,7 @@ Mode5InterrogatorBasicData::Mode5InterrogatorBasicData( const Mode5InterrogatorS
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorBasicData::Mode5InterrogatorBasicData( KDataStream & stream ) throw( KException )
+Mode5InterrogatorBasicData::Mode5InterrogatorBasicData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -137,7 +137,7 @@ KString Mode5InterrogatorBasicData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorBasicData::Decode( KDataStream & stream ) throw( KException )
+void Mode5InterrogatorBasicData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MODE_5_INTERROGATOR_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	

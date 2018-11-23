@@ -37,7 +37,7 @@ using namespace UTILS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-void DIS_Logger_Record::writeToFile( const KString & S ) throw( KException )
+void DIS_Logger_Record::writeToFile( const KString & S ) 
 {
     if( m_File.is_open() == false )throw KException( __FUNCTION__, FILE_NOT_OPEN );
 
@@ -70,7 +70,7 @@ DIS_Logger_Record::~DIS_Logger_Record()
 
 //////////////////////////////////////////////////////////////////////////
 
-void DIS_Logger_Record::Save() throw( KException )
+void DIS_Logger_Record::Save() 
 {
     vector<KString>::const_iterator citr = m_vsLog.begin();
     vector<KString>::const_iterator citrEnd = m_vsLog.end();

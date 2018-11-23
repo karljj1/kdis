@@ -60,7 +60,7 @@ public:
 
     BoundingSphereRecord();
 
-    BoundingSphereRecord( KDataStream & stream ) throw( KException );
+    BoundingSphereRecord( KDataStream & stream ) ;
 
     BoundingSphereRecord( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius );
 
@@ -96,7 +96,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::BoundingSphereRecord::Encode

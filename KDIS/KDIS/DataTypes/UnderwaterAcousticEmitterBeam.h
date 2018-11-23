@@ -62,7 +62,7 @@ public:
 
     UnderwaterAcousticEmitterBeam();
 
-    UnderwaterAcousticEmitterBeam( KDataStream & stream )throw( KException );
+    UnderwaterAcousticEmitterBeam( KDataStream & stream );
 
     UnderwaterAcousticEmitterBeam( KUINT8 ID, const UnderwaterAcousticFundamentalParameterData & UAFPD );
 
@@ -106,7 +106,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::Encode

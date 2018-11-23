@@ -50,7 +50,7 @@ GroupDestinationRecord::GroupDestinationRecord() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupDestinationRecord::GroupDestinationRecord( KDataStream & stream )throw( KException )
+GroupDestinationRecord::GroupDestinationRecord( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -81,7 +81,7 @@ KUINT32 GroupDestinationRecord::GetGroupBitField() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupDestinationRecord::SetGroupBitField( KUINT8 Group, KBOOL InGroup /*= true*/ ) throw( KException )
+void GroupDestinationRecord::SetGroupBitField( KUINT8 Group, KBOOL InGroup /*= true*/ ) 
 {
     if( Group > 31 )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
 
@@ -91,7 +91,7 @@ void GroupDestinationRecord::SetGroupBitField( KUINT8 Group, KBOOL InGroup /*= t
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GroupDestinationRecord::IsGroupBitSet( KUINT8 Group ) const throw( KException )
+KBOOL GroupDestinationRecord::IsGroupBitSet( KUINT8 Group ) const 
 {
     if( Group > 31 )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
 
@@ -150,7 +150,7 @@ KString GroupDestinationRecord::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupDestinationRecord::Decode( KDataStream & stream ) throw( KException )
+void GroupDestinationRecord::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GROUP_DESTINATION_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

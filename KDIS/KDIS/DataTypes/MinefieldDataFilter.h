@@ -76,7 +76,7 @@ public:
 
     MinefieldDataFilter();
 
-    MinefieldDataFilter( KDataStream & stream ) throw( KException );
+    MinefieldDataFilter( KDataStream & stream ) ;
 
     MinefieldDataFilter( KBOOL GroundBurialDepthOffset, KBOOL WaterBurialDepthOffset, KBOOL SnowBurialDepthOffset,
                          KBOOL MineOrientation, KBOOL ThermalContrast, KBOOL Reflectance, KBOOL MineEmplacementAge,
@@ -205,7 +205,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinefieldDataFilter::Encode

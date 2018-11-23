@@ -68,7 +68,7 @@ public:
 
     GridDataType1();
 
-    GridDataType1( KDataStream & stream ) throw( KException );
+    GridDataType1( KDataStream & stream ) ;
 
     // This constructor is used by the Gridded_Data_PDU. In order to know what type of grid
     // data we have we must decode the first 2 values.So this constructor is here to aid in this process.
@@ -138,7 +138,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridDataType1::Encode

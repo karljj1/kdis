@@ -84,9 +84,9 @@ public:
 
     Underwater_Acoustic_PDU();
 
-    Underwater_Acoustic_PDU( KDataStream & stream ) throw( KException );
+    Underwater_Acoustic_PDU( KDataStream & stream ) ;
 
-	Underwater_Acoustic_PDU( const Header & H, KDataStream & stream ) throw( KException );
+	Underwater_Acoustic_PDU( const Header & H, KDataStream & stream ) ;
 
     virtual ~Underwater_Acoustic_PDU();
 
@@ -209,7 +209,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Underwater_Acoustic_PDU::Encode

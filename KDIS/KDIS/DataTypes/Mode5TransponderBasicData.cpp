@@ -70,7 +70,7 @@ Mode5TransponderBasicData::Mode5TransponderBasicData( const Mode5TransponderStat
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderBasicData::Mode5TransponderBasicData( KDataStream & stream ) throw( KException )
+Mode5TransponderBasicData::Mode5TransponderBasicData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -209,7 +209,7 @@ NavigationSource Mode5TransponderBasicData::GetNavigationSource() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderBasicData::SetFigureOfMerit( KUINT8 FOM ) throw( KException )
+void Mode5TransponderBasicData::SetFigureOfMerit( KUINT8 FOM ) 
 {
     if( FOM > 31 )throw KException( __FUNCTION__, INVALID_DATA, "Value must be between 0-31." );
     m_ui8FigMerit = FOM;
@@ -243,7 +243,7 @@ KString Mode5TransponderBasicData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderBasicData::Decode( KDataStream & stream ) throw( KException )
+void Mode5TransponderBasicData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MODE_5_TRANSPONDER_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

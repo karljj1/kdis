@@ -61,9 +61,9 @@ public:
 
     Event_Report_PDU( const Header & H );
 
-    Event_Report_PDU( KDataStream & stream ) throw( KException );
+    Event_Report_PDU( KDataStream & stream ) ;
 
-    Event_Report_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Event_Report_PDU( const Header & H, KDataStream & stream ) ;
 
     Event_Report_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                       KDIS::DATA_TYPE::ENUMS::EventType ET );
@@ -98,7 +98,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Event_Report_PDU::Encode

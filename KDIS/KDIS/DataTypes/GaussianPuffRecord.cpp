@@ -46,7 +46,7 @@ GaussianPuffRecord::GaussianPuffRecord() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPuffRecord::GaussianPuffRecord( KDataStream & stream )throw( KException )
+GaussianPuffRecord::GaussianPuffRecord( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -258,7 +258,7 @@ KString GaussianPuffRecord::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GaussianPuffRecord::Decode( KDataStream & stream ) throw( KException )
+void GaussianPuffRecord::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GAUSSIAN_PUFF_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

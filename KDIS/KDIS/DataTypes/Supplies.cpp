@@ -61,7 +61,7 @@ Supplies::Supplies( EntityType Type, KFLOAT32 Quantity ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::Supplies( KDataStream & stream ) throw( KException )
+Supplies::Supplies( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -101,7 +101,7 @@ KString Supplies::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Supplies::Decode( KDataStream & stream ) throw( KException )
+void Supplies::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < SUPPLIES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

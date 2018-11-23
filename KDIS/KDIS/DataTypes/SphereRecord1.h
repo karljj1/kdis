@@ -49,7 +49,7 @@ public:
 
     SphereRecord1();
 
-    SphereRecord1( KDataStream & stream ) throw( KException );
+    SphereRecord1( KDataStream & stream ) ;
 
     SphereRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius  );
 

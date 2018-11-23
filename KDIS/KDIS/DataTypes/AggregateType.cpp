@@ -78,7 +78,7 @@ AggregateType::AggregateType( KUINT8 Kind, KUINT8  Domain, KUINT8 Country, KUINT
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateType::AggregateType( KDataStream & stream ) throw( KException )
+AggregateType::AggregateType( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -207,7 +207,7 @@ KString AggregateType::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateType::Decode( KDataStream & stream ) throw( KException )
+void AggregateType::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < AGGREGATE_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -47,7 +47,7 @@ GED_EnhancedRotaryWingAircraft::GED_EnhancedRotaryWingAircraft() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedRotaryWingAircraft::GED_EnhancedRotaryWingAircraft( KDataStream & stream )throw( KException )
+GED_EnhancedRotaryWingAircraft::GED_EnhancedRotaryWingAircraft( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -175,7 +175,7 @@ KString GED_EnhancedRotaryWingAircraft::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_EnhancedRotaryWingAircraft::Decode( KDataStream & stream ) throw( KException )
+void GED_EnhancedRotaryWingAircraft::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GED_ENHANCED_ROTARY_WING_AIRCRAFT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

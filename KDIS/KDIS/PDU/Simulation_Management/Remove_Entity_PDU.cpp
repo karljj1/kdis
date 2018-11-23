@@ -50,14 +50,14 @@ Remove_Entity_PDU::Remove_Entity_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::Remove_Entity_PDU( KDataStream & stream ) throw( KException )
+Remove_Entity_PDU::Remove_Entity_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::Remove_Entity_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Remove_Entity_PDU::Remove_Entity_PDU( const Header & H, KDataStream & stream )  :
     Create_Entity_PDU( H )
 {
     Decode( stream, true );

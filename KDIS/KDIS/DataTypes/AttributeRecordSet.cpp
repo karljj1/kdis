@@ -46,7 +46,7 @@ AttributeRecordSet::AttributeRecordSet() :
 
 //////////////////////////////////////////////////////////////////////////
 
-AttributeRecordSet::AttributeRecordSet( KDataStream & stream ) throw( KException )
+AttributeRecordSet::AttributeRecordSet( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -165,7 +165,7 @@ KString AttributeRecordSet::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void AttributeRecordSet::Decode( KDataStream & stream ) throw( KException )
+void AttributeRecordSet::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ATTRIBUTE_RECORD_SET_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -45,7 +45,7 @@ ArealObjectAppearance::ArealObjectAppearance()
 
 //////////////////////////////////////////////////////////////////////////
 
-ArealObjectAppearance::ArealObjectAppearance( KDataStream & stream ) throw( KException )
+ArealObjectAppearance::ArealObjectAppearance( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -98,7 +98,7 @@ KString ArealObjectAppearance::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ArealObjectAppearance::Decode( KDataStream & stream ) throw( KException )
+void ArealObjectAppearance::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ArealObjectAppearance::AREAL_OBJECT_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

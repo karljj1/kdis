@@ -47,7 +47,7 @@ GED_EnhancedGroundCombatVehicle::GED_EnhancedGroundCombatVehicle() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatVehicle::GED_EnhancedGroundCombatVehicle( KDataStream & stream )throw( KException )
+GED_EnhancedGroundCombatVehicle::GED_EnhancedGroundCombatVehicle( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -174,7 +174,7 @@ KString GED_EnhancedGroundCombatVehicle::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_EnhancedGroundCombatVehicle::Decode( KDataStream & stream ) throw( KException )
+void GED_EnhancedGroundCombatVehicle::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GED_ENHANCED_GROUND_COMBAT_VEHICLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

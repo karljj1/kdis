@@ -45,7 +45,7 @@ FixedDatum::FixedDatum() :
 
 //////////////////////////////////////////////////////////////////////////
 
-FixedDatum::FixedDatum( KDataStream & stream ) throw( KException )
+FixedDatum::FixedDatum( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -72,7 +72,7 @@ DatumID FixedDatum::GetDatumID() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void FixedDatum::GetDatumValue( KOCTET * Buffer, KUINT16 BufferSize ) const throw( KException )
+void FixedDatum::GetDatumValue( KOCTET * Buffer, KUINT16 BufferSize ) const 
 {
     if( BufferSize < 4 )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
 	memcpy( Buffer, m_cDatumValue, 4 );
@@ -98,7 +98,7 @@ KString FixedDatum::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void FixedDatum::Decode( KDataStream & stream ) throw( KException )
+void FixedDatum::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < FixedDatum::FIXED_DATUM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

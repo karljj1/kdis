@@ -64,7 +64,7 @@ public:
 
     IntercomCommunicationParameters();
 
-    IntercomCommunicationParameters( KDataStream & stream )throw( KException );
+    IntercomCommunicationParameters( KDataStream & stream );
 
     IntercomCommunicationParameters( EntityDestinationRecord * EDR );
 
@@ -111,7 +111,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::Encode

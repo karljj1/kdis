@@ -71,9 +71,9 @@ public:
 
     Electromagnetic_Emission_PDU();
 
-    Electromagnetic_Emission_PDU( KDataStream & stream ) throw( KException );
+    Electromagnetic_Emission_PDU( KDataStream & stream ) ;
 
-    Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) ;
 
     Electromagnetic_Emission_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
                                   KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI );
@@ -145,7 +145,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::Encode

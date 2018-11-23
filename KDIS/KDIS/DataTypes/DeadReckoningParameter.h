@@ -63,7 +63,7 @@ public:
 
     DeadReckoningParameter();
 
-    DeadReckoningParameter( KDataStream & stream ) throw( KException );
+    DeadReckoningParameter( KDataStream & stream ) ;
 
     DeadReckoningParameter( KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA, const Vector & LinearAcceleration,
                             const Vector & AngularVelocity );
@@ -120,7 +120,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::Encode

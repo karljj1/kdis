@@ -174,7 +174,7 @@ public:
 
     Header7();
 
-    Header7( KDataStream & stream ) throw( KException );
+    Header7( KDataStream & stream ) ;
 
     Header7( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KUINT8 ExerciseID, KDIS::DATA_TYPE::ENUMS::PDUType PT,
              KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF, const KDIS::DATA_TYPE::TimeStamp & TS, KUINT16 PDULength );
@@ -297,7 +297,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Header7::Encode

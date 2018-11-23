@@ -68,7 +68,7 @@ public:
 
     ExplosionDescriptor();
 
-    ExplosionDescriptor( KDataStream & stream )throw( KException );
+    ExplosionDescriptor( KDataStream & stream );
 
     ExplosionDescriptor( const EntityType & T, KDIS::DATA_TYPE::ENUMS::ExplosiveMaterial EM, KFLOAT32 Force );                         
 
@@ -104,7 +104,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ExplosionDescriptor::Encode

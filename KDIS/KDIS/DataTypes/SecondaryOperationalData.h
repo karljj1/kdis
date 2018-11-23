@@ -61,7 +61,7 @@ public:
 
     SecondaryOperationalData();
 
-    SecondaryOperationalData( KDataStream & stream ) throw( KException );
+    SecondaryOperationalData( KDataStream & stream ) ;
 
     SecondaryOperationalData( KUINT8 Param1, KUINT8 Param2, KUINT16 NumFundParamSets );
 
@@ -107,7 +107,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SecondaryOperationalData::Encode

@@ -45,7 +45,7 @@ APA::APA() :
 
 //////////////////////////////////////////////////////////////////////////
 
-APA::APA( KDataStream & stream ) throw( KException )
+APA::APA( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -134,7 +134,7 @@ KString APA::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void APA::Decode( KDataStream & stream ) throw( KException )
+void APA::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < APA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

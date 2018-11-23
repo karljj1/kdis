@@ -99,9 +99,9 @@ public:
 
     TSPI_PDU();
 
-    TSPI_PDU( KDataStream & stream ) throw( KException );
+    TSPI_PDU( KDataStream & stream ) ;
 
-    TSPI_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    TSPI_PDU( const Header & H, KDataStream & stream ) ;
 
     TSPI_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
@@ -266,7 +266,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::TSPI_PDU::Encode

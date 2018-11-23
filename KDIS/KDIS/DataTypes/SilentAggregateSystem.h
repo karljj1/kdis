@@ -62,7 +62,7 @@ public:
 
     SilentAggregateSystem();
 
-    SilentAggregateSystem( KDataStream & stream ) throw( KException );
+    SilentAggregateSystem( KDataStream & stream ) ;
 
     SilentAggregateSystem( KUINT16 NumAggregates, const AggregateType & T );
 
@@ -98,7 +98,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SilentAggregateSystem::Encode

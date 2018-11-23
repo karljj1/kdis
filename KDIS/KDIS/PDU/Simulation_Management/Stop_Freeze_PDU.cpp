@@ -57,14 +57,14 @@ Stop_Freeze_PDU::Stop_Freeze_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( KDataStream & stream ) throw( KException )
+Stop_Freeze_PDU::Stop_Freeze_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Stop_Freeze_PDU::Stop_Freeze_PDU( const Header & H, KDataStream & stream )  :
     Simulation_Management_Header( H )
 {
     Decode( stream, true );
@@ -190,7 +190,7 @@ KString Stop_Freeze_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Stop_Freeze_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Stop_Freeze_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < STOP_FREEZE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

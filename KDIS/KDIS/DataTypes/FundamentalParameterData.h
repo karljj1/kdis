@@ -74,7 +74,7 @@ public:
 
     FundamentalParameterData();
 
-    FundamentalParameterData( KDataStream & stream )throw( KException );
+    FundamentalParameterData( KDataStream & stream );
 
     FundamentalParameterData( KFLOAT32 Freq, KFLOAT32 FreqRange, KFLOAT32 EffectiveRadiatedPower,
                               KFLOAT32 PulseRepetitionFreq,  KFLOAT32 PulseWidth, KFLOAT32 BeamAzimuthCenter,
@@ -186,7 +186,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FundamentalParameterData::Encode

@@ -54,7 +54,7 @@ MineFusing::MineFusing( MineFuse Primary, MineFuse Secondary, KBOOL AntiHandling
 
 //////////////////////////////////////////////////////////////////////////
 
-MineFusing::MineFusing( KDataStream & stream ) throw( KException )
+MineFusing::MineFusing( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -124,7 +124,7 @@ KString MineFusing::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void MineFusing::Decode( KDataStream & stream ) throw( KException )
+void MineFusing::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MINE_FUSING_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

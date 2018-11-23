@@ -67,14 +67,14 @@ Transmitter_PDU::Transmitter_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Transmitter_PDU::Transmitter_PDU( KDataStream & stream ) throw( KException )
+Transmitter_PDU::Transmitter_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Transmitter_PDU::Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Transmitter_PDU::Transmitter_PDU( const Header & H, KDataStream & stream )  :
     Radio_Communications_Header( H )
 {
     Decode( stream, true );
@@ -329,7 +329,7 @@ void Transmitter_PDU::SetModulationParameters( const KOCTET * MP, KUINT8 Length 
 
 //////////////////////////////////////////////////////////////////////////
 
-void Transmitter_PDU::GetModulationParameters( KOCTET * MP, KUINT8 Length ) const throw( KException )
+void Transmitter_PDU::GetModulationParameters( KOCTET * MP, KUINT8 Length ) const 
 {
     if( Length < m_ui8LengthOfModulationParam )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
 
@@ -372,7 +372,7 @@ void Transmitter_PDU::SetAntennaPattern( const KOCTET * AP, KUINT16 Length )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Transmitter_PDU::GetAntennaPattern( KOCTET * AP, KUINT16 Length ) const throw( KException )
+void Transmitter_PDU::GetAntennaPattern( KOCTET * AP, KUINT16 Length ) const 
 {
     if( Length < m_ui16AntennaPatternLength )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
 
@@ -414,7 +414,7 @@ KString Transmitter_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Transmitter_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Transmitter_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < TRANSMITTER_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

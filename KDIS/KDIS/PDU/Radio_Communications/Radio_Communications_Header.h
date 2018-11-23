@@ -61,9 +61,9 @@ public:
 
     Radio_Communications_Header( const Header & H );
 
-    Radio_Communications_Header( KDataStream & stream ) throw( KException );
+    Radio_Communications_Header( KDataStream & stream ) ;
 
-    Radio_Communications_Header( const Header & H, KDataStream & stream ) throw( KException );
+    Radio_Communications_Header( const Header & H, KDataStream & stream ) ;
 
     Radio_Communications_Header( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID );
 
@@ -111,7 +111,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Radio_Communications_Header::Encode

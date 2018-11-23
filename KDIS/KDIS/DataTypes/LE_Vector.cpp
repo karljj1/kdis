@@ -54,7 +54,7 @@ LE_Vector<Type>::LE_Vector( Type X, Type Y, Type Z ) :
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-LE_Vector<Type>::LE_Vector( KDataStream & stream ) throw( KException )
+LE_Vector<Type>::LE_Vector( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -132,7 +132,7 @@ KString LE_Vector<Type>::GetAsString() const
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-void LE_Vector<Type>::Decode( KDataStream & stream ) throw( KException )
+void LE_Vector<Type>::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < LE_VECTOR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -255,7 +255,7 @@ LE_Vector<Type> & LE_Vector<Type>::operator -= ( const LE_Vector & Value )
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-Type & LE_Vector<Type>::operator [] ( KUINT16 i ) throw( KException )
+Type & LE_Vector<Type>::operator [] ( KUINT16 i ) 
 {
     switch( i )
     {
@@ -273,7 +273,7 @@ Type & LE_Vector<Type>::operator [] ( KUINT16 i ) throw( KException )
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-const Type & LE_Vector<Type>::operator [] ( KUINT16 i ) const throw( KException )
+const Type & LE_Vector<Type>::operator [] ( KUINT16 i ) const 
 {
     switch( i )
     {

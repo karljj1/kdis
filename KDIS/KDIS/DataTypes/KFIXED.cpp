@@ -99,7 +99,7 @@ KFIXED<Type, BinaryPoint>::KFIXED( Type V ) :
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::KFIXED( KDataStream & stream ) throw( KException )
+KFIXED<Type, BinaryPoint>::KFIXED( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -166,7 +166,7 @@ KString KFIXED<Type, BinaryPoint>::GetAsString() const
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type, KUINT8 BinaryPoint>
-void KFIXED<Type, BinaryPoint>::Decode( KDataStream & stream ) throw( KException )
+void KFIXED<Type, BinaryPoint>::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < sizeof( Type ) )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

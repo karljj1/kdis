@@ -67,9 +67,9 @@ public:
 
     Acknowledge_PDU( const Header & H );
 
-    Acknowledge_PDU( KDataStream & stream ) throw( KException );
+    Acknowledge_PDU( KDataStream & stream ) ;
 
-    Acknowledge_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Acknowledge_PDU( const Header & H, KDataStream & stream ) ;
 
     Acknowledge_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                      KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );
@@ -124,7 +124,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Acknowledge_PDU::Encode

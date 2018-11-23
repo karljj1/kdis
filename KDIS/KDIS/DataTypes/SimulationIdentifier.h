@@ -64,7 +64,7 @@ public:
 
     SimulationIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID );
 
-    SimulationIdentifier( KDataStream & stream ) throw( KException );
+    SimulationIdentifier( KDataStream & stream ) ;
 
     virtual ~SimulationIdentifier();
 
@@ -112,7 +112,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SimulationIdentifier::Encode

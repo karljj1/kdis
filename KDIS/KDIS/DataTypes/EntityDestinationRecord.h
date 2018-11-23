@@ -66,7 +66,7 @@ public:
 
     EntityDestinationRecord();
 
-    EntityDestinationRecord( KDataStream & stream )throw( KException );
+    EntityDestinationRecord( KDataStream & stream );
 
     EntityDestinationRecord( const EntityIdentifier & ID, KUINT16 CommDeviceID, KUINT8 LineID,
                              KUINT8 Priority, KDIS::DATA_TYPE::ENUMS::LineStateCommand LSC );
@@ -139,7 +139,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityDestinationRecord::Encode

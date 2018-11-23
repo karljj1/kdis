@@ -122,7 +122,7 @@ public:
     // Parameter:   KINT32 EnumVal
 	// Parameter:   FacDecPtr Decoder
     //************************************
-	static void RegisterFactoryDecoder( KINT32 EnumVal, FacDecPtr Decoder ) throw( KException )
+	static void RegisterFactoryDecoder( KINT32 EnumVal, FacDecPtr Decoder ) 
 	{
 		if( m_mDecoders.find( EnumVal ) != m_mDecoders.end() )
 		{
@@ -142,7 +142,7 @@ public:
     // Parameter:   KINT32 EnumVal
 	// Parameter:   KDataStream & stream
     //************************************
-	static DecoderBaseTyp * FactoryDecode( KINT32 EnumVal, KDataStream & stream ) throw( KException )
+	static DecoderBaseTyp * FactoryDecode( KINT32 EnumVal, KDataStream & stream ) 
 	{
 		// Try to find a decoder
 		typename std::map<KINT32, FacDecPtr>::iterator itr = m_mDecoders.find( EnumVal );

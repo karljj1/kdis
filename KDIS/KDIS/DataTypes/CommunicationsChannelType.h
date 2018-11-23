@@ -64,7 +64,7 @@ public:
 
     CommunicationsChannelType();
 
-    CommunicationsChannelType( KDataStream & stream ) throw( KException );
+    CommunicationsChannelType( KDataStream & stream ) ;
 
     CommunicationsChannelType( KDIS::DATA_TYPE::ENUMS::ChannelType CT, KDIS::DATA_TYPE::ENUMS::ChannelClass CC );
 
@@ -99,7 +99,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::Encode

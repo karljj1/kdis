@@ -66,7 +66,7 @@ public:
 
     UnderwaterAcousticFundamentalParameterData();
 
-    UnderwaterAcousticFundamentalParameterData( KDataStream & stream )throw( KException );
+    UnderwaterAcousticFundamentalParameterData( KDataStream & stream );
 
     UnderwaterAcousticFundamentalParameterData( KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex AEPI, KDIS::DATA_TYPE::ENUMS::ScanPattern SP, 
 		                                        KFLOAT32 BeamCenterAzimuth, KFLOAT32 AzimuthalBeamwidth, KFLOAT32 BeamCenter, KFLOAT32 BeamWidth );
@@ -155,7 +155,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData::Encode

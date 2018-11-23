@@ -47,7 +47,7 @@ EnhancedMode1Code::EnhancedMode1Code()
 
 //////////////////////////////////////////////////////////////////////////
 
-EnhancedMode1Code::EnhancedMode1Code( KDataStream & stream ) throw( KException )
+EnhancedMode1Code::EnhancedMode1Code( KDataStream & stream ) 
 {
     Decode( stream );
 }

@@ -62,9 +62,9 @@ public:
 
     Repair_Response_PDU();
 
-    Repair_Response_PDU( KDataStream & stream ) throw( KException );
+    Repair_Response_PDU( KDataStream & stream ) ;
 
-    Repair_Response_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Repair_Response_PDU( const Header & H, KDataStream & stream ) ;
 
     Repair_Response_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntityID,
                          KDIS::DATA_TYPE::ENUMS::RepairResult RR );
@@ -92,7 +92,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Repair_Response_PDU::Encode

@@ -67,7 +67,7 @@ public:
 
     FlareState();
 
-    FlareState( KDataStream & stream ) throw( KException );
+    FlareState( KDataStream & stream ) ;
 
     FlareState( KUINT8 Index, KUINT32 TimeSinceCreation, const EntityType & MunitionSource,
                 KUINT32 NumberIntensity, KUINT32 NumberOfSources, KUINT16 GeometryIndex );
@@ -131,7 +131,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FlareState::Encode

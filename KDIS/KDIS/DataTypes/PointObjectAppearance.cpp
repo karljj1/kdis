@@ -44,7 +44,7 @@ PointObjectAppearance::PointObjectAppearance()
 
 //////////////////////////////////////////////////////////////////////////
 
-PointObjectAppearance::PointObjectAppearance( KDataStream & stream ) throw( KException )
+PointObjectAppearance::PointObjectAppearance( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -71,7 +71,7 @@ Breach2bit PointObjectAppearance::GetBreach() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void PointObjectAppearance::SetOpacity( KUINT8 O ) throw( KException )
+void PointObjectAppearance::SetOpacity( KUINT8 O ) 
 {
     if( O > 100 ) throw KException( __FUNCTION__, INVALID_DATA, "Acceptable values are 0-100." );
 
@@ -183,7 +183,7 @@ KString PointObjectAppearance::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void PointObjectAppearance::Decode( KDataStream & stream ) throw( KException )
+void PointObjectAppearance::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < POINT_OBJECT_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

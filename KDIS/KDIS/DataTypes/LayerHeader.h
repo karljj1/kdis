@@ -72,7 +72,7 @@ public:
 
     LayerHeader();
 
-    LayerHeader( KDataStream & stream ) throw( KException );
+    LayerHeader( KDataStream & stream ) ;
 
     LayerHeader( KUINT8 LayerNumber, KUINT8 LayerSpecificInfo, KUINT16 LayerLength );
 
@@ -117,7 +117,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LayerHeader::Encode

@@ -56,7 +56,7 @@ PDU_FactoryLink16::~PDU_FactoryLink16()
 
 //////////////////////////////////////////////////////////////////////////
 
-unique_ptr<Header> PDU_FactoryLink16::Decode( const Header & H, KDataStream & Stream )throw( KException )
+unique_ptr<Header> PDU_FactoryLink16::Decode( const Header & H, KDataStream & Stream )
 {
     switch( H.GetPDUType() )
     {

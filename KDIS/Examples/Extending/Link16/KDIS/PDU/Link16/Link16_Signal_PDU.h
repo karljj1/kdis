@@ -97,9 +97,9 @@ public:
 
 	Link16_Signal_PDU();	
 
-	Link16_Signal_PDU( KDataStream & stream ) throw( KException );
+	Link16_Signal_PDU( KDataStream & stream ) ;
 
-	Link16_Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
+	Link16_Signal_PDU( const Header & H, KDataStream & stream ) ;
 
 	Link16_Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
                        KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength,
@@ -219,7 +219,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Signal_PDU::Encode

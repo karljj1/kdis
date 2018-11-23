@@ -50,7 +50,7 @@ PositionError::PositionError( KFIXED16_8 Horizontal, KFIXED16_8 Vertical ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-PositionError::PositionError( KDataStream & stream ) throw( KException )
+PositionError::PositionError( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -104,7 +104,7 @@ KString PositionError::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void PositionError::Decode( KDataStream & stream ) throw( KException )
+void PositionError::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < POSITION_ERROR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

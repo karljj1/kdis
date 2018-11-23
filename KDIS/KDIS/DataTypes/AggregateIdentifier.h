@@ -61,7 +61,7 @@ public:
 
     AggregateIdentifier( const SimulationIdentifier & SimID, KUINT16 AggregateID );
 
-    AggregateIdentifier( KDataStream & stream ) throw( KException );
+    AggregateIdentifier( KDataStream & stream ) ;
 
     virtual ~AggregateIdentifier();
 
@@ -85,7 +85,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::Encode

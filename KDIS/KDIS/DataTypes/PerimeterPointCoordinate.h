@@ -59,7 +59,7 @@ public:
 
     PerimeterPointCoordinate( KFLOAT32 X, KFLOAT32 Y );
 
-    PerimeterPointCoordinate( KDataStream & stream ) throw( KException );
+    PerimeterPointCoordinate( KDataStream & stream ) ;
 
     virtual ~PerimeterPointCoordinate();
 
@@ -92,7 +92,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::Encode
@@ -106,8 +106,8 @@ public:
     KBOOL operator != ( const PerimeterPointCoordinate & Value ) const;
 
     // Valid values 0 - X, 1 - Y. throws OUT_OF_BOUNDS exception for any other value.
-    KFLOAT32 & operator[] ( KUINT16 i ) throw( KException );
-    const KFLOAT32 & operator[]  ( KUINT16 i ) const throw( KException );
+    KFLOAT32 & operator[] ( KUINT16 i ) ;
+    const KFLOAT32 & operator[]  ( KUINT16 i ) const ;
 };
 
 } // END namespace DATA_TYPES

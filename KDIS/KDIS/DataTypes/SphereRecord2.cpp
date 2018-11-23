@@ -45,7 +45,7 @@ SphereRecord2::SphereRecord2()
 
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord2::SphereRecord2( KDataStream & stream )throw( KException )
+SphereRecord2::SphereRecord2( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -142,7 +142,7 @@ KString SphereRecord2::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void SphereRecord2::Decode( KDataStream & stream ) throw( KException )
+void SphereRecord2::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < SPHERE_RECORD_2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

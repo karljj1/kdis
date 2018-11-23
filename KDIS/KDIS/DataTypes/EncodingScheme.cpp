@@ -44,7 +44,7 @@ EncodingScheme::EncodingScheme()
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::EncodingScheme( KDataStream & stream ) throw( KException )
+EncodingScheme::EncodingScheme( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -147,7 +147,7 @@ KString EncodingScheme::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EncodingScheme::Decode( KDataStream & stream ) throw( KException )
+void EncodingScheme::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ENCODING_SCHEME_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

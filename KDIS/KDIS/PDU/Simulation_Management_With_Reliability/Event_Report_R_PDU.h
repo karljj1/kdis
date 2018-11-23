@@ -54,9 +54,9 @@ public:
 
     Event_Report_R_PDU();
 
-    Event_Report_R_PDU( KDataStream & stream ) throw( KException );
+    Event_Report_R_PDU( KDataStream & stream ) ;
 
-    Event_Report_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Event_Report_R_PDU( const Header & H, KDataStream & stream ) ;
 
     Event_Report_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                         KDIS::DATA_TYPE::ENUMS::EventType ET );

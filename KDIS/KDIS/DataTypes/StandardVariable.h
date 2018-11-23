@@ -73,7 +73,7 @@ public:
 
     StandardVariable();
 
-    StandardVariable( KDataStream & stream ) throw( KException );
+    StandardVariable( KDataStream & stream ) ;
 
     virtual ~StandardVariable();
 
@@ -108,14 +108,14 @@ public:
     //              too small(NOT_ENOUGH_DATA_IN_BUFFER).
     // Parameter:   KDataStream & stream
     //************************************
-    static StdVarPtr FactoryDecodeStandardVariable(  KDataStream & stream ) throw( KException );
+    static StdVarPtr FactoryDecodeStandardVariable(  KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::StandardVariable::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::StandardVariable::Encode

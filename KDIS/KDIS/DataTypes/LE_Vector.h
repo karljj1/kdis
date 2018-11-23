@@ -63,7 +63,7 @@ public:
 
     LE_Vector( Type X, Type Y, Type Z );
 
-    LE_Vector( KDataStream & stream ) throw( KException );
+    LE_Vector( KDataStream & stream ) ;
 
     virtual ~LE_Vector();
 
@@ -105,7 +105,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_Vector::Encode
@@ -125,8 +125,8 @@ public:
     LE_Vector & operator -= ( const LE_Vector & Value );
 
     // Valid values 0 - X, 1 - Y, 2 - Z. throws OUT_OF_BOUNDS exception for any other value.
-    Type & operator[] ( KUINT16 i ) throw( KException );
-    const Type & operator[]  ( KUINT16 i ) const throw( KException );
+    Type & operator[] ( KUINT16 i ) ;
+    const Type & operator[]  ( KUINT16 i ) const ;
 };
 
 // Predefined LE_Vector types.

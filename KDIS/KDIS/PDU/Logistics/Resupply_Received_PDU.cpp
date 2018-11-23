@@ -63,14 +63,14 @@ Resupply_Received_PDU::Resupply_Received_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Received_PDU::Resupply_Received_PDU( KDataStream & stream ) throw( KException )
+Resupply_Received_PDU::Resupply_Received_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Received_PDU::Resupply_Received_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Resupply_Received_PDU::Resupply_Received_PDU( const Header & H, KDataStream & stream )  :
     Logistics_Header( H )
 {
     Decode( stream, true );
@@ -170,7 +170,7 @@ KString Resupply_Received_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Resupply_Received_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Resupply_Received_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RESUPPLY_RECEIVED_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

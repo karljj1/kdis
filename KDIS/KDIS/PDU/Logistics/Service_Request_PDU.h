@@ -57,9 +57,9 @@ public:
 
     Service_Request_PDU();
 
-    Service_Request_PDU( KDataStream & stream ) throw( KException );
+    Service_Request_PDU( KDataStream & stream ) ;
 
-    Service_Request_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Service_Request_PDU( const Header & H, KDataStream & stream ) ;
 
     Service_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
                          KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
@@ -87,7 +87,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Service_Request_PDU::Encode

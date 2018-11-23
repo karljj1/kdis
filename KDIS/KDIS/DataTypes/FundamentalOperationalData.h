@@ -80,7 +80,7 @@ public:
 
     FundamentalOperationalData();
 
-    FundamentalOperationalData( KDataStream & stream ) throw( KException );
+    FundamentalOperationalData( KDataStream & stream ) ;
 
     FundamentalOperationalData( const FundamentalOperationalData_MarkXTransponder & FOD );
 
@@ -122,7 +122,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::Encode

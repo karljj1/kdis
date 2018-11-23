@@ -48,7 +48,7 @@ GED_BasicRotorWingAircraft::GED_BasicRotorWingAircraft() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicRotorWingAircraft::GED_BasicRotorWingAircraft( KDataStream & stream )throw( KException )
+GED_BasicRotorWingAircraft::GED_BasicRotorWingAircraft( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -167,7 +167,7 @@ KString GED_BasicRotorWingAircraft::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_BasicRotorWingAircraft::Decode( KDataStream & stream ) throw( KException )
+void GED_BasicRotorWingAircraft::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GED_BASIC_ROTOR_WING_AIRCRAFT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

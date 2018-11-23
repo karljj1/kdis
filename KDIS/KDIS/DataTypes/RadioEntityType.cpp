@@ -75,7 +75,7 @@ RadioEntityType::RadioEntityType( KUINT8 Kind, KUINT8  Domain, KUINT8 Country, K
 
 //////////////////////////////////////////////////////////////////////////
 
-RadioEntityType::RadioEntityType( KDataStream & stream ) throw( KException )
+RadioEntityType::RadioEntityType( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -189,7 +189,7 @@ KString RadioEntityType::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void RadioEntityType::Decode( KDataStream & stream ) throw( KException )
+void RadioEntityType::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < RADIO_ENTITY_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -78,7 +78,7 @@ EnvironmentType::EnvironmentType( EntityDomain Domain, KUINT16 Class, KUINT8  Ca
 
 //////////////////////////////////////////////////////////////////////////
 
-EnvironmentType::EnvironmentType( KDataStream & stream ) throw( KException )
+EnvironmentType::EnvironmentType( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -207,7 +207,7 @@ KString EnvironmentType::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EnvironmentType::Decode( KDataStream & stream ) throw( KException )
+void EnvironmentType::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ENVIROMENT_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

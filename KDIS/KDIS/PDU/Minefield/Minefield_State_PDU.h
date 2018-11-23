@@ -100,9 +100,9 @@ public:
 
     Minefield_State_PDU();
 
-    Minefield_State_PDU( KDataStream & stream ) throw( KException );
+    Minefield_State_PDU( KDataStream & stream ) ;
 
-    Minefield_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Minefield_State_PDU( const Header & H, KDataStream & stream ) ;
 
     Minefield_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 SequenceNumber, KDIS::DATA_TYPE::ENUMS::ForceID FID, const KDIS::DATA_TYPE::EntityType & Type,
                          const KDIS::DATA_TYPE::WorldCoordinates & Loc, const KDIS::DATA_TYPE::EulerAngles & Ori, const KDIS::DATA_TYPE::MinefieldAppearance & MA,
@@ -233,7 +233,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_State_PDU::Encode

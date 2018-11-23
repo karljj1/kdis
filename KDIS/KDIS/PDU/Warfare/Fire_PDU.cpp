@@ -51,14 +51,14 @@ Fire_PDU::Fire_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Fire_PDU::Fire_PDU( KDataStream & stream ) throw( KException )
+Fire_PDU::Fire_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Fire_PDU::Fire_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Fire_PDU::Fire_PDU( const Header & H, KDataStream & stream )  :
     Warfare_Header( H )
 {
     Decode( stream, true );
@@ -243,7 +243,7 @@ KString Fire_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < FIRE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -60,7 +60,7 @@ public:
 
     Supplies( EntityType Type, KFLOAT32 Quantity );
 
-    Supplies( KDataStream & stream ) throw( KException );
+    Supplies( KDataStream & stream ) ;
 
     virtual ~Supplies();
 
@@ -84,7 +84,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Supplies::Encode

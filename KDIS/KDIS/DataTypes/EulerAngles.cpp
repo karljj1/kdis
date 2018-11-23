@@ -56,7 +56,7 @@ EulerAngles::EulerAngles( KFLOAT32 Psi, KFLOAT32 Theta, KFLOAT32 Phi ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-EulerAngles::EulerAngles( KDataStream & stream ) throw( KException )
+EulerAngles::EulerAngles( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -166,7 +166,7 @@ KString EulerAngles::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EulerAngles::Decode( KDataStream & stream ) throw( KException )
+void EulerAngles::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < EULER_ANGLES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -278,7 +278,7 @@ EulerAngles & EulerAngles::operator -= ( const EulerAngles & Value )
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 & EulerAngles::operator [] ( KUINT16 i ) throw( KException )
+KFLOAT32 & EulerAngles::operator [] ( KUINT16 i ) 
 {
     switch( i )
     {
@@ -295,7 +295,7 @@ KFLOAT32 & EulerAngles::operator [] ( KUINT16 i ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-const KFLOAT32 & EulerAngles::operator [] ( KUINT16 i ) const throw( KException )
+const KFLOAT32 & EulerAngles::operator [] ( KUINT16 i ) const 
 {
     switch( i )
     {

@@ -46,7 +46,7 @@ CommunicationsNodeID::CommunicationsNodeID() :
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::CommunicationsNodeID( KDataStream & stream ) throw( KException )
+CommunicationsNodeID::CommunicationsNodeID( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -109,7 +109,7 @@ KString CommunicationsNodeID::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void CommunicationsNodeID::Decode( KDataStream & stream ) throw( KException )
+void CommunicationsNodeID::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < COMMUNICATIONS_NODE_ID_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
