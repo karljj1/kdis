@@ -66,9 +66,9 @@ public:
 
     Object_State_Header( const Header & H );
 
-    Object_State_Header( KDataStream & stream ) throw( KException );
+    Object_State_Header( KDataStream & stream ) ;
 
-    Object_State_Header( const Header & H, KDataStream & stream ) throw( KException );
+    Object_State_Header( const Header & H, KDataStream & stream ) ;
 
     Object_State_Header( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID ,
                          KUINT16 UpdateNum, KDIS::DATA_TYPE::ENUMS::ForceID FI );
@@ -127,7 +127,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Object_State_Header::Encode

@@ -90,11 +90,11 @@ protected:
     // Description: Return wire or throw exception if not found.
     // Parameter:   KUINT16 Index
     //************************************
-    std::map< KUINT16, std::vector<Vector> >::iterator getWire( KUINT16 Index ) throw( KException );
+    std::map< KUINT16, std::vector<Vector> >::iterator getWire( KUINT16 Index ) ;
 
     // Not Used. It is not possible to use this method of decoding/encoding as the values are
     // not all stored sequentially in the Minefield Data PDU. The PDU must do all the encoding/decoding.
-    virtual void Decode( KDataStream & stream ) throw( KException ) {};
+    virtual void Decode( KDataStream & stream )  {};
     virtual KDataStream Encode() const {
         return KDataStream();
     };
@@ -353,11 +353,11 @@ public:
     // Parameter:   KUINT16 Index - OUT_OF_BOUNDS exception thrown if invalid.
     // Parameter:   const Vector & Vertex, const vector<Vector> & Vertices
     //************************************
-	void AddVertexToTripDetonationWire( KUINT16 Index, const KDIS::DATA_TYPE::Vector & Vertex ) throw( KException );
-	void SetTripDetonationWireVertices( KUINT16 Index, const std::vector<KDIS::DATA_TYPE::Vector> & Vertices ) throw( KException );
-    void RemoveTripDetonationWire( KUINT16 Index ) throw( KException );
-	const std::vector<KDIS::DATA_TYPE::Vector> & GetWireVertices( KUINT16 Index ) throw( KException );
-    void ClearWireVertices( KUINT16 Index ) throw( KException );
+	void AddVertexToTripDetonationWire( KUINT16 Index, const KDIS::DATA_TYPE::Vector & Vertex ) ;
+	void SetTripDetonationWireVertices( KUINT16 Index, const std::vector<KDIS::DATA_TYPE::Vector> & Vertices ) ;
+    void RemoveTripDetonationWire( KUINT16 Index ) ;
+	const std::vector<KDIS::DATA_TYPE::Vector> & GetWireVertices( KUINT16 Index ) ;
+    void ClearWireVertices( KUINT16 Index ) ;
 
     /* End of trip detonation wire functions                                */
     /************************************************************************/

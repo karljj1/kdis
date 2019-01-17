@@ -53,9 +53,9 @@ public:
 
     Comment_R_PDU();
 
-    Comment_R_PDU( KDataStream & stream ) throw( KException );
+    Comment_R_PDU( KDataStream & stream ) ;
 
-    Comment_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Comment_R_PDU( const Header & H, KDataStream & stream ) ;
 
     Comment_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
 

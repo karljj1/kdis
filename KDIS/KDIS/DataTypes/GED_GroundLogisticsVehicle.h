@@ -65,7 +65,7 @@ public:
 
     GED_GroundLogisticsVehicle();
 
-    GED_GroundLogisticsVehicle( KDataStream & stream )throw( KException );
+    GED_GroundLogisticsVehicle( KDataStream & stream );
 
     GED_GroundLogisticsVehicle( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA,
                                 KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed );
@@ -173,7 +173,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::Encode

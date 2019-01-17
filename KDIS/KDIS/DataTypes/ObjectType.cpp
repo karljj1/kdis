@@ -57,7 +57,7 @@ ObjectType::ObjectType( KUINT8 Domain, KUINT8 Kind, KUINT8 Categoy, KUINT8 SubCa
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType::ObjectType( KDataStream & stream ) throw( KException )
+ObjectType::ObjectType( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -141,7 +141,7 @@ KString ObjectType::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectType::Decode( KDataStream & stream ) throw( KException )
+void ObjectType::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < OBJECT_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

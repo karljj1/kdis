@@ -59,9 +59,9 @@ public:
 
     Action_Response_PDU( const Header & H );
 
-    Action_Response_PDU( KDataStream & stream ) throw( KException );
+    Action_Response_PDU( KDataStream & stream ) ;
 
-    Action_Response_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Action_Response_PDU( const Header & H, KDataStream & stream ) ;
 
     // Generate a response from a PDU.
     Action_Response_PDU( const Action_Request_PDU & pdu, KDIS::DATA_TYPE::ENUMS::RequestStatus RS );
@@ -89,7 +89,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Action_Response_PDU::Encode

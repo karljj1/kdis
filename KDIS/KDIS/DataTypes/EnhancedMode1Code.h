@@ -51,7 +51,7 @@ public:
 
     EnhancedMode1Code();
 
-    EnhancedMode1Code( KDataStream & stream ) throw( KException );
+    EnhancedMode1Code( KDataStream & stream ) ;
 
     virtual ~EnhancedMode1Code();
 

@@ -57,14 +57,14 @@ Acknowledge_PDU::Acknowledge_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( KDataStream & stream ) throw( KException )
+Acknowledge_PDU::Acknowledge_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Acknowledge_PDU::Acknowledge_PDU( const Header & H, KDataStream & stream )  :
     Simulation_Management_Header( H )
 {
     Decode( stream, true );
@@ -211,7 +211,7 @@ KString Acknowledge_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Acknowledge_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Acknowledge_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ACKNOWLEDGE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

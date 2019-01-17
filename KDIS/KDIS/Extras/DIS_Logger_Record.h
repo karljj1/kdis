@@ -68,7 +68,7 @@ protected:
     // Description: Saves to the file as text.
     // Parameter:   const KString & S
     //************************************
-    void writeToFile( const KString & S ) throw( KException );
+    void writeToFile( const KString & S ) ;
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Record::writeToBuffer
@@ -96,7 +96,7 @@ public:
     // Parameter:   const KDataStream & Stream
     //************************************
     template<class Type>
-    void Record( Type Stamp, const KDataStream & stream ) throw( KException );
+    void Record( Type Stamp, const KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Record::Save
@@ -105,7 +105,7 @@ public:
     //              the buffered data to the file and clear
     //              the buffer.
     //************************************
-    void Save() throw( KException );
+    void Save() ;
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Record::Save
@@ -129,7 +129,7 @@ public:
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-void DIS_Logger_Record::Record( Type Stamp, const KDataStream & Stream ) throw( KException )
+void DIS_Logger_Record::Record( Type Stamp, const KDataStream & Stream ) 
 {
     KStringStream ss;
     ss << Stamp << "\n" << Stream.GetAsString();

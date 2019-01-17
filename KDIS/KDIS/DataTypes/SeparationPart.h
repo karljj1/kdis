@@ -78,7 +78,7 @@ public:
 
     SeparationPart(ReasonForSeparation RFS, PreEntityIndicator PEI, const EntityIdentifier & PEID, const NamedLocationIdentifier & SL);
 
-    SeparationPart( KDataStream & stream ) throw( KException );
+    SeparationPart( KDataStream & stream ) ;
 
     virtual ~SeparationPart();
 
@@ -133,7 +133,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SeparationPart::Encode

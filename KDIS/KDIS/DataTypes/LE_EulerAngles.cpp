@@ -53,7 +53,7 @@ LE_EulerAngles::LE_EulerAngles( KFIXED8_3 Psi, KFIXED8_3 Theta, KFIXED8_3 Phi ) 
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_EulerAngles::LE_EulerAngles( KDataStream & stream ) throw( KException )
+LE_EulerAngles::LE_EulerAngles( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -163,7 +163,7 @@ KString LE_EulerAngles::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_EulerAngles::Decode( KDataStream & stream ) throw( KException )
+void LE_EulerAngles::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < LE_EULER_ANGLES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -275,7 +275,7 @@ LE_EulerAngles & LE_EulerAngles::operator -= ( const LE_EulerAngles & Value )
 
 //////////////////////////////////////////////////////////////////////////
 
-KFIXED8_3 & LE_EulerAngles::operator [] ( KUINT16 i ) throw( KException )
+KFIXED8_3 & LE_EulerAngles::operator [] ( KUINT16 i ) 
 {
     switch( i )
     {
@@ -292,7 +292,7 @@ KFIXED8_3 & LE_EulerAngles::operator [] ( KUINT16 i ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-const KFIXED8_3 & LE_EulerAngles::operator [] ( KUINT16 i ) const throw( KException )
+const KFIXED8_3 & LE_EulerAngles::operator [] ( KUINT16 i ) const 
 {
     switch( i )
     {

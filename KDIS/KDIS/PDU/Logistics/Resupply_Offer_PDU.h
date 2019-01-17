@@ -53,9 +53,9 @@ public:
 
     Resupply_Offer_PDU();
 
-    Resupply_Offer_PDU( KDataStream & stream ) throw( KException );
+    Resupply_Offer_PDU( KDataStream & stream ) ;
 
-    Resupply_Offer_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Resupply_Offer_PDU( const Header & H, KDataStream & stream ) ;
 
     Resupply_Offer_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
 

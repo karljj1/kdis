@@ -66,9 +66,9 @@ public:
 
     Minefield_Response_NACK_PDU();
 
-    Minefield_Response_NACK_PDU( KDataStream & stream ) throw( KException );
+    Minefield_Response_NACK_PDU( KDataStream & stream ) ;
 
-    Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) ;
 
     Minefield_Response_NACK_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                                  KUINT8 ReqID );
@@ -135,7 +135,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Encode

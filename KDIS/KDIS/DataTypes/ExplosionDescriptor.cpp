@@ -49,7 +49,7 @@ ExplosionDescriptor::ExplosionDescriptor() :
 
 //////////////////////////////////////////////////////////////////////////
 
-ExplosionDescriptor::ExplosionDescriptor( KDataStream & stream )throw( KException )
+ExplosionDescriptor::ExplosionDescriptor( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -115,7 +115,7 @@ KString ExplosionDescriptor::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ExplosionDescriptor::Decode( KDataStream & stream ) throw( KException )
+void ExplosionDescriptor::Decode( KDataStream & stream ) 
 {
 	Descriptor::Decode( stream );
 

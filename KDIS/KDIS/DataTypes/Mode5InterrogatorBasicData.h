@@ -72,7 +72,7 @@ public:
 
 	Mode5InterrogatorBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID );
 
-    Mode5InterrogatorBasicData( KDataStream & stream ) throw( KException );
+    Mode5InterrogatorBasicData( KDataStream & stream ) ;
 
     virtual ~Mode5InterrogatorBasicData();
 
@@ -133,7 +133,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::Encode

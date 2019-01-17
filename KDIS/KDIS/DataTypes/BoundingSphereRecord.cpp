@@ -47,7 +47,7 @@ BoundingSphereRecord::BoundingSphereRecord() :
 
 //////////////////////////////////////////////////////////////////////////
 
-BoundingSphereRecord::BoundingSphereRecord( KDataStream & stream )throw( KException )
+BoundingSphereRecord::BoundingSphereRecord( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -120,7 +120,7 @@ KString BoundingSphereRecord::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void BoundingSphereRecord::Decode( KDataStream & stream ) throw( KException )
+void BoundingSphereRecord::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < BOUNDING_SPHERE_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

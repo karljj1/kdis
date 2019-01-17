@@ -61,7 +61,7 @@ public:
 
     AttributeRecordSet();
 
-    AttributeRecordSet( KDataStream & stream ) throw( KException );
+    AttributeRecordSet( KDataStream & stream ) ;
 
     AttributeRecordSet( const EntityIdentifier & EI );
     
@@ -115,7 +115,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AttributeRecordSet::Encode

@@ -68,9 +68,9 @@ public:
 
     Fire_PDU();
 
-    Fire_PDU( KDataStream & stream ) throw( KException );
+    Fire_PDU( KDataStream & stream ) ;
 
-    Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Fire_PDU( const Header & H, KDataStream & stream ) ;
 
     Fire_PDU( const Warfare_Header & WarfareHeader, KUINT32 FireMissionIndex, const KDIS::DATA_TYPE::WorldCoordinates & Location,
               KDIS::DATA_TYPE::DescPtr Desc, const KDIS::DATA_TYPE::Vector & Velocity, KFLOAT32 Range );
@@ -163,7 +163,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Fire_PDU::Encode

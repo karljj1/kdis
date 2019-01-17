@@ -84,7 +84,7 @@ public:
     SystemIdentifier( KDIS::DATA_TYPE::ENUMS::SystemType T, KDIS::DATA_TYPE::ENUMS::SystemName N, KDIS::DATA_TYPE::ENUMS::SystemMode M, 
 		              KBOOL ChangeIndicator, KBOOL AltMode4 = false, KBOOL AltModeC = false );
 
-    SystemIdentifier( KDataStream & stream ) throw( KException );
+    SystemIdentifier( KDataStream & stream ) ;
 
     virtual ~SystemIdentifier();
 
@@ -159,7 +159,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::Encode

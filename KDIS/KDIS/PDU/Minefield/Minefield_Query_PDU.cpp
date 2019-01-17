@@ -102,14 +102,14 @@ Minefield_Query_PDU::Minefield_Query_PDU( const EntityIdentifier & MinefieldID, 
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Query_PDU::Minefield_Query_PDU( KDataStream & stream ) throw( KException )
+Minefield_Query_PDU::Minefield_Query_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Query_PDU::Minefield_Query_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Minefield_Query_PDU::Minefield_Query_PDU( const Header & H, KDataStream & stream )  :
     Minefield_Header( H )
 {
     Decode( stream, true );
@@ -312,7 +312,7 @@ KString Minefield_Query_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Query_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Minefield_Query_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_QUERY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

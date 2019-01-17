@@ -45,14 +45,14 @@ EntityMarking::EntityMarking() :
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::EntityMarking( KDataStream & stream ) throw( KException )
+EntityMarking::EntityMarking( KDataStream & stream ) 
 {
     Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::EntityMarking( EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) throw( KException ) :
+EntityMarking::EntityMarking( EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize )  :
     m_ui8EntityMarkingCharacterSet( MarkingCharSet )
 {
     if( TextSize > 11 )throw KException( __FUNCTION__, STRING_PDU_SIZE_TOO_BIG );
@@ -63,7 +63,7 @@ EntityMarking::EntityMarking( EntityMarkingCharacterSet MarkingCharSet, const KC
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::EntityMarking( const EntityMarkingCharacterSet MarkingCharSet, const KString & MarkingText ) throw( KException ) :
+EntityMarking::EntityMarking( const EntityMarkingCharacterSet MarkingCharSet, const KString & MarkingText )  :
 	m_ui8EntityMarkingCharacterSet( MarkingCharSet )
 {
 	if( MarkingText.size() > 11 ) throw KException( __FUNCTION__, STRING_PDU_SIZE_TOO_BIG );
@@ -94,7 +94,7 @@ EntityMarkingCharacterSet EntityMarking::GetEntityMarkingCharacterSet() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityMarking::SetEntityMarkingString( const KINT8 * EMS, KUINT16 StringSize ) throw( KException )
+void EntityMarking::SetEntityMarkingString( const KINT8 * EMS, KUINT16 StringSize ) 
 {
     if( StringSize > 11 ) throw KException( __FUNCTION__, STRING_PDU_SIZE_TOO_BIG );
 
@@ -104,7 +104,7 @@ void EntityMarking::SetEntityMarkingString( const KINT8 * EMS, KUINT16 StringSiz
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityMarking::SetEntityMarkingString( const KString & EMS ) throw( KException )
+void EntityMarking::SetEntityMarkingString( const KString & EMS ) 
 {
 	if( EMS.size() > 11 ) throw KException( __FUNCTION__, STRING_PDU_SIZE_TOO_BIG );
 
@@ -135,7 +135,7 @@ KString EntityMarking::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityMarking::Decode( KDataStream & stream ) throw( KException )
+void EntityMarking::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ENTITY_MARKING_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

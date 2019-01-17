@@ -70,7 +70,7 @@ public:
 
     MineFusing( KDIS::DATA_TYPE::ENUMS::MineFuse Primary, KDIS::DATA_TYPE::ENUMS::MineFuse Secondary, KBOOL AntiHandlingDevice );
 
-    MineFusing( KDataStream & stream ) throw( KException );
+    MineFusing( KDataStream & stream ) ;
 
     virtual ~MineFusing();
 
@@ -114,7 +114,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MineFusing::Encode

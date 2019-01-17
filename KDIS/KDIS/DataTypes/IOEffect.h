@@ -66,11 +66,11 @@ public:
     static const KUINT16 IO_EFFECT_TYPE_SIZE = 16;
 
     IOEffect( KDIS::DATA_TYPE::ENUMS::IOStatus S, KDIS::DATA_TYPE::ENUMS::IOLinkType LT, KDIS::DATA_TYPE::ENUMS::IOEffectType ET, 
-		      KUINT8 DutyCycle, KUINT16 Duration, KUINT16 Process ) throw( KException );
+		      KUINT8 DutyCycle, KUINT16 Duration, KUINT16 Process ) ;
 
     IOEffect();
 
-    IOEffect( KDataStream & stream ) throw( KException );
+    IOEffect( KDataStream & stream ) ;
 
     virtual ~IOEffect();
 
@@ -110,7 +110,7 @@ public:
     //              Throws OUT_OF_BOUNDS exception if value is > 100.
     // Parameter:   KUINT8 EDC
     //************************************
-    void SetEffectDutyCycle( KUINT8 EDC ) throw( KException );
+    void SetEffectDutyCycle( KUINT8 EDC ) ;
     KUINT8 GetEffectDutyCycle() const;
 
     //************************************
@@ -147,7 +147,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOEffect::Encode

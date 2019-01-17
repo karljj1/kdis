@@ -97,13 +97,13 @@ public:
 
     IsGroupOf_PDU();
 
-    IsGroupOf_PDU( KDataStream & stream ) throw( KException );
+    IsGroupOf_PDU( KDataStream & stream ) ;
 
-    IsGroupOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    IsGroupOf_PDU( const Header & H, KDataStream & stream ) ;
 
     IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GED, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude );
 
-    IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const KDIS::DATA_TYPE::GEDList & GED ) throw( KException );
+    IsGroupOf_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const KDIS::DATA_TYPE::GEDList & GED ) ;
 
     virtual ~IsGroupOf_PDU();
 
@@ -176,8 +176,8 @@ public:
     //                  GED_GroundLogisticsVehicle
     // Parameter:   const GEDItem & GED, const GEDList & GED, void
     //************************************
-    void AddGED( const KDIS::DATA_TYPE::GEDItem & GED ) throw( KException );
-    void SetGED( const KDIS::DATA_TYPE::GEDList & GED ) throw( KException );
+    void AddGED( const KDIS::DATA_TYPE::GEDItem & GED ) ;
+    void SetGED( const KDIS::DATA_TYPE::GEDList & GED ) ;
     const KDIS::DATA_TYPE::GEDList & GetGED() const;
 
     //************************************
@@ -192,7 +192,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::IsGroupOf_PDU::Encode

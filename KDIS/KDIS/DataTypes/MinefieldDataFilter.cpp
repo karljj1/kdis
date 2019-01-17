@@ -65,7 +65,7 @@ MinefieldDataFilter::MinefieldDataFilter( KBOOL GroundBurialDepthOffset, KBOOL W
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::MinefieldDataFilter( KDataStream & stream ) throw( KException )
+MinefieldDataFilter::MinefieldDataFilter( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -255,7 +255,7 @@ KString MinefieldDataFilter::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::Decode( KDataStream & stream ) throw( KException )
+void MinefieldDataFilter::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MINEFIELD_DATA_FILTER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -55,7 +55,7 @@ MinefieldAppearance::MinefieldAppearance( MinefieldType T, KBOOL IsStatusActive,
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldAppearance::MinefieldAppearance( KDataStream & stream ) throw( KException )
+MinefieldAppearance::MinefieldAppearance( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -140,7 +140,7 @@ KString MinefieldAppearance::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldAppearance::Decode( KDataStream & stream ) throw( KException )
+void MinefieldAppearance::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MINEFIELD_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -64,7 +64,7 @@ EmitterBeam::EmitterBeam() :
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterBeam::EmitterBeam( KDataStream & stream ) throw( KException ) :
+EmitterBeam::EmitterBeam( KDataStream & stream )  :
   DataTypeBase (),
   m_ui8BeamDataLength ( EMITTER_BEAM_SIZE / 4 ),
   m_ui8EmitterBeamIDNumber ( 0u ),
@@ -329,7 +329,7 @@ KString EmitterBeam::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmitterBeam::Decode( KDataStream & stream ) throw( KException )
+void EmitterBeam::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < EMITTER_BEAM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

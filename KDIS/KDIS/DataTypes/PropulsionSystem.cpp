@@ -45,7 +45,7 @@ PropulsionSystem::PropulsionSystem() :
 
 //////////////////////////////////////////////////////////////////////////
 
-PropulsionSystem::PropulsionSystem( KDataStream & stream ) throw( KException )
+PropulsionSystem::PropulsionSystem( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -129,7 +129,7 @@ KString PropulsionSystem::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void PropulsionSystem::Decode( KDataStream & stream ) throw( KException )
+void PropulsionSystem::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < PROPULSION_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

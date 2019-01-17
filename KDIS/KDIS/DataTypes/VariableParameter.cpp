@@ -51,7 +51,7 @@ VariableParameter::VariableParameter() :
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize ) throw( KException ) :
+VariableParameter::VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize )  :
 	m_ui8VarParamType( VPT )
 {
 	SetData( Data, DataSize );
@@ -59,7 +59,7 @@ VariableParameter::VariableParameter( VariableParameterType VPT, KUINT8 * Data, 
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::VariableParameter( KDataStream & stream ) throw( KException )
+VariableParameter::VariableParameter( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -86,7 +86,7 @@ VariableParameterType VariableParameter::GetVariableParameterType() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize ) throw( KException )
+void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize ) 
 {
 	if( DataSize > 15 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 
@@ -128,7 +128,7 @@ KString VariableParameter::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::Decode( KDataStream & stream ) throw( KException )
+void VariableParameter::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

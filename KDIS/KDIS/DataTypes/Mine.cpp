@@ -39,7 +39,7 @@ using namespace UTILS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-map< KUINT16, vector<Vector> >::iterator Mine::getWire( KUINT16 Index ) throw( KException )
+map< KUINT16, vector<Vector> >::iterator Mine::getWire( KUINT16 Index ) 
 {
     map< KUINT16, vector<Vector> >::iterator itr = m_mvVertices.find( Index );
     if( itr == m_mvVertices.end() )throw KException( __FUNCTION__, OUT_OF_BOUNDS, "Invalid Wire Index." );
@@ -346,7 +346,7 @@ void Mine::ClearWires()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mine::AddVertexToTripDetonationWire( KUINT16 Index, const Vector & Vertex ) throw( KException )
+void Mine::AddVertexToTripDetonationWire( KUINT16 Index, const Vector & Vertex ) 
 {
     map< KUINT16, vector<Vector> >::iterator itr = getWire( Index );
     itr->second.push_back( Vertex );
@@ -354,7 +354,7 @@ void Mine::AddVertexToTripDetonationWire( KUINT16 Index, const Vector & Vertex )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mine::SetTripDetonationWireVertices( KUINT16 Index, const std::vector<Vector> & Vertices ) throw( KException )
+void Mine::SetTripDetonationWireVertices( KUINT16 Index, const std::vector<Vector> & Vertices ) 
 {
     map< KUINT16, vector<Vector> >::iterator itr = getWire( Index );
     itr->second = Vertices;
@@ -362,7 +362,7 @@ void Mine::SetTripDetonationWireVertices( KUINT16 Index, const std::vector<Vecto
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mine::RemoveTripDetonationWire( KUINT16 Index ) throw( KException )
+void Mine::RemoveTripDetonationWire( KUINT16 Index ) 
 {
     map< KUINT16, vector<Vector> >::iterator itr = getWire( Index );
     m_mvVertices.erase( itr );
@@ -371,7 +371,7 @@ void Mine::RemoveTripDetonationWire( KUINT16 Index ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<Vector> & Mine::GetWireVertices( KUINT16 Index ) throw( KException )
+const vector<Vector> & Mine::GetWireVertices( KUINT16 Index ) 
 {
     map< KUINT16, vector<Vector> >::iterator itr = getWire( Index );
     return itr->second;
@@ -379,7 +379,7 @@ const vector<Vector> & Mine::GetWireVertices( KUINT16 Index ) throw( KException 
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mine::ClearWireVertices( KUINT16 Index ) throw( KException )
+void Mine::ClearWireVertices( KUINT16 Index ) 
 {
     map< KUINT16, vector<Vector> >::iterator itr = getWire( Index );
     itr->second.clear();

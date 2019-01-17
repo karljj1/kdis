@@ -62,7 +62,7 @@ public:
 
     EmitterSystem();
 
-    EmitterSystem( KDataStream & stream )throw( KException );
+    EmitterSystem( KDataStream & stream );
 
     EmitterSystem( EmitterName EN, EmitterFunction F, KUINT8 ID );
 
@@ -106,7 +106,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmitterSystem::Encode

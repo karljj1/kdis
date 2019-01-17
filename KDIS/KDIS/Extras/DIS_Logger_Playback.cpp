@@ -37,7 +37,7 @@ using namespace UTILS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-void DIS_Logger_Playback::loadFromFile() throw( KException )
+void DIS_Logger_Playback::loadFromFile() 
 {
     if( m_File.is_open() == false )throw KException( __FUNCTION__, FILE_NOT_OPEN );
 

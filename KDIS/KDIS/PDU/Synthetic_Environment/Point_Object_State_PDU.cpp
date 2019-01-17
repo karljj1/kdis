@@ -52,14 +52,14 @@ Point_Object_State_PDU::Point_Object_State_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Point_Object_State_PDU::Point_Object_State_PDU( KDataStream & stream ) throw( KException )
+Point_Object_State_PDU::Point_Object_State_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Point_Object_State_PDU::Point_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Point_Object_State_PDU::Point_Object_State_PDU( const Header & H, KDataStream & stream )  :
     Object_State_Header( H )
 {
     Decode( stream, true );
@@ -284,7 +284,7 @@ KString Point_Object_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Point_Object_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Point_Object_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < POINT_OBJECT_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

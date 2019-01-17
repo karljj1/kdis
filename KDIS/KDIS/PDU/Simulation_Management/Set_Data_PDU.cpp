@@ -50,14 +50,14 @@ Set_Data_PDU::Set_Data_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::Set_Data_PDU( KDataStream & stream ) throw( KException )
+Set_Data_PDU::Set_Data_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::Set_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Set_Data_PDU::Set_Data_PDU( const Header & H, KDataStream & stream )  :
     Data_PDU( H )
 {
     Decode( stream, true );

@@ -47,7 +47,7 @@ Mode5InterrogatorStatus::Mode5InterrogatorStatus()
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorStatus::Mode5InterrogatorStatus( KDataStream & stream ) throw( KException )
+Mode5InterrogatorStatus::Mode5InterrogatorStatus( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -73,7 +73,7 @@ Mode5InterrogatorStatus::~Mode5InterrogatorStatus()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::SetIFFMission( KUINT8 IFFM ) throw( KException )
+void Mode5InterrogatorStatus::SetIFFMission( KUINT8 IFFM ) 
 {
 	if( IFFM > 7 )throw KException( __FUNCTION__, INVALID_DATA );
 	m_StatusUnion.m_ui8IffMis = IFFM;
@@ -160,7 +160,7 @@ KString Mode5InterrogatorStatus::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::Decode( KDataStream & stream ) throw( KException )
+void Mode5InterrogatorStatus::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MODE_5_INTERROGATOR_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	

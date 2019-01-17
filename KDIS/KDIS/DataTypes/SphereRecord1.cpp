@@ -44,7 +44,7 @@ SphereRecord1::SphereRecord1()
 
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord1::SphereRecord1( KDataStream & stream )throw( KException )
+SphereRecord1::SphereRecord1( KDataStream & stream )
 {
     Decode( stream );
 }

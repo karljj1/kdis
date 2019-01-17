@@ -60,7 +60,7 @@ SystemIdentifier::SystemIdentifier( SystemType T, SystemName N, SystemMode M, KB
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::SystemIdentifier( KDataStream & stream ) throw( KException )
+SystemIdentifier::SystemIdentifier( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -252,7 +252,7 @@ KString SystemIdentifier::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::Decode( KDataStream & stream ) throw( KException )
+void SystemIdentifier::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < SYSTEM_IDENTIFER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

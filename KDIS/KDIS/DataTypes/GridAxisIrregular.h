@@ -68,7 +68,7 @@ public:
 
     GridAxisIrregular();
 
-    GridAxisIrregular( KDataStream & stream ) throw( KException );
+    GridAxisIrregular( KDataStream & stream ) ;
 
     // This constructor is used by the Gridded_Data_PDU. In order to know if a grid axis is regular or irregular
     // we must first decode 4 other values before we can get to the AxisType value. So this constructor is here to aid in this process.
@@ -142,7 +142,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GridAxisIrregular::Encode

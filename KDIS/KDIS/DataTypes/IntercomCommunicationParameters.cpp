@@ -50,7 +50,7 @@ IntercomCommunicationParameters::IntercomCommunicationParameters() :
 
 //////////////////////////////////////////////////////////////////////////
 
-IntercomCommunicationParameters::IntercomCommunicationParameters( KDataStream & stream )throw( KException ) :
+IntercomCommunicationParameters::IntercomCommunicationParameters( KDataStream & stream ) :
 	m_pRecord( NULL )
 {
     Decode( stream );
@@ -188,7 +188,7 @@ KString IntercomCommunicationParameters::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IntercomCommunicationParameters::Decode( KDataStream & stream ) throw( KException )
+void IntercomCommunicationParameters::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < IntercomCommunicationParameters::INTERCOM_COMMS_PARAM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

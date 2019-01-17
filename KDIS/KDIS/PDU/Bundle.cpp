@@ -73,7 +73,7 @@ Bundle::~Bundle()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::AddPDU( const KDataStream & K ) throw( KException )
+void Bundle::AddPDU( const KDataStream & K ) 
 {
     m_vStreams.push_back( K );
     m_ui16Length += K.GetBufferSize();
@@ -82,7 +82,7 @@ void Bundle::AddPDU( const KDataStream & K ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::AddPDU( PduPtr H ) throw( KException )
+void Bundle::AddPDU( PduPtr H ) 
 {
     m_vRefHeaders.push_back( H );
     m_ui16Length += H->GetPDULength();
@@ -91,7 +91,7 @@ void Bundle::AddPDU( PduPtr H ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::SetPDUs( const vector<KDataStream> & P ) throw( KException )
+void Bundle::SetPDUs( const vector<KDataStream> & P ) 
 {
     m_vStreams = P;
     calculateLength();
@@ -100,7 +100,7 @@ void Bundle::SetPDUs( const vector<KDataStream> & P ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::SetPDUs( const vector<PduPtr> & P ) throw( KException )
+void Bundle::SetPDUs( const vector<PduPtr> & P ) 
 {
     m_vRefHeaders = P;
     calculateLength();
@@ -109,7 +109,7 @@ void Bundle::SetPDUs( const vector<PduPtr> & P ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::SetPDUs( const vector<KDataStream> & Streams, const vector<PduPtr> & References ) throw( KException )
+void Bundle::SetPDUs( const vector<KDataStream> & Streams, const vector<PduPtr> & References ) 
 {
     m_vStreams = Streams;
     m_vRefHeaders = References;

@@ -82,7 +82,7 @@ public:
                                const EnhancedMode1Code & EMC1, KUINT16 NationalOrigin, Mode5TransponderSupplementalData SD,
                                KDIS::DATA_TYPE::ENUMS::NavigationSource NS, KUINT8 FigureOfMerit );
 
-    Mode5TransponderBasicData( KDataStream & stream ) throw( KException );
+    Mode5TransponderBasicData( KDataStream & stream ) ;
 
     virtual ~Mode5TransponderBasicData();
 
@@ -174,7 +174,7 @@ public:
     //              Valid values 0-31 else INVALID_DATA exception thrown.
     // Parameter:   KUINT8 FOM
     //************************************
-    void SetFigureOfMerit( KUINT8 FOM ) throw( KException );
+    void SetFigureOfMerit( KUINT8 FOM ) ;
     KUINT8 GetFigureOfMerit() const;
 
     //************************************
@@ -188,7 +188,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::Encode

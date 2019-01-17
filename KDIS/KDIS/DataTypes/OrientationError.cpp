@@ -51,7 +51,7 @@ OrientationError::OrientationError( KFIXED16_8 Azimuth, KFIXED16_8 Elevation, KF
 
 //////////////////////////////////////////////////////////////////////////
 
-OrientationError::OrientationError( KDataStream & stream ) throw( KException )
+OrientationError::OrientationError( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -120,7 +120,7 @@ KString OrientationError::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void OrientationError::Decode( KDataStream & stream ) throw( KException )
+void OrientationError::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ORIENTATION_ERROR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

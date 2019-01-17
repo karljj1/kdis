@@ -81,9 +81,9 @@ public:
 
     Attribute_PDU();
 
-    Attribute_PDU( KDataStream & stream ) throw( KException );
+    Attribute_PDU( KDataStream & stream ) ;
 
-    Attribute_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Attribute_PDU( const Header & H, KDataStream & stream ) ;
 
     Attribute_PDU( const KDIS::DATA_TYPE::SimulationIdentifier & OriginatingID, KDIS::DATA_TYPE::ENUMS::PDUType T, 
                    KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KDIS::DATA_TYPE::ENUMS::AttributeID MART, KDIS::DATA_TYPE::ENUMS::ActionCode AC );
@@ -169,7 +169,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Attribute_PDU::Encode

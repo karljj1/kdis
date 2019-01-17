@@ -59,11 +59,11 @@ public:
 
     EntityMarking();
 
-    EntityMarking( KDataStream & stream ) throw( KException );
+    EntityMarking( KDataStream & stream ) ;
 
-    EntityMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) throw( KException );
+    EntityMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) ;
 
-	EntityMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KString & MarkingText ) throw( KException );
+	EntityMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KString & MarkingText ) ;
 
     virtual ~EntityMarking();
 
@@ -83,8 +83,8 @@ public:
     // Parameter:   const KCHAR8 * EMS, const KString & EMS
     // Parameter:   KUINT16 StringSize
     //************************************
-    void SetEntityMarkingString( const KCHAR8 * EMS, KUINT16 StringSize ) throw( KException );
-	void SetEntityMarkingString( const KString & EMS ) throw( KException );
+    void SetEntityMarkingString( const KCHAR8 * EMS, KUINT16 StringSize ) ;
+	void SetEntityMarkingString( const KString & EMS ) ;
     KString GetEntityMarkingString() const;
 
     //************************************
@@ -98,7 +98,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityMarking::Encode

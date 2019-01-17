@@ -57,7 +57,7 @@ public:
 
     RelationshipRecord();
 
-    RelationshipRecord( KDataStream & stream )throw( KException );
+    RelationshipRecord( KDataStream & stream );
 
     RelationshipRecord( KDIS::DATA_TYPE::ENUMS::RelationshipNature N, KDIS::DATA_TYPE::ENUMS::RelationshipPosition P );
 
@@ -94,7 +94,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RelationshipRecord::Encode

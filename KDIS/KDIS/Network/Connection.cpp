@@ -62,7 +62,7 @@ using namespace std;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-void Connection::startup() throw( KException )
+void Connection::startup() 
 {
     // Create the sockets if they do not already exist.
     if( !m_iSocket[SEND_SOCK] && !m_iSocket[RECEIVE_SOCK] )
@@ -124,7 +124,7 @@ void Connection::bindSocket()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Connection::shutdown() throw( KException )
+void Connection::shutdown() 
 {
     for( KINT8 i = 0; i < 2; ++i )
     {
@@ -372,7 +372,7 @@ Connection::~Connection()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Connection::SetSendAddress( const KString & A, KBOOL Multicast /*= false */ ) throw( KException )
+void Connection::SetSendAddress( const KString & A, KBOOL Multicast /*= false */ ) 
 {
     m_sSendAddress = A;
 
@@ -409,7 +409,7 @@ const KString & Connection::GetSendAddress() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Connection::AddMulticastAddress( const KString & A ) throw( KException )
+void Connection::AddMulticastAddress( const KString & A ) 
 {
     // Attempt to join the group
     ip_mreq mc;
@@ -424,7 +424,7 @@ void Connection::AddMulticastAddress( const KString & A ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Connection::RemoveMulticastAddress( const KString & A ) throw( KException )
+void Connection::RemoveMulticastAddress( const KString & A ) 
 {
     // Attempt to drop the address.
     ip_mreq mc;
@@ -540,7 +540,7 @@ PDU_Factory * Connection::GetPDU_Factory()
 
 //////////////////////////////////////////////////////////////////////////
 
-KINT32 Connection::Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KException )
+KINT32 Connection::Send( const KOCTET * Data, KUINT32 DataSz ) 
 {
     KINT32 iBytesSent =  sendto( m_iSocket[SEND_SOCK], Data, DataSz, 0, ( sockaddr * )&m_SendToAddr, sizeof( m_SendToAddr ) );
 
@@ -554,14 +554,14 @@ KINT32 Connection::Send( const KOCTET * Data, KUINT32 DataSz ) throw ( KExceptio
 
 //////////////////////////////////////////////////////////////////////////
 
-KINT32 Connection::Send( const KDataStream & stream ) throw ( KException )
+KINT32 Connection::Send( const KDataStream & stream ) 
 {
     return Send( stream.GetBufferPtr(), stream.GetBufferSize() );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KINT32 Connection::SendPDU( Header * H ) throw ( KException )
+KINT32 Connection::SendPDU( Header * H ) 
 {
     // First lets fire the events, then send the PDU.
     vector<ConnectionSubscriber*>::iterator itr = m_vpSubscribers.begin();
@@ -579,7 +579,7 @@ KINT32 Connection::SendPDU( Header * H ) throw ( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderIp /*= NULL*/ ) throw ( KException )
+KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderIp /*= NULL*/ ) 
 {
     // We use fd_set to test the receive socket for readability. This is used in both blocking
     // and none blocking mode however it is primarily here for none blocking mode as it is more
@@ -640,7 +640,7 @@ KINT32 Connection::Receive( KOCTET * Buffer, KUINT32 BufferSz, KString * SenderI
 
 //////////////////////////////////////////////////////////////////////////
 
-unique_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) throw ( KException )
+unique_ptr<Header> Connection::GetNextPDU( KString * SenderIp /* = 0 */ ) 
 {
     // Are we currently dealing with a PDU Bundle, if so then dont read any new data.
     if( m_stream.GetBufferSize() == 0 )

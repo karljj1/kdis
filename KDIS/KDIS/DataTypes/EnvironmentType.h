@@ -73,7 +73,7 @@ public:
     EnvironmentType( KDIS::DATA_TYPE::ENUMS::EntityDomain Domain, KUINT16 Class, KUINT8 Categoy,
                      KDIS::DATA_TYPE::ENUMS::EnvironmentSubcategory SubCategory, KUINT8 Specific, KUINT8 Extra );
 
-    EnvironmentType( KDataStream & stream ) throw( KException );
+    EnvironmentType( KDataStream & stream ) ;
 
     virtual ~EnvironmentType();
 
@@ -152,7 +152,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EnvironmentType::Encode

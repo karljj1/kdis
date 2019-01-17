@@ -108,9 +108,9 @@ public:
 
     Appearance_PDU();
 
-    Appearance_PDU( KDataStream & stream ) throw( KException );
+    Appearance_PDU( KDataStream & stream ) ;
 
-    Appearance_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Appearance_PDU( const Header & H, KDataStream & stream ) ;
 
     Appearance_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
@@ -279,7 +279,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Appearance_PDU::Encode

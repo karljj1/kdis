@@ -51,14 +51,14 @@ Linear_Object_State_PDU::Linear_Object_State_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU( KDataStream & stream ) throw( KException )
+Linear_Object_State_PDU::Linear_Object_State_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Linear_Object_State_PDU::Linear_Object_State_PDU( const Header & H, KDataStream & stream )  :
     Object_State_Header( H )
 {
     Decode( stream, true );
@@ -222,7 +222,7 @@ KString Linear_Object_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Linear_Object_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LINEAR_OBJECT_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

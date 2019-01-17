@@ -50,7 +50,7 @@ RecordSet::RecordSet() :
 
 //////////////////////////////////////////////////////////////////////////
 
-RecordSet::RecordSet( KDataStream & stream ) throw( KException )
+RecordSet::RecordSet( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -176,7 +176,7 @@ KString RecordSet::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void RecordSet::Decode( KDataStream & stream ) throw( KException )
+void RecordSet::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < RECORD_SET_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

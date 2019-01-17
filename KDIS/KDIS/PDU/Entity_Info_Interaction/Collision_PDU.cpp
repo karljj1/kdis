@@ -53,14 +53,14 @@ Collision_PDU::Collision_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Collision_PDU::Collision_PDU( KDataStream & stream ) throw( KException )
+Collision_PDU::Collision_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Collision_PDU::Collision_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Collision_PDU::Collision_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -249,7 +249,7 @@ KString Collision_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Collision_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Collision_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < COLLISION_PDU_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

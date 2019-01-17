@@ -91,7 +91,7 @@ public:
 
     VariableDatum( KDIS::DATA_TYPE::ENUMS::DatumID ID, const KOCTET * data, KUINT32 sizeInBits );
 
-    VariableDatum( KDataStream & stream ) throw( KException );
+    VariableDatum( KDataStream & stream ) ;
 
     virtual ~VariableDatum();
 
@@ -133,7 +133,7 @@ public:
     // Parameter:   KOCTET * Buffer
     // Parameter:   KUINT16 BufferSize
     //************************************
-    virtual void GetDatumValueCopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize ) const throw( KException );
+    virtual void GetDatumValueCopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize ) const ;
     virtual KString GetDatumValueAsKString() const;
     virtual std::vector<KUINT64> GetDatumValueAsKUINT64() const;
     virtual std::vector<KFLOAT64> GetDatumValueAsKFLOAT64() const;
@@ -157,7 +157,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableDatum::Encode

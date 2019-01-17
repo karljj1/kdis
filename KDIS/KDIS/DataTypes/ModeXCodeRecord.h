@@ -72,7 +72,7 @@ public:
 
     ModeXCodeRecord();
 
-    ModeXCodeRecord( KDataStream & stream ) throw( KException );
+    ModeXCodeRecord( KDataStream & stream ) ;
 
     virtual ~ModeXCodeRecord();
 
@@ -114,7 +114,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::Encode

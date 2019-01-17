@@ -69,7 +69,7 @@ public:
 
     MinefieldAppearance( KDIS::DATA_TYPE::ENUMS::MinefieldType T, KBOOL IsStatusActive, KBOOL IsLaneActive, KBOOL IsStateActive );
 
-    MinefieldAppearance( KDataStream & stream ) throw( KException );
+    MinefieldAppearance( KDataStream & stream ) ;
 
     virtual ~MinefieldAppearance();
 
@@ -126,7 +126,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinefieldAppearance::Encode

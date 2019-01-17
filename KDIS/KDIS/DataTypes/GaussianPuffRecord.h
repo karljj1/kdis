@@ -72,7 +72,7 @@ public:
 
     GaussianPuffRecord();
 
-    GaussianPuffRecord( KDataStream & stream ) throw( KException );
+    GaussianPuffRecord( KDataStream & stream ) ;
 
     GaussianPuffRecord( KUINT8 Index, const WorldCoordinates & PuffLocation, const WorldCoordinates & OriginationLocation,
                         const Vector & Sigma, const Vector & DDT, const EulerAngles & Orientation, const Vector & Velocity,
@@ -172,7 +172,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GaussianPuffRecord::Encode

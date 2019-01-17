@@ -68,7 +68,7 @@ public:
 
     AttachedPart( KUINT8 DetachedIndicator, KUINT16 PartAttachedToID, KUINT32 APPT, const EntityType & Type );
 
-    AttachedPart( KDataStream & stream ) throw( KException );
+    AttachedPart( KDataStream & stream ) ;
 
     virtual ~AttachedPart();
 
@@ -130,7 +130,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AttachedPart::Encode

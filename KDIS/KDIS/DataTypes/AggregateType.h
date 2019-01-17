@@ -73,7 +73,7 @@ public:
     AggregateType( KUINT8 Kind, KUINT8  Domain, KUINT8 Country, KUINT8  Categoy,
                    KUINT8  SubCategory, KUINT8  Specific, KUINT8  Extra );
 
-    AggregateType( KDataStream & stream ) throw( KException );
+    AggregateType( KDataStream & stream ) ;
 
     virtual ~AggregateType();
 
@@ -151,7 +151,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateType::Encode

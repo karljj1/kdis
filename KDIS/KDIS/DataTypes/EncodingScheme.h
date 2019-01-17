@@ -66,7 +66,7 @@ public:
 
     EncodingScheme();
 
-    EncodingScheme( KDataStream & stream ) throw( KException );
+    EncodingScheme( KDataStream & stream ) ;
 
     EncodingScheme( KDIS::DATA_TYPE::ENUMS::EncodingClass EC, KUINT16 EncodingType, KDIS::DATA_TYPE::ENUMS::TDLType T );
 
@@ -120,7 +120,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EncodingScheme::Encode

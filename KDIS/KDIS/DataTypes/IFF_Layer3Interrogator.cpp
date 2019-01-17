@@ -46,7 +46,7 @@ IFF_Layer3Interrogator::IFF_Layer3Interrogator()
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Interrogator::IFF_Layer3Interrogator( KDataStream & stream ) throw( KException )
+IFF_Layer3Interrogator::IFF_Layer3Interrogator( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
@@ -63,7 +63,7 @@ IFF_Layer3Interrogator::IFF_Layer3Interrogator( const SimulationIdentifier & Rep
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Interrogator::IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
+IFF_Layer3Interrogator::IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream )  :
 	IFF_Layer3( H )
 {
     Decode( stream, true );
@@ -120,7 +120,7 @@ KString IFF_Layer3Interrogator::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Interrogator::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void IFF_Layer3Interrogator::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( stream.GetBufferSize() < IFF_LAYER3_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

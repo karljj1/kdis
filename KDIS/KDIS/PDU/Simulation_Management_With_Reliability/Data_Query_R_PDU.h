@@ -53,9 +53,9 @@ public:
 
     Data_Query_R_PDU();
 
-    Data_Query_R_PDU( KDataStream & stream ) throw( KException );
+    Data_Query_R_PDU( KDataStream & stream ) ;
 
-    Data_Query_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Data_Query_R_PDU( const Header & H, KDataStream & stream ) ;
 
     virtual ~Data_Query_R_PDU();
 
@@ -71,7 +71,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Data_Query_R_PDU::Encode

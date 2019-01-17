@@ -50,14 +50,14 @@ Resupply_Offer_PDU::Resupply_Offer_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::Resupply_Offer_PDU( KDataStream & stream ) throw( KException )
+Resupply_Offer_PDU::Resupply_Offer_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::Resupply_Offer_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Resupply_Offer_PDU::Resupply_Offer_PDU( const Header & H, KDataStream & stream )  :
     Resupply_Received_PDU( H )
 {
     Decode( stream, true );

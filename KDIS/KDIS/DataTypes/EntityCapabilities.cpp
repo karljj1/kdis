@@ -44,7 +44,7 @@ EntityCapabilities::EntityCapabilities() :
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::EntityCapabilities( KDataStream & stream ) throw( KException )
+EntityCapabilities::EntityCapabilities( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -182,7 +182,7 @@ KString EntityCapabilities::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityCapabilities::Decode( KDataStream & stream ) throw( KException )
+void EntityCapabilities::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ENTITY_CAPABILITIES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

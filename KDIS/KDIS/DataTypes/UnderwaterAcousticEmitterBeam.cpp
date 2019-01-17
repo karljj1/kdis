@@ -45,7 +45,7 @@ UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam()  :
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam( KDataStream & stream ) throw( KException )
+UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -124,7 +124,7 @@ KString UnderwaterAcousticEmitterBeam::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterBeam::Decode( KDataStream & stream ) throw( KException )
+void UnderwaterAcousticEmitterBeam::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

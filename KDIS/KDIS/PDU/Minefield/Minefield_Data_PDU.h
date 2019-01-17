@@ -110,9 +110,9 @@ public:
 
     Minefield_Data_PDU();
 
-    Minefield_Data_PDU( KDataStream & stream ) throw( KException );
+    Minefield_Data_PDU( KDataStream & stream ) ;
 
-    Minefield_Data_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Minefield_Data_PDU( const Header & H, KDataStream & stream ) ;
 
     Minefield_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
                         KUINT16 SeqNum, KUINT8 RequestID, KUINT8 PduSeqNum, KUINT8 NumPdus,
@@ -237,8 +237,8 @@ public:
     //              MinefieldDataFilter, if they are not then an INVALID_OPERATION exception is thrown.
     // Parameter:   const Mine & M, const vector<Mine> & M
     //************************************
-    void AddMine( const KDIS::DATA_TYPE::Mine & M ) throw( KException );
-    void SetMines( const std::vector<KDIS::DATA_TYPE::Mine> & M ) throw( KException );
+    void AddMine( const KDIS::DATA_TYPE::Mine & M ) ;
+    void SetMines( const std::vector<KDIS::DATA_TYPE::Mine> & M ) ;
     const std::vector<KDIS::DATA_TYPE::Mine> & GetMines() const;
 
     //************************************
@@ -253,7 +253,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Minefield_Data_PDU::Encode
@@ -261,8 +261,8 @@ public:
     //              have a ScalarDetectionCoefficient value for each sensor type.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual KDataStream Encode() const throw( KException );
-    virtual void Encode( KDataStream & stream ) const throw( KException );
+    virtual KDataStream Encode() const ;
+    virtual void Encode( KDataStream & stream ) const ;
 
     KBOOL operator == ( const Minefield_Data_PDU & Value ) const;
     KBOOL operator != ( const Minefield_Data_PDU & Value ) const;

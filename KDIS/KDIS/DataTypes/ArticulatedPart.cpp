@@ -52,7 +52,7 @@ ArticulatedPart::ArticulatedPart() :
 
 //////////////////////////////////////////////////////////////////////////
 
-ArticulatedPart::ArticulatedPart( KDataStream & stream ) throw( KException )
+ArticulatedPart::ArticulatedPart( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -190,7 +190,7 @@ KString ArticulatedPart::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ArticulatedPart::Decode( KDataStream & stream ) throw( KException )
+void ArticulatedPart::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

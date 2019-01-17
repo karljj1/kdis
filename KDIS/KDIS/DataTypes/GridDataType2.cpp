@@ -47,7 +47,7 @@ GridDataType2::GridDataType2() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType2::GridDataType2( KDataStream & stream ) throw( KException )
+GridDataType2::GridDataType2( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -157,7 +157,7 @@ KString GridDataType2::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridDataType2::Decode( KDataStream & stream ) throw( KException )
+void GridDataType2::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GRID_DATA_TYPE2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

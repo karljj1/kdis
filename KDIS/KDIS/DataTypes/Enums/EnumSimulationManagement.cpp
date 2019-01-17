@@ -530,7 +530,9 @@ const EnumDescriptor EventTypeDescriptor[] =
     { 12 , "MinefieldDetonation" },
     { 13 , "VehicleMasterPowerOn" },
     { 14 , "VehicleMasterPowerOff" },
-    { 15 , "AggregateStateChangeRequested" }
+    { 15 , "AggregateStateChangeRequested" },
+    { 16 , "PreventCollisionDetonation" },
+    { 17 , "OwnershipReport" }
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEventType()

@@ -48,14 +48,14 @@ IFF_Layer2::IFF_Layer2()
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer2::IFF_Layer2( KDataStream & stream ) throw( KException )
+IFF_Layer2::IFF_Layer2( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer2::IFF_Layer2( const LayerHeader & H, KDataStream & stream ) throw( KException ) :
+IFF_Layer2::IFF_Layer2( const LayerHeader & H, KDataStream & stream )  :
 	LayerHeader( H )
 {
     Decode( stream, true );
@@ -167,7 +167,7 @@ KString IFF_Layer2::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer2::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void IFF_Layer2::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( stream.GetBufferSize() < IFF_LAYER2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -57,15 +57,17 @@ public:
 
     static const KUINT16 SIMULATION_MANAGEMENT_HEADER_SIZE = 24;
 
-    Simulation_Management_Header();
+    explicit Simulation_Management_Header();
 
-    Simulation_Management_Header( KDataStream & stream ) throw( KException );
+    explicit Simulation_Management_Header( const Simulation_Management_Header & H );
 
-    Simulation_Management_Header( const Header & H );
+    explicit Simulation_Management_Header( KDataStream & stream ) ;
 
-    Simulation_Management_Header( const Header & H, KDataStream & stream ) throw( KException );
+    explicit Simulation_Management_Header( const Header & H );
 
-    Simulation_Management_Header( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
+    explicit Simulation_Management_Header( const Header & H, KDataStream & stream ) ;
+
+    explicit Simulation_Management_Header( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
 
     virtual ~Simulation_Management_Header();
 
@@ -101,7 +103,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Simulation_Management_Header::Encode

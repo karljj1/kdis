@@ -65,7 +65,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException ) = 0;
+    virtual void Decode( KDataStream & stream )  = 0;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::DataTypeBase::Encode

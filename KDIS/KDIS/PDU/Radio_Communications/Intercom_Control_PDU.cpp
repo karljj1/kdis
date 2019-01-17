@@ -61,14 +61,14 @@ Intercom_Control_PDU::Intercom_Control_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Control_PDU::Intercom_Control_PDU( KDataStream & stream ) throw( KException )
+Intercom_Control_PDU::Intercom_Control_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Control_PDU::Intercom_Control_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Intercom_Control_PDU::Intercom_Control_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -330,11 +330,11 @@ KString Intercom_Control_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Intercom_Control_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Intercom_Control_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < INTERCOM_CONTROL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
-    Header::Decode( stream );
+    Header::Decode( stream, ignoreHeader );
 
     stream >> m_ui8CtrlTyp
            >> KDIS_STREAM m_CommChannelType

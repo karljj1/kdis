@@ -95,9 +95,9 @@ public:
 
     Entity_State_PDU();
 
-    Entity_State_PDU( KDataStream & stream ) throw( KException );
+    Entity_State_PDU( KDataStream & stream ) ;
 
-    Entity_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Entity_State_PDU( const Header & H, KDataStream & stream ) ;
 
     Entity_State_PDU( const Entity_State_PDU & ESPDU );
 
@@ -252,7 +252,7 @@ public:
     //              Throws INVALID_OPERATION exception if InitDeadReckoning has not been called first.
     // Parameter:   KFLOAT64 totalTimeSinceDrReset the time since the DR has been reset. Not the simulation time step.
     //************************************
-    void ApplyDeadReckoning( KFLOAT64 totalTimeSinceDrReset ) throw( KException );
+    void ApplyDeadReckoning( KFLOAT64 totalTimeSinceDrReset ) ;
 
     /************************************************************************/
 
@@ -303,7 +303,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_PDU::Encode

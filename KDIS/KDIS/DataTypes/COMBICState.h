@@ -81,7 +81,7 @@ public:
 
     COMBICState();
 
-    COMBICState( KDataStream & stream ) throw( KException );
+    COMBICState( KDataStream & stream ) ;
 
     COMBICState( KUINT8 Index, KUINT32 TimeSinceCreation, const EntityType & MunitionSource,
                  KUINT32 NumberOfSources, KUINT16 GeometryIndex, KUINT32 SourceType,
@@ -193,7 +193,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::COMBICState::Encode

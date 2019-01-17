@@ -88,14 +88,14 @@ Minefield_Data_PDU::Minefield_Data_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Data_PDU::Minefield_Data_PDU( KDataStream & stream ) throw( KException )
+Minefield_Data_PDU::Minefield_Data_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Data_PDU::Minefield_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Minefield_Data_PDU::Minefield_Data_PDU( const Header & H, KDataStream & stream )  :
     Minefield_Header( H )
 {
     Decode( stream, true );
@@ -293,7 +293,7 @@ const vector<KUINT16> & Minefield_Data_PDU::GetSensorTypes() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Data_PDU::AddMine( const Mine & M ) throw( KException )
+void Minefield_Data_PDU::AddMine( const Mine & M ) 
 {
     // First check the mine has the same optional fields set as MinefieldDataFilter.
     if( M.MinefieldDataFilter::operator != ( m_DataFilter ) )
@@ -310,7 +310,7 @@ void Minefield_Data_PDU::AddMine( const Mine & M ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Data_PDU::SetMines( const std::vector<Mine> & M ) throw( KException )
+void Minefield_Data_PDU::SetMines( const std::vector<Mine> & M ) 
 {
     // First check the mines all have the same optional fields set as MinefieldDataFilter.
     vector<Mine>::const_iterator citr = M.begin();
@@ -402,7 +402,7 @@ KString Minefield_Data_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Minefield_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_DATA_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -549,7 +549,7 @@ void Minefield_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= tru
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Minefield_Data_PDU::Encode() const throw( KException )
+KDataStream Minefield_Data_PDU::Encode() const 
 {
     KDataStream stream;
 
@@ -577,7 +577,7 @@ KDataStream Minefield_Data_PDU::Encode() const throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Data_PDU::Encode( KDataStream & stream ) const throw( KException )
+void Minefield_Data_PDU::Encode( KDataStream & stream ) const 
 {
     // Calculate padding first and add it to the pdu length
     KUINT16 m_ui16OldLength = m_ui16PDULength;

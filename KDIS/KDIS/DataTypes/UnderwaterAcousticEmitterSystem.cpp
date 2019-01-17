@@ -48,7 +48,7 @@ UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem() :
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem( KDataStream & stream ) throw( KException )
+UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -176,7 +176,7 @@ KString UnderwaterAcousticEmitterSystem::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::Decode( KDataStream & stream ) throw( KException )
+void UnderwaterAcousticEmitterSystem::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

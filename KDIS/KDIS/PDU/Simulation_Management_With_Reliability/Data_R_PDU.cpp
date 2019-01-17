@@ -59,14 +59,14 @@ Data_R_PDU::Data_R_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_R_PDU::Data_R_PDU( KDataStream & stream ) throw( KException )
+Data_R_PDU::Data_R_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_R_PDU::Data_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Data_R_PDU::Data_R_PDU( const Header & H, KDataStream & stream )  :
     Data_PDU( H )
 {
     Decode( stream, true );
@@ -127,7 +127,7 @@ KString Data_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Data_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DATA_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

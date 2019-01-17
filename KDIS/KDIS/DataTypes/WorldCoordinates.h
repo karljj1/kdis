@@ -65,7 +65,7 @@ public:
 
     WorldCoordinates();
 
-    WorldCoordinates( KDataStream & stream ) throw( KException );
+    WorldCoordinates( KDataStream & stream ) ;
 
     WorldCoordinates( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z );
 
@@ -138,7 +138,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Encode
@@ -161,8 +161,8 @@ public:
     WorldCoordinates & operator -= ( const WorldCoordinates & Value );
 
     // Valid values 0 - X, 1 - Y, 2 - Z. throws OUT_OF_BOUNDS exception for any other value.
-    KFLOAT64 & operator[] ( KUINT16 i ) throw( KException );
-    const KFLOAT64 & operator[] ( KUINT16 i ) const throw( KException );
+    KFLOAT64 & operator[] ( KUINT16 i ) ;
+    const KFLOAT64 & operator[] ( KUINT16 i ) const ;
 };
 
 } // END namespace DATA_TYPES

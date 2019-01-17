@@ -71,9 +71,9 @@ public:
 
     Linear_Object_State_PDU();
 
-    Linear_Object_State_PDU( KDataStream & stream ) throw( KException );
+    Linear_Object_State_PDU( KDataStream & stream ) ;
 
-    Linear_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Linear_Object_State_PDU( const Header & H, KDataStream & stream ) ;
 
     Linear_Object_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID , KUINT16 UpdateNum,
                              KDIS::DATA_TYPE::ENUMS::ForceID FI, const KDIS::DATA_TYPE::SimulationIdentifier & ReqID, const KDIS::DATA_TYPE::SimulationIdentifier & RecvID,
@@ -144,7 +144,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Linear_Object_State_PDU::Encode

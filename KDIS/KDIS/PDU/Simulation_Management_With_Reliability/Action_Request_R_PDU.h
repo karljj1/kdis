@@ -55,9 +55,9 @@ public:
 
     Action_Request_R_PDU();
 
-    Action_Request_R_PDU( KDataStream & stream ) throw( KException );
+    Action_Request_R_PDU( KDataStream & stream ) ;
 
-    Action_Request_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Action_Request_R_PDU( const Header & H, KDataStream & stream ) ;
 
     Action_Request_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                           KUINT32 RequestID, KUINT32 ActionID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
@@ -76,7 +76,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Action_Request_R_PDU::Encode

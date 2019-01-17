@@ -51,14 +51,14 @@ Repair_Complete_PDU::Repair_Complete_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::Repair_Complete_PDU( KDataStream & stream ) throw( KException )
+Repair_Complete_PDU::Repair_Complete_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::Repair_Complete_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Repair_Complete_PDU::Repair_Complete_PDU( const Header & H, KDataStream & stream )  :
     Logistics_Header( H )
 {
     Decode( stream, true );
@@ -113,7 +113,7 @@ KString Repair_Complete_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Repair_Complete_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Repair_Complete_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < REPAIR_COMPLETE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

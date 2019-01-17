@@ -61,14 +61,14 @@ Comment_PDU::Comment_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Comment_PDU::Comment_PDU( KDataStream & stream ) throw( KException )
+Comment_PDU::Comment_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Comment_PDU::Comment_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Comment_PDU::Comment_PDU( const Header & H, KDataStream & stream )  :
     Simulation_Management_Header( H )
 {
     Decode( stream, true );
@@ -208,7 +208,7 @@ KString Comment_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Comment_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Comment_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < COMMENT_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

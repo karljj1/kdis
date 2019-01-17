@@ -56,14 +56,14 @@ Environmental_Process_PDU::Environmental_Process_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Environmental_Process_PDU::Environmental_Process_PDU( KDataStream & stream ) throw( KException )
+Environmental_Process_PDU::Environmental_Process_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Environmental_Process_PDU::Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Environmental_Process_PDU::Environmental_Process_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -318,7 +318,7 @@ KString Environmental_Process_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Environmental_Process_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Environmental_Process_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENVIROMENTAL_PROCESS_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -54,14 +54,14 @@ Receiver_PDU::Receiver_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Receiver_PDU::Receiver_PDU( KDataStream & stream ) throw( KException )
+Receiver_PDU::Receiver_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Receiver_PDU::Receiver_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Receiver_PDU::Receiver_PDU( const Header & H, KDataStream & stream )  :
     Radio_Communications_Header( H )
 {
     Decode( stream, true );
@@ -171,7 +171,7 @@ KString Receiver_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Receiver_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Receiver_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RECEIVER_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

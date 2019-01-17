@@ -79,9 +79,9 @@ public:
 
     VariableParameter();
 
-    VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize ) throw( KException );
+    VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize ) ;
 
-    VariableParameter( KDataStream & stream ) throw( KException );
+    VariableParameter( KDataStream & stream ) ;
 
     virtual ~VariableParameter();
 
@@ -101,7 +101,7 @@ public:
     // Parameter:   const KUINT8 * D
     // Parameter:   KUINT8 DataSize - Exception thrown if data size is greater than 15.
     //************************************
-    void SetData( const KUINT8 * D, KUINT8 DataSize ) throw( KException );
+    void SetData( const KUINT8 * D, KUINT8 DataSize ) ;
     const KUINT8 * GetData() const;
     KUINT8 * GetData();
 
@@ -116,7 +116,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::VariableParameter::Encode

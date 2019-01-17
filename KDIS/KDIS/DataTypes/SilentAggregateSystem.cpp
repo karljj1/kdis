@@ -44,7 +44,7 @@ SilentAggregateSystem::SilentAggregateSystem() :
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentAggregateSystem::SilentAggregateSystem( KDataStream & stream ) throw( KException )
+SilentAggregateSystem::SilentAggregateSystem( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -114,7 +114,7 @@ KString SilentAggregateSystem::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentAggregateSystem::Decode( KDataStream & stream ) throw( KException )
+void SilentAggregateSystem::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -45,7 +45,7 @@ LayerHeader::LayerHeader() :
 
 //////////////////////////////////////////////////////////////////////////
 
-LayerHeader::LayerHeader( KDataStream & stream ) throw( KException )
+LayerHeader::LayerHeader( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -124,7 +124,7 @@ KString LayerHeader::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LayerHeader::Decode( KDataStream & stream ) throw( KException )
+void LayerHeader::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < LAYER_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -49,7 +49,7 @@ GridAxisRegular::GridAxisRegular() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GridAxisRegular::GridAxisRegular( KDataStream & stream ) throw( KException )
+GridAxisRegular::GridAxisRegular( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -222,7 +222,7 @@ KString GridAxisRegular::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridAxisRegular::Decode( KDataStream & stream ) throw( KException )
+void GridAxisRegular::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GRID_AXIS_REGULAR )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -61,7 +61,7 @@ public:
 
     EllipsoidRecord1();
 
-    EllipsoidRecord1( KDataStream & stream ) throw( KException );
+    EllipsoidRecord1( KDataStream & stream ) ;
 
     EllipsoidRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation,
                       const Vector & Sigma, const EulerAngles & Orientation );
@@ -109,7 +109,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::Encode

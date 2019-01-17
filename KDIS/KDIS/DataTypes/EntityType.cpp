@@ -81,7 +81,7 @@ EntityType::EntityType( KUINT8 Kind, KUINT8 Domain, KUINT16 Country, KUINT8 Cate
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityType::EntityType( KDataStream & stream ) throw( KException )
+EntityType::EntityType( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -192,7 +192,7 @@ KUINT8 EntityType::GetExtra() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityType::ReadFromTokenisedString( const KString & String, const KString & Seperator /*= ","*/ ) throw( KException )
+void EntityType::ReadFromTokenisedString( const KString & String, const KString & Seperator /*= ","*/ ) 
 {
     // Copy the string, we don't want to change the string we have been passed.
     KString sCopy = String;
@@ -258,7 +258,7 @@ KString EntityType::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityType::Decode( KDataStream & stream ) throw( KException )
+void EntityType::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ENTITY_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

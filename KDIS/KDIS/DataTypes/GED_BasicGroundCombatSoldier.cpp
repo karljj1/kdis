@@ -56,7 +56,7 @@ GED_BasicGroundCombatSoldier::GED_BasicGroundCombatSoldier() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicGroundCombatSoldier::GED_BasicGroundCombatSoldier( KDataStream & stream )throw( KException )
+GED_BasicGroundCombatSoldier::GED_BasicGroundCombatSoldier( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -351,7 +351,7 @@ KString GED_BasicGroundCombatSoldier::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_BasicGroundCombatSoldier::Decode( KDataStream & stream ) throw( KException )
+void GED_BasicGroundCombatSoldier::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GED_BASIC_GROUND_COMBAT_SOLDIER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

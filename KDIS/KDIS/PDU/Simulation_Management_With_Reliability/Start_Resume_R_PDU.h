@@ -54,9 +54,9 @@ public:
 
     Start_Resume_R_PDU();
 
-    Start_Resume_R_PDU( KDataStream & stream ) throw( KException );
+    Start_Resume_R_PDU( KDataStream & stream ) ;
 
-    Start_Resume_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Start_Resume_R_PDU( const Header & H, KDataStream & stream ) ;
 
     Start_Resume_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
         const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
@@ -78,7 +78,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Start_Resume_R_PDU::Encode

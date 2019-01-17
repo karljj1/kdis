@@ -129,9 +129,9 @@ public:
 
     LE_Detonation_PDU();
 
-    LE_Detonation_PDU( KDataStream & stream ) throw( KException );
+    LE_Detonation_PDU( KDataStream & stream ) ;
 
-    LE_Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    LE_Detonation_PDU( const Header & H, KDataStream & stream ) ;
 
     LE_Detonation_PDU( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
 
@@ -309,7 +309,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::LE_Detonation_PDU::Encode

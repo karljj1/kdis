@@ -58,7 +58,7 @@ public:
 
     PointRecord2();
 
-    PointRecord2( KDataStream & stream ) throw( KException );
+    PointRecord2( KDataStream & stream ) ;
 
     PointRecord2( KUINT8 Index, const WorldCoordinates & Location, const Vector & Velocity );
 
@@ -86,7 +86,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PointRecord2::Encode

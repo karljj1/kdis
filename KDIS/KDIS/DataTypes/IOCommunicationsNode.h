@@ -61,7 +61,7 @@ public:
 
     IOCommunicationsNode();
 
-    IOCommunicationsNode( KDataStream & stream ) throw( KException );
+    IOCommunicationsNode( KDataStream & stream ) ;
 
     IOCommunicationsNode( KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType T, const CommunicationsNodeID & ID );
 
@@ -97,7 +97,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::Encode

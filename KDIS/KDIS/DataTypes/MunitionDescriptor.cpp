@@ -50,7 +50,7 @@ MunitionDescriptor::MunitionDescriptor() :
 
 //////////////////////////////////////////////////////////////////////////
 
-MunitionDescriptor::MunitionDescriptor( KDataStream & stream )throw( KException )
+MunitionDescriptor::MunitionDescriptor( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -148,7 +148,7 @@ KString MunitionDescriptor::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void MunitionDescriptor::Decode( KDataStream & stream ) throw( KException )
+void MunitionDescriptor::Decode( KDataStream & stream ) 
 {
 	Descriptor::Decode( stream );
 

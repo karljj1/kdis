@@ -52,7 +52,7 @@ MinePaintScheme::MinePaintScheme( MineAlgae A, PaintScheme PS )
 
 //////////////////////////////////////////////////////////////////////////
 
-MinePaintScheme::MinePaintScheme( KDataStream & stream ) throw( KException )
+MinePaintScheme::MinePaintScheme( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -107,7 +107,7 @@ KString MinePaintScheme::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinePaintScheme::Decode( KDataStream & stream ) throw( KException )
+void MinePaintScheme::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MINE_PAINT_SCHEME_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

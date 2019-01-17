@@ -45,7 +45,7 @@ DeadReckoningParameter::DeadReckoningParameter() :
 
 //////////////////////////////////////////////////////////////////////////
 
-DeadReckoningParameter::DeadReckoningParameter( KDataStream & stream ) throw( KException )
+DeadReckoningParameter::DeadReckoningParameter( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -140,7 +140,7 @@ KString DeadReckoningParameter::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void DeadReckoningParameter::Decode( KDataStream & stream ) throw( KException )
+void DeadReckoningParameter::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < DEAD_RECKONING_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

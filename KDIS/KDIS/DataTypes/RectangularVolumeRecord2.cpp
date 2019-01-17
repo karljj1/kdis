@@ -46,7 +46,7 @@ RectangularVolumeRecord2::RectangularVolumeRecord2() :
 
 //////////////////////////////////////////////////////////////////////////
 
-RectangularVolumeRecord2::RectangularVolumeRecord2( KDataStream & stream )throw( KException )
+RectangularVolumeRecord2::RectangularVolumeRecord2( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -151,7 +151,7 @@ KString RectangularVolumeRecord2::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void RectangularVolumeRecord2::Decode( KDataStream & stream ) throw( KException )
+void RectangularVolumeRecord2::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < RECTANGLE_VOLUME_RECORD_2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

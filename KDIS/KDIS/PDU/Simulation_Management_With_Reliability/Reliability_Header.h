@@ -63,7 +63,7 @@ public:
 
     Reliability_Header();
 
-    Reliability_Header( KDataStream & stream ) throw( KException );
+    Reliability_Header( KDataStream & stream ) ;
 
     Reliability_Header( KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
 
@@ -90,7 +90,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Reliability_Header::Encode

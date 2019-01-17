@@ -65,9 +65,9 @@ public:
 
     Resupply_Received_PDU( const Header & H );
 
-    Resupply_Received_PDU( KDataStream & stream ) throw( KException );
+    Resupply_Received_PDU( KDataStream & stream ) ;
 
-    Resupply_Received_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Resupply_Received_PDU( const Header & H, KDataStream & stream ) ;
 
     Resupply_Received_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
 
@@ -109,7 +109,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Resupply_Received_PDU::Encode

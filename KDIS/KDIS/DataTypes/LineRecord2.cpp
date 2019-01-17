@@ -45,7 +45,7 @@ LineRecord2::LineRecord2()
 
 //////////////////////////////////////////////////////////////////////////
 
-LineRecord2::LineRecord2( KDataStream & stream )throw( KException )
+LineRecord2::LineRecord2( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -133,7 +133,7 @@ KString LineRecord2::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LineRecord2::Decode( KDataStream & stream ) throw( KException )
+void LineRecord2::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < LINE_RECORD_2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

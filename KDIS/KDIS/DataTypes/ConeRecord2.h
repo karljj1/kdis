@@ -62,7 +62,7 @@ public:
 
     ConeRecord2();
 
-    ConeRecord2( KDataStream & stream ) throw( KException );
+    ConeRecord2( KDataStream & stream ) ;
 
     ConeRecord2( KUINT8 Index, const WorldCoordinates & VertexLocation, const EulerAngles & Orientation,
                  const Vector & Velocity, const Vector & AngularVelocity, KFLOAT32 Height,
@@ -121,7 +121,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ConeRecord2::Encode

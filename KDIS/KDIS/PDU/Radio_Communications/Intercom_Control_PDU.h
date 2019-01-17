@@ -94,9 +94,9 @@ public:
 
     Intercom_Control_PDU();
 
-    Intercom_Control_PDU( KDataStream & stream ) throw( KException );
+    Intercom_Control_PDU( KDataStream & stream ) ;
 
-    Intercom_Control_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Intercom_Control_PDU( const Header & H, KDataStream & stream ) ;
 
     virtual ~Intercom_Control_PDU();
 
@@ -252,7 +252,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Intercom_Control_PDU::Encode

@@ -209,7 +209,7 @@ void PDU_Factory::RemoveFilter( PDU_Factory_Filter * F )
 
 //////////////////////////////////////////////////////////////////////////
 
-unique_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )throw( KException )
+unique_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )
 {
     KDataStream kd( Buffer, BufferSize );
     return Decode( kd );
@@ -217,14 +217,14 @@ unique_ptr<Header> PDU_Factory::Decode( KOCTET * Buffer, KUINT16 BufferSize )thr
 
 //////////////////////////////////////////////////////////////////////////
 
-unique_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )throw( KException )
+unique_ptr<Header> PDU_Factory::Decode( KDataStream & Stream )
 {
     return Decode( Header( Stream ), Stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-unique_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )throw( KException )
+unique_ptr<Header> PDU_Factory::Decode( const Header & H, KDataStream & Stream )
 {
     if (!applyFiltersBeforeDecodingPDUBody(&H))
     {

@@ -59,9 +59,9 @@ public:
 
     AggregateMarking();
 
-    AggregateMarking( KDataStream & stream ) throw( KException );
+    AggregateMarking( KDataStream & stream ) ;
 
-    AggregateMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) throw( KException );
+    AggregateMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) ;
 
     virtual ~AggregateMarking();
 
@@ -95,7 +95,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::AggregateMarking::Encode

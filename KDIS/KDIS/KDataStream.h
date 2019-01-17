@@ -93,7 +93,7 @@ public:
     // Parameter:   KUINT16 BufferSize
     // Parameter:   KUINT16 WritePos - Where to start writing into the buffer
     //************************************
-    KUINT16 CopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize, KUINT16 WritePos = 0 ) const throw( KException );
+    KUINT16 CopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize, KUINT16 WritePos = 0 ) const ;
 
     //************************************
     // FullName:    KDIS::KDataStream::CopyFromBuffer

@@ -63,7 +63,7 @@ KDIS::DATA_TYPE::SeparationPart::SeparationPart(ReasonForSeparation RFS, PreEnti
 
 //////////////////////////////////////////////////////////////////////////
 
-SeparationPart::SeparationPart( KDataStream & stream ) throw( KException )
+SeparationPart::SeparationPart( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -151,7 +151,7 @@ KString SeparationPart::GetAsString() const
     KStringStream ss;
 
     ss << "Separation Part:"
-        << "\n\ Reason for Separation: " << GetEnumAsStringReasonForSeparation( m_ui8Reason )
+        << "\n\tReason for Separation: " << GetEnumAsStringReasonForSeparation( m_ui8Reason )
         << "\n\tPre-Entity Indicator:  " << GetEnumAsStringPreEntityIndicator( m_ui8PreEntIndicator )
         << "\n\tParent Entity Id:      " << m_ParentEntId.GetAsString()
         << "\n\tStation Location:      " << m_StationLoc.GetAsString();
@@ -161,7 +161,7 @@ KString SeparationPart::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void SeparationPart::Decode( KDataStream & stream ) throw( KException )
+void SeparationPart::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

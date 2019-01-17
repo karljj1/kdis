@@ -109,9 +109,9 @@ public:
 
 	IFF_PDU( const Header & H );
 
-    IFF_PDU( KDataStream & stream ) throw( KException );
+    IFF_PDU( KDataStream & stream ) ;
 
-	IFF_PDU( const Header & H, KDataStream & stream ) throw( KException );
+	IFF_PDU( const Header & H, KDataStream & stream ) ;
 
     IFF_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID, const KDIS::DATA_TYPE::Vector & Location,
              const KDIS::DATA_TYPE::SystemIdentifier & ID, const KDIS::DATA_TYPE::FundamentalOperationalData & FOD );
@@ -219,7 +219,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::IFF_PDU::Encode

@@ -72,9 +72,9 @@ public:
 
     Signal_PDU( const Header & H );
 
-    Signal_PDU( KDataStream & stream ) throw( KException );
+    Signal_PDU( KDataStream & stream ) ;
 
-    Signal_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Signal_PDU( const Header & H, KDataStream & stream ) ;
 
     Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
                 KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
@@ -129,7 +129,7 @@ public:
     // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be at least the size GetDataLength)
     //************************************
     void SetData( const KOCTET * D, KUINT16 Length );
-    void GetData( KOCTET * D, KUINT16 Length ) const throw( KException );
+    void GetData( KOCTET * D, KUINT16 Length ) const ;
 
     //************************************
     // FullName:    KDIS::PDU::Signal_PDU::GetAsString
@@ -143,7 +143,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Signal_PDU::Encode

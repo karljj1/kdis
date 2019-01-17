@@ -58,9 +58,9 @@ public:
 
     Acknowledge_R_PDU();
 
-    Acknowledge_R_PDU( KDataStream & stream ) throw( KException );
+    Acknowledge_R_PDU( KDataStream & stream ) ;
 
-    Acknowledge_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Acknowledge_R_PDU( const Header & H, KDataStream & stream ) ;
 
     Acknowledge_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
                        KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );

@@ -58,7 +58,7 @@ public:
 
     PropulsionSystem();
 
-    PropulsionSystem( KDataStream & stream ) throw( KException );
+    PropulsionSystem( KDataStream & stream ) ;
 
     PropulsionSystem( KFLOAT32 PowerSetting, KFLOAT32 EngineRPM );
 
@@ -96,7 +96,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PropulsionSystem::Encode

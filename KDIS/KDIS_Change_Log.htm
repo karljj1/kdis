@@ -98,6 +98,12 @@
 	<li>Updated GuidedMunitionAppearance Struct with additional fields.</li>
 	<li>Improved GetAsString for NonHumanLifeFormAppearance.</li> 
 	<li>CulturalFeatureAppearance incorrectly supports Engine Smoke bit, Modified the struct to eliminate bit-6 tracking.</li>
+	<li>Fixed bug in Intercom_Control_PDU::Decode.</li>
+	<li>Fixed type miss-match between EntityAppearance types(class to structs).</li>
+	<li>Converted Connection functions to be virtual to allow for further derivation.</li>
+	<li>Added the explicit keyword to the ctors and a true copy ctor for the Simulation_Management_Header.</li>
+	<li>Added missing enums 16 & 17 for EventType enum. <a href="http://sourceforge.net/p/kdis/bugs/89/">Bug #89</a></li>
+	<li>Fixed memory leak in Entity_State_PDU when calling SetDeadReckoningCalculator.</li>
 </ul>
 
 <!-- Version 2-9-0 !-->

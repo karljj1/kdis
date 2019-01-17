@@ -76,7 +76,7 @@ public:
 
     Descriptor();
 
-    Descriptor( KDataStream & stream )throw( KException );
+    Descriptor( KDataStream & stream );
 
     Descriptor( const EntityType & T );
 
@@ -103,7 +103,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Descriptor::Encode

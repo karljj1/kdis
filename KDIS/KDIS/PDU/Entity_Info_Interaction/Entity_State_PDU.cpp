@@ -62,7 +62,7 @@ Entity_State_PDU::Entity_State_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_PDU::Entity_State_PDU( KDataStream & stream ) throw( KException ) :
+Entity_State_PDU::Entity_State_PDU( KDataStream & stream )  :
     m_pDrCalc( 0 )
 {
     Decode( stream, false );
@@ -70,7 +70,7 @@ Entity_State_PDU::Entity_State_PDU( KDataStream & stream ) throw( KException ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_PDU::Entity_State_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Entity_State_PDU::Entity_State_PDU( const Header & H, KDataStream & stream )  :
     Header( H ),
     m_pDrCalc( 0 )
 {
@@ -314,7 +314,10 @@ void Entity_State_PDU::SetDeadReckoningParameter( const DeadReckoningParameter &
 
 void Entity_State_PDU::SetDeadReckoningCalculator( DeadReckoningCalculator * DR )
 {
-    m_pDrCalc = DR;
+	if(m_pDrCalc)
+		delete m_pDrCalc;
+
+    m_pDrCalc = DR ? new DeadReckoningCalculator(*DR) : NULL ;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -338,7 +341,7 @@ void Entity_State_PDU::InitDeadReckoning()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_PDU::ApplyDeadReckoning( KFLOAT64 totalTimeSinceDrReset ) throw( KException )
+void Entity_State_PDU::ApplyDeadReckoning( KFLOAT64 totalTimeSinceDrReset ) 
 {
     if( !m_pDrCalc )throw KException( __FUNCTION__, INVALID_OPERATION, "You must call InitDeadReckoning() first." );
     m_pDrCalc->RunAlgorithm( totalTimeSinceDrReset, m_EntityLocation, m_EntityOrientation );
@@ -480,7 +483,7 @@ KString Entity_State_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Entity_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENTITY_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -601,10 +604,8 @@ Entity_State_PDU & Entity_State_PDU::operator=( const Entity_State_PDU & Other )
     m_EntityMarking = Other.m_EntityMarking;
     m_EntityCapabilities = Other.m_EntityCapabilities;
     m_vVariableParameters = Other.m_vVariableParameters;
-
-    if (m_pDrCalc && m_pDrCalc != Other.m_pDrCalc)
-        delete m_pDrCalc;
-    m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
+    //m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
+	SetDeadReckoningCalculator(Other.m_pDrCalc);
     return *this;
 }
 

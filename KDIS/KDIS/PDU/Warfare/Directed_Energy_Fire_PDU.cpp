@@ -97,14 +97,14 @@ Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( const EntityIdentifier & Fir
 
 //////////////////////////////////////////////////////////////////////////
 
-Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException )
+Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Directed_Energy_Fire_PDU::Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -436,7 +436,7 @@ KString Directed_Energy_Fire_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Directed_Energy_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Directed_Energy_Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DIRECTED_ENERGY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
