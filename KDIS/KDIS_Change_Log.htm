@@ -64,6 +64,8 @@
 		<li>Added SupplyAppearance struct.</li>
 		<li>Added VariableParameter type SeparationPart.</li>
 		<li>Changed EmitterBeam class to use DIS_VERSION define when defining/declaring member variables and method. For DIS 7, introduced the BeamStatus and JammingTechnique classes to replicate the v7 PDU structure. Added a BeamState enum to the EnumEmitter file, base on the UID 318 contents of SISO-REF-010-2016-v22 document.
+		<li>Added additional enums(SISO 10-2015) for ModulationType, BeamAntennaPatternReferenceSystem, ModulationSystem, TDLType, BeamAntennaPatternReferenceSystem, SystemType, SystemMode and SystemName.</li>
+		<li>DIS 7 support added for SystemIdentifier. BeamAntennaPattern and Expendable Descriptor.</li>
 	</div>
 	<li>Added SendOnly option to connection class. The class will not bind if this is true. </li>
 	<li>Added support for unique_ptr when C++11 is supported.</li>
@@ -104,6 +106,14 @@
 	<li>Added the explicit keyword to the ctors and a true copy ctor for the Simulation_Management_Header.</li>
 	<li>Added missing enums 16 & 17 for EventType enum. <a href="http://sourceforge.net/p/kdis/bugs/89/">Bug #89</a></li>
 	<li>Fixed memory leak in Entity_State_PDU when calling SetDeadReckoningCalculator.</li>
+	<li>Fixed CryptoSystem byte ordering.</li>
+	<li>Fixed MarkXTransponder negative altitude detection.</li>
+	<li>Fixed potential stream overrun in DetonationPDU.</li>
+	<li>Fixed Layer2 and 3 incorrectly double decoding the header - constructors were not ignoring the header even when being provided one.<li>
+	
+	
+	
+	
 </ul>
 
 <!-- Version 2-9-0 !-->
