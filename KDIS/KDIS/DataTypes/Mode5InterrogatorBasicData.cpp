@@ -124,6 +124,34 @@ KUINT32 Mode5InterrogatorBasicData::GetMessageFormatsPresent() const
 
 //////////////////////////////////////////////////////////////////////////
 
+KBOOL Mode5InterrogatorBasicData::operator != (const Mode5InterrogatorBasicData & Value) const
+{
+    return !(*this == Value);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5InterrogatorBasicData::SetInterrogatedEntityID(const EntityIdentifier & ID)
+{
+    m_InterrogatedID = ID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityIdentifier& Mode5InterrogatorBasicData::GetInterrogatedEntityID() const
+{
+    return m_InterrogatedID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityIdentifier& Mode5InterrogatorBasicData::GetInterrogatedEntityID()
+{
+    return m_InterrogatedID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 KString Mode5InterrogatorBasicData::GetAsString() const
 {
     KStringStream ss;	
@@ -180,13 +208,6 @@ KBOOL Mode5InterrogatorBasicData::operator == ( const Mode5InterrogatorBasicData
 	if( m_ui32MsgFormats != Value.m_ui32MsgFormats ) return false;
 	if( m_InterrogatedID != Value.m_InterrogatedID ) return false;	
     return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Mode5InterrogatorBasicData::operator != ( const Mode5InterrogatorBasicData & Value ) const
-{
-    return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////
