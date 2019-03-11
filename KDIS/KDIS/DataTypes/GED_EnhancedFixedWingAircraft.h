@@ -62,7 +62,7 @@ public:
 
     GED_EnhancedFixedWingAircraft();
 
-    GED_EnhancedFixedWingAircraft( KDataStream & stream )throw( KException );
+    GED_EnhancedFixedWingAircraft( KDataStream & stream );
 
     GED_EnhancedFixedWingAircraft( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA, KINT8 Psi, KINT8 Theta, KINT8 Phi,
                                    KUINT8 FuelStatus, KINT8 HorizontalDeviation, KINT8 VerticalDeviation, KINT8 Speed, KUINT8 SupFuelStatus,
@@ -136,7 +136,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_EnhancedFixedWingAircraft::Encode

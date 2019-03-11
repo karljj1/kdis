@@ -63,14 +63,14 @@ Signal_PDU::Signal_PDU( const Header & H ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Signal_PDU::Signal_PDU( KDataStream & stream ) throw( KException )
+Signal_PDU::Signal_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Signal_PDU::Signal_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Signal_PDU::Signal_PDU( const Header & H, KDataStream & stream )  :
     Radio_Communications_Header( H )
 {
     Decode( stream, true );
@@ -187,7 +187,7 @@ void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
 
 //////////////////////////////////////////////////////////////////////////
 
-void Signal_PDU::GetData( KOCTET * D, KUINT16 Length ) const throw( KException )
+void Signal_PDU::GetData( KOCTET * D, KUINT16 Length ) const 
 {
     if( Length < m_ui16DataLength )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
 
@@ -222,7 +222,7 @@ KString Signal_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SIGNAL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -47,7 +47,7 @@ Mode5TransponderSupplementalData::Mode5TransponderSupplementalData()
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderSupplementalData::Mode5TransponderSupplementalData( KBOOL Squitter, KBOOL Lvl2Squitter, KUINT8 IFFMission ) throw( KException )
+Mode5TransponderSupplementalData::Mode5TransponderSupplementalData( KBOOL Squitter, KBOOL Lvl2Squitter, KUINT8 IFFMission ) 
 {
 	if( IFFMission > 7 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 	m_SupplementalDataUnion.m_ui8SupplementalData = 0;
@@ -58,7 +58,7 @@ Mode5TransponderSupplementalData::Mode5TransponderSupplementalData( KBOOL Squitt
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderSupplementalData::Mode5TransponderSupplementalData( KDataStream & stream ) throw( KException )
+Mode5TransponderSupplementalData::Mode5TransponderSupplementalData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -99,7 +99,7 @@ KBOOL Mode5TransponderSupplementalData::GetLevel2Squitter() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderSupplementalData::SetIFFMission( KUINT8 IFFM ) throw( KException )
+void Mode5TransponderSupplementalData::SetIFFMission( KUINT8 IFFM ) 
 {
 	if( IFFM > 7 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 	m_SupplementalDataUnion.m_ui8IFFMission = IFFM;
@@ -127,7 +127,7 @@ KString Mode5TransponderSupplementalData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderSupplementalData::Decode( KDataStream & stream ) throw( KException )
+void Mode5TransponderSupplementalData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MODE_5_TRANSPONDER_SUPPLEMENTAL_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	

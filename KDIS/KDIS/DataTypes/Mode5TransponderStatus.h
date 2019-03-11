@@ -76,7 +76,7 @@ public:
 
     Mode5TransponderStatus();
 
-    Mode5TransponderStatus( KDataStream & stream ) throw( KException );
+    Mode5TransponderStatus( KDataStream & stream ) ;
 
 	Mode5TransponderStatus( KDIS::DATA_TYPE::ENUMS::Mode5Reply R, KBOOL LineTest, KDIS::DATA_TYPE::ENUMS::AntennaSelection AS, KBOOL Crypto,
 	                        KBOOL LocationIncluded, KBOOL LocationErrorIncluded, KDIS::DATA_TYPE::ENUMS::PlatformType PT, KBOOL Lvl2Included,
@@ -211,7 +211,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderStatus::Encode

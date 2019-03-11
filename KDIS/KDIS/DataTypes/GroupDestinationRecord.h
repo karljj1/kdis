@@ -62,7 +62,7 @@ public:
 
     GroupDestinationRecord();
 
-    GroupDestinationRecord( KDataStream & stream )throw( KException );
+    GroupDestinationRecord( KDataStream & stream );
 
     GroupDestinationRecord( KUINT32 GroupBitField, KUINT8 Priority, KDIS::DATA_TYPE::ENUMS::LineStateCommand LSC );
 
@@ -79,8 +79,8 @@ public:
     //************************************
     void SetGroupBitField( KUINT32 AllGroups );
     KUINT32 GetGroupBitField() const;
-    void SetGroupBitField( KUINT8 Group, KBOOL InGroup = true ) throw( KException );
-    KBOOL IsGroupBitSet( KUINT8 Group ) const throw( KException );
+    void SetGroupBitField( KUINT8 Group, KBOOL InGroup = true ) ;
+    KBOOL IsGroupBitSet( KUINT8 Group ) const ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GroupDestinationRecord::SetDestinationPriority
@@ -116,7 +116,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GroupDestinationRecord::Encode

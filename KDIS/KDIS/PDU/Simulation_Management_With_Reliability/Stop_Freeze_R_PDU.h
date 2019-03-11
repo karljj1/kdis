@@ -54,9 +54,9 @@ public:
 
     Stop_Freeze_R_PDU();
 
-    Stop_Freeze_R_PDU( KDataStream & stream ) throw( KException );
+    Stop_Freeze_R_PDU( KDataStream & stream ) ;
 
-    Stop_Freeze_R_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Stop_Freeze_R_PDU( const Header & H, KDataStream & stream ) ;
 
     Stop_Freeze_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
                        const KDIS::DATA_TYPE::ClockTime & RealWorldTime, KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR,
@@ -80,7 +80,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Stop_Freeze_R_PDU::Encode

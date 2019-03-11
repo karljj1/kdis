@@ -71,7 +71,7 @@ public:
 
     Mode5InterrogatorStatus();
 
-    Mode5InterrogatorStatus( KDataStream & stream ) throw( KException );
+    Mode5InterrogatorStatus( KDataStream & stream ) ;
 
 	Mode5InterrogatorStatus( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
                              KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction );
@@ -85,7 +85,7 @@ public:
 	//              Refer to AIMS 03-1000A to determine the applicable IFF mission.
     // Parameter:   KUINT8 IFFM	- Exception thrown if greater than 7.
     //************************************
-	void SetIFFMission( KUINT8 IFFM ) throw( KException );
+	void SetIFFMission( KUINT8 IFFM ) ;
 	KUINT8 GetIFFMIssion() const;
 
     //************************************
@@ -136,7 +136,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorStatus::Encode

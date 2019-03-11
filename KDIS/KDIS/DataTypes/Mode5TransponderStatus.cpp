@@ -47,7 +47,7 @@ Mode5TransponderStatus::Mode5TransponderStatus()
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderStatus::Mode5TransponderStatus( KDataStream & stream ) throw( KException )
+Mode5TransponderStatus::Mode5TransponderStatus( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -257,7 +257,7 @@ KString Mode5TransponderStatus::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderStatus::Decode( KDataStream & stream ) throw( KException )
+void Mode5TransponderStatus::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MODE_5_TRANSPONDER_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	

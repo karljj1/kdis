@@ -102,7 +102,7 @@ KUINT16 KDataStream::GetBufferSize() const
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 KDataStream::CopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize,  KUINT16 WritePos /*= 0*/ ) const throw( KException )
+KUINT16 KDataStream::CopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize,  KUINT16 WritePos /*= 0*/ ) const 
 {
     if( ( BufferSize - WritePos ) < ( KUINT16 )m_vBuffer.size() )
     {

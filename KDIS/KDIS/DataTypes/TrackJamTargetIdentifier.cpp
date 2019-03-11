@@ -44,7 +44,7 @@ TrackJamTargetIdentifier::TrackJamTargetIdentifier() :
 
 //////////////////////////////////////////////////////////////////////////
 
-TrackJamTargetIdentifier::TrackJamTargetIdentifier( KDataStream & stream ) throw( KException )
+TrackJamTargetIdentifier::TrackJamTargetIdentifier( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -119,7 +119,7 @@ KString TrackJamTargetIdentifier::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void TrackJamTargetIdentifier::Decode( KDataStream & stream ) throw( KException )
+void TrackJamTargetIdentifier::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < TRACK_JAM_TARGET_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

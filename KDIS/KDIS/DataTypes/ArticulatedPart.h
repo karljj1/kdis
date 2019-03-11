@@ -66,7 +66,7 @@ public:
 
     ArticulatedPart();
 
-    ArticulatedPart( KDataStream & stream ) throw( KException );
+    ArticulatedPart( KDataStream & stream ) ;
 
     ArticulatedPart( KUINT8 ParamChangeIndicator, KUINT16 AttachID, KDIS::DATA_TYPE::ENUMS::ArticulatedPartsClass C,
                      KDIS::DATA_TYPE::ENUMS::ArticulatedPartsMetric M, KFLOAT32 Value );
@@ -151,7 +151,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ArticulatedPart::Encode

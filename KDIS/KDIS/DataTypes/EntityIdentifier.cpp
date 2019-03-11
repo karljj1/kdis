@@ -43,7 +43,7 @@ EntityIdentifier::EntityIdentifier() :
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier::EntityIdentifier( KDataStream & stream ) throw( KException )
+EntityIdentifier::EntityIdentifier( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -98,7 +98,7 @@ KString EntityIdentifier::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityIdentifier::Decode( KDataStream & stream ) throw( KException )
+void EntityIdentifier::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < EntityIdentifier::ENTITY_IDENTIFER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

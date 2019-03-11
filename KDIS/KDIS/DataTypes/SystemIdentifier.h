@@ -63,6 +63,13 @@ protected:
             KUINT8 m_ui8AltMode4        : 1;
             KUINT8 m_ui8AltModeC        : 1;
             // Bits 3-7 not used
+	        #if DIS_VERSION > 6
+            KUINT8 m_ui8HeartbeatIndicator                  : 1;
+            KUINT8 m_ui8TransponderInterrogatorIndicator    : 1;
+            KUINT8 m_ui8SimulationMode                      : 1;
+            KUINT8 m_ui8InteractiveCapable                  : 1;
+            KUINT8 m_ui8TestMode                            : 1;
+            #endif
         };
 
         KUINT8 m_ui8ChangeOptions;
@@ -77,7 +84,7 @@ public:
     SystemIdentifier( KDIS::DATA_TYPE::ENUMS::SystemType T, KDIS::DATA_TYPE::ENUMS::SystemName N, KDIS::DATA_TYPE::ENUMS::SystemMode M, 
 		              KBOOL ChangeIndicator, KBOOL AltMode4 = false, KBOOL AltModeC = false );
 
-    SystemIdentifier( KDataStream & stream ) throw( KException );
+    SystemIdentifier( KDataStream & stream ) ;
 
     virtual ~SystemIdentifier();
 
@@ -128,6 +135,19 @@ public:
     KBOOL GetAltMode4() const;
     KBOOL GetAltModeC() const;
 
+    #if DIS_VERSION > 6
+    void SetHeartbeatIndicator ( KBOOL HI);
+    void SetTransponderInterrogatorIndicator ( KBOOL TII);
+    void SetSimulationMode ( KBOOL SM);
+    void SetInteractiveCapable ( KBOOL IC);
+    void SetTestMode ( KBOOL TM);
+    KBOOL GetHeartbeatIndicator() const;
+    KBOOL GetTransponderInterrogatorIndicator() const;
+    KBOOL GetSimulationMode() const;
+    KBOOL GetInteractiveCapable() const;
+    KBOOL GetTestMode() const;
+    #endif
+
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::GetAsString
     // Description: Returns a string representation
@@ -139,7 +159,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SystemIdentifier::Encode

@@ -89,7 +89,7 @@ public:
     }
 
     // Our custom decode function.
-    virtual void Decode( KDataStream & stream ) throw( KException )
+    virtual void Decode( KDataStream & stream ) 
     {
         // Deocode the standard variable datum fields
         stream >> m_ui32DatumID

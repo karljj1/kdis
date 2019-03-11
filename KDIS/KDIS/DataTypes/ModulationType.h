@@ -72,7 +72,7 @@ public:
 
     ModulationType();
 
-    ModulationType( KDataStream & stream )throw( KException );
+    ModulationType( KDataStream & stream );
 
     ModulationType( KBOOL FreqHop, KBOOL PseudoNoise, KBOOL TimeHop,
                     KUINT16 MajorModulation, KUINT16 Detail,
@@ -159,7 +159,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ModulationType::Encode

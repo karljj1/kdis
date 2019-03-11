@@ -45,7 +45,7 @@ RelationshipRecord::RelationshipRecord() :
 
 //////////////////////////////////////////////////////////////////////////
 
-RelationshipRecord::RelationshipRecord( KDataStream & stream ) throw( KException )
+RelationshipRecord::RelationshipRecord( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -108,7 +108,7 @@ KString RelationshipRecord::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void RelationshipRecord::Decode( KDataStream & stream ) throw( KException )
+void RelationshipRecord::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < RELATIONSHIP_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

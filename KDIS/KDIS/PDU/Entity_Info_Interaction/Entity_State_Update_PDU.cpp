@@ -56,14 +56,14 @@ Entity_State_Update_PDU::Entity_State_Update_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_Update_PDU::Entity_State_Update_PDU( KDataStream & stream ) throw( KException )
+Entity_State_Update_PDU::Entity_State_Update_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_Update_PDU::Entity_State_Update_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Entity_State_Update_PDU::Entity_State_Update_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -269,7 +269,7 @@ KString Entity_State_Update_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_Update_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Entity_State_Update_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENTITY_STATE_UPDATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

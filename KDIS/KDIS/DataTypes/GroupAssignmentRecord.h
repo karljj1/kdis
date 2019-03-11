@@ -69,7 +69,7 @@ public:
 
     GroupAssignmentRecord();
 
-    GroupAssignmentRecord( KDataStream & stream )throw( KException );
+    GroupAssignmentRecord( KDataStream & stream );
 
     GroupAssignmentRecord( KUINT32 GroupBitField, const EntityIdentifier & ID,
                            KUINT8 DeviceID, KUINT8 LineID );
@@ -87,8 +87,8 @@ public:
     //************************************
     void SetGroupBitField( KUINT32 AllGroups );
     KUINT32 GetGroupBitField() const;
-    void SetGroupBitField( KUINT8 Group, KBOOL InGroup = true ) throw( KException );
-    KBOOL IsGroupBitSet( KUINT8 Group ) const throw( KException );
+    void SetGroupBitField( KUINT8 Group, KBOOL InGroup = true ) ;
+    KBOOL IsGroupBitSet( KUINT8 Group ) const ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GroupAssignmentRecord::SetDestinationEntityID
@@ -133,7 +133,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GroupAssignmentRecord::Encode

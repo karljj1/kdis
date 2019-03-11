@@ -95,9 +95,9 @@ public:
 
     Collision_Elastic_PDU();
 
-    Collision_Elastic_PDU( KDataStream & stream ) throw( KException );
+    Collision_Elastic_PDU( KDataStream & stream ) ;
 
-    Collision_Elastic_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Collision_Elastic_PDU( const Header & H, KDataStream & stream ) ;
 
     virtual ~Collision_Elastic_PDU();
 
@@ -225,7 +225,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Collision_Elastic_PDU::Encode

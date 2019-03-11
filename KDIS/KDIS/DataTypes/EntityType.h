@@ -73,7 +73,7 @@ public:
     EntityType( KUINT8 Kind, KUINT8 Domain, KUINT16 Country, KUINT8  Categoy,
                 KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra );
 
-    EntityType( KDataStream & stream ) throw( KException );
+    EntityType( KDataStream & stream ) ;
 
     virtual ~EntityType();
 
@@ -149,7 +149,7 @@ public:
     // Parameter:   const KString & String
     // Parameter:   KString & Seperator = ","
     //************************************
-    void ReadFromTokenisedString( const KString & String, const KString & Seperator = "," ) throw( KException );
+    void ReadFromTokenisedString( const KString & String, const KString & Seperator = "," ) ;
     KString CreateTokenisedString( const KString & Seperator = "," ) const;
 
     //************************************
@@ -163,7 +163,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityType::Encode

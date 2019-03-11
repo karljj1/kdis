@@ -59,7 +59,7 @@ public:
 
     CommunicationsNodeID();
 
-    CommunicationsNodeID( KDataStream & stream ) throw( KException );
+    CommunicationsNodeID( KDataStream & stream ) ;
 
     CommunicationsNodeID( KUINT16 Site, KUINT16 App, KUINT16 Obj, KUINT16 Element );
 
@@ -93,7 +93,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::Encode

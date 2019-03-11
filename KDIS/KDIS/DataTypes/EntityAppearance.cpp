@@ -58,7 +58,7 @@ EntityAppearance::EntityAppearance() : m_Appearance(0)
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityAppearance::EntityAppearance( KDataStream & stream ) throw( KException )
+EntityAppearance::EntityAppearance( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -532,7 +532,7 @@ KString EntityAppearance::GetAsString( const EntityType & EntType ) const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityAppearance::Decode( KDataStream & stream ) throw( KException )
+void EntityAppearance::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ENTITY_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -54,14 +54,14 @@ Entity_Damage_Status_PDU::Entity_Damage_Status_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( KDataStream & stream ) throw( KException )
+Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -180,7 +180,7 @@ KString Entity_Damage_Status_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_Damage_Status_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Entity_Damage_Status_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ENTITY_DAMAGE_STATE_PDU )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

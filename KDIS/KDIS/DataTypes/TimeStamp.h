@@ -87,7 +87,7 @@ public:
 
     TimeStamp();
 
-    TimeStamp( KDataStream & stream )throw( KException );
+    TimeStamp( KDataStream & stream );
 
     TimeStamp( KDIS::DATA_TYPE::ENUMS::TimeStampType T, KUINT32 Time, KBOOL AutoCalcRelative = false);
 
@@ -143,7 +143,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::TimeStamp::Encode

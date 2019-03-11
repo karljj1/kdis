@@ -61,7 +61,7 @@ public:
 
     AntennaLocation();
 
-    AntennaLocation( KDataStream & stream )throw( KException );
+    AntennaLocation( KDataStream & stream );
 
     AntennaLocation( const WorldCoordinates & Location, const Vector & RelativeLocation );
 
@@ -98,7 +98,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DataTypes::AntennaLocation::Encode

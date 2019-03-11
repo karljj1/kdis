@@ -67,7 +67,7 @@ public:
 
     EntityCapabilities();
 
-    EntityCapabilities( KDataStream & stream ) throw( KException );
+    EntityCapabilities( KDataStream & stream ) ;
 
     EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply, KBOOL RecoveryService, KBOOL RepairService );
 
@@ -140,7 +140,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityCapabilities::Encode

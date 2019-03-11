@@ -45,7 +45,7 @@ LinearObjectAppearance::LinearObjectAppearance()
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearObjectAppearance::LinearObjectAppearance( KDataStream & stream ) throw( KException )
+LinearObjectAppearance::LinearObjectAppearance( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -115,7 +115,7 @@ bitset<8> LinearObjectAppearance::GetBreachLocationAsBitset()
 
 ////////////////////////////////////////////////////////////////////////////
 
-void LinearObjectAppearance::SetOpacity( KUINT8 O ) throw( KException )
+void LinearObjectAppearance::SetOpacity( KUINT8 O ) 
 {
     if( O > 100 ) throw KException( __FUNCTION__, INVALID_DATA, "Acceptable values are 0-100." );
 
@@ -185,7 +185,7 @@ KString LinearObjectAppearance::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearObjectAppearance::Decode( KDataStream & stream ) throw( KException )
+void LinearObjectAppearance::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < LINEAR_OBJECT_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

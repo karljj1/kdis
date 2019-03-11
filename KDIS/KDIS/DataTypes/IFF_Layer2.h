@@ -64,9 +64,9 @@ public:
 
     IFF_Layer2();
 
-    IFF_Layer2( KDataStream & stream ) throw( KException );
+    IFF_Layer2( KDataStream & stream ) ;
 
-	IFF_Layer2( const LayerHeader & H, KDataStream & stream ) throw( KException );
+	IFF_Layer2( const LayerHeader & H, KDataStream & stream ) ;
 
     IFF_Layer2( const BeamData & BD, const SecondaryOperationalData & SOD,
                 const std::vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD );
@@ -123,7 +123,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer2::Encode

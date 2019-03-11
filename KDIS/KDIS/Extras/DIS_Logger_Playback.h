@@ -67,7 +67,7 @@ protected:
     // FullName:    KDIS::UTILS::DIS_Logger_Playback::loadFromFile
     // Description: Load data from file
     //************************************
-    void loadFromFile() throw( KException );
+    void loadFromFile() ;
 
 public:
 
@@ -85,7 +85,7 @@ public:
     // Parameter:   KDataStream & Stream
     //************************************
     template<class Type>
-    KBOOL GetNext( Type & Stamp, KDataStream & stream ) throw( KException );
+    KBOOL GetNext( Type & Stamp, KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::UTILS::DIS_Logger_Playback::EndOfLogReached
@@ -100,7 +100,7 @@ public:
 //////////////////////////////////////////////////////////////////////////
 
 template<class Type>
-KBOOL DIS_Logger_Playback::GetNext( Type & Stamp, KDataStream & Stream ) throw( KException )
+KBOOL DIS_Logger_Playback::GetNext( Type & Stamp, KDataStream & Stream ) 
 {
     if( EndOfLogReached() )return false;
 

@@ -67,7 +67,7 @@ public:
 
     MinePaintScheme( KDIS::DATA_TYPE::ENUMS::MineAlgae A, KDIS::DATA_TYPE::ENUMS::PaintScheme PS );
 
-    MinePaintScheme( KDataStream & stream ) throw( KException );
+    MinePaintScheme( KDataStream & stream ) ;
 
     virtual ~MinePaintScheme();
 
@@ -100,7 +100,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MinePaintScheme::Encode

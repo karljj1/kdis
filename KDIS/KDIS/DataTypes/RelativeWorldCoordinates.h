@@ -64,7 +64,7 @@ public:
 
     RelativeWorldCoordinates( KUINT16 RefPnt, KFIXED16_3 DelX, KFIXED16_3 DelY, KFIXED16_3 DelZ );
 
-    RelativeWorldCoordinates( KDataStream & stream ) throw( KException );
+    RelativeWorldCoordinates( KDataStream & stream ) ;
 
     virtual ~RelativeWorldCoordinates();
 
@@ -103,7 +103,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RelativeWorldCoordinates::Encode

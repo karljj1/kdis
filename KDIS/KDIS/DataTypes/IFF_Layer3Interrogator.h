@@ -57,12 +57,12 @@ public:
 	
     IFF_Layer3Interrogator();
 
-    IFF_Layer3Interrogator( KDataStream & stream ) throw( KException );
+    IFF_Layer3Interrogator( KDataStream & stream ) ;
 
 	IFF_Layer3Interrogator( const SimulationIdentifier & ReportingSimulation, const Mode5InterrogatorBasicData & Data,
 		                   std::vector<StdVarPtr> & Records );
 
-    IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream ) throw( KException );
+    IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream ) ;
 
     virtual ~IFF_Layer3Interrogator();
 	
@@ -88,7 +88,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::Encode

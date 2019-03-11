@@ -47,7 +47,7 @@ CryptoSystem::CryptoSystem() :
 
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystem::CryptoSystem( KDataStream & stream ) throw( KException )
+CryptoSystem::CryptoSystem( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -140,7 +140,7 @@ KString CryptoSystem::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void CryptoSystem::Decode( KDataStream & stream ) throw( KException )
+void CryptoSystem::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < CRYPTO_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

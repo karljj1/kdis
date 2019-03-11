@@ -1,5 +1,7 @@
 /*********************************************************************
-Copyright 2013 Karl Jones
+Copyright 2018 Karl Jones
+               Todd Klasik
+               GBL Systems Corporation
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,65 +30,54 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    class:      Set_Data_R_PDU
-    DIS:        (6) 1278.1A - 1998
-    created:    29:04:2009
-    author:     Karl Jones
+    class:      ExpendableDescriptor
+    created:    03/05/2018
+    author:     Todd Klasik
 
-    purpose:    Sent when initializing or changing internal state information
-    size:       356 bits/ 44 octets - not including variable param sizes
+    purpose:    Represents the burst of a chaff expendable or ignition of a flare
+                This descriptor is applicable to the Fire PDU and Detonation PDU.
+    size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./Data_R_PDU.h"
+#include "./Descriptor.h"
 
 namespace KDIS {
-namespace PDU {
+namespace DATA_TYPE {
 
-class KDIS_EXPORT Set_Data_R_PDU : public Data_R_PDU
+class KDIS_EXPORT ExpendableDescriptor : public Descriptor
 {
+protected:
+    KUINT64 m_ui64Padding;
 public:
 
-    static const KUINT16 SET_DATA_R_PDU_SIZE = 40;
+    ExpendableDescriptor();
 
-    Set_Data_R_PDU();
+    ExpendableDescriptor( KDataStream & stream )throw( KException );
 
-    Set_Data_R_PDU( KDataStream & stream ) ;
+    ExpendableDescriptor( const EntityType & T);
 
-    Set_Data_R_PDU( const Header & H, KDataStream & stream ) ;
-
-    Set_Data_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-                    KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
-
-    virtual ~Set_Data_R_PDU();
+    virtual ~ExpendableDescriptor();
 
     //************************************
-    // FullName:    KDIS::PDU::Set_Data_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    //************************************
-    // FullName:    KDIS::PDU::Set_Data_R_PDU::Decode
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Decode
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
+    virtual void Decode( KDataStream & stream ) throw( KException );
 
     //************************************
-    // FullName:    KDIS::PDU::Set_Data_R_PDU::Encode
+    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Encode
     // Description: Convert To Network Data.
     // Parameter:   KDataStream & stream
     //************************************
     virtual KDataStream Encode() const;
     virtual void Encode( KDataStream & stream ) const;
 
-    KBOOL operator == ( const Set_Data_R_PDU & Value ) const;
-    KBOOL operator != ( const Set_Data_R_PDU & Value ) const;
+    KBOOL operator == ( const ExpendableDescriptor & Value ) const;
+    KBOOL operator != ( const ExpendableDescriptor & Value ) const;
 };
 
-} // END namespace PDU
+} // END namespace DATA_TYPES
 } // END namespace KDIS
-

@@ -87,7 +87,7 @@ public:
 
     LinearSegmentParameter();
 
-    LinearSegmentParameter( KDataStream & stream )throw( KException );
+    LinearSegmentParameter( KDataStream & stream );
 
     LinearSegmentParameter( KUINT8 SegNum, KUINT8 Mod, const LinearObjectAppearance & A,
                             const WorldCoordinates & Loc, const EulerAngles & Ori,
@@ -205,7 +205,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LinearSegmentParameter::Encode

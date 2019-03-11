@@ -66,7 +66,7 @@ public:
     // In Radians
     LE_EulerAngles( KFIXED8_3 Psi, KFIXED8_3 Theta, KFIXED8_3 Phi );
 
-    LE_EulerAngles( KDataStream & stream ) throw( KException );
+    LE_EulerAngles( KDataStream & stream ) ;
 
     virtual ~LE_EulerAngles();
 
@@ -114,7 +114,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_EulerAngles::Encode
@@ -134,8 +134,8 @@ public:
     LE_EulerAngles & operator -= ( const LE_EulerAngles & Value );
 
     // Valid values 0 - Psi, 1 - Theta, 2 - Phi. throws OUT_OF_BOUNDS exception for any other value.
-    KFIXED8_3 & operator[] ( KUINT16 i ) throw( KException );
-    const KFIXED8_3 & operator[] ( KUINT16 i ) const throw( KException );
+    KFIXED8_3 & operator[] ( KUINT16 i ) ;
+    const KFIXED8_3 & operator[] ( KUINT16 i ) const ;
 };
 
 } // END namespace DATA_TYPES

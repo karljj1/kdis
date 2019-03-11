@@ -61,7 +61,7 @@ public:
 
     MunitionDescriptor();
 
-    MunitionDescriptor( KDataStream & stream )throw( KException );
+    MunitionDescriptor( KDataStream & stream );
 
     MunitionDescriptor( const EntityType & T, KDIS::DATA_TYPE::ENUMS::WarheadType WT, 
 		                KDIS::DATA_TYPE::ENUMS::FuseType FT, KUINT16 Quantity, KUINT16 Rate );
@@ -115,7 +115,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Encode

@@ -81,9 +81,9 @@ public:
 
     Entity_State_Update_PDU();
 
-    Entity_State_Update_PDU( KDataStream & stream ) throw( KException );
+    Entity_State_Update_PDU( KDataStream & stream ) ;
 
-    Entity_State_Update_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Entity_State_Update_PDU( const Header & H, KDataStream & stream ) ;
 
     Entity_State_Update_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, const KDIS::DATA_TYPE::Vector & EntityLinearVelocity,
                              const KDIS::DATA_TYPE::WorldCoordinates & EntityLocation, const KDIS::DATA_TYPE::EulerAngles & EntityOrientation,
@@ -173,7 +173,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Entity_State_Update_PDU::Encode

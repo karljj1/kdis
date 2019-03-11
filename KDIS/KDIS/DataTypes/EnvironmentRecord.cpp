@@ -117,7 +117,7 @@ KString EnvironmentRecord::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-EnvironmentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord( KDataStream & stream ) throw( KException )
+EnvironmentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord( KDataStream & stream ) 
 {
     // We now need to "peak" at the next 4 bytes to determine the Environment Record type,
     // once we have determined the type we need to return the buffers write positon as this

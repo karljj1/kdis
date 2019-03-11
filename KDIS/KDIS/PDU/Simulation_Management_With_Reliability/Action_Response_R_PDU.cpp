@@ -52,14 +52,14 @@ Action_Response_R_PDU::Action_Response_R_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_R_PDU::Action_Response_R_PDU( KDataStream & stream ) throw( KException )
+Action_Response_R_PDU::Action_Response_R_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_R_PDU::Action_Response_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Action_Response_R_PDU::Action_Response_R_PDU( const Header & H, KDataStream & stream )  :
     Action_Response_PDU( H )
 {
     Decode( stream, true );

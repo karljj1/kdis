@@ -125,7 +125,7 @@ KString Logistics_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Logistics_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Logistics_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LOGISTICS_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

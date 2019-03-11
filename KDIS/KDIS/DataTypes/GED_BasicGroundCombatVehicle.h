@@ -73,7 +73,7 @@ public:
 
     GED_BasicGroundCombatVehicle();
 
-    GED_BasicGroundCombatVehicle( KDataStream & stream )throw( KException );
+    GED_BasicGroundCombatVehicle( KDataStream & stream );
 
     GED_BasicGroundCombatVehicle( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA,
                                   KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed, KINT8 TurretAzimuth, KINT8 GunElevation,
@@ -216,7 +216,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GED_BasicGroundCombatVehicle::Encode

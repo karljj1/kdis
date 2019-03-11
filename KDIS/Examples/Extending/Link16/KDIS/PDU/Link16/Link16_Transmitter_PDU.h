@@ -97,9 +97,9 @@ public:
 
 	Link16_Transmitter_PDU();
 
-	Link16_Transmitter_PDU( KDataStream & stream ) throw( KException );
+	Link16_Transmitter_PDU( KDataStream & stream ) ;
 
-	Link16_Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException );
+	Link16_Transmitter_PDU( const Header & H, KDataStream & stream ) ;
 
 	Link16_Transmitter_PDU( const KDIS::DATA_TYPE::RadioEntityType & Type, KDIS::DATA_TYPE::ENUMS::TransmitState TS, KDIS::DATA_TYPE::ENUMS::RadioInputSource IS,
 						    const KDIS::DATA_TYPE::AntennaLocation & AL, KDIS::DATA_TYPE::ENUMS::AntennaPatternType APT, KUINT64 Freq,
@@ -172,7 +172,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
 	//************************************
 	// FullName:    KDIS::PDU::Link16::Link16_Transmitter_PDU::Encode

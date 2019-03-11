@@ -56,14 +56,14 @@ Record_Query_R_PDU::Record_Query_R_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Record_Query_R_PDU::Record_Query_R_PDU( KDataStream & stream ) throw( KException )
+Record_Query_R_PDU::Record_Query_R_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Record_Query_R_PDU::Record_Query_R_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Record_Query_R_PDU::Record_Query_R_PDU( const Header & H, KDataStream & stream )  :
     Simulation_Management_Header( H )
 {
     Decode( stream, true );
@@ -196,7 +196,7 @@ KString Record_Query_R_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Record_Query_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Record_Query_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RECORD_QUERY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -62,7 +62,7 @@ Mode5InterrogatorBasicData::Mode5InterrogatorBasicData( const Mode5InterrogatorS
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorBasicData::Mode5InterrogatorBasicData( KDataStream & stream ) throw( KException )
+Mode5InterrogatorBasicData::Mode5InterrogatorBasicData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -117,9 +117,37 @@ const std::bitset<32> Mode5InterrogatorBasicData::GetMessageFormatsPresentBitSet
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT32 Mode5InterrogatorBasicData::GetMessageFormatsPresent()
+KUINT32 Mode5InterrogatorBasicData::GetMessageFormatsPresent() const
 {
 	return m_ui32MsgFormats;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL Mode5InterrogatorBasicData::operator != (const Mode5InterrogatorBasicData & Value) const
+{
+    return !(*this == Value);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5InterrogatorBasicData::SetInterrogatedEntityID(const EntityIdentifier & ID)
+{
+    m_InterrogatedID = ID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityIdentifier& Mode5InterrogatorBasicData::GetInterrogatedEntityID() const
+{
+    return m_InterrogatedID;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityIdentifier& Mode5InterrogatorBasicData::GetInterrogatedEntityID()
+{
+    return m_InterrogatedID;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -137,7 +165,7 @@ KString Mode5InterrogatorBasicData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorBasicData::Decode( KDataStream & stream ) throw( KException )
+void Mode5InterrogatorBasicData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MODE_5_INTERROGATOR_BASIC_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 	
@@ -180,13 +208,6 @@ KBOOL Mode5InterrogatorBasicData::operator == ( const Mode5InterrogatorBasicData
 	if( m_ui32MsgFormats != Value.m_ui32MsgFormats ) return false;
 	if( m_InterrogatedID != Value.m_InterrogatedID ) return false;	
     return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Mode5InterrogatorBasicData::operator != ( const Mode5InterrogatorBasicData & Value ) const
-{
-    return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////

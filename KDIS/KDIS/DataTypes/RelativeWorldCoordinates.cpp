@@ -53,7 +53,7 @@ RelativeWorldCoordinates::RelativeWorldCoordinates( KUINT16 RefPnt, KFIXED16_3 D
 
 //////////////////////////////////////////////////////////////////////////
 
-RelativeWorldCoordinates::RelativeWorldCoordinates ( KDataStream & stream ) throw( KException )
+RelativeWorldCoordinates::RelativeWorldCoordinates ( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -138,7 +138,7 @@ KString RelativeWorldCoordinates::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void RelativeWorldCoordinates::Decode( KDataStream & stream ) throw( KException )
+void RelativeWorldCoordinates::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < RELATVE_WORLD_COORDINATES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

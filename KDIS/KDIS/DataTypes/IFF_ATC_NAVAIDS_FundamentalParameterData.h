@@ -71,7 +71,7 @@ public:
 
     IFF_ATC_NAVAIDS_FundamentalParameterData();
 
-    IFF_ATC_NAVAIDS_FundamentalParameterData( KDataStream & stream )throw( KException );
+    IFF_ATC_NAVAIDS_FundamentalParameterData( KDataStream & stream );
 
     IFF_ATC_NAVAIDS_FundamentalParameterData( KFLOAT32 ERP, KFLOAT32 Freq, KFLOAT32 PgRF, KFLOAT32 PulseWidth,
                                               KUINT32 BurstLength, DATA_TYPE::ENUMS::SystemMode M );
@@ -144,7 +144,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::Encode

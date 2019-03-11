@@ -54,14 +54,14 @@ Designator_PDU::Designator_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Designator_PDU::Designator_PDU( KDataStream & stream ) throw( KException )
+Designator_PDU::Designator_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Designator_PDU::Designator_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Designator_PDU::Designator_PDU( const Header & H, KDataStream & stream )  :
 	Header( H )
 {
     Decode( stream, true );
@@ -300,7 +300,7 @@ KString Designator_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Designator_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Designator_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DESIGNATOR_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

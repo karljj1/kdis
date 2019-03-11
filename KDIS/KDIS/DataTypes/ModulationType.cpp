@@ -50,7 +50,7 @@ ModulationType::ModulationType() :
 
 //////////////////////////////////////////////////////////////////////////
 
-ModulationType::ModulationType( KDataStream & stream )throw( KException )
+ModulationType::ModulationType( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -272,7 +272,7 @@ KString ModulationType::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ModulationType::Decode( KDataStream & stream ) throw( KException )
+void ModulationType::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < MODULATION_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

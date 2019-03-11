@@ -51,7 +51,7 @@ Reliability_Header::Reliability_Header() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Reliability_Header::Reliability_Header( KDataStream & stream ) throw( KException )
+Reliability_Header::Reliability_Header( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -99,7 +99,7 @@ KString Reliability_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Reliability_Header::Decode( KDataStream & stream ) throw( KException )
+void Reliability_Header::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < RELIABILITY_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

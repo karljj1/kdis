@@ -72,7 +72,7 @@ AttachedPart::AttachedPart( KUINT8 DetachedIndicator, KUINT16 PartAttachedToID, 
 
 //////////////////////////////////////////////////////////////////////////
 
-AttachedPart::AttachedPart( KDataStream & stream ) throw( KException )
+AttachedPart::AttachedPart( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -177,7 +177,7 @@ KString AttachedPart::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void AttachedPart::Decode( KDataStream & stream ) throw( KException )
+void AttachedPart::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

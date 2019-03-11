@@ -52,7 +52,7 @@ PerimeterPointCoordinate::PerimeterPointCoordinate( KFLOAT32 X, KFLOAT32 Y ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-PerimeterPointCoordinate::PerimeterPointCoordinate( KDataStream & stream ) throw( KException )
+PerimeterPointCoordinate::PerimeterPointCoordinate( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -106,7 +106,7 @@ KString PerimeterPointCoordinate::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void PerimeterPointCoordinate::Decode( KDataStream & stream ) throw( KException )
+void PerimeterPointCoordinate::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < PERIMETER_POINT_COORDINATE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -151,7 +151,7 @@ KBOOL PerimeterPointCoordinate::operator != ( const PerimeterPointCoordinate & V
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 & PerimeterPointCoordinate::operator [] ( KUINT16 i ) throw( KException )
+KFLOAT32 & PerimeterPointCoordinate::operator [] ( KUINT16 i ) 
 {
     switch( i )
     {
@@ -166,7 +166,7 @@ KFLOAT32 & PerimeterPointCoordinate::operator [] ( KUINT16 i ) throw( KException
 
 //////////////////////////////////////////////////////////////////////////
 
-const KFLOAT32 & PerimeterPointCoordinate::operator [] ( KUINT16 i ) const throw( KException )
+const KFLOAT32 & PerimeterPointCoordinate::operator [] ( KUINT16 i ) const 
 {
     switch( i )
     {

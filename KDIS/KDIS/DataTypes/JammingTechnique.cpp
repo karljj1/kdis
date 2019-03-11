@@ -51,7 +51,7 @@ JammingTechnique::JammingTechnique() :
 
 //////////////////////////////////////////////////////////////////////////
 
-JammingTechnique::JammingTechnique( KDataStream & stream ) throw( KException ) :
+JammingTechnique::JammingTechnique( KDataStream & stream )  :
   DataTypeBase(),
   m_ui8Kind( 0u ),
   m_ui8Category( 0u ),
@@ -151,7 +151,7 @@ KString JammingTechnique::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void JammingTechnique::Decode( KDataStream & stream ) throw( KException )
+void JammingTechnique::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < JAMMING_TECHNIQUE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

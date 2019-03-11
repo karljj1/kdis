@@ -72,7 +72,7 @@ public:
 
 	Mode5InterrogatorBasicData( const Mode5InterrogatorStatus & Status, KUINT32 FormatsPresent, const EntityIdentifier & ID );
 
-    Mode5InterrogatorBasicData( KDataStream & stream ) throw( KException );
+    Mode5InterrogatorBasicData( KDataStream & stream ) ;
 
     virtual ~Mode5InterrogatorBasicData();
 
@@ -107,7 +107,7 @@ public:
 	void SetMessageFormatsPresent( KUINT32 MFP );
 	void SetMessageFormatsPresent( const std::bitset<32> & MFP );
 	const std::bitset<32> GetMessageFormatsPresentBitSet() const;
-	KUINT32 GetMessageFormatsPresent();
+	KUINT32 GetMessageFormatsPresent() const;
 	
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetInterrogatedEntityID
@@ -133,7 +133,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::Encode

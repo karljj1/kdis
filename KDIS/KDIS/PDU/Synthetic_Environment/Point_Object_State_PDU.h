@@ -90,9 +90,9 @@ public:
 
     Point_Object_State_PDU();
 
-    Point_Object_State_PDU( KDataStream & stream ) throw( KException );
+    Point_Object_State_PDU( KDataStream & stream ) ;
 
-    Point_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Point_Object_State_PDU( const Header & H, KDataStream & stream ) ;
 
     Point_Object_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID , KUINT16 UpdateNum,
                             KDIS::DATA_TYPE::ENUMS::ForceID FI, const KDIS::DATA_TYPE::ObjectType & O, const KDIS::DATA_TYPE::WorldCoordinates & Loc, const KDIS::DATA_TYPE::EulerAngles & Ori,
@@ -195,7 +195,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Point_Object_State_PDU::Encode

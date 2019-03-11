@@ -61,11 +61,11 @@ public:
 
     explicit Simulation_Management_Header( const Simulation_Management_Header & H );
 
-    explicit Simulation_Management_Header( KDataStream & stream ) throw( KException );
+    explicit Simulation_Management_Header( KDataStream & stream ) ;
 
     explicit Simulation_Management_Header( const Header & H );
 
-    explicit Simulation_Management_Header( const Header & H, KDataStream & stream ) throw( KException );
+    explicit Simulation_Management_Header( const Header & H, KDataStream & stream ) ;
 
     explicit Simulation_Management_Header( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
 
@@ -103,7 +103,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Simulation_Management_Header::Encode

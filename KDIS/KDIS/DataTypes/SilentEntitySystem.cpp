@@ -47,7 +47,7 @@ SilentEntitySystem::SilentEntitySystem() :
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentEntitySystem::SilentEntitySystem( KDataStream & stream ) throw( KException )
+SilentEntitySystem::SilentEntitySystem( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -103,7 +103,7 @@ EntityType & SilentEntitySystem::GetEntityType()
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::AddEntityAppearance( const EntityAppearance & EA ) throw( KException )
+void SilentEntitySystem::AddEntityAppearance( const EntityAppearance & EA ) 
 {
     if( m_vEA.size() >= m_ui16NumEnts )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
 
@@ -114,7 +114,7 @@ void SilentEntitySystem::AddEntityAppearance( const EntityAppearance & EA ) thro
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::SetEntityAppearanceList( const vector<EntityAppearance> & EA ) throw( KException )
+void SilentEntitySystem::SetEntityAppearanceList( const vector<EntityAppearance> & EA ) 
 {
     if( EA.size() >= m_ui16NumEnts )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
 
@@ -161,7 +161,7 @@ KString SilentEntitySystem::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::Decode( KDataStream & stream ) throw( KException )
+void SilentEntitySystem::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < SILENT_ENTITY_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

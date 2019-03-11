@@ -45,7 +45,7 @@ EllipsoidRecord1::EllipsoidRecord1()
 
 //////////////////////////////////////////////////////////////////////////
 
-EllipsoidRecord1::EllipsoidRecord1( KDataStream & stream )throw( KException )
+EllipsoidRecord1::EllipsoidRecord1( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -147,7 +147,7 @@ KString EllipsoidRecord1::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EllipsoidRecord1::Decode( KDataStream & stream ) throw( KException )
+void EllipsoidRecord1::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ELIPSOID_RECORD_1_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -55,7 +55,7 @@ IOEffect::IOEffect() :
 //////////////////////////////////////////////////////////////////////////
 
 IOEffect::IOEffect( IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
-                    KUINT16 Duration, KUINT16 Process ) throw( KException ) :
+                    KUINT16 Duration, KUINT16 Process )  :
     m_ui8Status( S ),
     m_ui8LnkTyp( LT ),
     m_ui8Eff( ET ),
@@ -73,7 +73,7 @@ IOEffect::IOEffect( IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle
 
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::IOEffect( KDataStream & stream ) throw( KException )
+IOEffect::IOEffect( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -128,7 +128,7 @@ IOEffectType IOEffect::GetEffectType() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::SetEffectDutyCycle( KUINT8 EDC ) throw( KException )
+void IOEffect::SetEffectDutyCycle( KUINT8 EDC ) 
 {
     if( EDC > 100 )throw KException( __FUNCTION__, OUT_OF_BOUNDS, "Invalid Effect Duty Cycle value. Must be between 0-100." );
 
@@ -189,7 +189,7 @@ KString IOEffect::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::Decode( KDataStream & stream ) throw( KException )
+void IOEffect::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < IO_EFFECT_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

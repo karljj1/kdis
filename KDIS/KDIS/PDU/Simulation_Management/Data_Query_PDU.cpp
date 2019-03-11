@@ -76,14 +76,14 @@ Data_Query_PDU::Data_Query_PDU( const EntityIdentifier & OriginatingEntityID, co
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_PDU::Data_Query_PDU( KDataStream & stream ) throw( KException )
+Data_Query_PDU::Data_Query_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_PDU::Data_Query_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Data_Query_PDU::Data_Query_PDU( const Header & H, KDataStream & stream )  :
     Simulation_Management_Header( H )
 {
     Decode( stream, true );
@@ -230,7 +230,7 @@ KString Data_Query_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_Query_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Data_Query_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DATA_QUERY_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

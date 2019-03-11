@@ -47,7 +47,7 @@ BeamData::BeamData() :
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamData::BeamData( KDataStream & stream ) throw( KException )
+BeamData::BeamData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -159,7 +159,7 @@ KString BeamData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void BeamData::Decode( KDataStream & stream ) throw( KException )
+void BeamData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < BEAM_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

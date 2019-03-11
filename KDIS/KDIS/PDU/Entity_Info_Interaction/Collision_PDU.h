@@ -76,9 +76,9 @@ public:
 
     Collision_PDU();
 
-    Collision_PDU( KDataStream & stream ) throw( KException );
+    Collision_PDU( KDataStream & stream ) ;
 
-    Collision_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Collision_PDU( const Header & H, KDataStream & stream ) ;
 
     Collision_PDU( const KDIS::DATA_TYPE::EntityIdentifier & IssuingID, const KDIS::DATA_TYPE::EntityIdentifier & CollidingID,
                    const KDIS::DATA_TYPE::EntityIdentifier & EventID, KDIS::DATA_TYPE::ENUMS::CollisionType CT,const KDIS::DATA_TYPE::Vector & Velocity,
@@ -173,7 +173,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Collision_PDU::Encode

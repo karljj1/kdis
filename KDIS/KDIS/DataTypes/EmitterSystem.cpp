@@ -46,7 +46,7 @@ EmitterSystem::EmitterSystem() :
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem::EmitterSystem( KDataStream & stream ) throw( KException )
+EmitterSystem::EmitterSystem( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -125,7 +125,7 @@ KString EmitterSystem::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmitterSystem::Decode( KDataStream & stream ) throw( KException )
+void EmitterSystem::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < EMITTER_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -63,14 +63,14 @@ Gridded_Data_PDU::Gridded_Data_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Gridded_Data_PDU::Gridded_Data_PDU( KDataStream & stream ) throw( KException )
+Gridded_Data_PDU::Gridded_Data_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Gridded_Data_PDU::Gridded_Data_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Gridded_Data_PDU::Gridded_Data_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -159,7 +159,7 @@ KUINT16 Gridded_Data_PDU::GetPDUNumber() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Gridded_Data_PDU::SetPDUNumberAndTotal( KUINT16 Num, KUINT16 Total ) throw( KException )
+void Gridded_Data_PDU::SetPDUNumberAndTotal( KUINT16 Num, KUINT16 Total ) 
 {
     if( Num > Total )throw KException( __FUNCTION__, INVALID_DATA, "PDU Number can not be greater than PDU Total" );
     m_ui16PDUNum = Num;
@@ -422,7 +422,7 @@ KString Gridded_Data_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Gridded_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Gridded_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < GRIDDED_DATA_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

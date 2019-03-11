@@ -74,9 +74,9 @@ public:
 
     Detonation_PDU();
 
-    Detonation_PDU( KDataStream & stream ) throw( KException );
+    Detonation_PDU( KDataStream & stream ) ;
 
-    Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Detonation_PDU( const Header & H, KDataStream & stream ) ;
 
     Detonation_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FiringEntID, const KDIS::DATA_TYPE::EntityIdentifier & TargetEntID,
                     const KDIS::DATA_TYPE::EntityIdentifier & MunitionID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
@@ -192,7 +192,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Detonation_PDU::Encode

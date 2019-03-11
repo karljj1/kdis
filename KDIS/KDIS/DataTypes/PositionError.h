@@ -61,7 +61,7 @@ public:
 
     PositionError( KFIXED16_8 Horizontal, KFIXED16_8 Vertical );
 
-    PositionError( KDataStream & stream ) throw( KException );
+    PositionError( KDataStream & stream ) ;
 
     virtual ~PositionError();
 
@@ -98,7 +98,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::PositionError::Encode

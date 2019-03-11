@@ -63,7 +63,7 @@ public:
 
     LE_EntityIdentifier( KUINT8 SiteID, KUINT8 ApplicatonID, KUINT16 EntityID );
 
-    LE_EntityIdentifier( KDataStream & stream ) throw( KException );
+    LE_EntityIdentifier( KDataStream & stream ) ;
 
     virtual ~LE_EntityIdentifier();
 
@@ -106,7 +106,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LE_EntityIdentifier::Encode

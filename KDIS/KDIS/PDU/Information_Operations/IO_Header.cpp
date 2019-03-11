@@ -65,14 +65,14 @@ IO_Header::IO_Header( const EntityIdentifier & OrigID ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header( KDataStream & stream ) throw( KException )
+IO_Header::IO_Header( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header( const Header & H, KDataStream & stream ) throw( KException ) :
+IO_Header::IO_Header( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -119,7 +119,7 @@ KString IO_Header::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void IO_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IO_HEADER_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -54,7 +54,7 @@ GED_BasicFixedWingAircraft::GED_BasicFixedWingAircraft() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_BasicFixedWingAircraft::GED_BasicFixedWingAircraft( KDataStream & stream ) throw( KException )
+GED_BasicFixedWingAircraft::GED_BasicFixedWingAircraft( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -341,7 +341,7 @@ KString GED_BasicFixedWingAircraft::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_BasicFixedWingAircraft::Decode( KDataStream & stream ) throw( KException )
+void GED_BasicFixedWingAircraft::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GED_BASIC_FIXED_WING_AIRCRAFT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

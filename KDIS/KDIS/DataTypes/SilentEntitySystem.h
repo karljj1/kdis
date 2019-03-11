@@ -65,7 +65,7 @@ public:
 
     SilentEntitySystem();
 
-    SilentEntitySystem( KDataStream & stream ) throw( KException );
+    SilentEntitySystem( KDataStream & stream ) ;
 
     virtual ~SilentEntitySystem();
 
@@ -101,8 +101,8 @@ public:
     //              Exception thrown if the size of the list is greater than the number of entities.
     // Parameter:   const EntityAppearance & EA, const vector<EntityAppearance> & EA
     //************************************
-    void AddEntityAppearance( const EntityAppearance & EA ) throw( KException );
-    void SetEntityAppearanceList( const std::vector<EntityAppearance> & EA ) throw( KException );
+    void AddEntityAppearance( const EntityAppearance & EA ) ;
+    void SetEntityAppearanceList( const std::vector<EntityAppearance> & EA ) ;
     const std::vector<EntityAppearance> & GetEntityAppearanceList() const;
     void ClearEntityAppearanceList();
 
@@ -127,7 +127,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::Encode

@@ -58,7 +58,7 @@ public:
 
     LineRecord1();
 
-    LineRecord1( KDataStream & stream ) throw( KException );
+    LineRecord1( KDataStream & stream ) ;
 
     LineRecord1( KUINT8 Index, const WorldCoordinates & Start, const WorldCoordinates & End  );
 
@@ -103,7 +103,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LineRecord1::Encode

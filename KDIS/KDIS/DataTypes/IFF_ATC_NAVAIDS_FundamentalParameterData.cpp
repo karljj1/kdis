@@ -51,7 +51,7 @@ IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FundamentalParameterDa
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FundamentalParameterData( KDataStream & stream ) throw( KException )
+IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FundamentalParameterData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -181,7 +181,7 @@ KString IFF_ATC_NAVAIDS_FundamentalParameterData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_ATC_NAVAIDS_FundamentalParameterData::Decode( KDataStream & stream ) throw( KException )
+void IFF_ATC_NAVAIDS_FundamentalParameterData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

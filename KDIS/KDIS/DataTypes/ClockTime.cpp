@@ -52,7 +52,7 @@ ClockTime::ClockTime( KINT32 Hour, KUINT32 TimePastHour ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-ClockTime::ClockTime( KDataStream & stream ) throw( KException )
+ClockTime::ClockTime( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -105,7 +105,7 @@ KString ClockTime::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void ClockTime::Decode( KDataStream & stream ) throw( KException )
+void ClockTime::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < CLOCK_TIME_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

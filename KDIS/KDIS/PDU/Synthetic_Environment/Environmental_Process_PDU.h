@@ -106,9 +106,9 @@ public:
 
     Environmental_Process_PDU();
 
-    Environmental_Process_PDU( KDataStream & stream ) throw( KException );
+    Environmental_Process_PDU( KDataStream & stream ) ;
 
-    Environmental_Process_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Environmental_Process_PDU( const Header & H, KDataStream & stream ) ;
 
     Environmental_Process_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EnvironmentalProcessID, const KDIS::DATA_TYPE::EnvironmentType & ET,
                                KUINT8 ModelType, KBOOL EnvironmentStatusLast, KBOOL EnvironmentStatusOn,
@@ -258,7 +258,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Environmental_Process_PDU::Encode

@@ -63,9 +63,6 @@ class Descriptor;
 typedef KDIS::UTILS::KRef_Ptr<Descriptor> DescPtr; // Ref counter
 //typedef Descriptor* DescPtr; // Weak ref
 
-#if DIS_VERSION > 6 
-typedef Descriptor ExpendableDescriptor;
-#endif
 
 class KDIS_EXPORT Descriptor : public DataTypeBase
 {
@@ -79,7 +76,7 @@ public:
 
     Descriptor();
 
-    Descriptor( KDataStream & stream )throw( KException );
+    Descriptor( KDataStream & stream );
 
     Descriptor( const EntityType & T );
 
@@ -106,7 +103,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Descriptor::Encode

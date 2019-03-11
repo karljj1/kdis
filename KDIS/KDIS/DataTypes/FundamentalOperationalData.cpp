@@ -52,7 +52,7 @@ FundamentalOperationalData::FundamentalOperationalData() :
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData( KDataStream & stream ) throw( KException )
+FundamentalOperationalData::FundamentalOperationalData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -191,7 +191,7 @@ KString FundamentalOperationalData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void FundamentalOperationalData::Decode( KDataStream & stream ) throw( KException )
+void FundamentalOperationalData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < FUNDAMENTAL_OPERATIONAL_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

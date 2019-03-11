@@ -56,14 +56,14 @@ Underwater_Acoustic_PDU::Underwater_Acoustic_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Underwater_Acoustic_PDU::Underwater_Acoustic_PDU( KDataStream & stream ) throw( KException )
+Underwater_Acoustic_PDU::Underwater_Acoustic_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Underwater_Acoustic_PDU::Underwater_Acoustic_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Underwater_Acoustic_PDU::Underwater_Acoustic_PDU( const Header & H, KDataStream & stream )  :
 	Header( H )
 {
     Decode( stream, true );
@@ -331,7 +331,7 @@ KString Underwater_Acoustic_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Underwater_Acoustic_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Underwater_Acoustic_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < UNDERWATER_ACOUSTIC_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

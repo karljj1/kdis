@@ -50,7 +50,7 @@ FlareState::FlareState() :
 
 //////////////////////////////////////////////////////////////////////////
 
-FlareState::FlareState( KDataStream & stream )throw( KException )
+FlareState::FlareState( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -172,7 +172,7 @@ KString FlareState::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void FlareState::Decode( KDataStream & stream ) throw( KException )
+void FlareState::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < FLARE_STATE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

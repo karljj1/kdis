@@ -223,7 +223,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaPatternType( const KString
 
 const EnumDescriptor RadioMajorModulationDescriptor[] =
 {
-    { 0 , "OtherRadioMajorModulation" },
+    { 0 , "NoStatement" },
     { 1 , "Amplitude" },
     { 2 , "AmplitudeAndAngle" },
     { 3 , "Angle" },
@@ -1558,3 +1558,41 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedIndicator( const KString 
 #endif
 
 
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+const EnumDescriptor BeamAntennaPatternReferenceSystemDescriptor[] = {
+    {0, "ReferenceSystemWorldCoordinates" },
+    {1, "ReferenceSystemEntityCoordinates" }
+};
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamAntennaPatternReferenceSystem() {
+    return sizeof(BeamAntennaPatternReferenceSystemDescriptor) / sizeof(EnumDescriptor);
+}
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBeamAntennaPatternReferenceSystem( KUINT32 Index) {
+    return &BeamAntennaPatternReferenceSystemDescriptor[Index];
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamAntennaPatternReferenceSystem(KINT32 Value) {
+    return GetEnumAsString(BeamAntennaPatternReferenceSystemDescriptor, sizeof(BeamAntennaPatternReferenceSystemDescriptor) / sizeof(EnumDescriptor), Value);
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamAntennaPatternReferenceSystem( const KString& Value, KINT32 & ValueOut ) {
+    return GetEnumFromString(BeamAntennaPatternReferenceSystemDescriptor, sizeof(BeamAntennaPatternReferenceSystemDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+}
+
+#else
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamAntennaPatternReferenceSystem() {
+    return 0;
+}
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBeamAntennaPatternReferenceSystem( KUINT32 Index) {
+    return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamAntennaPatternReferenceSystem(KINT32 Value) {
+    KStringStream ss;
+    ss << Value;
+    return ss.str().c_str();}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamAntennaPatternReferenceSystem( const KString& Value, KINT32 & ValueOut ) {
+    return false;
+}
+#endif

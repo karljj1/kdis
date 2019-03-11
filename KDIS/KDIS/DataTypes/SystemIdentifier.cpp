@@ -41,9 +41,7 @@ SystemIdentifier::SystemIdentifier() :
     m_ui16SystemType( 0 ),
     m_ui16SystemName( 0 ),
     m_ui8SystemMode( 0 ),
-    m_ui8ChangeIndicator( 0 ),
-    m_ui8AltMode4( 0 ),
-    m_ui8AltModeC( 0 )
+    m_ui8ChangeOptions( 0 )
 {
 }
 
@@ -62,7 +60,7 @@ SystemIdentifier::SystemIdentifier( SystemType T, SystemName N, SystemMode M, KB
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::SystemIdentifier( KDataStream & stream ) throw( KException )
+SystemIdentifier::SystemIdentifier( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -168,6 +166,68 @@ KBOOL SystemIdentifier::GetAltModeC() const
 
 //////////////////////////////////////////////////////////////////////////
 
+#if DIS_VERSION > 6
+void SystemIdentifier::SetHeartbeatIndicator ( KBOOL HI) {
+    m_ui8HeartbeatIndicator = HI;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SystemIdentifier::SetTransponderInterrogatorIndicator ( KBOOL TII) {
+    m_ui8TransponderInterrogatorIndicator = TII;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SystemIdentifier::SetSimulationMode ( KBOOL SM) {
+    m_ui8SimulationMode = SM;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SystemIdentifier::SetInteractiveCapable ( KBOOL IC) {
+    m_ui8InteractiveCapable = IC;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SystemIdentifier::SetTestMode ( KBOOL TM) {
+    m_ui8TestMode = TM;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SystemIdentifier::GetHeartbeatIndicator() const {
+    return m_ui8HeartbeatIndicator;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SystemIdentifier::GetTransponderInterrogatorIndicator() const {
+    return m_ui8TransponderInterrogatorIndicator;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SystemIdentifier::GetSimulationMode() const {
+    return m_ui8SimulationMode;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SystemIdentifier::GetInteractiveCapable() const {
+    return m_ui8InteractiveCapable;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SystemIdentifier::GetTestMode() const {
+    return m_ui8TestMode;
+}
+#endif //DIS_VERSION > 6
+
+//////////////////////////////////////////////////////////////////////////
+
 KString SystemIdentifier::GetAsString() const
 {
     KStringStream ss;
@@ -192,7 +252,7 @@ KString SystemIdentifier::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::Decode( KDataStream & stream ) throw( KException )
+void SystemIdentifier::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < SYSTEM_IDENTIFER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

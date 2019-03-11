@@ -81,7 +81,7 @@ public:
 
     LinearObjectAppearance();
 
-    LinearObjectAppearance( KDataStream & stream ) throw( KException );
+    LinearObjectAppearance( KDataStream & stream ) ;
 
     virtual ~LinearObjectAppearance();
 
@@ -138,7 +138,7 @@ public:
     //              Acceptable values are 0 - 100 else throws INVALID_DATA exception.
     // Parameter:   KUINT8 O
     //************************************
-    void SetOpacity( KUINT8 O ) throw( KException );
+    void SetOpacity( KUINT8 O ) ;
     KUINT8 GetOpacity() const;
 
     //************************************
@@ -185,7 +185,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::Encode

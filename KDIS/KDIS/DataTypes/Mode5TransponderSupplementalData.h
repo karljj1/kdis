@@ -68,9 +68,9 @@ public:
 
     Mode5TransponderSupplementalData();
 
-	Mode5TransponderSupplementalData( KBOOL Squitter, KBOOL Lvl2Squitter, KUINT8 IFFMission ) throw( KException );
+	Mode5TransponderSupplementalData( KBOOL Squitter, KBOOL Lvl2Squitter, KUINT8 IFFMission ) ;
 
-    Mode5TransponderSupplementalData( KDataStream & stream ) throw( KException );
+    Mode5TransponderSupplementalData( KDataStream & stream ) ;
 
     virtual ~Mode5TransponderSupplementalData();
 
@@ -99,7 +99,7 @@ public:
 	//              Throws DATA_TYPE_TOO_LARGE exception if value is greater than 7.
     // Parameter:   KUINT8 IFFM 
     //************************************
-	void SetIFFMission( KUINT8 IFFM ) throw( KException );
+	void SetIFFMission( KUINT8 IFFM ) ;
     KUINT8 GetIFFMission() const;
 	
 	//************************************
@@ -113,7 +113,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::Encode

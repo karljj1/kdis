@@ -129,9 +129,9 @@ public:
 
     Aggregate_State_PDU();
 
-    Aggregate_State_PDU( KDataStream & stream ) throw( KException );
+    Aggregate_State_PDU( KDataStream & stream ) ;
 
-    Aggregate_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Aggregate_State_PDU( const Header & H, KDataStream & stream ) ;
 
     Aggregate_State_PDU( const KDIS::DATA_TYPE::AggregateIdentifier & AI, KDIS::DATA_TYPE::ENUMS::ForceID FID, KDIS::DATA_TYPE::ENUMS::AggregateState AS,
                          const KDIS::DATA_TYPE::AggregateType & AT, KDIS::DATA_TYPE::ENUMS::Formation F, const KDIS::DATA_TYPE::AggregateMarking & AM,
@@ -359,7 +359,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Aggregate_State_PDU::Encode

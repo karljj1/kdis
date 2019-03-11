@@ -58,7 +58,7 @@ public:
 
     NamedLocationIdentifier();
 
-    NamedLocationIdentifier( KDataStream & stream )throw( KException );
+    NamedLocationIdentifier( KDataStream & stream );
 
     NamedLocationIdentifier( KDIS::DATA_TYPE::ENUMS::StationName SN,  KUINT16 StationNumber );
 
@@ -96,7 +96,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::Encode

@@ -74,9 +74,9 @@ public:
 
     Comment_PDU( const Header & H );
 
-    Comment_PDU( KDataStream & stream ) throw( KException );
+    Comment_PDU( KDataStream & stream ) ;
 
-    Comment_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Comment_PDU( const Header & H, KDataStream & stream ) ;
 
     Comment_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
 
@@ -128,7 +128,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Comment_PDU::Encode

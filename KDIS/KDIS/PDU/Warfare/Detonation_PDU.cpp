@@ -33,6 +33,7 @@ http://p.sf.net/kdis/UserGuide
 
 #if DIS_VERSION > 6
 #include "./../../DataTypes/ExplosionDescriptor.h"
+#include "./../../DataTypes/ExpendableDescriptor.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////
@@ -58,14 +59,14 @@ Detonation_PDU::Detonation_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Detonation_PDU::Detonation_PDU( KDataStream & stream ) throw( KException )
+Detonation_PDU::Detonation_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Detonation_PDU::Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Detonation_PDU::Detonation_PDU( const Header & H, KDataStream & stream )  :
     Warfare_Header( H )
 {
     Decode( stream, true );
@@ -320,7 +321,7 @@ KString Detonation_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -386,6 +387,8 @@ void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
 
     for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
     {
+        // Need to ensure this next byte we read actually exists
+        if( stream.GetBufferSize() < 1 )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
         // Save the current write position so we can peek.
         KUINT16 pos = stream.GetCurrentWritePosition();
         KUINT8 paramTyp;

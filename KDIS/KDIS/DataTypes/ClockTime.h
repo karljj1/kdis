@@ -62,7 +62,7 @@ public:
 
     ClockTime( KINT32 Hour, KUINT32 TimePastHour );
 
-    ClockTime( KDataStream & stream ) throw( KException );
+    ClockTime( KDataStream & stream ) ;
 
     virtual ~ClockTime();
 
@@ -95,7 +95,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ClockTime::Encode

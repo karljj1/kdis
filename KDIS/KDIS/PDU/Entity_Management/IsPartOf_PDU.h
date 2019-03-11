@@ -68,9 +68,9 @@ public:
 
     IsPartOf_PDU();
 
-    IsPartOf_PDU( KDataStream & stream ) throw( KException );
+    IsPartOf_PDU( KDataStream & stream ) ;
 
-    IsPartOf_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    IsPartOf_PDU( const Header & H, KDataStream & stream ) ;
 
     IsPartOf_PDU( const KDIS::DATA_TYPE::RelationshipRecord & RR, const KDIS::DATA_TYPE::Vector & LocationOfPart,
                   const KDIS::DATA_TYPE::NamedLocationIdentifier & NLI, const KDIS::DATA_TYPE::EntityType & PartType );
@@ -137,7 +137,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::IsPartOf_PDU::Encode

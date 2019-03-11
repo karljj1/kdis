@@ -96,7 +96,7 @@ public:
     // Parameter:   KOCTET * Buffer
     // Parameter:   KUINT16 BufferSize
     //************************************
-    virtual std::unique_ptr<KDIS::PDU::Header> Decode( KOCTET * Buffer, KUINT16 BufferSize )throw( KException );
+    virtual std::unique_ptr<KDIS::PDU::Header> Decode( KOCTET * Buffer, KUINT16 BufferSize );
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::Decode
@@ -105,7 +105,7 @@ public:
     //              implemented a NULL unique_ptr is returned.
     // Parameter:   KDataStream & Stream
     //************************************
-    virtual std::unique_ptr<KDIS::PDU::Header> Decode( KDataStream & Stream )throw( KException );
+    virtual std::unique_ptr<KDIS::PDU::Header> Decode( KDataStream & Stream );
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory::Decode
@@ -117,7 +117,7 @@ public:
     // Parameter:   const Header & H
     // Parameter:   KDataStream & Stream
     //************************************
-    virtual std::unique_ptr<KDIS::PDU::Header> Decode( const KDIS::PDU::Header & H, KDataStream & Stream )throw( KException );
+    virtual std::unique_ptr<KDIS::PDU::Header> Decode( const KDIS::PDU::Header & H, KDataStream & Stream );
 };
 
 } // END namespace UTILS

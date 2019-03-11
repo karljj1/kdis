@@ -83,9 +83,9 @@ public:
 
     Designator_PDU();
 
-    Designator_PDU( KDataStream & stream ) throw( KException );
+    Designator_PDU( KDataStream & stream ) ;
 
-	Designator_PDU( const Header & H, KDataStream & stream ) throw( KException );
+	Designator_PDU( const Header & H, KDataStream & stream ) ;
 
     Designator_PDU( const KDIS::DATA_TYPE::EntityIdentifier & DesignatingEntityID, KDIS::DATA_TYPE::ENUMS::DesignatorCodeName CodeName,
                     const KDIS::DATA_TYPE::EntityIdentifier & DesignatedEntityID, KDIS::DATA_TYPE::ENUMS::DesignatorCode Code, KFLOAT32 Power,
@@ -209,7 +209,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Designator_PDU::Encode

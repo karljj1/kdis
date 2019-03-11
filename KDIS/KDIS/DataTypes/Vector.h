@@ -86,7 +86,7 @@ public:
 
     Vector( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z );
 
-    Vector( KDataStream & stream ) throw( KException );
+    Vector( KDataStream & stream ) ;
 
     virtual ~Vector();
 
@@ -165,7 +165,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Vector::Encode
@@ -186,8 +186,8 @@ public:
     Vector & operator -= ( const Vector & Value );
 
     // Valid values 0 - X, 1 - Y, 2 - Z. throws OUT_OF_BOUNDS exception for any other value.
-    KFLOAT32 & operator[] ( KUINT16 i ) throw( KException );
-    const KFLOAT32 & operator[]  ( KUINT16 i ) const throw( KException );
+    KFLOAT32 & operator[] ( KUINT16 i ) ;
+    const KFLOAT32 & operator[]  ( KUINT16 i ) const ;
 };
 
 } // END namespace DATA_TYPES

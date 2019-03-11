@@ -62,7 +62,7 @@ public:
     // In Radians
     EulerAngles( KFLOAT32 Psi, KFLOAT32 Theta, KFLOAT32 Phi );
 
-    EulerAngles( KDataStream & stream ) throw( KException );
+    EulerAngles( KDataStream & stream ) ;
 
     virtual ~EulerAngles();
 
@@ -110,7 +110,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EulerAngles::Encode
@@ -130,8 +130,8 @@ public:
     EulerAngles & operator -= ( const EulerAngles & Value );
 
     // Valid values 0 - Psi, 1 - Theta, 2 - Phi. throws OUT_OF_BOUNDS exception for any other value.
-    KFLOAT32 & operator[] ( KUINT16 i ) throw( KException );
-    const KFLOAT32 & operator[] ( KUINT16 i ) const throw( KException );
+    KFLOAT32 & operator[] ( KUINT16 i ) ;
+    const KFLOAT32 & operator[] ( KUINT16 i ) const ;
 };
 
 } // END namespace DATA_TYPES

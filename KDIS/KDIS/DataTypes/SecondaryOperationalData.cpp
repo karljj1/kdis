@@ -45,7 +45,7 @@ SecondaryOperationalData::SecondaryOperationalData() :
 
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData::SecondaryOperationalData( KDataStream & stream ) throw( KException )
+SecondaryOperationalData::SecondaryOperationalData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -124,7 +124,7 @@ KString SecondaryOperationalData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void SecondaryOperationalData::Decode( KDataStream & stream ) throw( KException )
+void SecondaryOperationalData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < SECONDARY_OPERATIONAL_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

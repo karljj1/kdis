@@ -49,7 +49,7 @@ UnderwaterAcousticFundamentalParameterData::UnderwaterAcousticFundamentalParamet
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticFundamentalParameterData::UnderwaterAcousticFundamentalParameterData( KDataStream & stream ) throw( KException )
+UnderwaterAcousticFundamentalParameterData::UnderwaterAcousticFundamentalParameterData( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -177,7 +177,7 @@ KString UnderwaterAcousticFundamentalParameterData::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticFundamentalParameterData::Decode( KDataStream & stream ) throw( KException )
+void UnderwaterAcousticFundamentalParameterData::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < UNDERWATER_ACOUSTIC_FUNDAMENTAL_PARAMETER_SIZE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -70,7 +70,7 @@ public:
 
     EmissionSystem();
 
-    EmissionSystem( KDataStream & stream )throw( KException );
+    EmissionSystem( KDataStream & stream );
 
     EmissionSystem( const EmitterSystem & ESR, const Vector & Location );
 
@@ -126,7 +126,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmissionSystem::Encode

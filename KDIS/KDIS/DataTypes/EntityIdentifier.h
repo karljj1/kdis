@@ -62,7 +62,7 @@ public:
 
     EntityIdentifier( const SimulationIdentifier & SimID, KUINT16 EntityID );
 
-    EntityIdentifier( KDataStream & stream ) throw( KException );
+    EntityIdentifier( KDataStream & stream ) ;
 
     virtual ~EntityIdentifier();
 
@@ -86,7 +86,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EntityIdentifier::Encode

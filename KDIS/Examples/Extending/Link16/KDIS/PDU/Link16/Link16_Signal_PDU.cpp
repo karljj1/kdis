@@ -61,14 +61,14 @@ Link16_Signal_PDU::Link16_Signal_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-Link16_Signal_PDU::Link16_Signal_PDU( KDataStream & stream ) throw( KException )
+Link16_Signal_PDU::Link16_Signal_PDU( KDataStream & stream ) 
 {
 	Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Link16_Signal_PDU::Link16_Signal_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Link16_Signal_PDU::Link16_Signal_PDU( const Header & H, KDataStream & stream )  :
 	Signal_PDU( H )
 {
 	Decode( stream, true );
@@ -268,7 +268,7 @@ KString Link16_Signal_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Link16_Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Link16_Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
 	if( stream.GetBufferSize() < LINK16_SIGNAL_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

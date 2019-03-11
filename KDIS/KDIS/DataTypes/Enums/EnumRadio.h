@@ -91,7 +91,13 @@ enum RadioInputSource
     Gunner                                                            = 6,
     Commander                                                         = 7,
     DigitalDataDevice                                                 = 8,
-    Intercom                                                          = 9
+    Intercom                                                          = 9,
+    #if DIS_VERSION > 6
+    AudioJammer                                                       =10,
+    DataJammer                                                        =11,
+    GPSJammer                                                         =12,
+    GPSMeaconer                                                       =13,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -148,7 +154,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringAntennaPatternType( const KString & Value, KI
 
 enum RadioMajorModulation
 {
-    OtherRadioMajorModulation                                         = 0,
+    NoStatementRadioMajorModulation                                   = 0,
     Amplitude                                                         = 1,
     AmplitudeAndAngle                                                 = 2,
     Angle                                                             = 3,
@@ -172,6 +178,7 @@ KDIS_EXPORT KString GetEnumAsStringRadioMajorModulation( KINT32 Value );
 
 // Returns true if a value was found.
 KDIS_EXPORT KBOOL GetEnumFromStringRadioMajorModulation( const KString & Value, KINT32 & ValueOut );
+
 
 /************************************************************************/
 /* Modulation Detail                                                    */
@@ -324,6 +331,10 @@ enum DetailCarrierPhaseShift
     OtherDetailCarrierPhaseShift                                      = 0
 };
 
+enum DetailNoStatement
+{
+    DetailNoStatementNoStatement                                      = 0
+};
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
@@ -356,7 +367,14 @@ enum ModulationSystem
     SINCGARS                                                          = 5,
     CCTT_SINCGARS                                                     = 6,
     EPLRS_EnhancedPositionLocationReportingSystem                     = 7,
-    JTIDS_MIDS                                                        = 8
+    JTIDS_MIDS                                                        = 8,
+    #if DIS_VERSION > 6
+    LINK11                                                            = 9,
+    LINK11b                                                           = 10,
+    LBAND_SATCOM                                                      = 11,
+    ENHANCED_SINCGARS_73                                              = 12,
+    NAVIGATION_AID                                                     = 13,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -387,7 +405,17 @@ enum CryptoSystemType
     KY_28                                                             = 1,
     VINSON_KY_57_KY_58_SINCGARS_ICOM                                  = 2,
     NarrowSpectrumSecureVoice_NSVE                                    = 3,
-    WideSpectrumSecureVoice_WSVE                                      = 4
+    WideSpectrumSecureVoice_WSVE                                      = 4,
+    #if DIS_VERSION > 6
+    SINCGARS_ICOM                                                     = 5,
+    KY_75                                                             = 6,
+    KY_100                                                            = 7,
+    KY_57                                                             = 8,
+    KYV_5                                                             = 9,
+    Link11_KG_40A_P_NTDS                                              = 10,
+    Link11B_KG_40A_S                                                  = 11,
+    Link11_KG_40AR                                                    = 12,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -576,12 +604,26 @@ enum TDLType
     TacticalCommonDataLink_TCDL_                                      = 64,
     LowLevelAirPictureInterface_LLAPI_                                = 65,
     WeaponsDataLink_AGM_130_                                          = 66,
+    #if DIS_VERSION > 6
+    Automatic_Identification_System_AIS                               = 67,
+    Weapons_Data_Link_AIM_120                                         = 68,
+    Weapons_Data_Link_AIM_9                                           = 69,
+    #endif
     GC3                                                               = 99,
     Link16StandardizedFormat_JTIDS_MIDS_TADILJ_                       = 100,
     Link16EnhancedDataRate_EDRJTIDS_MIDS_TADIL_J_                     = 101,
     JTIDS_MIDSNetDataLoad_TIMS_TOMS_                                  = 102,
     Link22                                                            = 103,
-    AFIWCIADSCommunicationsLinks                                      = 104
+    AFIWCIADSCommunicationsLinks                                      = 104,
+    #if DIS_VERSION > 6
+    F22_IntraFlight_Data_Link_IFDL = 105,
+    LBand_SATCOM = 106,
+    TSAF_Communications_Link = 107,
+    Enhanced_SINCGARS_7_3 = 108,
+    F35_Multifunction_Advanced_Data_Link_MADL = 109,
+    Cursor_on_Target = 110,
+    All_Purpose_Structured_Eurocontrol_Surveillance_Information_Exchange_ASTERIX = 111,
+    #endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
@@ -809,6 +851,21 @@ KDIS_EXPORT KString GetEnumAsStringAttachedIndicator( KINT32 Value );
 KDIS_EXPORT KBOOL GetEnumFromStringAttachedIndicator( const KString & Value, KINT32 & ValueOut );
 
 #endif
+
+enum BeamAntennaPatternReferenceSystem
+{
+    ReferenceSystemWorldCoordinates                                   = 1,
+    ReferenceSystemEntityCoordinates                                  = 2
+};
+
+KUINT32 GetEnumSizeBeamAntennaPatternReferenceSystem();
+
+const EnumDescriptor * GetEnumDescriptorBeamAntennaPatternReferenceSystem( KUINT32 Index);
+
+KString GetEnumAsStringBeamAntennaPatternReferenceSystem(KINT32 Value);
+
+KBOOL GetEnumFromStringBeamAntennaPatternReferenceSystem( const KString& Value, KINT32 & ValueOut );
+
 
 } // END namespace ENUMS
 } // END namespace DATA_TYPES

@@ -122,14 +122,14 @@ LE_Detonation_PDU::LE_Detonation_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) throw( KException )
+LE_Detonation_PDU::LE_Detonation_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Detonation_PDU::LE_Detonation_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+LE_Detonation_PDU::LE_Detonation_PDU( const Header & H, KDataStream & stream )  :
     LE_Header( H )
 {
     Decode( stream, true );
@@ -705,7 +705,7 @@ KString LE_Detonation_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void LE_Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LE_DETONATION_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

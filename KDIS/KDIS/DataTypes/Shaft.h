@@ -59,7 +59,7 @@ public:
 
     Shaft();
 
-    Shaft( KDataStream & stream ) throw( KException );
+    Shaft( KDataStream & stream ) ;
 
     Shaft( KINT16 CurrentRPM, KINT16 OrderedRPM, KINT32 RateOfChange );
 
@@ -112,7 +112,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::Shaft::Encode

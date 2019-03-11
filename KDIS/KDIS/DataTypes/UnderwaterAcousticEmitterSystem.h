@@ -68,7 +68,7 @@ public:
 
     UnderwaterAcousticEmitterSystem();
 
-    UnderwaterAcousticEmitterSystem( KDataStream & stream ) throw( KException );
+    UnderwaterAcousticEmitterSystem( KDataStream & stream ) ;
 
     virtual ~UnderwaterAcousticEmitterSystem();
 
@@ -131,7 +131,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem::Encode

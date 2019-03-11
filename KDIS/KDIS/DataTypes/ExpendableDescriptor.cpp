@@ -1,5 +1,7 @@
 /*********************************************************************
-Copyright 2013 Karl Jones
+Copyright 2018 Karl Jones
+               Todd Klasik
+               GBL Systems Corporation
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -27,8 +29,11 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SphereRecord1.h"
+#include "./ExpendableDescriptor.h"
 
+//////////////////////////////////////////////////////////////////////////
+
+using namespace std;
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
@@ -37,45 +42,76 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord1::SphereRecord1()
+ExpendableDescriptor::ExpendableDescriptor() :
+    m_ui64Padding(0)
 {
-    m_ui32EnvRecTyp = SphereRecord1Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord1::SphereRecord1( KDataStream & stream )
+ExpendableDescriptor::ExpendableDescriptor( KDataStream & stream )throw( KException )
 {
     Decode( stream );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord1::SphereRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius  ) :
-    BoundingSphereRecord( Index, CentroidLocation, Radius )
-{
-    m_ui32EnvRecTyp = SphereRecord1Type;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-SphereRecord1::~SphereRecord1()
+ExpendableDescriptor::ExpendableDescriptor( const EntityType & T) :
+    Descriptor( T ),
+    m_ui64Padding(0)
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SphereRecord1::operator == ( const SphereRecord1 & Value )const
+ExpendableDescriptor::~ExpendableDescriptor()
 {
-    if( BoundingSphereRecord::operator !=( Value ) ) return false;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ExpendableDescriptor::Decode( KDataStream & stream ) throw( KException )
+{
+	Descriptor::Decode( stream );
+
+    stream >> m_ui64Padding;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KDataStream ExpendableDescriptor::Encode() const
+{
+    KDataStream stream;
+
+    ExpendableDescriptor::Encode( stream );
+
+    return stream;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ExpendableDescriptor::Encode( KDataStream & stream ) const
+{
+	Descriptor::Encode( stream );
+
+    stream << m_ui64Padding;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ExpendableDescriptor::operator == ( const ExpendableDescriptor & Value ) const
+{
+	if( Descriptor::operator != ( Value ) )            return false;
     return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SphereRecord1::operator != ( const SphereRecord1 & Value )const
+KBOOL ExpendableDescriptor::operator != ( const ExpendableDescriptor & Value ) const
 {
     return !( *this == Value );
 }
 
 //////////////////////////////////////////////////////////////////////////
+
+

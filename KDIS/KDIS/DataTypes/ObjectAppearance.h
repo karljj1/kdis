@@ -70,10 +70,10 @@ public:
 
     ObjectAppearance();
 
-    ObjectAppearance( KDataStream & stream ) throw( KException );
+    ObjectAppearance( KDataStream & stream ) ;
 
     ObjectAppearance( KUINT8 PerCent, KDIS::DATA_TYPE::ENUMS::ObjectDamage OD, KBOOL Predist, KBOOL State,
-                      KBOOL Smoking, KBOOL Flaming ) throw( KException );
+                      KBOOL Smoking, KBOOL Flaming ) ;
 
     virtual ~ObjectAppearance();
 
@@ -93,7 +93,7 @@ public:
     //              Acceptable values are 0 - 100 else throws INVALID_DATA exception.
     // Parameter:   KUINT8 P
     //************************************
-    void SetPercentageComplete( KUINT8 P ) throw( KException );
+    void SetPercentageComplete( KUINT8 P ) ;
     KUINT8 GetPercentageComplete() const;
 
     //************************************
@@ -161,7 +161,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::ObjectAppearance::Encode

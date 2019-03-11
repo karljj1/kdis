@@ -96,7 +96,7 @@ public:
 
     EmitterBeam();
 
-    EmitterBeam( KDataStream & stream )throw( KException );
+    EmitterBeam( KDataStream & stream );
 
     EmitterBeam( KUINT8 BeamID, KUINT16 BeamParamIndex, const FundamentalParameterData & FPD,
                  EmitterFunction EBF, HighDensityTrackJam HDTJ,
@@ -231,7 +231,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmitterBeam::Encode

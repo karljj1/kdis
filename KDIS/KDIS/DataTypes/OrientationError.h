@@ -67,7 +67,7 @@ public:
 
     OrientationError( KFIXED16_8 Azimuth, KFIXED16_8 Elevation, KFIXED16_8 Rotation );
 
-    OrientationError( KDataStream & stream ) throw( KException );
+    OrientationError( KDataStream & stream ) ;
 
     virtual ~OrientationError();
 
@@ -109,7 +109,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::OrientationError::Encode

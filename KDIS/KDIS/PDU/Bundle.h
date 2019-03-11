@@ -95,8 +95,8 @@ public:
     //              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
     // Parameter:   const Header & H, PduPtr H.
     //************************************
-    void AddPDU( const KDataStream & K ) throw( KException );
-    void AddPDU( PduPtr H ) throw( KException );
+    void AddPDU( const KDataStream & K ) ;
+    void AddPDU( PduPtr H ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Bundle::SetPDUs
@@ -104,9 +104,9 @@ public:
     //              Throws exeption PDU_TOO_LARGE if the total bundles length is greater than MAX_PDU_SIZE
     // Parameter:   const vector<KDataStream> & P, const vector<PduPtr> & P
     //************************************
-    void SetPDUs( const std::vector<KDataStream> & P ) throw( KException );
-    void SetPDUs( const std::vector<PduPtr> & P ) throw( KException );
-    void SetPDUs( const std::vector<KDataStream> & Streams, const std::vector<PduPtr> & References ) throw( KException );
+    void SetPDUs( const std::vector<KDataStream> & P ) ;
+    void SetPDUs( const std::vector<PduPtr> & P ) ;
+    void SetPDUs( const std::vector<KDataStream> & Streams, const std::vector<PduPtr> & References ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Bundle::GetPDUStreams

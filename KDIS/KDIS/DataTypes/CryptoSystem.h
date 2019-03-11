@@ -53,8 +53,8 @@ protected:
     {
         struct
         {
-            KUINT16 m_ui16EncryptionMode : 1;
             KUINT16 m_ui16KeyID          : 15;
+            KUINT16 m_ui16EncryptionMode : 1;
         };
 
         KUINT16 m_ui16CryptoKey;
@@ -66,7 +66,7 @@ public:
 
     CryptoSystem();
 
-    CryptoSystem( KDataStream & stream )throw( KException );
+    CryptoSystem( KDataStream & stream );
 
     CryptoSystem( KDIS::DATA_TYPE::ENUMS::CryptoSystemType CST, KDIS::DATA_TYPE::ENUMS::EncryptionMode EM, KUINT16 Key );
 
@@ -122,7 +122,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::CryptoSystem::Encode

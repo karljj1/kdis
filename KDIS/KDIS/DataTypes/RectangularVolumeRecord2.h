@@ -61,7 +61,7 @@ public:
 
     RectangularVolumeRecord2();
 
-    RectangularVolumeRecord2( KDataStream & stream ) throw( KException );
+    RectangularVolumeRecord2( KDataStream & stream ) ;
 
     RectangularVolumeRecord2( KUINT8 Index, const WorldCoordinates & CornerLocation, const Vector & RectangleLength,
                               const Vector & DDT, const EulerAngles & Orientation, const Vector & Velocity,
@@ -112,7 +112,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::Encode

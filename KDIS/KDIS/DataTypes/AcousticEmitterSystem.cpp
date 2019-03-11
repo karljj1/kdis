@@ -46,7 +46,7 @@ AcousticEmitterSystem::AcousticEmitterSystem() :
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem::AcousticEmitterSystem( KDataStream & stream ) throw( KException )
+AcousticEmitterSystem::AcousticEmitterSystem( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -125,7 +125,7 @@ KString AcousticEmitterSystem::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void AcousticEmitterSystem::Decode( KDataStream & stream ) throw( KException )
+void AcousticEmitterSystem::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < ACOUSTIC_EMITTER_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

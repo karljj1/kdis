@@ -51,7 +51,7 @@ GroupAssignmentRecord::GroupAssignmentRecord() :
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupAssignmentRecord::GroupAssignmentRecord( KDataStream & stream )throw( KException )
+GroupAssignmentRecord::GroupAssignmentRecord( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -112,7 +112,7 @@ KUINT32 GroupAssignmentRecord::GetGroupBitField() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupAssignmentRecord::SetGroupBitField( KUINT8 Group, KBOOL InGroup /*= true*/ ) throw( KException )
+void GroupAssignmentRecord::SetGroupBitField( KUINT8 Group, KBOOL InGroup /*= true*/ ) 
 {
     if( Group > 31 )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
 
@@ -122,7 +122,7 @@ void GroupAssignmentRecord::SetGroupBitField( KUINT8 Group, KBOOL InGroup /*= tr
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GroupAssignmentRecord::IsGroupBitSet( KUINT8 Group ) const throw( KException )
+KBOOL GroupAssignmentRecord::IsGroupBitSet( KUINT8 Group ) const 
 {
     if( Group > 31 )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
 
@@ -176,7 +176,7 @@ KString GroupAssignmentRecord::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupAssignmentRecord::Decode( KDataStream & stream ) throw( KException )
+void GroupAssignmentRecord::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < GROUP_ASSIGNMENT_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

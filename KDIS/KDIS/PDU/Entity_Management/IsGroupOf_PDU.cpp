@@ -56,14 +56,14 @@ IsGroupOf_PDU::IsGroupOf_PDU() :
 
 //////////////////////////////////////////////////////////////////////////
 
-IsGroupOf_PDU::IsGroupOf_PDU( KDataStream & stream ) throw( KException )
+IsGroupOf_PDU::IsGroupOf_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IsGroupOf_PDU::IsGroupOf_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+IsGroupOf_PDU::IsGroupOf_PDU( const Header & H, KDataStream & stream )  :
     Header( H )
 {
     Decode( stream, true );
@@ -87,7 +87,7 @@ IsGroupOf_PDU::IsGroupOf_PDU( const EntityIdentifier & EI, GroupedEntityCategory
 
 //////////////////////////////////////////////////////////////////////////
 
-IsGroupOf_PDU::IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const GEDList & GED ) throw( KException ) :
+IsGroupOf_PDU::IsGroupOf_PDU( const EntityIdentifier & EI, KFLOAT64 GrpLatitude, KFLOAT64 GrpLongitude, const GEDList & GED )  :
     m_GroupedEntityID( EI ),
     m_ui32Padding1( 0 ),
     m_f64GrpLat( GrpLatitude ),
@@ -195,7 +195,7 @@ KFLOAT64 IsGroupOf_PDU::GetGroupReferencePointLongitude() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IsGroupOf_PDU::AddGED( const GEDItem & GED ) throw( KException )
+void IsGroupOf_PDU::AddGED( const GEDItem & GED ) 
 {
     if( m_ui8GrpdEntCat != GED->GetGroupedEntityCategory() )throw KException( __FUNCTION__, INVALID_DATA );
 
@@ -206,7 +206,7 @@ void IsGroupOf_PDU::AddGED( const GEDItem & GED ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-void IsGroupOf_PDU::SetGED( const GEDList & GED ) throw( KException )
+void IsGroupOf_PDU::SetGED( const GEDList & GED ) 
 {
     if( GED.size() == 0 )return;
 
@@ -274,7 +274,7 @@ KString IsGroupOf_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void IsGroupOf_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void IsGroupOf_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IS_GROUP_OF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

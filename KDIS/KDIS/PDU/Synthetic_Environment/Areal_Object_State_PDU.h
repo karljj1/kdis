@@ -84,9 +84,9 @@ public:
 
     Areal_Object_State_PDU();
 
-    Areal_Object_State_PDU( KDataStream & stream ) throw( KException );
+    Areal_Object_State_PDU( KDataStream & stream ) ;
 
-    Areal_Object_State_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Areal_Object_State_PDU( const Header & H, KDataStream & stream ) ;
 
     Areal_Object_State_PDU( KUINT8 Modification, const KDIS::DATA_TYPE::ObjectType & T, const KDIS::DATA_TYPE::ArealObjectAppearance & A,
                             const KDIS::DATA_TYPE::SimulationIdentifier & RequestorID, const KDIS::DATA_TYPE::SimulationIdentifier & ReceivingID );
@@ -183,7 +183,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Areal_Object_State_PDU::Encode

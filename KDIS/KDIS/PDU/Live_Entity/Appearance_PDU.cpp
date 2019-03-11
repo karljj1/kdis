@@ -62,14 +62,14 @@ Appearance_PDU::Appearance_PDU( const LE_EntityIdentifier & ID )
 
 //////////////////////////////////////////////////////////////////////////
 
-Appearance_PDU::Appearance_PDU( KDataStream & stream ) throw( KException )
+Appearance_PDU::Appearance_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Appearance_PDU::Appearance_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Appearance_PDU::Appearance_PDU( const Header & H, KDataStream & stream )  :
     LE_Header( H )
 {
     Decode( stream, true );
@@ -603,7 +603,7 @@ KString Appearance_PDU::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Appearance_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) throw( KException )
+void Appearance_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < APPEARANCE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

@@ -112,7 +112,7 @@ public:
     //              too small(NOT_ENOUGH_DATA_IN_BUFFER).
     // Parameter:   KDataStream & stream
     //************************************
-    static EnvironmentRecordPtr FactoryDecodeEnvironmentRecord(  KDataStream & stream ) throw( KException );
+    static EnvironmentRecordPtr FactoryDecodeEnvironmentRecord(  KDataStream & stream ) ;
 
     KBOOL operator == ( const EnvironmentRecord & Value )const;
     KBOOL operator != ( const EnvironmentRecord & Value )const;

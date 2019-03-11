@@ -50,7 +50,7 @@ DEAreaAimpoint::DEAreaAimpoint() :
 
 //////////////////////////////////////////////////////////////////////////
 
-DEAreaAimpoint::DEAreaAimpoint( KDataStream & stream ) throw( KException )
+DEAreaAimpoint::DEAreaAimpoint( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -91,7 +91,7 @@ KString DEAreaAimpoint::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void DEAreaAimpoint::Decode( KDataStream & stream ) throw( KException )
+void DEAreaAimpoint::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < STANDARD_VARIABLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

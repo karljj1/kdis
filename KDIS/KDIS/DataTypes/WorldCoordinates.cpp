@@ -54,7 +54,7 @@ WorldCoordinates::WorldCoordinates( KFLOAT64  X, KFLOAT64  Y, KFLOAT64  Z ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates::WorldCoordinates( KDataStream & stream ) throw( KException )
+WorldCoordinates::WorldCoordinates( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -154,7 +154,7 @@ KString WorldCoordinates::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::Decode( KDataStream & stream ) throw( KException )
+void WorldCoordinates::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < WORLD_COORDINATES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -298,7 +298,7 @@ WorldCoordinates & WorldCoordinates::operator -= ( const WorldCoordinates & Valu
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) throw( KException )
+KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) 
 {
     switch( i )
     {
@@ -311,7 +311,7 @@ KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-const KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) const throw( KException )
+const KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) const 
 {
     switch( i )
     {

@@ -110,9 +110,9 @@ public:
 
     Directed_Energy_Fire_PDU();
 
-    Directed_Energy_Fire_PDU( KDataStream & stream ) throw( KException );
+    Directed_Energy_Fire_PDU( KDataStream & stream ) ;
 
-    Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Directed_Energy_Fire_PDU( const Header & H, KDataStream & stream ) ;
 
     Directed_Energy_Fire_PDU( const KDIS::DATA_TYPE::EntityIdentifier & FireID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
                               const KDIS::DATA_TYPE::EntityType & MunitionType, const KDIS::DATA_TYPE::ClockTime & ShotStartTime,
@@ -289,7 +289,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::Encode

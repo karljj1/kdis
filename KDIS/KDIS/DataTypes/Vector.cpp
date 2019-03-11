@@ -55,7 +55,7 @@ Vector::Vector( KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector::Vector( KDataStream & stream ) throw( KException )
+Vector::Vector( KDataStream & stream ) 
 {
     Decode( stream );
 }
@@ -161,7 +161,7 @@ KString Vector::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void Vector::Decode( KDataStream & stream ) throw( KException )
+void Vector::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < VECTOR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
@@ -284,7 +284,7 @@ Vector & Vector::operator -= ( const Vector & Value )
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 & Vector::operator [] ( KUINT16 i ) throw( KException )
+KFLOAT32 & Vector::operator [] ( KUINT16 i ) 
 {
     switch( i )
     {
@@ -297,7 +297,7 @@ KFLOAT32 & Vector::operator [] ( KUINT16 i ) throw( KException )
 
 //////////////////////////////////////////////////////////////////////////
 
-const KFLOAT32 & Vector::operator [] ( KUINT16 i ) const throw( KException )
+const KFLOAT32 & Vector::operator [] ( KUINT16 i ) const 
 {
     switch( i )
     {

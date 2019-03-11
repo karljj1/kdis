@@ -64,7 +64,7 @@ public:
 
     RecordSet();
 
-    RecordSet( KDataStream & stream )throw( KException );
+    RecordSet( KDataStream & stream );
 
 	RecordSet( KDIS::DATA_TYPE::ENUMS::RecordID ID, KUINT32 SerialNum, 
 		       const std::vector<KUINT8> & RecordValue, KUINT16 RecordCount );
@@ -130,7 +130,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::RecordSet::Encode

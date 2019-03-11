@@ -50,14 +50,14 @@ Intercom_Signal_PDU::Intercom_Signal_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Signal_PDU::Intercom_Signal_PDU( KDataStream & stream ) throw( KException )
+Intercom_Signal_PDU::Intercom_Signal_PDU( KDataStream & stream ) 
 {
     Decode( stream, false );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Intercom_Signal_PDU::Intercom_Signal_PDU( const Header & H, KDataStream & stream ) throw( KException ) :
+Intercom_Signal_PDU::Intercom_Signal_PDU( const Header & H, KDataStream & stream )  :
     Signal_PDU( H )
 {
     Decode( stream, true );

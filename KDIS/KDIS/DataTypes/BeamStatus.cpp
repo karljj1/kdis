@@ -56,7 +56,7 @@ BeamStatus::BeamStatus() :
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamStatus::BeamStatus( KDataStream & stream ) throw( KException ) :
+BeamStatus::BeamStatus( KDataStream & stream )  :
   DataTypeBase(),
   m_ui8BeamStatus( 0u )
 {
@@ -105,7 +105,7 @@ KString BeamStatus::GetAsString() const
 
 //////////////////////////////////////////////////////////////////////////
 
-void BeamStatus::Decode( KDataStream & stream ) throw( KException )
+void BeamStatus::Decode( KDataStream & stream ) 
 {
     if( stream.GetBufferSize() < BEAM_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 

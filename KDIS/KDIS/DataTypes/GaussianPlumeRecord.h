@@ -70,7 +70,7 @@ public:
 
     GaussianPlumeRecord();
 
-    GaussianPlumeRecord( KDataStream & stream ) throw( KException );
+    GaussianPlumeRecord( KDataStream & stream ) ;
 
     GaussianPlumeRecord( KUINT8 Index, const WorldCoordinates & Location, const EulerAngles & Orientation,
                          const Vector & LWH, const Vector & DDT, KFLOAT32 LECH, const Vector & LEV );
@@ -152,7 +152,7 @@ public:
     // Description: Convert From Network Data.
     // Parameter:   KDataStream & stream
     //************************************
-    virtual void Decode( KDataStream & stream ) throw( KException );
+    virtual void Decode( KDataStream & stream ) ;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::Encode

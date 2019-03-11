@@ -97,9 +97,9 @@ public:
 
     Transmitter_PDU( const Header & H );
 
-    Transmitter_PDU( KDataStream & stream ) throw( KException );
+    Transmitter_PDU( KDataStream & stream ) ;
 
-    Transmitter_PDU( const Header & H, KDataStream & stream ) throw( KException );
+    Transmitter_PDU( const Header & H, KDataStream & stream ) ;
 
     Transmitter_PDU( const KDIS::DATA_TYPE::RadioEntityType & Type, KDIS::DATA_TYPE::ENUMS::TransmitState TS, KDIS::DATA_TYPE::ENUMS::RadioInputSource IS,
                      const KDIS::DATA_TYPE::AntennaLocation & AL, KDIS::DATA_TYPE::ENUMS::AntennaPatternType APT, KUINT64 Freq,
@@ -235,7 +235,7 @@ public:
     // Parameter:   KUINT8 Length - size of buffer.
     //************************************
     void SetModulationParameters( const KOCTET * MP, KUINT8 Length );
-    void GetModulationParameters( KOCTET * MP, KUINT8 Length ) const throw( KException );
+    void GetModulationParameters( KOCTET * MP, KUINT8 Length ) const ;
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::SetAntennaPattern
@@ -248,7 +248,7 @@ public:
     // Parameter:   KUINT8 Length - size of buffer.
     //************************************
     void SetAntennaPattern( const KOCTET * AP, KUINT16 Length );
-    void GetAntennaPattern( KOCTET * AP, KUINT16 Length ) const throw( KException );
+    void GetAntennaPattern( KOCTET * AP, KUINT16 Length ) const ;
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::GetAsString
@@ -262,7 +262,7 @@ public:
     // Parameter:   KDataStream & stream
     // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
     //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) throw( KException );
+    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
 
     //************************************
     // FullName:    KDIS::PDU::Transmitter_PDU::Encode
