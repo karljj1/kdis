@@ -61,7 +61,7 @@ int main()
     Connection conn( "192.168.3.255" );
 
     KOCTET cBuffer[MAX_PDU_SIZE]; // Somewhere to store the data we receive.
-
+    cout << __cplusplus << endl;
     try
     {
         while( true )

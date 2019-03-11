@@ -59,17 +59,17 @@ enum CollisionType
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeCollisionType();
+KDIS_EXPORT KUINT32 GetEnumSizeCollisionType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorCollisionType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorCollisionType( KUINT32 Index );
 
-KString GetEnumAsStringCollisionType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringCollisionType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringCollisionType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringCollisionType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Entity Type Fields                                                   */
@@ -95,17 +95,17 @@ enum EntityKind
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityKind();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityKind();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityKind( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityKind( KUINT32 Index );
 
-KString GetEnumAsStringEntityKind( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityKind( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityKind( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityKind( const KString & Value, KINT32 & ValueOut );
 
 enum EntityDomain
 {
@@ -120,17 +120,17 @@ enum EntityDomain
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityDomain();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityDomain();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityDomain( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityDomain( KUINT32 Index );
 
-KString GetEnumAsStringEntityDomain( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityDomain( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityDomain( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityDomain( const KString & Value, KINT32 & ValueOut );
 
 enum Country
 {
@@ -401,17 +401,17 @@ enum Country
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeCountry();
+KDIS_EXPORT KUINT32 GetEnumSizeCountry();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorCountry( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorCountry( KUINT32 Index );
 
-KString GetEnumAsStringCountry( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringCountry( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Variable Params                                                      */
@@ -430,17 +430,17 @@ enum VariableParameterType
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeVariableParameterType();
+KDIS_EXPORT KUINT32 GetEnumSizeVariableParameterType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorVariableParameterType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorVariableParameterType( KUINT32 Index );
 
-KString GetEnumAsStringVariableParameterType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringVariableParameterType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut );
 
 enum ArticulatedPartsMetric
 {
@@ -490,17 +490,17 @@ enum ArticulatedPartsMetric
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeArticulatedPartsMetric();
+KDIS_EXPORT KUINT32 GetEnumSizeArticulatedPartsMetric();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorArticulatedPartsMetric( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorArticulatedPartsMetric( KUINT32 Index );
 
-KString GetEnumAsStringArticulatedPartsMetric( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringArticulatedPartsMetric( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut );
 
 enum ArticulatedPartsClass
 {
@@ -637,17 +637,17 @@ enum ArticulatedPartsClass
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeArticulatedPartsClass();
+KDIS_EXPORT KUINT32 GetEnumSizeArticulatedPartsClass();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorArticulatedPartsClass( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorArticulatedPartsClass( KUINT32 Index );
 
-KString GetEnumAsStringArticulatedPartsClass( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringArticulatedPartsClass( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Attached Parts Parameter Type                                        */
@@ -685,17 +685,17 @@ enum AttachedPartParameterType
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeAttachedPartParameterType();
+KDIS_EXPORT KUINT32 GetEnumSizeAttachedPartParameterType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorAttachedPartParameterType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorAttachedPartParameterType( KUINT32 Index );
 
-KString GetEnumAsStringAttachedPartParameterType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringAttachedPartParameterType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* General Appearance Fields                                            */
@@ -720,17 +720,17 @@ enum EntityPaintScheme
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityPaintScheme();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityPaintScheme();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityPaintScheme( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityPaintScheme( KUINT32 Index );
 
-KString GetEnumAsStringEntityPaintScheme( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityPaintScheme( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityPaintScheme( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityPaintScheme( const KString & Value, KINT32 & ValueOut );
 
 enum EntityDamage
 {
@@ -743,17 +743,17 @@ enum EntityDamage
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityDamage();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityDamage();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityDamage( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityDamage( KUINT32 Index );
 
-KString GetEnumAsStringEntityDamage( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityDamage( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityDamage( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityDamage( const KString & Value, KINT32 & ValueOut );
 
 enum EntitySmoke
 {
@@ -766,17 +766,17 @@ enum EntitySmoke
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntitySmoke();
+KDIS_EXPORT KUINT32 GetEnumSizeEntitySmoke();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntitySmoke( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntitySmoke( KUINT32 Index );
 
-KString GetEnumAsStringEntitySmoke( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntitySmoke( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntitySmoke( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntitySmoke( const KString & Value, KINT32 & ValueOut );
 
 enum EntityTrailingEffect
 {
@@ -789,17 +789,17 @@ enum EntityTrailingEffect
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityTrailingEffect();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityTrailingEffect();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityTrailingEffect( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityTrailingEffect( KUINT32 Index );
 
-KString GetEnumAsStringEntityTrailingEffect( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityTrailingEffect( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityTrailingEffect( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityTrailingEffect( const KString & Value, KINT32 & ValueOut );
 
 enum EntityHatchState
 {
@@ -814,17 +814,17 @@ enum EntityHatchState
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityHatchState();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityHatchState();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityHatchState( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityHatchState( KUINT32 Index );
 
-KString GetEnumAsStringEntityHatchState( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityHatchState( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityHatchState( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityHatchState( const KString & Value, KINT32 & ValueOut );
 
 enum EntityLights
 {
@@ -837,17 +837,17 @@ enum EntityLights
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityLights();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityLights();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityLights( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityLights( KUINT32 Index );
 
-KString GetEnumAsStringEntityLights( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityLights( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityLights( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityLights( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Specific Appearance Fields                                           */
@@ -873,17 +873,17 @@ enum EntityCamouflage
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityCamouflage();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityCamouflage();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityCamouflage( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityCamouflage( KUINT32 Index );
 
-KString GetEnumAsStringEntityCamouflage( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityCamouflage( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityCamouflage( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityCamouflage( const KString & Value, KINT32 & ValueOut );
 
 enum EntityLifeformAppearance
 {
@@ -907,17 +907,17 @@ enum EntityLifeformAppearance
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityLifeformAppearance();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityLifeformAppearance();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityLifeformAppearance( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityLifeformAppearance( KUINT32 Index );
 
-KString GetEnumAsStringEntityLifeformAppearance( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityLifeformAppearance( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityLifeformAppearance( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityLifeformAppearance( const KString & Value, KINT32 & ValueOut );
 
 enum EntityLifeformWeapon
 {
@@ -930,17 +930,17 @@ enum EntityLifeformWeapon
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityLifeformWeapon();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityLifeformWeapon();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityLifeformWeapon( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityLifeformWeapon( KUINT32 Index );
 
-KString GetEnumAsStringEntityLifeformWeapon( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityLifeformWeapon( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityLifeformWeapon( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityLifeformWeapon( const KString & Value, KINT32 & ValueOut );
 
 enum EntityDensity
 {
@@ -954,17 +954,17 @@ enum EntityDensity
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityDensity();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityDensity();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityDensity( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityDensity( KUINT32 Index );
 
-KString GetEnumAsStringEntityDensity( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityDensity( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityDensity( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityDensity( const KString & Value, KINT32 & ValueOut );
 
 enum EntityCompliance
 {
@@ -988,17 +988,17 @@ enum EntityCompliance
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityCompliance();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityCompliance();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityCompliance( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityCompliance( KUINT32 Index );
 
-KString GetEnumAsStringEntityCompliance( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityCompliance( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Dead Reckoning Parameters                                            */
@@ -1049,17 +1049,17 @@ enum DeadReckoningAlgorithm
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeDeadReckoningAlgorithm();
+KDIS_EXPORT KUINT32 GetEnumSizeDeadReckoningAlgorithm();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorDeadReckoningAlgorithm( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorDeadReckoningAlgorithm( KUINT32 Index );
 
-KString GetEnumAsStringDeadReckoningAlgorithm( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringDeadReckoningAlgorithm( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringDeadReckoningAlgorithm( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringDeadReckoningAlgorithm( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Entity Marking Fields                                                */
@@ -1078,17 +1078,17 @@ enum EntityMarkingCharacterSet
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityMarkingCharacterSet();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityMarkingCharacterSet();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityMarkingCharacterSet( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityMarkingCharacterSet( KUINT32 Index );
 
-KString GetEnumAsStringEntityMarkingCharacterSet( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityMarkingCharacterSet( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityMarkingCharacterSet( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityMarkingCharacterSet( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Entity State enums                                                   */
@@ -1135,17 +1135,17 @@ enum ForceID
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeForceID();
+KDIS_EXPORT KUINT32 GetEnumSizeForceID();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorForceID( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorForceID( KUINT32 Index );
 
-KString GetEnumAsStringForceID( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringForceID( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringForceID( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringForceID( const KString & Value, KINT32 & ValueOut );
 
 #if DIS_VERSION > 6
 
@@ -1165,17 +1165,17 @@ enum ActionCode
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeActionCode();
+KDIS_EXPORT KUINT32 GetEnumSizeActionCode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorActionCode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorActionCode( KUINT32 Index );
 
-KString GetEnumAsStringActionCode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringActionCode( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut );
 
 #endif // DIS 7
 
@@ -1195,17 +1195,17 @@ enum AntiCollisionDayNight
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeAntiCollisionDayNight();
+KDIS_EXPORT KUINT32 GetEnumSizeAntiCollisionDayNight();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorAntiCollisionDayNight( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorAntiCollisionDayNight( KUINT32 Index );
 
-KString GetEnumAsStringAntiCollisionDayNight( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringAntiCollisionDayNight( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringAntiCollisionDayNight( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringAntiCollisionDayNight( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Navigation/Position Brightness                                       */
@@ -1223,17 +1223,17 @@ enum NavigationPositionBrightness
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeNavigationPositionBrightness();
+KDIS_EXPORT KUINT32 GetEnumSizeNavigationPositionBrightness();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorNavigationPositionBrightness( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorNavigationPositionBrightness( KUINT32 Index );
 
-KString GetEnumAsStringNavigationPositionBrightness( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringNavigationPositionBrightness( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* SupplyDeployed                                                       */
@@ -1253,17 +1253,17 @@ enum SupplyDeployed
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeSupplyDeployed();
+KDIS_EXPORT KUINT32 GetEnumSizeSupplyDeployed();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorSupplyDeployed( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSupplyDeployed( KUINT32 Index );
 
-KString GetEnumAsStringSupplyDeployed( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSupplyDeployed( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringSupplyDeployed( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSupplyDeployed( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* NVG Mode                                                             */
@@ -1281,17 +1281,17 @@ enum NVGMode
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeNVGMode();
+KDIS_EXPORT KUINT32 GetEnumSizeNVGMode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorNVGMode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorNVGMode( KUINT32 Index );
 
-KString GetEnumAsStringNVGMode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringNVGMode( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Parachute                                                            */
@@ -1312,17 +1312,17 @@ enum Parachute
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeParachute();
+KDIS_EXPORT KUINT32 GetEnumSizeParachute();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorParachute( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorParachute( KUINT32 Index );
 
-KString GetEnumAsStringParachute( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringParachute( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringParachute( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringParachute( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Flare/Smoke Color                                                    */
@@ -1342,17 +1342,17 @@ enum FlareSmokeColor
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeFlareSmokeColor();
+KDIS_EXPORT KUINT32 GetEnumSizeFlareSmokeColor();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorFlareSmokeColor( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorFlareSmokeColor( KUINT32 Index );
 
-KString GetEnumAsStringFlareSmokeColor( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringFlareSmokeColor( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringFlareSmokeColor( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringFlareSmokeColor( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Flare/Smoke Status                                                   */
@@ -1371,17 +1371,17 @@ enum FlareSmokeStatus
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeFlareSmokeStatus();
+KDIS_EXPORT KUINT32 GetEnumSizeFlareSmokeStatus();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorFlareSmokeStatus( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorFlareSmokeStatus( KUINT32 Index );
 
-KString GetEnumAsStringFlareSmokeStatus( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringFlareSmokeStatus( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringFlareSmokeStatus( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringFlareSmokeStatus( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Spot Chaff                                                           */
@@ -1400,17 +1400,17 @@ enum SpotChaff
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeSpotChaff();
+KDIS_EXPORT KUINT32 GetEnumSizeSpotChaff();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorSpotChaff( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSpotChaff( KUINT32 Index );
 
-KString GetEnumAsStringSpotChaff( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSpotChaff( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringSpotChaff( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSpotChaff( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Cover/Shroud Status                                                  */
@@ -1430,17 +1430,17 @@ enum CoverShroudStatus
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeCoverShroudStatus();
+KDIS_EXPORT KUINT32 GetEnumSizeCoverShroudStatus();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorCoverShroudStatus( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorCoverShroudStatus( KUINT32 Index );
 
-KString GetEnumAsStringCoverShroudStatus( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringCoverShroudStatus( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut );
 
 #if DIS_VERSION > 5
 
@@ -1460,17 +1460,17 @@ enum ReasonForSeparation
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeReasonForSeparation();
+KDIS_EXPORT KUINT32 GetEnumSizeReasonForSeparation();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorReasonForSeparation(KUINT32 Index);
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorReasonForSeparation(KUINT32 Index);
 
-KString GetEnumAsStringReasonForSeparation(KINT32 Value);
+KDIS_EXPORT KString GetEnumAsStringReasonForSeparation(KINT32 Value);
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringReasonForSeparation(const KString & Value, KINT32 & ValueOut);
+KDIS_EXPORT KBOOL GetEnumFromStringReasonForSeparation(const KString & Value, KINT32 & ValueOut);
 
 /************************************************************************/
 /* PreEntityIndicator                                                   */
@@ -1491,17 +1491,17 @@ enum PreEntityIndicator
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizePreEntityIndicator();
+KDIS_EXPORT KUINT32 GetEnumSizePreEntityIndicator();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorPreEntityIndicator(KUINT32 Index);
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorPreEntityIndicator(KUINT32 Index);
 
-KString GetEnumAsStringPreEntityIndicator(KINT32 Value);
+KDIS_EXPORT KString GetEnumAsStringPreEntityIndicator(KINT32 Value);
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringPreEntityIndicator(const KString & Value, KINT32 & ValueOut);
+KDIS_EXPORT KBOOL GetEnumFromStringPreEntityIndicator(const KString & Value, KINT32 & ValueOut);
 
 #endif // DIS 6
 

@@ -64,17 +64,17 @@ enum SystemType
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeSystemType();
+KDIS_EXPORT KUINT32 GetEnumSizeSystemType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorSystemType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSystemType( KUINT32 Index );
 
-KString GetEnumAsStringSystemType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSystemType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringSystemType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSystemType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* System Name                                                          */
@@ -102,17 +102,17 @@ enum SystemName
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeSystemName();
+KDIS_EXPORT KUINT32 GetEnumSizeSystemName();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorSystemName( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSystemName( KUINT32 Index );
 
-KString GetEnumAsStringSystemName( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSystemName( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringSystemName( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSystemName( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* System Mode                                                          */
@@ -130,17 +130,17 @@ enum SystemMode
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeSystemMode();
+KDIS_EXPORT KUINT32 GetEnumSizeSystemMode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorSystemMode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSystemMode( KUINT32 Index );
 
-KString GetEnumAsStringSystemMode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSystemMode( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringSystemMode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSystemMode( const KString & Value, KINT32 & ValueOut );
 
 } // END namespace ENUMS
 } // END namespace DATA_TYPES

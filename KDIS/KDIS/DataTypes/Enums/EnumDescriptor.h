@@ -44,7 +44,7 @@ namespace KDIS {
 namespace DATA_TYPE {
 namespace ENUMS {
 
-struct EnumDescriptor
+KDIS_EXPORT struct EnumDescriptor
 {
 public:
     const KINT32 Value;
