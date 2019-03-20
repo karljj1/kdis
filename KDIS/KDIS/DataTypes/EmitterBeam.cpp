@@ -88,7 +88,7 @@ EmitterBeam::EmitterBeam( KDataStream & stream )  :
 //////////////////////////////////////////////////////////////////////////
 
 EmitterBeam::EmitterBeam( KUINT8 BeamID, KUINT16 BeamParamIndex, const FundamentalParameterData & FPD,
-                          EmitterFunction EBF, HighDensityTrackJam HDTJ,
+						  BeamFunction BF, HighDensityTrackJam HDTJ,
 #if DIS_VERSION < 7
                           KUINT32 JammingModeSequence ) :
 #elif DIS_VERSION > 6
@@ -99,7 +99,7 @@ EmitterBeam::EmitterBeam( KUINT8 BeamID, KUINT16 BeamParamIndex, const Fundament
   m_ui8EmitterBeamIDNumber ( BeamID ),
   m_ui16BeamParamIndex ( BeamParamIndex ),
   m_FundamentalParameterData ( FPD ),
-  m_ui8BeamFunction ( EBF ),
+  m_ui8BeamFunction ( BF ),
   m_ui8NumTargetInTrackJamField ( 0u ),
   m_ui8HighDensityTrackJam ( HDTJ ),
 #if DIS_VERSION < 7
@@ -178,16 +178,16 @@ FundamentalParameterData & EmitterBeam::GetFundamentalParameterData()
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmitterBeam::SetEmitterBeamFunction( EmitterFunction EBF )
+void EmitterBeam::SetEmitterBeamFunction(BeamFunction EBF )
 {
     m_ui8BeamFunction = EBF;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterFunction EmitterBeam::GetEmitterBeamFunction() const
+BeamFunction EmitterBeam::GetEmitterBeamFunction() const
 {
-    return ( EmitterFunction )m_ui8BeamFunction;
+    return (BeamFunction)m_ui8BeamFunction;
 }
 
 //////////////////////////////////////////////////////////////////////////

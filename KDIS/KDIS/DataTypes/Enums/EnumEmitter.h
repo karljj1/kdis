@@ -1408,6 +1408,52 @@ KDIS_EXPORT KBOOL GetEnumFromStringBeamState( const KString & Value, KINT32 & Va
 
 #endif
 
+
+/************************************************************************/
+/* Beam Function (UID 78)	                                            */
+/* Specifies the function of a specific beam                            */
+/* Used In:                                                             */
+/*  Electromagnetic_Emission_PDU                                        */
+/************************************************************************/
+
+enum BeamFunction
+{
+	Other = 1,
+	Search = 2,
+	HeightFinding = 3,
+	Acquisition = 4,
+	Tracking = 5,
+	AcquisitionAndTracking = 6,
+	CommandGuidance = 7,
+	Illumination= 8,
+	Ranging = 9,
+	MissileBeacon = 10,
+	MissileFusing = 11,
+	ActiveRadarMissileSeeker = 12,
+	Jamming = 13,
+	IFF = 14,
+	NavigationWeather =	15,
+	Meteorological = 16,
+	DataTransmission = 17,
+	NavigationalDirectionalBeacon = 18,
+	TimeSharedSearch = 20
+};
+
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KDIS_EXPORT KUINT32 GetEnumSizeBeamFunction();
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorBeamFunction(KUINT32 Index);
+
+KDIS_EXPORT KString GetEnumAsStringBeamFunction(KINT32 Value);
+
+// Returns true if a value was found.
+KDIS_EXPORT KBOOL GetEnumFromStringBeamFunction(const KString & Value, KINT32 & ValueOut);
+
 /************************************************************************/
 /* Passive Parameter Index                                              */
 /* Indicates which database record ( or file ) shall                    */

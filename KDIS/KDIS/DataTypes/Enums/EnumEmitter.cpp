@@ -1548,6 +1548,83 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamState( const KString & Value,
 
 #endif
 
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
+
+const EnumDescriptor BeamStateDescriptor[] =
+{
+	{ 1 , "Other" },
+	{ 2 , "Search" },
+	{ 3 , "HeightFinding" },
+	{ 4 , "Acquisition" },
+	{ 5 , "Tracking" },
+	{ 6 , "AcquisitionAndTracking" },
+	{ 7 , "CommandGuidance" },
+	{ 8 , "Illumination" },
+	{ 9 , "Ranging" },
+	{ 10 , "MissileBeacon" },
+	{ 11 , "MissileFusing" },
+	{ 12 , "ActiveRadarMissileSeeker" },
+	{ 13 , "Jamming" },
+	{ 14 , "IFF" },
+	{ 15 , "NavigationWeather" },
+	{ 16 , "Meteorological" },
+	{ 17 , "DataTransmission" },
+	{ 18 , "NavigationalDirectionalBeacon" },
+	{ 20 , "TimeSharedSearch" },
+};
+// Returns number of values in the EnumDescriptor for this enum.
+// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+KDIS_EXPORT KUINT32 GetEnumSizeBeamFunction()
+{
+	return sizeof(BeamStateDescriptor) / sizeof(EnumDescriptor);
+}
+
+// Returns the EnumDescriptor value for the specified index.
+// Use GetEnumSize<enum> to get the array size.
+// If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorBeamFunction(KUINT32 Index)
+{
+	return &BeamStateDescriptor[Index];
+}
+
+KDIS_EXPORT KString GetEnumAsStringBeamFunction(KINT32 Value)
+{
+	return GetEnumAsString(BeamStateDescriptor, sizeof(BeamStateDescriptor) / sizeof(EnumDescriptor), Value);
+}
+
+// Returns true if a value was found.
+KDIS_EXPORT KBOOL GetEnumFromStringBeamFunction(const KString & Value, KINT32 & ValueOut)
+{
+	return GetEnumFromString(BeamStateDescriptor, sizeof(BeamStateDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+}
+
+#else
+
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamFunction()
+{
+	return 0;
+}
+
+const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBeamFunction(KUINT32 Index)
+{
+	return NULL;
+}
+
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamFunction(KINT32 Value)
+{
+	KStringStream ss;
+	ss << Value;
+	return ss.str().c_str();
+}
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamFunction(const KString & Value, KINT32 & ValueOut)
+{
+	return false; // Maybe throw an exception?
+}
+
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for PassiveParameterIndex
