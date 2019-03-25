@@ -71,7 +71,7 @@ protected:
 
     KUINT8 m_ui8VarParamType;
    
-    KUINT8 m_Data[15];
+    KUINT8 m_Data[16];
 
 public:
 
