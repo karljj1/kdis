@@ -46,7 +46,7 @@ VariableParameter::VariableParameter() :
     m_ui8VarParamType( 0 )    
 {
 	// Clear data
-	memset( m_Data, 0, VARIABLE_PARAMETER_SIZE);
+	memset( m_Data, 0, 15 );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -88,14 +88,14 @@ VariableParameterType VariableParameter::GetVariableParameterType() const
 
 void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize ) 
 {
-	if( DataSize > VARIABLE_PARAMETER_SIZE)throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
-
-	// Clear data
-	memset(m_Data, 0, VARIABLE_PARAMETER_SIZE);
+	if( DataSize > 15 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
 
 	// Set
 	memcpy( m_Data, D, DataSize );
 		
+	// Clear extra space
+	if( DataSize < 15 )
+		memset( m_Data, DataSize, 15 - DataSize );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ void VariableParameter::Decode( KDataStream & stream )
 
 	stream >> m_ui8VarParamType;
 		
-	for( KUINT8 i = 0; i < VARIABLE_PARAMETER_SIZE; ++i )
+	for( KUINT8 i = 0; i < 15; ++i )
 	{
 		stream >> m_Data[i];
 	}
@@ -157,7 +157,7 @@ void VariableParameter::Encode( KDataStream & stream ) const
 {
 	stream << m_ui8VarParamType;
 		
-	for( KUINT8 i = 0; i < VARIABLE_PARAMETER_SIZE; ++i )
+	for( KUINT8 i = 0; i < 15; ++i )
 	{
 		stream << m_Data[i];
 	}
@@ -168,7 +168,7 @@ void VariableParameter::Encode( KDataStream & stream ) const
 KBOOL VariableParameter::operator == ( const VariableParameter & Value ) const
 {
     if( m_ui8VarParamType != Value.m_ui8VarParamType ) return false;
-    if( memcmp( m_Data, Value.m_Data, VARIABLE_PARAMETER_SIZE) != 0 ) return false;
+    if( memcmp( m_Data, Value.m_Data, 15 ) != 0 ) return false;
     return true;
 }
 
