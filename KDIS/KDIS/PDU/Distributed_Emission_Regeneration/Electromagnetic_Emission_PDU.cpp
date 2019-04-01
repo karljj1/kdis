@@ -99,6 +99,14 @@ Electromagnetic_Emission_PDU::Electromagnetic_Emission_PDU( const EntityIdentifi
     m_ui8PDUType = Electromagnetic_Emission_PDU_Type;
     m_ui16PDULength = ELECTROMAGNETIC_EMISSION_PDU_SIZE;
     m_ui8ProtocolVersion = IEEE_1278_1_1995;
+
+	vector<EmissionSystem>::const_iterator citr = m_vEmissionSystem.begin();
+	vector<EmissionSystem>::const_iterator citrEnd = m_vEmissionSystem.end();
+
+	for (; citr != citrEnd; ++citr)
+	{
+		m_ui16PDULength += citr->GetSystemDataLength() * 4;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
