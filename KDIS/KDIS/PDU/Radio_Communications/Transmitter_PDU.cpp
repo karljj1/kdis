@@ -436,6 +436,11 @@ void Transmitter_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/
            >> m_ui16Padding2
            >> m_ui8Padding3;
 
+    //Reset Variable Transmitter Parameter Count as incoming padding may be non-0
+    if (m_ui8ProtocolVersion < 7) {
+        m_ui16NumVariableTransmitterParamRecords = 0;
+    }
+
     for( KUINT8 i = 0; i < m_ui8LengthOfModulationParam; ++i )
     {
         KOCTET o;

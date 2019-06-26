@@ -34,7 +34,7 @@ http://p.sf.net/kdis/UserGuide
     author:     Dale Marchand
 
     purpose:    Contains information about a beam status
-    size:       32 bits / 4 octets size
+    size:       8 bits / 1 octets size
 *********************************************************************/
 
 #pragma once
