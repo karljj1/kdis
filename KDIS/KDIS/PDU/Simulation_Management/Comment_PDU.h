@@ -72,7 +72,7 @@ public:
 
     Comment_PDU();
 
-    Comment_PDU( const Header & H );
+    explicit Comment_PDU( const Header & H );
 
     Comment_PDU( KDataStream & stream ) ;
 

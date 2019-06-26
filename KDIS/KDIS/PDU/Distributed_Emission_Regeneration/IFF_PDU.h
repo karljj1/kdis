@@ -107,11 +107,11 @@ public:
 
     IFF_PDU();
 
-	IFF_PDU( const Header & H );
+    explicit IFF_PDU( const Header & H );
 
     IFF_PDU( KDataStream & stream ) ;
 
-	IFF_PDU( const Header & H, KDataStream & stream ) ;
+    IFF_PDU( const Header & H, KDataStream & stream ) ;
 
     IFF_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID, const KDIS::DATA_TYPE::Vector & Location,
              const KDIS::DATA_TYPE::SystemIdentifier & ID, const KDIS::DATA_TYPE::FundamentalOperationalData & FOD );

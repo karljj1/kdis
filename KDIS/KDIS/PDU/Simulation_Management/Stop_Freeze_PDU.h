@@ -65,7 +65,7 @@ public:
 
     Stop_Freeze_PDU();
 
-    Stop_Freeze_PDU( const Header & H );
+    explicit Stop_Freeze_PDU( const Header & H );
 
     Stop_Freeze_PDU( KDataStream & stream ) ;
 

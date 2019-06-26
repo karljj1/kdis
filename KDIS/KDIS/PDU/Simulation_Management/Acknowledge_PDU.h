@@ -65,7 +65,7 @@ public:
 
     Acknowledge_PDU();
 
-    Acknowledge_PDU( const Header & H );
+    explicit Acknowledge_PDU( const Header & H );
 
     Acknowledge_PDU( KDataStream & stream ) ;
 

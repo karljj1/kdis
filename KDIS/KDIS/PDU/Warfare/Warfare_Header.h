@@ -63,7 +63,7 @@ public:
 
     Warfare_Header();
 
-    Warfare_Header( const Header & H );
+    explicit Warfare_Header( const Header & H );
 
     Warfare_Header( const KDIS::DATA_TYPE::EntityIdentifier & FiringEntID, const KDIS::DATA_TYPE::EntityIdentifier & TargetEntID,
                     const KDIS::DATA_TYPE::EntityIdentifier & MunitionID, const KDIS::DATA_TYPE::EntityIdentifier & EventID );

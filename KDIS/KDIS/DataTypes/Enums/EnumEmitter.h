@@ -1326,7 +1326,7 @@ KBOOL GetEnumFromStringEmitterFunction( const KString & Value, KINT32 & ValueOut
 
 enum StateUpdateIndicator
 {
-    StateUpdate                                                       = 0,
+    StateUpdateHeartbeat                                              = 0,
     ChangedDataUpdate                                                 = 1
 };
 

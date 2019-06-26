@@ -57,7 +57,7 @@ public:
 
     Action_Response_PDU();
 
-    Action_Response_PDU( const Header & H );
+    explicit Action_Response_PDU( const Header & H );
 
     Action_Response_PDU( KDataStream & stream ) ;
 

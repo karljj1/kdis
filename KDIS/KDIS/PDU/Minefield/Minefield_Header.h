@@ -58,7 +58,7 @@ public:
 
     Minefield_Header();
 
-    Minefield_Header( const Header & H );
+    explicit Minefield_Header( const Header & H );
 
     Minefield_Header( KDataStream & stream ) ;
 

@@ -867,7 +867,8 @@ enum EntityCamouflage
 {
     DesertCamouflage                                                  = 0,
     WinterCamouflage                                                  = 1,
-    ForestCamouflage                                                  = 2
+    ForestCamouflage                                                  = 2,
+    OtherCamouflage                                                   = 3
 };
 
 // Returns number of values in the EnumDescriptor for this enum.

@@ -59,7 +59,7 @@ public:
 
     Radio_Communications_Header();
 
-    Radio_Communications_Header( const Header & H );
+    explicit Radio_Communications_Header( const Header & H );
 
     Radio_Communications_Header( KDataStream & stream ) ;
 

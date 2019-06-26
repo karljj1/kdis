@@ -63,7 +63,7 @@ public:
 
     Resupply_Received_PDU();
 
-    Resupply_Received_PDU( const Header & H );
+    explicit Resupply_Received_PDU( const Header & H );
 
     Resupply_Received_PDU( KDataStream & stream ) ;
 

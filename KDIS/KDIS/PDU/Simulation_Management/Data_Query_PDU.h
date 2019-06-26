@@ -66,7 +66,7 @@ public:
 
     Data_Query_PDU();
 
-    Data_Query_PDU( const Header & H );
+    explicit Data_Query_PDU( const Header & H );
 
     Data_Query_PDU( KDataStream & stream ) ;
 

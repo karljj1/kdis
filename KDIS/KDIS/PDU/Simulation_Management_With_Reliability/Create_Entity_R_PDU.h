@@ -54,7 +54,7 @@ public:
 
     Create_Entity_R_PDU();
 
-    Create_Entity_R_PDU( const Header & H );
+    explicit Create_Entity_R_PDU( const Header & H );
 
     Create_Entity_R_PDU( KDataStream & stream ) ;
 

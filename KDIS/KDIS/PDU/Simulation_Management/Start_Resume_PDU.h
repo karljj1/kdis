@@ -61,7 +61,7 @@ public:
 
     Start_Resume_PDU();
 
-    Start_Resume_PDU( const Header & H );
+    explicit Start_Resume_PDU( const Header & H );
 
     Start_Resume_PDU( KDataStream & stream ) ;
 

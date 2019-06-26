@@ -59,7 +59,7 @@ public:
 
     explicit Simulation_Management_Header();
 
-    explicit Simulation_Management_Header( const Simulation_Management_Header & H );
+    explicit Simulation_Management_Header( const Simulation_Management_Header & H ); 
 
     explicit Simulation_Management_Header( KDataStream & stream ) ;
 

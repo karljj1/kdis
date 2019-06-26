@@ -59,7 +59,7 @@ public:
 
     Event_Report_PDU();
 
-    Event_Report_PDU( const Header & H );
+    explicit Event_Report_PDU( const Header & H );
 
     Event_Report_PDU( KDataStream & stream ) ;
 

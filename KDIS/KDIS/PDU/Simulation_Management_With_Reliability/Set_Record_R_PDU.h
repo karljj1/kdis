@@ -69,7 +69,7 @@ public:
 
     Set_Record_R_PDU();
 
-    Set_Record_R_PDU( const Header & H );
+    explicit Set_Record_R_PDU( const Header & H );
 
     Set_Record_R_PDU( KDataStream & stream ) ;
 

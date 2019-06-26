@@ -67,7 +67,7 @@ public:
 
     IO_Header();
 
-    IO_Header( const Header & H );
+    explicit IO_Header( const Header & H );
 
     IO_Header( KDataStream & stream ) ;
 

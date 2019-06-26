@@ -94,7 +94,7 @@ http://p.sf.net/kdis/UserGuide
 // MSVC reports __cplusplus as being C98 since it doesn't conform to all features of the newer standard(s) 
 // The MSVC_LANG approximates the compilers capabilities  
 #ifndef _MSVC_LANG
-	#define _MSCV_LANG __cplusplus
+	#define _MSVC_LANG __cplusplus
 #endif
 
 #if __cplusplus < 201103L && _MSVC_LANG < 201103L

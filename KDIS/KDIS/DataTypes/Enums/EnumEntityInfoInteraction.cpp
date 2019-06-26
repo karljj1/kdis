@@ -1294,7 +1294,8 @@ const EnumDescriptor EntityCamouflageDescriptor[] =
 {
     { 0 , "DesertCamouflage" },
     { 1 , "WinterCamouflage" },
-    { 2 , "ForestCamouflage" }
+    { 2 , "ForestCamouflage" },
+    { 3 , "OtherCamouflage" }
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeEntityCamouflage()

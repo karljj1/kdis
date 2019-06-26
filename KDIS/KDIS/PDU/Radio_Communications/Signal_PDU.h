@@ -70,7 +70,7 @@ public:
 
     Signal_PDU();
 
-    Signal_PDU( const Header & H );
+    explicit Signal_PDU( const Header & H );
 
     Signal_PDU( KDataStream & stream ) ;
 

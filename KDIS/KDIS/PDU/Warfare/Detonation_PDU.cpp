@@ -50,7 +50,8 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Detonation_PDU::Detonation_PDU() :
-    m_ui8NumOfVariableParams( 0 )
+    m_ui8NumOfVariableParams( 0 ),
+    m_ui16Padding1( 0 )
 {
     m_ui8PDUType = Detonation_PDU_Type;
     m_ui16PDULength = DETONATION_PDU_SIZE;

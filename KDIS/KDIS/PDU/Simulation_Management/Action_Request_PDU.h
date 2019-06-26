@@ -60,7 +60,7 @@ public:
 
     Action_Request_PDU();
 
-    Action_Request_PDU( const Header & H );
+    explicit Action_Request_PDU( const Header & H );
 
     Action_Request_PDU( KDataStream & stream ) ;
 

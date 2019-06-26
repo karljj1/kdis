@@ -64,7 +64,7 @@ public:
 
     Object_State_Header();
 
-    Object_State_Header( const Header & H );
+    explicit Object_State_Header( const Header & H );
 
     Object_State_Header( KDataStream & stream ) ;
 

@@ -58,7 +58,7 @@ public:
 
     Data_PDU();
 
-    Data_PDU( const Header & H );
+    explicit Data_PDU( const Header & H );
 
     Data_PDU( KDataStream & stream ) ;
 

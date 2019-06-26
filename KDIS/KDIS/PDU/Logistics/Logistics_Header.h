@@ -59,7 +59,7 @@ public:
 
     Logistics_Header();
 
-    Logistics_Header( const Header & H );
+    explicit Logistics_Header( const Header & H );
 
     Logistics_Header( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntityID );
 

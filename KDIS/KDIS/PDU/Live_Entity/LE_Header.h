@@ -58,7 +58,7 @@ public:
 
     LE_Header();
 
-    LE_Header( const Header & H );
+    explicit LE_Header( const Header & H );
 
     LE_Header( KDataStream & stream ) ;
 

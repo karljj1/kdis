@@ -95,7 +95,7 @@ public:
 
     Transmitter_PDU();
 
-    Transmitter_PDU( const Header & H );
+    explicit Transmitter_PDU( const Header & H );
 
     Transmitter_PDU( KDataStream & stream ) ;
 
