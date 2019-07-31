@@ -40,6 +40,7 @@ to see how to use GetNextPDU which does support bundling.
 #include <iostream>
 #include "KDIS/Extras/PDU_Factory.h"
 #include "KDIS/Network/Connection.h" // A cross platform connection class.
+#include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.h"
 
 using namespace std;
 using namespace KDIS;
@@ -81,6 +82,12 @@ int main()
                     {
                         cout << "\n" << pHeader->GetAsString();
                         cout << "*****************************************************************\n\n" << endl;
+
+                        if( pHeader->GetPDUType() == Entity_State_PDU_Type )
+                        {
+                            Entity_State_PDU* entityState = dynamic_cast<Entity_State_PDU*>( pHeader.get() );
+                            cout << "Entity Force: " << entityState->GetForceID() << endl;
+                        }
                     }
                     else cout << "PDU Ignored/Unsupported." << endl;
                 }

@@ -103,6 +103,17 @@ public:
     // Description: Converts data stream into the correct PDU type.
     //              If the PDU type is unknown or not currently
     //              implemented a NULL unique_ptr is returned.
+    //              The full PDU data can be retrieved by casting the header to the relevant PDU.
+    //              For example:
+    //              unique_ptr<Header> pHeader = Factory.Decode(cBuffer, ui32Recv);
+    //              if (pHeader.get())
+    //              {
+    //                  if (pHeader->GetPDUType() == Entity_State_PDU_Type)
+    //                  {
+    //                      Entity_State_PDU* entityState = dynamic_cast<Entity_State_PDU*>(pHeader.get());
+    //                      cout << "Entity Force: " << entityState->GetForceID() << endl;
+    //                  }
+    //              }
     // Parameter:   KDataStream & Stream
     //************************************
     virtual std::unique_ptr<KDIS::PDU::Header> Decode( KDataStream & Stream );
@@ -114,6 +125,17 @@ public:
     //              Note: If you wanted to add support for your own PDU this would be a great
     //              place to add it, just override this function and check for your PDU first,
     //              if the PDU is not yours then call the parent function.
+    //              The full PDU data can be retrieved by casting the header to the relevant PDU.
+    //              For example:
+    //              unique_ptr<Header> pHeader = Factory.Decode(cBuffer, ui32Recv);
+    //              if (pHeader.get())
+    //              {
+    //                  if (pHeader->GetPDUType() == Entity_State_PDU_Type)
+    //                  {
+    //                      Entity_State_PDU* entityState = dynamic_cast<Entity_State_PDU*>(pHeader.get());
+    //                      cout << "Entity Force: " << entityState->GetForceID() << endl;
+    //                  }
+    //              }
     // Parameter:   const Header & H
     // Parameter:   KDataStream & Stream
     //************************************
