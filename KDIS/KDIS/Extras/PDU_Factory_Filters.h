@@ -49,7 +49,7 @@ namespace UTILS {
 //////////////////////////////////////////////////////////////////////////
 // The base filter class that all filters must derive from.             //
 //////////////////////////////////////////////////////////////////////////
-KDIS_EXPORT class PDU_Factory_Filter
+class PDU_Factory_Filter
 {
 public:
 
@@ -81,7 +81,7 @@ public:
 // Filters the PDU based on Exercise ID.                                //
 //////////////////////////////////////////////////////////////////////////
 
-KDIS_EXPORT class FactoryFilterExerciseID : public PDU_Factory_Filter
+class FactoryFilterExerciseID : public PDU_Factory_Filter
 {
 private:
 
