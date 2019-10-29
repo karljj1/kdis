@@ -95,7 +95,7 @@ void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize )
 		
 	// Clear extra space
 	if( DataSize < 15 )
-		memset( m_Data, DataSize, 15 - DataSize );
+		memset( m_Data + DataSize, 0, 15 - DataSize );
 }
 
 //////////////////////////////////////////////////////////////////////////

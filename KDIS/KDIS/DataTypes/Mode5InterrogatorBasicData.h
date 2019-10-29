@@ -107,7 +107,7 @@ public:
 	void SetMessageFormatsPresent( KUINT32 MFP );
 	void SetMessageFormatsPresent( const std::bitset<32> & MFP );
 	const std::bitset<32> GetMessageFormatsPresentBitSet() const;
-	KUINT32 GetMessageFormatsPresent();
+	KUINT32 GetMessageFormatsPresent() const;
 	
 	//************************************
     // FullName:    KDIS::DATA_TYPE::Mode5InterrogatorBasicData::SetInterrogatedEntityID

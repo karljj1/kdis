@@ -59,17 +59,17 @@ enum CollisionType
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeCollisionType();
+KDIS_EXPORT KUINT32 GetEnumSizeCollisionType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorCollisionType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorCollisionType( KUINT32 Index );
 
-KString GetEnumAsStringCollisionType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringCollisionType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringCollisionType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringCollisionType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Entity Type Fields                                                   */
@@ -95,17 +95,17 @@ enum EntityKind
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityKind();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityKind();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityKind( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityKind( KUINT32 Index );
 
-KString GetEnumAsStringEntityKind( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityKind( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityKind( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityKind( const KString & Value, KINT32 & ValueOut );
 
 enum EntityDomain
 {
@@ -120,17 +120,17 @@ enum EntityDomain
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityDomain();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityDomain();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityDomain( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityDomain( KUINT32 Index );
 
-KString GetEnumAsStringEntityDomain( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityDomain( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityDomain( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityDomain( const KString & Value, KINT32 & ValueOut );
 
 enum Country
 {
@@ -143,24 +143,24 @@ enum Country
     Ireland                                                           = 104,
     Israel                                                            = 105,
     Italy                                                             = 106,
-    IvoryCoast                                                        = 107,
+    CoteDIvoree                                                       = 107,
     Jamaica                                                           = 108,
-    JanMayen_Norway                                                   = 109,
+    JanMayen_Norway                                                   = 109,  //Deprecated Use Svalbard and Jan Mayen
     Aruba                                                             = 11,
     Japan                                                             = 110,
-    JarvisIsland_USA                                                  = 111,
+    JarvisIsland_USA                                                  = 111,  //Deprecated use United States Minor Outlying Islands
     Jersey_UK                                                         = 112,
-    JohnstonAtoll_USA                                                 = 113,
+    JohnstonAtoll_USA                                                 = 113,  //Deprecated use United States Minor Outlying Islands
     Jordan                                                            = 114,
-    JuanDeNovaIsland                                                  = 115,
+    JuanDeNovaIsland                                                  = 115,  //Deprecated use French Southern Territories
     Kenya                                                             = 116,
-    KingmanReef_USA                                                   = 117,
+    KingmanReef_USA                                                   = 117,  //Deprecated no longer a country
     Kiribati                                                          = 118,
     NorthKorea                                                        = 119,
-    AshmoreAndCartierIslands_Australia                                = 12,
+    AshmoreAndCartierIslands_Australia                                = 12,  //Deprecated Use Australia
     SouthKorea                                                        = 120,
     Kuwait                                                            = 121,
-    Laos                                                              = 122,
+    LaoPeoplesDemocraticRepublic                                      = 122,
     Lebanon                                                           = 123,
     Lesotho                                                           = 124,
     Liberia                                                           = 125,
@@ -169,7 +169,7 @@ enum Country
     Luxembourg                                                        = 128,
     Madagascar                                                        = 129,
     Australia                                                         = 13,
-    Macau_Portugal                                                    = 130,
+    Macao_Portugal                                                    = 130,
     Malawi                                                            = 131,
     Malaysia                                                          = 132,
     Maldives                                                          = 133,
@@ -192,10 +192,10 @@ enum Country
     Namibia                                                           = 149,
     Bahamas                                                           = 15,
     Nauru                                                             = 150,
-    NavassaIsland_USA                                                 = 151,
+    NavassaIsland_USA                                                 = 151,  //Deprecated use United States Minor Outlying Island
     Nepal                                                             = 152,
     Netherlands                                                       = 153,
-    NetherlandsAntilles                                               = 154,
+    NetherlandsAntilles                                               = 154,  //Deprecated Use Netherlands
     NewCaledonia_France                                               = 155,
     NewZealand                                                        = 156,
     Nicaragua                                                         = 157,
@@ -208,11 +208,11 @@ enum Country
     Norway                                                            = 163,
     Oman                                                              = 164,
     Pakistan                                                          = 165,
-    PalmyraAtoll_USA                                                  = 166,
+    PalmyraAtoll_USA                                                  = 166,  //Deprecated use United States Minor Outlying Islands
     Panama                                                            = 168,
     PapuaNewGuinea                                                    = 169,
-    BakerIsland_USA                                                   = 17,
-    ParacelIslands                                                    = 170,
+    BakerIsland_USA                                                   = 17,   //Deprecated use United States Minor Outlying Islands
+    ParacelIslands                                                    = 170,  //Deprecated International
     Paraguay                                                          = 171,
     Peru                                                              = 172,
     Philippines                                                       = 173,
@@ -243,13 +243,13 @@ enum Country
     SouthGeorgiaAndTheSouthSandwichIslands_UK                         = 196,
     SouthAfrica                                                       = 197,
     Spain                                                             = 198,
-    SpratlyIslands                                                    = 199,
+    SpratlyIslands                                                    = 199,  //Deprecated International
     Albania                                                           = 2,
-    BassasDaIndia_France                                              = 20,
+    BassasDaIndia_France                                              = 20,  // Deprecated use Frend Southern Territories
     SriLanka                                                          = 200,
     Sudan                                                             = 201,
     Suriname                                                          = 202,
-    Svalbard_Norway                                                   = 203,
+    Svalbard_Norway                                                   = 203,  //Deprecated use Svalbard and Jan Mayen
     Swaziland                                                         = 204,
     Sweden                                                            = 205,
     Switzerland                                                       = 206,
@@ -262,40 +262,40 @@ enum Country
     Tokelau_NewZealand                                                = 212,
     Tonga                                                             = 213,
     TrinidadAndTobago                                                 = 214,
-    TromelinIsland_France                                             = 215,
-    PacificIslands                                                    = 216,
+    TromelinIsland_France                                             = 215,  //Deprecated use French Southern Territories
+	Palau															  = 216,
     Tunisia                                                           = 217,
     Turkey                                                            = 218,
     TurksAndCaicosIslands_UK                                          = 219,
     Belize                                                            = 22,
     Tuvalu                                                            = 220,
     Uganda                                                            = 221,
-    CommonwealthOfIndependentStates                                   = 222,
+    Russia                                                            = 222,  //Includes CIS and USSR era types
     UnitedArabEmirates                                                = 223,
     UnitedKingdom                                                     = 224,
     UnitedStates                                                      = 225,
     Uruguay                                                           = 226,
     Vanuatu                                                           = 227,
-    VaticanCity                                                       = 228,
+    HolySee	                                                          = 228,
     Venezuela                                                         = 229,
     Benin                                                             = 23,
     Vietnam                                                           = 230,
     VirginIslands_USA                                                 = 231,
-    WakeIsland_USA                                                    = 232,
+    WakeIsland_USA                                                    = 232,  //Deprecated use United States Minor Outlying Islands
     WallisAndFutuna_France                                            = 233,
     WesternSahara                                                     = 234,
-    WestBank_Israel                                                   = 235,
-    WesternSamoa                                                      = 236,
+    WestBank_Israel                                                   = 235,  //Deprecated use Israel
+    Samoa															  = 236,
     Yemen                                                             = 237,
     Bermuda_UK                                                        = 24,
-    Zaire                                                             = 241,
+    Zaire                                                             = 241,  //Deprecated Use Democratic Republic of Congo
     Zambia                                                            = 242,
     Zimbabwe                                                          = 243,
     Armenia                                                           = 244,
     Azerbaijan                                                        = 245,
     Belarus                                                           = 246,
     BosniaAndHercegovina                                              = 247,
-    ClippertonIsland_France                                           = 248,
+    ClippertonIsland_France                                           = 248,  //Deprecated use French Southern Territories
     Croatia                                                           = 249,
     Bhutan                                                            = 25,
     Estonia                                                           = 250,
@@ -305,33 +305,48 @@ enum Country
     Latvia                                                            = 254,
     Lithuania                                                         = 255,
     Macedonia                                                         = 256,
-    MidwayIslands_USA                                                 = 257,
+    MidwayIslands_USA                                                 = 257,  //Deprecated Use United States Minor Outlying Islands
     Moldova                                                           = 258,
     Montenegro                                                        = 259,
     Bolivia                                                           = 26,
-    Russia                                                            = 260,
-    SerbiaAndMontenegro                                               = 261,
+    Russia_Deprecated                                                 = 260,  //Deprecated use 222
+    SerbiaAndMontenegro                                               = 261,  //Deprecated Serbia and Montenegro separate
     Slovenia                                                          = 262,
     Tajikistan                                                        = 263,
     Turkmenistan                                                      = 264,
     Ukraine                                                           = 265,
     Uzbekistan                                                        = 266,
+	CzechRepublic													  = 267,
+	Slovakia														  = 268,
+	AalandIslands													  = 269,
     Botswana                                                          = 27,
+	BonaireSintEustatiaAndSaba										  = 270,
+	CongoDemocraticRepublic											  = 271,
+	Curacao															  = 272,
+	Eritrea															  = 273,
+	SaintBarthelemy													  = 274,
+	SaintMartin_France												  = 275,
+	Serbia															  = 276,
+	SintMaarteen_Netherlands										  = 277,
+	SvalbardAndJanMayen												  = 279,
     BouvetIsland_Norway                                               = 28,
+	TimorLeste														  = 280,
+	UnitedStatesMinorOutlyingIslands								  = 281,
+	Palestine														  = 282,
     Brazil                                                            = 29,
     Algeria                                                           = 3,
     BritishIndianOceanTerritory_UK                                    = 30,
     BritishVirginIslands_UK                                           = 31,
-    Brunei                                                            = 32,
+    BruneiDarussaiam                                                  = 32,
     Bulgaria                                                          = 33,
-    Burkina                                                           = 34,
-    Burma                                                             = 35,
+    BurkinaFaso                                                       = 34,
+    Myanmar                                                           = 35,
     Burundi                                                           = 36,
     Cambodia                                                          = 37,
     Cameroon                                                          = 38,
     Canada                                                            = 39,
     AmericanSamoa_USA                                                 = 4,
-    CapeVerde                                                         = 40,
+    CaboVerde                                                         = 40,
     CaymanIslands_UK                                                  = 41,
     CentralAfricanRepublic                                            = 42,
     Chad                                                              = 43,
@@ -344,11 +359,11 @@ enum Country
     Andorra                                                           = 5,
     Congo                                                             = 50,
     CookIslands_NewZealand                                            = 51,
-    CoralSeaIslands_Australia                                         = 52,
+    CoralSeaIslands_Australia                                         = 52, //Deprecated use Australia
     CostaRica                                                         = 53,
     Cuba                                                              = 54,
     Cyprus                                                            = 55,
-    Czechoslovakia                                                    = 56,
+    Czechoslovakia                                                    = 56, //Deprecated use Czech Republic or Slovakia
     Denmark                                                           = 57,
     Djibouti                                                          = 58,
     Dominica                                                          = 59,
@@ -359,7 +374,7 @@ enum Country
     ElSalvador                                                        = 63,
     EquatorialGuinea                                                  = 64,
     Ethiopia                                                          = 65,
-    EuropaIsland_France                                               = 66,
+    EuropaIsland_France                                               = 66,  //Deprecated use French Southern Territories
     FalklandIslands_UK                                                = 67,
     FaroeIslands_Denmark                                              = 68,
     Fiji                                                              = 69,
@@ -368,15 +383,15 @@ enum Country
     France                                                            = 71,
     FrenchGuiana_France                                               = 72,
     FrenchPolynesia_France                                            = 73,
-    FrenchSouthernAndAntarcticIslands_France                          = 74,
+    FrenchSouthernTerritories				                          = 74,
     Gabon                                                             = 75,
     Gambia                                                            = 76,
-    GazaStrip_Israel                                                  = 77,
+    GazaStrip_Israel                                                  = 77,  //Deprecated use Israel
     Germany                                                           = 78,
     Ghana                                                             = 79,
     Antarctica                                                        = 8,
     Gibraltar_UK                                                      = 80,
-    GloriosoIslands_France                                            = 81,
+    GloriosoIslands_France                                            = 81,  //Deprecated use French Southern Territories
     Greece                                                            = 82,
     Greenland_Denmark                                                 = 83,
     Grenada                                                           = 84,
@@ -391,9 +406,9 @@ enum Country
     Haiti                                                             = 92,
     HeardIslandAndMcDonaldIslands_Australia                           = 93,
     Honduras                                                          = 94,
-    HongKong_UK                                                       = 95, // This was correct when DIS standard was published. Honk Kong is no longer part of the UK.
-    HowlandIsland_USA                                                 = 96,
-    Hungary                                                           = 97,
+    HongKong_UK                                                       = 95,  // This was correct when DIS standard was published. Honk Kong is no longer part of the UK.
+    HowlandIsland_USA                                                 = 96,  //Deprecated use United States Minor Outlying Islands
+    Hungary                                                           = 97,  
     Iceland                                                           = 98,
     India                                                             = 99
 };
@@ -401,17 +416,17 @@ enum Country
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeCountry();
+KDIS_EXPORT KUINT32 GetEnumSizeCountry();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorCountry( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorCountry( KUINT32 Index );
 
-KString GetEnumAsStringCountry( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringCountry( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringCountry( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Variable Params                                                      */
@@ -430,17 +445,17 @@ enum VariableParameterType
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeVariableParameterType();
+KDIS_EXPORT KUINT32 GetEnumSizeVariableParameterType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorVariableParameterType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorVariableParameterType( KUINT32 Index );
 
-KString GetEnumAsStringVariableParameterType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringVariableParameterType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringVariableParameterType( const KString & Value, KINT32 & ValueOut );
 
 enum ArticulatedPartsMetric
 {
@@ -490,17 +505,17 @@ enum ArticulatedPartsMetric
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeArticulatedPartsMetric();
+KDIS_EXPORT KUINT32 GetEnumSizeArticulatedPartsMetric();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorArticulatedPartsMetric( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorArticulatedPartsMetric( KUINT32 Index );
 
-KString GetEnumAsStringArticulatedPartsMetric( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringArticulatedPartsMetric( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringArticulatedPartsMetric( const KString & Value, KINT32 & ValueOut );
 
 enum ArticulatedPartsClass
 {
@@ -637,17 +652,17 @@ enum ArticulatedPartsClass
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeArticulatedPartsClass();
+KDIS_EXPORT KUINT32 GetEnumSizeArticulatedPartsClass();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorArticulatedPartsClass( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorArticulatedPartsClass( KUINT32 Index );
 
-KString GetEnumAsStringArticulatedPartsClass( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringArticulatedPartsClass( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringArticulatedPartsClass( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Attached Parts Parameter Type                                        */
@@ -685,17 +700,17 @@ enum AttachedPartParameterType
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeAttachedPartParameterType();
+KDIS_EXPORT KUINT32 GetEnumSizeAttachedPartParameterType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorAttachedPartParameterType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorAttachedPartParameterType( KUINT32 Index );
 
-KString GetEnumAsStringAttachedPartParameterType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringAttachedPartParameterType( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringAttachedPartParameterType( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* General Appearance Fields                                            */
@@ -720,17 +735,17 @@ enum EntityPaintScheme
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityPaintScheme();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityPaintScheme();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityPaintScheme( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityPaintScheme( KUINT32 Index );
 
-KString GetEnumAsStringEntityPaintScheme( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityPaintScheme( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityPaintScheme( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityPaintScheme( const KString & Value, KINT32 & ValueOut );
 
 enum EntityDamage
 {
@@ -743,17 +758,17 @@ enum EntityDamage
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityDamage();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityDamage();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityDamage( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityDamage( KUINT32 Index );
 
-KString GetEnumAsStringEntityDamage( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityDamage( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityDamage( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityDamage( const KString & Value, KINT32 & ValueOut );
 
 enum EntitySmoke
 {
@@ -766,17 +781,17 @@ enum EntitySmoke
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntitySmoke();
+KDIS_EXPORT KUINT32 GetEnumSizeEntitySmoke();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntitySmoke( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntitySmoke( KUINT32 Index );
 
-KString GetEnumAsStringEntitySmoke( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntitySmoke( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntitySmoke( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntitySmoke( const KString & Value, KINT32 & ValueOut );
 
 enum EntityTrailingEffect
 {
@@ -789,17 +804,17 @@ enum EntityTrailingEffect
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityTrailingEffect();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityTrailingEffect();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityTrailingEffect( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityTrailingEffect( KUINT32 Index );
 
-KString GetEnumAsStringEntityTrailingEffect( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityTrailingEffect( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityTrailingEffect( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityTrailingEffect( const KString & Value, KINT32 & ValueOut );
 
 enum EntityHatchState
 {
@@ -814,17 +829,17 @@ enum EntityHatchState
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityHatchState();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityHatchState();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityHatchState( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityHatchState( KUINT32 Index );
 
-KString GetEnumAsStringEntityHatchState( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityHatchState( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityHatchState( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityHatchState( const KString & Value, KINT32 & ValueOut );
 
 enum EntityLights
 {
@@ -837,17 +852,17 @@ enum EntityLights
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityLights();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityLights();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityLights( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityLights( KUINT32 Index );
 
-KString GetEnumAsStringEntityLights( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityLights( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityLights( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityLights( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Specific Appearance Fields                                           */
@@ -874,17 +889,17 @@ enum EntityCamouflage
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityCamouflage();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityCamouflage();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityCamouflage( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityCamouflage( KUINT32 Index );
 
-KString GetEnumAsStringEntityCamouflage( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityCamouflage( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityCamouflage( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityCamouflage( const KString & Value, KINT32 & ValueOut );
 
 enum EntityLifeformAppearance
 {
@@ -908,17 +923,17 @@ enum EntityLifeformAppearance
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityLifeformAppearance();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityLifeformAppearance();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityLifeformAppearance( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityLifeformAppearance( KUINT32 Index );
 
-KString GetEnumAsStringEntityLifeformAppearance( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityLifeformAppearance( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityLifeformAppearance( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityLifeformAppearance( const KString & Value, KINT32 & ValueOut );
 
 enum EntityLifeformWeapon
 {
@@ -931,17 +946,17 @@ enum EntityLifeformWeapon
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityLifeformWeapon();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityLifeformWeapon();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityLifeformWeapon( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityLifeformWeapon( KUINT32 Index );
 
-KString GetEnumAsStringEntityLifeformWeapon( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityLifeformWeapon( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityLifeformWeapon( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityLifeformWeapon( const KString & Value, KINT32 & ValueOut );
 
 enum EntityDensity
 {
@@ -955,17 +970,17 @@ enum EntityDensity
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityDensity();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityDensity();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityDensity( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityDensity( KUINT32 Index );
 
-KString GetEnumAsStringEntityDensity( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityDensity( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityDensity( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityDensity( const KString & Value, KINT32 & ValueOut );
 
 enum EntityCompliance
 {
@@ -989,17 +1004,17 @@ enum EntityCompliance
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityCompliance();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityCompliance();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityCompliance( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityCompliance( KUINT32 Index );
 
-KString GetEnumAsStringEntityCompliance( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityCompliance( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityCompliance( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Dead Reckoning Parameters                                            */
@@ -1050,17 +1065,17 @@ enum DeadReckoningAlgorithm
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeDeadReckoningAlgorithm();
+KDIS_EXPORT KUINT32 GetEnumSizeDeadReckoningAlgorithm();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorDeadReckoningAlgorithm( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorDeadReckoningAlgorithm( KUINT32 Index );
 
-KString GetEnumAsStringDeadReckoningAlgorithm( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringDeadReckoningAlgorithm( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringDeadReckoningAlgorithm( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringDeadReckoningAlgorithm( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Entity Marking Fields                                                */
@@ -1079,17 +1094,17 @@ enum EntityMarkingCharacterSet
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeEntityMarkingCharacterSet();
+KDIS_EXPORT KUINT32 GetEnumSizeEntityMarkingCharacterSet();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorEntityMarkingCharacterSet( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEntityMarkingCharacterSet( KUINT32 Index );
 
-KString GetEnumAsStringEntityMarkingCharacterSet( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEntityMarkingCharacterSet( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringEntityMarkingCharacterSet( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEntityMarkingCharacterSet( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Entity State enums                                                   */
@@ -1136,17 +1151,17 @@ enum ForceID
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeForceID();
+KDIS_EXPORT KUINT32 GetEnumSizeForceID();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorForceID( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorForceID( KUINT32 Index );
 
-KString GetEnumAsStringForceID( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringForceID( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringForceID( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringForceID( const KString & Value, KINT32 & ValueOut );
 
 #if DIS_VERSION > 6
 
@@ -1166,17 +1181,17 @@ enum ActionCode
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeActionCode();
+KDIS_EXPORT KUINT32 GetEnumSizeActionCode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorActionCode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorActionCode( KUINT32 Index );
 
-KString GetEnumAsStringActionCode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringActionCode( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringActionCode( const KString & Value, KINT32 & ValueOut );
 
 #endif // DIS 7
 
@@ -1196,17 +1211,17 @@ enum AntiCollisionDayNight
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeAntiCollisionDayNight();
+KDIS_EXPORT KUINT32 GetEnumSizeAntiCollisionDayNight();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorAntiCollisionDayNight( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorAntiCollisionDayNight( KUINT32 Index );
 
-KString GetEnumAsStringAntiCollisionDayNight( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringAntiCollisionDayNight( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringAntiCollisionDayNight( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringAntiCollisionDayNight( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Navigation/Position Brightness                                       */
@@ -1224,17 +1239,17 @@ enum NavigationPositionBrightness
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeNavigationPositionBrightness();
+KDIS_EXPORT KUINT32 GetEnumSizeNavigationPositionBrightness();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorNavigationPositionBrightness( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorNavigationPositionBrightness( KUINT32 Index );
 
-KString GetEnumAsStringNavigationPositionBrightness( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringNavigationPositionBrightness( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringNavigationPositionBrightness( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* SupplyDeployed                                                       */
@@ -1254,17 +1269,17 @@ enum SupplyDeployed
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeSupplyDeployed();
+KDIS_EXPORT KUINT32 GetEnumSizeSupplyDeployed();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorSupplyDeployed( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSupplyDeployed( KUINT32 Index );
 
-KString GetEnumAsStringSupplyDeployed( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSupplyDeployed( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringSupplyDeployed( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSupplyDeployed( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* NVG Mode                                                             */
@@ -1282,17 +1297,17 @@ enum NVGMode
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeNVGMode();
+KDIS_EXPORT KUINT32 GetEnumSizeNVGMode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorNVGMode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorNVGMode( KUINT32 Index );
 
-KString GetEnumAsStringNVGMode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringNVGMode( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringNVGMode( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Parachute                                                            */
@@ -1313,17 +1328,17 @@ enum Parachute
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeParachute();
+KDIS_EXPORT KUINT32 GetEnumSizeParachute();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorParachute( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorParachute( KUINT32 Index );
 
-KString GetEnumAsStringParachute( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringParachute( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringParachute( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringParachute( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Flare/Smoke Color                                                    */
@@ -1343,17 +1358,17 @@ enum FlareSmokeColor
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeFlareSmokeColor();
+KDIS_EXPORT KUINT32 GetEnumSizeFlareSmokeColor();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorFlareSmokeColor( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorFlareSmokeColor( KUINT32 Index );
 
-KString GetEnumAsStringFlareSmokeColor( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringFlareSmokeColor( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringFlareSmokeColor( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringFlareSmokeColor( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Flare/Smoke Status                                                   */
@@ -1372,17 +1387,17 @@ enum FlareSmokeStatus
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeFlareSmokeStatus();
+KDIS_EXPORT KUINT32 GetEnumSizeFlareSmokeStatus();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorFlareSmokeStatus( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorFlareSmokeStatus( KUINT32 Index );
 
-KString GetEnumAsStringFlareSmokeStatus( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringFlareSmokeStatus( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringFlareSmokeStatus( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringFlareSmokeStatus( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Spot Chaff                                                           */
@@ -1401,17 +1416,17 @@ enum SpotChaff
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeSpotChaff();
+KDIS_EXPORT KUINT32 GetEnumSizeSpotChaff();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorSpotChaff( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSpotChaff( KUINT32 Index );
 
-KString GetEnumAsStringSpotChaff( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSpotChaff( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringSpotChaff( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSpotChaff( const KString & Value, KINT32 & ValueOut );
 
 /************************************************************************/
 /* Cover/Shroud Status                                                  */
@@ -1431,17 +1446,17 @@ enum CoverShroudStatus
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeCoverShroudStatus();
+KDIS_EXPORT KUINT32 GetEnumSizeCoverShroudStatus();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorCoverShroudStatus( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorCoverShroudStatus( KUINT32 Index );
 
-KString GetEnumAsStringCoverShroudStatus( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringCoverShroudStatus( KINT32 Value );
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringCoverShroudStatus( const KString & Value, KINT32 & ValueOut );
 
 #if DIS_VERSION > 5
 
@@ -1461,17 +1476,17 @@ enum ReasonForSeparation
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizeReasonForSeparation();
+KDIS_EXPORT KUINT32 GetEnumSizeReasonForSeparation();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorReasonForSeparation(KUINT32 Index);
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorReasonForSeparation(KUINT32 Index);
 
-KString GetEnumAsStringReasonForSeparation(KINT32 Value);
+KDIS_EXPORT KString GetEnumAsStringReasonForSeparation(KINT32 Value);
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringReasonForSeparation(const KString & Value, KINT32 & ValueOut);
+KDIS_EXPORT KBOOL GetEnumFromStringReasonForSeparation(const KString & Value, KINT32 & ValueOut);
 
 /************************************************************************/
 /* PreEntityIndicator                                                   */
@@ -1492,17 +1507,17 @@ enum PreEntityIndicator
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
-KUINT32 GetEnumSizePreEntityIndicator();
+KDIS_EXPORT KUINT32 GetEnumSizePreEntityIndicator();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-const EnumDescriptor * GetEnumDescriptorPreEntityIndicator(KUINT32 Index);
+KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorPreEntityIndicator(KUINT32 Index);
 
-KString GetEnumAsStringPreEntityIndicator(KINT32 Value);
+KDIS_EXPORT KString GetEnumAsStringPreEntityIndicator(KINT32 Value);
 
 // Returns true if a value was found.
-KBOOL GetEnumFromStringPreEntityIndicator(const KString & Value, KINT32 & ValueOut);
+KDIS_EXPORT KBOOL GetEnumFromStringPreEntityIndicator(const KString & Value, KINT32 & ValueOut);
 
 #endif // DIS 6
 

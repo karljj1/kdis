@@ -52,7 +52,7 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EmitterFunction;
+using KDIS::DATA_TYPE::ENUMS::BeamFunction;
 using KDIS::DATA_TYPE::ENUMS::HighDensityTrackJam;
 using std::vector;
 
@@ -99,7 +99,7 @@ public:
     EmitterBeam( KDataStream & stream );
 
     EmitterBeam( KUINT8 BeamID, KUINT16 BeamParamIndex, const FundamentalParameterData & FPD,
-                 EmitterFunction EBF, HighDensityTrackJam HDTJ,
+				 BeamFunction BF, HighDensityTrackJam HDTJ,
 #if DIS_VERSION < 7
                  KUINT32 JammingModeSequence );
 #elif DIS_VERSION > 6
@@ -152,8 +152,8 @@ public:
     // Description: Specifies the function of a Emitter Beam
     // Parameter:   const EmitterFunction & FPD, void
     //************************************
-    void SetEmitterBeamFunction( EmitterFunction EBF );
-    EmitterFunction GetEmitterBeamFunction() const;
+    void SetEmitterBeamFunction(BeamFunction BF );
+	BeamFunction GetEmitterBeamFunction() const;
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::EmitterBeam::GetNumTargetInTrackJamField
