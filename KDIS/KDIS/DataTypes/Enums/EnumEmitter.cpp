@@ -1550,7 +1550,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamState( const KString & Value,
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor BeamStateDescriptor[] =
+const EnumDescriptor BeamFunctionDescriptor[] =
 {
 	{ 1 , "Other" },
 	{ 2 , "Search" },
@@ -1577,7 +1577,7 @@ const EnumDescriptor BeamStateDescriptor[] =
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamFunction()
 {
-	return sizeof(BeamStateDescriptor) / sizeof(EnumDescriptor);
+	return sizeof(BeamFunctionDescriptor) / sizeof(EnumDescriptor);
 }
 
 // Returns the EnumDescriptor value for the specified index.
@@ -1585,18 +1585,18 @@ KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamFunction()
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
 const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorBeamFunction(KUINT32 Index)
 {
-	return &BeamStateDescriptor[Index];
+	return &BeamFunctionDescriptor[Index];
 }
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamFunction(KINT32 Value)
 {
-	return GetEnumAsString(BeamStateDescriptor, sizeof(BeamStateDescriptor) / sizeof(EnumDescriptor), Value);
+	return GetEnumAsString(BeamFunctionDescriptor, sizeof(BeamFunctionDescriptor) / sizeof(EnumDescriptor), Value);
 }
 
 // Returns true if a value was found.
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamFunction(const KString & Value, KINT32 & ValueOut)
 {
-	return GetEnumFromString(BeamStateDescriptor, sizeof(BeamStateDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
+	return GetEnumFromString(BeamFunctionDescriptor, sizeof(BeamFunctionDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
 #else
