@@ -45,6 +45,7 @@ Appearance_PDU::Appearance_PDU()
 {
     m_AppearanceFlag1Union.m_ui8Flag = 0;
     m_AppearanceFlag2Union.m_ui8Flag = 0;
+    m_ui8ForceID = OtherForceID;
     m_ui8PDUType = Appearance_PDU_Type;
     m_ui16PDULength = APPEARANCE_PDU_SIZE;
 }
@@ -56,6 +57,7 @@ Appearance_PDU::Appearance_PDU( const LE_EntityIdentifier & ID )
     m_EntID = ID;
     m_AppearanceFlag1Union.m_ui8Flag = 0;
     m_AppearanceFlag2Union.m_ui8Flag = 0;
+    m_ui8ForceID = OtherForceID;
     m_ui8PDUType = Appearance_PDU_Type;
     m_ui16PDULength = APPEARANCE_PDU_SIZE;
 }
@@ -533,7 +535,7 @@ KString Appearance_PDU::GetAsString() const
     ss << LE_Header::GetAsString()
        << "-Appearance PDU-\n"
        << "Optional Field Flags:\n"
-       << "\tForce ID:              " << GetEnumAsStringForceID( m_AppearanceFlag1Union.m_ui8ForceId ) << "\n"
+       << "\tForce ID:              " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8ForceId << "\n"
        << "\tEntity Type:           " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Typ    << "\n"
        << "\tAlternate Entity Type: " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8AltTyp << "\n"
        << "\tEntity Marking:        " << ( KUINT16 )m_AppearanceFlag1Union.m_ui8Mark   << "\n"
@@ -612,6 +614,7 @@ void Appearance_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
     // Reset flags
     m_AppearanceFlag1Union.m_ui8Flag = 0;
     m_AppearanceFlag2Union.m_ui8Flag = 0;
+    m_ui8ForceID = OtherForceID;
 
     stream >> m_AppearanceFlag1Union.m_ui8Flag;
 

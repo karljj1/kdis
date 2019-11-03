@@ -47,6 +47,7 @@ Header7::Header7()
 
 Header7::Header7( KDataStream & stream ) 
 {
+    m_PDUStatusUnion.m_ui8PDUStatus = 0;
     Decode( stream, false );
 }
 
