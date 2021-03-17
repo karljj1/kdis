@@ -115,7 +115,7 @@ void Connection::bindSocket()
     Address.sin_port = htons( m_uiPort );           // Listen Port
 
     // Now bind
-    iRet = bind( m_iSocket[RECEIVE_SOCK], ( sockaddr* )&Address, sizeof( Address ) );
+    iRet = ::bind( m_iSocket[RECEIVE_SOCK], ( sockaddr* )&Address, sizeof( Address ) );
     if( iRet == SOCKET_ERROR )
     {
         THROW_ERROR;
