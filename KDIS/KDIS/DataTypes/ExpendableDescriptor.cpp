@@ -49,7 +49,7 @@ ExpendableDescriptor::ExpendableDescriptor() :
 
 //////////////////////////////////////////////////////////////////////////
 
-ExpendableDescriptor::ExpendableDescriptor( KDataStream & stream )throw( KException )
+ExpendableDescriptor::ExpendableDescriptor( KDataStream & stream )
 {
     Decode( stream );
 }
@@ -70,7 +70,7 @@ ExpendableDescriptor::~ExpendableDescriptor()
 
 //////////////////////////////////////////////////////////////////////////
 
-void ExpendableDescriptor::Decode( KDataStream & stream ) throw( KException )
+void ExpendableDescriptor::Decode( KDataStream & stream )
 {
 	Descriptor::Decode( stream );
 
