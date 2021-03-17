@@ -61,7 +61,7 @@ public:
     // All DIS data is sent in Big Endian format
     KDataStream( Endian NetworkEndian = Big_Endian );
 
-    KDataStream( KOCTET * SerialData, KUINT16 DataSize, Endian NetworkEndian = Big_Endian );
+    KDataStream( const KOCTET * SerialData, KUINT16 DataSize, Endian NetworkEndian = Big_Endian );
 
     ~KDataStream();
 

@@ -53,7 +53,7 @@ KDataStream::KDataStream( Endian Network_Endian /*= Big_Endian*/ ) :
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream::KDataStream( KOCTET * SerialData, KUINT16 DataSize, Endian Network_Endian /*= Big_Endian */ ) :
+KDataStream::KDataStream( const KOCTET * SerialData, KUINT16 DataSize, Endian Network_Endian /*= Big_Endian */ ) :
     m_NetEndian( Network_Endian ),
     m_ui16CurrentWritePos( 0 )
 {
