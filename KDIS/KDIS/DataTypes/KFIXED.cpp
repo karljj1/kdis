@@ -329,6 +329,6 @@ KFIXED<Type, BinaryPoint>::operator Type () const
 // If you do wish to add support for other binary point positions then simply add them
 // below and re-compile.
 
-template class KFIXED<KINT16, 3>;
-template class KFIXED<KINT16, 8>;
-template class KFIXED<KINT8, 3>;
+template class KDIS::DATA_TYPE::KFIXED<KINT16, 3>;
+template class KDIS::DATA_TYPE::KFIXED<KINT16, 8>;
+template class KDIS::DATA_TYPE::KFIXED<KINT8, 3>;

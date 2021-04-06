@@ -295,6 +295,6 @@ const Type & LE_Vector<Type>::operator [] ( KUINT16 i ) const
 // If you do wish to add support for other binary point positions then simply add them
 // below and re-compile.
 
-template class LE_Vector<KFIXED16_3>;
-template class LE_Vector<KFIXED8_3>;
+template class KDIS::DATA_TYPE::LE_Vector<KFIXED16_3>;
+template class KDIS::DATA_TYPE::LE_Vector<KFIXED8_3>;
 
