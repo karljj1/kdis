@@ -234,12 +234,12 @@ const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorMode5Reply( KUIN
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringMode5Reply( KINT32 Value )
 {
-    return GetEnumAsString( Mode5MessageFormatDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value );
+    return GetEnumAsString( Mode5ReplyDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value );
 }
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply( const KString & Value, KINT32 & ValueOut )
 {
-    return GetEnumFromString( Mode5MessageFormatDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( Mode5ReplyDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
@@ -294,12 +294,12 @@ const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorAntennaSelection
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringAntennaSelection( KINT32 Value )
 {
-    return GetEnumAsString( AntennaSelectionDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value );
+    return GetEnumAsString( AntennaSelectionDescriptor, sizeof( AntennaSelectionDescriptor ) / sizeof( EnumDescriptor ), Value );
 }
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection( const KString & Value, KINT32 & ValueOut )
 {
-    return GetEnumFromString( AntennaSelectionDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( AntennaSelectionDescriptor, sizeof( AntennaSelectionDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
@@ -352,12 +352,12 @@ const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorPlatformType( KU
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringPlatformType( KINT32 Value )
 {
-    return GetEnumAsString( PlatformTypeDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value );
+    return GetEnumAsString( PlatformTypeDescriptor, sizeof( PlatformTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
 }
 
 KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType( const KString & Value, KINT32 & ValueOut )
 {
-    return GetEnumFromString( PlatformTypeDescriptor, sizeof( Mode5ReplyDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+    return GetEnumFromString( PlatformTypeDescriptor, sizeof( PlatformTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
 }
 
 #else
