@@ -64,7 +64,7 @@ public:
     //              Return true for the header to be accepted or false to reject it.
     // Parameter:   const Header * H
     //************************************
-    virtual KBOOL ApplyFilterBeforeDecodingPDUBody(const KDIS::PDU::Header * H) { return true; }
+    virtual KBOOL ApplyFilterBeforeDecodingPDUBody(const KDIS::PDU::Header *) { return true; }
 
     //************************************
     // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilter
@@ -73,7 +73,7 @@ public:
     //              Return true for the PDU to be accepted or false to reject it.
     // Parameter:   const Header * H
     //************************************
-    virtual KBOOL ApplyFilter(const KDIS::PDU::Header * H) { return true; }
+    virtual KBOOL ApplyFilter(const KDIS::PDU::Header *) { return true; }
 };
 
 //////////////////////////////////////////////////////////////////////////
