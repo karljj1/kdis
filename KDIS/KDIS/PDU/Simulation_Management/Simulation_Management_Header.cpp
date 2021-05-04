@@ -94,6 +94,17 @@ Simulation_Management_Header::~Simulation_Management_Header()
 
 //////////////////////////////////////////////////////////////////////////
 
+Simulation_Management_Header& Simulation_Management_Header::operator=(const Simulation_Management_Header & H)
+{
+    Header::operator=(H);
+    m_OriginatingEntityID = H.m_OriginatingEntityID;
+    m_ReceivingEntityID = H.m_ReceivingEntityID;
+
+    return *this;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void Simulation_Management_Header::SetOriginatingEntityID( const EntityIdentifier & ID )
 {
     m_OriginatingEntityID = ID;

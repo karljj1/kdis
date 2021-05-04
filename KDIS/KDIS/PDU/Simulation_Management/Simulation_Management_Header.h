@@ -71,6 +71,8 @@ public:
 
     virtual ~Simulation_Management_Header();
 
+    Simulation_Management_Header& operator=(const Simulation_Management_Header & H);
+
     //************************************
     // FullName:    KDIS::PDU::Simulation_Management_Header::SetOriginatingEntityID
     //              KDIS::PDU::Simulation_Management_Header::GetOriginatingEntityID
