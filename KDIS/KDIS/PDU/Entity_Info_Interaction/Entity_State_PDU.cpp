@@ -539,6 +539,7 @@ void Entity_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
                 #if DIS_VERSION > 5
                 case SeparationPartType:
                     m_vVariableParameters.push_back(VarPrmPtr(new SeparationPart(stream)));
+                    break;
                 #endif
 
                 default:
