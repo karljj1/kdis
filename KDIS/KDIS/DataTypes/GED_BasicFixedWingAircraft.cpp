@@ -200,8 +200,8 @@ EntityAppearance & GED_BasicFixedWingAircraft::GetEntityAppearance()
 void GED_BasicFixedWingAircraft::SetEntityOrientation(KINT8 Psi, KINT8 Theta, KINT8 Phi)
 {
     m_i8Ori[0] = Psi;
-    m_i8Ori[0] = Theta;
-    m_i8Ori[0] = Phi;
+    m_i8Ori[1] = Theta;
+    m_i8Ori[2] = Phi;
 }
 
 //////////////////////////////////////////////////////////////////////////
