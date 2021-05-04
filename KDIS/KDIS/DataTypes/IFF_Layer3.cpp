@@ -51,7 +51,9 @@ IFF_Layer3::IFF_Layer3() :
 //////////////////////////////////////////////////////////////////////////
 
 IFF_Layer3::IFF_Layer3( const LayerHeader & H ) :
-	LayerHeader( H )
+    LayerHeader( H ),
+    m_ui16Padding( 0 ),
+    m_ui16NumIffRecs( 0 )
 {
 }
 

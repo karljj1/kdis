@@ -43,6 +43,9 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 SEES_PDU::SEES_PDU() :
+    m_ui16IrSigRepIndex( 0 ),
+    m_ui16AcousticSigRepIndex( 0 ),
+    m_ui16CrossSection( 0 ),
     m_ui16NumPropulsionSys( 0 ),
     m_ui16NumVectoringNozzleSys( 0 )
 {

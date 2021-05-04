@@ -71,6 +71,7 @@ Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const Header & H, KDataStrea
 
 Entity_Damage_Status_PDU::Entity_Damage_Status_PDU( const EntityIdentifier & DamagedEntityID ) :
     m_DmgEnt( DamagedEntityID ),
+    m_ui32Padding( 0 ),
     m_ui16NumDmgDescRecs( 0 )
 {
     m_ui8PDUType = Acknowledge_R_PDU_Type;

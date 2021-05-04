@@ -37,7 +37,8 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::EncodingScheme()
+EncodingScheme::EncodingScheme() :
+    m_ui16TDLType( 0 )
 {
     m_EncodingSchemeUnion.m_ui16EncodingScheme = 0;
 }

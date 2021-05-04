@@ -43,6 +43,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Repair_Response_PDU::Repair_Response_PDU() :
+    m_ui8RepairResult( 0 ),
     m_ui8Padding( 0 ),
     m_ui16Padding( 0 )
 {

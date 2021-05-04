@@ -42,7 +42,11 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU()
+Stop_Freeze_PDU::Stop_Freeze_PDU() :
+    m_ui8Reason( 0 ),
+    m_ui8FrozenBehaviour( 0 ),
+    m_ui16Padding( 0 ),
+    m_ui32RequestID( 0 )
 {
     m_ui8PDUType = Stop_Freeze_PDU_Type;
     m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
@@ -51,7 +55,11 @@ Stop_Freeze_PDU::Stop_Freeze_PDU()
 //////////////////////////////////////////////////////////////////////////
 
 Stop_Freeze_PDU::Stop_Freeze_PDU( const Header & H ) :
-    Simulation_Management_Header( H )
+    Simulation_Management_Header( H ),
+    m_ui8Reason( 0 ),
+    m_ui8FrozenBehaviour( 0 ),
+    m_ui16Padding( 0 ),
+    m_ui32RequestID( 0 )
 {
 }
 

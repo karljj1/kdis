@@ -42,7 +42,8 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU()
+Service_Request_PDU::Service_Request_PDU() :
+    m_ui8ServiceTypeRequested( 0 )
 {
     m_ui8PDUType = Service_Request_PDU_Type;
     m_ui16PDULength = SERVICE_REQUEST_PDU_SIZE;

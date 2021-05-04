@@ -38,6 +38,7 @@ using namespace ENUMS;
 //////////////////////////////////////////////////////////////////////////
 
 GaussianPlumeRecord::GaussianPlumeRecord() :
+    m_f32LdEdgeCenHght( 0.0f ),
     m_ui32Padding( 0 )
 {
     m_ui32EnvRecTyp = GaussianPlumeRecordType;

@@ -50,7 +50,10 @@ DEAreaAimpoint::DEAreaAimpoint() :
 
 //////////////////////////////////////////////////////////////////////////
 
-DEAreaAimpoint::DEAreaAimpoint( KDataStream & stream ) 
+DEAreaAimpoint::DEAreaAimpoint( KDataStream & stream ) :
+    m_ui16Padding( 0 ),
+    m_ui16BAPRC( 0 ),
+    m_ui16DETEDRC( 0 )
 {
     Decode( stream );
 }

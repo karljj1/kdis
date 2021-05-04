@@ -51,7 +51,8 @@ TimeStamp::TimeStamp() :
 
 //////////////////////////////////////////////////////////////////////////
 
-TimeStamp::TimeStamp( KDataStream & stream ) 
+TimeStamp::TimeStamp( KDataStream & stream ) :
+    m_bAutoCalcRel( false )
 {
     Decode( stream );
 }

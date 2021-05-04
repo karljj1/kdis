@@ -43,8 +43,14 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Transmitter_PDU::Transmitter_PDU() :
+    m_ui8TransmitterState( 0 ),
+    m_ui8InputSource( 0 ),
     m_ui16Padding1( 0 ),
+    m_ui16AntennaPatternType( 0 ),
     m_ui16AntennaPatternLength( 0 ),
+    m_ui64Freq( 0 ),
+    m_f32TransmitFreqBW( 0.0f ),
+    m_f32Power( 0.0f ),
     m_ui8LengthOfModulationParam( 0 ),
     m_ui16Padding2( 0 ),
     m_ui8Padding3( 0 )
@@ -57,8 +63,14 @@ Transmitter_PDU::Transmitter_PDU() :
 
 Transmitter_PDU::Transmitter_PDU( const Header & H ) :
     Radio_Communications_Header( H ),
+    m_ui8TransmitterState(0),
+    m_ui8InputSource(0),
     m_ui16Padding1( 0 ),
+    m_ui16AntennaPatternType(0),
     m_ui16AntennaPatternLength( 0 ),
+    m_ui64Freq(0),
+    m_f32TransmitFreqBW(0.0f),
+    m_f32Power(0.0f),
     m_ui8LengthOfModulationParam( 0 ),
     m_ui16Padding2( 0 ),
     m_ui8Padding3( 0 )

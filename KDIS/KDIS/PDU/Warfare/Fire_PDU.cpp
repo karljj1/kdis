@@ -42,7 +42,9 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Fire_PDU::Fire_PDU()
+Fire_PDU::Fire_PDU() :
+    m_ui32FireMissionIndex( 0 ),
+    m_f32Range( 0.0f )
 {
     m_ui8PDUType = Fire_PDU_Type;
     m_ui16PDULength = FIRE_PDU_SIZE;

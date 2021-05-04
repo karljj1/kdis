@@ -67,7 +67,8 @@ GED_BasicFixedWingAircraft::GED_BasicFixedWingAircraft( KUINT16 ID, KINT16 XOffs
     m_EA( EA ),
     m_ui8FuelStatus( FuelStatus ),
     m_i8HoriDevi( HorizontalDeviation ),
-    m_i8VertDevi( VerticalDeviation )
+    m_i8VertDevi( VerticalDeviation ),
+    m_i16Spd( Speed )
 {
     m_i16Offsets[0] = XOffset;
     m_i16Offsets[1] = YOffset;

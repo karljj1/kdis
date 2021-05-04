@@ -547,6 +547,7 @@ void DeadReckoningCalculator::RunAlgorithm( const KFLOAT32 totalTimeSinceReset, 
 //////////////////////////////////////////////////////////////////////////
 
 DeadReckoningCalculator::DeadReckoningCalculator() :
+    m_bQuaxAxisSet( false ),
     m_f64Magnitude( 0 ),
     m_DRA( Other_DRA )
 {

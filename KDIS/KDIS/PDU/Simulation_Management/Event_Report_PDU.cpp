@@ -43,6 +43,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Event_Report_PDU::Event_Report_PDU() :
+    m_ui32EventType( 0 ),
     m_ui32Padding( 0 )
 {
     m_ui8PDUType = Event_Report_PDU_Type;
@@ -53,6 +54,7 @@ Event_Report_PDU::Event_Report_PDU() :
 
 Event_Report_PDU::Event_Report_PDU( const Header & H ) :
     Comment_PDU( H ),
+    m_ui32EventType(0),
     m_ui32Padding( 0 )
 {
 }

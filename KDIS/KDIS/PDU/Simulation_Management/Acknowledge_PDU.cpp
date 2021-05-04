@@ -42,7 +42,10 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU()
+Acknowledge_PDU::Acknowledge_PDU() :
+    m_ui16AcknowledgeFlag( 0 ),
+    m_ui16ResponseFlag( 0 ),
+    m_ui32RequestID( 0 )
 {
     m_ui8PDUType = Acknowledge_PDU_Type;
     m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
@@ -51,7 +54,10 @@ Acknowledge_PDU::Acknowledge_PDU()
 //////////////////////////////////////////////////////////////////////////
 
 Acknowledge_PDU::Acknowledge_PDU( const Header & H ) :
-    Simulation_Management_Header( H )
+    Simulation_Management_Header( H ),
+    m_ui16AcknowledgeFlag( 0 ),
+    m_ui16ResponseFlag( 0 ),
+    m_ui32RequestID( 0 )
 {
 }
 

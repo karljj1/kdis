@@ -37,7 +37,8 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord2::SphereRecord2()
+SphereRecord2::SphereRecord2() :
+    m_f32ddt( 0 )
 {
     m_ui32EnvRecTyp = SphereRecord2Type;
     m_ui16Length = ( SPHERE_RECORD_2_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;

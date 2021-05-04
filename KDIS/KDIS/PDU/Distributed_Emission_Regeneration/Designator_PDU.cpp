@@ -43,6 +43,11 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Designator_PDU::Designator_PDU() :
+   m_ui16CodeName( 0 ),
+   m_ui16Code( 0 ),
+   m_f32Power( 0.0f ),
+   m_f32WaveLength( 0.0f ),
+   m_ui8DeadReckoningAlgorithm( 0 ),
     m_ui16Padding1( 0 ),
     m_ui8Padding2( 0 )
 {

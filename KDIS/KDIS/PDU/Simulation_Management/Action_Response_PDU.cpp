@@ -42,7 +42,8 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_PDU::Action_Response_PDU()
+Action_Response_PDU::Action_Response_PDU() :
+    m_ui32RequestStatus( 0 )
 {
     m_ui8PDUType = Action_Response_PDU_Type;
     m_ui16PDULength = ACTION_RESPONSE_PDU_SIZE;
@@ -51,7 +52,8 @@ Action_Response_PDU::Action_Response_PDU()
 //////////////////////////////////////////////////////////////////////////
 
 Action_Response_PDU::Action_Response_PDU( const Header & H ) :
-    Data_PDU( H )
+    Data_PDU( H ),
+    m_ui32RequestStatus( 0 )
 {
 }
 

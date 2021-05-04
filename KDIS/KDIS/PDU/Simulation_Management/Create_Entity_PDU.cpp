@@ -42,7 +42,8 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_PDU::Create_Entity_PDU()
+Create_Entity_PDU::Create_Entity_PDU() :
+    m_ui32RequestID( 0 )
 {
     m_ui8PDUType = Create_Entity_PDU_Type;
     m_ui16PDULength = CREATE_ENTITY_PDU_SIZE;
@@ -51,7 +52,8 @@ Create_Entity_PDU::Create_Entity_PDU()
 //////////////////////////////////////////////////////////////////////////
 
 Create_Entity_PDU::Create_Entity_PDU( const Header & H ) :
-    Simulation_Management_Header( H )
+    Simulation_Management_Header( H ),
+    m_ui32RequestID( 0 )
 {
 }
 

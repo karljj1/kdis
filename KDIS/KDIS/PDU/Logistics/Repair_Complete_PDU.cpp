@@ -43,6 +43,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Repair_Complete_PDU::Repair_Complete_PDU() :
+    m_ui16Repair( 0 ),
     m_ui16Padding( 0 )
 {
     m_ui8PDUType = Repair_Complete_PDU_Type;

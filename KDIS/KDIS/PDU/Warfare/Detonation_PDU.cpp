@@ -50,6 +50,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Detonation_PDU::Detonation_PDU() :
+    m_ui8DetonationResult( 0 ),
     m_ui8NumOfVariableParams( 0 ),
     m_ui16Padding1( 0 )
 {

@@ -43,7 +43,10 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Underwater_Acoustic_PDU::Underwater_Acoustic_PDU() :
+    m_ui8StateUpdateIndicator( 0 ),
     m_ui8Padding1( 0 ),
+    m_ui16PassiveParamIndex( 0 ),
+    m_ui8PropPlantConfig( 0 ),
     m_ui8NumAPA( 0 ),
     m_ui8NumEmitterSys( 0 ),
     m_ui8NumShafts( 0 )

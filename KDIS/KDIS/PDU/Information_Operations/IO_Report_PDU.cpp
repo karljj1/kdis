@@ -59,6 +59,7 @@ IO_Report_PDU::IO_Report_PDU( const EntityIdentifier & OrigID, KUINT16 SimSrc, I
     IO_Header( OrigID ),
     m_ui16SimSrc( SimSrc ),
     m_ui8RptTyp( RT ),
+    m_ui8Padding(0),
     m_ui32Padding( 0 ),
     m_AtkEntityID( AtkID ),
     m_TgtEntityID( TgtID ),

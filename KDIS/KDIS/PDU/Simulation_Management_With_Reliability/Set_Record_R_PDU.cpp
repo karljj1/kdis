@@ -60,7 +60,10 @@ Set_Record_R_PDU::Set_Record_R_PDU() :
 Set_Record_R_PDU::Set_Record_R_PDU( const Header & H ) :
     Simulation_Management_Header( H ),
     m_ui32RqId( 0 ),
-    m_ui32NumRecSets( 0 )
+    m_ui32NumRecSets( 0 ),
+    m_ui8Padding1( 0 ),
+    m_ui16Padding( 0 ),
+    m_ui32Padding( 0 )
 {
 }
 
@@ -86,7 +89,10 @@ Set_Record_R_PDU::Set_Record_R_PDU( const EntityIdentifier & OriginatingEntityID
     Simulation_Management_Header( OriginatingEntityID, ReceivingEntityID ),
     m_ui32RqId( RequestID ),
     Reliability_Header( RRS ),
-    m_ui32NumRecSets( 0 )
+    m_ui32NumRecSets( 0 ),
+    m_ui8Padding1( 0 ),
+    m_ui16Padding( 0 ),
+    m_ui32Padding( 0 )
 {
     m_ui8PDUType = SetRecord_R_PDU_Type;
     m_ui16PDULength = SET_RECORD_R_PDU_SIZE;

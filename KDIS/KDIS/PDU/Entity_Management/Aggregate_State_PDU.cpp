@@ -620,6 +620,7 @@ KString Aggregate_State_PDU::GetAsString() const
 void Aggregate_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
 {
     m_bNeedsPadding = false;
+    m_ui16Padding1 = 0;
     m_ui16NumberOfPaddingOctets = 0;
     m_vAI.clear();
     m_vEI.clear();

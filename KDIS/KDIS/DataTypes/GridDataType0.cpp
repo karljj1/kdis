@@ -54,7 +54,8 @@ GridDataType0::GridDataType0( KDataStream & stream )
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::GridDataType0( KUINT16 SampleType, KUINT16 DataRepresentation, KDataStream & stream )
+GridDataType0::GridDataType0( KUINT16 SampleType, KUINT16 DataRepresentation, KDataStream & stream ) :
+    m_ui8Padding( 0 )
 {
     m_ui16SmpTyp = SampleType;
     m_ui16DtRep = DataRepresentation;

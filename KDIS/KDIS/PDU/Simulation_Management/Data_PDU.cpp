@@ -79,7 +79,8 @@ Data_PDU::Data_PDU( const Header & H, KDataStream & stream )  :
 Data_PDU::Data_PDU(  const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
                      KUINT32 RequestID ) :
     Comment_PDU( OriginatingEntityID, ReceivingEntityID ),
-    m_ui32RequestID( RequestID )
+    m_ui32RequestID( RequestID ),
+    m_ui32Padding( 0 )
 {
     m_ui8PDUType = Data_PDU_Type;
     m_ui16PDULength = DATA_PDU_SIZE;

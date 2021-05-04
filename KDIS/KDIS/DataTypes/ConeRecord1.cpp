@@ -38,6 +38,8 @@ using namespace ENUMS;
 //////////////////////////////////////////////////////////////////////////
 
 ConeRecord1::ConeRecord1() :
+    m_f32Height( 0.0f ),
+    m_f32PeakAngle( 0.0f ),
     m_ui32Padding( 0 )
 {
     m_ui32EnvRecTyp = ConeRecord1Type;

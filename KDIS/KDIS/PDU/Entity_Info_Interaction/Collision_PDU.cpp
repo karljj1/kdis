@@ -43,7 +43,9 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Collision_PDU::Collision_PDU() :
-    m_ui8Padding( 0 )
+    m_ui8CollisionType( 0 ),
+    m_ui8Padding( 0 ),
+    m_f32Mass( 0.0f )
 {
     m_ui8ProtocolFamily = Entity_Information_Interaction;
     m_ui8PDUType = Collision_PDU_Type;

@@ -43,7 +43,15 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 Collision_Elastic_PDU::Collision_Elastic_PDU() :
-    m_ui16Padding1( 0 )
+    m_ui16Padding1( 0 ),
+    m_f32Mass( 0.0f ),
+    m_f32CIRXX( 0.0f ),
+    m_f32CIRXY( 0.0f ),
+    m_f32CIRXZ( 0.0f ),
+    m_f32CIRYY( 0.0f ),
+    m_f32CIRYZ( 0.0f ),
+    m_f32CIRZZ( 0.0f ),
+    m_f32COR( 0.0f )
 {
     m_ui8ProtocolFamily = Entity_Information_Interaction;
     m_ui8PDUType = Collision_Elastic_PDU_Type;
