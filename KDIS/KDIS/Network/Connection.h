@@ -123,6 +123,23 @@ public:
 
     virtual ~Connection();
 
+private:
+    //************************************
+    // FullName:    KDIS::NETWORK::Connection::Connection copy constructor
+    // Description: Copy constructor for the Connection class.
+    // Parameter:   const Connection& other
+   //************************************
+    Connection( const Connection& other );
+
+    //************************************
+    // FullName:    KDIS::NETWORK::Connection::Connection copy assignment operator
+    // Description: Copy assignment operator for the Connection class.
+    // Parameter:   const Connection& other
+    //************************************
+    Connection& operator=( const Connection& other );
+
+public:
+
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SetSendAddress
     //              KDIS::NETWORK::Connection::GetSendAddress

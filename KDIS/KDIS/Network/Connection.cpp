@@ -367,6 +367,26 @@ Connection::~Connection()
 
 //////////////////////////////////////////////////////////////////////////
 
+Connection::Connection( const Connection& other )
+{
+   // Disallow copy constructor.
+   throw KException(__FUNCTION__, INVALID_OPERATION);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Connection& Connection::operator=( const Connection& other )
+{
+    if( this != &other)
+    {
+       // Disallow copy assignment.
+       throw KException(__FUNCTION__, INVALID_OPERATION);
+    }
+    return *this;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void Connection::SetSendAddress( const KString & A, KBOOL Multicast /*= false */ ) 
 {
     m_sSendAddress = A;
