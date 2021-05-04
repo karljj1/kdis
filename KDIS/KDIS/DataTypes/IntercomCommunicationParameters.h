@@ -72,7 +72,21 @@ public:
 
     IntercomCommunicationParameters( GroupAssignmentRecord * GAR );
 
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::IntercomCommunicationParameters
+    // Description: Copy constructor.
+    // Parameter:   const IntercomCommunicationParameters & ICP
+    //***********************************
+    IntercomCommunicationParameters( const IntercomCommunicationParameters & ICP );
+
     virtual ~IntercomCommunicationParameters();
+
+    //************************************
+    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::operator=
+    // Description: Copy assignment operator.
+    // Parameter:   const IntercomCommunicationParameters & ICP
+    //************************************
+    IntercomCommunicationParameters& operator=( const IntercomCommunicationParameters & ICP );
 
     //************************************
     // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetRecordType

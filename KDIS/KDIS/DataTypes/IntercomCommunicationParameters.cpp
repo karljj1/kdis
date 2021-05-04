@@ -88,9 +88,34 @@ IntercomCommunicationParameters::IntercomCommunicationParameters( GroupAssignmen
 
 //////////////////////////////////////////////////////////////////////////
 
+IntercomCommunicationParameters::IntercomCommunicationParameters( const IntercomCommunicationParameters & ICP ) :
+    m_ui16Type( ICP.m_ui16Type ),
+    m_ui16Length( ICP.m_ui16Length ),
+    m_pRecord( ICP.m_pRecord ),
+    m_bMemoryManage( false )
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 IntercomCommunicationParameters::~IntercomCommunicationParameters()
 {
     if( m_pRecord && m_bMemoryManage )delete m_pRecord;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+IntercomCommunicationParameters& IntercomCommunicationParameters::operator=( const IntercomCommunicationParameters & ICP )
+{
+    if( this != &ICP )
+    {
+        m_ui16Type = ICP.m_ui16Type;
+        m_ui16Length = ICP.m_ui16Length;
+        m_pRecord = ICP.m_pRecord;
+        m_bMemoryManage = false;
+    }
+
+    return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
