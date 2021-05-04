@@ -53,13 +53,13 @@ int main()
         // Note this multi cast address will probably be different for your network however
         // port 3000 is the assigned number by IANA(Internet Assigned Numbers Authority) for DIS simulations.
         Connection conn( "192.168.3.255" );
-		
-		// Create the filter and set it up so it only allows our test machine through.
-		ConnectionAddressFilter filter( ConnectionAddressFilter::AllowAddressesInFilterList ); // Only allow address we add through.
-		//ConnectionAddressFilter filter( ConnectionAddressFilter::BlockAddressesInFilterList ); // Block the address we add and allow all others through.
 
-		filter.AddAddress( "192.168.3.241" ); // This should be the address of your other DIS machine
-		//filter.AddAddress( "192.168.3.124" ); // Add an other machine?
+        // Create the filter and set it up so it only allows our test machine through.
+        ConnectionAddressFilter filter( ConnectionAddressFilter::AllowAddressesInFilterList ); // Only allow address we add through.
+        //ConnectionAddressFilter filter( ConnectionAddressFilter::BlockAddressesInFilterList ); // Block the address we add and allow all others through.
+
+        filter.AddAddress( "192.168.3.241" ); // This should be the address of your other DIS machine
+        //filter.AddAddress( "192.168.3.124" ); // Add an other machine?
 
         // Add our filter
         conn.AddSubscriber( &filter );
