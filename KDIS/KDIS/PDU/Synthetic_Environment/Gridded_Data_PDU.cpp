@@ -487,10 +487,13 @@ void Gridded_Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*
         {
         case 0:
             m_vGridData.push_back( new GridDataType0( SmpTyp, DtRep, stream ) );
+            break;
         case 1 :
             m_vGridData.push_back( new GridDataType1( SmpTyp, DtRep, stream ) );
+            break;
         case 2:
             m_vGridData.push_back( new GridDataType2( SmpTyp, DtRep, stream ) );
+            break;
         default:
             throw KException( __FUNCTION__, UNSUPPORTED_DATATYPE, "Unknown Grid Data Representation" );
         }
