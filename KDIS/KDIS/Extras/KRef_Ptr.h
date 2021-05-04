@@ -176,11 +176,14 @@ public:
     //************************************
     KRef_Ptr<Type> & operator=( const KRef_Ptr<Type> & p )
     {
-        if( m_pRef == p.m_pRef )return *this;
-        unRef();
-        m_pRef = p.m_pRef;
-        m_piCount = p.m_piCount;
-        ref();
+        if ( this != &p )
+        {
+            if ( m_pRef == p.m_pRef )return *this;
+            unRef();
+            m_pRef = p.m_pRef;
+            m_piCount = p.m_piCount;
+            ref();
+        }
         return *this;
     };
 

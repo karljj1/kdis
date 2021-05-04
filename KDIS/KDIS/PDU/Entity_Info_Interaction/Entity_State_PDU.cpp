@@ -592,22 +592,26 @@ void Entity_State_PDU::Encode( KDataStream & stream ) const
 
 Entity_State_PDU & Entity_State_PDU::operator=( const Entity_State_PDU & Other )
 {
-    Header::operator=( Other );
-    m_EntityID = Other.m_EntityID;
-    m_ui8ForceID = Other.m_ui8ForceID;
-    m_ui8NumOfVariableParams = Other.m_ui8NumOfVariableParams;
-    m_EntityType = Other.m_EntityType;
-    m_AltEntityType = Other.m_AltEntityType;
-    m_EntityLinearVelocity = Other.m_EntityLinearVelocity;
-    m_EntityLocation = Other.m_EntityLocation;
-    m_EntityOrientation = Other.m_EntityOrientation;
-    m_EntityAppearance = Other.m_EntityAppearance;
-    m_DeadReckoningParameter = Other.m_DeadReckoningParameter;
-    m_EntityMarking = Other.m_EntityMarking;
-    m_EntityCapabilities = Other.m_EntityCapabilities;
-    m_vVariableParameters = Other.m_vVariableParameters;
-    //m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
-	SetDeadReckoningCalculator(Other.m_pDrCalc);
+    if ( this != &Other )
+    {
+        Header::operator=( Other );
+        m_EntityID = Other.m_EntityID;
+        m_ui8ForceID = Other.m_ui8ForceID;
+        m_ui8NumOfVariableParams = Other.m_ui8NumOfVariableParams;
+        m_EntityType = Other.m_EntityType;
+        m_AltEntityType = Other.m_AltEntityType;
+        m_EntityLinearVelocity = Other.m_EntityLinearVelocity;
+        m_EntityLocation = Other.m_EntityLocation;
+        m_EntityOrientation = Other.m_EntityOrientation;
+        m_EntityAppearance = Other.m_EntityAppearance;
+        m_DeadReckoningParameter = Other.m_DeadReckoningParameter;
+        m_EntityMarking = Other.m_EntityMarking;
+        m_EntityCapabilities = Other.m_EntityCapabilities;
+        m_vVariableParameters = Other.m_vVariableParameters;
+        //m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator( *Other.m_pDrCalc ) : NULL );
+        SetDeadReckoningCalculator(Other.m_pDrCalc);
+    }
+
     return *this;
 }
 
