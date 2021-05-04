@@ -131,15 +131,10 @@ void Connection::shutdown()
         if( m_iSocket[i] )
         {
             #if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
-                KINT32 iError = closesocket( m_iSocket[i] );
+                closesocket( m_iSocket[i] );
             #else
-                KINT32 iError = close( m_iSocket[i] );
+                close( m_iSocket[i] );
             #endif
-
-            if( iError == SOCKET_ERROR )
-            {
-                THROW_ERROR;
-            }
 
             m_iSocket[i] = 0;
         }
