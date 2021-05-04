@@ -49,20 +49,20 @@ using namespace NETWORK;
 
 int main()
 {
-    // Note this address will probably be different for your network.
-    Connection conn( "192.168.3.255" );
-
-    KOCTET cBuffer[MAX_PDU_SIZE]; // Somewhere to store the data we receive.
-
-    // Load all data into memory from the log.
-    DIS_Logger_Playback Log( LOG_FILE, 0 );
-
-    KUINT32 uiStartTime = time( NULL );
-    KUINT32 ui32Timepassed;
-    KBOOL bWaiting;
-
     try
     {
+        // Note this address will probably be different for your network.
+        Connection conn( "192.168.3.255" );
+
+        KOCTET cBuffer[MAX_PDU_SIZE]; // Somewhere to store the data we receive.
+
+        // Load all data into memory from the log.
+        DIS_Logger_Playback Log( LOG_FILE, 0 );
+
+        KUINT32 uiStartTime = time( NULL );
+        KUINT32 ui32Timepassed;
+        KBOOL bWaiting;
+
         while( Log.EndOfLogReached() == false )
         {
             ui32Timepassed = time( NULL ) - uiStartTime;
@@ -96,6 +96,7 @@ int main()
     catch( exception & e )
     {
         cout << e.what() << endl;
+        return -1;
     }
 
     return 0;

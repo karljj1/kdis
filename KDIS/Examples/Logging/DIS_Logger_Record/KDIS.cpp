@@ -48,18 +48,19 @@ using namespace NETWORK;
 
 int main()
 {
-    // Note this address will probably be different for your network.
-    Connection conn( "192.168.3.255" );
-
-    KOCTET cBuffer[MAX_PDU_SIZE]; // Somewhere to store the data we receive.
-
-    // Create the DIS logger, we want to buffer the data so we are not constantly
-    // performing I/O.
-    DIS_Logger_Record DisLogger( LOG_FILE, false );
-    KUINT32 ui32StartTime = time( NULL );
-
     try
     {
+
+        // Note this address will probably be different for your network.
+        Connection conn( "192.168.3.255" );
+
+        KOCTET cBuffer[MAX_PDU_SIZE]; // Somewhere to store the data we receive.
+
+        // Create the DIS logger, we want to buffer the data so we are not constantly
+        // performing I/O.
+        DIS_Logger_Record DisLogger( LOG_FILE, false );
+        KUINT32 ui32StartTime = time( NULL );
+
         while( true )
         {
             KINT32 i32Recv = 0;
@@ -78,6 +79,7 @@ int main()
     catch( exception & e )
     {
         cout << e.what() << endl;
+        return -1;
     }
 
     return 0;

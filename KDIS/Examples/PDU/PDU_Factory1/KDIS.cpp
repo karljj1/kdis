@@ -52,19 +52,20 @@ using namespace NETWORK;
 
 int main()
 {
-    PDU_Factory Factory;
-
-    // Lets apply a filter to the factory so it only lets through PDU that have an exercise ID of 1.
-    //Factory.AddFilter( new FactoryFilterExerciseID( 1 ) );
-
-    // Note this multi cast address will probably be different for your network however
-    // port 3000 is the assigned number by IANA(Internet Assigned Numbers Authority) for DIS simulations.
-    Connection conn( "192.168.3.255" );
-
-    KOCTET cBuffer[MAX_PDU_SIZE]; // Somewhere to store the data we receive.
-    cout << __cplusplus << endl;
     try
     {
+        PDU_Factory Factory;
+
+        // Lets apply a filter to the factory so it only lets through PDU that have an exercise ID of 1.
+        //Factory.AddFilter( new FactoryFilterExerciseID( 1 ) );
+
+        // Note this multi cast address will probably be different for your network however
+        // port 3000 is the assigned number by IANA(Internet Assigned Numbers Authority) for DIS simulations.
+        Connection conn( "192.168.3.255" );
+
+        KOCTET cBuffer[MAX_PDU_SIZE]; // Somewhere to store the data we receive.
+        cout << __cplusplus << endl;
+
         while( true )
         {
             KUINT32 ui32Recv = conn.Receive( cBuffer, MAX_PDU_SIZE );
@@ -101,8 +102,9 @@ int main()
     }
     catch( exception & e )
     {
-        // Socket error, better stop.
+        // exception, better stop.
         cout << e.what() << endl;
+        return -1;
     }
 
     return 0;

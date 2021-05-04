@@ -52,40 +52,40 @@ using namespace NETWORK;
 
 int main()
 {
-    // First create the PDU we are going to send, for this example I will use a
-    // Entity_State_PDU, When this PDU is sent most DIS applications should then show a new entity
-    EntityIdentifier EntID( 1, 3001, 3 );
-    ForceID EntForceID( Friendly );
-    EntityType EntType( 3, 1, 225, 3, 0, 1, 0 ); // A Civilian male
-    Vector EntityLinearVelocity( 0, 0, 0 );
-
-    // Convert local coordinate systems to DIS
-    KFLOAT64 Lat = 40.664, Lon = -122.63, Alt = 615; // West coast of USA
-    KFLOAT64 GeoX = 0.0, GeoY = 0.0, GeoZ = 0.0;
-    KFLOAT64 Heading = 0.0, Pitch = 0.0, Roll = 0.0;
-    KFLOAT64 Psi = 0.0, Theta = 0.0, Phi = 0.0;
-    KDIS::UTILS::GeodeticToGeocentric( Lat, Lon, Alt, GeoX, GeoY, GeoZ, WGS_1984 );
-    KDIS::UTILS::HeadingPitchRollToEuler( DegToRad( Heading ), DegToRad( Pitch ), DegToRad( Roll ), DegToRad( Lat ), DegToRad( Lon ), Psi, Theta, Phi );
-
-    WorldCoordinates EntityLocation( GeoX, GeoY, GeoZ );
-    EulerAngles EntityOrientation( Psi, Theta , Phi );
-    EntityAppearance EntEA;
-    DeadReckoningParameter DRP( Static, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-    EntityMarking EntMarking( ASCII, "KARL", 4 );
-    EntityCapabilities EntEC( false, false, false, false );
-
-    // Create the PDU
-    Entity_State_PDU Entity( EntID, EntForceID, EntType, EntType, EntityLinearVelocity, EntityLocation,
-                             EntityOrientation, EntEA, DRP, EntMarking, EntEC );
-
-    // Set the PDU Header values
-    Entity.SetExerciseID( 1 );
-
-    // Set the time stamp to automatically calculate each time encode is called.
-    Entity.SetTimeStamp( TimeStamp( RelativeTime, 0, true ) );
-
     try
     {
+        // First create the PDU we are going to send, for this example I will use a
+        // Entity_State_PDU, When this PDU is sent most DIS applications should then show a new entity
+        EntityIdentifier EntID( 1, 3001, 3 );
+        ForceID EntForceID( Friendly );
+        EntityType EntType( 3, 1, 225, 3, 0, 1, 0 ); // A Civilian male
+        Vector EntityLinearVelocity( 0, 0, 0 );
+
+        // Convert local coordinate systems to DIS
+        KFLOAT64 Lat = 40.664, Lon = -122.63, Alt = 615; // West coast of USA
+        KFLOAT64 GeoX = 0.0, GeoY = 0.0, GeoZ = 0.0;
+        KFLOAT64 Heading = 0.0, Pitch = 0.0, Roll = 0.0;
+        KFLOAT64 Psi = 0.0, Theta = 0.0, Phi = 0.0;
+        KDIS::UTILS::GeodeticToGeocentric( Lat, Lon, Alt, GeoX, GeoY, GeoZ, WGS_1984 );
+        KDIS::UTILS::HeadingPitchRollToEuler( DegToRad( Heading ), DegToRad( Pitch ), DegToRad( Roll ), DegToRad( Lat ), DegToRad( Lon ), Psi, Theta, Phi );
+
+        WorldCoordinates EntityLocation( GeoX, GeoY, GeoZ );
+        EulerAngles EntityOrientation( Psi, Theta , Phi );
+        EntityAppearance EntEA;
+        DeadReckoningParameter DRP( Static, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
+        EntityMarking EntMarking( ASCII, "KARL", 4 );
+        EntityCapabilities EntEC( false, false, false, false );
+
+        // Create the PDU
+        Entity_State_PDU Entity( EntID, EntForceID, EntType, EntType, EntityLinearVelocity, EntityLocation,
+                             EntityOrientation, EntEA, DRP, EntMarking, EntEC );
+
+        // Set the PDU Header values
+        Entity.SetExerciseID( 1 );
+
+        // Set the time stamp to automatically calculate each time encode is called.
+        Entity.SetTimeStamp( TimeStamp( RelativeTime, 0, true ) );
+
         // Note: This address will probably be different for your network.
         Connection myConnection( "192.168.0.255" );
 
@@ -103,6 +103,7 @@ int main()
     catch( exception & e )
     {
         cout << e.what() << endl;
+        return -1;
     }
 
     return 0;
