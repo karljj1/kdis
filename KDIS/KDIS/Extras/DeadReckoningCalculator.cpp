@@ -61,7 +61,7 @@ inline KBOOL equivalent( const T lhs, const T rhs, T epsilon = std::numeric_limi
 
 /////////////////////////////////////////////////////////////////////////
 
-inline const KFLOAT32 checkAngleHR( const KFLOAT32 a )
+inline KFLOAT32 checkAngleHR( const KFLOAT32 a )
 {
     if (a < -KDIS_PI) return (a + PI_TIMES_TWO);
     else if (a > KDIS_PI) return (a - PI_TIMES_TWO);
@@ -70,7 +70,7 @@ inline const KFLOAT32 checkAngleHR( const KFLOAT32 a )
 
 //////////////////////////////////////////////////////////////////////////
 
-inline const KFLOAT32 checkAngleP( const KFLOAT32 a )
+inline KFLOAT32 checkAngleP( const KFLOAT32 a )
 {
     if (a < -KDIS_PI_2)  return (-KDIS_PI-a);
     else if (a > KDIS_PI_2) return (KDIS_PI-a);
