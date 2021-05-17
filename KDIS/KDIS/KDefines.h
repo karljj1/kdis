@@ -42,6 +42,7 @@ http://p.sf.net/kdis/UserGuide
 #include <string>
 #include <sstream>
 #include <exception>
+#include <cstdint>
 
 #define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS
 
@@ -111,12 +112,12 @@ namespace KDIS {
 
 typedef unsigned char KUINT8;
 typedef char KINT8;
-typedef unsigned short int KUINT16;
-typedef short int KINT16;
-typedef unsigned int KUINT32;
-typedef int KINT32;
-typedef unsigned long long KUINT64;
-typedef long long KINT64;
+typedef uint16_t KUINT16;
+typedef int16_t KINT16;
+typedef uint32_t KUINT32;
+typedef int32_t KINT32;
+typedef uint64_t KUINT64;
+typedef int64_t KINT64;
 
 typedef char KOCTET;
 typedef unsigned char KUOCTET;
