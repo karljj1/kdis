@@ -370,7 +370,7 @@ void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ )
 			//case 4: layer = new IFF_Layer4( hdr, stream ); break;
 			//case 5: layer = new IFF_Layer5( hdr, stream ); break;
 				
-			default: throw KException( __FUNCTION__, UNSUPPORTED_DATATYPE, hdr.GetLayerNumber() );						
+			default: throw KException( __FUNCTION__, UNSUPPORTED_DATATYPE, static_cast<KUINT16>(hdr.GetLayerNumber()) );
 		}
 
 		if( layer )
