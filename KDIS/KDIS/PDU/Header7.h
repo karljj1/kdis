@@ -135,6 +135,7 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "./Header6.h"
+#include <bitset>
 
 namespace KDIS {
 namespace PDU {
@@ -143,32 +144,7 @@ class KDIS_EXPORT Header7 : public Header6
 {
 protected:
 
-    union
-    {
-        struct
-        {
-            KUINT8 m_ui8PDUStatusTEI : 1;                   // Bit  0.
-            KUINT8 m_ui8PDUStatusLVC : 2;                   // Bits 1-2.
-            KUINT8 m_ui8PDUStatusCEI : 1;                   // Bit  3.
-
-            union
-            {
-                struct
-                {
-                    KUINT8 m_ui8PDUStatusFTI  : 1;        // Bit  4.
-                    KUINT8 m_ui8PDUStatusBit5 : 1;        // Bit  5.
-                };
-
-                KUINT8 m_ui8PDUStatusDTI_RAI_IAI : 2;        // Bits 4-5. Could be used for DTI, RAI or IAI.
-            };
-
-            KUINT8 m_ui8PDUStatusBit6 : 1;                      // Bit  6. Unused.
-            KUINT8 m_ui8PDUStatusSM   : 1;                      // Bit  7.
-        };
-
-        KUINT8 m_ui8PDUStatus;
-
-    } m_PDUStatusUnion;
+    std::bitset<8> m_PDUStatus;
 
 public:
 

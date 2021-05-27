@@ -40,14 +40,12 @@ using namespace ENUMS;
 
 Header7::Header7()
 {
-    m_PDUStatusUnion.m_ui8PDUStatus = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 Header7::Header7( KDataStream & stream ) 
 {
-    m_PDUStatusUnion.m_ui8PDUStatus = 0;
     Decode( stream, false );
 }
 
@@ -56,7 +54,6 @@ Header7::Header7( KDataStream & stream )
 Header7::Header7( ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT, ProtocolFamily PF, const TimeStamp & TS, KUINT16 PDULength ) :
     Header6( PV, ExerciseID, PT, PF, TS, PDULength )
 {
-    m_PDUStatusUnion.m_ui8PDUStatus = 0;
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -70,7 +67,7 @@ Header7::~Header7()
 
 void Header7::SetPDUStatus( KUINT8 S )
 {
-    m_PDUStatusUnion.m_ui8PDUStatus = S;
+    m_PDUStatus = std::bitset<8>( S );
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -78,14 +75,16 @@ void Header7::SetPDUStatus( KUINT8 S )
 
 KUINT8 Header7::GetPDUStatus() const
 {
-    return m_PDUStatusUnion.m_ui8PDUStatus;
+    return static_cast<KUINT8>( m_PDUStatus.to_ulong() );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusCEI( KBOOL CEI )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusCEI = CEI;
+    // CEI - Coupled Extension Indicator
+    // Bit #3 of the DIS 7 PDU Status field.
+    m_PDUStatus.set( 3, CEI );
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -93,14 +92,18 @@ void Header7::SetPDUStatusCEI( KBOOL CEI )
 
 KBOOL Header7::GetPDUStatusCEI() const
 {
-    return m_PDUStatusUnion.m_ui8PDUStatusCEI;
+    // CEI - Coupled Extension Indicator
+    // Bit #3 of the DIS 7 PDU Status field.
+    return m_PDUStatus.test( 3 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusTEI( KBOOL TEI )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusTEI = TEI;
+    // TEI - Transferred Entity Indicator
+    // Bit #0 of the DIS 7 PDU Status field.
+    m_PDUStatus.set( 0, TEI );
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -108,14 +111,39 @@ void Header7::SetPDUStatusTEI( KBOOL TEI )
 
 KBOOL Header7::GetPDUStatusTEI() const
 {
-    return m_PDUStatusUnion.m_ui8PDUStatusTEI;
+    // TEI - Transferred Entity Indicator
+    // Bit #0 of the DIS 7 PDU Status field.
+    return m_PDUStatus.test( 0 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusLVC( LVCIndicator LVC )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusLVC = LVC;
+    // LVC - LVC Indicator
+    // Bits #1 and #2 of the DIS 7 PDU Status field.
+    if( LVC == LiveLVC )
+    {
+        m_PDUStatus.set( 1 );
+        m_PDUStatus.reset( 2 );
+    }
+    else if( LVC == VirtualLVC )
+    {
+        m_PDUStatus.reset( 1 );
+        m_PDUStatus.set( 2 );
+    }
+    else if( LVC == ConstructiveLVC )
+    {
+        m_PDUStatus.set( 1 );
+        m_PDUStatus.set( 2 );
+    }
+    else
+    {
+        // NoStatementLVC
+        m_PDUStatus.reset( 1 );
+        m_PDUStatus.reset( 2 );
+    }
+
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -123,14 +151,20 @@ void Header7::SetPDUStatusLVC( LVCIndicator LVC )
 
 LVCIndicator Header7::GetPDUStatusLVC() const
 {
-    return ( LVCIndicator )m_PDUStatusUnion.m_ui8PDUStatusLVC;
+    // LVC - LVC Indicator
+    // Bits #1 and #2 of the DIS 7 PDU Status field.
+    std::bitset<8> mask( 0b00000110 );
+    std::bitset<8> value = m_PDUStatus & mask;
+    return static_cast<LVCIndicator>( value.to_ulong() >> 1 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusFTI( KBOOL FTI )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusFTI = FTI;
+    // FTI - Fire Type Indicator
+    // Bit #4 of the DIS 7 PDU Status field.
+    m_PDUStatus.set( 4, FTI );
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -138,14 +172,34 @@ void Header7::SetPDUStatusFTI( KBOOL FTI )
 
 KBOOL Header7::GetPDUStatusFTI() const
 {
-    return m_PDUStatusUnion.m_ui8PDUStatusFTI;
+    // FTI - Fire Type Indicator
+    // Bit #4 of the DIS 7 PDU Status field.
+    return m_PDUStatus.test( 4 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusDTI( DetonationType DTI )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = DTI;
+    // DTI - Detonation Type Indicator
+    // Bits #4 and #5 of the DIS 7 PDU Status field.
+    if( DTI == ExpendableDTI )
+    {
+        m_PDUStatus.set( 4 );
+        m_PDUStatus.reset( 5 );
+    }
+    else if( DTI == NonMunitionExplosionDTI )
+    {
+        m_PDUStatus.reset( 4 );
+        m_PDUStatus.set( 5 );
+    }
+    else
+    {
+        // MunitionDTI
+        m_PDUStatus.reset( 4 );
+        m_PDUStatus.reset( 5 );
+    }
+
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -153,14 +207,36 @@ void Header7::SetPDUStatusDTI( DetonationType DTI )
 
 DetonationType Header7::GetPDUStatusDTI() const
 {
-    return ( DetonationType )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI;
+    // DTI - Detonation Type Indicator
+    // Bits #4 and #5 of the DIS 7 PDU Status field.
+    std::bitset<8> mask( 0b00110000 );
+    std::bitset<8> value = m_PDUStatus & mask;
+    return static_cast<DetonationType>( value.to_ulong() >> 4 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusRAI( AttachedIndicator RAI )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = RAI;
+    // RAI - Radio Attached Indicator
+    // Bits #4 and #5 of the DIS 7 PDU Status field.
+    if( RAI == UnattachedAttachedIndicator )
+    {
+        m_PDUStatus.set( 4 );
+        m_PDUStatus.reset( 5 );
+    }
+    else if( RAI == AttachedAttachedIndicator )
+    {
+        m_PDUStatus.reset( 4 );
+        m_PDUStatus.set( 5 );
+    }
+    else
+    {
+        // NoStatementAttachedIndicator
+        m_PDUStatus.reset( 4 );
+        m_PDUStatus.reset( 5 );
+    }
+
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -168,14 +244,36 @@ void Header7::SetPDUStatusRAI( AttachedIndicator RAI )
 
 AttachedIndicator Header7::GetPDUStatusRAI() const
 {
-    return ( AttachedIndicator )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI;
+    // RAI - Radio Attached Indicator
+    // Bits #4 and #5 of the DIS 7 PDU Status field.
+    std::bitset<8> mask( 0b00110000 );
+    std::bitset<8> value = m_PDUStatus & mask;
+    return static_cast<AttachedIndicator>( value.to_ulong() >> 4 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusIAI( AttachedIndicator IAI )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = IAI;
+    // RAI - Intercom Attached Indicator
+    // Bits #4 and #5 of the DIS 7 PDU Status field.
+    if( IAI == UnattachedAttachedIndicator )
+    {
+        m_PDUStatus.set( 4 );
+        m_PDUStatus.reset( 5 );
+    }
+    else if( IAI == AttachedAttachedIndicator )
+    {
+        m_PDUStatus.reset( 4 );
+        m_PDUStatus.set( 5 );
+    }
+    else
+    {
+        // NoStatementAttachedIndicator
+        m_PDUStatus.reset( 4 );
+        m_PDUStatus.reset( 5 );
+    }
+
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -183,14 +281,20 @@ void Header7::SetPDUStatusIAI( AttachedIndicator IAI )
 
 AttachedIndicator Header7::GetPDUStatusIAI() const
 {
-    return ( AttachedIndicator )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI;
+    // RAI - Intercom Attached Indicator
+    // Bits #4 and #5 of the DIS 7 PDU Status field.
+    std::bitset<8> mask( 0b00110000 );
+    std::bitset<8> value = m_PDUStatus & mask;
+    return static_cast<AttachedIndicator>( value.to_ulong() >> 4 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Header7::SetPDUStatusSM( KBOOL SM )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusSM = SM;
+    // ISM - IFF Simulation Mode
+    // Bit #4 of the DIS 7 PDU Status field.
+    m_PDUStatus.set( 4, SM );
     m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
 }
 
@@ -198,7 +302,9 @@ void Header7::SetPDUStatusSM( KBOOL SM )
 
 KBOOL Header7::GetPDUStatusSM() const
 {
-    return m_PDUStatusUnion.m_ui8PDUStatusSM;
+    // ISM - IFF Simulation Mode
+    // Bit #4 of the DIS 7 PDU Status field.
+    return m_PDUStatus.test( 4 );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -216,7 +322,7 @@ KString Header7::GetAsString() const
         // CEI - Applies to every PDU except attribute
         //
         ss << "PDU Status:\n"
-           << "\tCoupled Extension Indicator: " << ( KUINT16 )m_PDUStatusUnion.m_ui8PDUStatusCEI << "\n";
+           << "\tCoupled Extension Indicator: " << static_cast<KUINT16>( GetPDUStatusCEI() ) << "\n";
 
         //
         // TEI - Applies to various PDU
@@ -233,7 +339,7 @@ KString Header7::GetAsString() const
             m_ui8PDUType == EnvironmentalProcess_PDU_Type       ||
             m_ui8PDUType == EntityStateUpdate_PDU_Type )
         {
-            ss << "\tTransferred Entity Indicator: " << ( KUINT16 )m_PDUStatusUnion.m_ui8PDUStatusTEI << "\n";
+            ss << "\tTransferred Entity Indicator: " << static_cast<KUINT16>( GetPDUStatusTEI() ) << "\n";
         }
 
         //
@@ -257,19 +363,19 @@ KString Header7::GetAsString() const
             m_ui8PDUType == IO_Action_PDU_Type                  ||
             m_ui8PDUType == IO_Report_PDU_Type )
         {
-            ss << "\tLVC Indicator: " << GetEnumAsStringLVCIndicator( m_PDUStatusUnion.m_ui8PDUStatusLVC ) << "\n";
+            ss << "\tLVC Indicator: " << GetEnumAsStringLVCIndicator( static_cast<KUINT16>( GetPDUStatusLVC() ) ) << "\n";
         }
 
         //
         // FTI - Fire PDU only or DTI - Detonation PDU only
         //
-        if( m_ui8PDUType != Fire_PDU_Type )
+        if( m_ui8PDUType == Fire_PDU_Type )
         {
-            ss << "\tFire Type Indicator: " << ( KUINT16 )m_PDUStatusUnion.m_ui8PDUStatusFTI << "\n";
+            ss << "\tFire Type Indicator: " << static_cast<KUINT16>( GetPDUStatusFTI() ) << "\n";
         }
-        else if( m_ui8PDUType != Detonation_PDU_Type )
+        else if( m_ui8PDUType == Detonation_PDU_Type )
         {
-            ss << "\tDetonation Type Indicator: " << ( KUINT16 )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI << "\n";
+            ss << "\tDetonation Type Indicator: " << static_cast<KUINT16>( GetPDUStatusDTI() ) << "\n";
         }
 
         //
@@ -279,12 +385,12 @@ KString Header7::GetAsString() const
             m_ui8PDUType == Signal_PDU_Type       ||
             m_ui8PDUType == Receiver_PDU_Type )
         {
-            ss << "\tRadio Attached Indicator: " << GetEnumAsStringAttachedIndicator( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI ) << "\n";
+            ss << "\tRadio Attached Indicator: " << GetEnumAsStringAttachedIndicator( static_cast<KUINT16>( GetPDUStatusRAI() ) ) << "\n";
         }
         else if( m_ui8PDUType == IntercomSignal_PDU_Type  ||
                  m_ui8PDUType == IntercomControl_PDU_Type )
         {
-            ss << "\tIntercom Attached Indicator: " << GetEnumAsStringAttachedIndicator( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI ) << "\n";
+            ss << "\tIntercom Attached Indicator: " << GetEnumAsStringAttachedIndicator( static_cast<KUINT16>( GetPDUStatusIAI() ) ) << "\n";
         }
 
         //
@@ -292,7 +398,7 @@ KString Header7::GetAsString() const
         //
         if( m_ui8PDUType == IFF_ATC_NAVAIDS_PDU_Type )
         {
-            ss << "\tSimulation Mode: " << ( KUINT16 )m_PDUStatusUnion.m_ui8PDUStatusSM << "\n";
+            ss << "\tSimulation Mode: " << static_cast<KUINT16>( GetPDUStatusSM() ) << "\n";
         }
     }
 
@@ -307,14 +413,18 @@ void Header7::Decode( KDataStream & stream, bool ignoreHeader /*= false*/ )
     {
         if( stream.GetBufferSize() < HEADER6_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
 
+        KUINT8 pduStatus = 0;
+
         stream >> m_ui8ProtocolVersion
                >> m_ui8ExerciseID
                >> m_ui8PDUType
                >> m_ui8ProtocolFamily
                >> KDIS_STREAM m_TimeStamp
                >> m_ui16PDULength
-               >> ( ( m_ui8ProtocolFamily == LiveEntity ) ? m_ui8Padding1 : m_PDUStatusUnion.m_ui8PDUStatus ) // LE family use the padding for the sub protocol field.
+               >> ( ( m_ui8ProtocolFamily == LiveEntity ) ? m_ui8Padding1 : pduStatus) // LE family use the padding for the sub protocol field.
                >> m_ui8Padding2;
+
+        m_PDUStatus = std::bitset<8>(pduStatus);
     }
 }
 
@@ -339,7 +449,7 @@ void Header7::Encode( KDataStream & stream ) const
            << m_ui8ProtocolFamily
            << KDIS_STREAM m_TimeStamp
            << m_ui16PDULength
-           << ( ( m_ui8ProtocolFamily == LiveEntity ) ? m_ui8Padding1 : m_PDUStatusUnion.m_ui8PDUStatus )  // LE family use the padding for the sub protocol field.
+           << ( ( m_ui8ProtocolFamily == LiveEntity ) ? m_ui8Padding1 : static_cast<KUINT8>( m_PDUStatus.to_ulong() ) ) // LE family use the padding for the sub protocol field.
            << m_ui8Padding2;
 }
 
@@ -348,7 +458,7 @@ void Header7::Encode( KDataStream & stream ) const
 KBOOL Header7::operator == ( const Header7 & Value ) const
 {
     if( Header6::operator !=( Value ) ) return false;
-    if( m_PDUStatusUnion.m_ui8PDUStatus != Value.m_PDUStatusUnion.m_ui8PDUStatus ) return false;
+    if( static_cast<KUINT8>( m_PDUStatus.to_ulong() ) != static_cast<KUINT8>( Value.m_PDUStatus.to_ulong() ) ) return false;
     return true;
 }
 

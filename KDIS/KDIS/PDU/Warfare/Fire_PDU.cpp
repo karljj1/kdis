@@ -108,14 +108,14 @@ Fire_PDU::~Fire_PDU()
 
 void Fire_PDU::SetPDUStatusFireType( FireType FT )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusFTI = FT;
+    Header7::SetPDUStatusFTI( FT );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 FireType Fire_PDU::GetPDUStatusFireType() const
 {
-    return ( FireType )m_PDUStatusUnion.m_ui8PDUStatusFTI;
+    return static_cast<FireType>( Header7::GetPDUStatusFTI() );
 }
 
 #endif
@@ -165,11 +165,11 @@ void Fire_PDU::SetDescriptor( DescPtr D )
     // Determine the FTI
     if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
     {
-        m_PDUStatusUnion.m_ui8PDUStatusFTI = MunitionFTI;
+        Header7::SetPDUStatusFTI( MunitionFTI );
     }
     else
     {
-        m_PDUStatusUnion.m_ui8PDUStatusFTI = ExpendableFTI;
+        Header7::SetPDUStatusFTI( ExpendableFTI );
         m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
     }
 
@@ -273,7 +273,7 @@ void Fire_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ )
     }
     else // DIS 7
     {
-        if( m_PDUStatusUnion.m_ui8PDUStatusFTI == MunitionFTI )
+        if( Header7::GetPDUStatusFTI() == MunitionFTI )
         {
             // Create a descriptor if the desc is null or the incorrect type
             if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )

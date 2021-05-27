@@ -123,14 +123,14 @@ Detonation_PDU::~Detonation_PDU()
 
 void Detonation_PDU::SetPDUStatusDetonationType( DetonationType DT )
 {
-    m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = DT;
+    Header7::SetPDUStatusDTI( DT );
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 DetonationType Detonation_PDU::GetPDUStatusDetonationType() const
 {
-    return ( DetonationType )m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI;
+    return Header7::GetPDUStatusDTI();
 }
 
 #endif
@@ -187,16 +187,16 @@ void Detonation_PDU::SetDescriptor( DescPtr D )
     // Determine the FTI
     if( dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
     {
-        m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = MunitionDTI;
+        Header7::SetPDUStatusDTI( MunitionDTI );
     }
     else if( dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
     {
-        m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = ExpendableDTI;
+        Header7::SetPDUStatusDTI( ExpendableDTI );
         m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
     }
     else
     {
-        m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI = NonMunitionExplosionDTI;
+        Header7::SetPDUStatusDTI( NonMunitionExplosionDTI );
         m_ui8ProtocolVersion = IEEE_1278_1_2012; // We are using a DIS 7 feature now.
     }
 
@@ -353,7 +353,7 @@ void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
     }
     else // DIS 7
     {
-        if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == MunitionDTI ) // Munition
+        if( Header7::GetPDUStatusDTI() == MunitionDTI ) // Munition
         {
             // Create a descriptor if the desc is null or the incorrect type
             if( !m_pDescriptor.GetPtr() || !dynamic_cast<MunitionDescriptor*>( m_pDescriptor.GetPtr() ) )
@@ -361,7 +361,7 @@ void Detonation_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ 
                 m_pDescriptor = DescPtr( new MunitionDescriptor() );
             }
         }
-        else if( m_PDUStatusUnion.m_ui8PDUStatusDTI_RAI_IAI == ExpendableDTI ) // Expendable
+        else if( Header7::GetPDUStatusDTI() == ExpendableDTI ) // Expendable
         {
             // Create a descriptor if the desc is null or the incorrect type
             if( !m_pDescriptor.GetPtr() || !dynamic_cast<ExpendableDescriptor*>( m_pDescriptor.GetPtr() ) )
