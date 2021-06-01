@@ -85,6 +85,14 @@ public:
 
     static const KUINT16 TIME_STAMP_SIZE = 4;
 
+    static const KFLOAT64 SEC_PER_UNIT_TIME;
+
+    static const KFLOAT64 UNIT_TIME_PER_SEC;
+
+    static const KFLOAT64 NANOSEC_PER_UNIT_TIME;
+
+    static const KFLOAT64 UNIT_TIME_PER_NANOSEC;
+
     TimeStamp();
 
     TimeStamp( KDataStream & stream );

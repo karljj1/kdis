@@ -29,8 +29,13 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./ClockTime.h"
 
+#include <iomanip>
+
 using namespace KDIS;
 using namespace DATA_TYPE;
+using namespace ENUMS;
+
+const KFLOAT64 ClockTime::SEC_PER_UNIT_TIME = ( 3600.0 ) / 2147483648.0;
 
 //////////////////////////////////////////////////////////////////////////
 // Public:
@@ -95,11 +100,21 @@ KUINT32 ClockTime::GetTimePastHour() const
 
 KString ClockTime::GetAsString() const
 {
+    // Each time unit is 3600/(2^31) seconds.
+    KFLOAT64 totalsecs = static_cast<KFLOAT64>( m_ui32TimePastHour >> 1 ) * SEC_PER_UNIT_TIME;
+    KUINT16 minutes = static_cast<KINT16>( totalsecs ) / 60;
+    KFLOAT64 seconds = totalsecs - ( 60 * minutes );
+
     KStringStream ss;
 
-    ss << "Hour:             " << m_i32Hour          << "\n"
-       << "Time Past Hour:   " << m_ui32TimePastHour << "\n";
-
+    ss << "Hour:             " << std::setfill('0') << std::setw(2) << m_i32Hour          << "\n"
+       << "Time Past Hour:   " << std::setfill('0') << std::setw(2) << minutes
+       << ":" << std::setfill('0') << std::setw(2) << seconds
+       << " ("
+       << GetEnumAsStringTimeStampType(m_ui32TimePastHour & 1)
+       << ") "
+       << "\n";
+    
     return ss.str();
 }
 

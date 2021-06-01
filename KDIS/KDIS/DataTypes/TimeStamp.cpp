@@ -29,6 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 #include "./TimeStamp.h"
 
+#include <iomanip>
 #if defined( WIN32 ) | defined( WIN64 )
 #include <windows.h>
 #else
@@ -38,6 +39,11 @@ http://p.sf.net/kdis/UserGuide
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
+
+const KFLOAT64 TimeStamp::SEC_PER_UNIT_TIME = ( 3600.0 ) / 2147483648.0;
+const KFLOAT64 TimeStamp::UNIT_TIME_PER_SEC = 1.0 / SEC_PER_UNIT_TIME;
+const KFLOAT64 TimeStamp::NANOSEC_PER_UNIT_TIME = SEC_PER_UNIT_TIME * 1.0e9;
+const KFLOAT64 TimeStamp::UNIT_TIME_PER_NANOSEC = 1.0 / NANOSEC_PER_UNIT_TIME;
 
 //////////////////////////////////////////////////////////////////////////
 // public:
@@ -126,7 +132,7 @@ void TimeStamp::CalculateTimeStamp()
     SYSTEMTIME now;
     GetSystemTime( &now );
     KFLOAT64 f = ( now.wMinute * 60 ) + now.wSecond + ( now.wMilliseconds / 1000.0 );
-    iTs = f / 0.00000167638;
+    iTs = f * UNIT_TIME_PER_SEC;
 
 #else
 
@@ -134,7 +140,7 @@ void TimeStamp::CalculateTimeStamp()
     time( &aclock );
     struct tm * newtime = localtime( &aclock );
     iTs = newtime->tm_sec + ( newtime->tm_min * 60 );
-    iTs = iTs / 0.00000167638;
+    iTs = iTs * UNIT_TIME_PER_SEC;
 
 #endif
 
@@ -143,7 +149,7 @@ void TimeStamp::CalculateTimeStamp()
     // Add nano seconds
     timespec ts;
     clock_gettime( 0, &ts );
-    iTs += ts.tv_nsec / 1676.38;
+    iTs += ts.tv_nsec * UNIT_TIME_PER_NANOSEC;
 
 #endif
 
@@ -154,11 +160,19 @@ void TimeStamp::CalculateTimeStamp()
 
 KString TimeStamp::GetAsString() const
 {
+    // Each time unit is 3600/(2^31) seconds.
+    KFLOAT64 totalsecs = static_cast<KFLOAT64>( m_TimeStampUnion.m_ui32TimeStamp >> 1 ) * SEC_PER_UNIT_TIME;
+    KUINT16 minutes = static_cast<KINT16>( totalsecs ) / 60;
+    KFLOAT64 seconds = totalsecs - ( 60 * minutes );
+
     KStringStream ss;
 
-    ss << "Time Stamp:       ";
-    ss << GetEnumAsStringTimeStampType( m_TimeStampUnion.m_ui32TimeStampType ) << ": "
-       << m_TimeStampUnion.m_ui32Time
+    ss << "Timestamp:       ";
+    ss << std::setfill('0') << std::setw(2) << minutes 
+       << ":" << std::setfill('0') << std::setw(2) << seconds
+       << " (" 
+       << GetEnumAsStringTimeStampType(m_TimeStampUnion.m_ui32TimeStampType) 
+       << ") "
        << "\n";
 
     return ss.str();

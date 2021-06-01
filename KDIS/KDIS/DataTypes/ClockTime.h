@@ -58,6 +58,8 @@ public:
 
     static const KUINT16 CLOCK_TIME_SIZE = 8;
 
+    static const KFLOAT64 SEC_PER_UNIT_TIME;
+
     ClockTime();
 
     ClockTime( KINT32 Hour, KUINT32 TimePastHour );
