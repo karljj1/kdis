@@ -384,6 +384,11 @@ void DeadReckoningCalculator::calcDeadReckoningRPW( WorldCoordinates & PositionO
 {
     /* Position */
     PositionOut = ( m_initPosition + ( m_initLinearVelocity * totalTimeSinceReset ) );
+    if (m_f64Magnitude < MAGIC_EPSILON)
+    {
+        OrientationOut = m_initOrientation;
+        return;
+    }
     //calcOrientation(OrientationOut);
     calcOrientation_simplified( OrientationOut, totalTimeSinceReset );
 }
@@ -395,6 +400,11 @@ void DeadReckoningCalculator::calcDeadReckoningRVW(  WorldCoordinates & Position
     /* Position */
     PositionOut = ( m_initPosition + ( m_initLinearVelocity * totalTimeSinceReset ) +
                     ( m_initLinearAcceleration * ( 0.5 * totalTimeSinceReset * totalTimeSinceReset ) ) );
+    if (m_f64Magnitude < MAGIC_EPSILON)
+    {
+        OrientationOut = m_initOrientation;
+        return;
+    }
     //calcOrientation(OrientationOut);
     calcOrientation_simplified( OrientationOut, totalTimeSinceReset );
 }
@@ -507,16 +517,10 @@ void DeadReckoningCalculator::RunAlgorithm( const KFLOAT32 totalTimeSinceReset, 
         break;
 
     case DRM_R_P_W:
-        if( m_f64Magnitude < MAGIC_EPSILON )
-            calcDeadReckoningFPW( PositionOut, totalTimeSinceReset );
-        else
             calcDeadReckoningRPW( PositionOut, OrientationOut, totalTimeSinceReset );
         break;
 
     case DRM_R_V_W:
-        if( m_f64Magnitude < MAGIC_EPSILON )
-            calcDeadReckoningFVW( PositionOut, totalTimeSinceReset );
-        else
             calcDeadReckoningRVW( PositionOut, OrientationOut, totalTimeSinceReset );
         break;
 
