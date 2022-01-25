@@ -186,7 +186,7 @@ KString GuidedMunitionsAppearance::GetAsString() const
        << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
        << "\n\tTrailing Effect:        " << GetEnumAsStringEntityTrailingEffect( m_TrailingEffect )
        << "\n\tFlaming Effect:         " << m_FlamingEffectField		
-       << "\n\tLaunch FLash:           " << m_LaunchFlash
+       << "\n\tLaunch Flash:           " << m_LaunchFlash
        << "\n\tFrozen Status:          " << m_FrozenStatus
        << "\n\tPower Plant:            " << m_PowerPlantStatus
        << "\n\tState:                  " << m_State

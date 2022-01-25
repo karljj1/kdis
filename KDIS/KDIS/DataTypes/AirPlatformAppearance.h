@@ -79,7 +79,7 @@ protected:
     KUINT32 m_NavigationPositionBrightness : 1; // 27
     KUINT32 m_SpotLights            : 1; // 28
     KUINT32 m_InteriorLights        : 1; // 29
-    KUINT32 m_ReverseThrustEngaged  : 1; // 31
+    KUINT32 m_ReverseThrustEngaged  : 1; // 30
     KUINT32 m_WeightOnWheels        : 1; // 31
 
 public:
