@@ -78,9 +78,13 @@ protected:
     sockaddr_in m_SendToAddr;
     KString m_sSendAddress;
 
+	sockaddr_in m_InterfaceAddr;	// struct for IPv4 address of NIC to be used for DIS
+	KString m_sInterfaceAddress;	// e.g. "192.168.1.124"
+
     KBOOL m_bBlockingSocket;
 
     KBOOL m_bSendOnly;
+    KBOOL m_bReceiveOnly;
 
     std::vector<ConnectionSubscriber*> m_vpSubscribers;
 
@@ -119,7 +123,8 @@ public:
 
     // Note: If using multicast you should ensure you use a correct multicast address or an exception will occur.
     Connection( const KString & SendAddress, KUINT32 Port = 3000, KBOOL SendAddressIsMulticast = false,
-                KBOOL Blocking = true, KDIS::UTILS::PDU_Factory * Custom = 0, KBOOL SendOnly = false );
+                KBOOL Blocking = true, KDIS::UTILS::PDU_Factory * Custom = 0, KBOOL SendOnly = false,
+				KBOOL ReceiveOnly = false, const KString & InterfaceAddress = "" );
 
     virtual ~Connection();
 
@@ -139,6 +144,16 @@ private:
     Connection& operator=( const Connection& other );
 
 public:
+
+    //************************************
+    // FullName:    KDIS::NETWORK::Connection::SetInterfaceAddress
+    //              KDIS::NETWORK::Connection::GetInterfaceAddress
+    // Description: The IPv4 address of the specific NIC to be used for DIS.
+	//				Optional.  For multi-NIC systems.
+    // Parameter:   const KString & A
+    //************************************
+    virtual void Connection::SetInterfaceAddress( const KString & A ) ;
+    virtual const KString & GetInterfaceAddress() const;
 
     //************************************
     // FullName:    KDIS::NETWORK::Connection::SetSendAddress

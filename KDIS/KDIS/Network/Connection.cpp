@@ -88,9 +88,8 @@ void Connection::startup()
             }
         }
 
-        // Bind socket for incoming data.
-        if( !m_bSendOnly )
-            bindSocket();
+        // Bind socket for sending and/or receiving data.
+        bindSocket();
     }
 }
 
@@ -111,15 +110,26 @@ void Connection::bindSocket()
     sockaddr_in Address;
     memset( &Address, 0, sizeof( Address ) );
     Address.sin_family = AF_INET;                   // Internet address family
-    Address.sin_addr.s_addr = htonl( INADDR_ANY );  // Any incoming interface
-    Address.sin_port = htons( m_uiPort );           // Listen Port
+    Address.sin_addr = m_InterfaceAddr.sin_addr;	// Specify binding interface
 
-    // Now bind
-    iRet = ::bind( m_iSocket[RECEIVE_SOCK], ( sockaddr* )&Address, sizeof( Address ) );
-    if( iRet == SOCKET_ERROR )
-    {
-        THROW_ERROR;
+    // Bind the *sending* socket to the specified local interface, otherwise Windows chooses first interface with path to destination
+    if (!m_bReceiveOnly) {
+        iRet = bind(m_iSocket[SEND_SOCK], (sockaddr*)&Address, sizeof(Address));
+        if (iRet == SOCKET_ERROR) 
+        {
+            THROW_ERROR;
+        }
     }
+
+    // Bind the *listening* socket to the chosen interface (or else to all interfaces if no interface has been specified)
+    if( !m_bSendOnly ) {
+    	Address.sin_port = htons( m_uiPort );           // Set listening port (for listening socket only)
+        iRet = ::bind( m_iSocket[RECEIVE_SOCK], ( sockaddr* )&Address, sizeof( Address ) );
+	    if( iRet == SOCKET_ERROR )
+	    {
+	        THROW_ERROR;
+	    }
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -329,16 +339,20 @@ const KCHAR8 * Connection::getErrorText( KINT32 ErrorCode ) const
 //////////////////////////////////////////////////////////////////////////
 
 Connection::Connection( const KString & SendAddress, KUINT32 Port /* = 3000 */, KBOOL SendAddressIsMulticast /* = false */,
-                        KBOOL Blocking /* = true */, PDU_Factory * Custom /* = 0 */, KBOOL SendOnly /* = false*/) :
+						KBOOL Blocking /* = true */, PDU_Factory * Custom /* = 0 */, KBOOL SendOnly /* = false*/, 
+                        KBOOL ReceiveOnly /* = false*/,	const KString & InterfaceAddress /* = "" */) :
     m_uiPort( Port ),
     m_bBlockingSocket( Blocking ),
-    m_bSendOnly( SendOnly )
+    m_bSendOnly( SendOnly ),
+    m_bReceiveOnly( ReceiveOnly )
 {
     m_iSocket[SEND_SOCK] = 0;
     m_iSocket[RECEIVE_SOCK] = 0;
+	
+	m_blockingTimeout.tv_sec = 0;
+	m_blockingTimeout.tv_usec = 0;
 
-    m_blockingTimeout.tv_sec = 0;
-    m_blockingTimeout.tv_usec = 0;
+	SetInterfaceAddress(InterfaceAddress);	//specify which network interface to use for DIS
 
     startup();
 
@@ -387,6 +401,22 @@ Connection& Connection::operator=( const Connection& other )
 
 //////////////////////////////////////////////////////////////////////////
 
+void Connection::SetInterfaceAddress(const KString & A)
+// Connection defaults to listen on *all* NICs and send on first interface with route to destination if interface not specified
+{
+	m_sInterfaceAddress = A;
+	memset( &m_InterfaceAddr, 0, sizeof( m_InterfaceAddr ) );
+	m_InterfaceAddr.sin_family = AF_INET;
+	m_InterfaceAddr.sin_addr.s_addr = ( A.empty() ? INADDR_ANY : inet_addr( m_sInterfaceAddress.c_str() ) );
+}
+
+const KString & Connection::GetInterfaceAddress() const
+{
+	return m_sInterfaceAddress;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void Connection::SetSendAddress( const KString & A, KBOOL Multicast /*= false */ ) 
 {
     m_sSendAddress = A;
@@ -429,7 +459,7 @@ void Connection::AddMulticastAddress( const KString & A )
     // Attempt to join the group
     ip_mreq mc;
     mc.imr_multiaddr.s_addr = inet_addr( m_sSendAddress.c_str() );
-    mc.imr_interface.s_addr = htonl( INADDR_ANY );
+	mc.imr_interface = m_InterfaceAddr.sin_addr;
     KINT32 iRet = setsockopt( m_iSocket[RECEIVE_SOCK], IPPROTO_IP, IP_ADD_MEMBERSHIP, ( KOCTET* )&mc, sizeof( mc ) );
     if( iRet == SOCKET_ERROR )
     {
@@ -444,7 +474,7 @@ void Connection::RemoveMulticastAddress( const KString & A )
     // Attempt to drop the address.
     ip_mreq mc;
     mc.imr_multiaddr.s_addr = inet_addr( m_sSendAddress.c_str() );
-    mc.imr_interface.s_addr = htonl( INADDR_ANY );
+	mc.imr_interface = m_InterfaceAddr.sin_addr;
     KINT32 iRet = setsockopt( m_iSocket[RECEIVE_SOCK], IPPROTO_IP, IP_DROP_MEMBERSHIP, ( KOCTET* )&mc, sizeof( mc ) );
     if( iRet == SOCKET_ERROR )
     {
