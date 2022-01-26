@@ -97,6 +97,13 @@ Endian KDataStream::GetNetWorkEndian() const
 
 KUINT16 KDataStream::GetBufferSize() const
 {
+    // Since the return type is unsigned, if the result is < 0, it returns a large positive value (undesired).  
+    //  Example:  (unsigned short)(8 - 16) = 65528, but (int)(8 - 16) = -8
+    // Non-breaking fix:  // Throw instead of erroneously returning large +#
+    if( ( KINT16 )( m_vBuffer.size() - m_ui16CurrentWritePos) < 0 )
+    {
+        throw KException(BUFFER_TOO_SMALL); //an alternate fix would be to return zero (0)
+    }
     return ( m_vBuffer.size() - m_ui16CurrentWritePos );
 }
 
@@ -104,7 +111,7 @@ KUINT16 KDataStream::GetBufferSize() const
 
 KUINT16 KDataStream::CopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize,  KUINT16 WritePos /*= 0*/ ) const 
 {
-    if( ( BufferSize - WritePos ) < ( KUINT16 )m_vBuffer.size() )
+	if( ( KINT16 )( BufferSize - WritePos ) < ( KUINT16 )m_vBuffer.size() )
     {
         throw KException( BUFFER_TOO_SMALL );
     }
@@ -158,6 +165,7 @@ void KDataStream::ResetWritePosition()
 
 void KDataStream::SetCurrentWritePosition( KUINT16 WP )
 {
+	if ( WP > m_vBuffer.size() ) { throw KException( INVALID_DATA ); }	//James Wing -- Oct 2016 -- disallow advancing write position beyond end of buffer in spite of defective PDU size indicator telling us to -- never trust the data.
     m_ui16CurrentWritePos = WP;
 }
 
@@ -228,6 +236,7 @@ void KDataStream::Write( KOCTET V )
 
 void KDataStream::Read( KUOCTET & V )
 {
+	if (m_ui16CurrentWritePos >= m_vBuffer.size()) { throw KException(INVALID_DATA); }	//James Wing Nov 2016
     V = m_vBuffer[m_ui16CurrentWritePos++];
 }
 
@@ -235,6 +244,7 @@ void KDataStream::Read( KUOCTET & V )
 
 void KDataStream::Read( KOCTET & V )
 {
+	if (m_ui16CurrentWritePos >= m_vBuffer.size()) { throw KException(INVALID_DATA); }	//James Wing Nov 2016
     V = m_vBuffer[m_ui16CurrentWritePos++];
 }
 

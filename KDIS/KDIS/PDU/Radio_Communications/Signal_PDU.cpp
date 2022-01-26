@@ -233,8 +233,9 @@ void Signal_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ )
            >> m_ui16DataLength
            >> m_ui16Samples;
 
-    KUINT16 dl =  m_ui16DataLength / 8;
+	KUINT16 dl = ceil(m_ui16DataLength / 8);
     dl += ( dl % 4 == 0 ? 0 : ( 4 - dl % 4 ) ); // Add padding
+	if (dl > stream.GetBufferSize()) { throw (KException( INVALID_DATA ) ); }
     for( KUINT16 i = 0; i < dl; ++i )
     {
         KOCTET o;

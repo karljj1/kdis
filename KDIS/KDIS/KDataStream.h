@@ -219,6 +219,7 @@ void KDataStream::Read( Type & T )
     NetToDataType<Type> OctArray( T, false );
 
     // Copy octets into data type
+	if (m_vBuffer.size() < m_ui16CurrentWritePos + sizeof T) { throw KException(INVALID_DATA); }	//James Wing Nov 2016
     for( KUINT8 i = 0; i < sizeof T; ++i, ++m_ui16CurrentWritePos )
     {
         OctArray.m_Octs[i] = m_vBuffer[m_ui16CurrentWritePos];
