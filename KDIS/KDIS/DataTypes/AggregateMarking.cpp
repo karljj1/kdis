@@ -86,7 +86,7 @@ void AggregateMarking::SetAggregateMarkingString( const KINT8 * M, KUINT16 Strin
 {
     if( StringSize > 31 ) throw KException( __FUNCTION__, STRING_PDU_SIZE_TOO_BIG );
 
-    strncpy( m_sAggregateMarkingString, M, StringSize );
+    strncpy_s( m_sAggregateMarkingString, sizeof m_sAggregateMarkingString, M, StringSize );
 
     m_sAggregateMarkingString[StringSize] = '\0';
 }

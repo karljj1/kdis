@@ -241,14 +241,14 @@ void Data_PDU::Encode( KDataStream & stream ) const
     vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
     for( ; citrFixed != citrFixedEnd; ++citrFixed )
     {
-        ( *citrFixed )->Encode( stream );
+		((FixedDatum)(*(*citrFixed))).Encode(stream);
     }
 
     vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
     vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
     for( ; citrVar != citrVarEnd; ++citrVar )
     {
-        ( *citrVar )->Encode( stream );
+		((VariableDatum)(*(*citrVar))).Encode(stream);
     }
 }
 
