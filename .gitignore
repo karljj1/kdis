@@ -64,3 +64,9 @@ KDIS/CMakeFiles/
 *.lastcodeanalysissucceeded
 KDIS.xcodeproj
 KDIS.build
+KDIS/.vs
+KDIS/_deps
+*.recipe
+KDIS/x64
+KDIS/Tests/KDIS_tests.dir/Debug
+KDIS/Examples/Building/KDIS_LIB/KDIS_LIB.dir/Debug
