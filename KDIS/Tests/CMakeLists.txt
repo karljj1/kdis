@@ -1,7 +1,7 @@
 set(PROJECT_NAME_STR KDIS)
 
 find_package(Threads REQUIRED)
-set(gtest_force_shared_crt on)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 include(FetchContent)
 FetchContent_Declare(
         googletest
