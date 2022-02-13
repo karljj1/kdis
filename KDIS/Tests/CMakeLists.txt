@@ -17,7 +17,6 @@ INCLUDE_DIRECTORIES(${KDIS_SOURCE_DIR})
 file(GLOB TEST_SRC_FILES UnitTests/*.cpp)
 add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
 target_link_libraries(${PROJECT_TEST_NAME} gtest_main)
-#add_dependencies(${PROJECT_TEST_NAME} googletest)
 
 IF(BUILD_EXAMPLES_TO_LINK_TO_LIB)
 
