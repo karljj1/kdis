@@ -152,7 +152,7 @@ public:
 	//				Optional.  For multi-NIC systems.
     // Parameter:   const KString & A
     //************************************
-    virtual void Connection::SetInterfaceAddress( const KString & A ) ;
+    virtual void SetInterfaceAddress( const KString & A ) ;
     virtual const KString & GetInterfaceAddress() const;
 
     //************************************
