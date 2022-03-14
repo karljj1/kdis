@@ -78,7 +78,7 @@ protected:
     sockaddr_in m_SendToAddr;
     KString m_sSendAddress;
 
-	sockaddr_in m_InterfaceAddr;	// struct for IPv4 address of NIC to be used for DIS
+	sockaddr_in m_InterfaceAddr;	// struct for IPv4 address of NIC to be used for outbound DIS
 	KString m_sInterfaceAddress;	// e.g. "192.168.1.124"
 
     KBOOL m_bBlockingSocket;
@@ -152,7 +152,7 @@ public:
 	//				Optional.  For multi-NIC systems.
     // Parameter:   const KString & A
     //************************************
-    virtual void SetInterfaceAddress( const KString & A ) ;
+    virtual void Connection::SetInterfaceAddress( const KString & A ) ;
     virtual const KString & GetInterfaceAddress() const;
 
     //************************************

@@ -106,25 +106,27 @@ void Connection::bindSocket()
         THROW_ERROR;
     }
 
-    // Construct bind structure
-    sockaddr_in Address;
-    memset( &Address, 0, sizeof( Address ) );
-    Address.sin_family = AF_INET;                   // Internet address family
-    Address.sin_addr = m_InterfaceAddr.sin_addr;	// Specify binding interface
-
-    // Bind the *sending* socket to the specified local interface, otherwise Windows chooses first interface with path to destination
-    if (!m_bReceiveOnly) {
-        iRet = bind(m_iSocket[SEND_SOCK], (sockaddr*)&Address, sizeof(Address));
+    // Bind the *sending* socket to the specified local interface
+    if (!m_bReceiveOnly) 
+    {
+        iRet = bind(m_iSocket[SEND_SOCK], (sockaddr*)&m_InterfaceAddr, sizeof(m_InterfaceAddr));
         if (iRet == SOCKET_ERROR) 
         {
             THROW_ERROR;
         }
     }
 
-    // Bind the *listening* socket to the chosen interface (or else to all interfaces if no interface has been specified)
-    if( !m_bSendOnly ) {
-    	Address.sin_port = htons( m_uiPort );           // Set listening port (for listening socket only)
-        iRet = ::bind( m_iSocket[RECEIVE_SOCK], ( sockaddr* )&Address, sizeof( Address ) );
+    // Construct bind structure for receive socket, using IPADDR_ANY for Linux compatibility
+    sockaddr_in Address;
+    memset(&Address, 0, sizeof(Address));
+    Address.sin_port = htons(m_uiPort);     // Set listening port
+    Address.sin_family = AF_INET;           // IPv4 address family
+    Address.sin_addr.s_addr = INADDR_ANY;   // Any interface
+
+    // Bind the *receiving* socket to the chosen port (on all local interfaces)
+    if( !m_bSendOnly ) 
+    {
+        iRet = bind( m_iSocket[RECEIVE_SOCK], ( sockaddr* )&Address, sizeof( Address ) );
 	    if( iRet == SOCKET_ERROR )
 	    {
 	        THROW_ERROR;
@@ -401,8 +403,11 @@ Connection& Connection::operator=( const Connection& other )
 
 //////////////////////////////////////////////////////////////////////////
 
+// Set the local interface to use for sending DIS packets,
+//   otherwise the OS chooses first interface with path to destination,
+//   which is ambiguous in the case of multicast and some broadcast endpoints.
 void Connection::SetInterfaceAddress(const KString & A)
-// Connection defaults to listen on *all* NICs and send on first interface with route to destination if interface not specified
+// Connection defaults to send on first interface with route to destination if interface not specified (i.e. A = "")
 {
 	m_sInterfaceAddress = A;
 	memset( &m_InterfaceAddr, 0, sizeof( m_InterfaceAddr ) );
