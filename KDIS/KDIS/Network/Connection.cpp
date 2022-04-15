@@ -101,16 +101,16 @@ void Connection::bindSocket()
     // been shut down, and then restarted right away.
     KINT32 yes = 1;
     KINT32 iRet = setsockopt( m_iSocket[RECEIVE_SOCK], SOL_SOCKET, SO_REUSEADDR, ( const char * )&yes, sizeof( yes ) );
-    if( iRet == SOCKET_ERROR )
-    {
+    if ( iRet == SOCKET_ERROR ) {
         THROW_ERROR;
     }
 
     // Bind the *sending* socket to the specified local interface
     if (!m_bReceiveOnly) 
     {
-        iRet = bind(m_iSocket[SEND_SOCK], (sockaddr*)&m_InterfaceAddr, sizeof(m_InterfaceAddr));
-        if (iRet == SOCKET_ERROR) 
+        socklen_t addrlen = sizeof(m_InterfaceAddr);
+        iRet = bind( m_iSocket[SEND_SOCK], ( sockaddr * )&m_InterfaceAddr, addrlen );
+        if ( iRet == SOCKET_ERROR ) 
         {
             THROW_ERROR;
         }
@@ -118,15 +118,15 @@ void Connection::bindSocket()
 
     // Construct bind structure for receive socket, using IPADDR_ANY for Linux compatibility
     sockaddr_in Address;
-    memset(&Address, 0, sizeof(Address));
-    Address.sin_port = htons(m_uiPort);     // Set listening port
+    memset( &Address, 0, sizeof( Address ) );
+    Address.sin_port = htons( m_uiPort );     // Set listening port
     Address.sin_family = AF_INET;           // IPv4 address family
     Address.sin_addr.s_addr = INADDR_ANY;   // Any interface
 
     // Bind the *receiving* socket to the chosen port (on all local interfaces)
     if( !m_bSendOnly ) 
     {
-        iRet = bind( m_iSocket[RECEIVE_SOCK], ( sockaddr* )&Address, sizeof( Address ) );
+        iRet = bind( m_iSocket[RECEIVE_SOCK], ( sockaddr * )&Address, sizeof( Address ) );
 	    if( iRet == SOCKET_ERROR )
 	    {
 	        THROW_ERROR;
@@ -354,7 +354,7 @@ Connection::Connection( const KString & SendAddress, KUINT32 Port /* = 3000 */, 
 	m_blockingTimeout.tv_sec = 0;
 	m_blockingTimeout.tv_usec = 0;
 
-	SetInterfaceAddress(InterfaceAddress);	//specify which network interface to use for DIS
+	SetInterfaceAddress( InterfaceAddress );	//specify which network interface to use for DIS
 
     startup();
 
@@ -404,24 +404,30 @@ Connection& Connection::operator=( const Connection& other )
 //////////////////////////////////////////////////////////////////////////
 
 // Set the local interface to use for sending DIS packets,
-//   otherwise the OS chooses first interface with path to destination,
+//   otherwise the kernel chooses first interface with path to destination,
 //   which is ambiguous in the case of multicast and some broadcast endpoints.
-void Connection::SetInterfaceAddress(const KString & A)
+void Connection::SetInterfaceAddress( const KString & A )
 // Connection defaults to send on first interface with route to destination if interface not specified (i.e. A = "")
 {
+    socklen_t addrlen = sizeof( m_InterfaceAddr );
+
 	m_sInterfaceAddress = A;
-	memset( &m_InterfaceAddr, 0, sizeof( m_InterfaceAddr ) );
+	memset( &m_InterfaceAddr, 0, addrlen );
 	m_InterfaceAddr.sin_family = AF_INET;
 	m_InterfaceAddr.sin_addr.s_addr = ( A.empty() ? INADDR_ANY : inet_addr( m_sInterfaceAddress.c_str() ) );
 }
 
 const KString & Connection::GetInterfaceAddress() const
 {
-	return m_sInterfaceAddress;
+    return m_sInterfaceAddress;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
+// Note: We must bind() the sending socket to specific interface (m_InterfaceAddr) (if desired)
+//   before calling this or else connect() will automatically bind() the socket to an interface
+//   of the kernel's choosing.  Thus, SetInterfaceAddress() and startup() (which in turn calls 
+//   bindSocket(), where bind() is called on the sending socket,)) should be called before this. 
 void Connection::SetSendAddress( const KString & A, KBOOL Multicast /*= false */ ) 
 {
     m_sSendAddress = A;
@@ -447,6 +453,24 @@ void Connection::SetSendAddress( const KString & A, KBOOL Multicast /*= false */
         {
             THROW_ERROR;
         }
+    }
+
+    // Attempt to 'connect()' to remote endpoint (prompts kernel to pick a local interface if not 
+    //   specified).  If not specified in m_InterfaceAddr, kernel will choose interface as follows:
+    //   If m_SendToAddr is empty, the connect() will fail, and loopback (127.0.0.1) will be chosen.  
+    //   If m_SendToAddr is already set, the first interface with a route to m_SendToAddr is chosen.
+    ( void )connect( m_iSocket[SEND_SOCK], ( sockaddr * )&m_SendToAddr, sizeof( m_SendToAddr ) ); //ignore return value - OK to fail
+
+    // Update the socket's (user-specified or kernel-chosen) interface address info (m_InterfaceAddr)
+    socklen_t addrlen = sizeof(m_InterfaceAddr);
+    ( void )getsockname( m_iSocket[SEND_SOCK], ( sockaddr * )&m_InterfaceAddr, &addrlen );
+
+    // Update string representation of interface address (m_sInterfaceAddress) too
+    char buf[INET_ADDRSTRLEN];
+    const char* p_str = inet_ntop( AF_INET, &m_InterfaceAddr.sin_addr, buf, INET_ADDRSTRLEN ); //returns null-terminated string or NULL
+    if ( p_str != 0x0 ) //if inet_ntop() returns an endpoint address, it was successful
+    {
+        m_sInterfaceAddress = p_str;
     }
 }
 
