@@ -163,7 +163,7 @@ void Signal_PDU::SetData( const KOCTET * D, KUINT16 Length )
     m_vData.clear();
 
     // Copy data into the vector
-    KUINT16 uiDataSz = Length / 8;
+    KUINT16 uiDataSz = (Length + 7) / 8;
     m_vData.reserve( uiDataSz );
     for( KUINT16 i = 0; i < uiDataSz; ++i, ++D )
     {
@@ -192,7 +192,7 @@ void Signal_PDU::GetData( KOCTET * D, KUINT16 Length ) const
     if( Length < m_ui16DataLength )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
 
     // Only return the data, not any padding that may have been added.
-    KUINT16 uiDataSz = m_ui16DataLength / 8;
+    KUINT16 uiDataSz = (m_ui16DataLength + 7) / 8;
     for( KUINT16 i = 0; i < uiDataSz; ++i )
     {
         D[i] = m_vData[i];
