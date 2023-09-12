@@ -18,10 +18,3 @@ Full class documentation can be found on the wiki:
 
 Note: From KDIS Version 2.1.0 a new cross-platform socket class exists called 'Connection', this class replaces the old windows only KSockets class.
 
-Regards
-
-Karl Jones
-
-Email: <Karljj1@yahoo.com>
-
-Twitter: [@KarlJamesJones](https://twitter.com/KarlJamesJones)
