@@ -1,8 +1,9 @@
-/KDIS/Examples/Building/KDIS_LIB/KDIS_LIB.dir/Debug/*.obj
-/KDIS/CMakeFiles/*.bin
-/KDIS/Examples/PDU/Bundle/Example_Bundle.dir/Debug/*.cache
-/KDIS/Examples/Extending/Link16/Example_Link16.dir/Debug/*.cache
-/KDIS/Examples/Building/KDIS_DLL/KDIS_DLL.dir/Debug/*.cache
+/build/
+/Examples/Building/KDIS_LIB/KDIS_LIB.dir/Debug/*.obj
+/CMakeFiles/*.bin
+/Examples/PDU/Bundle/Example_Bundle.dir/Debug/*.cache
+/Examples/Extending/Link16/Example_Link16.dir/Debug/*.cache
+/Examples/Building/KDIS_DLL/KDIS_DLL.dir/Debug/*.cache
 *.cache
 *.cmake
 *.depend
@@ -26,13 +27,13 @@
 
 *.user
 *.vcxproj
-/KDIS/CMakeFiles/2.8.11
+/CMakeFiles/2.8.11
 
-/KDIS/CMakeFiles/*.check_cache
+/CMakeFiles/*.check_cache
 
-/KDIS/Examples/Building/KDIS_DLL/Release/*.dll
+/Examples/Building/KDIS_DLL/Release/*.dll
 
-/KDIS/CMakeFiles/64d12f12d52a6a1866de00d01d6580ca/*.rule
+/CMakeFiles/64d12f12d52a6a1866de00d01d6580ca/*.rule
 
 *.rule
 
@@ -49,14 +50,14 @@
 
 CMakeCache.txt
 *.sdf
-KDIS/CMakeFiles/TargetDirectories.txt
-KDIS/CMakeFiles/generate.stamp.list
-KDIS/KDIS.opensdf
-KDIS/Tests/gtest/src/googletest/src/gtest_main.cc
-KDIS/Tests/gtest/
+/CMakeFiles/TargetDirectories.txt
+/CMakeFiles/generate.stamp.list
+/KDIS.opensdf
+/Tests/gtest/src/googletest/src/gtest_main.cc
+/Tests/gtest/
 *.bin
 *.db
-KDIS/CMakeFiles/
+/CMakeFiles/
 *.tcl
 *.opendb
 *.rej
@@ -64,9 +65,9 @@ KDIS/CMakeFiles/
 *.lastcodeanalysissucceeded
 KDIS.xcodeproj
 KDIS.build
-KDIS/.vs
-KDIS/_deps
+/.vs
+/_deps
 *.recipe
-KDIS/x64
-KDIS/Tests/KDIS_tests.dir/Debug
-KDIS/Examples/Building/KDIS_LIB/KDIS_LIB.dir/Debug
+/x64
+/Tests/KDIS_tests.dir/Debug
+/Examples/Building/KDIS_LIB/KDIS_LIB.dir/Debug
