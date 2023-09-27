@@ -1,0 +1,31 @@
+#ifndef KDIS_CONFIG_HPP_
+#define KDIS_CONFIG_HPP_
+
+/**
+ * @brief Project name.
+ */
+#define KDIS_NAME "@PROJECT_NAME@"
+
+/**
+ * @brief Project version.
+ */
+#define KDIS_VERSION "@PROJECT_VERSION@"
+
+// clang-format off
+/**
+ * @brief KDIS version major.
+ */
+#define KDIS_VERSION_MAJOR (@PROJECT_VERSION_MAJOR@)
+
+/**
+ * @brief KDIS version minor.
+ */
+#define KDIS_VERSION_MINOR (@PROJECT_VERSION_MINOR@)
+
+/**
+ * @brief KDIS version patch.
+ */
+#define KDIS_VERSION_PATCH (@PROJECT_VERSION_PATCH@)
+// clang-format on
+
+#endif  // KDIS_CONFIG_HPP_
