@@ -8,13 +8,14 @@ CPMAddPackage(
   GIT_TAG v1.14.0
   EXCLUDE_FROM_ALL ON
   SYSTEM ON
-  OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON")
+  OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON"
+)
 
 enable_testing()
 set(PROJECT_TEST_NAME ${PROJECT_NAME_STR}_tests)
 include_directories(${GTEST_INCLUDE_DIRS} ${COMMON_INCLUDES})
 include_directories(${KDIS_SOURCE_DIR})
-file(GLOB TEST_SRC_FILES UnitTests/*.cpp)
+file(GLOB TEST_SRC_FILES *.cpp)
 add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
 target_link_libraries(${PROJECT_TEST_NAME} gtest_main)
 add_test(${PROJECT_TEST_NAME} ${PROJECT_TEST_NAME})
