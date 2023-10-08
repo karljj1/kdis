@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EmissionSystem.h"
+#include "KDIS/DataTypes/EmissionSystem.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,212 +41,173 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EmissionSystem::EmissionSystem() :
-    m_ui8SystemDataLength( EMISSION_SYSTEM_SIZE / 4 ),
-    m_ui16Padding( 0 ),
-    m_ui8NumberOfBeams( 0 )
-{
+EmissionSystem::EmissionSystem()
+    : m_ui8SystemDataLength(EMISSION_SYSTEM_SIZE / 4),
+      m_ui16Padding(0),
+      m_ui8NumberOfBeams(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+EmissionSystem::EmissionSystem(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+EmissionSystem::EmissionSystem(const EmitterSystem& ESR, const Vector& Location)
+    : m_ui8SystemDataLength(EMISSION_SYSTEM_SIZE / 4),
+      m_ui16Padding(0),
+      m_ui8NumberOfBeams(0),
+      m_EmitterSystemRecord(ESR),
+      m_Location(Location) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+EmissionSystem::~EmissionSystem() { m_vEmitterBeams.clear(); }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 EmissionSystem::GetSystemDataLength() const {
+  return m_ui8SystemDataLength;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmissionSystem::EmissionSystem( KDataStream & stream ) 
-{
-    Decode( stream );
+void EmissionSystem::SetEmitterSystemRecord(const EmitterSystem& ESR) {
+  m_EmitterSystemRecord = ESR;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmissionSystem::EmissionSystem( const EmitterSystem & ESR, const Vector & Location ) :
-    m_ui8SystemDataLength( EMISSION_SYSTEM_SIZE / 4 ),
-    m_ui16Padding( 0 ),
-    m_ui8NumberOfBeams( 0 ),
-    m_EmitterSystemRecord( ESR ),
-    m_Location( Location )
-{
+EmitterSystem EmissionSystem::GetEmitterSystemRecord() const {
+  return m_EmitterSystemRecord;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmissionSystem::~EmissionSystem()
-{
-    m_vEmitterBeams.clear();
+void EmissionSystem::SetLocation(const Vector& L) { m_Location = L; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const Vector& EmissionSystem::GetLocation() const { return m_Location; }
+
+//////////////////////////////////////////////////////////////////////////
+
+Vector& EmissionSystem::GetLocation() { return m_Location; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void EmissionSystem::AddEmitterBeam(const EmitterBeam& EB) {
+  m_vEmitterBeams.push_back(EB);
+  m_ui8NumberOfBeams = m_vEmitterBeams.size();
+  m_ui8SystemDataLength += EB.GetBeamDataLength();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EmissionSystem::GetSystemDataLength() const
-{
-    return m_ui8SystemDataLength;
+void EmissionSystem::SetEmitterBeams(const vector<EmitterBeam>& Beams) {
+  m_vEmitterBeams = Beams;
+  m_ui8NumberOfBeams = m_vEmitterBeams.size();
+
+  // Re-Calculate the System Data Length
+  m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE / 4;
+
+  vector<EmitterBeam>::const_iterator citr = m_vEmitterBeams.begin();
+  vector<EmitterBeam>::const_iterator citrEnd = m_vEmitterBeams.end();
+
+  for (; citr != citrEnd; ++citr) {
+    m_ui8SystemDataLength += citr->GetBeamDataLength();
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmissionSystem::SetEmitterSystemRecord( const EmitterSystem & ESR )
-{
-    m_EmitterSystemRecord = ESR;
+const vector<EmitterBeam>& EmissionSystem::GetEmitterBeams() const {
+  return m_vEmitterBeams;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem EmissionSystem::GetEmitterSystemRecord() const
-{
-    return m_EmitterSystemRecord;
+void EmissionSystem::ClearEmitterBeams() {
+  m_vEmitterBeams.clear();
+  m_ui8NumberOfBeams = 0;
+  m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE / 4;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmissionSystem::SetLocation( const Vector & L )
-{
-    m_Location = L;
+KString EmissionSystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Emission System:\n\t"
+     << "System Data Length (32 bits):    " << (KUINT16)m_ui8SystemDataLength
+     << "\n\t"
+     << "Number Of Emitter Beams:         " << (KUINT16)m_ui8NumberOfBeams
+     << "\n"
+     << IndentString(m_EmitterSystemRecord.GetAsString(), 1) << "\t"
+     << "Location:   " << m_Location.GetAsString();
+
+  vector<EmitterBeam>::const_iterator citr = m_vEmitterBeams.begin();
+  vector<EmitterBeam>::const_iterator citrEnd = m_vEmitterBeams.end();
+
+  for (; citr != citrEnd; ++citr) {
+    ss << IndentString(citr->GetAsString(), 1);
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & EmissionSystem::GetLocation() const
-{
-    return m_Location;
+void EmissionSystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < EMISSION_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8SystemDataLength >> m_ui8NumberOfBeams >> m_ui16Padding >>
+      KDIS_STREAM m_EmitterSystemRecord >> KDIS_STREAM m_Location;
+
+  for (KUINT8 i = 0; i < m_ui8NumberOfBeams; ++i) {
+    m_vEmitterBeams.push_back(EmitterBeam(stream));
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & EmissionSystem::GetLocation()
-{
-    return m_Location;
+KDataStream EmissionSystem::Encode() const {
+  KDataStream stream;
+
+  EmissionSystem::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmissionSystem::AddEmitterBeam( const EmitterBeam & EB )
-{
-    m_vEmitterBeams.push_back( EB );
-    m_ui8NumberOfBeams = m_vEmitterBeams.size();
-    m_ui8SystemDataLength += EB.GetBeamDataLength();
+void EmissionSystem::Encode(KDataStream& stream) const {
+  stream << m_ui8SystemDataLength << m_ui8NumberOfBeams << m_ui16Padding
+         << KDIS_STREAM m_EmitterSystemRecord << KDIS_STREAM m_Location;
+
+  vector<EmitterBeam>::const_iterator citr = m_vEmitterBeams.begin();
+  vector<EmitterBeam>::const_iterator citrEnd = m_vEmitterBeams.end();
+
+  for (; citr != citrEnd; ++citr) {
+    citr->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmissionSystem::SetEmitterBeams( const vector<EmitterBeam> & Beams )
-{
-    m_vEmitterBeams = Beams;
-    m_ui8NumberOfBeams = m_vEmitterBeams.size();
-
-    // Re-Calculate the System Data Length
-    m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE / 4;
-
-    vector<EmitterBeam>::const_iterator citr = m_vEmitterBeams.begin();
-    vector<EmitterBeam>::const_iterator citrEnd = m_vEmitterBeams.end();
-
-    for( ; citr != citrEnd; ++citr )
-    {
-        m_ui8SystemDataLength += citr->GetBeamDataLength();
-    }
+KBOOL EmissionSystem::operator==(const EmissionSystem& Value) const {
+  if (m_ui8SystemDataLength != Value.m_ui8SystemDataLength) return false;
+  if (m_ui8NumberOfBeams != Value.m_ui8NumberOfBeams) return false;
+  if (m_EmitterSystemRecord != Value.m_EmitterSystemRecord) return false;
+  if (m_Location != Value.m_Location) return false;
+  if (m_vEmitterBeams != Value.m_vEmitterBeams) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<EmitterBeam> & EmissionSystem::GetEmitterBeams() const
-{
-    return m_vEmitterBeams;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EmissionSystem::ClearEmitterBeams()
-{
-    m_vEmitterBeams.clear();
-    m_ui8NumberOfBeams = 0;
-    m_ui8SystemDataLength = EMISSION_SYSTEM_SIZE / 4;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString EmissionSystem::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Emission System:\n\t"
-       << "System Data Length (32 bits):    " << ( KUINT16 )m_ui8SystemDataLength            << "\n\t"
-       << "Number Of Emitter Beams:         " << ( KUINT16 )m_ui8NumberOfBeams               << "\n"
-       << IndentString( m_EmitterSystemRecord.GetAsString(), 1 )                             << "\t"
-       << "Location:   " << m_Location.GetAsString();
-
-    vector<EmitterBeam>::const_iterator citr = m_vEmitterBeams.begin();
-    vector<EmitterBeam>::const_iterator citrEnd = m_vEmitterBeams.end();
-
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << IndentString( citr->GetAsString(), 1 );
-    }
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EmissionSystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < EMISSION_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8SystemDataLength
-           >> m_ui8NumberOfBeams
-           >> m_ui16Padding
-           >> KDIS_STREAM m_EmitterSystemRecord
-           >> KDIS_STREAM m_Location;
-
-    for( KUINT8 i = 0; i < m_ui8NumberOfBeams; ++i )
-    {
-        m_vEmitterBeams.push_back( EmitterBeam( stream ) );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream EmissionSystem::Encode() const
-{
-    KDataStream stream;
-
-    EmissionSystem::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EmissionSystem::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8SystemDataLength
-           << m_ui8NumberOfBeams
-           << m_ui16Padding
-           << KDIS_STREAM m_EmitterSystemRecord
-           << KDIS_STREAM m_Location;
-
-    vector<EmitterBeam>::const_iterator citr = m_vEmitterBeams.begin();
-    vector<EmitterBeam>::const_iterator citrEnd = m_vEmitterBeams.end();
-
-    for( ; citr != citrEnd; ++citr )
-    {
-        citr->Encode( stream );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EmissionSystem::operator == ( const EmissionSystem & Value ) const
-{
-    if( m_ui8SystemDataLength   != Value.m_ui8SystemDataLength )    return false;
-    if( m_ui8NumberOfBeams      != Value.m_ui8NumberOfBeams )       return false;
-    if( m_EmitterSystemRecord   != Value.m_EmitterSystemRecord )    return false;
-    if( m_Location              != Value.m_Location )               return false;
-    if( m_vEmitterBeams         != Value.m_vEmitterBeams )          return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EmissionSystem::operator != ( const EmissionSystem & Value ) const
-{
-    return !( *this == Value );
+KBOOL EmissionSystem::operator!=(const EmissionSystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

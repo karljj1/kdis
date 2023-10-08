@@ -33,82 +33,85 @@ http://p.sf.net/kdis/UserGuide
     created:    23/09/2013
     author:     Karl Jones
 
-    purpose:    Base class for Layer 3 Mode 5 interrogator and transponder functional data.
-	            Note: The Layer 1 System Type field isused to determine whether Layer 3 
-				represents a Mode 5 capable interrogator or transponder.
+    purpose:    Base class for Layer 3 Mode 5 interrogator and transponder
+functional data. Note: The Layer 1 System Type field isused to determine whether
+Layer 3 represents a Mode 5 capable interrogator or transponder.
 
     Size:       224 bits / 28 octets - min size
 *********************************************************************/
 
 #pragma once
 
-#include "./LayerHeader.h"
-#include "./SimulationIdentifier.h"
-#include "./StandardVariable.h"
+#include <vector>
+
+#include "KDIS/DataTypes/LayerHeader.hpp"
+#include "KDIS/DataTypes/SimulationIdentifier.hpp"
+#include "KDIS/DataTypes/StandardVariable.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3 : public LayerHeader
-{
-protected:
+class KDIS_EXPORT IFF_Layer3 : public LayerHeader {
+ protected:
+  SimulationIdentifier m_RptSim;
 
-	SimulationIdentifier m_RptSim;
+  // Transponder/interrogator in the inherited classes.
 
-	// Transponder/interrogator in the inherited classes.
+  KUINT16 m_ui16Padding;
 
-	KUINT16 m_ui16Padding;
-		
-	KUINT16 m_ui16NumIffRecs;
+  KUINT16 m_ui16NumIffRecs;
 
-	std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
+  std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
 
-public:
+ public:
+  static const KUINT16 IFF_LAYER3_SIZE = 28;  // Min size
 
-    static const KUINT16 IFF_LAYER3_SIZE = 28; // Min size
+  IFF_Layer3();
 
-    IFF_Layer3();
+  explicit IFF_Layer3(const LayerHeader& H);
 
-	IFF_Layer3( const LayerHeader & H );
+  virtual ~IFF_Layer3();
 
-    virtual ~IFF_Layer3();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3::SetReportingSimulation
+  //              KDIS::DATA_TYPE::IFF_Layer3::GetReportingSimulation
+  // Description: The simulation reporting this IFF PDU.
+  // Parameter:   const SimulationIdentifier & RS
+  //************************************
+  void SetReportingSimulation(const SimulationIdentifier& RS);
+  const SimulationIdentifier& GetReportingSimulation() const;
+  SimulationIdentifier& GetReportingSimulation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::SetReportingSimulation
-    //              KDIS::DATA_TYPE::IFF_Layer3::GetReportingSimulation
-    // Description: The simulation reporting this IFF PDU.
-    // Parameter:   const SimulationIdentifier & RS
-    //************************************
-    void SetReportingSimulation( const SimulationIdentifier & RS );
-    const SimulationIdentifier & GetReportingSimulation() const;
-    SimulationIdentifier & GetReportingSimulation();
-			
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3::GetNumberDataRecords
-    // Description: The number of IFF Data records in this PDU.
-    //************************************
-	KUINT16 GetNumberDataRecords() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3::GetNumberDataRecords
+  // Description: The number of IFF Data records in this PDU.
+  //************************************
+  KUINT16 GetNumberDataRecords() const;
 
-	//************************************
-    // FullName:    KDIS::PDU::IFF_Layer3::AddDataRecord
-    //              KDIS::PDU::IFF_Layer3::SetDataRecords
-    //              KDIS::PDU::IFF_Layer3::GetDataRecords
-    //              KDIS::PDU::IFF_Layer3::ClearDataRecords
-    // Description: IFF Data records are used when variable records are required to be included in the layer.
-	//              They are identical to Standard Variable Specification record format except that alignment is to
-	//              a 32-bit boundary for each IFF Data record instead of to a 64-bit boundary. 
-	//              This means the records can not contain 64 bit floats or 64 bit integers.
-	//              See B.2.1.1 of IEEE 1278.1-2012 for a full list of supported records (Note: I have not implmented them all yet but do plan to).
-    // Parameter:   StdVarPtr DR, const vector<StdVarPtr> & DRS
-    //************************************
-    void AddDataRecord( StdVarPtr DR );
-	void SetDataRecords( const std::vector<StdVarPtr> & DRS );
-	const std::vector<StdVarPtr> & GetDataRecords() const;
-    void ClearDataRecords();
+  //************************************
+  // FullName:    KDIS::PDU::IFF_Layer3::AddDataRecord
+  //              KDIS::PDU::IFF_Layer3::SetDataRecords
+  //              KDIS::PDU::IFF_Layer3::GetDataRecords
+  //              KDIS::PDU::IFF_Layer3::ClearDataRecords
+  // Description: IFF Data records are used when variable records are required
+  // to be included in the layer.
+  //              They are identical to Standard Variable Specification record
+  //              format except that alignment is to a 32-bit boundary for each
+  //              IFF Data record instead of to a 64-bit boundary. This means
+  //              the records can not contain 64 bit floats or 64 bit integers.
+  //              See B.2.1.1 of IEEE 1278.1-2012 for a full list of supported
+  //              records (Note: I have not implmented them all yet but do plan
+  //              to).
+  // Parameter:   StdVarPtr DR, const vector<StdVarPtr> & DRS
+  //************************************
+  void AddDataRecord(StdVarPtr DR);
+  void SetDataRecords(const std::vector<StdVarPtr>& DRS);
+  const std::vector<StdVarPtr>& GetDataRecords() const;
+  void ClearDataRecords();
 
-    KBOOL operator == ( const IFF_Layer3 & Value ) const;
-    KBOOL operator != ( const IFF_Layer3 & Value ) const;
+  KBOOL operator==(const IFF_Layer3& Value) const;
+  KBOOL operator!=(const IFF_Layer3& Value) const;
 };
 
-} // END namespace DATA_TYPE
-} // END namespace KDIS
+}  // END namespace DATA_TYPE
+}  // END namespace KDIS

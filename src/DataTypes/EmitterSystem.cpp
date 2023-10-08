@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EmitterSystem.h"
+#include "KDIS/DataTypes/EmitterSystem.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,139 +37,101 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem::EmitterSystem() :
-    m_ui16EmitterName( 0 ),
-    m_ui8Function( 0 ),
-    m_ui8EmitterIDNumber( 0 )
-{
+EmitterSystem::EmitterSystem()
+    : m_ui16EmitterName(0), m_ui8Function(0), m_ui8EmitterIDNumber(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+EmitterSystem::EmitterSystem(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+EmitterSystem::EmitterSystem(EmitterName EN, EmitterFunction F, KUINT8 ID)
+    : m_ui16EmitterName(EN), m_ui8Function(F), m_ui8EmitterIDNumber(ID) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+EmitterSystem::~EmitterSystem() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EmitterSystem::SetEmitterName(EmitterName EN) { m_ui16EmitterName = EN; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EmitterName EmitterSystem::GetEmitterName() const {
+  return (EmitterName)m_ui16EmitterName;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem::EmitterSystem( KDataStream & stream ) 
-{
-    Decode( stream );
+void EmitterSystem::SetFunction(EmitterFunction F) { m_ui8Function = F; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EmitterFunction EmitterSystem::GetFunction() const {
+  return (EmitterFunction)m_ui8Function;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem::EmitterSystem( EmitterName EN, EmitterFunction F, KUINT8 ID ) :
-    m_ui16EmitterName( EN ),
-    m_ui8Function( F ),
-    m_ui8EmitterIDNumber( ID )
-{
+void EmitterSystem::SetEmitterID(KUINT8 ID) { m_ui8EmitterIDNumber = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 EmitterSystem::GetEmitterID() const { return m_ui8EmitterIDNumber; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString EmitterSystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Emitter System:"
+     << "\n\tName:     " << GetEnumAsStringEmitterName(m_ui16EmitterName)
+     << "\n\tFunction: " << GetEnumAsStringEmitterFunction(m_ui8Function)
+     << "\n\tID:       " << (KUINT16)m_ui8EmitterIDNumber << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterSystem::~EmitterSystem()
-{
+void EmitterSystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < EMITTER_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16EmitterName >> m_ui8Function >> m_ui8EmitterIDNumber;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmitterSystem::SetEmitterName( EmitterName EN )
-{
-    m_ui16EmitterName = EN;
+KDataStream EmitterSystem::Encode() const {
+  KDataStream stream;
+
+  EmitterSystem::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterName EmitterSystem::GetEmitterName() const
-{
-    return ( EmitterName )m_ui16EmitterName;
+void EmitterSystem::Encode(KDataStream& stream) const {
+  stream << m_ui16EmitterName << m_ui8Function << m_ui8EmitterIDNumber;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EmitterSystem::SetFunction( EmitterFunction F )
-{
-    m_ui8Function = F;
+KBOOL EmitterSystem::operator==(const EmitterSystem& Value) const {
+  if (m_ui16EmitterName != Value.m_ui16EmitterName) return false;
+  if (m_ui8Function != Value.m_ui8Function) return false;
+  if (m_ui8EmitterIDNumber != Value.m_ui8EmitterIDNumber) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EmitterFunction EmitterSystem::GetFunction() const
-{
-    return ( EmitterFunction )m_ui8Function;
+KBOOL EmitterSystem::operator!=(const EmitterSystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void EmitterSystem::SetEmitterID( KUINT8 ID )
-{
-    m_ui8EmitterIDNumber = ID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT8 EmitterSystem::GetEmitterID() const
-{
-    return m_ui8EmitterIDNumber;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString EmitterSystem::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Emitter System:"
-       << "\n\tName:     " << GetEnumAsStringEmitterName( m_ui16EmitterName )
-       << "\n\tFunction: " << GetEnumAsStringEmitterFunction( m_ui8Function )
-       << "\n\tID:       " << ( KUINT16 )m_ui8EmitterIDNumber
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EmitterSystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < EMITTER_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16EmitterName
-           >> m_ui8Function
-           >> m_ui8EmitterIDNumber;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream EmitterSystem::Encode() const
-{
-    KDataStream stream;
-
-    EmitterSystem::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EmitterSystem::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16EmitterName
-           << m_ui8Function
-           << m_ui8EmitterIDNumber;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EmitterSystem::operator == ( const EmitterSystem & Value ) const
-{
-    if( m_ui16EmitterName    != Value.m_ui16EmitterName )    return false;
-    if( m_ui8Function        != Value.m_ui8Function )        return false;
-    if( m_ui8EmitterIDNumber != Value.m_ui8EmitterIDNumber ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EmitterSystem::operator != ( const EmitterSystem & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

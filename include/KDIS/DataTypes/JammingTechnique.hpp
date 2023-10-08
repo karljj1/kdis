@@ -39,101 +39,99 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
 #include <vector>
+
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
 #if DIS_VERSION > 6
 
-class KDIS_EXPORT JammingTechnique : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT JammingTechnique : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8Kind;
 
-    KUINT8 m_ui8Kind;
+  KUINT8 m_ui8Category;
 
-    KUINT8 m_ui8Category;
+  KUINT8 m_ui8Subcategory;
 
-    KUINT8 m_ui8Subcategory;
+  KUINT8 m_ui8Specific;
 
-    KUINT8 m_ui8Specific;
+ public:
+  static const KUINT16 JAMMING_TECHNIQUE_SIZE = 4;
 
-public:
+  JammingTechnique();
 
-    static const KUINT16 JAMMING_TECHNIQUE_SIZE = 4;
+  JammingTechnique(KDataStream& stream);
 
-    JammingTechnique();
+  JammingTechnique(KUINT8 KIND, KUINT8 CATEGORY, KUINT8 SUBCATEGORY,
+                   KUINT8 SPECIFIC);
 
-    JammingTechnique( KDataStream & stream );
+  virtual ~JammingTechnique();
 
-    JammingTechnique( KUINT8 KIND, KUINT8 CATEGORY, KUINT8 SUBCATEGORY,
-                 KUINT8 SPECIFIC );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetKind
+  //              KDIS::DATA_TYPE::JammingTechnique::GetKind
+  // Description: Kind.
+  // Parameter:   KUINT8 KIND, void
+  //************************************
+  void SetKind(KUINT8 KIND);
+  KUINT8 GetKind() const;
 
-    virtual ~JammingTechnique();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetCategory
+  //              KDIS::DATA_TYPE::JammingTechnique::GetCategory
+  // Description: Category.
+  // Parameter:   KUINT8 CATEGORY, void
+  //************************************
+  void SetCategory(KUINT8 CATEGORY);
+  KUINT8 GetCategory() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetKind
-    //              KDIS::DATA_TYPE::JammingTechnique::GetKind
-    // Description: Kind.
-    // Parameter:   KUINT8 KIND, void
-    //************************************
-    void SetKind( KUINT8 KIND );
-    KUINT8 GetKind() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetSubcategory
+  //              KDIS::DATA_TYPE::JammingTechnique::GetSubcategory
+  // Description: Kind.
+  // Parameter:   KUINT8 SUBCATEGORY, void
+  //************************************
+  void SetSubcategory(KUINT8 SUBCATEGORY);
+  KUINT8 GetSubcategory() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetCategory
-    //              KDIS::DATA_TYPE::JammingTechnique::GetCategory
-    // Description: Category.
-    // Parameter:   KUINT8 CATEGORY, void
-    //************************************
-    void SetCategory( KUINT8 CATEGORY );
-    KUINT8 GetCategory() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetSpecific
+  //              KDIS::DATA_TYPE::JammingTechnique::GetSpecific
+  // Description: Kind.
+  // Parameter:   KUINT8 SPECIFIC, void
+  //************************************
+  void SetSpecific(KUINT8 SPECIFIC);
+  KUINT8 GetSpecific() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetSubcategory
-    //              KDIS::DATA_TYPE::JammingTechnique::GetSubcategory
-    // Description: Kind.
-    // Parameter:   KUINT8 SUBCATEGORY, void
-    //************************************
-    void SetSubcategory( KUINT8 SUBCATEGORY );
-    KUINT8 GetSubcategory() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::JammingTechnique::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::JammingTechnique::SetSpecific
-    //              KDIS::DATA_TYPE::JammingTechnique::GetSpecific
-    // Description: Kind.
-    // Parameter:   KUINT8 SPECIFIC, void
-    //************************************
-    void SetSpecific( KUINT8 SPECIFIC );
-    KUINT8 GetSpecific() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::JammingTechnique::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::JammingTechnique::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::JammingTechnique::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::JammingTechnique::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::JammingTechnique::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const JammingTechnique & Value ) const;
-    KBOOL operator != ( const JammingTechnique & Value ) const;
+  KBOOL operator==(const JammingTechnique& Value) const;
+  KBOOL operator!=(const JammingTechnique& Value) const;
 };
 
 #endif
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./LineRecord1.h"
+#include "KDIS/DataTypes/LineRecord1.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,151 +37,121 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LineRecord1::LineRecord1()
-{
-    m_ui32EnvRecTyp = LineRecord1Type;
-    m_ui16Length = ( LINE_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+LineRecord1::LineRecord1() {
+  m_ui32EnvRecTyp = LineRecord1Type;
+  m_ui16Length = (LINE_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LineRecord1::LineRecord1( KDataStream & stream )
-{
-    Decode( stream );
+LineRecord1::LineRecord1(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+LineRecord1::LineRecord1(KUINT8 Index, const WorldCoordinates& Start,
+                         const WorldCoordinates& End)
+    : m_StartLocation(Start), m_EndLocation(End) {
+  m_ui8Index = Index;
+  m_ui32EnvRecTyp = LineRecord1Type;
+  m_ui16Length = (LINE_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LineRecord1::LineRecord1( KUINT8 Index, const WorldCoordinates & Start, const WorldCoordinates & End  ) :
-    m_StartLocation( Start ),
-    m_EndLocation( End )
-{
-    m_ui8Index = Index;
-    m_ui32EnvRecTyp = LineRecord1Type;
-    m_ui16Length = ( LINE_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+LineRecord1::~LineRecord1() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LineRecord1::SetLocation(const WorldCoordinates& Start,
+                              const WorldCoordinates& End) {
+  m_StartLocation = Start;
+  m_EndLocation = End;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LineRecord1::~LineRecord1()
-{
+void LineRecord1::SetStartLocation(const WorldCoordinates& L) {
+  m_StartLocation = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LineRecord1::SetLocation( const WorldCoordinates & Start, const WorldCoordinates & End )
-{
-    m_StartLocation = Start;
-    m_EndLocation = End;
+const WorldCoordinates& LineRecord1::GetStartLocation() const {
+  return m_StartLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LineRecord1::SetStartLocation( const WorldCoordinates & L )
-{
-    m_StartLocation = L;
+WorldCoordinates& LineRecord1::GetStartLocation() { return m_StartLocation; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LineRecord1::SetEndLocation(const WorldCoordinates& L) {
+  m_EndLocation = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & LineRecord1::GetStartLocation() const
-{
-    return m_StartLocation;
+const WorldCoordinates& LineRecord1::GetEndLocation() const {
+  return m_EndLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & LineRecord1::GetStartLocation()
-{
-    return m_StartLocation;
+WorldCoordinates& LineRecord1::GetEndLocation() { return m_EndLocation; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString LineRecord1::GetAsString() const {
+  KStringStream ss;
+
+  ss << EnvironmentRecord::GetAsString()
+     << "\tStart Location: " << m_StartLocation.GetAsString()
+     << "\tEnd Location:   " << m_EndLocation.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LineRecord1::SetEndLocation( const WorldCoordinates & L )
-{
-    m_EndLocation = L;
+void LineRecord1::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < LINE_RECORD_1_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
+      KDIS_STREAM m_StartLocation >> KDIS_STREAM m_EndLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & LineRecord1::GetEndLocation() const
-{
-    return m_EndLocation;
+KDataStream LineRecord1::Encode() const {
+  KDataStream stream;
+
+  LineRecord1::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & LineRecord1::GetEndLocation()
-{
-    return m_EndLocation;
+void LineRecord1::Encode(KDataStream& stream) const {
+  stream << m_ui32EnvRecTyp << m_ui16Length << m_ui8Index << m_ui8Padding
+         << KDIS_STREAM m_StartLocation << KDIS_STREAM m_EndLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString LineRecord1::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << EnvironmentRecord::GetAsString()
-       << "\tStart Location: " <<  m_StartLocation.GetAsString()
-       << "\tEnd Location:   " <<  m_EndLocation.GetAsString();
-
-    return ss.str();
+KBOOL LineRecord1::operator==(const LineRecord1& Value) const {
+  if (EnvironmentRecord::operator!=(Value)) return false;
+  if (m_StartLocation != Value.m_StartLocation) return false;
+  if (m_EndLocation != Value.m_EndLocation) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LineRecord1::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < LINE_RECORD_1_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui32EnvRecTyp
-           >> m_ui16Length
-           >> m_ui8Index
-           >> m_ui8Padding
-           >> KDIS_STREAM m_StartLocation
-           >> KDIS_STREAM m_EndLocation;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream LineRecord1::Encode() const
-{
-    KDataStream stream;
-
-    LineRecord1::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LineRecord1::Encode( KDataStream & stream ) const
-{
-    stream << m_ui32EnvRecTyp
-           << m_ui16Length
-           << m_ui8Index
-           << m_ui8Padding
-           << KDIS_STREAM m_StartLocation
-           << KDIS_STREAM m_EndLocation;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LineRecord1::operator == ( const LineRecord1 & Value )const
-{
-    if( EnvironmentRecord::operator !=( Value ) ) return false;
-    if( m_StartLocation != Value.m_StartLocation ) return false;
-    if( m_EndLocation   != Value.m_EndLocation ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LineRecord1::operator != ( const LineRecord1 & Value )const
-{
-    return !( *this == Value );
+KBOOL LineRecord1::operator!=(const LineRecord1& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

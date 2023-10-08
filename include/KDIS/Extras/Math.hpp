@@ -37,10 +37,10 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../KDefines.h"
+#include "KDIS/KDefines.hpp"
 
 #ifndef _USE_MATH_DEFINES
-    #define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
 #endif
 
 #include <math.h>
@@ -57,22 +57,19 @@ namespace Math {
 // Parameter:   Type Max
 //************************************
 
-template<class Type>
-inline Type CLamp( Type Val, Type Min, Type Max )
-{
-    if( Val < Min )
-    {
-        return Min;
-    }
+template <class Type>
+inline Type CLamp(Type Val, Type Min, Type Max) {
+  if (Val < Min) {
+    return Min;
+  }
 
-    if( Val > Max )
-    {
-        return Max );
-    }
+  if (Val > Max) {
+    return Max;
+  }
 
-    return Val;
+  return Val;
 }
 
-} // END namespace Math
-} // END namespace UTILS
-} // END namespace KDIS
+}  // END namespace Math
+}  // END namespace UTILS
+}  // END namespace KDIS

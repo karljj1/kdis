@@ -32,78 +32,77 @@ http://p.sf.net/kdis/UserGuide
     created:    22/04/2013
     author:     Karl Jones
 
-    purpose:   
+    purpose:
 
     size:       xx bits / x octets - xx
 *********************************************************************/
 
 #pragma once
 
-#include "./StandardVariable.h"
+#include "KDIS/DataTypes/StandardVariable.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT DEAreaAimpoint : public StandardVariable
-{
-protected:
+class KDIS_EXPORT DEAreaAimpoint : public StandardVariable {
+ protected:
+  KUINT16 m_ui16Padding;
 
-	KUINT16 m_ui16Padding;
+  KUINT16 m_ui16BAPRC;
 
-	KUINT16 m_ui16BAPRC;
+  KUINT16 m_ui16DETEDRC;
 
-	KUINT16 m_ui16DETEDRC;
+  // TODO: Beam Ant Pattern
 
-	// TODO: Beam Ant Pattern
+  // TODO: DE Target Energy Dep Rec
 
-	// TODO: DE Target Energy Dep Rec
-	
-public:
+ public:
+  static const KUINT16 DE_AREA_AIMPOINT_SIZE = 00000000000;
 
-    static const KUINT16 DE_AREA_AIMPOINT_SIZE = 00000000000;
+  DEAreaAimpoint();
 
-    DEAreaAimpoint();
+  DEAreaAimpoint(KDataStream& stream);
 
-    DEAreaAimpoint( KDataStream & stream ) ;
+  virtual ~DEAreaAimpoint();
 
-    virtual ~DEAreaAimpoint();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetBeamAntennaPatternCount
+  // Description: The count of Beam Antenna Pattern records that are included as
+  // part of this record.
+  //************************************
+  KUINT16 GetBeamAntennaPatternCount() const;
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetBeamAntennaPatternCount
-    // Description: The count of Beam Antenna Pattern records that are included as part of this record.
-    //************************************
-	KUINT16 GetBeamAntennaPatternCount() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::DEAreaAimpoint::GetTargetEnergyDepositionCount
+  // Description: The count of DE Target Energy Deposition records that are
+  // included as part of this record.
+  //************************************
+  KUINT16 GetTargetEnergyDepositionCount() const;
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetTargetEnergyDepositionCount
-    // Description: The count of DE Target Energy Deposition records that are included as part of this record. 
-    //************************************
-	KUINT16 GetTargetEnergyDepositionCount() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DEAreaAimpoint::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const DEAreaAimpoint & Value ) const;
-    KBOOL operator != ( const DEAreaAimpoint & Value ) const;
+  KBOOL operator==(const DEAreaAimpoint& Value) const;
+  KBOOL operator!=(const DEAreaAimpoint& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

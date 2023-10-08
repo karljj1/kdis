@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Data_Query_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Data_Query_R_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,155 +42,134 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_R_PDU::Data_Query_R_PDU()
-{
-    m_ui8PDUType = DataQuery_R_PDU_Type;
-    m_ui16PDULength = DATA_QUERY_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Data_Query_R_PDU::Data_Query_R_PDU() {
+  m_ui8PDUType = DataQuery_R_PDU_Type;
+  m_ui16PDULength = DATA_QUERY_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_R_PDU::Data_Query_R_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Data_Query_R_PDU::Data_Query_R_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_R_PDU::Data_Query_R_PDU( const Header & H, KDataStream & stream )  :
-    Data_Query_PDU( H )
-{
-    Decode( stream, true );
+Data_Query_R_PDU::Data_Query_R_PDU(const Header& H, KDataStream& stream)
+    : Data_Query_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_Query_R_PDU::~Data_Query_R_PDU()
-{
+Data_Query_R_PDU::~Data_Query_R_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Data_Query_R_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Data Query PDU-R-\n"
+     << Simulation_Management_Header::GetAsString()
+     << Reliability_Header::GetAsString()
+     << "Request ID:                   " << m_ui32RequestID
+     << "\nTime Interval:            \n"
+     << IndentString(m_TimeInterval.GetAsString())
+     << "\nNumber Fixed Datum:         " << m_ui32NumFixedDatum
+     << "\nNumber Variable Datum:      " << m_ui32NumVariableDatum << "\n";
+
+  ss << "Fixed Datum ID's\n";
+  vector<KUINT32>::const_iterator citrFixed = m_vFixedDatum.begin();
+  vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+  for (; citrFixed != citrFixedEnd; ++citrFixed) {
+    ss << "\t" << *citrFixed << "\n";
+  }
+
+  ss << "Variable Datum ID's\n";
+  vector<KUINT32>::const_iterator citrVar = m_vVariableDatum.begin();
+  vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
+  for (; citrVar != citrVarEnd; ++citrVar) {
+    ss << "\t" << *citrVar << "\n";
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Data_Query_R_PDU::GetAsString() const
-{
-    KStringStream ss;
+void Data_Query_R_PDU::Decode(KDataStream& stream,
+                              bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      DATA_QUERY_R_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    ss << Header::GetAsString()
-       << "-Data Query PDU-R-\n"
-       << Simulation_Management_Header::GetAsString()
-       << Reliability_Header::GetAsString()
-       << "Request ID:                   " << m_ui32RequestID
-       << "\nTime Interval:            \n" << IndentString( m_TimeInterval.GetAsString() )
-       << "\nNumber Fixed Datum:         " << m_ui32NumFixedDatum
-       << "\nNumber Variable Datum:      " << m_ui32NumVariableDatum
-       << "\n";
+  Simulation_Management_Header::Decode(stream, ignoreHeader);
+  Reliability_Header::Decode(stream);
 
-    ss << "Fixed Datum ID's\n";
-    vector<KUINT32>::const_iterator citrFixed = m_vFixedDatum.begin();
-    vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
-    for( ; citrFixed != citrFixedEnd; ++citrFixed )
-    {
-        ss << "\t" << *citrFixed << "\n";
-    }
+  stream >> m_ui32RequestID >> KDIS_STREAM m_TimeInterval >>
+      m_ui32NumFixedDatum >> m_ui32NumVariableDatum;
 
-    ss << "Variable Datum ID's\n";
-    vector<KUINT32>::const_iterator citrVar = m_vVariableDatum.begin();
-    vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
-    for( ; citrVar != citrVarEnd; ++citrVar )
-    {
-        ss << "\t" << *citrVar << "\n";
-    }
+  KUINT32 tmp = 0;
 
+  // FixedDatum
+  for (KUINT16 i = 0; i < m_ui32NumFixedDatum; ++i) {
+    stream >> tmp;
+    m_vFixedDatum.push_back(tmp);
+  }
 
-    return ss.str();
+  // VariableDatum
+  for (KUINT16 i = 0; i < m_ui32NumVariableDatum; ++i) {
+    stream >> tmp;
+    m_vVariableDatum.push_back(tmp);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_Query_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DATA_QUERY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Data_Query_R_PDU::Encode() const {
+  KDataStream stream;
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );
-    Reliability_Header::Decode( stream );
+  Data_Query_R_PDU::Encode(stream);
 
-    stream >> m_ui32RequestID
-           >> KDIS_STREAM m_TimeInterval
-           >> m_ui32NumFixedDatum
-           >> m_ui32NumVariableDatum;
-
-    KUINT32 tmp = 0;
-
-    // FixedDatum
-    for( KUINT16 i = 0; i < m_ui32NumFixedDatum; ++i )
-    {
-        stream >> tmp;
-        m_vFixedDatum.push_back( tmp );
-    }
-
-    // VariableDatum
-    for( KUINT16 i = 0; i < m_ui32NumVariableDatum; ++i )
-    {
-        stream >> tmp;
-        m_vVariableDatum.push_back( tmp );
-    }
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Data_Query_R_PDU::Encode() const
-{
-    KDataStream stream;
+void Data_Query_R_PDU::Encode(KDataStream& stream) const {
+  Simulation_Management_Header::Encode(stream);
+  Reliability_Header::Encode(stream);
 
-    Data_Query_R_PDU::Encode( stream );
+  stream << m_ui32RequestID << KDIS_STREAM m_TimeInterval << m_ui32NumFixedDatum
+         << m_ui32NumVariableDatum;
 
-    return stream;
+  vector<KUINT32>::const_iterator citrFixed = m_vFixedDatum.begin();
+  vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+  for (; citrFixed != citrFixedEnd; ++citrFixed) {
+    stream << *citrFixed;
+  }
+
+  vector<KUINT32>::const_iterator citrVar = m_vVariableDatum.begin();
+  vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
+  for (; citrVar != citrVarEnd; ++citrVar) {
+    stream << *citrVar;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_Query_R_PDU::Encode( KDataStream & stream ) const
-{
-    Simulation_Management_Header::Encode( stream );
-    Reliability_Header::Encode( stream );
-
-    stream << m_ui32RequestID
-           << KDIS_STREAM m_TimeInterval
-           << m_ui32NumFixedDatum
-           << m_ui32NumVariableDatum;
-
-    vector<KUINT32>::const_iterator citrFixed = m_vFixedDatum.begin();
-    vector<KUINT32>::const_iterator citrFixedEnd = m_vFixedDatum.end();
-    for( ; citrFixed != citrFixedEnd; ++citrFixed )
-    {
-        stream << *citrFixed;
-    }
-
-    vector<KUINT32>::const_iterator citrVar = m_vVariableDatum.begin();
-    vector<KUINT32>::const_iterator citrVarEnd = m_vVariableDatum.end();
-    for( ; citrVar != citrVarEnd; ++citrVar )
-    {
-        stream << *citrVar;
-    }
+KBOOL Data_Query_R_PDU::operator==(const Data_Query_R_PDU& Value) const {
+  if (Data_Query_PDU::operator!=(Value)) return false;
+  if (Reliability_Header::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Data_Query_R_PDU::operator == ( const Data_Query_R_PDU & Value ) const
-{
-    if( Data_Query_PDU::operator     !=( Value ) ) return false;
-    if( Reliability_Header::operator !=( Value ) ) return false;
-    return true;
+KBOOL Data_Query_R_PDU::operator!=(const Data_Query_R_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Data_Query_R_PDU::operator != ( const Data_Query_R_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

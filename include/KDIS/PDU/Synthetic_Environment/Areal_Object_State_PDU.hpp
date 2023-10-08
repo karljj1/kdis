@@ -41,161 +41,167 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Object_State_Header.h"
-#include "./../../DataTypes/ObjectType.h"
-#include "./../../DataTypes/SimulationIdentifier.h"
-#include "./../../DataTypes/ArealObjectAppearance.h"
-#include "./../../DataTypes/WorldCoordinates.h"
 #include <vector>
+
+#include "KDIS/DataTypes/ArealObjectAppearance.hpp"
+#include "KDIS/DataTypes/ObjectType.hpp"
+#include "KDIS/DataTypes/SimulationIdentifier.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
+#include "KDIS/PDU/Synthetic_Environment/Object_State_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Areal_Object_State_PDU : public Object_State_Header
-{
-protected:
+class KDIS_EXPORT Areal_Object_State_PDU : public Object_State_Header {
+ protected:
+  union {
+    struct {
+      KUINT8 m_ui8LocBit : 1;
+      KUINT8 m_ui8Unused : 7;
+    };
 
-    union
-    {
-        struct
-        {
-            KUINT8 m_ui8LocBit : 1;
-            KUINT8 m_ui8Unused : 7;
-        };
+    KUINT8 m_ui8Modifications;
+  } m_ModificationUnion;
 
-        KUINT8 m_ui8Modifications;
-    } m_ModificationUnion;
+  KDIS::DATA_TYPE::ObjectType m_ObjTyp;
 
-    KDIS::DATA_TYPE::ObjectType m_ObjTyp;
+  KDIS::DATA_TYPE::ArealObjectAppearance m_Apperance;
 
-    KDIS::DATA_TYPE::ArealObjectAppearance m_Apperance;
+  KUINT16 m_ui16NumPoints;
 
-    KUINT16 m_ui16NumPoints;
+  KDIS::DATA_TYPE::SimulationIdentifier m_ReqID;
 
-    KDIS::DATA_TYPE::SimulationIdentifier m_ReqID;
+  KDIS::DATA_TYPE::SimulationIdentifier m_RecvID;
 
-    KDIS::DATA_TYPE::SimulationIdentifier m_RecvID;
+  std::vector<KDIS::DATA_TYPE::WorldCoordinates> m_vPoints;
 
-    std::vector<KDIS::DATA_TYPE::WorldCoordinates> m_vPoints;
+ public:
+  static const KUINT16 AREAL_OBJECT_STATE_PDU_SIZE = 48;
 
-public:
+  Areal_Object_State_PDU();
 
-    static const KUINT16 AREAL_OBJECT_STATE_PDU_SIZE = 48;
+  Areal_Object_State_PDU(KDataStream& stream);
 
-    Areal_Object_State_PDU();
+  Areal_Object_State_PDU(const Header& H, KDataStream& stream);
 
-    Areal_Object_State_PDU( KDataStream & stream ) ;
+  Areal_Object_State_PDU(
+      KUINT8 Modification, const KDIS::DATA_TYPE::ObjectType& T,
+      const KDIS::DATA_TYPE::ArealObjectAppearance& A,
+      const KDIS::DATA_TYPE::SimulationIdentifier& RequestorID,
+      const KDIS::DATA_TYPE::SimulationIdentifier& ReceivingID);
 
-    Areal_Object_State_PDU( const Header & H, KDataStream & stream ) ;
+  Areal_Object_State_PDU(
+      KUINT8 Modification, const KDIS::DATA_TYPE::ObjectType& T,
+      const KDIS::DATA_TYPE::ArealObjectAppearance& A,
+      const KDIS::DATA_TYPE::SimulationIdentifier& RequestorID,
+      const KDIS::DATA_TYPE::SimulationIdentifier& ReceivingID,
+      const std::vector<KDIS::DATA_TYPE::WorldCoordinates>& Points);
 
-    Areal_Object_State_PDU( KUINT8 Modification, const KDIS::DATA_TYPE::ObjectType & T, const KDIS::DATA_TYPE::ArealObjectAppearance & A,
-                            const KDIS::DATA_TYPE::SimulationIdentifier & RequestorID, const KDIS::DATA_TYPE::SimulationIdentifier & ReceivingID );
+  virtual ~Areal_Object_State_PDU();
 
-    Areal_Object_State_PDU( KUINT8 Modification, const KDIS::DATA_TYPE::ObjectType & T, const KDIS::DATA_TYPE::ArealObjectAppearance & A,
-                            const KDIS::DATA_TYPE::SimulationIdentifier & RequestorID, const KDIS::DATA_TYPE::SimulationIdentifier & ReceivingID,
-                            const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & Points );
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetModification
+  //              KDIS::PDU::Areal_Object_State_PDU::GetModification
+  //              KDIS::PDU::Areal_Object_State_PDU::SetModificationLocation
+  //              KDIS::PDU::Areal_Object_State_PDU::IsModificationLocation
+  // Description: Identifies whether a modification has been made to the point
+  // objectï¿½s location .
+  //              Modification is represented by a single 8 bit unsigned int,
+  //              where bit 0 is the location modified flag. A value of 1(true)
+  //              indicates the field has been changed. All values are set to
+  //              false(0) by default.
+  // Parameter:   KUINT8 M, KBOOL M = true
+  //************************************
+  void SetModification(KUINT8 M);
+  KUINT8 GetModification() const;
+  void SetModificationLocation(KBOOL M = true);
+  KBOOL IsModificationLocation() const;
 
-    virtual ~Areal_Object_State_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetObjectType
+  //              KDIS::PDU::Areal_Object_State_PDU::GetObjectType
+  // Description: The type of object. Represented as DIS enumeration(domain,
+  // kind, Category and sub category). Parameter:   const ObjectType & O
+  //************************************
+  void SetObjectType(const KDIS::DATA_TYPE::ObjectType& O);
+  const KDIS::DATA_TYPE::ObjectType& GetObjectType() const;
+  KDIS::DATA_TYPE::ObjectType& GetObjectType();
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetModification
-    //              KDIS::PDU::Areal_Object_State_PDU::GetModification
-    //              KDIS::PDU::Areal_Object_State_PDU::SetModificationLocation
-    //              KDIS::PDU::Areal_Object_State_PDU::IsModificationLocation
-    // Description: Identifies whether a modification has been made to the point object’s location .
-    //              Modification is represented by a single 8 bit unsigned int, where
-    //              bit 0 is the location modified flag.
-    //              A value of 1(true) indicates the field has been changed.
-    //              All values are set to false(0) by default.
-    // Parameter:   KUINT8 M, KBOOL M = true
-    //************************************
-    void SetModification( KUINT8 M );
-    KUINT8 GetModification() const;
-    void SetModificationLocation( KBOOL M = true );
-    KBOOL IsModificationLocation() const;
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetObjectAppearance
+  //              KDIS::PDU::Areal_Object_State_PDU::GetObjectAppearance
+  // Description: Specifies the dynamic changes to an objectï¿½s appearance
+  // attributes. Parameter:   const ArealObjectAppearance & A
+  //************************************
+  void SetObjectAppearance(const KDIS::DATA_TYPE::ArealObjectAppearance& A);
+  const KDIS::DATA_TYPE::ArealObjectAppearance& GetObjectAppearance() const;
+  KDIS::DATA_TYPE::ArealObjectAppearance& GetObjectAppearance();
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetObjectType
-    //              KDIS::PDU::Areal_Object_State_PDU::GetObjectType
-    // Description: The type of object. Represented as DIS enumeration(domain, kind, Category and sub category).
-    // Parameter:   const ObjectType & O
-    //************************************
-    void SetObjectType( const KDIS::DATA_TYPE::ObjectType & O );
-    const KDIS::DATA_TYPE::ObjectType & GetObjectType() const;
-    KDIS::DATA_TYPE::ObjectType & GetObjectType();
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::GetNumberOfPoints
+  // Description: The total number of points making up the areal object.
+  //************************************
+  KUINT16 GetNumberOfPoints() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetObjectAppearance
-    //              KDIS::PDU::Areal_Object_State_PDU::GetObjectAppearance
-    // Description: Specifies the dynamic changes to an object’s appearance attributes.
-    // Parameter:   const ArealObjectAppearance & A
-    //************************************
-    void SetObjectAppearance( const KDIS::DATA_TYPE::ArealObjectAppearance & A );
-    const KDIS::DATA_TYPE::ArealObjectAppearance & GetObjectAppearance() const;
-    KDIS::DATA_TYPE::ArealObjectAppearance & GetObjectAppearance();
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetRequestorSimulationID
+  //              KDIS::PDU::Areal_Object_State_PDU::GetRequestorSimulationID
+  // Description: The simulation application sending the PDU.
+  // Parameter:   const SimulationIdentifier & ID
+  //************************************
+  void SetRequestorSimulationID(
+      const KDIS::DATA_TYPE::SimulationIdentifier& ID);
+  const KDIS::DATA_TYPE::SimulationIdentifier& GetRequestorSimulationID() const;
+  KDIS::DATA_TYPE::SimulationIdentifier& GetRequestorSimulationID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::GetNumberOfPoints
-    // Description: The total number of points making up the areal object.
-    //************************************
-    KUINT16 GetNumberOfPoints() const;
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetReceivingSimulationID
+  //              KDIS::PDU::Areal_Object_State_PDU::GetReceivingSimulationID
+  // Description: The simulation application that is to receive the PDU.
+  // Parameter:   const SimulationIdentifier & ID
+  //************************************
+  void SetReceivingSimulationID(
+      const KDIS::DATA_TYPE::SimulationIdentifier& ID);
+  const KDIS::DATA_TYPE::SimulationIdentifier& GetReceivingSimulationID() const;
+  KDIS::DATA_TYPE::SimulationIdentifier& GetReceivingSimulationID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetRequestorSimulationID
-    //              KDIS::PDU::Areal_Object_State_PDU::GetRequestorSimulationID
-    // Description: The simulation application sending the PDU.
-    // Parameter:   const SimulationIdentifier & ID
-    //************************************
-    void SetRequestorSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
-    const KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID() const;
-    KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID();
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::AddPoint
+  //              KDIS::PDU::Areal_Object_State_PDU::SetPoints
+  //              KDIS::PDU::Areal_Object_State_PDU::GetPoints
+  // Description: Specifies the points that make up the objectï¿½s physical
+  // location. Parameter:   const WorldCoordinates & P, const
+  // vector<WorldCoordinates> & P, void
+  //************************************
+  void AddPoint(const KDIS::DATA_TYPE::WorldCoordinates& P);
+  void SetPoints(const std::vector<KDIS::DATA_TYPE::WorldCoordinates>& P);
+  const std::vector<KDIS::DATA_TYPE::WorldCoordinates>& GetPoints() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetReceivingSimulationID
-    //              KDIS::PDU::Areal_Object_State_PDU::GetReceivingSimulationID
-    // Description: The simulation application that is to receive the PDU.
-    // Parameter:   const SimulationIdentifier & ID
-    //************************************
-    void SetReceivingSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
-    const KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID() const;
-    KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID();
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::AddPoint
-    //              KDIS::PDU::Areal_Object_State_PDU::SetPoints
-    //              KDIS::PDU::Areal_Object_State_PDU::GetPoints
-    // Description: Specifies the points that make up the object’s physical location.
-    // Parameter:   const WorldCoordinates & P, const vector<WorldCoordinates> & P, void
-    //************************************
-    void AddPoint( const KDIS::DATA_TYPE::WorldCoordinates & P );
-    void SetPoints( const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & P );
-    const std::vector<KDIS::DATA_TYPE::WorldCoordinates> & GetPoints() const;
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Areal_Object_State_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Areal_Object_State_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Areal_Object_State_PDU & Value ) const;
-    KBOOL operator != ( const Areal_Object_State_PDU & Value ) const;
+  KBOOL operator==(const Areal_Object_State_PDU& Value) const;
+  KBOOL operator!=(const Areal_Object_State_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

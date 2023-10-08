@@ -34,17 +34,17 @@ http://p.sf.net/kdis/UserGuide
 
     purpose:    Stores fixed datum values.
 
-				Note: See FactoryDecoder for a guide to adding support 
-				for using your own FixedDatum. 
+                                Note: See FactoryDecoder for a guide to adding
+support for using your own FixedDatum.
 
     size:       64 bits / 8 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./FactoryDecoder.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/FactoryDecoder.hpp"
+#include "KDIS/Extras/KRef_Ptr.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -59,146 +59,139 @@ using KDIS::UTILS::IsMachineBigEndian;
 // pointer or one of your own then simply change it below.
 /************************************************************************/
 class FixedDatum;
-typedef KDIS::UTILS::KRef_Ptr<FixedDatum> FixDtmPtr; // Ref counter
-//typedef FixedDatum* FixDtmPtr; // Weak ref
+typedef KDIS::UTILS::KRef_Ptr<FixedDatum> FixDtmPtr;  // Ref counter
+// typedef FixedDatum* FixDtmPtr; // Weak ref
 
-class KDIS_EXPORT FixedDatum : public DataTypeBase, public FactoryDecoderUser<FixedDatum>
-{
-protected:
+class KDIS_EXPORT FixedDatum : public DataTypeBase,
+                               public FactoryDecoderUser<FixedDatum> {
+ protected:
+  KUINT32 m_ui32DatumID;
 
-    KUINT32 m_ui32DatumID;
+  KOCTET m_cDatumValue[4];
 
-    KOCTET m_cDatumValue[4];
+ public:
+  static const KUINT16 FIXED_DATUM_SIZE = 8;
 
-public:
+  FixedDatum();
 
-    static const KUINT16 FIXED_DATUM_SIZE = 8;
+  template <class Type>
+  FixedDatum(DatumID ID, Type Value);
 
-    FixedDatum();
+  FixedDatum(KDataStream& stream);
 
-    template<class Type>
-    FixedDatum( DatumID ID, Type Value ) ;
+  virtual ~FixedDatum();
 
-    FixedDatum( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FixedDatum::SetDatumID
+  //              KDIS::DATA_TYPE::FixedDatum::GetDatumID
+  // Description: Set the datum id, indicates what the datum value
+  //              is for and what format it should be in.
+  // Parameter:   DatumID ID
+  //************************************
+  virtual void SetDatumID(DatumID ID);
+  virtual DatumID GetDatumID() const;
 
-    virtual ~FixedDatum();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FixedDatum<Type>::SetDatumValue
+  //              KDIS::DATA_TYPE::FixedDatum<Type>::GetDatumValue
+  // Description: Returns datum value in required format, format
+  //              must be 32 bits or less.
+  // Parameter:   Type val
+  //************************************
+  template <class Type>
+  void SetDatumValue(Type val);
+  template <class Type>
+  Type GetDatumValue() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FixedDatum::SetDatumID
-    //              KDIS::DATA_TYPE::FixedDatum::GetDatumID
-    // Description: Set the datum id, indicates what the datum value
-    //              is for and what format it should be in.
-    // Parameter:   DatumID ID
-    //************************************
-    virtual void SetDatumID( DatumID ID );
-    virtual DatumID GetDatumID() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FixedDatum::GetDatumValue
+  // Description: Copies octets into a buffer.
+  //              Buffer must be 4 octets in size.
+  //              All data types are stored in Big Endian
+  //              in the buffer.
+  // Parameter:   KOCTET * Buffer
+  //************************************
+  virtual void GetDatumValue(KOCTET* Buffer, KUINT16 BufferSize) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FixedDatum<Type>::SetDatumValue
-    //              KDIS::DATA_TYPE::FixedDatum<Type>::GetDatumValue
-    // Description: Returns datum value in required format, format
-    //              must be 32 bits or less.
-    // Parameter:   Type val
-    //************************************
-    template<class Type>
-    void SetDatumValue( Type val ) ;
-    template<class Type>
-    Type GetDatumValue() const ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FixedDatum::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FixedDatum::GetDatumValue
-    // Description: Copies octets into a buffer.
-    //              Buffer must be 4 octets in size.
-    //              All data types are stored in Big Endian
-    //              in the buffer.
-    // Parameter:   KOCTET * Buffer
-    //************************************
-    virtual void GetDatumValue( KOCTET * Buffer, KUINT16 BufferSize ) const ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FixedDatum::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FixedDatum::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FixedDatum::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FixedDatum::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FixedDatum::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const FixedDatum & Value ) const;
-    KBOOL operator != ( const FixedDatum & Value ) const;
+  KBOOL operator==(const FixedDatum& Value) const;
+  KBOOL operator!=(const FixedDatum& Value) const;
 };
 
 /////////////////////////////////////////////////////////////////////////
 // templates
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type>
-FixedDatum::FixedDatum( DatumID ID, Type Value ) 
-{
-    m_ui32DatumID = ID;
-    SetDatumValue( Value );
+template <class Type>
+FixedDatum::FixedDatum(DatumID ID, Type Value) {
+  m_ui32DatumID = ID;
+  SetDatumValue(Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type>
-Type FixedDatum::GetDatumValue() const 
-{
-    if( sizeof( Type ) > 4 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
+template <class Type>
+Type FixedDatum::GetDatumValue() const {
+  if (sizeof(Type) > 4) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
 
-    NetToDataType<Type> NetValue( m_cDatumValue, false );
+  NetToDataType<Type> NetValue(m_cDatumValue, false);
 
-    // Do we need to convert the data back to machine endian?
-    if( IsMachineBigEndian() == false )
-    {
-        // Need to convert
-        NetValue.SwapBytes();
-    }
+  // Do we need to convert the data back to machine endian?
+  if (IsMachineBigEndian() == false) {
+    // Need to convert
+    NetValue.SwapBytes();
+  }
 
-    return NetValue.m_Value;
+  return NetValue.m_Value;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type>
-void FixedDatum::SetDatumValue( Type val ) 
-{
-    if( sizeof( Type ) > 4 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
+template <class Type>
+void FixedDatum::SetDatumValue(Type val) {
+  if (sizeof(Type) > 4) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
 
-    // Reset datum value.
-    memset( m_cDatumValue, 0x00, 4 );
+  // Reset datum value.
+  memset(m_cDatumValue, 0x00, 4);
 
-    NetToDataType<Type> NetValue( val, false );
+  NetToDataType<Type> NetValue(val, false);
 
-    // Now convert the data into big endian, we want to store the value like this
-    // as when we encode/decode we have no way to know what the data type is or how many
-    // octets long it is. We only convert to machine endian when the data is requested.
-    if( IsMachineBigEndian() == false )
-    {
-        // Need to convert
-        NetValue.SwapBytes();
-    }
+  // Now convert the data into big endian, we want to store the value like this
+  // as when we encode/decode we have no way to know what the data type is or
+  // how many octets long it is. We only convert to machine endian when the data
+  // is requested.
+  if (IsMachineBigEndian() == false) {
+    // Need to convert
+    NetValue.SwapBytes();
+  }
 
-    // Copy into datum value.
-    for( KUINT16 i = 0; i < sizeof( Type ); ++i )
-    {
-        m_cDatumValue[i] = NetValue.m_Octs[i];
-    }
+  // Copy into datum value.
+  for (KUINT16 i = 0; i < sizeof(Type); ++i) {
+    m_cDatumValue[i] = NetValue.m_Octs[i];
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

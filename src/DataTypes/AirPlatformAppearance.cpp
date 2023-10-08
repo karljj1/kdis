@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./AirPlatformAppearance.h"
+#include "KDIS/DataTypes/AirPlatformAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,441 +37,375 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityPaintScheme( EntityPaintScheme EPS )
-{
-    m_PaintScheme = EPS;
+void AirPlatformAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
+  m_PaintScheme = EPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityPaintScheme AirPlatformAppearance::GetEntityPaintScheme() const
-{
-    return (EntityPaintScheme)m_PaintScheme;
+EntityPaintScheme AirPlatformAppearance::GetEntityPaintScheme() const {
+  return (EntityPaintScheme)m_PaintScheme;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityMobilityKill( KBOOL MK )
-{
-    m_MobilityKill = MK;
+void AirPlatformAppearance::SetEntityMobilityKill(KBOOL MK) {
+  m_MobilityKill = MK;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::DoesEntityMobilityKill() const
-{
-    return m_MobilityKill;
+KBOOL AirPlatformAppearance::DoesEntityMobilityKill() const {
+  return m_MobilityKill;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetNVGMode( NVGMode NM )
-{
-    m_NVGMode = NM;
+void AirPlatformAppearance::SetNVGMode(NVGMode NM) { m_NVGMode = NM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+NVGMode AirPlatformAppearance::GetNVGMode() const {
+  return static_cast<NVGMode>(m_NVGMode);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-NVGMode AirPlatformAppearance::GetNVGMode() const
-{
-    return static_cast<NVGMode>(m_NVGMode);
+void AirPlatformAppearance::SetEntityDamage(EntityDamage ED) { m_Damage = ED; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityDamage AirPlatformAppearance::GetEntityDamage() const {
+  return (EntityDamage)m_Damage;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityDamage( EntityDamage ED )
-{
-    m_Damage = ED;
+void AirPlatformAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntitySmoke AirPlatformAppearance::GetEntitySmoke() const {
+  return (EntitySmoke)m_Smoke;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDamage AirPlatformAppearance::GetEntityDamage() const
-{
-    return ( EntityDamage )m_Damage;
+void AirPlatformAppearance::SetEntityTrailingEffect(EntityTrailingEffect ETE) {
+  m_TrailingEffect = ETE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntitySmoke( EntitySmoke ES )
-{
-    m_Smoke = ES;
+EntityTrailingEffect AirPlatformAppearance::GetEntityTrailingEffect() const {
+  return (EntityTrailingEffect)m_TrailingEffect;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntitySmoke AirPlatformAppearance::GetEntitySmoke() const
-{
-    return ( EntitySmoke )m_Smoke;
+void AirPlatformAppearance::SetEntityCanopyState(EntityHatchState ECS) {
+  m_CanopyState = ECS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityTrailingEffect( EntityTrailingEffect ETE )
-{
-    m_TrailingEffect = ETE;
+EntityHatchState AirPlatformAppearance::GetEntityCanopyState() const {
+  return (EntityHatchState)m_CanopyState;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityTrailingEffect AirPlatformAppearance::GetEntityTrailingEffect() const
-{
-    return ( EntityTrailingEffect )m_TrailingEffect;
+void AirPlatformAppearance::SetEntityLandingLights(KBOOL LL) {
+  m_LandingLights = LL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityCanopyState( EntityHatchState ECS )
-{
-	m_CanopyState = ECS;
+KBOOL AirPlatformAppearance::IsEntityLandingLightsOn() const {
+  return m_LandingLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityHatchState AirPlatformAppearance::GetEntityCanopyState() const
-{
-	return ( EntityHatchState )m_CanopyState;
+void AirPlatformAppearance::SetEntityNavigationLights(KBOOL NL) {
+  m_NavLights = NL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityLandingLights( KBOOL LL )
-{
-	m_LandingLights = LL;
+KBOOL AirPlatformAppearance::IsEntityNavigationLightsOn() const {
+  return m_NavLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityLandingLightsOn() const
-{
-	return m_LandingLights;
+void AirPlatformAppearance::SetEntityAntiCollisionLights(KBOOL ACL) {
+  m_AntiColLights = ACL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityNavigationLights( KBOOL NL )
-{
-	m_NavLights = NL;
+KBOOL AirPlatformAppearance::IsEntityAntiCollisionLightsOn() const {
+  return m_AntiColLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityNavigationLightsOn() const
-{
-	return m_NavLights;
+void AirPlatformAppearance::SetEntityFlamingEffect(KBOOL EFE) {
+  m_FlamingEffectField = EFE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityAntiCollisionLights( KBOOL ACL )
-{
-	m_AntiColLights = ACL;
+KBOOL AirPlatformAppearance::IsEntityFlaming() const {
+  return m_FlamingEffectField;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityAntiCollisionLightsOn() const
-{
-	return m_AntiColLights;
+void AirPlatformAppearance::SetEntityAfterburner(KBOOL AB) {
+  m_Afterburner = AB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityFlamingEffect( KBOOL EFE )
-{
-    m_FlamingEffectField = EFE;
+KBOOL AirPlatformAppearance::IsAfterburnerOn() const { return m_Afterburner; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetEntityLowerAntiCollisionLight(KBOOL LACL) {
+  m_LowerAntiCollisionLight = LACL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityFlaming() const
-{
-    return m_FlamingEffectField;
+KBOOL AirPlatformAppearance::IsEntityLowerAntiCollisionLightOn() const {
+  return m_LowerAntiCollisionLight;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityAfterburner( KBOOL AB )
-{
-    m_Afterburner = AB;
+void AirPlatformAppearance::SetEntityUpperAntiCollisionLight(KBOOL UACL) {
+  m_UpperAntiCollisionLight = UACL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsAfterburnerOn() const
-{
-    return m_Afterburner;
+KBOOL AirPlatformAppearance::IsEntityUpperAntiCollisionLightOn() const {
+  return m_UpperAntiCollisionLight;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityLowerAntiCollisionLight( KBOOL LACL )
-{
-    m_LowerAntiCollisionLight = LACL;
+void AirPlatformAppearance::SetAntiCollisionLightDayNight(
+    AntiCollisionDayNight ACDN) {
+  m_AntiCollisionLightDayNight = ACDN;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityLowerAntiCollisionLightOn() const
-{
-    return m_LowerAntiCollisionLight;
+AntiCollisionDayNight AirPlatformAppearance::GetAntiCollisionLightDayNight()
+    const {
+  return static_cast<AntiCollisionDayNight>(m_AntiCollisionLightDayNight);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntityUpperAntiCollisionLight( KBOOL UACL )
-{
-    m_UpperAntiCollisionLight = UACL;
+void AirPlatformAppearance::SetBlinking(KBOOL B) { m_IsBlinking = B; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsBlinking() const { return m_IsBlinking; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetEntityFrozenStatus(KBOOL EFS) {
+  m_FrozenStatus = EFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityUpperAntiCollisionLightOn() const
-{
-    return m_UpperAntiCollisionLight;
+KBOOL AirPlatformAppearance::IsEntityFrozen() const { return m_FrozenStatus; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void AirPlatformAppearance::SetEntityPowerPlantOn(KBOOL EPPS) {
+  m_PowerPlantStatus = EPPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetAntiCollisionLightDayNight( AntiCollisionDayNight ACDN )
-{
-    m_AntiCollisionLightDayNight = ACDN;
+KBOOL AirPlatformAppearance::IsEntityPowerPlantOn() const {
+  return m_PowerPlantStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AntiCollisionDayNight AirPlatformAppearance::GetAntiCollisionLightDayNight() const
-{
-    return static_cast<AntiCollisionDayNight>(m_AntiCollisionLightDayNight);
-}
+void AirPlatformAppearance::SetEntityStateActive(KBOOL ES) { m_State = !ES; }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetBlinking( KBOOL B )
-{
-    m_IsBlinking = B;
-}
+KBOOL AirPlatformAppearance::IsEntityStateActive() const { return !m_State; }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsBlinking() const
-{
-    return m_IsBlinking;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AirPlatformAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
-    m_FrozenStatus = EFS;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AirPlatformAppearance::IsEntityFrozen() const
-{
-    return m_FrozenStatus;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AirPlatformAppearance::SetEntityPowerPlantOn( KBOOL EPPS )
-{
-    m_PowerPlantStatus = EPPS;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AirPlatformAppearance::IsEntityPowerPlantOn() const
-{
-    return m_PowerPlantStatus;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AirPlatformAppearance::SetEntityStateActive( KBOOL ES )
-{
-    m_State = !ES;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AirPlatformAppearance::IsEntityStateActive() const
-{
-    return !m_State;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AirPlatformAppearance::SetEntityFormationLights( KBOOL FL )
-{
+void AirPlatformAppearance::SetEntityFormationLights(KBOOL FL) {
   m_FormationLights = FL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityFormationLightsOn() const
-{
+KBOOL AirPlatformAppearance::IsEntityFormationLightsOn() const {
   return m_FormationLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetLandingGearExtended( KBOOL LGE )
-{
+void AirPlatformAppearance::SetLandingGearExtended(KBOOL LGE) {
   m_LandingGearExtended = LGE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsLandingGearExtended() const
-{
+KBOOL AirPlatformAppearance::IsLandingGearExtended() const {
   return m_LandingGearExtended;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetCargoDoorsOpened( KBOOL CDO )
-{
+void AirPlatformAppearance::SetCargoDoorsOpened(KBOOL CDO) {
   m_CargoDoorsOpened = CDO;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsCargoDoorsOpened() const
-{
+KBOOL AirPlatformAppearance::IsCargoDoorsOpened() const {
   return m_CargoDoorsOpened;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetNavigationPositionBrightness( NavigationPositionBrightness NPB )
-{
+void AirPlatformAppearance::SetNavigationPositionBrightness(
+    NavigationPositionBrightness NPB) {
   m_NavigationPositionBrightness = NPB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-NavigationPositionBrightness AirPlatformAppearance::GetNavigationPositionBrightness() const
-{
-  return static_cast<NavigationPositionBrightness>(m_NavigationPositionBrightness);
+NavigationPositionBrightness
+AirPlatformAppearance::GetNavigationPositionBrightness() const {
+  return static_cast<NavigationPositionBrightness>(
+      m_NavigationPositionBrightness);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetEntitySpotLights( KBOOL SL )
-{
-	m_SpotLights = SL;
+void AirPlatformAppearance::SetEntitySpotLights(KBOOL SL) { m_SpotLights = SL; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL AirPlatformAppearance::IsEntitySpotLightsOn() const {
+  return m_SpotLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntitySpotLightsOn() const
-{
-	return m_SpotLights;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AirPlatformAppearance::SetEntityInteriorLights( KBOOL IL )
-{
+void AirPlatformAppearance::SetEntityInteriorLights(KBOOL IL) {
   m_InteriorLights = IL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsEntityInteriorLightsOn() const
-{
+KBOOL AirPlatformAppearance::IsEntityInteriorLightsOn() const {
   return m_InteriorLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetReverseThrustEngaged( KBOOL RTE )
-{
+void AirPlatformAppearance::SetReverseThrustEngaged(KBOOL RTE) {
   m_ReverseThrustEngaged = RTE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsReverseThrustEngaged() const
-{
+KBOOL AirPlatformAppearance::IsReverseThrustEngaged() const {
   return m_ReverseThrustEngaged;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AirPlatformAppearance::SetWeightOnWheels( KBOOL WOW )
-{
+void AirPlatformAppearance::SetWeightOnWheels(KBOOL WOW) {
   m_WeightOnWheels = WOW;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::IsWeightOnWheels() const
-{
+KBOOL AirPlatformAppearance::IsWeightOnWheels() const {
   return m_WeightOnWheels;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString AirPlatformAppearance::GetAsString() const
-{
-    KStringStream ss;
+KString AirPlatformAppearance::GetAsString() const {
+  KStringStream ss;
 
-    ss << "Air Platform Appearance:"
-       << "\n\tPaint Scheme:           " << GetEnumAsStringPaintScheme( m_PaintScheme )
-       << "\n\tMobility Kill:          " << m_MobilityKill
-       << "\n\tNVG Mode:               " << GetEnumAsStringNVGMode( m_NVGMode )
-       << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
-       << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
-       << "\n\tTrailing Effect:        " << GetEnumAsStringEntityTrailingEffect( m_TrailingEffect )
-       << "\n\tCanopy State:           " << GetEnumAsStringEntityHatchState( m_CanopyState )
-       << "\n\tLanding Lights:         " << m_LandingLights
-       << "\n\tNavigation Lights:      " << m_NavLights
-       << "\n\tAnti-Collision Lights:  " << m_AntiColLights
-       << "\n\tFlaming Effect:         " << m_FlamingEffectField		
-       << "\n\tAfterburner:            " << m_Afterburner
-       << "\n\tLower Anti-Collision Light: " << m_LowerAntiCollisionLight
-       << "\n\tUpper Anti-Collision Light: " << m_UpperAntiCollisionLight
-       << "\n\tAnti-Collision Light:   " << GetEnumAsStringAntiCollisionDayNight( m_AntiCollisionLightDayNight )
-       << "\n\tIs Blinking:            " << m_IsBlinking
-       << "\n\tFrozen Status:          " << m_FrozenStatus
-       << "\n\tPower Plant:            " << m_PowerPlantStatus
-       << "\n\tState:                  " << m_State
-       << "\n\tFormation Lights:       " << m_FormationLights
-       << "\n\tLanding Gear Extended:  " << m_LandingGearExtended
-       << "\n\tCargo Doors Opened:     " << m_CargoDoorsOpened
-       << "\n\tNavigation/Position Brightness: " << GetEnumAsStringNavigationPositionBrightness( m_NavigationPositionBrightness )
-       << "\n\tSpot Lights:            " << m_SpotLights
-       << "\n\tInterior Lights:        " << m_InteriorLights
-       << "\n\tReverse Thrust Engaged: " << m_ReverseThrustEngaged
-       << "\n\tWeight-on-Wheels:       " << m_WeightOnWheels
-       << "\n";
+  ss << "Air Platform Appearance:"
+     << "\n\tPaint Scheme:           "
+     << GetEnumAsStringPaintScheme(m_PaintScheme)
+     << "\n\tMobility Kill:          " << m_MobilityKill
+     << "\n\tNVG Mode:               " << GetEnumAsStringNVGMode(m_NVGMode)
+     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)
+     << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke(m_Smoke)
+     << "\n\tTrailing Effect:        "
+     << GetEnumAsStringEntityTrailingEffect(m_TrailingEffect)
+     << "\n\tCanopy State:           "
+     << GetEnumAsStringEntityHatchState(m_CanopyState)
+     << "\n\tLanding Lights:         " << m_LandingLights
+     << "\n\tNavigation Lights:      " << m_NavLights
+     << "\n\tAnti-Collision Lights:  " << m_AntiColLights
+     << "\n\tFlaming Effect:         " << m_FlamingEffectField
+     << "\n\tAfterburner:            " << m_Afterburner
+     << "\n\tLower Anti-Collision Light: " << m_LowerAntiCollisionLight
+     << "\n\tUpper Anti-Collision Light: " << m_UpperAntiCollisionLight
+     << "\n\tAnti-Collision Light:   "
+     << GetEnumAsStringAntiCollisionDayNight(m_AntiCollisionLightDayNight)
+     << "\n\tIs Blinking:            " << m_IsBlinking
+     << "\n\tFrozen Status:          " << m_FrozenStatus
+     << "\n\tPower Plant:            " << m_PowerPlantStatus
+     << "\n\tState:                  " << m_State
+     << "\n\tFormation Lights:       " << m_FormationLights
+     << "\n\tLanding Gear Extended:  " << m_LandingGearExtended
+     << "\n\tCargo Doors Opened:     " << m_CargoDoorsOpened
+     << "\n\tNavigation/Position Brightness: "
+     << GetEnumAsStringNavigationPositionBrightness(
+            m_NavigationPositionBrightness)
+     << "\n\tSpot Lights:            " << m_SpotLights
+     << "\n\tInterior Lights:        " << m_InteriorLights
+     << "\n\tReverse Thrust Engaged: " << m_ReverseThrustEngaged
+     << "\n\tWeight-on-Wheels:       " << m_WeightOnWheels << "\n";
 
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::operator == ( const AirPlatformAppearance & Value ) const
-{
-	// Lets do a single comparison instead of checking every field. 
-	// This struct is basically a KUINT32 so lets cast it to one and compare.
+KBOOL AirPlatformAppearance::operator==(
+    const AirPlatformAppearance& Value) const {
+  // Lets do a single comparison instead of checking every field.
+  // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-	KUINT32 a = *( KUINT32 * )this;
-	KUINT32 b = *( KUINT32 * )&Value;
+  KUINT32 a = *(KUINT32*)this;
+  KUINT32 b = *(KUINT32*)&Value;
 
-    if( a != b )return false;
-    return true;
+  if (a != b) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL AirPlatformAppearance::operator != ( const AirPlatformAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL AirPlatformAppearance::operator!=(
+    const AirPlatformAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-

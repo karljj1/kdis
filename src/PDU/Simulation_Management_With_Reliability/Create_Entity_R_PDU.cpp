@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Create_Entity_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Create_Entity_R_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,133 +42,120 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_R_PDU::Create_Entity_R_PDU()
-{
-    m_ui8PDUType = CreateEntity_R_PDU_Type;
-    m_ui16PDULength = CREATE_ENTITY_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Create_Entity_R_PDU::Create_Entity_R_PDU() {
+  m_ui8PDUType = CreateEntity_R_PDU_Type;
+  m_ui16PDULength = CREATE_ENTITY_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_R_PDU::Create_Entity_R_PDU( const Header & H ) :
-    Create_Entity_PDU( H )
-{
+Create_Entity_R_PDU::Create_Entity_R_PDU(const Header& H)
+    : Create_Entity_PDU(H) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Create_Entity_R_PDU::Create_Entity_R_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_R_PDU::Create_Entity_R_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Create_Entity_R_PDU::Create_Entity_R_PDU(const Header& H, KDataStream& stream)
+    : Create_Entity_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_R_PDU::Create_Entity_R_PDU( const Header & H, KDataStream & stream )  :
-    Create_Entity_PDU( H )
-{
-    Decode( stream, true );
+Create_Entity_R_PDU::Create_Entity_R_PDU(const EntityIdentifier& OrigintatingID,
+                                         const EntityIdentifier& ReceivingID,
+                                         KUINT32 RequestID,
+                                         RequiredReliabilityService RRS)
+    : Create_Entity_PDU(OrigintatingID, ReceivingID, RequestID),
+      Reliability_Header(RRS) {
+  m_ui8PDUType = CreateEntity_R_PDU_Type;
+  m_ui16PDULength = CREATE_ENTITY_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_R_PDU::Create_Entity_R_PDU( const EntityIdentifier & OrigintatingID, const EntityIdentifier & ReceivingID,
-        KUINT32 RequestID, RequiredReliabilityService RRS ) :
-    Create_Entity_PDU( OrigintatingID, ReceivingID, RequestID ),
-    Reliability_Header( RRS )
-{
-    m_ui8PDUType = CreateEntity_R_PDU_Type;
-    m_ui16PDULength = CREATE_ENTITY_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Create_Entity_R_PDU::Create_Entity_R_PDU(
+    const Simulation_Management_Header& SimMgrHeader, KUINT32 RequestID,
+    RequiredReliabilityService RRS)
+    : Create_Entity_PDU(SimMgrHeader, RequestID), Reliability_Header(RRS) {
+  m_ui8PDUType = CreateEntity_R_PDU_Type;
+  m_ui16PDULength = CREATE_ENTITY_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_R_PDU::Create_Entity_R_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID,
-        RequiredReliabilityService RRS ) :
-    Create_Entity_PDU( SimMgrHeader, RequestID ),
-    Reliability_Header( RRS )
-{
-    m_ui8PDUType = CreateEntity_R_PDU_Type;
-    m_ui16PDULength = CREATE_ENTITY_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+Create_Entity_R_PDU::~Create_Entity_R_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Create_Entity_R_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Create Entity-R PDU-\n"
+     << Simulation_Management_Header::GetAsString()
+     << Reliability_Header::GetAsString() << "Request ID: " << m_ui32RequestID
+     << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Create_Entity_R_PDU::~Create_Entity_R_PDU()
-{
+void Create_Entity_R_PDU::Decode(KDataStream& stream,
+                                 bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      CREATE_ENTITY_R_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Simulation_Management_Header::Decode(stream, ignoreHeader);
+
+  Reliability_Header::Decode(stream);
+
+  stream >> m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Create_Entity_R_PDU::GetAsString() const
-{
-    KStringStream ss;
+KDataStream Create_Entity_R_PDU::Encode() const {
+  KDataStream stream;
 
-    ss << Header::GetAsString()
-       << "-Create Entity-R PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << Reliability_Header::GetAsString()
-       << "Request ID: " << m_ui32RequestID
-       << "\n";
+  Create_Entity_R_PDU::Encode(stream);
 
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Create_Entity_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < CREATE_ENTITY_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void Create_Entity_R_PDU::Encode(KDataStream& stream) const {
+  Simulation_Management_Header::Encode(stream);
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );
+  Reliability_Header::Encode(stream);
 
-    Reliability_Header::Decode( stream );
-
-    stream >> m_ui32RequestID;
+  stream << m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Create_Entity_R_PDU::Encode() const
-{
-    KDataStream stream;
-
-    Create_Entity_R_PDU::Encode( stream );
-
-    return stream;
+KBOOL Create_Entity_R_PDU::operator==(const Create_Entity_R_PDU& Value) const {
+  if (Create_Entity_PDU::operator!=(Value)) return false;
+  if (Reliability_Header::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Create_Entity_R_PDU::Encode( KDataStream & stream ) const
-{
-    Simulation_Management_Header::Encode( stream );
-
-    Reliability_Header::Encode( stream );
-
-    stream << m_ui32RequestID;
+KBOOL Create_Entity_R_PDU::operator!=(const Create_Entity_R_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Create_Entity_R_PDU::operator == ( const Create_Entity_R_PDU & Value ) const
-{
-    if( Create_Entity_PDU::operator  !=( Value ) ) return false;
-    if( Reliability_Header::operator !=( Value ) ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Create_Entity_R_PDU::operator != ( const Create_Entity_R_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

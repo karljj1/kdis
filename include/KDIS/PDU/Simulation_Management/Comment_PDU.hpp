@@ -33,113 +33,112 @@ http://p.sf.net/kdis/UserGuide
     created:    08/10/2008
     author:     Karl Jones
 
-    purpose:    Arbitrary message (E.G char strings) shall be entered into the data
-                stream by using a comment PDU. For use as comment, test message, error etc.
+    purpose:    Arbitrary message (E.G char strings) shall be entered into the
+data stream by using a comment PDU. For use as comment, test message, error etc.
     size:       256 bits/ 32 octets - not including fix and var datum sizes
 *********************************************************************/
 
 #pragma once
 
-#include "./Simulation_Management_Header.h"
-#include "./../../DataTypes/FixedDatum.h"
-#include "./../../DataTypes/VariableDatum.h"
+#include "KDIS/DataTypes/FixedDatum.hpp"
+#include "KDIS/DataTypes/VariableDatum.hpp"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
 using KDIS::DATA_TYPE::EntityIdentifier;
-using KDIS::DATA_TYPE::FixedDatum;
 using KDIS::DATA_TYPE::FixDtmPtr;
-using KDIS::DATA_TYPE::VariableDatum;
+using KDIS::DATA_TYPE::FixedDatum;
 using KDIS::DATA_TYPE::VarDtmPtr;
+using KDIS::DATA_TYPE::VariableDatum;
 using std::vector;
 
-class KDIS_EXPORT Comment_PDU : public Simulation_Management_Header
-{
-protected:
+class KDIS_EXPORT Comment_PDU : public Simulation_Management_Header {
+ protected:
+  KUINT32 m_ui32NumFixedDatum;
 
-    KUINT32 m_ui32NumFixedDatum;
+  KUINT32 m_ui32NumVariableDatum;
 
-    KUINT32 m_ui32NumVariableDatum;
+  std::vector<KDIS::DATA_TYPE::FixDtmPtr> m_vFixedDatum;
 
-    std::vector<KDIS::DATA_TYPE::FixDtmPtr> m_vFixedDatum;
+  std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVariableDatum;
 
-    std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVariableDatum;
+ public:
+  static const KUINT16 COMMENT_PDU_SIZE = 32;  // Min size
 
-public:
+  Comment_PDU();
 
-    static const KUINT16 COMMENT_PDU_SIZE = 32; // Min size
+  explicit Comment_PDU(const Header& H);
 
-    Comment_PDU();
+  Comment_PDU(KDataStream& stream);
 
-    explicit Comment_PDU( const Header & H );
+  Comment_PDU(const Header& H, KDataStream& stream);
 
-    Comment_PDU( KDataStream & stream ) ;
+  Comment_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+              const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID);
 
-    Comment_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Comment_PDU();
 
-    Comment_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
+  //************************************
+  // FullName:    KDIS::PDU::Comment_PDU::GetNumberFIxedDatum
+  // Description: Returns number of fixed datum records
+  //************************************
+  KUINT32 GetNumberFIxedDatum() const;
 
-    virtual ~Comment_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Comment_PDU::GetNumberVariableDatum
+  // Description: Returns number of variable datum records
+  //************************************
+  KUINT32 GetNumberVariableDatum() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Comment_PDU::GetNumberFIxedDatum
-    // Description: Returns number of fixed datum records
-    //************************************
-    KUINT32 GetNumberFIxedDatum() const;
+  //************************************
+  // FullName:    KDIS::PDU::Comment_PDU::AddFixedDatum
+  //              KDIS::PDU::Comment_PDU::SetFixedDatum
+  //              KDIS::PDU::Comment_PDU::GetFixedDatum
+  // Description: Add, get fixed datums
+  // Parameter:   FixedDatum FD, const vector<FixDtmPtr> & FD
+  //************************************
+  void AddFixedDatum(KDIS::DATA_TYPE::FixDtmPtr FD);
+  void SetFixedDatum(const std::vector<KDIS::DATA_TYPE::FixDtmPtr>& FD);
+  const std::vector<FixDtmPtr>& GetFixedDatum() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Comment_PDU::GetNumberVariableDatum
-    // Description: Returns number of variable datum records
-    //************************************
-    KUINT32 GetNumberVariableDatum() const;
+  //************************************
+  // FullName:    KDIS::PDU::Comment_PDU::AddVariableDatum
+  //              KDIS::PDU::Comment_PDU::SetVariableDatum
+  //              KDIS::PDU::Comment_PDU::GetVariableDatum
+  // Description: Add, get variable datums
+  // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
+  //************************************
+  void AddVariableDatum(KDIS::DATA_TYPE::VarDtmPtr VD);
+  virtual void SetVariableDatum(
+      const std::vector<KDIS::DATA_TYPE::VarDtmPtr>& VD);
+  const std::vector<VarDtmPtr>& GetVariableDatum() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Comment_PDU::AddFixedDatum
-    //              KDIS::PDU::Comment_PDU::SetFixedDatum
-    //              KDIS::PDU::Comment_PDU::GetFixedDatum
-    // Description: Add, get fixed datums
-    // Parameter:   FixedDatum FD, const vector<FixDtmPtr> & FD
-    //************************************
-    void AddFixedDatum( KDIS::DATA_TYPE::FixDtmPtr FD );
-    void SetFixedDatum( const std::vector<KDIS::DATA_TYPE::FixDtmPtr> & FD );
-    const std::vector<FixDtmPtr> & GetFixedDatum() const;
+  //************************************
+  // FullName:    KDIS::PDU::Comment_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Comment_PDU::AddVariableDatum
-    //              KDIS::PDU::Comment_PDU::SetVariableDatum
-    //              KDIS::PDU::Comment_PDU::GetVariableDatum
-    // Description: Add, get variable datums
-    // Parameter:   VarDtmPtr VD, const vector<VarDtmPtr> & VD
-    //************************************
-    void AddVariableDatum( KDIS::DATA_TYPE::VarDtmPtr VD );
-    virtual void SetVariableDatum( const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD );
-    const std::vector<VarDtmPtr> & GetVariableDatum() const;
+  //************************************
+  // FullName:    KDIS::PDU::Comment_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Comment_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Comment_PDU::Encode
+  // Description: Convert To Network Data.
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Comment_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Comment_PDU::Encode
-    // Description: Convert To Network Data.
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Comment_PDU & Value ) const;
-    KBOOL operator != ( const Comment_PDU & Value ) const;
+  KBOOL operator==(const Comment_PDU& Value) const;
+  KBOOL operator!=(const Comment_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

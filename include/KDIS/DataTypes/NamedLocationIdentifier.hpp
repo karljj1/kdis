@@ -32,83 +32,83 @@ http://p.sf.net/kdis/UserGuide
     created:    27/06/2008
     author:     Karl Jones
 
-    purpose:    Contaiins information about the discrete positional relationship of the part
-                entity with respect to the its host entity.
-    size:       32 bits / 4 octets
+    purpose:    Contaiins information about the discrete positional relationship
+of the part entity with respect to the its host entity. size:       32 bits / 4
+octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT NamedLocationIdentifier : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT NamedLocationIdentifier : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16StnName;
 
-    KUINT16 m_ui16StnName;
+  KUINT16 m_ui16StnNum;
 
-    KUINT16 m_ui16StnNum;
+ public:
+  static const KUINT16 NAMED_LOCATION_ID_SIZE = 4;
 
-public:
+  NamedLocationIdentifier();
 
-    static const KUINT16 NAMED_LOCATION_ID_SIZE = 4;
+  NamedLocationIdentifier(KDataStream& stream);
 
-    NamedLocationIdentifier();
+  NamedLocationIdentifier(KDIS::DATA_TYPE::ENUMS::StationName SN,
+                          KUINT16 StationNumber);
 
-    NamedLocationIdentifier( KDataStream & stream );
+  virtual ~NamedLocationIdentifier();
 
-    NamedLocationIdentifier( KDIS::DATA_TYPE::ENUMS::StationName SN,  KUINT16 StationNumber );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::SetStationName
+  //              KDIS::DATA_TYPE::NamedLocationIdentifier::GetStationName
+  // Description: Specifies the station name within the host at which the part
+  // entity
+  //              is located. If the part entity is On Station, this field shall
+  //              specify the representation of the partï¿½s location data fields.
+  // Parameter:   StationName SN
+  //************************************
+  void SetStationName(KDIS::DATA_TYPE::ENUMS::StationName SN);
+  KDIS::DATA_TYPE::ENUMS::StationName GetStationName() const;
 
-    virtual ~NamedLocationIdentifier();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::SetStationNumber
+  //              KDIS::DATA_TYPE::NamedLocationIdentifier::GetStationNumber
+  // Description: Specifies the number of the particular wingstation, cargo hold
+  // etc, at
+  //              which the part is attached.
+  // Parameter:   KUINT16 SN
+  //************************************
+  void SetStationNumber(KUINT16 SN);
+  KUINT16 GetStationNumber() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::SetStationName
-    //              KDIS::DATA_TYPE::NamedLocationIdentifier::GetStationName
-    // Description: Specifies the station name within the host at which the part entity
-    //              is located. If the part entity is On Station, this field shall
-    //              specify the representation of the part’s location data fields.
-    // Parameter:   StationName SN
-    //************************************
-    void SetStationName( KDIS::DATA_TYPE::ENUMS::StationName SN );
-    KDIS::DATA_TYPE::ENUMS::StationName GetStationName() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::SetStationNumber
-    //              KDIS::DATA_TYPE::NamedLocationIdentifier::GetStationNumber
-    // Description: Specifies the number of the particular wingstation, cargo hold etc, at
-    //              which the part is attached.
-    // Parameter:   KUINT16 SN
-    //************************************
-    void SetStationNumber( KUINT16 SN );
-    KUINT16 GetStationNumber() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::NamedLocationIdentifier::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const NamedLocationIdentifier & Value ) const;
-    KBOOL operator != ( const NamedLocationIdentifier & Value ) const;
+  KBOOL operator==(const NamedLocationIdentifier& Value) const;
+  KBOOL operator!=(const NamedLocationIdentifier& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

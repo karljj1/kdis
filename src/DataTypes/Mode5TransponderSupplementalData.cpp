@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Mode5TransponderSupplementalData.h"
+#include "KDIS/DataTypes/Mode5TransponderSupplementalData.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,131 +40,121 @@ using namespace DATA_TYPE;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderSupplementalData::Mode5TransponderSupplementalData() 
-{	
-	m_SupplementalDataUnion.m_ui8SupplementalData = 0;
+Mode5TransponderSupplementalData::Mode5TransponderSupplementalData() {
+  m_SupplementalDataUnion.m_ui8SupplementalData = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderSupplementalData::Mode5TransponderSupplementalData( KBOOL Squitter, KBOOL Lvl2Squitter, KUINT8 IFFMission ) 
-{
-	if( IFFMission > 7 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
-	m_SupplementalDataUnion.m_ui8SupplementalData = 0;
-	m_SupplementalDataUnion.m_ui8SquitterStatus = Squitter;
-	m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus = Lvl2Squitter;
-	m_SupplementalDataUnion.m_ui8IFFMission = IFFMission;
+Mode5TransponderSupplementalData::Mode5TransponderSupplementalData(
+    KBOOL Squitter, KBOOL Lvl2Squitter, KUINT8 IFFMission) {
+  if (IFFMission > 7) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
+  m_SupplementalDataUnion.m_ui8SupplementalData = 0;
+  m_SupplementalDataUnion.m_ui8SquitterStatus = Squitter;
+  m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus = Lvl2Squitter;
+  m_SupplementalDataUnion.m_ui8IFFMission = IFFMission;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderSupplementalData::Mode5TransponderSupplementalData( KDataStream & stream ) 
-{
-    Decode( stream );
+Mode5TransponderSupplementalData::Mode5TransponderSupplementalData(
+    KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderSupplementalData::~Mode5TransponderSupplementalData()
-{
+Mode5TransponderSupplementalData::~Mode5TransponderSupplementalData() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5TransponderSupplementalData::SetSquitter(KBOOL S) {
+  m_SupplementalDataUnion.m_ui8SquitterStatus = S;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderSupplementalData::SetSquitter( KBOOL S )
-{
-	m_SupplementalDataUnion.m_ui8SquitterStatus = S;
+KBOOL Mode5TransponderSupplementalData::GetSquitter() const {
+  return m_SupplementalDataUnion.m_ui8SquitterStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5TransponderSupplementalData::GetSquitter() const
-{
-	return m_SupplementalDataUnion.m_ui8SquitterStatus;
+void Mode5TransponderSupplementalData::SetLevel2Squitter(KBOOL L2S) {
+  m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus = L2S;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderSupplementalData::SetLevel2Squitter( KBOOL L2S )
-{
-	m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus = L2S;
+KBOOL Mode5TransponderSupplementalData::GetLevel2Squitter() const {
+  return m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5TransponderSupplementalData::GetLevel2Squitter() const
-{
-	return m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus;
+void Mode5TransponderSupplementalData::SetIFFMission(KUINT8 IFFM) {
+  if (IFFM > 7) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
+  m_SupplementalDataUnion.m_ui8IFFMission = IFFM;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderSupplementalData::SetIFFMission( KUINT8 IFFM ) 
-{
-	if( IFFM > 7 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
-	m_SupplementalDataUnion.m_ui8IFFMission = IFFM;
+KUINT8 Mode5TransponderSupplementalData::GetIFFMission() const {
+  return m_SupplementalDataUnion.m_ui8IFFMission;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Mode5TransponderSupplementalData::GetIFFMission() const
-{
-	return m_SupplementalDataUnion.m_ui8IFFMission;
+KString Mode5TransponderSupplementalData::GetAsString() const {
+  KStringStream ss;
+  ss << "Mode 5 Transponder Supplemental Data:"
+     << "\n\tSquitter: " << (KBOOL)m_SupplementalDataUnion.m_ui8SquitterStatus
+     << "\n\tLevel 2 Squiter: "
+     << (KBOOL)m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus
+     << "\n\tIFF Mission: " << m_SupplementalDataUnion.m_ui8IFFMission << "\n";
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Mode5TransponderSupplementalData::GetAsString() const
-{
-    KStringStream ss;	
-	ss << "Mode 5 Transponder Supplemental Data:"
-	   << "\n\tSquitter: "        << ( KBOOL )m_SupplementalDataUnion.m_ui8SquitterStatus 
-	   << "\n\tLevel 2 Squiter: " << ( KBOOL )m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus
-	   << "\n\tIFF Mission: "     << m_SupplementalDataUnion.m_ui8IFFMission
-	   << "\n";
-    return ss.str();
+void Mode5TransponderSupplementalData::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < MODE_5_TRANSPONDER_SUPPLEMENTAL_DATA_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_SupplementalDataUnion.m_ui8SupplementalData;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderSupplementalData::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < MODE_5_TRANSPONDER_SUPPLEMENTAL_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-	
-	stream >> m_SupplementalDataUnion.m_ui8SupplementalData;
+KDataStream Mode5TransponderSupplementalData::Encode() const {
+  KDataStream stream;
+
+  Mode5TransponderSupplementalData::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Mode5TransponderSupplementalData::Encode() const
-{
-    KDataStream stream;
-
-    Mode5TransponderSupplementalData::Encode( stream );
-
-    return stream;
+void Mode5TransponderSupplementalData::Encode(KDataStream& stream) const {
+  stream << m_SupplementalDataUnion.m_ui8SupplementalData;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5TransponderSupplementalData::Encode( KDataStream & stream ) const
-{
-	stream << m_SupplementalDataUnion.m_ui8SupplementalData;
+KBOOL Mode5TransponderSupplementalData::operator==(
+    const Mode5TransponderSupplementalData& Value) const {
+  if (m_SupplementalDataUnion.m_ui8SupplementalData !=
+      Value.m_SupplementalDataUnion.m_ui8SupplementalData)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5TransponderSupplementalData::operator == ( const Mode5TransponderSupplementalData & Value ) const
-{
-	if( m_SupplementalDataUnion.m_ui8SupplementalData != Value.m_SupplementalDataUnion.m_ui8SupplementalData ) return false;	
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Mode5TransponderSupplementalData::operator != ( const Mode5TransponderSupplementalData & Value ) const
-{
-    return !( *this == Value );
+KBOOL Mode5TransponderSupplementalData::operator!=(
+    const Mode5TransponderSupplementalData& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

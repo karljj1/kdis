@@ -39,120 +39,132 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./GED_BasicGroundCombatVehicle.h"
+#include "KDIS/DataTypes/GED_BasicGroundCombatVehicle.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT GED_EnhancedGroundCombatVehicle : public GED_BasicGroundCombatVehicle
-{
-protected:
+class KDIS_EXPORT GED_EnhancedGroundCombatVehicle
+    : public GED_BasicGroundCombatVehicle {
+ protected:
+  KUINT8 m_ui8FuelStatus;
 
-    KUINT8 m_ui8FuelStatus;
+  KUINT8 m_ui8GrndMaintStatus;
 
-    KUINT8 m_ui8GrndMaintStatus;
+  KUINT8 m_ui8PriAmmun;
 
-    KUINT8 m_ui8PriAmmun;
+  KUINT8 m_ui8SecAmmun;
 
-    KUINT8 m_ui8SecAmmun;
+ public:
+  static const KUINT16 GED_ENHANCED_GROUND_COMBAT_VEHICLE_SIZE = 24;
 
-public:
+  GED_EnhancedGroundCombatVehicle();
 
-    static const KUINT16 GED_ENHANCED_GROUND_COMBAT_VEHICLE_SIZE = 24;
+  GED_EnhancedGroundCombatVehicle(KDataStream& stream);
 
-    GED_EnhancedGroundCombatVehicle();
+  GED_EnhancedGroundCombatVehicle(KUINT16 ID, KINT16 XOffset, KINT16 YOffset,
+                                  KINT16 ZOffset, const EntityAppearance& EA,
+                                  KINT8 Psi, KINT8 Theta, KINT8 Phi,
+                                  KINT8 Speed, KINT8 TurretAzimuth,
+                                  KINT8 GunElevation, KINT8 TurretSlewRate,
+                                  KINT8 GunElevationRate, KUINT8 FuelStatus,
+                                  KUINT8 GroundMaintenanceStatus,
+                                  KUINT8 PrimaryAmmunition,
+                                  KUINT8 SecondaryAmmunition);
 
-    GED_EnhancedGroundCombatVehicle( KDataStream & stream );
+  GED_EnhancedGroundCombatVehicle(const GED_BasicGroundCombatVehicle& BGCV,
+                                  KUINT8 FuelStatus,
+                                  KUINT8 GroundMaintenanceStatus,
+                                  KUINT8 PrimaryAmmunition,
+                                  KUINT8 SecondaryAmmunition);
 
-    GED_EnhancedGroundCombatVehicle( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA, KINT8 Psi,
-                                     KINT8 Theta, KINT8 Phi, KINT8 Speed, KINT8 TurretAzimuth, KINT8 GunElevation, KINT8 TurretSlewRate,
-                                     KINT8 GunElevationRate, KUINT8 FuelStatus, KUINT8 GroundMaintenanceStatus, KUINT8 PrimaryAmmunition,
-                                     KUINT8 SecondaryAmmunition );
+  virtual ~GED_EnhancedGroundCombatVehicle();
 
-    GED_EnhancedGroundCombatVehicle( const GED_BasicGroundCombatVehicle & BGCV, KUINT8 FuelStatus, KUINT8 GroundMaintenanceStatus,
-                                     KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetGroupedEntityCategory
+  // Description: Identifies the derived GED class.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory
+  GetGroupedEntityCategory() const;
 
-    virtual ~GED_EnhancedGroundCombatVehicle();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetLength
+  // Description: Returns size of the GED in octets.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KUINT8 GetLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetGroupedEntityCategory
-    // Description: Identifies the derived GED class.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetFuelStatus
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetFuelStatus
+  // Description: Represents the amount of fuel remaining.
+  //              Specified in 10 liter increments.
+  // Parameter:   KUINT8  F, void
+  //************************************
+  void SetFuelStatus(KUINT8 F);
+  KUINT8 GetFuelStatus() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetLength
-    // Description: Returns size of the GED in octets.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KUINT8 GetLength() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetGroundMaintenanceStatus
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetGroundMaintenanceStatus
+  // Description: Distance traveled since the last failure.
+  //              Specified in tens of kilometers.
+  // Parameter:   KUINT8  G, void
+  //************************************
+  void SetGroundMaintenanceStatus(KUINT8 G);
+  KUINT8 GetGroundMaintenanceStatus() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetFuelStatus
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetFuelStatus
-    // Description: Represents the amount of fuel remaining.
-    //              Specified in 10 liter increments.
-    // Parameter:   KUINT8  F, void
-    //************************************
-    void SetFuelStatus( KUINT8 F );
-    KUINT8 GetFuelStatus() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetPrimaryAmmunition
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetPrimaryAmmunition
+  // Description: Amount of primary ammunition remaining.
+  //              Specified in natural ammunition units for the primary weapon
+  //              system.
+  // Parameter:   KUINT8  P, void
+  //************************************
+  void SetPrimaryAmmunition(KUINT8 P);
+  KUINT8 GetPrimaryAmmunition() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetGroundMaintenanceStatus
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetGroundMaintenanceStatus
-    // Description: Distance traveled since the last failure.
-    //              Specified in tens of kilometers.
-    // Parameter:   KUINT8  G, void
-    //************************************
-    void SetGroundMaintenanceStatus( KUINT8 G );
-    KUINT8 GetGroundMaintenanceStatus() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetSecondaryAmmunition
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetSecondaryAmmunition
+  // Description: Amount of secondary ammunition remaining.
+  //              Specified in natural ammunition units for the secondary weapon
+  //              system.
+  // Parameter:   KUINT8  S, void
+  //************************************
+  void SetSecondaryAmmunition(KUINT8 S);
+  KUINT8 GetSecondaryAmmunition() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetPrimaryAmmunition
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetPrimaryAmmunition
-    // Description: Amount of primary ammunition remaining.
-    //              Specified in natural ammunition units for the primary weapon system.
-    // Parameter:   KUINT8  P, void
-    //************************************
-    void SetPrimaryAmmunition( KUINT8 P );
-    KUINT8 GetPrimaryAmmunition() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::SetSecondaryAmmunition
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetSecondaryAmmunition
-    // Description: Amount of secondary ammunition remaining.
-    //              Specified in natural ammunition units for the secondary weapon system.
-    // Parameter:   KUINT8  S, void
-    //************************************
-    void SetSecondaryAmmunition( KUINT8 S );
-    KUINT8 GetSecondaryAmmunition() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const GED_EnhancedGroundCombatVehicle & Value ) const;
-    KBOOL operator != ( const GED_EnhancedGroundCombatVehicle & Value ) const;
+  KBOOL operator==(const GED_EnhancedGroundCombatVehicle& Value) const;
+  KBOOL operator!=(const GED_EnhancedGroundCombatVehicle& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

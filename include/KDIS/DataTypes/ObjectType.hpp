@@ -39,97 +39,93 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ObjectType : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT ObjectType : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8Domain;
 
-    KUINT8 m_ui8Domain;
+  KUINT8 m_ui8EntityKind;
 
-    KUINT8 m_ui8EntityKind;
+  KUINT8 m_ui8Category;
 
-    KUINT8 m_ui8Category;
+  KUINT8 m_ui8SubCategory;
 
-    KUINT8 m_ui8SubCategory;
+ public:
+  static const KUINT16 OBJECT_TYPE_SIZE = 4;
 
-public:
+  ObjectType();
 
-    static const KUINT16 OBJECT_TYPE_SIZE = 4;
+  ObjectType(KUINT8 Domain, KUINT8 Kind, KUINT8 Categoy, KUINT8 SubCategory);
 
-    ObjectType();
+  ObjectType(KDataStream& stream);
 
-    ObjectType( KUINT8 Domain, KUINT8 Kind, KUINT8  Categoy, KUINT8 SubCategory );
+  virtual ~ObjectType();
 
-    ObjectType( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ObjectType::SetDomain
+  //              KDIS::DATA_TYPE::ObjectType::GetDomain
+  // Description: Objects domain.
+  // Parameter:   EntityDomain  UI
+  //************************************
+  void SetDomain(KDIS::DATA_TYPE::ENUMS::EntityDomain UI);
+  KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
 
-    virtual ~ObjectType();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ObjectType::SetEntityKind
+  //              KDIS::DATA_TYPE::ObjectType::GetEntityKind
+  // Description: Object Kind.
+  // Parameter:   KUINT8 UI
+  //************************************
+  void SetEntityKind(KUINT8 UI);
+  KUINT8 GetEntityKind() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ObjectType::SetDomain
-    //              KDIS::DATA_TYPE::ObjectType::GetDomain
-    // Description: Objects domain.
-    // Parameter:   EntityDomain  UI
-    //************************************
-    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain UI );
-    KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ObjectType::SetCategory
+  //              KDIS::DATA_TYPE::ObjectType::GetCategory
+  // Description: Category.
+  // Parameter:   KUINT8 UI
+  //************************************
+  void SetCategory(KUINT8 UI);
+  KUINT8 GetCategory() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ObjectType::SetEntityKind
-    //              KDIS::DATA_TYPE::ObjectType::GetEntityKind
-    // Description: Object Kind.
-    // Parameter:   KUINT8 UI
-    //************************************
-    void SetEntityKind( KUINT8 UI );
-    KUINT8 GetEntityKind() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ObjectType::SetSubCategory
+  //              KDIS::DATA_TYPE::ObjectType::GetSubCategory
+  // Description: Sub Category.
+  // Parameter:   KUINT8 UI
+  //************************************
+  void SetSubCategory(KUINT8 UI);
+  KUINT8 GetSubCategory() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ObjectType::SetCategory
-    //              KDIS::DATA_TYPE::ObjectType::GetCategory
-    // Description: Category.
-    // Parameter:   KUINT8 UI
-    //************************************
-    void SetCategory( KUINT8 UI );
-    KUINT8 GetCategory() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ObjectType::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ObjectType::SetSubCategory
-    //              KDIS::DATA_TYPE::ObjectType::GetSubCategory
-    // Description: Sub Category.
-    // Parameter:   KUINT8 UI
-    //************************************
-    void SetSubCategory( KUINT8 UI );
-    KUINT8 GetSubCategory() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ObjectType::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ObjectType::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ObjectType::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ObjectType::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ObjectType::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const ObjectType & Value ) const;
-    KBOOL operator != ( const ObjectType & Value ) const;
-    KBOOL operator  < ( const ObjectType & Value ) const;
+  KBOOL operator==(const ObjectType& Value) const;
+  KBOOL operator!=(const ObjectType& Value) const;
+  KBOOL operator<(const ObjectType& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

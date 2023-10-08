@@ -33,85 +33,87 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Holds entity marking
-                Note - Currently only supports ASCII marking text, changes will need
-                to be made to support the other sets.
-    size:       96 bits / 12 Octets
+                Note - Currently only supports ASCII marking text, changes will
+need to be made to support the other sets. size:       96 bits / 12 Octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT EntityMarking : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT EntityMarking : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8EntityMarkingCharacterSet;
 
-    KUINT8 m_ui8EntityMarkingCharacterSet;
+  KCHAR8 m_sEntityMarkingString[12];  // Extra octet for terminator, not
+                                      // included in size
 
-    KCHAR8 m_sEntityMarkingString[12]; // Extra octet for terminator, not included in size
+ public:
+  static const KUINT16 ENTITY_MARKING_SIZE = 12;
 
-public:
+  EntityMarking();
 
-    static const KUINT16 ENTITY_MARKING_SIZE = 12;
+  EntityMarking(KDataStream& stream);
 
-    EntityMarking();
+  EntityMarking(
+      const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet,
+      const KCHAR8* MarkingText, KUINT16 TextSize);
 
-    EntityMarking( KDataStream & stream ) ;
+  EntityMarking(
+      const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet,
+      const KString& MarkingText);
 
-    EntityMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) ;
+  virtual ~EntityMarking();
 
-	EntityMarking( const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet, const KString & MarkingText ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EntityMarking::SetEntityMarkingCharacterSet
+  //              KDIS::DATA_TYPE::EntityMarking::GetEntityMarkingCharacterSet
+  // Description: Marking Char set
+  // Parameter:   EntityMarkingCharacterSet EMCS, void
+  //************************************
+  void SetEntityMarkingCharacterSet(
+      KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet EMCS);
+  KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet
+  GetEntityMarkingCharacterSet() const;
 
-    virtual ~EntityMarking();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EntityMarking::SetEntityMarkingString
+  //              KDIS::DATA_TYPE::EntityMarking::GetEntityMarkingString
+  // Description: Marking string. entity name etc. max 11 characters.. Throws
+  // exception if string is too big. Parameter:   const KCHAR8 * EMS, const
+  // KString & EMS Parameter:   KUINT16 StringSize
+  //************************************
+  void SetEntityMarkingString(const KCHAR8* EMS, KUINT16 StringSize);
+  void SetEntityMarkingString(const KString& EMS);
+  KString GetEntityMarkingString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EntityMarking::SetEntityMarkingCharacterSet
-    //              KDIS::DATA_TYPE::EntityMarking::GetEntityMarkingCharacterSet
-    // Description: Marking Char set
-    // Parameter:   EntityMarkingCharacterSet EMCS, void
-    //************************************
-    void SetEntityMarkingCharacterSet( KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet EMCS );
-    KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet GetEntityMarkingCharacterSet() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EntityMarking::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EntityMarking::SetEntityMarkingString
-    //              KDIS::DATA_TYPE::EntityMarking::GetEntityMarkingString
-    // Description: Marking string. entity name etc. max 11 characters.. Throws exception if string is too big.
-    // Parameter:   const KCHAR8 * EMS, const KString & EMS
-    // Parameter:   KUINT16 StringSize
-    //************************************
-    void SetEntityMarkingString( const KCHAR8 * EMS, KUINT16 StringSize ) ;
-	void SetEntityMarkingString( const KString & EMS ) ;
-    KString GetEntityMarkingString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EntityMarking::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EntityMarking::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EntityMarking::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EntityMarking::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EntityMarking::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const EntityMarking & Value ) const;
-    KBOOL operator != ( const EntityMarking & Value ) const;
+  KBOOL operator==(const EntityMarking& Value) const;
+  KBOOL operator!=(const EntityMarking& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

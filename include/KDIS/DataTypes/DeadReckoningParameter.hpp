@@ -39,100 +39,101 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./Vector.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT DeadReckoningParameter : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT DeadReckoningParameter : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8DeadRecknoningAlgorithm;
 
-    KUINT8 m_ui8DeadRecknoningAlgorithm;
+  KOCTET m_OtherParams[15];  // Undefined
 
-    KOCTET m_OtherParams[15]; // Undefined
+  Vector m_LinearAcceleration;
 
-    Vector m_LinearAcceleration;
+  Vector m_AngularVelocity;
 
-    Vector m_AngularVelocity;
+ public:
+  static const KUINT16 DEAD_RECKONING_PARAMETER_SIZE = 40;
 
-public:
+  DeadReckoningParameter();
 
-    static const KUINT16 DEAD_RECKONING_PARAMETER_SIZE = 40;
+  DeadReckoningParameter(KDataStream& stream);
 
-    DeadReckoningParameter();
+  DeadReckoningParameter(KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA,
+                         const Vector& LinearAcceleration,
+                         const Vector& AngularVelocity);
 
-    DeadReckoningParameter( KDataStream & stream ) ;
+  virtual ~DeadReckoningParameter();
 
-    DeadReckoningParameter( KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA, const Vector & LinearAcceleration,
-                            const Vector & AngularVelocity );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::DeadReckoningParameter::SetDeadReckoningAlgorithm
+  //              KDIS::DATA_TYPE::DeadReckoningParameter::GetDeadReckoningAlgorithm
+  // Description: Dead Reckoning Algorithm
+  // Parameter:   DeadReckoningAlgorithm DRA
+  //************************************
+  void SetDeadReckoningAlgorithm(
+      KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA);
+  KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm GetDeadReckoningAlgorithm()
+      const;
 
-    virtual ~DeadReckoningParameter();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetLinearAcceleration
+  //              KDIS::DATA_TYPE::DeadReckoningParameter::GetLinearAcceleration
+  // Description: Linear Acceleration in m/s.
+  // Parameter:   const Vector & LA
+  //************************************
+  void SetLinearAcceleration(const Vector& LA);
+  const Vector& GetLinearAcceleration() const;
+  Vector& GetLinearAcceleration();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetDeadReckoningAlgorithm
-    //              KDIS::DATA_TYPE::DeadReckoningParameter::GetDeadReckoningAlgorithm
-    // Description: Dead Reckoning Algorithm
-    // Parameter:   DeadReckoningAlgorithm DRA
-    //************************************
-    void SetDeadReckoningAlgorithm( KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm DRA );
-    KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm GetDeadReckoningAlgorithm() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetAngularVelocity
+  //              KDIS::DATA_TYPE::DeadReckoningParameter::GetAngularVelocity
+  // Description: Angular Velocity
+  // Parameter:   const EulerAngles & AV
+  //************************************
+  void SetAngularVelocity(const Vector& AV);
+  const Vector& GetAngularVelocity() const;
+  Vector& GetAngularVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetLinearAcceleration
-    //              KDIS::DATA_TYPE::DeadReckoningParameter::GetLinearAcceleration
-    // Description: Linear Acceleration in m/s.
-    // Parameter:   const Vector & LA
-    //************************************
-    void SetLinearAcceleration( const Vector & LA );
-    const Vector & GetLinearAcceleration() const;
-    Vector & GetLinearAcceleration();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetQuatAxis
+  //              KDIS::DATA_TYPE::DeadReckoningParameter::GetQuatAxis
+  // Description: Updated DIS - Geometric Interpretation of Orientation Dead
+  // Reckoning / Quaternion axis Parameter:   const EulerAngles & AV
+  //************************************
+  void SetQuatAxis(const Vector& QA);
+  const Vector GetQuatAxis() const;
+  Vector GetQuatAxis();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetAngularVelocity
-    //              KDIS::DATA_TYPE::DeadReckoningParameter::GetAngularVelocity
-    // Description: Angular Velocity
-    // Parameter:   const EulerAngles & AV
-    //************************************
-    void SetAngularVelocity( const Vector & AV );
-    const Vector & GetAngularVelocity() const;
-    Vector & GetAngularVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::SetQuatAxis
-    //              KDIS::DATA_TYPE::DeadReckoningParameter::GetQuatAxis
-    // Description: Updated DIS - Geometric Interpretation of Orientation Dead Reckoning / Quaternion axis
-    // Parameter:   const EulerAngles & AV
-    //************************************
-    void SetQuatAxis( const Vector & QA );
-    const Vector GetQuatAxis() const;
-    Vector GetQuatAxis();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DeadReckoningParameter::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const DeadReckoningParameter & Value ) const;
-    KBOOL operator != ( const DeadReckoningParameter & Value ) const;
+  KBOOL operator==(const DeadReckoningParameter& Value) const;
+  KBOOL operator!=(const DeadReckoningParameter& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -43,128 +43,127 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./Vector.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT WorldCoordinates : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT WorldCoordinates : public DataTypeBase {
+ protected:
+  KFLOAT64 m_f64X;
 
-    KFLOAT64 m_f64X;
+  KFLOAT64 m_f64Y;
 
-    KFLOAT64 m_f64Y;
+  KFLOAT64 m_f64Z;
 
-    KFLOAT64 m_f64Z;
+ public:
+  static const KUINT16 WORLD_COORDINATES_SIZE = 24;
 
-public:
+  WorldCoordinates();
 
-    static const KUINT16 WORLD_COORDINATES_SIZE = 24;
+  WorldCoordinates(KDataStream& stream);
 
-    WorldCoordinates();
+  WorldCoordinates(KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z);
 
-    WorldCoordinates( KDataStream & stream ) ;
+  virtual ~WorldCoordinates();
 
-    WorldCoordinates( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetX
+  //              KDIS::DATA_TYPE::WorldCoordinates::GetX
+  // Description: X
+  // Parameter:   KFLOAT64 X
+  //************************************
+  void SetX(KFLOAT64 X);
+  KFLOAT64 GetX() const;
 
-    virtual ~WorldCoordinates();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetY
+  //              KDIS::DATA_TYPE::WorldCoordinates::GetY
+  // Description: Y
+  // Parameter:   KFLOAT64 Y
+  //************************************
+  void SetY(KFLOAT64 Y);
+  KFLOAT64 GetY() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetX
-    //              KDIS::DATA_TYPE::WorldCoordinates::GetX
-    // Description: X
-    // Parameter:   KFLOAT64 X
-    //************************************
-    void SetX( KFLOAT64 X );
-    KFLOAT64 GetX() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetZ
+  //              KDIS::DATA_TYPE::WorldCoordinates::GetZ
+  // Description: Z
+  // Parameter:   KFLOAT64 Z
+  //************************************
+  void SetZ(KFLOAT64 Z);
+  KFLOAT64 GetZ() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetY
-    //              KDIS::DATA_TYPE::WorldCoordinates::GetY
-    // Description: Y
-    // Parameter:   KFLOAT64 Y
-    //************************************
-    void SetY( KFLOAT64 Y );
-    KFLOAT64 GetY() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Set
+  // Description: Sets x,y and z.
+  // Parameter:   KFLOAT64 X
+  // Parameter:   KFLOAT64 Y
+  // Parameter:   KFLOAT64 Z
+  //************************************
+  void Set(KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetZ
-    //              KDIS::DATA_TYPE::WorldCoordinates::GetZ
-    // Description: Z
-    // Parameter:   KFLOAT64 Z
-    //************************************
-    void SetZ( KFLOAT64 Z );
-    KFLOAT64 GetZ() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetDistance
+  // Description: Calculates the distance from this WorldCoordinates to an
+  // other.
+  //************************************
+  KFLOAT64 GetDistance(const WorldCoordinates& Other);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Set
-    // Description: Sets x,y and z.
-    // Parameter:   KFLOAT64 X
-    // Parameter:   KFLOAT64 Y
-    // Parameter:   KFLOAT64 Z
-    //************************************
-    void Set( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Lerp
+  // Description: Linearly interpolate between From and To by T.
+  //              T should be between 0 and 1(its not checked).
+  //              T 0 = From
+  //              1 = to
+  //              0.5 = halfway between From and To.
+  // Parameter:   const WorldCoordinates & From
+  // Parameter:   const WorldCoordinates & To
+  // Parameter:   KFLOAT32 T
+  //************************************
+  static WorldCoordinates Lerp(const WorldCoordinates& From,
+                               const WorldCoordinates& To, KFLOAT32 T);
+  void Lerp(const WorldCoordinates& To, KFLOAT32 T);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetDistance
-    // Description: Calculates the distance from this WorldCoordinates to an other.
-    //************************************
-    KFLOAT64 GetDistance( const WorldCoordinates & Other );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Lerp
-    // Description: Linearly interpolate between From and To by T.
-    //              T should be between 0 and 1(its not checked).
-    //              T 0 = From
-    //              1 = to
-    //              0.5 = halfway between From and To.
-    // Parameter:   const WorldCoordinates & From
-    // Parameter:   const WorldCoordinates & To
-    // Parameter:   KFLOAT32 T
-    //************************************
-    static WorldCoordinates Lerp( const WorldCoordinates & From, const WorldCoordinates & To, KFLOAT32 T );
-    void Lerp( const WorldCoordinates & To, KFLOAT32 T );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  KBOOL operator==(const WorldCoordinates& Value) const;
+  KBOOL operator!=(const WorldCoordinates& Value) const;
+  WorldCoordinates operator*(const WorldCoordinates& Value) const;
+  WorldCoordinates operator*(KFLOAT64 Value) const;
+  WorldCoordinates operator*(KFLOAT32 Value) const;
+  WorldCoordinates operator+(const WorldCoordinates& Value) const;
+  WorldCoordinates operator+(const Vector& Value) const;
+  WorldCoordinates& operator+=(const Vector& Value);
+  const WorldCoordinates& operator=(const Vector& Value);
+  WorldCoordinates operator-(const WorldCoordinates& Value) const;
+  WorldCoordinates& operator-=(const WorldCoordinates& Value);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::WorldCoordinates::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const WorldCoordinates & Value ) const;
-    KBOOL operator != ( const WorldCoordinates & Value ) const;
-    WorldCoordinates operator * ( const WorldCoordinates & Value ) const;
-    WorldCoordinates operator * ( KFLOAT64 Value ) const;
-    WorldCoordinates operator * ( KFLOAT32 Value ) const;
-    WorldCoordinates operator + ( const WorldCoordinates & Value ) const;
-    WorldCoordinates operator + ( const Vector & Value ) const;
-    WorldCoordinates & operator += ( const Vector & Value );
-    const WorldCoordinates & operator = ( const Vector & Value );
-    WorldCoordinates operator - ( const WorldCoordinates & Value ) const;
-    WorldCoordinates & operator -= ( const WorldCoordinates & Value );
-
-    // Valid values 0 - X, 1 - Y, 2 - Z. throws OUT_OF_BOUNDS exception for any other value.
-    KFLOAT64 & operator[] ( KUINT16 i ) ;
-    const KFLOAT64 & operator[] ( KUINT16 i ) const ;
+  // Valid values 0 - X, 1 - Y, 2 - Z. throws OUT_OF_BOUNDS exception for any
+  // other value.
+  KFLOAT64& operator[](KUINT16 i);
+  const KFLOAT64& operator[](KUINT16 i) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

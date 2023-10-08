@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./CryptoSystem.h"
+#include "KDIS/DataTypes/CryptoSystem.hpp"
 //////////////////////////////////////////////////////////////////////////
 
 using namespace KDIS;
@@ -38,153 +38,114 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystem::CryptoSystem() :
-    m_ui16CryptoSystemType( 0 ),
-    m_ui16EncryptionMode( 0 ),
-    m_ui16KeyID( 0 )
-{
+CryptoSystem::CryptoSystem()
+    : m_ui16CryptoSystemType(0), m_ui16EncryptionMode(0), m_ui16KeyID(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CryptoSystem::CryptoSystem(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+CryptoSystem::CryptoSystem(CryptoSystemType CST, EncryptionMode EM, KUINT16 Key)
+    : m_ui16CryptoSystemType(CST), m_ui16EncryptionMode(EM), m_ui16KeyID(Key) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CryptoSystem::~CryptoSystem() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void CryptoSystem::SetCryptoSystemType(CryptoSystemType T) {
+  m_ui16CryptoSystemType = T;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystem::CryptoSystem( KDataStream & stream ) 
-{
-    Decode( stream );
+CryptoSystemType CryptoSystem::GetCryptoSystemType() const {
+  return (CryptoSystemType)m_ui16CryptoSystemType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystem::CryptoSystem( CryptoSystemType CST, EncryptionMode EM, KUINT16 Key ) :
-    m_ui16CryptoSystemType( CST ),
-    m_ui16EncryptionMode( EM ),
-    m_ui16KeyID( Key )
-{
+void CryptoSystem::SetEncryptionMode(EncryptionMode EM) {
+  m_ui16EncryptionMode = EM;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystem::~CryptoSystem()
-{
+EncryptionMode CryptoSystem::GetEncryptionMode() const {
+  return (EncryptionMode)m_ui16EncryptionMode;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CryptoSystem::SetCryptoSystemType( CryptoSystemType T )
-{
-    m_ui16CryptoSystemType = T;
+void CryptoSystem::SetKeyID(KUINT16 KeyID) { m_ui16KeyID = KeyID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 CryptoSystem::GetKeyID() const { return m_ui16KeyID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void CryptoSystem::SetKey(KUINT16 K) { m_ui16CryptoKey = K; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 CryptoSystem::GetKey() const { return m_ui16CryptoKey; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString CryptoSystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Crypto System:"
+     << "\n\tEquipment:   "
+     << GetEnumAsStringCryptoSystemType(m_ui16CryptoSystemType)
+     << "\n\tMode:        "
+     << GetEnumAsStringEncryptionMode(m_ui16EncryptionMode)
+     << "\n\tKey:         " << m_ui16KeyID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CryptoSystemType CryptoSystem::GetCryptoSystemType() const
-{
-    return ( CryptoSystemType )m_ui16CryptoSystemType;
+void CryptoSystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < CRYPTO_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16CryptoSystemType >> m_ui16CryptoKey;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CryptoSystem::SetEncryptionMode( EncryptionMode EM )
-{
-    m_ui16EncryptionMode = EM;
+KDataStream CryptoSystem::Encode() const {
+  KDataStream stream;
+
+  CryptoSystem::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EncryptionMode CryptoSystem::GetEncryptionMode() const
-{
-    return ( EncryptionMode )m_ui16EncryptionMode;
+void CryptoSystem::Encode(KDataStream& stream) const {
+  stream << m_ui16CryptoSystemType << m_ui16CryptoKey;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CryptoSystem::SetKeyID( KUINT16 KeyID )
-{
-    m_ui16KeyID = KeyID;
+KBOOL CryptoSystem::operator==(const CryptoSystem& Value) const {
+  if (m_ui16CryptoSystemType != Value.m_ui16CryptoSystemType) return false;
+  if (m_ui16CryptoKey != Value.m_ui16CryptoKey) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 CryptoSystem::GetKeyID() const
-{
-    return m_ui16KeyID;
+KBOOL CryptoSystem::operator!=(const CryptoSystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void CryptoSystem::SetKey( KUINT16 K )
-{
-    m_ui16CryptoKey = K;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 CryptoSystem::GetKey() const
-{
-    return m_ui16CryptoKey;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString CryptoSystem::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Crypto System:"
-       << "\n\tEquipment:   " << GetEnumAsStringCryptoSystemType( m_ui16CryptoSystemType )
-       << "\n\tMode:        " << GetEnumAsStringEncryptionMode( m_ui16EncryptionMode )
-       << "\n\tKey:         " << m_ui16KeyID
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void CryptoSystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < CRYPTO_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16CryptoSystemType
-           >> m_ui16CryptoKey;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream CryptoSystem::Encode() const
-{
-    KDataStream stream;
-
-    CryptoSystem::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void CryptoSystem::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16CryptoSystemType
-           << m_ui16CryptoKey;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL CryptoSystem::operator == ( const CryptoSystem & Value ) const
-{
-    if( m_ui16CryptoSystemType  != Value.m_ui16CryptoSystemType ) return false;
-    if( m_ui16CryptoKey         != Value.m_ui16CryptoKey )        return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL CryptoSystem::operator != ( const CryptoSystem & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-
-
-

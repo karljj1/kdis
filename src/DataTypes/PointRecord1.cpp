@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./PointRecord1.h"
+#include "KDIS/DataTypes/PointRecord1.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,117 +37,90 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-PointRecord1::PointRecord1()
-{
-    m_ui32EnvRecTyp = PointRecord1Type;
-    m_ui16Length = ( POINT_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+PointRecord1::PointRecord1() {
+  m_ui32EnvRecTyp = PointRecord1Type;
+  m_ui16Length = (POINT_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PointRecord1::PointRecord1( KDataStream & stream )
-{
-    Decode( stream );
+PointRecord1::PointRecord1(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+PointRecord1::PointRecord1(KUINT8 Index, const WorldCoordinates& Location)
+    : m_Location(Location) {
+  m_ui8Index = Index;
+  m_ui32EnvRecTyp = PointRecord1Type;
+  m_ui16Length = (POINT_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PointRecord1::PointRecord1( KUINT8 Index, const WorldCoordinates & Location ) :
-    m_Location( Location )
-{
-    m_ui8Index = Index;
-    m_ui32EnvRecTyp = PointRecord1Type;
-    m_ui16Length = ( POINT_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+PointRecord1::~PointRecord1() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void PointRecord1::SetLocation(const WorldCoordinates& L) { m_Location = L; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const WorldCoordinates& PointRecord1::GetLocation() const { return m_Location; }
+
+//////////////////////////////////////////////////////////////////////////
+
+WorldCoordinates& PointRecord1::GetLocation() { return m_Location; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString PointRecord1::GetAsString() const {
+  KStringStream ss;
+
+  ss << EnvironmentRecord::GetAsString()
+     << "\tLocation: " << m_Location.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PointRecord1::~PointRecord1()
-{
+void PointRecord1::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < POINT_RECORD_1_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
+      KDIS_STREAM m_Location;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void PointRecord1::SetLocation( const WorldCoordinates & L )
-{
-    m_Location = L;
+KDataStream PointRecord1::Encode() const {
+  KDataStream stream;
+
+  PointRecord1::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & PointRecord1::GetLocation() const
-{
-    return m_Location;
+void PointRecord1::Encode(KDataStream& stream) const {
+  stream << m_ui32EnvRecTyp << m_ui16Length << m_ui8Index << m_ui8Padding
+         << KDIS_STREAM m_Location;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & PointRecord1::GetLocation()
-{
-    return m_Location;
+KBOOL PointRecord1::operator==(const PointRecord1& Value) const {
+  if (EnvironmentRecord::operator!=(Value)) return false;
+  if (m_Location != Value.m_Location) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString PointRecord1::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << EnvironmentRecord::GetAsString()
-       << "\tLocation: " <<  m_Location.GetAsString();
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void PointRecord1::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < POINT_RECORD_1_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui32EnvRecTyp
-           >> m_ui16Length
-           >> m_ui8Index
-           >> m_ui8Padding
-           >> KDIS_STREAM m_Location;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream PointRecord1::Encode() const
-{
-    KDataStream stream;
-
-    PointRecord1::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void PointRecord1::Encode( KDataStream & stream ) const
-{
-    stream << m_ui32EnvRecTyp
-           << m_ui16Length
-           << m_ui8Index
-           << m_ui8Padding
-           << KDIS_STREAM m_Location;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL PointRecord1::operator == ( const PointRecord1 & Value )const
-{
-    if( EnvironmentRecord::operator !=( Value ) ) return false;
-    if( m_Location != Value.m_Location ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL PointRecord1::operator != ( const PointRecord1 & Value )const
-{
-    return !( *this == Value );
+KBOOL PointRecord1::operator!=(const PointRecord1& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -38,87 +38,84 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::EmitterName;
 using KDIS::DATA_TYPE::ENUMS::EmitterFunction;
+using KDIS::DATA_TYPE::ENUMS::EmitterName;
 
-class KDIS_EXPORT EmitterSystem : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT EmitterSystem : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16EmitterName;
 
-    KUINT16 m_ui16EmitterName;
+  KUINT8 m_ui8Function;
 
-    KUINT8 m_ui8Function;
+  KUINT8 m_ui8EmitterIDNumber;
 
-    KUINT8 m_ui8EmitterIDNumber;
+ public:
+  static const KUINT16 EMITTER_SYSTEM_SIZE = 4;
 
-public:
+  EmitterSystem();
 
-    static const KUINT16 EMITTER_SYSTEM_SIZE = 4;
+  EmitterSystem(KDataStream& stream);
 
-    EmitterSystem();
+  EmitterSystem(EmitterName EN, EmitterFunction F, KUINT8 ID);
 
-    EmitterSystem( KDataStream & stream );
+  virtual ~EmitterSystem();
 
-    EmitterSystem( EmitterName EN, EmitterFunction F, KUINT8 ID );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmitterSystem::SetEmitterName
+  //              KDIS::DATA_TYPE::EmitterSystem::GetEmitterName
+  // Description: Emitter name
+  // Parameter:   EmitterName EN, void
+  //************************************
+  void SetEmitterName(EmitterName EN);
+  EmitterName GetEmitterName() const;
 
-    virtual ~EmitterSystem();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmitterSystem::SetFunction
+  //              KDIS::DATA_TYPE::EmitterSystem::GetFunction
+  // Description: Emitter function
+  // Parameter:   EmitterFunction F, void
+  //************************************
+  void SetFunction(EmitterFunction F);
+  EmitterFunction GetFunction() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmitterSystem::SetEmitterName
-    //              KDIS::DATA_TYPE::EmitterSystem::GetEmitterName
-    // Description: Emitter name
-    // Parameter:   EmitterName EN, void
-    //************************************
-    void SetEmitterName( EmitterName EN );
-    EmitterName GetEmitterName() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmitterSystem::SetEmitterID
+  //              KDIS::DATA_TYPE::EmitterSystem::GetEmitterID
+  // Description: ID of the emitter
+  // Parameter:   KUINT8 ID, void
+  //************************************
+  void SetEmitterID(KUINT8 ID);
+  KUINT8 GetEmitterID() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmitterSystem::SetFunction
-    //              KDIS::DATA_TYPE::EmitterSystem::GetFunction
-    // Description: Emitter function
-    // Parameter:   EmitterFunction F, void
-    //************************************
-    void SetFunction( EmitterFunction F );
-    EmitterFunction GetFunction() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmitterSystem::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmitterSystem::SetEmitterID
-    //              KDIS::DATA_TYPE::EmitterSystem::GetEmitterID
-    // Description: ID of the emitter
-    // Parameter:   KUINT8 ID, void
-    //************************************
-    void SetEmitterID( KUINT8 ID );
-    KUINT8 GetEmitterID() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmitterSystem::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmitterSystem::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmitterSystem::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmitterSystem::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmitterSystem::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const EmitterSystem & Value ) const;
-    KBOOL operator != ( const EmitterSystem & Value ) const;
+  KBOOL operator==(const EmitterSystem& Value) const;
+  KBOOL operator!=(const EmitterSystem& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

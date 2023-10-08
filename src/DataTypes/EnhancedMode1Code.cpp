@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnhancedMode1Code.h"
+#include "KDIS/DataTypes/EnhancedMode1Code.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,94 +40,75 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-EnhancedMode1Code::EnhancedMode1Code() 
-{
-	m_CodeUnion.m_ui16Code = 0;
+EnhancedMode1Code::EnhancedMode1Code() { m_CodeUnion.m_ui16Code = 0; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EnhancedMode1Code::EnhancedMode1Code(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+EnhancedMode1Code::~EnhancedMode1Code() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EnhancedMode1Code::SetCodeElement1(KUINT8 CE) {
+  m_CodeUnion.m_ui16Bits0_2 = CE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EnhancedMode1Code::EnhancedMode1Code( KDataStream & stream ) 
-{
-    Decode( stream );
+KUINT8 EnhancedMode1Code::GetCodeElement1() {
+  return m_CodeUnion.m_ui16Bits0_2;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EnhancedMode1Code::~EnhancedMode1Code()
-{
+void EnhancedMode1Code::SetCodeElement2(KUINT8 CE) {
+  m_CodeUnion.m_ui16Bits3_5 = CE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EnhancedMode1Code::SetCodeElement1( KUINT8 CE )
-{
-	m_CodeUnion.m_ui16Bits0_2 = CE;
+KUINT8 EnhancedMode1Code::GetCodeElement2() {
+  return m_CodeUnion.m_ui16Bits3_5;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement1()
-{
-	return m_CodeUnion.m_ui16Bits0_2;
-}
-	
-//////////////////////////////////////////////////////////////////////////
-
-void EnhancedMode1Code::SetCodeElement2( KUINT8 CE )
-{
-	m_CodeUnion.m_ui16Bits3_5 = CE;
+void EnhancedMode1Code::SetCodeElement3(KUINT8 CE) {
+  m_CodeUnion.m_ui16Bits6_8 = CE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement2()
-{
-	return m_CodeUnion.m_ui16Bits3_5;
-}
-	
-//////////////////////////////////////////////////////////////////////////
-
-void EnhancedMode1Code::SetCodeElement3( KUINT8 CE )
-{
-	m_CodeUnion.m_ui16Bits6_8 = CE;
+KUINT8 EnhancedMode1Code::GetCodeElement3() {
+  return m_CodeUnion.m_ui16Bits6_8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement3()
-{
-	return m_CodeUnion.m_ui16Bits6_8;
-}
-
-//////////////////////////////////////////////////////////////////////////
-	
-void EnhancedMode1Code::SetCodeElement4( KUINT8 CE )
-{
-	m_CodeUnion.m_ui16Bits9_11 = CE;
+void EnhancedMode1Code::SetCodeElement4(KUINT8 CE) {
+  m_CodeUnion.m_ui16Bits9_11 = CE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EnhancedMode1Code::GetCodeElement4()
-{
-	return m_CodeUnion.m_ui16Bits9_11;
+KUINT8 EnhancedMode1Code::GetCodeElement4() {
+  return m_CodeUnion.m_ui16Bits9_11;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString EnhancedMode1Code::GetAsString() const
-{
-    KStringStream ss;
+KString EnhancedMode1Code::GetAsString() const {
+  KStringStream ss;
 
-    ss << "Enhanced Mode 1 Code: " << m_CodeUnion.m_ui16Bits9_11
-		                           << m_CodeUnion.m_ui16Bits6_8 
-								   << m_CodeUnion.m_ui16Bits3_5 
-								   << m_CodeUnion.m_ui16Bits0_2 
-								   << "\n"
-	   << IndentString( ModeXCodeRecord::GetAsString(), 1 );
- 
-    return ss.str();
+  ss << "Enhanced Mode 1 Code: " << m_CodeUnion.m_ui16Bits9_11
+     << m_CodeUnion.m_ui16Bits6_8 << m_CodeUnion.m_ui16Bits3_5
+     << m_CodeUnion.m_ui16Bits0_2 << "\n"
+     << IndentString(ModeXCodeRecord::GetAsString(), 1);
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////

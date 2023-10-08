@@ -38,87 +38,91 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./UnderwaterAcousticFundamentalParameterData.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/UnderwaterAcousticFundamentalParameterData.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT UnderwaterAcousticEmitterBeam : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT UnderwaterAcousticEmitterBeam : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8BeamDataLength;
 
-    KUINT8 m_ui8BeamDataLength;
+  KUINT8 m_ui8BeamIDNumber;
 
-    KUINT8 m_ui8BeamIDNumber;
+  KUINT16 m_ui16Padding1;
 
-    KUINT16 m_ui16Padding1;
+  UnderwaterAcousticFundamentalParameterData m_UAFPD;
 
-    UnderwaterAcousticFundamentalParameterData m_UAFPD;
+ public:
+  static const KUINT16 UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE = 24;
 
-public:
+  UnderwaterAcousticEmitterBeam();
 
-    static const KUINT16 UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE = 24;
+  UnderwaterAcousticEmitterBeam(KDataStream& stream);
 
-    UnderwaterAcousticEmitterBeam();
+  UnderwaterAcousticEmitterBeam(
+      KUINT8 ID, const UnderwaterAcousticFundamentalParameterData& UAFPD);
 
-    UnderwaterAcousticEmitterBeam( KDataStream & stream );
+  virtual ~UnderwaterAcousticEmitterBeam();
 
-    UnderwaterAcousticEmitterBeam( KUINT8 ID, const UnderwaterAcousticFundamentalParameterData & UAFPD );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetSystemDataLength
+  // Description: Length of the emission system in 32 bit words.
+  //              E.G 1 = 32 bits 4 octets. Calculated automatically.
+  //************************************
+  KUINT8 GetBeamDataLength() const;
 
-    virtual ~UnderwaterAcousticEmitterBeam();
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::SetUnderwaterAcousticEmitterBeamIDNumber
+  //              KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticEmitterBeamIDNumber
+  // Description: Unique ID for emitter beam, Once established for an exercise
+  //              no other beam may use this ID.
+  // Parameter:   KUINT8 ID, void
+  //************************************
+  void SetUnderwaterAcousticEmitterBeamIDNumber(KUINT8 ID);
+  KUINT8 GetUnderwaterAcousticEmitterBeamIDNumber() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetSystemDataLength
-    // Description: Length of the emission system in 32 bit words.
-    //              E.G 1 = 32 bits 4 octets. Calculated automatically.
-    //************************************
-    KUINT8 GetBeamDataLength() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::SetSSetUnderwaterAcousticFundamentalParameterDataystemType
+  //              KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticFundamentalParameterData
+  // Description: System Type
+  // Parameter:   UnderwaterAcousticFundamentalParameterData AEFPD, void
+  //************************************
+  void SetUnderwaterAcousticFundamentalParameterData(
+      const UnderwaterAcousticFundamentalParameterData& UAFPD);
+  const UnderwaterAcousticFundamentalParameterData&
+  GetUnderwaterAcousticFundamentalParameterData() const;
+  UnderwaterAcousticFundamentalParameterData&
+  GetUnderwaterAcousticFundamentalParameterData();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::SetUnderwaterAcousticEmitterBeamIDNumber
-    //              KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticEmitterBeamIDNumber
-    // Description: Unique ID for emitter beam, Once established for an exercise
-    //              no other beam may use this ID.
-    // Parameter:   KUINT8 ID, void
-    //************************************
-    void SetUnderwaterAcousticEmitterBeamIDNumber( KUINT8 ID );
-    KUINT8 GetUnderwaterAcousticEmitterBeamIDNumber() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::SetSSetUnderwaterAcousticFundamentalParameterDataystemType
-    //              KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticFundamentalParameterData
-    // Description: System Type
-    // Parameter:   UnderwaterAcousticFundamentalParameterData AEFPD, void
-    //************************************
-    void SetUnderwaterAcousticFundamentalParameterData( const UnderwaterAcousticFundamentalParameterData & UAFPD );
-    const UnderwaterAcousticFundamentalParameterData & GetUnderwaterAcousticFundamentalParameterData() const;
-    UnderwaterAcousticFundamentalParameterData & GetUnderwaterAcousticFundamentalParameterData();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const UnderwaterAcousticEmitterBeam & Value ) const;
-    KBOOL operator != ( const UnderwaterAcousticEmitterBeam & Value ) const;
+  KBOOL operator==(const UnderwaterAcousticEmitterBeam& Value) const;
+  KBOOL operator!=(const UnderwaterAcousticEmitterBeam& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

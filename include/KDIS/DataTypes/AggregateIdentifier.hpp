@@ -40,66 +40,63 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./SimulationIdentifier.h"
+#include "KDIS/DataTypes/SimulationIdentifier.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT AggregateIdentifier : public SimulationIdentifier
-{
-protected:
+class KDIS_EXPORT AggregateIdentifier : public SimulationIdentifier {
+ protected:
+  KUINT16 m_ui16AggregateID;
 
-    KUINT16 m_ui16AggregateID;
+ public:
+  static const KUINT16 AGGREGATE_IDENTIFER_SIZE = 6;
 
-public:
+  AggregateIdentifier();
 
-    static const KUINT16 AGGREGATE_IDENTIFER_SIZE = 6;
+  AggregateIdentifier(KUINT16 SiteID, KUINT16 ApplicatonID,
+                      KUINT16 AggregateID);
 
-    AggregateIdentifier();
+  AggregateIdentifier(const SimulationIdentifier& SimID, KUINT16 AggregateID);
 
-    AggregateIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID, KUINT16 AggregateID );
+  AggregateIdentifier(KDataStream& stream);
 
-    AggregateIdentifier( const SimulationIdentifier & SimID, KUINT16 AggregateID );
+  virtual ~AggregateIdentifier();
 
-    AggregateIdentifier( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::SetAggregateID
+  //              KDIS::DATA_TYPE::AggregateIdentifier::GetAggregateID
+  // Description: Aggregate ID
+  // Parameter:   KUINT16 ID, void
+  //************************************
+  void SetAggregateID(KUINT16 ID);
+  KUINT16 GetAggregateID() const;
 
-    virtual ~AggregateIdentifier();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::SetAggregateID
-    //              KDIS::DATA_TYPE::AggregateIdentifier::GetAggregateID
-    // Description: Aggregate ID
-    // Parameter:   KUINT16 ID, void
-    //************************************
-    void SetAggregateID( KUINT16 ID );
-    KUINT16 GetAggregateID() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const AggregateIdentifier & Value ) const;
-    KBOOL operator != ( const AggregateIdentifier & Value ) const;
-    KBOOL operator  < ( const AggregateIdentifier & Value ) const;
+  KBOOL operator==(const AggregateIdentifier& Value) const;
+  KBOOL operator!=(const AggregateIdentifier& Value) const;
+  KBOOL operator<(const AggregateIdentifier& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

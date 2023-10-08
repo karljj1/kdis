@@ -35,73 +35,61 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Defines some of the core data types that KDIS uses.
 *********************************************************************/
 
-#pragma once
+#ifndef KDIS_KDEFINES_HPP_
+#define KDIS_KDEFINES_HPP_
 
-#include "./KSymbolicNames.h"
-#include <cstring> // memset
-#include <string>
-#include <sstream>
-#include <exception>
 #include <cstdint>
+#include <cstring>
+#include <exception>
+#include <sstream>
+#include <string>
+
+#include "KDIS/KSymbolicNames.hpp"
 
 #define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS
 
-// Comment out the following line to enable Enum descriptors or declare KDIS_USE_ENUM_DESCRIPTORS
-// in your project pre-processor definitions (-D KDIS_USE_ENUM_DESCRIPTORS).
-//#define KDIS_USE_ENUM_DESCRIPTORS
+// Comment out the following line to enable Enum descriptors or declare
+// KDIS_USE_ENUM_DESCRIPTORS in your project pre-processor definitions (-D
+// KDIS_USE_ENUM_DESCRIPTORS).
+// #define KDIS_USE_ENUM_DESCRIPTORS
 
-#if defined( WIN32 ) | defined( _WIN32 ) | defined( WIN64 ) | defined( _WIN64 )
-// Disable this warning, it simply warns us about any functions that have a throw qualifier.
-#pragma warning( disable : 4290 )
+#if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+// Disable this warning, it simply warns us about any functions that have a
+// throw qualifier.
+#pragma warning(disable : 4290)
 
 // Warning about conversion from size_t
-#pragma warning( disable : 4267 )
+#pragma warning(disable : 4267)
 
 // Safe to ignore this error as we are only exporting STL objects
-#pragma warning( disable : 4251 )
+#pragma warning(disable : 4251)
 #endif
 
 /************************************************************************/
 /*  Export Options                                                      */
 /************************************************************************/
 
-#ifdef EXPORT_KDIS
-    #ifdef IMPORT_KDIS
-        #pragma error( "IMPORT_KDIS & EXPORT_KDIS Can Not Be Both Defined" )
-    #endif
-#endif
-
-#if defined( WIN32 ) | defined( WIN64 )
-    #if defined EXPORT_KDIS
-        #define KDIS_EXPORT __declspec( dllexport )
-    #elif defined IMPORT_KDIS
-        #define KDIS_EXPORT __declspec( dllimport  )
-    #else
-        #define KDIS_EXPORT
-    #endif
+// Windows DLL
+#if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
+    defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
+// Windows
+#if defined(EXPORT_KDIS) && defined(IMPORT_KDIS)
+#error EXPORT_KDIS and IMPORT_KDIS cannot be defined at the same time
+#elif defined(EXPORT_KDIS)
+#define KDIS_EXPORT __declspec(dllexport)  // Export
+#elif defined(IMPORT_KDIS)
+#define KDIS_EXPORT __declspec(dllimport)  // Import
 #else
-    #define KDIS_EXPORT
+#error EXPORT_KDIS or IMPORT_KDIS must be defined
+#endif
+#else
+// Non Windows
+#define KDIS_EXPORT
 #endif
 
-// Used when we include both DIS 5, 6, or 7 PDUs in a component, such as the PDU_Factory.
-// We can use this to know what PDUs we should allow use off and what features.
-// E.G DIS version 7 uses some of the headers padding to add an extra field.
+// DIS version
 #ifndef DIS_VERSION
-    #pragma message("No DIS version specified, defaulting to 6. Other options available are 'DIS_VERSION 5' and 'DIS_VERSION 7'")
-    #define DIS_VERSION 6
-#endif
-
-// Used to provide two C++11 features for older compilers (kinda)
-// MSVC reports __cplusplus as being C98 since it doesn't conform to all features of the newer standard(s) 
-// The MSVC_LANG approximates the compilers capabilities  
-#ifndef _MSVC_LANG
-	#define _MSVC_LANG __cplusplus
-#endif
-
-#if __cplusplus < 201103L && _MSVC_LANG < 201103L
-    #include <memory>
-    #define unique_ptr auto_ptr
-    #define nullptr NULL
+#error DIS_VERSION must be defined. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
 #endif
 
 /************************************************************************/
@@ -136,123 +124,92 @@ typedef bool KBOOL;
 /* Error Code Definitions                                               */
 /************************************************************************/
 
-enum ErrorCodes
-{
-    NO_ERRORS                                           = 0,
-    BUFFER_TOO_SMALL                                    = 1,
-    NOT_ENOUGH_DATA_IN_BUFFER                           = 2,
-    STRING_PDU_SIZE_TOO_BIG                             = 3,
-    DATA_TYPE_TOO_LARGE                                 = 4,
-    WRONG_PDU_TYPE_IN_HEADER                            = 5,
-    FILE_NOT_OPEN                                       = 6,
-    OUT_OF_BOUNDS                                       = 7,
-    INVALID_DATA                                        = 8,
-    UNSUPPORTED_DATATYPE                                = 9,
-    INVALID_OPERATION                                   = 10,
-    PDU_TOO_LARGE                                       = 11,
-    CONNECTION_SOCKET_ERROR                             = 12
+enum ErrorCodes {
+  NO_ERRORS = 0,
+  BUFFER_TOO_SMALL = 1,
+  NOT_ENOUGH_DATA_IN_BUFFER = 2,
+  STRING_PDU_SIZE_TOO_BIG = 3,
+  DATA_TYPE_TOO_LARGE = 4,
+  WRONG_PDU_TYPE_IN_HEADER = 5,
+  FILE_NOT_OPEN = 6,
+  OUT_OF_BOUNDS = 7,
+  INVALID_DATA = 8,
+  UNSUPPORTED_DATATYPE = 9,
+  INVALID_OPERATION = 10,
+  PDU_TOO_LARGE = 11,
+  CONNECTION_SOCKET_ERROR = 12
 };
 
 /************************************************************************/
 /* Error Code As String                                                 */
 /************************************************************************/
 
-static KString GetErrorText( KUINT16 ErrorCode )
-{
-    switch( ErrorCode )
-    {
-        case NO_ERRORS:
-            return "No Errors. ";
-        case BUFFER_TOO_SMALL:
-            return "Buffer Is Too Small. ";
-        case NOT_ENOUGH_DATA_IN_BUFFER:
-            return "Buffer Does Not Contain Enough Information To Decode. ";
-        case STRING_PDU_SIZE_TOO_BIG:
-            return "String Size Too Big. ";
-        case DATA_TYPE_TOO_LARGE:
-            return "Data Type Is Too Large. ";
-        case WRONG_PDU_TYPE_IN_HEADER:
-            return "Incorrect PDU Type Specified In Header. ";
-        case FILE_NOT_OPEN:
-            return "Could Not Open File For Reading/Writing. ";
-        case OUT_OF_BOUNDS:
-            return "Parameter Is Out Of Bounds/Range Of Acceptable Values. ";
-        case INVALID_DATA:
-            return "Invalid Data. ";
-        case UNSUPPORTED_DATATYPE:
-            return "Unsupported Data Type, Can Not Decode. ";
-        case INVALID_OPERATION:
-            return "Invalid Operation. ";
-        case PDU_TOO_LARGE:
-            return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes.";
-        case CONNECTION_SOCKET_ERROR:
-            return "Socket error.";
-        default:
-            return "Unknown KDIS Error. ";
-    }
-};
+static KString GetErrorText(KUINT16 ErrorCode) {
+  switch (ErrorCode) {
+    case NO_ERRORS:
+      return "No Errors";
+    case BUFFER_TOO_SMALL:
+      return "Buffer Is Too Small";
+    case NOT_ENOUGH_DATA_IN_BUFFER:
+      return "Buffer Does Not Contain Enough Information To Decode";
+    case STRING_PDU_SIZE_TOO_BIG:
+      return "String Size Too Big";
+    case DATA_TYPE_TOO_LARGE:
+      return "Data Type Is Too Large";
+    case WRONG_PDU_TYPE_IN_HEADER:
+      return "Incorrect PDU Type Specified In Header";
+    case FILE_NOT_OPEN:
+      return "Could Not Open File For Reading/Writing";
+    case OUT_OF_BOUNDS:
+      return "Parameter Is Out Of Bounds/Range Of Acceptable Values";
+    case INVALID_DATA:
+      return "Invalid Data";
+    case UNSUPPORTED_DATATYPE:
+      return "Unsupported Data Type, Can Not Decode";
+    case INVALID_OPERATION:
+      return "Invalid Operation";
+    case PDU_TOO_LARGE:
+      return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes";
+    case CONNECTION_SOCKET_ERROR:
+      return "Socket error";
+    default:
+      return "Unknown KDIS Error";
+  }
+}
 
 /************************************************************************/
 /* Exception                                                            */
 /************************************************************************/
 
-class KException : public std::exception
-{
-public:
+class KException : public std::exception {
+ public:
+  KUINT16 m_ui16ErrorCode;
+  KString m_sErrorText;
 
-    KUINT16 m_ui16ErrorCode;
-    KString m_sErrorText;
+  explicit KException(KUINT16 EC)
+      : m_ui16ErrorCode(EC), m_sErrorText(GetErrorText(EC)) {}
 
-    KException( KUINT16 EC ) :
-        m_ui16ErrorCode( EC ),
-        m_sErrorText( GetErrorText( EC ) )
-    {
-    };
+  KException(KString Text, KUINT16 EC)
+      : m_ui16ErrorCode(EC), m_sErrorText(Text + ": " + GetErrorText(EC)) {}
 
-    KException( KString Text, KUINT16 EC ) :
-        m_ui16ErrorCode( EC ),
-        m_sErrorText( Text + ": " + GetErrorText( EC ) )
-    {
-    };
+  template <class T>
+  KException(KString Text, KUINT16 EC, T AdditonalInfo) : m_ui16ErrorCode(EC) {
+    KStringStream ss;
+    ss << Text << ": " << GetErrorText(EC) << m_sErrorText << AdditonalInfo;
+    m_sErrorText = ss.str();
+  }
 
-    template<class T>
-    KException( KString Text, KUINT16 EC, T AdditonalInfo ) :
-        m_ui16ErrorCode( EC )
-    {
-        KStringStream ss;
-        ss << Text << ": " << GetErrorText( EC ) << m_sErrorText << AdditonalInfo;
-        m_sErrorText = ss.str();
-    };
+  virtual ~KException() throw() {}
 
-    virtual ~KException() throw()
-    {
-    };
-
-    virtual const KCHAR8 *  what() const throw()
-    {
-        return m_sErrorText.c_str();
-    };
+  virtual const KCHAR8* what() const throw() { return m_sErrorText.c_str(); }
 };
 
 /************************************************************************/
 /* Endian                                                               */
 /************************************************************************/
 
-enum Endian
-{
-    Little_Endian  = 0,
-    Big_Endian     = 1
-};
+enum Endian { Little_Endian = 0, Big_Endian = 1 };
 
-} // END namespace KDIS
+}  // namespace KDIS
 
-
-
-
-
-
-
-
-
-
-
+#endif  // KDIS_KDEFINES_HPP_

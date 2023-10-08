@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./WorldCoordinates.h"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,290 +36,244 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates::WorldCoordinates() :
-    m_f64X( 0 ),
-    m_f64Y( 0 ),
-    m_f64Z( 0 )
-{
+WorldCoordinates::WorldCoordinates() : m_f64X(0), m_f64Y(0), m_f64Z(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+WorldCoordinates::WorldCoordinates(KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z)
+    : m_f64X(X), m_f64Y(Y), m_f64Z(Z) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+WorldCoordinates::WorldCoordinates(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+WorldCoordinates::~WorldCoordinates() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void WorldCoordinates::SetX(KFLOAT64 X) { m_f64X = X; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT64 WorldCoordinates::GetX() const { return m_f64X; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void WorldCoordinates::SetY(KFLOAT64 Y) { m_f64Y = Y; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT64 WorldCoordinates::GetY() const { return m_f64Y; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void WorldCoordinates::SetZ(KFLOAT64 Z) { m_f64Z = Z; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT64 WorldCoordinates::GetZ() const { return m_f64Z; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void WorldCoordinates::Set(KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z) {
+  m_f64X = X;
+  m_f64Y = Y;
+  m_f64Z = Z;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates::WorldCoordinates( KFLOAT64  X, KFLOAT64  Y, KFLOAT64  Z ) :
-    m_f64X( X ),
-    m_f64Y( Y ),
-    m_f64Z( Z )
-{
+KFLOAT64 WorldCoordinates::GetDistance(const WorldCoordinates& Other) {
+  WorldCoordinates w = *this - Other;
+  KFLOAT64 f =
+      (w.m_f64X * w.m_f64X) + (w.m_f64Y * w.m_f64Y) + (w.m_f64Z * w.m_f64Z);
+  return sqrt(f);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates::WorldCoordinates( KDataStream & stream ) 
-{
-    Decode( stream );
+WorldCoordinates WorldCoordinates::Lerp(const WorldCoordinates& From,
+                                        const WorldCoordinates& To,
+                                        KFLOAT32 T) {
+  return From + ((To - From) * T);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates::~WorldCoordinates()
-{
+void WorldCoordinates::Lerp(const WorldCoordinates& To, KFLOAT32 T) {
+  *this = Lerp(*this, To, T);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::SetX( KFLOAT64  X )
-{
-    m_f64X = X;
+KString WorldCoordinates::GetAsString() const {
+  KStringStream ss;
+
+  ss << "X: " << m_f64X << ",  Y: " << m_f64Y << ",  Z: " << m_f64Z << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT64 WorldCoordinates::GetX() const
-{
-    return m_f64X;
+void WorldCoordinates::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < WORLD_COORDINATES_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_f64X >> m_f64Y >> m_f64Z;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::SetY( KFLOAT64  Y )
-{
-    m_f64Y = Y;
+KDataStream WorldCoordinates::Encode() const {
+  KDataStream stream;
+
+  WorldCoordinates::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT64 WorldCoordinates::GetY() const
-{
-    return m_f64Y;
+void WorldCoordinates::Encode(KDataStream& stream) const {
+  stream << m_f64X << m_f64Y << m_f64Z;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::SetZ( KFLOAT64  Z )
-{
-    m_f64Z = Z;
+KBOOL WorldCoordinates::operator==(const WorldCoordinates& Value) const {
+  if (m_f64X != Value.m_f64X) return false;
+  if (m_f64Y != Value.m_f64Y) return false;
+  if (m_f64Z != Value.m_f64Z) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT64 WorldCoordinates::GetZ() const
-{
-    return m_f64Z;
+KBOOL WorldCoordinates::operator!=(const WorldCoordinates& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::Set( KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z )
-{
-    m_f64X = X;
-    m_f64Y = Y;
-    m_f64Z = Z;
+WorldCoordinates WorldCoordinates::operator*(
+    const WorldCoordinates& Value) const {
+  WorldCoordinates tmp = *this;
+  tmp.m_f64X *= Value.m_f64X;
+  tmp.m_f64Y *= Value.m_f64Y;
+  tmp.m_f64Z *= Value.m_f64Z;
+  return tmp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT64 WorldCoordinates::GetDistance( const WorldCoordinates & Other )
-{
-    WorldCoordinates w = *this - Other;
-    KFLOAT64 f = ( w.m_f64X * w.m_f64X ) + ( w.m_f64Y * w.m_f64Y ) + ( w.m_f64Z * w.m_f64Z );
-    return sqrt( f );
+WorldCoordinates WorldCoordinates::operator*(KFLOAT64 Value) const {
+  WorldCoordinates tmp = *this;
+  tmp.m_f64X *= Value;
+  tmp.m_f64Y *= Value;
+  tmp.m_f64Z *= Value;
+  return tmp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates WorldCoordinates::Lerp( const WorldCoordinates & From, const WorldCoordinates & To, KFLOAT32 T )
-{
-    return From + ( ( To - From ) * T );
+WorldCoordinates WorldCoordinates::operator*(KFLOAT32 Value) const {
+  WorldCoordinates tmp = *this;
+  tmp.m_f64X *= Value;
+  tmp.m_f64Y *= Value;
+  tmp.m_f64Z *= Value;
+  return tmp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::Lerp( const WorldCoordinates & To, KFLOAT32 T )
-{
-    *this = Lerp( *this, To, T );
+WorldCoordinates WorldCoordinates::operator+(
+    const WorldCoordinates& Value) const {
+  WorldCoordinates tmp = *this;
+  tmp.m_f64X += Value.m_f64X;
+  tmp.m_f64Y += Value.m_f64Y;
+  tmp.m_f64Z += Value.m_f64Z;
+  return tmp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString WorldCoordinates::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "X: "    << m_f64X
-       << ",  Y: " << m_f64Y
-       << ",  Z: " << m_f64Z << "\n";
-
-    return ss.str();
+WorldCoordinates WorldCoordinates::operator+(const Vector& Value) const {
+  WorldCoordinates tmp = *this;
+  tmp.m_f64X += Value.GetX();
+  tmp.m_f64Y += Value.GetY();
+  tmp.m_f64Z += Value.GetZ();
+  return tmp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < WORLD_COORDINATES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_f64X
-           >> m_f64Y
-           >> m_f64Z;
+WorldCoordinates& WorldCoordinates::operator+=(const Vector& Value) {
+  m_f64X += Value.GetX();
+  m_f64Y += Value.GetY();
+  m_f64Z += Value.GetZ();
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream WorldCoordinates::Encode() const
-{
-    KDataStream stream;
-
-    WorldCoordinates::Encode( stream );
-
-    return stream;
+const WorldCoordinates& WorldCoordinates::operator=(const Vector& Value) {
+  m_f64X = Value.GetX();
+  m_f64Y = Value.GetY();
+  m_f64Z = Value.GetZ();
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void WorldCoordinates::Encode( KDataStream & stream ) const
-{
-    stream << m_f64X
-           << m_f64Y
-           << m_f64Z;
+WorldCoordinates WorldCoordinates::operator-(
+    const WorldCoordinates& Value) const {
+  WorldCoordinates tmp = *this;
+  tmp.m_f64X -= Value.m_f64X;
+  tmp.m_f64Y -= Value.m_f64Y;
+  tmp.m_f64Z -= Value.m_f64Z;
+  return tmp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL WorldCoordinates::operator == ( const WorldCoordinates & Value ) const
-{
-    if( m_f64X != Value.m_f64X ) return false;
-    if( m_f64Y != Value.m_f64Y ) return false;
-    if( m_f64Z != Value.m_f64Z ) return false;
-    return true;
+WorldCoordinates& WorldCoordinates::operator-=(const WorldCoordinates& Value) {
+  m_f64X -= Value.m_f64X;
+  m_f64Y -= Value.m_f64Y;
+  m_f64Z -= Value.m_f64Z;
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL WorldCoordinates::operator != ( const WorldCoordinates & Value ) const
-{
-    return !( *this == Value );
+KFLOAT64& WorldCoordinates::operator[](KUINT16 i) {
+  switch (i) {
+    case 0:
+      return m_f64X;
+    case 1:
+      return m_f64Y;
+    case 2:
+      return m_f64Z;
+    default:
+      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates WorldCoordinates::operator * ( const WorldCoordinates & Value ) const
-{
-    WorldCoordinates tmp = *this;
-    tmp.m_f64X *= Value.m_f64X;
-    tmp.m_f64Y *= Value.m_f64Y;
-    tmp.m_f64Z *= Value.m_f64Z;
-    return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-WorldCoordinates WorldCoordinates::operator * ( KFLOAT64 Value ) const
-{
-    WorldCoordinates tmp = *this;
-    tmp.m_f64X *= Value;
-    tmp.m_f64Y *= Value;
-    tmp.m_f64Z *= Value;
-    return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-WorldCoordinates WorldCoordinates::operator * ( KFLOAT32 Value ) const
-{
-    WorldCoordinates tmp = *this;
-    tmp.m_f64X *= Value;
-    tmp.m_f64Y *= Value;
-    tmp.m_f64Z *= Value;
-    return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-WorldCoordinates WorldCoordinates::operator + ( const WorldCoordinates & Value ) const
-{
-    WorldCoordinates tmp = *this;
-    tmp.m_f64X += Value.m_f64X;
-    tmp.m_f64Y += Value.m_f64Y;
-    tmp.m_f64Z += Value.m_f64Z;
-    return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-WorldCoordinates WorldCoordinates::operator + ( const Vector & Value ) const
-{
-    WorldCoordinates tmp = *this;
-    tmp.m_f64X += Value.GetX();
-    tmp.m_f64Y += Value.GetY();
-    tmp.m_f64Z += Value.GetZ();
-    return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-WorldCoordinates & WorldCoordinates::operator += ( const Vector & Value )
-{
-    m_f64X += Value.GetX();
-    m_f64Y += Value.GetY();
-    m_f64Z += Value.GetZ();
-    return *this;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const WorldCoordinates & WorldCoordinates::operator = ( const Vector & Value )
-{
-    m_f64X = Value.GetX();
-    m_f64Y = Value.GetY();
-    m_f64Z = Value.GetZ();
-    return *this;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-WorldCoordinates WorldCoordinates::operator - ( const WorldCoordinates & Value ) const
-{
-    WorldCoordinates tmp = *this;
-    tmp.m_f64X -= Value.m_f64X;
-    tmp.m_f64Y -= Value.m_f64Y;
-    tmp.m_f64Z -= Value.m_f64Z;
-    return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-WorldCoordinates & WorldCoordinates::operator -= ( const WorldCoordinates & Value )
-{
-    m_f64X -= Value.m_f64X;
-    m_f64Y -= Value.m_f64Y;
-    m_f64Z -= Value.m_f64Z;
-    return *this;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) 
-{
-    switch( i )
-    {
-        case 0:		return m_f64X;
-        case 1:     return m_f64Y;
-        case 2:     return m_f64Z;
-        default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const KFLOAT64 & WorldCoordinates::operator[]( KUINT16 i ) const 
-{
-    switch( i )
-    {
-        case 0:		return m_f64X;
-        case 1:		return m_f64Y;
-        case 2:		return m_f64Z;
-        default:    throw KException( __FUNCTION__, OUT_OF_BOUNDS );
-    }
+const KFLOAT64& WorldCoordinates::operator[](KUINT16 i) const {
+  switch (i) {
+    case 0:
+      return m_f64X;
+    case 1:
+      return m_f64Y;
+    case 2:
+      return m_f64Z;
+    default:
+      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////

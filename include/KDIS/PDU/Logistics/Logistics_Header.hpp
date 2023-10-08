@@ -39,77 +39,75 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Logistics_Header : public Header
-{
-protected:
+class KDIS_EXPORT Logistics_Header : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_ReceivingEntity;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_ReceivingEntity;
+  KDIS::DATA_TYPE::EntityIdentifier m_SupplyingEntity;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_SupplyingEntity;
+ public:
+  static const KUINT16 LOGISTICS_HEADER_SIZE = 24;
 
-public:
+  Logistics_Header();
 
-    static const KUINT16 LOGISTICS_HEADER_SIZE = 24;
+  explicit Logistics_Header(const Header& H);
 
-    Logistics_Header();
+  Logistics_Header(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+                   const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntityID);
 
-    explicit Logistics_Header( const Header & H );
+  virtual ~Logistics_Header();
 
-    Logistics_Header( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntityID );
+  //************************************
+  // FullName:    KDIS::PDU::Logistics_Header::SetReceivingEntity
+  //              KDIS::PDU::Logistics_Header::GetReceivingEntity
+  // Description: Entity Receiving the supplies/repairs
+  // Parameter:   const EntityIdentifier & EI
+  //************************************
+  void SetReceivingEntity(const KDIS::DATA_TYPE::EntityIdentifier& EI);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetReceivingEntity() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetReceivingEntity();
 
-    virtual ~Logistics_Header();
+  //************************************
+  // FullName:    KDIS::PDU::Logistics_Header::SetSupplyingEntity
+  //              KDIS::PDU::Logistics_Header::GetSupplyingEntity
+  // Description: Entity providing the supplies/repairs
+  // Parameter:   const EntityIdentifier & EI
+  //************************************
+  void SetSupplyingEntity(const KDIS::DATA_TYPE::EntityIdentifier& EI);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetSupplyingEntity() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetSupplyingEntity();
 
-    //************************************
-    // FullName:    KDIS::PDU::Logistics_Header::SetReceivingEntity
-    //              KDIS::PDU::Logistics_Header::GetReceivingEntity
-    // Description: Entity Receiving the supplies/repairs
-    // Parameter:   const EntityIdentifier & EI
-    //************************************
-    void SetReceivingEntity( const KDIS::DATA_TYPE::EntityIdentifier & EI );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntity() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntity();
+  //************************************
+  // FullName:    KDIS::PDU::Logistics_Header::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Logistics_Header::SetSupplyingEntity
-    //              KDIS::PDU::Logistics_Header::GetSupplyingEntity
-    // Description: Entity providing the supplies/repairs
-    // Parameter:   const EntityIdentifier & EI
-    //************************************
-    void SetSupplyingEntity( const KDIS::DATA_TYPE::EntityIdentifier & EI );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetSupplyingEntity() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetSupplyingEntity();
+  //************************************
+  // FullName:    KDIS::PDU::Logistics_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Logistics_Header::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Logistics_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Logistics_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Logistics_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Logistics_Header & Value ) const;
-    KBOOL operator != ( const Logistics_Header & Value ) const;
+  KBOOL operator==(const Logistics_Header& Value) const;
+  KBOOL operator!=(const Logistics_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

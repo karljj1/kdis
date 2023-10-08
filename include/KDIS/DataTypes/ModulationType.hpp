@@ -39,139 +39,134 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ModulationType :  public DataTypeBase
-{
-protected:
-
-    union
-    {
-        struct
-        {
-            KUINT16 m_ui16FreqHop     : 1;
-            KUINT16 m_ui16PseudoNoise : 1;
-            KUINT16 m_ui16TimeHop     : 1;
-            // Bits 3 - 15 TBD
-        };
-        KUINT16 m_ui16SpreadSpectrum;
+class KDIS_EXPORT ModulationType : public DataTypeBase {
+ protected:
+  union {
+    struct {
+      KUINT16 m_ui16FreqHop : 1;
+      KUINT16 m_ui16PseudoNoise : 1;
+      KUINT16 m_ui16TimeHop : 1;
+      // Bits 3 - 15 TBD
     };
+    KUINT16 m_ui16SpreadSpectrum;
+  };
 
-    KUINT16 m_ui16MajorModulationType;
+  KUINT16 m_ui16MajorModulationType;
 
-    KUINT16 m_ui16Detail;
+  KUINT16 m_ui16Detail;
 
-    KUINT16 m_ui16System;
+  KUINT16 m_ui16System;
 
-public:
+ public:
+  static const KUINT16 MODULATION_TYPE_SIZE = 8;
 
-    static const KUINT16 MODULATION_TYPE_SIZE = 8;
+  ModulationType();
 
-    ModulationType();
+  ModulationType(KDataStream& stream);
 
-    ModulationType( KDataStream & stream );
+  ModulationType(KBOOL FreqHop, KBOOL PseudoNoise, KBOOL TimeHop,
+                 KUINT16 MajorModulation, KUINT16 Detail, KUINT16 System);
 
-    ModulationType( KBOOL FreqHop, KBOOL PseudoNoise, KBOOL TimeHop,
-                    KUINT16 MajorModulation, KUINT16 Detail,
-                    KUINT16 System );
+  virtual ~ModulationType();
 
-    virtual ~ModulationType();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::SetSpreadSpectrum
+  //              KDIS::DATA_TYPE::ModulationType::GetSpreadSpectrum
+  // Description: Spread Spectrum Boolean array.
+  // Parameter:   KUINT16 SS, void
+  //************************************
+  void SetSpreadSpectrum(KUINT16 SS);
+  KUINT16 GetSpreadSpectrum() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::SetSpreadSpectrum
-    //              KDIS::DATA_TYPE::ModulationType::GetSpreadSpectrum
-    // Description: Spread Spectrum Boolean array.
-    // Parameter:   KUINT16 SS, void
-    //************************************
-    void SetSpreadSpectrum( KUINT16 SS );
-    KUINT16 GetSpreadSpectrum() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::SetFrequencyHop
+  //              KDIS::DATA_TYPE::ModulationType::GetFrequencyHop
+  // Description: Spread Spectrum Boolean array value 0.
+  // Parameter:   KBOOL FH, void
+  //************************************
+  void SetFrequencyHop(KBOOL FH);
+  KBOOL GetFrequencyHop() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::SetFrequencyHop
-    //              KDIS::DATA_TYPE::ModulationType::GetFrequencyHop
-    // Description: Spread Spectrum Boolean array value 0.
-    // Parameter:   KBOOL FH, void
-    //************************************
-    void SetFrequencyHop( KBOOL FH );
-    KBOOL GetFrequencyHop() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::SetPseudoNoise
+  //              KDIS::DATA_TYPE::ModulationType::GetPseudoNoise
+  // Description: Spread Spectrum Boolean array value 1.
+  // Parameter:   KBOOL PN, void
+  //************************************
+  void SetPseudoNoise(KBOOL PN);
+  KBOOL GetPseudoNoise() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::SetPseudoNoise
-    //              KDIS::DATA_TYPE::ModulationType::GetPseudoNoise
-    // Description: Spread Spectrum Boolean array value 1.
-    // Parameter:   KBOOL PN, void
-    //************************************
-    void SetPseudoNoise( KBOOL PN );
-    KBOOL GetPseudoNoise() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::SetTimeHop
+  //              KDIS::DATA_TYPE::ModulationType::GetTimeHop
+  // Description: Spread Spectrum Boolean array value 2.
+  // Parameter:   KBOOL TH, void
+  //************************************
+  void SetTimeHop(KBOOL TH);
+  KBOOL GetTimeHop() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::SetTimeHop
-    //              KDIS::DATA_TYPE::ModulationType::GetTimeHop
-    // Description: Spread Spectrum Boolean array value 2.
-    // Parameter:   KBOOL TH, void
-    //************************************
-    void SetTimeHop( KBOOL TH );
-    KBOOL GetTimeHop() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::GetMajorModulation
+  // Description: Major classification of the modulation type.
+  //              Note: This value is set automatically from the SetDetails
+  //              function.
+  //************************************
+  KDIS::DATA_TYPE::ENUMS::RadioMajorModulation GetMajorModulation() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::GetMajorModulation
-    // Description: Major classification of the modulation type.
-    //              Note: This value is set automatically from the SetDetails function.
-    //************************************
-    KDIS::DATA_TYPE::ENUMS::RadioMajorModulation GetMajorModulation() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::GetMajorModulation
+  // Description: Determines major modulation param.
+  //              Provides details information.
+  // Parameter:   <various>
+  //************************************
+  void SetDetail(KDIS::DATA_TYPE::ENUMS::DetailAmplitude A);
+  void SetDetail(KDIS::DATA_TYPE::ENUMS::DetailAmplitudeAndAngle AA);
+  void SetDetail(KDIS::DATA_TYPE::ENUMS::DetailAngle A);
+  void SetDetail(KDIS::DATA_TYPE::ENUMS::DetailCombination C);
+  void SetDetail(KDIS::DATA_TYPE::ENUMS::DetailPulse P);
+  void SetDetail(KDIS::DATA_TYPE::ENUMS::DetailUnmodulated U);
+  void SetDetail(KDIS::DATA_TYPE::ENUMS::DetailCarrierPhaseShift CPS);
+  KUINT16 GetDetail() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::GetMajorModulation
-    // Description: Determines major modulation param.
-    //              Provides details information.
-    // Parameter:   <various>
-    //************************************
-    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailAmplitude A );
-    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailAmplitudeAndAngle AA );
-    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailAngle A );
-    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailCombination C );
-    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailPulse P );
-    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailUnmodulated U );
-    void SetDetail( KDIS::DATA_TYPE::ENUMS::DetailCarrierPhaseShift CPS );
-    KUINT16 GetDetail() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::SetSystem
+  //              KDIS::DATA_TYPE::ModulationType::GetSystem
+  // Description: Specifies the interpretation of the
+  //              modulation parameter field(s).
+  // Parameter:   ModulationSystem S
+  //************************************
+  void SetSystem(KDIS::DATA_TYPE::ENUMS::ModulationSystem S);
+  KDIS::DATA_TYPE::ENUMS::ModulationSystem GetSystem() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::SetSystem
-    //              KDIS::DATA_TYPE::ModulationType::GetSystem
-    // Description: Specifies the interpretation of the
-    //              modulation parameter field(s).
-    // Parameter:   ModulationSystem S
-    //************************************
-    void SetSystem( KDIS::DATA_TYPE::ENUMS::ModulationSystem S );
-    KDIS::DATA_TYPE::ENUMS::ModulationSystem GetSystem() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModulationType::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModulationType::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const ModulationType & Value ) const;
-    KBOOL operator != ( const ModulationType & Value ) const;
+  KBOOL operator==(const ModulationType& Value) const;
+  KBOOL operator!=(const ModulationType& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -35,83 +35,80 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Contains common fields found in information operations PDU.
-                Information operations (IO) are the integrated employment of electronic warfare (EW),
-                computer network operations (CNO), psychological operations (PSYOP),
-                military deception (MILDEC), and operations security (OPSEC), along with
-                specific supporting capabilities, to influence, disrupt, corrupt, or otherwise
-                affect enemy information and decision making while protecting friendly information
-                operations.
+                Information operations (IO) are the integrated employment of
+electronic warfare (EW), computer network operations (CNO), psychological
+operations (PSYOP), military deception (MILDEC), and operations security
+(OPSEC), along with specific supporting capabilities, to influence, disrupt,
+corrupt, or otherwise affect enemy information and decision making while
+protecting friendly information operations.
 
     Size:       144 bits / 18 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
-#include "./../../DataTypes/StandardVariable.h"
-#include "./../../Extras/KRef_Ptr.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/StandardVariable.hpp"
+#include "KDIS/Extras/KRef_Ptr.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT IO_Header : public Header
-{
-protected:
+class KDIS_EXPORT IO_Header : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntityID;
+ public:
+  static const KUINT16 IO_HEADER_SIZE = 18;
 
-public:
+  IO_Header();
 
-    static const KUINT16 IO_HEADER_SIZE = 18;
+  explicit IO_Header(const Header& H);
 
-    IO_Header();
+  IO_Header(KDataStream& stream);
 
-    explicit IO_Header( const Header & H );
+  IO_Header(const Header& H, KDataStream& stream);
 
-    IO_Header( KDataStream & stream ) ;
+  IO_Header(const KDIS::DATA_TYPE::EntityIdentifier& OrigID);
 
-    IO_Header( const Header & H, KDataStream & stream ) ;
+  virtual ~IO_Header();
 
-    IO_Header( const KDIS::DATA_TYPE::EntityIdentifier & OrigID );
+  //************************************
+  // FullName:    KDIS::PDU::IO_Header::SetOriginatingEntityID
+  //              KDIS::PDU::IO_Header::GetOriginatingEntityID
+  // Description: Originating Entity ID, the simulation that is issuing the PDU.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetOriginatingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetOriginatingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetOriginatingEntityID();
 
-    virtual ~IO_Header();
+  //************************************
+  // FullName:    KDIS::PDU::IO_Header::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Header::SetOriginatingEntityID
-    //              KDIS::PDU::IO_Header::GetOriginatingEntityID
-    // Description: Originating Entity ID, the simulation that is issuing the PDU.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetOriginatingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::IO_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Header::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::IO_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::IO_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const IO_Header & Value ) const;
-    KBOOL operator != ( const IO_Header & Value ) const;
+  KBOOL operator==(const IO_Header& Value) const;
+  KBOOL operator!=(const IO_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

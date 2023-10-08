@@ -38,67 +38,65 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./PointRecord1.h"
-#include "./Vector.h"
+#include "KDIS/DataTypes/PointRecord1.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT PointRecord2 : public PointRecord1
-{
-protected:
+class KDIS_EXPORT PointRecord2 : public PointRecord1 {
+ protected:
+  Vector m_Vel;
 
-    Vector m_Vel;
+  KUINT32 m_ui32Padding;
 
-    KUINT32 m_ui32Padding;
+ public:
+  static const KUINT16 POINT_RECORD_2_SIZE = 48;
 
-public:
+  PointRecord2();
 
-    static const KUINT16 POINT_RECORD_2_SIZE = 48;
+  PointRecord2(KDataStream& stream);
 
-    PointRecord2();
+  PointRecord2(KUINT8 Index, const WorldCoordinates& Location,
+               const Vector& Velocity);
 
-    PointRecord2( KDataStream & stream ) ;
+  virtual ~PointRecord2();
 
-    PointRecord2( KUINT8 Index, const WorldCoordinates & Location, const Vector & Velocity );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord2::SetVelocity
+  //              KDIS::DATA_TYPE::PointRecord2::GetVelocity
+  // Description: Specifies the velocity of the point.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetVelocity(const Vector& V);
+  const Vector& GetVelocity() const;
+  Vector& GetVelocity();
 
-    virtual ~PointRecord2();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord2::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord2::SetVelocity
-    //              KDIS::DATA_TYPE::PointRecord2::GetVelocity
-    // Description: Specifies the velocity of the point.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord2::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord2::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord2::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord2::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord2::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const PointRecord2 & Value )const;
-    KBOOL operator != ( const PointRecord2 & Value )const;
+  KBOOL operator==(const PointRecord2& Value) const;
+  KBOOL operator!=(const PointRecord2& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

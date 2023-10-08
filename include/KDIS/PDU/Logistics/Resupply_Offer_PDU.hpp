@@ -34,42 +34,43 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Resupply Offer PDU
-    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of supplies ) )
+    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of
+supplies ) )
 *********************************************************************/
 
 #pragma once
 
-#include "./Resupply_Received_PDU.h"
+#include "KDIS/PDU/Logistics/Resupply_Received_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Resupply_Offer_PDU : public Resupply_Received_PDU
-{
-public:
+class KDIS_EXPORT Resupply_Offer_PDU : public Resupply_Received_PDU {
+ public:
+  // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
+  static const KUINT16 RESUPPLY_OFFER_PDU_SIZE =
+      28;  // Does not include supply size
 
-    // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
-    static const KUINT16 RESUPPLY_OFFER_PDU_SIZE = 28; // Does not include supply size
+  Resupply_Offer_PDU();
 
-    Resupply_Offer_PDU();
+  Resupply_Offer_PDU(KDataStream& stream);
 
-    Resupply_Offer_PDU( KDataStream & stream ) ;
+  Resupply_Offer_PDU(const Header& H, KDataStream& stream);
 
-    Resupply_Offer_PDU( const Header & H, KDataStream & stream ) ;
+  Resupply_Offer_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                     const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity);
 
-    Resupply_Offer_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
+  virtual ~Resupply_Offer_PDU();
 
-    virtual ~Resupply_Offer_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Resupply_Offer_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Resupply_Offer_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Resupply_Offer_PDU & Value ) const;
-    KBOOL operator != ( const Resupply_Offer_PDU & Value ) const;
+  KBOOL operator==(const Resupply_Offer_PDU& Value) const;
+  KBOOL operator!=(const Resupply_Offer_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

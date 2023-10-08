@@ -38,102 +38,99 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT EulerAngles : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT EulerAngles : public DataTypeBase {
+ protected:
+  KFLOAT32 m_f32Psi;
 
-    KFLOAT32 m_f32Psi;
+  KFLOAT32 m_f32Theta;
 
-    KFLOAT32 m_f32Theta;
+  KFLOAT32 m_f32Phi;
 
-    KFLOAT32 m_f32Phi;
+ public:
+  static const KUINT16 EULER_ANGLES_SIZE = 12;
 
-public:
+  EulerAngles();
 
-    static const KUINT16 EULER_ANGLES_SIZE = 12;
+  // In Radians
+  EulerAngles(KFLOAT32 Psi, KFLOAT32 Theta, KFLOAT32 Phi);
 
-    EulerAngles();
+  EulerAngles(KDataStream& stream);
 
-    // In Radians
-    EulerAngles( KFLOAT32 Psi, KFLOAT32 Theta, KFLOAT32 Phi );
+  virtual ~EulerAngles();
 
-    EulerAngles( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EulerAngles::SetPsi
+  //              KDIS::DATA_TYPE::EulerAngles::GetPsi
+  // Description: Radians / Degrees
+  // Parameter:   KFLOAT32 Psi
+  //************************************
+  void SetPsiInRadians(KFLOAT32 Psi);
+  KFLOAT32 GetPsiInRadians() const;
+  void SetPsiInDegrees(KFLOAT32 Psi);
+  KFLOAT32 GetPsiInDegrees() const;
 
-    virtual ~EulerAngles();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EulerAngles::SetTheta
+  //              KDIS::DATA_TYPE::EulerAngles::GetTheta
+  // Description: Radians / Degrees
+  // Parameter:   KFLOAT32 Theta
+  //************************************
+  void SetThetaInRadians(KFLOAT32 Theta);
+  KFLOAT32 GetThetaInRadians() const;
+  void SetThetaInDegrees(KFLOAT32 Theta);
+  KFLOAT32 GetThetaInDegrees() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EulerAngles::SetPsi
-    //              KDIS::DATA_TYPE::EulerAngles::GetPsi
-    // Description: Radians / Degrees
-    // Parameter:   KFLOAT32 Psi
-    //************************************
-    void SetPsiInRadians( KFLOAT32 Psi );
-    KFLOAT32 GetPsiInRadians() const;
-    void SetPsiInDegrees( KFLOAT32 Psi );
-    KFLOAT32 GetPsiInDegrees() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EulerAngles::SetPhi
+  //              KDIS::DATA_TYPE::EulerAngles::GetPhi
+  // Description: Radians / Degrees
+  // Parameter:   KFLOAT32 Phi
+  //************************************
+  void SetPhiInRadians(KFLOAT32 Phi);
+  KFLOAT32 GetPhiInRadians() const;
+  void SetPhiInDegrees(KFLOAT32 Phi);
+  KFLOAT32 GetPhiInDegrees() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EulerAngles::SetTheta
-    //              KDIS::DATA_TYPE::EulerAngles::GetTheta
-    // Description: Radians / Degrees
-    // Parameter:   KFLOAT32 Theta
-    //************************************
-    void SetThetaInRadians( KFLOAT32 Theta );
-    KFLOAT32 GetThetaInRadians() const;
-    void SetThetaInDegrees( KFLOAT32 Theta );
-    KFLOAT32 GetThetaInDegrees() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EulerAngles::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EulerAngles::SetPhi
-    //              KDIS::DATA_TYPE::EulerAngles::GetPhi
-    // Description: Radians / Degrees
-    // Parameter:   KFLOAT32 Phi
-    //************************************
-    void SetPhiInRadians( KFLOAT32 Phi );
-    KFLOAT32 GetPhiInRadians() const;
-    void SetPhiInDegrees( KFLOAT32 Phi );
-    KFLOAT32 GetPhiInDegrees() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EulerAngles::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EulerAngles::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EulerAngles::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EulerAngles::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  KBOOL operator==(const EulerAngles& Value) const;
+  KBOOL operator!=(const EulerAngles& Value) const;
+  EulerAngles operator*(const EulerAngles& Value) const;
+  EulerAngles operator*(KFLOAT64 Value) const;
+  EulerAngles operator+(const EulerAngles& Value) const;
+  EulerAngles& operator+=(const EulerAngles& Value);
+  EulerAngles operator-(const EulerAngles& Value) const;
+  EulerAngles& operator-=(const EulerAngles& Value);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EulerAngles::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const EulerAngles & Value ) const;
-    KBOOL operator != ( const EulerAngles & Value ) const;
-    EulerAngles operator * ( const EulerAngles & Value ) const;
-    EulerAngles operator * ( KFLOAT64 Value ) const ;
-    EulerAngles operator + ( const EulerAngles & Value ) const;
-    EulerAngles & operator += ( const EulerAngles & Value );
-    EulerAngles operator - ( const EulerAngles & Value ) const;
-    EulerAngles & operator -= ( const EulerAngles & Value );
-
-    // Valid values 0 - Psi, 1 - Theta, 2 - Phi. throws OUT_OF_BOUNDS exception for any other value.
-    KFLOAT32 & operator[] ( KUINT16 i ) ;
-    const KFLOAT32 & operator[] ( KUINT16 i ) const ;
+  // Valid values 0 - Psi, 1 - Theta, 2 - Phi. throws OUT_OF_BOUNDS exception
+  // for any other value.
+  KFLOAT32& operator[](KUINT16 i);
+  const KFLOAT32& operator[](KUINT16 i) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

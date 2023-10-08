@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./FundamentalOperationalData.h"
+#include "KDIS/DataTypes/FundamentalOperationalData.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,228 +36,207 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData() :
-    m_ui8SystemStatus( 0 ),
-    m_ui8AltParam4( 0 ),
-    m_ui8InfoLayers( 0 ),
-    m_ui8Modifier( 0 ),
-    m_ui16Param1( 0 ),
-    m_ui16Param2( 0 ),
-    m_ui16Param3( 0 ),
-    m_ui16Param4( 0 ),
-    m_ui16Param5( 0 ),
-    m_ui16Param6( 0 )
-{
+FundamentalOperationalData::FundamentalOperationalData()
+    : m_ui8SystemStatus(0),
+      m_ui8AltParam4(0),
+      m_ui8InfoLayers(0),
+      m_ui8Modifier(0),
+      m_ui16Param1(0),
+      m_ui16Param2(0),
+      m_ui16Param3(0),
+      m_ui16Param4(0),
+      m_ui16Param5(0),
+      m_ui16Param6(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+FundamentalOperationalData::FundamentalOperationalData(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData( KDataStream & stream ) 
-{
-    Decode( stream );
+FundamentalOperationalData::FundamentalOperationalData(
+    const FundamentalOperationalData_MarkXTransponder& FOD) {
+  m_FODSystemMarkTransponder = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData( const FundamentalOperationalData_MarkXTransponder & FOD )
-{
-    m_FODSystemMarkTransponder = FOD;
+FundamentalOperationalData::FundamentalOperationalData(
+    const FundamentalOperationalData_MarkXInterrogator& FOD) {
+  m_FODSystemMarkInterrogator = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData( const FundamentalOperationalData_MarkXInterrogator & FOD )
-{
-    m_FODSystemMarkInterrogator = FOD;
+FundamentalOperationalData::FundamentalOperationalData(
+    const FundamentalOperationalData_Soviet& FOD) {
+  m_FODSystemSoviet = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData( const FundamentalOperationalData_Soviet & FOD )
-{
-    m_FODSystemSoviet = FOD;
+FundamentalOperationalData::FundamentalOperationalData(
+    const FundamentalOperationalData_RRB& FOD) {
+  m_FODSystemRRB = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::FundamentalOperationalData( const FundamentalOperationalData_RRB & FOD )
-{
-    m_FODSystemRRB = FOD;
+FundamentalOperationalData::~FundamentalOperationalData() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void FundamentalOperationalData::SetFundamentalOperationalData_MarkXTransponder(
+    const FundamentalOperationalData_MarkXTransponder& FOD) {
+  m_FODSystemMarkTransponder = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData::~FundamentalOperationalData()
-{
+void FundamentalOperationalData::
+    SetFundamentalOperationalData_MarkXInterrogator(
+        const FundamentalOperationalData_MarkXInterrogator& FOD) {
+  m_FODSystemMarkInterrogator = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FundamentalOperationalData::SetFundamentalOperationalData_MarkXTransponder( const FundamentalOperationalData_MarkXTransponder & FOD )
-{
-    m_FODSystemMarkTransponder = FOD;
+void FundamentalOperationalData::SetFundamentalOperationalData_Soviet(
+    const FundamentalOperationalData_Soviet& FOD) {
+  m_FODSystemSoviet = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FundamentalOperationalData::SetFundamentalOperationalData_MarkXInterrogator( const FundamentalOperationalData_MarkXInterrogator & FOD )
-{
-    m_FODSystemMarkInterrogator = FOD;
+void FundamentalOperationalData::SetFundamentalOperationalData_RRB(
+    const FundamentalOperationalData_RRB& FOD) {
+  m_FODSystemRRB = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FundamentalOperationalData::SetFundamentalOperationalData_Soviet( const FundamentalOperationalData_Soviet & FOD )
-{
-    m_FODSystemSoviet = FOD;
+const FundamentalOperationalData_MarkXTransponder&
+FundamentalOperationalData::GetSetFundamentalOperationalData_MarkXTransponder()
+    const {
+  return m_FODSystemMarkTransponder;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FundamentalOperationalData::SetFundamentalOperationalData_RRB( const FundamentalOperationalData_RRB & FOD )
-{
-    m_FODSystemRRB = FOD;
+FundamentalOperationalData_MarkXTransponder& FundamentalOperationalData::
+    GetSetFundamentalOperationalData_MarkXTransponder() {
+  return m_FODSystemMarkTransponder;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData::GetSetFundamentalOperationalData_MarkXTransponder() const
-{
-    return m_FODSystemMarkTransponder;
+const FundamentalOperationalData_MarkXInterrogator&
+FundamentalOperationalData::GetFundamentalOperationalData_MarkXInterrogator()
+    const {
+  return m_FODSystemMarkInterrogator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData_MarkXTransponder & FundamentalOperationalData::GetSetFundamentalOperationalData_MarkXTransponder()
-{
-    return m_FODSystemMarkTransponder;
+FundamentalOperationalData_MarkXInterrogator&
+FundamentalOperationalData::GetFundamentalOperationalData_MarkXInterrogator() {
+  return m_FODSystemMarkInterrogator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const FundamentalOperationalData_MarkXInterrogator & FundamentalOperationalData::GetFundamentalOperationalData_MarkXInterrogator() const
-{
-    return m_FODSystemMarkInterrogator;
+const FundamentalOperationalData_Soviet&
+FundamentalOperationalData::GetFundamentalOperationalData_Soviet() const {
+  return m_FODSystemSoviet;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData_MarkXInterrogator & FundamentalOperationalData::GetFundamentalOperationalData_MarkXInterrogator()
-{
-    return m_FODSystemMarkInterrogator;
+FundamentalOperationalData_Soviet&
+FundamentalOperationalData::GetFundamentalOperationalData_Soviet() {
+  return m_FODSystemSoviet;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const FundamentalOperationalData_Soviet & FundamentalOperationalData::GetFundamentalOperationalData_Soviet() const
-{
-    return m_FODSystemSoviet;
+const FundamentalOperationalData_RRB&
+FundamentalOperationalData::GetFundamentalOperationalData_RRB() const {
+  return m_FODSystemRRB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData_Soviet & FundamentalOperationalData::GetFundamentalOperationalData_Soviet()
-{
-    return m_FODSystemSoviet;
+FundamentalOperationalData_RRB&
+FundamentalOperationalData::GetFundamentalOperationalData_RRB() {
+  return m_FODSystemRRB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const FundamentalOperationalData_RRB & FundamentalOperationalData::GetFundamentalOperationalData_RRB() const
-{
-    return m_FODSystemRRB;
+KString FundamentalOperationalData::GetAsString() const {
+  KStringStream ss;
+
+  ss << "FundamentalOperationalData:"
+     << "\tNOT IMPLEMENTED YET\n";
+
+  // TODO: Get string for a specific system type.
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FundamentalOperationalData_RRB & FundamentalOperationalData::GetFundamentalOperationalData_RRB()
-{
-    return m_FODSystemRRB;
+void FundamentalOperationalData::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < FUNDAMENTAL_OPERATIONAL_DATA_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8SystemStatus >> m_ui8AltParam4 >> m_ui8InfoLayers >>
+      m_ui8Modifier >> m_ui16Param1 >> m_ui16Param2 >> m_ui16Param3 >>
+      m_ui16Param4 >> m_ui16Param5 >> m_ui16Param6;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString FundamentalOperationalData::GetAsString() const
-{
-    KStringStream ss;
+KDataStream FundamentalOperationalData::Encode() const {
+  KDataStream stream;
 
-    ss << "FundamentalOperationalData:"
-       << "\tNOT IMPLEMENTED YET\n";
+  FundamentalOperationalData::Encode(stream);
 
-    // TODO: Get string for a specific system type.
-
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FundamentalOperationalData::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < FUNDAMENTAL_OPERATIONAL_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8SystemStatus
-           >> m_ui8AltParam4
-           >> m_ui8InfoLayers
-           >> m_ui8Modifier
-           >> m_ui16Param1
-           >> m_ui16Param2
-           >> m_ui16Param3
-           >> m_ui16Param4
-           >> m_ui16Param5
-           >> m_ui16Param6;
+void FundamentalOperationalData::Encode(KDataStream& stream) const {
+  stream << m_ui8SystemStatus << m_ui8AltParam4 << m_ui8InfoLayers
+         << m_ui8Modifier << m_ui16Param1 << m_ui16Param2 << m_ui16Param3
+         << m_ui16Param4 << m_ui16Param5 << m_ui16Param6;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream FundamentalOperationalData::Encode() const
-{
-    KDataStream stream;
-
-    FundamentalOperationalData::Encode( stream );
-
-    return stream;
+KBOOL FundamentalOperationalData::operator==(
+    const FundamentalOperationalData& Value) const {
+  if (m_ui8SystemStatus != Value.m_ui8SystemStatus) return false;
+  if (m_ui8AltParam4 != Value.m_ui8AltParam4) return false;
+  if (m_ui8InfoLayers != Value.m_ui8InfoLayers) return false;
+  if (m_ui8Modifier != Value.m_ui8Modifier) return false;
+  if (m_ui16Param1 != Value.m_ui16Param1) return false;
+  if (m_ui16Param2 != Value.m_ui16Param2) return false;
+  if (m_ui16Param3 != Value.m_ui16Param3) return false;
+  if (m_ui16Param4 != Value.m_ui16Param4) return false;
+  if (m_ui16Param5 != Value.m_ui16Param5) return false;
+  if (m_ui16Param6 != Value.m_ui16Param6) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FundamentalOperationalData::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8SystemStatus
-           << m_ui8AltParam4
-           << m_ui8InfoLayers
-           << m_ui8Modifier
-           << m_ui16Param1
-           << m_ui16Param2
-           << m_ui16Param3
-           << m_ui16Param4
-           << m_ui16Param5
-           << m_ui16Param6;
+KBOOL FundamentalOperationalData::operator!=(
+    const FundamentalOperationalData& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL FundamentalOperationalData::operator == ( const FundamentalOperationalData & Value ) const
-{
-    if( m_ui8SystemStatus   != Value.m_ui8SystemStatus )    return false;
-    if( m_ui8AltParam4      != Value.m_ui8AltParam4 )       return false;
-    if( m_ui8InfoLayers     != Value.m_ui8InfoLayers )      return false;
-    if( m_ui8Modifier       != Value.m_ui8Modifier )        return false;
-    if( m_ui16Param1        != Value.m_ui16Param1 )         return false;
-    if( m_ui16Param2        != Value.m_ui16Param2 )         return false;
-    if( m_ui16Param3        != Value.m_ui16Param3 )         return false;
-    if( m_ui16Param4        != Value.m_ui16Param4 )         return false;
-    if( m_ui16Param5        != Value.m_ui16Param5 )         return false;
-    if( m_ui16Param6        != Value.m_ui16Param6 )         return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL FundamentalOperationalData::operator != ( const FundamentalOperationalData & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

@@ -33,74 +33,75 @@ http://p.sf.net/kdis/UserGuide
     created:    27/06/2014
     author:     Karl Jones
 
-    purpose:    Layer 3 Mode 5 transponder functional data.	            
+    purpose:    Layer 3 Mode 5 transponder functional data.
 
     Size:       224 bits / 28 octets - min size
 *********************************************************************/
 
 #pragma once
 
-#include "./IFF_Layer3.h"
-#include "./SimulationIdentifier.h"
-#include "./Mode5InterrogatorBasicData.h"
+#include <vector>
+
+#include "KDIS/DataTypes/IFF_Layer3.hpp"
+#include "KDIS/DataTypes/Mode5InterrogatorBasicData.hpp"
+#include "KDIS/DataTypes/SimulationIdentifier.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3Interrogator : public IFF_Layer3
-{
-protected:
+class KDIS_EXPORT IFF_Layer3Interrogator : public IFF_Layer3 {
+ protected:
+  Mode5InterrogatorBasicData m_BasicData;
 
-	Mode5InterrogatorBasicData m_BasicData;
-		
-public:
-	
-    IFF_Layer3Interrogator();
+ public:
+  IFF_Layer3Interrogator();
 
-    IFF_Layer3Interrogator( KDataStream & stream ) ;
+  explicit IFF_Layer3Interrogator(KDataStream& stream);
 
-	IFF_Layer3Interrogator( const SimulationIdentifier & ReportingSimulation, const Mode5InterrogatorBasicData & Data,
-		                   std::vector<StdVarPtr> & Records );
+  IFF_Layer3Interrogator(const SimulationIdentifier& ReportingSimulation,
+                         const Mode5InterrogatorBasicData& Data,
+                         std::vector<StdVarPtr>& Records);
 
-    IFF_Layer3Interrogator( const LayerHeader & H, KDataStream & stream ) ;
+  IFF_Layer3Interrogator(const LayerHeader& H, KDataStream& stream);
 
-    virtual ~IFF_Layer3Interrogator();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::SetBasicData
-    //              KDIS::DATA_TYPE::IFF_Layer3Interrogator::GetBasicData
-    // Description: Basic Mode 5 interrogator data that is always required to be transmitted.
-    // Parameter:   const Mode5InterrogatorBasicData & BD
-    //************************************
-    void SetBasicData( const Mode5InterrogatorBasicData & BD );
-    const Mode5InterrogatorBasicData & GetBasicData() const;
-    Mode5InterrogatorBasicData & GetBasicDatan();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::GetAsString
-    // Description: Returns a string representation 
-    //************************************
-    virtual KString GetAsString() const;
+  virtual ~IFF_Layer3Interrogator();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream? 
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::SetBasicData
+  //              KDIS::DATA_TYPE::IFF_Layer3Interrogator::GetBasicData
+  // Description: Basic Mode 5 interrogator data that is always required to be
+  // transmitted. Parameter:   const Mode5InterrogatorBasicData & BD
+  //************************************
+  void SetBasicData(const Mode5InterrogatorBasicData& BD);
+  const Mode5InterrogatorBasicData& GetBasicData() const;
+  Mode5InterrogatorBasicData& GetBasicDatan();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    KBOOL operator == ( const IFF_Layer3Interrogator & Value ) const;
-    KBOOL operator != ( const IFF_Layer3Interrogator & Value ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the layer header from the
+  // stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
+
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
+
+  KBOOL operator==(const IFF_Layer3Interrogator& Value) const;
+  KBOOL operator!=(const IFF_Layer3Interrogator& Value) const;
 };
 
-} // END namespace DATA_TYPE
-} // END namespace KDIS
+}  // END namespace DATA_TYPE
+}  // END namespace KDIS

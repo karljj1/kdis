@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnumDetonationResult.h"
+#include "KDIS/DataTypes/Enums/EnumDetonationResult.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,88 +37,83 @@ using namespace ENUMS;
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor DetonationResultDescriptor[] =
-{
-    { 0 , "OtherDetonationResult" },
-    { 1 , "EntityImpact" },
-    { 2 , "EntityProximateDetonation" },
-    { 3 , "GroundImpact" },
-    { 4 , "GroundProximateDetonation" },
-    { 5 , "Detonation" },
-    { 6 , "NoneOrNoDetonation_Dud" },
-    { 7 , "HEhit_Small" },
-    { 8 , "HEhit_Medium" },
-    { 9 , "HEhit_Large" },
-    { 10 , "Armor_PiercingHit" },
-    { 11 , "Dirtblast_Small" },
-    { 12 , "Dirtblast_Medium" },
-    { 13 , "Dirtblast_Large" },
-    { 14 , "Waterblast_Small" },
-    { 15 , "Waterblast_Medium" },
-    { 16 , "Waterblast_Large" },
-    { 17 , "AirHit" },
-    { 18 , "BuildingHit_Small" },
-    { 19 , "BuildingHit_Medium" },
-    { 20 , "BuildingHit_Large" },
-    { 21 , "MineClearingLineCharge" },
-    { 22 , "EnvironmentObjectImpact" },
-    { 23 , "EnvironmentObjectProximateDetonation" },
-    { 24 , "WaterImpact" },
-    { 25 , "AirBurst" },
-    { 26 , "KillWithFragmentType1" },
-    { 27 , "KillWithFragmentType2" },
-    { 28 , "KillWithFragmentType3" },
-    { 29 , "KillWithFragmentType1AfterflyOutFailure" },
-    { 30 , "KillWithFragmentType2AfterflyOutFailure" },
-    { 31 , "MissDueToflyOutFailure" },
-    { 32 , "MissDueToEndGameFailure" },
-    { 33 , "MissDueToflyOutAndEndGameFailure" }
-};
+const EnumDescriptor DetonationResultDescriptor[] = {
+    {0, "OtherDetonationResult"},
+    {1, "EntityImpact"},
+    {2, "EntityProximateDetonation"},
+    {3, "GroundImpact"},
+    {4, "GroundProximateDetonation"},
+    {5, "Detonation"},
+    {6, "NoneOrNoDetonation_Dud"},
+    {7, "HEhit_Small"},
+    {8, "HEhit_Medium"},
+    {9, "HEhit_Large"},
+    {10, "Armor_PiercingHit"},
+    {11, "Dirtblast_Small"},
+    {12, "Dirtblast_Medium"},
+    {13, "Dirtblast_Large"},
+    {14, "Waterblast_Small"},
+    {15, "Waterblast_Medium"},
+    {16, "Waterblast_Large"},
+    {17, "AirHit"},
+    {18, "BuildingHit_Small"},
+    {19, "BuildingHit_Medium"},
+    {20, "BuildingHit_Large"},
+    {21, "MineClearingLineCharge"},
+    {22, "EnvironmentObjectImpact"},
+    {23, "EnvironmentObjectProximateDetonation"},
+    {24, "WaterImpact"},
+    {25, "AirBurst"},
+    {26, "KillWithFragmentType1"},
+    {27, "KillWithFragmentType2"},
+    {28, "KillWithFragmentType3"},
+    {29, "KillWithFragmentType1AfterflyOutFailure"},
+    {30, "KillWithFragmentType2AfterflyOutFailure"},
+    {31, "MissDueToflyOutFailure"},
+    {32, "MissDueToEndGameFailure"},
+    {33, "MissDueToflyOutAndEndGameFailure"}};
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationResult()
-{
-    return sizeof( DetonationResultDescriptor ) / sizeof( EnumDescriptor );
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationResult() {
+  return sizeof(DetonationResultDescriptor) / sizeof(EnumDescriptor);
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationResult( KUINT32 Index )
-{
-    return &DetonationResultDescriptor[Index];
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationResult(
+    KUINT32 Index) {
+  return &DetonationResultDescriptor[Index];
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationResult( KINT32 Value )
-{
-    return GetEnumAsString( DetonationResultDescriptor, sizeof( DetonationResultDescriptor ) / sizeof( EnumDescriptor ), Value );
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationResult(KINT32 Value) {
+  return GetEnumAsString(
+      DetonationResultDescriptor,
+      sizeof(DetonationResultDescriptor) / sizeof(EnumDescriptor), Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationResult( const KString & Value, KINT32 & ValueOut )
-{
-    return GetEnumFromString( DetonationResultDescriptor, sizeof( DetonationResultDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationResult(
+    const KString& Value, KINT32& ValueOut) {
+  return GetEnumFromString(
+      DetonationResultDescriptor,
+      sizeof(DetonationResultDescriptor) / sizeof(EnumDescriptor), Value,
+      ValueOut);
 }
 
 #else
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationResult()
-{
-    return 0;
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationResult() { return 0; }
+
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationResult(
+    KUINT32 Index) {
+  return NULL;
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorDetonationResult( KUINT32 Index )
-{
-    return NULL;
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationResult(KINT32 Value) {
+  KStringStream ss;
+  ss << Value;
+  return ss.str().c_str();
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDetonationResult( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationResult(
+    const KString& Value, KINT32& ValueOut) {
+  return false;  // Maybe throw an exception?
 }
-
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationResult( const KString & Value, KINT32 & ValueOut )
-{
-    return false; // Maybe throw an exception?
-}
-
 
 #endif
-

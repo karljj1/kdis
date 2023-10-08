@@ -28,8 +28,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./BeamStatus.h"
-#include "Enums/EnumEmitter.h"
+#include "KDIS/DataTypes/BeamStatus.hpp"
+
+#include "KDIS/DataTypes/Enums/EnumEmitter.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,111 +39,94 @@ using std::endl;
 
 #if DIS_VERSION > 6
 
-namespace
-{
+namespace {
 const int s_BeamStateBitmask = 0x1;
 const int s_PaddingBitmask = 0xfe;
-}
+}  // namespace
 
 //////////////////////////////////////////////////////////////////////////
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-BeamStatus::BeamStatus() :
-  DataTypeBase(),
-  m_ui8BeamStatus( 0u )
-{
+BeamStatus::BeamStatus() : DataTypeBase(), m_ui8BeamStatus(0u) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+BeamStatus::BeamStatus(KDataStream& stream)
+    : DataTypeBase(), m_ui8BeamStatus(0u) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamStatus::BeamStatus( KDataStream & stream )  :
-  DataTypeBase(),
-  m_ui8BeamStatus( 0u )
-{
-    Decode( stream );
+BeamStatus::BeamStatus(BeamState BS)
+    : DataTypeBase(), m_ui8BeamStatus(BS & s_BeamStateBitmask) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+BeamStatus::~BeamStatus() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void BeamStatus::SetBeamState(BeamState BS) {
+  m_ui8BeamStatus = (BS & s_BeamStateBitmask);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamStatus::BeamStatus( BeamState BS ) :
-  DataTypeBase(),
-  m_ui8BeamStatus( BS & s_BeamStateBitmask)
-{
+BeamState BeamStatus::GetBeamState() const {
+  return static_cast<BeamState>(m_ui8BeamStatus & s_BeamStateBitmask);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamStatus::~BeamStatus()
-{
+KString BeamStatus::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Beam State:  "
+     << GetEnumAsStringBeamState(m_ui8BeamStatus & s_BeamStateBitmask) << endl
+     << "Padding:     "
+     << static_cast<KUINT16>(m_ui8BeamStatus & s_PaddingBitmask) << endl;
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BeamStatus::SetBeamState( BeamState BS )
-{
-    m_ui8BeamStatus = (BS & s_BeamStateBitmask);
+void BeamStatus::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < BEAM_STATUS_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8BeamStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamState BeamStatus::GetBeamState() const
-{
-    return static_cast<BeamState>(m_ui8BeamStatus & s_BeamStateBitmask);
+KDataStream BeamStatus::Encode() const {
+  KDataStream stream;
+
+  BeamStatus::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString BeamStatus::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Beam State:  " << GetEnumAsStringBeamState(m_ui8BeamStatus & s_BeamStateBitmask)  << endl
-       << "Padding:     " << static_cast<KUINT16>(m_ui8BeamStatus & s_PaddingBitmask)        << endl;
-
-    return ss.str();
+void BeamStatus::Encode(KDataStream& stream) const {
+  stream << m_ui8BeamStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BeamStatus::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < BEAM_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8BeamStatus;
+KBOOL BeamStatus::operator==(const BeamStatus& Value) const {
+  if (m_ui8BeamStatus != Value.m_ui8BeamStatus) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream BeamStatus::Encode() const
-{
-    KDataStream stream;
-
-    BeamStatus::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void BeamStatus::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8BeamStatus;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL BeamStatus::operator == ( const BeamStatus & Value ) const
-{
-    if( m_ui8BeamStatus     != Value.m_ui8BeamStatus )      return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL BeamStatus::operator != ( const BeamStatus & Value ) const
-{
-    return !( *this == Value );
+KBOOL BeamStatus::operator!=(const BeamStatus& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

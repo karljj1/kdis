@@ -1,0 +1,92 @@
+name: check
+
+on:
+    push:
+        branches:
+            - master
+        tags:
+            - v*
+    pull_request:
+        branches:
+            - master
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    version:
+        name: Version
+        if: startsWith(github.ref_name, 'v')
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Check Git tag format
+              run: |
+                  _tag="${{ github.ref_name }}"
+                  if ! printf "%s\n" "$_tag" | grep -q -P '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-(alpha|beta|rc)\.(0|[1-9][0-9]*))?$'; then
+                    printf '[ERROR]: Git tag (%s) wrong format\n' "$_tag"
+                    exit 1
+                  fi
+
+    check:
+        name: Build & Test & Lint
+        strategy:
+            fail-fast: true
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+                build: [Debug, Release]
+                dis: [5, 6, 7]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Setup Python
+              uses: actions/setup-python@v4
+
+            - name: Install Doxygen
+              uses: ssciwr/doxygen-install@v1
+
+            - name: Install cmakelang
+              run: pip install cmakelang[YAML]
+
+            - name: Configure CMake
+              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE=${{ matrix.build }} -DDIS_VERSION=${{ matrix.dis }} -DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=ON -DBUILD_EXAMPLES=ON -DBUILD_TESTS=ON
+
+            - name: Build
+              run: cmake --build ./build --config ${{ matrix.build }}
+
+            - name: Test
+              run: ctest --verbose --test-dir ./build/tests --build-config ${{ matrix.build }}
+
+            - name: Clang Format
+              uses: DoozyX/clang-format-lint-action@v0.16.2
+
+            # TODO(carlocorradini) Clang Tidy
+
+            - name: CMake Format
+              if: matrix.os != 'windows-latest'
+              run: find . -not -path './build/*' -not -path './cmake/CPM.cmake' -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \) -print0 | xargs -0 -n1 cmake-format --check
+
+            - name: CMake Format
+              if: matrix.os == 'windows-latest'
+              run: Get-ChildItem -Exclude 'build' | Get-ChildItem -Recurse -File -Include 'CMakeLists.txt', '*.cmake' -Exclude 'CPM.cmake' | Foreach { cmake-format --check $_.fullname; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+
+            - name: CMake Lint
+              if: matrix.os != 'windows-latest'
+              run: find . -not -path './build/*' -not -path './cmake/CPM.cmake' -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \) -print0 | xargs -0 -n1 cmake-lint
+
+            - name: CMake Lint
+              if: matrix.os == 'windows-latest'
+              run: Get-ChildItem -Exclude 'build' | Get-ChildItem -Recurse -File -Include 'CMakeLists.txt', '*.cmake' -Exclude 'CPM.cmake' | Foreach { cmake-lint $_.fullname; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+
+            # TODO(carlocorradini) Cppcheck
+            # TODO(carlocorradini) Cpplint
+            # TODO(carlocorradini) Code coverage

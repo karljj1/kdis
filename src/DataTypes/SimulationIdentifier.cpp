@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SimulationIdentifier.h"
+#include "KDIS/DataTypes/SimulationIdentifier.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,132 +36,110 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier::SimulationIdentifier() :
-    m_ui16SiteID( 0 ),
-    m_ui16ApplicationID( 0 )
-{
+SimulationIdentifier::SimulationIdentifier()
+    : m_ui16SiteID(0), m_ui16ApplicationID(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SimulationIdentifier::SimulationIdentifier(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier::SimulationIdentifier( KDataStream & stream ) 
-{
-    Decode( stream );
+SimulationIdentifier::SimulationIdentifier(KUINT16 SiteID, KUINT16 ApplicatonID)
+    : m_ui16SiteID(SiteID), m_ui16ApplicationID(ApplicatonID) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SimulationIdentifier::~SimulationIdentifier() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SimulationIdentifier::SetSiteID(KUINT16 ID) { m_ui16SiteID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 SimulationIdentifier::GetSiteID() const { return m_ui16SiteID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SimulationIdentifier::SetApplicationID(KUINT16 ID) {
+  m_ui16ApplicationID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier::SimulationIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID ) :
-    m_ui16SiteID( SiteID ),
-    m_ui16ApplicationID( ApplicatonID )
-{
+KUINT16 SimulationIdentifier::GetApplicationID() const {
+  return m_ui16ApplicationID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier::~SimulationIdentifier()
-{
+KString SimulationIdentifier::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Site:        " << m_ui16SiteID << "\n"
+     << "Application: " << m_ui16ApplicationID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SimulationIdentifier::SetSiteID( KUINT16 ID )
-{
-    m_ui16SiteID = ID;
+void SimulationIdentifier::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < SIMULATION_IDENTIFIER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16SiteID >> m_ui16ApplicationID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 SimulationIdentifier::GetSiteID() const
-{
-    return m_ui16SiteID;
+KDataStream SimulationIdentifier::Encode() const {
+  KDataStream stream;
+
+  SimulationIdentifier::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SimulationIdentifier::SetApplicationID( KUINT16 ID )
-{
-    m_ui16ApplicationID = ID;
+void SimulationIdentifier::Encode(KDataStream& stream) const {
+  stream << m_ui16SiteID << m_ui16ApplicationID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 SimulationIdentifier::GetApplicationID() const
-{
-    return m_ui16ApplicationID;
+KBOOL SimulationIdentifier::operator==(
+    const SimulationIdentifier& Value) const {
+  if (m_ui16SiteID != Value.m_ui16SiteID) return false;
+  if (m_ui16ApplicationID != Value.m_ui16ApplicationID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString SimulationIdentifier::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Site:        " << m_ui16SiteID           << "\n"
-       << "Application: " << m_ui16ApplicationID    << "\n";
-
-    return ss.str();
+KBOOL SimulationIdentifier::operator!=(
+    const SimulationIdentifier& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SimulationIdentifier::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < SIMULATION_IDENTIFIER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KBOOL SimulationIdentifier::operator<(const SimulationIdentifier& Value) const {
+  // We will bit shift all fields into a single KUINT64, this will generate a
+  // new unique value which we can then use for comparison. bits 0-15  = SiteID
+  // bits 16-31 = ApplicationID
+  // bits 32-63 = 0
+  KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
 
-    stream >> m_ui16SiteID
-           >> m_ui16ApplicationID;
-}
+  ui64ThisCmpVal = m_ui16SiteID | (KUINT64)m_ui16ApplicationID << 16;
+  ui64OtherCmpVal = Value.m_ui16SiteID | (KUINT64)Value.m_ui16ApplicationID
+                                             << 16;
 
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream SimulationIdentifier::Encode() const
-{
-    KDataStream stream;
-
-    SimulationIdentifier::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SimulationIdentifier::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16SiteID
-           << m_ui16ApplicationID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SimulationIdentifier::operator == ( const SimulationIdentifier & Value ) const
-{
-    if( m_ui16SiteID        != Value.m_ui16SiteID )         return false;
-    if( m_ui16ApplicationID != Value.m_ui16ApplicationID )  return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SimulationIdentifier::operator != ( const SimulationIdentifier & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SimulationIdentifier::operator <  ( const SimulationIdentifier & Value ) const
-{
-    // We will bit shift all fields into a single KUINT64, this will generate a new unique value which we can then use for comparison.
-    // bits 0-15  = SiteID
-    // bits 16-31 = ApplicationID
-    // bits 32-63 = 0
-    KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
-
-    ui64ThisCmpVal = m_ui16SiteID | ( KUINT64 )m_ui16ApplicationID << 16;
-    ui64OtherCmpVal = Value.m_ui16SiteID | ( KUINT64 )Value.m_ui16ApplicationID << 16;
-
-    return ui64ThisCmpVal < ui64OtherCmpVal;
+  return ui64ThisCmpVal < ui64OtherCmpVal;
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Start_Resume_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Start_Resume_R_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,136 +42,126 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_R_PDU::Start_Resume_R_PDU()
-{
-    m_ui8PDUType = Start_Resume_R_PDU_Type;
-    m_ui16PDULength = START_RESUME_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Start_Resume_R_PDU::Start_Resume_R_PDU() {
+  m_ui8PDUType = Start_Resume_R_PDU_Type;
+  m_ui16PDULength = START_RESUME_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_R_PDU::Start_Resume_R_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Start_Resume_R_PDU::Start_Resume_R_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_R_PDU::Start_Resume_R_PDU( const Header & H, KDataStream & stream )  :
-    Start_Resume_PDU( H )
-{
-    Decode( stream, true );
+Start_Resume_R_PDU::Start_Resume_R_PDU(const Header& H, KDataStream& stream)
+    : Start_Resume_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_R_PDU::Start_Resume_R_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, const ClockTime & RealWorldTime,
-                                        const ClockTime & SimTime, KUINT32 ReqID, RequiredReliabilityService RRS ) :
-    Start_Resume_PDU( ReceivingEntity, SupplyingEntity, RealWorldTime, SimTime, ReqID ),
-    Reliability_Header( RRS )
-{
-    m_ui8PDUType = Start_Resume_R_PDU_Type;
-    m_ui16PDULength = START_RESUME_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Start_Resume_R_PDU::Start_Resume_R_PDU(const EntityIdentifier& ReceivingEntity,
+                                       const EntityIdentifier& SupplyingEntity,
+                                       const ClockTime& RealWorldTime,
+                                       const ClockTime& SimTime, KUINT32 ReqID,
+                                       RequiredReliabilityService RRS)
+    : Start_Resume_PDU(ReceivingEntity, SupplyingEntity, RealWorldTime, SimTime,
+                       ReqID),
+      Reliability_Header(RRS) {
+  m_ui8PDUType = Start_Resume_R_PDU_Type;
+  m_ui16PDULength = START_RESUME_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_R_PDU::Start_Resume_R_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
-                                        const ClockTime & SimTime, KUINT32 ReqID, RequiredReliabilityService RRS  ) :
-    Start_Resume_PDU( SimMgrHeader, RealWorldTime, SimTime, ReqID ),
-    Reliability_Header( RRS )
-{
-    m_ui8PDUType = Start_Resume_R_PDU_Type;
-    m_ui16PDULength = START_RESUME_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Start_Resume_R_PDU::Start_Resume_R_PDU(
+    const Simulation_Management_Header& SimMgrHeader,
+    const ClockTime& RealWorldTime, const ClockTime& SimTime, KUINT32 ReqID,
+    RequiredReliabilityService RRS)
+    : Start_Resume_PDU(SimMgrHeader, RealWorldTime, SimTime, ReqID),
+      Reliability_Header(RRS) {
+  m_ui8PDUType = Start_Resume_R_PDU_Type;
+  m_ui16PDULength = START_RESUME_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Start_Resume_R_PDU::~Start_Resume_R_PDU()
-{
+Start_Resume_R_PDU::~Start_Resume_R_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Start_Resume_R_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Start/Resume-R PDU-\n"
+     << Simulation_Management_Header::GetAsString() << "Real World Time:\n"
+     << IndentString(m_RealWorldTime.GetAsString(), 1) << "Simulation Time:\n"
+     << IndentString(m_SimTime.GetAsString(), 1)
+     << Reliability_Header::GetAsString() << "Request ID: " << m_ui32RequestID
+     << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Start_Resume_R_PDU::GetAsString() const
-{
-    KStringStream ss;
+void Start_Resume_R_PDU::Decode(KDataStream& stream,
+                                bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      START_RESUME_R_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    ss << Header::GetAsString()
-       << "-Start/Resume-R PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "Real World Time:\n"
-       << IndentString( m_RealWorldTime.GetAsString(), 1 )
-       << "Simulation Time:\n"
-       << IndentString( m_SimTime.GetAsString(), 1 )
-       << Reliability_Header::GetAsString()
-       << "Request ID: " << m_ui32RequestID
-       << "\n";
+  Simulation_Management_Header::Decode(stream, ignoreHeader);
 
-    return ss.str();
+  stream >> KDIS_STREAM m_RealWorldTime >> KDIS_STREAM m_SimTime;
+
+  Reliability_Header::Decode(stream);
+
+  stream >> m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Start_Resume_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < START_RESUME_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Start_Resume_R_PDU::Encode() const {
+  KDataStream stream;
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );
+  Start_Resume_R_PDU::Encode(stream);
 
-    stream >> KDIS_STREAM m_RealWorldTime
-           >> KDIS_STREAM m_SimTime;
-
-    Reliability_Header::Decode( stream );
-
-    stream >> m_ui32RequestID;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Start_Resume_R_PDU::Encode() const
-{
-    KDataStream stream;
+void Start_Resume_R_PDU::Encode(KDataStream& stream) const {
+  Simulation_Management_Header::Encode(stream);
 
-    Start_Resume_R_PDU::Encode( stream );
+  stream << KDIS_STREAM m_RealWorldTime << KDIS_STREAM m_SimTime;
 
-    return stream;
+  Reliability_Header::Encode(stream);
+
+  stream << m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Start_Resume_R_PDU::Encode( KDataStream & stream ) const
-{
-    Simulation_Management_Header::Encode( stream );
-
-    stream << KDIS_STREAM m_RealWorldTime
-           << KDIS_STREAM m_SimTime;
-
-    Reliability_Header::Encode( stream );
-
-    stream << m_ui32RequestID;
+KBOOL Start_Resume_R_PDU::operator==(const Start_Resume_R_PDU& Value) const {
+  if (Start_Resume_PDU::operator!=(Value)) return false;
+  if (Reliability_Header::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Start_Resume_R_PDU::operator == ( const Start_Resume_R_PDU & Value ) const
-{
-    if( Start_Resume_PDU::operator   !=( Value ) ) return false;
-    if( Reliability_Header::operator !=( Value ) ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Start_Resume_R_PDU::operator != ( const Start_Resume_R_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL Start_Resume_R_PDU::operator!=(const Start_Resume_R_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

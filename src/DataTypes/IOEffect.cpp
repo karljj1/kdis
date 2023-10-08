@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IOEffect.h"
+#include "KDIS/DataTypes/IOEffect.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -39,216 +39,162 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::IOEffect() :
-    m_ui8Status( 0 ),
-    m_ui8LnkTyp( 0 ),
-    m_ui8Eff( 0 ),
-    m_ui8EffDtyCyc( 0 ),
-    m_ui16EffDur( 0 ),
-    m_ui16Proc( 0 ),
-    m_ui16Padding( 0 )
-{
-    m_ui32Type = IOEffectRecord;
-    m_ui16Length = IO_EFFECT_TYPE_SIZE;
+IOEffect::IOEffect()
+    : m_ui8Status(0),
+      m_ui8LnkTyp(0),
+      m_ui8Eff(0),
+      m_ui8EffDtyCyc(0),
+      m_ui16EffDur(0),
+      m_ui16Proc(0),
+      m_ui16Padding(0) {
+  m_ui32Type = IOEffectRecord;
+  m_ui16Length = IO_EFFECT_TYPE_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::IOEffect( IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
-                    KUINT16 Duration, KUINT16 Process )  :
-    m_ui8Status( S ),
-    m_ui8LnkTyp( LT ),
-    m_ui8Eff( ET ),
-    m_ui8EffDtyCyc( 0 ),
-    m_ui16EffDur( Duration ),
-    m_ui16Proc( Process ),
-    m_ui16Padding( 0 )
-{
-    // Set duty cycle, may cause exception if the value is not valid.
-    SetEffectDutyCycle( DutyCycle );
+IOEffect::IOEffect(IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
+                   KUINT16 Duration, KUINT16 Process)
+    : m_ui8Status(S),
+      m_ui8LnkTyp(LT),
+      m_ui8Eff(ET),
+      m_ui8EffDtyCyc(0),
+      m_ui16EffDur(Duration),
+      m_ui16Proc(Process),
+      m_ui16Padding(0) {
+  // Set duty cycle, may cause exception if the value is not valid.
+  SetEffectDutyCycle(DutyCycle);
 
-    m_ui32Type = IOEffectRecord;
-    m_ui16Length = IO_EFFECT_TYPE_SIZE;
+  m_ui32Type = IOEffectRecord;
+  m_ui16Length = IO_EFFECT_TYPE_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::IOEffect( KDataStream & stream ) 
-{
-    Decode( stream );
+IOEffect::IOEffect(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+IOEffect::~IOEffect() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IOEffect::SetStatus(IOStatus S) { m_ui8Status = S; }
+
+//////////////////////////////////////////////////////////////////////////
+
+IOStatus IOEffect::GetStatus() const { return (IOStatus)m_ui8Status; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IOEffect::SetLinkType(IOLinkType LT) { m_ui8LnkTyp = LT; }
+
+//////////////////////////////////////////////////////////////////////////
+
+IOLinkType IOEffect::GetLinkType() const { return (IOLinkType)m_ui8LnkTyp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IOEffect::SetEffectType(IOEffectType ET) { m_ui8Eff = ET; }
+
+//////////////////////////////////////////////////////////////////////////
+
+IOEffectType IOEffect::GetEffectType() const { return (IOEffectType)m_ui8Eff; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IOEffect::SetEffectDutyCycle(KUINT8 EDC) {
+  if (EDC > 100)
+    throw KException(__FUNCTION__, OUT_OF_BOUNDS,
+                     "Invalid Effect Duty Cycle value. Must be between 0-100.");
+
+  m_ui8EffDtyCyc = EDC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::~IOEffect()
-{
+KUINT8 IOEffect::GetEffectDutyCycle() const { return m_ui8EffDtyCyc; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IOEffect::SetEffectDuration(KUINT16 ED) { m_ui16EffDur = ED; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 IOEffect::GetEffectDuration() const { return m_ui16EffDur; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IOEffect::SetProcess(KUINT16 P) { m_ui16Proc = P; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 IOEffect::GetProcess() const { return m_ui16Proc; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString IOEffect::GetAsString() const {
+  KStringStream ss;
+
+  ss << StandardVariable::GetAsString()
+     << "Status:            " << GetEnumAsStringIOStatus(m_ui8Status) << "\n"
+     << "Link Type:         " << GetEnumAsStringIOLinkType(m_ui8LnkTyp) << "\n"
+     << "Effect:            " << GetEnumAsStringIOEffectType(m_ui8Eff) << "\n"
+     << "Effect Duty Cycle: " << m_ui8EffDtyCyc << "%\n"
+     << "Effect Duration:   " << m_ui16EffDur << " seconds\n"
+     << "Process:           " << m_ui16Proc << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::SetStatus( IOStatus S )
-{
-    m_ui8Status = S;
+void IOEffect::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < IO_EFFECT_TYPE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  StandardVariable::Decode(stream);
+
+  stream >> m_ui8Status >> m_ui8LnkTyp >> m_ui8Eff >> m_ui8EffDtyCyc >>
+      m_ui16EffDur >> m_ui16Proc >> m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOStatus IOEffect::GetStatus() const
-{
-    return ( IOStatus )m_ui8Status;
+KDataStream IOEffect::Encode() const {
+  KDataStream stream;
+
+  IOEffect::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::SetLinkType( IOLinkType LT )
-{
-    m_ui8LnkTyp = LT;
+void IOEffect::Encode(KDataStream& stream) const {
+  StandardVariable::Encode(stream);
+
+  stream << m_ui8Status << m_ui8LnkTyp << m_ui8Eff << m_ui8EffDtyCyc
+         << m_ui16EffDur << m_ui16Proc << m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOLinkType IOEffect::GetLinkType() const
-{
-    return ( IOLinkType )m_ui8LnkTyp;
+KBOOL IOEffect::operator==(const IOEffect& Value) const {
+  if (StandardVariable::operator!=(Value)) return false;
+  if (m_ui8Status != Value.m_ui8Status) return false;
+  if (m_ui8LnkTyp != Value.m_ui8LnkTyp) return false;
+  if (m_ui8Eff != Value.m_ui8Eff) return false;
+  if (m_ui8EffDtyCyc != Value.m_ui8EffDtyCyc) return false;
+  if (m_ui16EffDur != Value.m_ui16EffDur) return false;
+  if (m_ui16Proc != Value.m_ui16Proc) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::SetEffectType( IOEffectType ET )
-{
-    m_ui8Eff = ET;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IOEffectType IOEffect::GetEffectType() const
-{
-    return ( IOEffectType )m_ui8Eff;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IOEffect::SetEffectDutyCycle( KUINT8 EDC ) 
-{
-    if( EDC > 100 )throw KException( __FUNCTION__, OUT_OF_BOUNDS, "Invalid Effect Duty Cycle value. Must be between 0-100." );
-
-    m_ui8EffDtyCyc = EDC;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT8 IOEffect::GetEffectDutyCycle() const
-{
-    return m_ui8EffDtyCyc;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IOEffect::SetEffectDuration( KUINT16 ED )
-{
-    m_ui16EffDur = ED;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 IOEffect::GetEffectDuration() const
-{
-    return m_ui16EffDur;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IOEffect::SetProcess( KUINT16 P )
-{
-    m_ui16Proc = P;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 IOEffect::GetProcess() const
-{
-    return m_ui16Proc;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString IOEffect::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << StandardVariable::GetAsString()
-       << "Status:            " << GetEnumAsStringIOStatus( m_ui8Status )    << "\n"
-       << "Link Type:         " << GetEnumAsStringIOLinkType( m_ui8LnkTyp )  << "\n"
-       << "Effect:            " << GetEnumAsStringIOEffectType( m_ui8Eff )   << "\n"
-       << "Effect Duty Cycle: " << m_ui8EffDtyCyc                            << "%\n"
-       << "Effect Duration:   " << m_ui16EffDur                              << " seconds\n"
-       << "Process:           " << m_ui16Proc                                << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IOEffect::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < IO_EFFECT_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    StandardVariable::Decode( stream );
-
-    stream >> m_ui8Status
-           >> m_ui8LnkTyp
-           >> m_ui8Eff
-           >> m_ui8EffDtyCyc
-           >> m_ui16EffDur
-           >> m_ui16Proc
-           >> m_ui16Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream IOEffect::Encode() const
-{
-    KDataStream stream;
-
-    IOEffect::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IOEffect::Encode( KDataStream & stream ) const
-{
-    StandardVariable::Encode( stream );
-
-    stream << m_ui8Status
-           << m_ui8LnkTyp
-           << m_ui8Eff
-           << m_ui8EffDtyCyc
-           << m_ui16EffDur
-           << m_ui16Proc
-           << m_ui16Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL IOEffect::operator == ( const IOEffect & Value ) const
-{
-    if( StandardVariable::operator  !=( Value ) )               return false;
-    if( m_ui8Status                 != Value.m_ui8Status )      return false;
-    if( m_ui8LnkTyp                 != Value.m_ui8LnkTyp )      return false;
-    if( m_ui8Eff                    != Value.m_ui8Eff )         return false;
-    if( m_ui8EffDtyCyc              != Value.m_ui8EffDtyCyc )   return false;
-    if( m_ui16EffDur                != Value.m_ui16EffDur )     return false;
-    if( m_ui16Proc                  != Value.m_ui16Proc )       return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL IOEffect::operator != ( const IOEffect & Value ) const
-{
-    return !( *this == Value );
+KBOOL IOEffect::operator!=(const IOEffect& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

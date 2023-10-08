@@ -41,123 +41,132 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
-#include "./../../DataTypes/EmissionSystem.h"
 #include <vector>
+
+#include "KDIS/DataTypes/EmissionSystem.hpp"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Electromagnetic_Emission_PDU : public Header
-{
-protected:
+class KDIS_EXPORT Electromagnetic_Emission_PDU : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_EmittingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_EmittingEntityID;
+  KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
+  KUINT8 m_ui8StateUpdateIndicator;
 
-    KUINT8 m_ui8StateUpdateIndicator;
+  KUINT8 m_ui8NumberOfEmissionSystems;
 
-    KUINT8 m_ui8NumberOfEmissionSystems;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+  std::vector<KDIS::DATA_TYPE::EmissionSystem> m_vEmissionSystem;
 
-	std::vector<KDIS::DATA_TYPE::EmissionSystem> m_vEmissionSystem;
+ public:
+  static const KUINT16 ELECTROMAGNETIC_EMISSION_PDU_SIZE = 28;  // Min Size
 
-public:
+  Electromagnetic_Emission_PDU();
 
-    static const KUINT16 ELECTROMAGNETIC_EMISSION_PDU_SIZE = 28; // Min Size
+  Electromagnetic_Emission_PDU(KDataStream& stream);
 
-    Electromagnetic_Emission_PDU();
+  Electromagnetic_Emission_PDU(const Header& H, KDataStream& stream);
 
-    Electromagnetic_Emission_PDU( KDataStream & stream ) ;
+  Electromagnetic_Emission_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& EmittingID,
+      const KDIS::DATA_TYPE::EntityIdentifier& EventID,
+      KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI);
 
-    Electromagnetic_Emission_PDU( const Header & H, KDataStream & stream ) ;
+  Electromagnetic_Emission_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& EmittingID,
+      const KDIS::DATA_TYPE::EntityIdentifier& EventID,
+      KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI,
+      const std::vector<KDIS::DATA_TYPE::EmissionSystem>& EmissionSystems);
 
-    Electromagnetic_Emission_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
-                                  KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI );
+  virtual ~Electromagnetic_Emission_PDU();
 
-    Electromagnetic_Emission_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EmittingID, const KDIS::DATA_TYPE::EntityIdentifier & EventID,
-		                          KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI, const std::vector<KDIS::DATA_TYPE::EmissionSystem> & EmissionSystems );
+  //************************************
+  // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetEmittingEntityID
+  //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEmittingEntityID
+  // Description: Emitting Entity ID
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetEmittingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetEmittingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetEmittingEntityID();
 
-    virtual ~Electromagnetic_Emission_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetEventID
+  //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEventID
+  // Description: Event ID. For associated events.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetEventID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetEventID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetEventID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetEmittingEntityID
-    //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEmittingEntityID
-    // Description: Emitting Entity ID
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetEmittingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetEmittingEntityID();
+  //************************************
+  // FullName: KDIS::PDU::Electromagnetic_Emission_PDU::SetStateUpdateIndicator
+  //              KDIS::PDU::Electromagnetic_Emission_PDU::GetStateUpdateIndicator
+  // Description: Indicates if the data contained in the PDU represents a state
+  // update or
+  //              just data that has changed since issuance of the last
+  //              Electromagnetic Emission PDU.
+  // Parameter:   StateUpdateIndicator SUI
+  //************************************
+  void SetStateUpdateIndicator(
+      KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI);
+  KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator GetStateUpdateIndicator() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetEventID
-    //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEventID
-    // Description: Event ID. For associated events.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
+  //************************************
+  // FullName:
+  // KDIS::PDU::Electromagnetic_Emission_PDU::GetNumberOfEmissionSystems
+  // Description: Returns number of emission system records
+  //************************************
+  KUINT8 GetNumberOfEmissionSystems() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::SetStateUpdateIndicator
-    //              KDIS::PDU::Electromagnetic_Emission_PDU::GetStateUpdateIndicator
-    // Description: Indicates if the data contained in the PDU represents a state update or
-    //              just data that has changed since issuance of the last Electromagnetic Emission
-    //              PDU.
-    // Parameter:   StateUpdateIndicator SUI
-    //************************************
-    void SetStateUpdateIndicator( KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator SUI );
-    KDIS::DATA_TYPE::ENUMS::StateUpdateIndicator GetStateUpdateIndicator() const;
+  //************************************
+  // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::AddEmissionSystem
+  //              KDIS::PDU::Electromagnetic_Emission_PDU::SetEmissionSystem
+  //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEmissionSystems
+  //              KDIS::PDU::Electromagnetic_Emission_PDU::ClearEmissionSystem
+  // Description: Emissions systems belonging to the electromagnetic emission
+  // PDU. Parameter:   const EmissionSystem & ES, const vector<EmissionSystem> &
+  // ES
+  //************************************
+  void AddEmissionSystem(const KDIS::DATA_TYPE::EmissionSystem& ES);
+  void SetEmissionSystem(
+      const std::vector<KDIS::DATA_TYPE::EmissionSystem>& ES);
+  const std::vector<KDIS::DATA_TYPE::EmissionSystem>& GetEmissionSystems()
+      const;
+  void ClearEmissionSystem();
 
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::GetNumberOfEmissionSystems
-    // Description: Returns number of emission system records
-    //************************************
-    KUINT8 GetNumberOfEmissionSystems() const;
+  //************************************
+  // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::AddEmissionSystem
-    //              KDIS::PDU::Electromagnetic_Emission_PDU::SetEmissionSystem
-    //              KDIS::PDU::Electromagnetic_Emission_PDU::GetEmissionSystems
-    //              KDIS::PDU::Electromagnetic_Emission_PDU::ClearEmissionSystem
-    // Description: Emissions systems belonging to the electromagnetic emission PDU.
-    // Parameter:   const EmissionSystem & ES, const vector<EmissionSystem> & ES
-    //************************************
-    void AddEmissionSystem( const KDIS::DATA_TYPE::EmissionSystem & ES );
-    void SetEmissionSystem( const std::vector<KDIS::DATA_TYPE::EmissionSystem> & ES );
-    const std::vector<KDIS::DATA_TYPE::EmissionSystem> & GetEmissionSystems() const;
-    void ClearEmissionSystem();
+  //************************************
+  // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Electromagnetic_Emission_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Electromagnetic_Emission_PDU & Value ) const;
-    KBOOL operator != ( const Electromagnetic_Emission_PDU & Value ) const;
+  KBOOL operator==(const Electromagnetic_Emission_PDU& Value) const;
+  KBOOL operator!=(const Electromagnetic_Emission_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

@@ -37,92 +37,90 @@ http://p.sf.net/kdis/UserGuide
 
                 The binary point is defined by the sub-protocol, but for the
                 purposes of this standard the binary point shall be 8
-                (i.e., the least significant bit shall represent 0.0039062 radians).
+                (i.e., the least significant bit shall represent 0.0039062
+radians).
 
     size:       48 bits / 6 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./KFIXED.h"
+#include "KDIS/DataTypes/KFIXED.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT OrientationError : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT OrientationError : public DataTypeBase {
+ protected:
+  KFIXED16_8 m_AziErr;
 
-    KFIXED16_8 m_AziErr;
+  KFIXED16_8 m_ElvErr;
 
-    KFIXED16_8 m_ElvErr;
+  KFIXED16_8 m_RotErr;
 
-    KFIXED16_8 m_RotErr;
+ public:
+  static const KUINT16 ORIENTATION_ERROR_SIZE = 6;
 
-public:
+  OrientationError();
 
-    static const KUINT16 ORIENTATION_ERROR_SIZE = 6;
+  OrientationError(KFIXED16_8 Azimuth, KFIXED16_8 Elevation,
+                   KFIXED16_8 Rotation);
 
-    OrientationError();
+  OrientationError(KDataStream& stream);
 
-    OrientationError( KFIXED16_8 Azimuth, KFIXED16_8 Elevation, KFIXED16_8 Rotation );
+  virtual ~OrientationError();
 
-    OrientationError( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::OrientationError::SetAzimuthError
+  //              KDIS::DATA_TYPE::OrientationError::GetAzimuthError
+  // Description: Azimuth orientation error in radians.
+  // Parameter:   KFIXED16_8 AE
+  //************************************
+  void SetAzimuthError(KFIXED16_8 AE);
+  KFIXED16_8 GetAzimuthError() const;
 
-    virtual ~OrientationError();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::OrientationError::SetElevationError
+  //              KDIS::DATA_TYPE::OrientationError::GetElevationError
+  // Description: Elevation orientation error in radians.
+  // Parameter:   KFIXED16_8 EE
+  //************************************
+  void SetElevationError(KFIXED16_8 EE);
+  KFIXED16_8 GetElevationError() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::OrientationError::SetAzimuthError
-    //              KDIS::DATA_TYPE::OrientationError::GetAzimuthError
-    // Description: Azimuth orientation error in radians.
-    // Parameter:   KFIXED16_8 AE
-    //************************************
-    void SetAzimuthError( KFIXED16_8 AE );
-    KFIXED16_8 GetAzimuthError() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::OrientationError::SetRotationError
+  //              KDIS::DATA_TYPE::OrientationError::GetRotationError
+  // Description: Rotation orientation error in radians.
+  // Parameter:   KFIXED16_8 RE
+  //************************************
+  void SetRotationError(KFIXED16_8 RE);
+  KFIXED16_8 GetRotationError() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::OrientationError::SetElevationError
-    //              KDIS::DATA_TYPE::OrientationError::GetElevationError
-    // Description: Elevation orientation error in radians.
-    // Parameter:   KFIXED16_8 EE
-    //************************************
-    void SetElevationError( KFIXED16_8 EE );
-    KFIXED16_8 GetElevationError() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::OrientationError::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::OrientationError::SetRotationError
-    //              KDIS::DATA_TYPE::OrientationError::GetRotationError
-    // Description: Rotation orientation error in radians.
-    // Parameter:   KFIXED16_8 RE
-    //************************************
-    void SetRotationError( KFIXED16_8 RE );
-    KFIXED16_8 GetRotationError() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::OrientationError::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::OrientationError::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::OrientationError::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const OrientationError & Value ) const;
-    KBOOL operator != ( const OrientationError & Value ) const;
+  KBOOL operator==(const OrientationError& Value) const;
+  KBOOL operator!=(const OrientationError& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

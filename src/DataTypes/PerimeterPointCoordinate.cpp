@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./PerimeterPointCoordinate.h"
+#include "KDIS/DataTypes/PerimeterPointCoordinate.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,149 +36,114 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-PerimeterPointCoordinate::PerimeterPointCoordinate() :
-    m_f32X( 0 ),
-    m_f32Y( 0 )
-{
+PerimeterPointCoordinate::PerimeterPointCoordinate() : m_f32X(0), m_f32Y(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+PerimeterPointCoordinate::PerimeterPointCoordinate(KFLOAT32 X, KFLOAT32 Y)
+    : m_f32X(X), m_f32Y(Y) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+PerimeterPointCoordinate::PerimeterPointCoordinate(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PerimeterPointCoordinate::PerimeterPointCoordinate( KFLOAT32 X, KFLOAT32 Y ) :
-    m_f32X( X ),
-    m_f32Y( Y )
-{
+PerimeterPointCoordinate::~PerimeterPointCoordinate() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void PerimeterPointCoordinate::SetX(KFLOAT32 X) { m_f32X = X; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 PerimeterPointCoordinate::GetX() const { return m_f32X; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void PerimeterPointCoordinate::SetY(KFLOAT32 Y) { m_f32Y = Y; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 PerimeterPointCoordinate::GetY() const { return m_f32Y; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString PerimeterPointCoordinate::GetAsString() const {
+  KStringStream ss;
+
+  ss << "X: " << m_f32X << ",  Y: " << m_f32Y << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PerimeterPointCoordinate::PerimeterPointCoordinate( KDataStream & stream ) 
-{
-    Decode( stream );
+void PerimeterPointCoordinate::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < PERIMETER_POINT_COORDINATE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_f32X >> m_f32Y;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PerimeterPointCoordinate::~PerimeterPointCoordinate()
-{
+KDataStream PerimeterPointCoordinate::Encode() const {
+  KDataStream stream;
+
+  PerimeterPointCoordinate::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void PerimeterPointCoordinate::SetX( KFLOAT32 X )
-{
-    m_f32X = X;
+void PerimeterPointCoordinate::Encode(KDataStream& stream) const {
+  stream << m_f32X << m_f32Y;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 PerimeterPointCoordinate::GetX() const
-{
-    return m_f32X;
+KBOOL PerimeterPointCoordinate::operator==(
+    const PerimeterPointCoordinate& Value) const {
+  if (m_f32X != Value.m_f32X) return false;
+  if (m_f32Y != Value.m_f32Y) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void PerimeterPointCoordinate::SetY( KFLOAT32 Y )
-{
-    m_f32Y = Y;
+KBOOL PerimeterPointCoordinate::operator!=(
+    const PerimeterPointCoordinate& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 PerimeterPointCoordinate::GetY() const
-{
-    return m_f32Y;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString PerimeterPointCoordinate::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "X: "    << m_f32X
-       << ",  Y: " << m_f32Y
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void PerimeterPointCoordinate::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < PERIMETER_POINT_COORDINATE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_f32X
-           >> m_f32Y;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream PerimeterPointCoordinate::Encode() const
-{
-    KDataStream stream;
-
-    PerimeterPointCoordinate::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void PerimeterPointCoordinate::Encode( KDataStream & stream ) const
-{
-    stream << m_f32X
-           << m_f32Y;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL PerimeterPointCoordinate::operator == ( const PerimeterPointCoordinate & Value ) const
-{
-    if( m_f32X != Value.m_f32X ) return false;
-    if( m_f32Y != Value.m_f32Y ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL PerimeterPointCoordinate::operator != ( const PerimeterPointCoordinate & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFLOAT32 & PerimeterPointCoordinate::operator [] ( KUINT16 i ) 
-{
-    switch( i )
-    {
+KFLOAT32& PerimeterPointCoordinate::operator[](KUINT16 i) {
+  switch (i) {
     case 0:
-        return m_f32X;
+      return m_f32X;
     case 1:
-        return m_f32Y;
+      return m_f32Y;
     default:
-        throw KException( __FUNCTION__, OUT_OF_BOUNDS );
-    }
+      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const KFLOAT32 & PerimeterPointCoordinate::operator [] ( KUINT16 i ) const 
-{
-    switch( i )
-    {
+const KFLOAT32& PerimeterPointCoordinate::operator[](KUINT16 i) const {
+  switch (i) {
     case 0:
-        return m_f32X;
+      return m_f32X;
     case 1:
-        return m_f32Y;
+      return m_f32Y;
     default:
-        throw KException( __FUNCTION__, OUT_OF_BOUNDS );
-    }
+      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-

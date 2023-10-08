@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Acknowledge_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Acknowledge_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,231 +42,204 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU() :
-    m_ui16AcknowledgeFlag( 0 ),
-    m_ui16ResponseFlag( 0 ),
-    m_ui32RequestID( 0 )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+Acknowledge_PDU::Acknowledge_PDU()
+    : m_ui16AcknowledgeFlag(0), m_ui16ResponseFlag(0), m_ui32RequestID(0) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Header & H ) :
-    Simulation_Management_Header( H ),
-    m_ui16AcknowledgeFlag( 0 ),
-    m_ui16ResponseFlag( 0 ),
-    m_ui32RequestID( 0 )
-{
+Acknowledge_PDU::Acknowledge_PDU(const Header& H)
+    : Simulation_Management_Header(H),
+      m_ui16AcknowledgeFlag(0),
+      m_ui16ResponseFlag(0),
+      m_ui32RequestID(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Acknowledge_PDU::Acknowledge_PDU(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Acknowledge_PDU::Acknowledge_PDU(const Header& H, KDataStream& stream)
+    : Simulation_Management_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Acknowledge_PDU::Acknowledge_PDU(const EntityIdentifier& OriginatingEntityID,
+                                 const EntityIdentifier& ReceivingEntityID,
+                                 AcknowledgeFlag AF,
+                                 AcknowledgeResponseFlag ARF, KUINT32 RequestID)
+    : Simulation_Management_Header(OriginatingEntityID, ReceivingEntityID),
+      m_ui16AcknowledgeFlag(AF),
+      m_ui16ResponseFlag(ARF),
+      m_ui32RequestID(RequestID) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Header & H, KDataStream & stream )  :
-    Simulation_Management_Header( H )
-{
-    Decode( stream, true );
+Acknowledge_PDU::Acknowledge_PDU(
+    const Simulation_Management_Header& SimMgrHeader, AcknowledgeFlag AF,
+    AcknowledgeResponseFlag ARF, KUINT32 RequestID)
+    : Simulation_Management_Header(SimMgrHeader),
+      m_ui16AcknowledgeFlag(AF),
+      m_ui16ResponseFlag(ARF),
+      m_ui32RequestID(RequestID) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                                  AcknowledgeFlag AF, AcknowledgeResponseFlag ARF, KUINT32 RequestID ) :
-    Simulation_Management_Header( OriginatingEntityID, ReceivingEntityID ),
-    m_ui16AcknowledgeFlag( AF ),
-    m_ui16ResponseFlag( ARF ),
-    m_ui32RequestID( RequestID )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+Acknowledge_PDU::Acknowledge_PDU(const Create_Entity_PDU& pdu,
+                                 AcknowledgeResponseFlag ARF)
+    : Simulation_Management_Header(pdu.GetOriginatingEntityID(),
+                                   pdu.GetReceivingEntityID()),
+      m_ui16AcknowledgeFlag(CreateEntityPDU),
+      m_ui16ResponseFlag(ARF),
+      m_ui32RequestID(pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Simulation_Management_Header & SimMgrHeader, AcknowledgeFlag AF,
-                                  AcknowledgeResponseFlag ARF, KUINT32 RequestID ) :
-    Simulation_Management_Header( SimMgrHeader ),
-    m_ui16AcknowledgeFlag( AF ),
-    m_ui16ResponseFlag( ARF ),
-    m_ui32RequestID( RequestID )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+Acknowledge_PDU::Acknowledge_PDU(const Remove_Entity_PDU& pdu,
+                                 AcknowledgeResponseFlag ARF)
+    : Simulation_Management_Header(pdu.GetOriginatingEntityID(),
+                                   pdu.GetReceivingEntityID()),
+      m_ui16AcknowledgeFlag(RemoveEntityPDU),
+      m_ui16ResponseFlag(ARF),
+      m_ui32RequestID(pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Create_Entity_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Simulation_Management_Header( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID() ),
-    m_ui16AcknowledgeFlag( CreateEntityPDU ),
-    m_ui16ResponseFlag( ARF ),
-    m_ui32RequestID( pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+Acknowledge_PDU::Acknowledge_PDU(const Start_Resume_PDU& pdu,
+                                 AcknowledgeResponseFlag ARF)
+    : Simulation_Management_Header(pdu.GetOriginatingEntityID(),
+                                   pdu.GetReceivingEntityID()),
+      m_ui16AcknowledgeFlag(Start_ResumePDU),
+      m_ui16ResponseFlag(ARF),
+      m_ui32RequestID(pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Remove_Entity_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Simulation_Management_Header( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID() ),
-    m_ui16AcknowledgeFlag( RemoveEntityPDU ),
-    m_ui16ResponseFlag( ARF ),
-    m_ui32RequestID( pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+Acknowledge_PDU::Acknowledge_PDU(const Stop_Freeze_PDU& pdu,
+                                 AcknowledgeResponseFlag ARF)
+    : Simulation_Management_Header(pdu.GetOriginatingEntityID(),
+                                   pdu.GetReceivingEntityID()),
+      m_ui16AcknowledgeFlag(Stop_FreezePDU),
+      m_ui16ResponseFlag(ARF),
+      m_ui32RequestID(pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Start_Resume_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Simulation_Management_Header( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID() ),
-    m_ui16AcknowledgeFlag( Start_ResumePDU ),
-    m_ui16ResponseFlag( ARF ),
-    m_ui32RequestID( pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+Acknowledge_PDU::~Acknowledge_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Acknowledge_PDU::SetAcknowledgeFlag(AcknowledgeFlag AF) {
+  m_ui16AcknowledgeFlag = AF;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::Acknowledge_PDU( const Stop_Freeze_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Simulation_Management_Header( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID() ),
-    m_ui16AcknowledgeFlag( Stop_FreezePDU ),
-    m_ui16ResponseFlag( ARF ),
-    m_ui32RequestID( pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+AcknowledgeFlag Acknowledge_PDU::GetAcknowledgeFlag() const {
+  return (AcknowledgeFlag)m_ui16AcknowledgeFlag;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_PDU::~Acknowledge_PDU()
-{
+void Acknowledge_PDU::SetAcknowledgeResponseFlag(AcknowledgeResponseFlag ARF) {
+  m_ui16ResponseFlag = ARF;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Acknowledge_PDU::SetAcknowledgeFlag( AcknowledgeFlag AF )
-{
-    m_ui16AcknowledgeFlag = AF;
+AcknowledgeResponseFlag Acknowledge_PDU::GetAcknowledgeResponseFlag() const {
+  return (AcknowledgeResponseFlag)m_ui16ResponseFlag;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcknowledgeFlag Acknowledge_PDU::GetAcknowledgeFlag() const
-{
-    return ( AcknowledgeFlag )m_ui16AcknowledgeFlag;
+void Acknowledge_PDU::SetRequestID(KUINT32 ID) { m_ui32RequestID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT32 Acknowledge_PDU::GetRequestID() const { return m_ui32RequestID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Acknowledge_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Acknowledge PDU-\n"
+     << Simulation_Management_Header::GetAsString() << "\tAcknowledge Flag:  "
+     << GetEnumAsStringAcknowledgeFlag(m_ui16AcknowledgeFlag)
+     << "\n\tResponse Flag:     "
+     << GetEnumAsStringAcknowledgeResponseFlag(m_ui16ResponseFlag)
+     << "\n\tRequest ID:        " << m_ui32RequestID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Acknowledge_PDU::SetAcknowledgeResponseFlag( AcknowledgeResponseFlag ARF )
-{
-    m_ui16ResponseFlag = ARF;
+void Acknowledge_PDU::Decode(KDataStream& stream,
+                             bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      ACKNOWLEDGE_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Simulation_Management_Header::Decode(stream, ignoreHeader);
+  stream >> m_ui16AcknowledgeFlag >> m_ui16ResponseFlag >> m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcknowledgeResponseFlag Acknowledge_PDU::GetAcknowledgeResponseFlag() const
-{
-    return ( AcknowledgeResponseFlag )m_ui16ResponseFlag;
+KDataStream Acknowledge_PDU::Encode() const {
+  KDataStream stream;
+
+  Acknowledge_PDU::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Acknowledge_PDU::SetRequestID( KUINT32 ID )
-{
-    m_ui32RequestID = ID;
+void Acknowledge_PDU::Encode(KDataStream& stream) const {
+  Simulation_Management_Header::Encode(stream);
+  stream << m_ui16AcknowledgeFlag << m_ui16ResponseFlag << m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT32 Acknowledge_PDU::GetRequestID() const
-{
-    return m_ui32RequestID;
+KBOOL Acknowledge_PDU::operator==(const Acknowledge_PDU& Value) const {
+  if (Simulation_Management_Header::operator!=(Value)) return false;
+  if (m_ui16AcknowledgeFlag != Value.m_ui16AcknowledgeFlag) return false;
+  if (m_ui16ResponseFlag != Value.m_ui16ResponseFlag) return false;
+  if (m_ui32RequestID != Value.m_ui32RequestID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Acknowledge_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Acknowledge PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "\tAcknowledge Flag:  "   << GetEnumAsStringAcknowledgeFlag( m_ui16AcknowledgeFlag )
-       << "\n\tResponse Flag:     " << GetEnumAsStringAcknowledgeResponseFlag( m_ui16ResponseFlag )
-       << "\n\tRequest ID:        " << m_ui32RequestID
-       << "\n";
-
-    return ss.str();
+KBOOL Acknowledge_PDU::operator!=(const Acknowledge_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void Acknowledge_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ACKNOWLEDGE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Simulation_Management_Header::Decode( stream, ignoreHeader );
-    stream >> m_ui16AcknowledgeFlag
-           >> m_ui16ResponseFlag
-           >> m_ui32RequestID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Acknowledge_PDU::Encode() const
-{
-    KDataStream stream;
-
-    Acknowledge_PDU::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Acknowledge_PDU::Encode( KDataStream & stream ) const
-{
-    Simulation_Management_Header::Encode( stream );
-    stream << m_ui16AcknowledgeFlag
-           << m_ui16ResponseFlag
-           << m_ui32RequestID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Acknowledge_PDU::operator == ( const Acknowledge_PDU & Value ) const
-{
-    if( Simulation_Management_Header::operator   !=( Value ) )                    return false;
-    if( m_ui16AcknowledgeFlag                    != Value.m_ui16AcknowledgeFlag ) return false;
-    if( m_ui16ResponseFlag                       != Value.m_ui16ResponseFlag )    return false;
-    if( m_ui32RequestID                          != Value.m_ui32RequestID )       return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Acknowledge_PDU::operator != ( const Acknowledge_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-
-

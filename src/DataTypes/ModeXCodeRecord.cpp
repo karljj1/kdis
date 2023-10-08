@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./ModeXCodeRecord.h"
+#include "KDIS/DataTypes/ModeXCodeRecord.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,118 +40,95 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ModeXCodeRecord::ModeXCodeRecord() 
-{
-	m_CodeUnion.m_ui16Code = 0;
+ModeXCodeRecord::ModeXCodeRecord() { m_CodeUnion.m_ui16Code = 0; }
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeXCodeRecord::ModeXCodeRecord(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+ModeXCodeRecord::~ModeXCodeRecord() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ModeXCodeRecord::SetStatus(KBOOL S) { m_CodeUnion.m_ui16OnOff = S; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeXCodeRecord::GetStatus() const {
+  return (KBOOL)m_CodeUnion.m_ui16OnOff;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ModeXCodeRecord::ModeXCodeRecord( KDataStream & stream ) 
-{
-    Decode( stream );
+void ModeXCodeRecord::SetDamaged(KBOOL D) { m_CodeUnion.m_ui16Dmg = D; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL ModeXCodeRecord::IsDamaged() const {
+  return (KBOOL)m_CodeUnion.m_ui16Dmg;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ModeXCodeRecord::~ModeXCodeRecord()
-{
+void ModeXCodeRecord::SetMalfunctioning(KBOOL M) {
+  m_CodeUnion.m_ui16MalFnc = M;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ModeXCodeRecord::SetStatus( KBOOL S )
-{
-	m_CodeUnion.m_ui16OnOff = S;
+KBOOL ModeXCodeRecord::IsMalfunctioning() const {
+  return (KBOOL)m_CodeUnion.m_ui16MalFnc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ModeXCodeRecord::GetStatus() const
-{
-	return ( KBOOL )m_CodeUnion.m_ui16OnOff;
+KString ModeXCodeRecord::GetAsString() const {
+  KStringStream ss;
+
+  ss << "On/Off Status:       " << (KBOOL)m_CodeUnion.m_ui16OnOff << "\n"
+     << "Damage Status:       " << (KBOOL)m_CodeUnion.m_ui16Dmg << "\n"
+     << "Malfunction Status:  " << (KBOOL)m_CodeUnion.m_ui16MalFnc << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ModeXCodeRecord::SetDamaged( KBOOL D )
-{
-	m_CodeUnion.m_ui16Dmg = D;
+void ModeXCodeRecord::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < MODE_X_CODE_RECORD_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+  stream >> m_CodeUnion.m_ui16Code;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ModeXCodeRecord::IsDamaged() const
-{
-	return ( KBOOL )m_CodeUnion.m_ui16Dmg;
+KDataStream ModeXCodeRecord::Encode() const {
+  KDataStream stream;
+
+  ModeXCodeRecord::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ModeXCodeRecord::SetMalfunctioning( KBOOL M )
-{
-	m_CodeUnion.m_ui16MalFnc = M;
+void ModeXCodeRecord::Encode(KDataStream& stream) const {
+  stream << m_CodeUnion.m_ui16Code;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ModeXCodeRecord::IsMalfunctioning() const
-{
-	return ( KBOOL )m_CodeUnion.m_ui16MalFnc;
+KBOOL ModeXCodeRecord::operator==(const ModeXCodeRecord& Value) const {
+  if (m_CodeUnion.m_ui16Code != Value.m_CodeUnion.m_ui16Code) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString ModeXCodeRecord::GetAsString() const
-{
-    KStringStream ss;
-
-	ss << "On/Off Status:       " << ( KBOOL )m_CodeUnion.m_ui16OnOff << "\n"
-	   << "Damage Status:       " << ( KBOOL )m_CodeUnion.m_ui16Dmg   << "\n"
-	   << "Malfunction Status:  " << ( KBOOL )m_CodeUnion.m_ui16MalFnc << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void ModeXCodeRecord::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < MODE_X_CODE_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-	stream >> m_CodeUnion.m_ui16Code;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream ModeXCodeRecord::Encode() const
-{
-    KDataStream stream;
-
-    ModeXCodeRecord::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void ModeXCodeRecord::Encode( KDataStream & stream ) const
-{
-	stream << m_CodeUnion.m_ui16Code;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ModeXCodeRecord::operator == ( const ModeXCodeRecord & Value ) const
-{ 
-    if( m_CodeUnion.m_ui16Code != Value.m_CodeUnion.m_ui16Code ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ModeXCodeRecord::operator != ( const ModeXCodeRecord & Value ) const
-{
-    return !( *this == Value );
+KBOOL ModeXCodeRecord::operator!=(const ModeXCodeRecord& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

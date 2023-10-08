@@ -38,188 +38,183 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./ObjectAppearance.h"
+#include "KDIS/DataTypes/ObjectAppearance.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT PointObjectAppearance : public ObjectAppearance
-{
-protected:
+class KDIS_EXPORT PointObjectAppearance : public ObjectAppearance {
+ protected:
+  union {
+    struct {
+      KUINT32 m_ui32Breach : 2;
+      KUINT32 m_ui32Unused : 30;
+    } m_LogCribAbatisVehicleDefiladeInf;
 
-    union
-    {
-        struct
-        {
-            KUINT32 m_ui32Breach : 2;
-            KUINT32 m_ui32Unused : 30;
-        } m_LogCribAbatisVehicleDefiladeInf;
+    struct {
+      KUINT32 m_ui32Opacity : 8;
+      KUINT32 m_ui32Size : 8;
+      KUINT32 m_ui32Height : 8;
+      KUINT32 m_ui32NumBurst : 6;
+      KUINT32 m_ui32Chemical : 2;
 
-        struct
-        {
-            KUINT32 m_ui32Opacity  : 8;
-            KUINT32 m_ui32Size     : 8;
-            KUINT32 m_ui32Height   : 8;
-            KUINT32 m_ui32NumBurst : 6;
-            KUINT32 m_ui32Chemical : 2;
+    } m_AirBurstGroundBurst;
 
-        } m_AirBurstGroundBurst;
+    struct {
+      KUINT32 m_ui32Size : 8;
+      KUINT32 m_ui32Unused : 24;
 
-        struct
-        {
-            KUINT32 m_ui32Size   : 8;
-            KUINT32 m_ui32Unused : 24;
+    } m_Crater;
 
-        } m_Crater;
+    struct {
+      KUINT32 m_ui32NumSeg : 8;
+      KUINT32 m_ui32Unused : 24;
+    } m_RibbonBridge;
 
-        struct
-        {
-            KUINT32 m_ui32NumSeg : 8;
-            KUINT32 m_ui32Unused : 24;
-        } m_RibbonBridge;
+    KUINT32 m_ui32SpecificAppearance;
+  } m_SpecificAppearanceUnion;
 
-        KUINT32 m_ui32SpecificAppearance;
-    } m_SpecificAppearanceUnion;
+ public:
+  static const KUINT16 POINT_OBJECT_APPEARANCE_SIZE = 6;
 
-public:
+  PointObjectAppearance();
 
-    static const KUINT16 POINT_OBJECT_APPEARANCE_SIZE = 6;
+  PointObjectAppearance(KDataStream& stream);
 
-    PointObjectAppearance();
+  virtual ~PointObjectAppearance();
 
-    PointObjectAppearance( KDataStream & stream ) ;
+  /************************************************************************/
+  /* The following appearance values are only for points of the type:     */
+  /* Log crib, Abatis, Vehicle defilade, and Infantry fighting position   */
+  /************************************************************************/
 
-    virtual ~PointObjectAppearance();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetBreach
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetBreach
+  // Description: Describes the breached appearance of the object.
+  // Parameter:   Breach2bit B
+  //************************************
+  void SetBreach(KDIS::DATA_TYPE::ENUMS::Breach2bit B);
+  KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for points of the type:     */
-    /* Log crib, Abatis, Vehicle defilade, and Infantry fighting position   */
-    /************************************************************************/
+  /************************************************************************/
+  /* The following appearance values are only for points of the type:     */
+  /* Air burst, Ground burst                                              */
+  /************************************************************************/
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetBreach
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetBreach
-    // Description: Describes the breached appearance of the object.
-    // Parameter:   Breach2bit B
-    //************************************
-    void SetBreach( KDIS::DATA_TYPE::ENUMS::Breach2bit B );
-    KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetOpacity
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetOpacity
+  // Description: The percent opacity of the smoke, ranging from 0% opacity to
+  // 100%.
+  //              Acceptable values are 0 - 100 else throws INVALID_DATA
+  //              exception.
+  // Parameter:   KUINT8 O
+  //************************************
+  void SetOpacity(KUINT8 O);
+  KUINT8 GetOpacity() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for points of the type:     */
-    /* Air burst, Ground burst                                              */
-    /************************************************************************/
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetBurstSize
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetBurstSize
+  // Description: Indicates the radius of the cylinder which approximates
+  //              an individual burst. The Point Object Location field
+  //              indicates the center of the bottom of the cylinder
+  //              for individual bursts. For multiple bursts, the center
+  //              bottom of each cylinder is calculated based on the model
+  //              used to represent the multiple bursts.
+  // Parameter:   KUINT8 S
+  //************************************
+  void SetBurstSize(KUINT8 S);
+  KUINT8 GetBurstSize() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetOpacity
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetOpacity
-    // Description: The percent opacity of the smoke, ranging from 0% opacity to 100%.
-    //              Acceptable values are 0 - 100 else throws INVALID_DATA exception.
-    // Parameter:   KUINT8 O
-    //************************************
-    void SetOpacity( KUINT8 O ) ;
-    KUINT8 GetOpacity() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetHeight
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetHeight
+  // Description: The height of the cylinder which approximates an individual
+  // burst.
+  //              The Point Object Location field indicates the center of the
+  //              bottom of the cylinder for individual bursts. For multiple
+  //              bursts, the center bottom of each cylinder is calculated based
+  //              on the model used to represent the multiple bursts.
+  // Parameter:   KUINT8 H
+  //************************************
+  void SetHeight(KUINT8 H);
+  KUINT8 GetHeight() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetBurstSize
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetBurstSize
-    // Description: Indicates the radius of the cylinder which approximates
-    //              an individual burst. The Point Object Location field
-    //              indicates the center of the bottom of the cylinder
-    //              for individual bursts. For multiple bursts, the center
-    //              bottom of each cylinder is calculated based on the model
-    //              used to represent the multiple bursts.
-    // Parameter:   KUINT8 S
-    //************************************
-    void SetBurstSize( KUINT8 S );
-    KUINT8 GetBurstSize() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetNumBursts
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetNumBursts
+  // Description: Number of bursts in the instance of tactical smoke.
+  //              Acceptable values are 0 - 63.
+  // Parameter:   KUINT8 H
+  //************************************
+  void SetNumBursts(KUINT8 N);
+  KUINT8 GetNumBursts() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetHeight
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetHeight
-    // Description: The height of the cylinder which approximates an individual burst.
-    //              The Point Object Location field indicates the center of the bottom
-    //              of the cylinder for individual bursts. For multiple bursts,
-    //              the center bottom of each cylinder is calculated based on the
-    //              model used to represent the multiple bursts.
-    // Parameter:   KUINT8 H
-    //************************************
-    void SetHeight( KUINT8 H );
-    KUINT8 GetHeight() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetChemical
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetChemical
+  // Description: The chemical content of the smoke.
+  // Parameter:   Chemical C
+  //************************************
+  void SetChemical(KDIS::DATA_TYPE::ENUMS::Chemical C);
+  KDIS::DATA_TYPE::ENUMS::Chemical GetChemical() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetNumBursts
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetNumBursts
-    // Description: Number of bursts in the instance of tactical smoke.
-    //              Acceptable values are 0 - 63.
-    // Parameter:   KUINT8 H
-    //************************************
-    void SetNumBursts( KUINT8 N );
-    KUINT8 GetNumBursts() const;
+  /************************************************************************/
+  /* The following appearance values are only for points of the type:     */
+  /* Crater                                                               */
+  /************************************************************************/
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetChemical
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetChemical
-    // Description: The chemical content of the smoke.
-    // Parameter:   Chemical C
-    //************************************
-    void SetChemical( KDIS::DATA_TYPE::ENUMS::Chemical C );
-    KDIS::DATA_TYPE::ENUMS::Chemical GetChemical() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetCraterSize
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetCraterSize
+  // Description: The diameter of the crater, where the center of the
+  //              crater is at the Point Object Location.
+  // Parameter:   KUINT8 S
+  //************************************
+  void SetCraterSize(KUINT8 S);
+  KUINT8 GetCraterSize() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for points of the type:     */
-    /* Crater                                                               */
-    /************************************************************************/
+  /************************************************************************/
+  /* The following appearance values are only for points of the type:     */
+  /* Ribbon Bridge                                                        */
+  /************************************************************************/
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetCraterSize
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetCraterSize
-    // Description: The diameter of the crater, where the center of the
-    //              crater is at the Point Object Location.
-    // Parameter:   KUINT8 S
-    //************************************
-    void SetCraterSize( KUINT8 S );
-    KUINT8 GetCraterSize() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetNumSegments
+  //              KDIS::DATA_TYPE::PointObjectAppearance::GetNumSegments
+  // Description: The number of segments composing the ribbon bridge.
+  // Parameter:   KUINT8 N
+  //************************************
+  void SetNumSegments(KUINT8 N);
+  KUINT8 GetNumSegments() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for points of the type:     */
-    /* Ribbon Bridge                                                        */
-    /************************************************************************/
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::GetAsString
+  // Description: Returns a string representation of the appearance
+  // Parameter:   const EntityType & EntType
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::SetNumSegments
-    //              KDIS::DATA_TYPE::PointObjectAppearance::GetNumSegments
-    // Description: The number of segments composing the ribbon bridge.
-    // Parameter:   KUINT8 N
-    //************************************
-    void SetNumSegments( KUINT8 N );
-    KUINT8 GetNumSegments() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::GetAsString
-    // Description: Returns a string representation of the appearance
-    // Parameter:   const EntityType & EntType
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointObjectAppearance::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const PointObjectAppearance & Value ) const;
-    KBOOL operator != ( const PointObjectAppearance & Value ) const;
+  KBOOL operator==(const PointObjectAppearance& Value) const;
+  KBOOL operator!=(const PointObjectAppearance& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./KFIXED.h"
+#include "KDIS/DataTypes/KFIXED.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -48,149 +48,124 @@ using namespace DATA_TYPE;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-Type KFIXED<Type, BinaryPoint>::convert( KFLOAT32 V ) const
-{
-    return V * ( 1 << BinaryPoint );
+template <class Type, KUINT8 BinaryPoint>
+Type KFIXED<Type, BinaryPoint>::convert(KFLOAT32 V) const {
+  return V * (1 << BinaryPoint);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-Type KFIXED<Type, BinaryPoint>::convert( KFLOAT64 V ) const
-{
-    return V * ( 1 << BinaryPoint );
+template <class Type, KUINT8 BinaryPoint>
+Type KFIXED<Type, BinaryPoint>::convert(KFLOAT64 V) const {
+  return V * (1 << BinaryPoint);
 }
 
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::KFIXED() :
-    m_Val( 0 )
-{
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::KFIXED() : m_Val(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::KFIXED(KFLOAT32 V) : m_Val(convert(V)) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::KFIXED(KFLOAT64 V) : m_Val(convert(V)) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::KFIXED(Type V) : m_Val(V) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::KFIXED(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::KFIXED( KFLOAT32 V ) :
-    m_Val( convert( V ) )
-{
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::~KFIXED() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <class Type, KUINT8 BinaryPoint>
+void KFIXED<Type, BinaryPoint>::Set(KFLOAT32 V) {
+  m_Val = convert(V);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::KFIXED( KFLOAT64 V ) :
-    m_Val( convert( V ) )
-{
+template <class Type, KUINT8 BinaryPoint>
+void KFIXED<Type, BinaryPoint>::Set(KFLOAT64 V) {
+  m_Val = convert(V);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::KFIXED( Type V ) :
-    m_Val( V )
-{
+template <class Type, KUINT8 BinaryPoint>
+void KFIXED<Type, BinaryPoint>::Set(Type V) {
+  m_Val = V;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::KFIXED( KDataStream & stream ) 
-{
-    Decode( stream );
+template <class Type, KUINT8 BinaryPoint>
+Type KFIXED<Type, BinaryPoint>::Get() const {
+  return m_Val;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::~KFIXED()
-{
+template <class Type, KUINT8 BinaryPoint>
+KFLOAT32 KFIXED<Type, BinaryPoint>::GetAsFloat32() const {
+  return m_Val * (1.0 / (1 << BinaryPoint));
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-void KFIXED<Type, BinaryPoint>::Set( KFLOAT32 V )
-{
-    m_Val = convert( V );
+template <class Type, KUINT8 BinaryPoint>
+KString KFIXED<Type, BinaryPoint>::GetAsString() const {
+  KStringStream ss;
+
+  ss << GetAsFloat32() << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-void KFIXED<Type, BinaryPoint>::Set( KFLOAT64 V )
-{
-    m_Val = convert( V );
+template <class Type, KUINT8 BinaryPoint>
+void KFIXED<Type, BinaryPoint>::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < sizeof(Type))
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_Val;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-void KFIXED<Type, BinaryPoint>::Set( Type V )
-{
-    m_Val = V ;
+template <class Type, KUINT8 BinaryPoint>
+KDataStream KFIXED<Type, BinaryPoint>::Encode() const {
+  KDataStream stream;
+
+  KFIXED<Type, BinaryPoint>::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-Type KFIXED<Type, BinaryPoint>::Get() const
-{
-    return m_Val;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-template<class Type, KUINT8 BinaryPoint>
-KFLOAT32 KFIXED<Type, BinaryPoint>::GetAsFloat32() const
-{
-    return  m_Val * ( 1.0 / ( 1 << BinaryPoint ) );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-template<class Type, KUINT8 BinaryPoint>
-KString KFIXED<Type, BinaryPoint>::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << GetAsFloat32() << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-template<class Type, KUINT8 BinaryPoint>
-void KFIXED<Type, BinaryPoint>::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < sizeof( Type ) )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_Val;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-template<class Type, KUINT8 BinaryPoint>
-KDataStream KFIXED<Type, BinaryPoint>::Encode() const
-{
-    KDataStream stream;
-
-    KFIXED<Type, BinaryPoint>::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-template<class Type, KUINT8 BinaryPoint>
-void KFIXED<Type, BinaryPoint>::Encode( KDataStream & stream ) const
-{
-    stream << m_Val;
+template <class Type, KUINT8 BinaryPoint>
+void KFIXED<Type, BinaryPoint>::Encode(KDataStream& stream) const {
+  stream << m_Val;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -199,135 +174,130 @@ void KFIXED<Type, BinaryPoint>::Encode( KDataStream & stream ) const
 
 // Some macros to reduce the code a little
 
-// DEFINE_OPERATOR ******************************************************************************************
-#define DEFINE_OPERATOR( OPERATOR )                                                                         \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFLOAT32 Value )                   \
-{                                                                                                           \
-    return GetAsFloat32() OPERATOR Value;                                                                   \
-}                                                                                                           \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFLOAT64 Value )                   \
-{                                                                                                           \
-    return GetAsFloat32() OPERATOR Value;                                                                   \
-}                                                                                                           \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR ( Type Value )                       \
-{                                                                                                           \
-    return *this OPERATOR KFIXED( Value ).GetAsFloat32();                                                   \
-}                                                                                                           \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFIXED<Type, BinaryPoint> Value )  \
-{                                                                                                           \
-    return GetAsFloat32() OPERATOR Value.GetAsFloat32();                                                    \
-}
+// DEFINE_OPERATOR
+// ******************************************************************************************
+#define DEFINE_OPERATOR(OPERATOR)                                         \
+                                                                          \
+  template <class Type, KUINT8 BinaryPoint>                               \
+  KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR( \
+      KFLOAT32 Value) {                                                   \
+    return GetAsFloat32() OPERATOR Value;                                 \
+  }                                                                       \
+                                                                          \
+  template <class Type, KUINT8 BinaryPoint>                               \
+  KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR( \
+      KFLOAT64 Value) {                                                   \
+    return GetAsFloat32() OPERATOR Value;                                 \
+  }                                                                       \
+                                                                          \
+  template <class Type, KUINT8 BinaryPoint>                               \
+  KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR( \
+      Type Value) {                                                       \
+    return *this OPERATOR KFIXED(Value).GetAsFloat32();                   \
+  }                                                                       \
+                                                                          \
+  template <class Type, KUINT8 BinaryPoint>                               \
+  KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator OPERATOR( \
+      KFIXED<Type, BinaryPoint> Value) {                                  \
+    return GetAsFloat32() OPERATOR Value.GetAsFloat32();                  \
+  }
 
-// DEFINE_COMPARISION_OPERATOR ******************************************************************************
-#define DEFINE_COMPARISION_OPERATOR( OPERATOR )                                                             \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFLOAT32 Value ) const                                 \
-{                                                                                                           \
-    return m_Val OPERATOR convert( Value );                                                                 \
-}                                                                                                           \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFLOAT64 Value ) const                                 \
-{                                                                                                           \
-    return m_Val OPERATOR convert( Value );                                                                 \
-}                                                                                                           \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( Type Value ) const                                     \
-{                                                                                                           \
-    return m_Val OPERATOR m_Val;                                                                            \
-}                                                                                                           \
-                                                                                                            \
-template<class Type, KUINT8 BinaryPoint>                                                                    \
-KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR ( KFIXED<Type, BinaryPoint> Value ) const                \
-{                                                                                                           \
-    return m_Val OPERATOR Value.m_Val;                                                                      \
-}
+// DEFINE_COMPARISION_OPERATOR
+// ******************************************************************************
+#define DEFINE_COMPARISION_OPERATOR(OPERATOR)                                \
+                                                                             \
+  template <class Type, KUINT8 BinaryPoint>                                  \
+  KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR(KFLOAT32 Value) const { \
+    return m_Val OPERATOR convert(Value);                                    \
+  }                                                                          \
+                                                                             \
+  template <class Type, KUINT8 BinaryPoint>                                  \
+  KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR(KFLOAT64 Value) const { \
+    return m_Val OPERATOR convert(Value);                                    \
+  }                                                                          \
+                                                                             \
+  template <class Type, KUINT8 BinaryPoint>                                  \
+  KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR(Type Value) const {     \
+    return m_Val OPERATOR m_Val;                                             \
+  }                                                                          \
+                                                                             \
+  template <class Type, KUINT8 BinaryPoint>                                  \
+  KBOOL KFIXED<Type, BinaryPoint>::operator OPERATOR(                        \
+      KFIXED<Type, BinaryPoint> Value) const {                               \
+    return m_Val OPERATOR Value.m_Val;                                       \
+  }
 
-//***************************** End Macros ******************************************************************
+//***************************** End Macros
+//******************************************************************
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator = ( KFLOAT32 Value )
-{
-    m_Val = convert( Value );
-    return *this;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator = ( KFLOAT64 Value )
-{
-    m_Val = convert( Value );
-    return *this;
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator=(KFLOAT32 Value) {
+  m_Val = convert(Value);
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator = ( Type Value )
-{
-    m_Val = Value;
-    return *this;
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator=(KFLOAT64 Value) {
+  m_Val = convert(Value);
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator = ( KFIXED<Type, BinaryPoint> Value )
-{
-    m_Val = Value.m_Val;
-    return *this;
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator=(Type Value) {
+  m_Val = Value;
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-DEFINE_OPERATOR( + )
-DEFINE_OPERATOR( - )
-DEFINE_OPERATOR( * )
-DEFINE_OPERATOR( / )
-
-//////////////////////////////////////////////////////////////////////////
-
-DEFINE_COMPARISION_OPERATOR( == )
-DEFINE_COMPARISION_OPERATOR( != )
-DEFINE_COMPARISION_OPERATOR( < )
-DEFINE_COMPARISION_OPERATOR( <= )
-DEFINE_COMPARISION_OPERATOR( > )
-DEFINE_COMPARISION_OPERATOR( >= )
-
-//////////////////////////////////////////////////////////////////////////
-
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::operator KFLOAT32 () const
-{
-    return GetAsFloat32();
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint> KFIXED<Type, BinaryPoint>::operator=(
+    KFIXED<Type, BinaryPoint> Value) {
+  m_Val = Value.m_Val;
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type, KUINT8 BinaryPoint>
-KFIXED<Type, BinaryPoint>::operator Type () const
-{
-    return m_Val;
+DEFINE_OPERATOR(+)
+DEFINE_OPERATOR(-)
+DEFINE_OPERATOR(*)
+DEFINE_OPERATOR(/)
+
+//////////////////////////////////////////////////////////////////////////
+
+DEFINE_COMPARISION_OPERATOR(==)
+DEFINE_COMPARISION_OPERATOR(!=)
+DEFINE_COMPARISION_OPERATOR(<)
+DEFINE_COMPARISION_OPERATOR(<=)
+DEFINE_COMPARISION_OPERATOR(>)
+DEFINE_COMPARISION_OPERATOR(>=)
+
+//////////////////////////////////////////////////////////////////////////
+
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::operator KFLOAT32() const {
+  return GetAsFloat32();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <class Type, KUINT8 BinaryPoint>
+KFIXED<Type, BinaryPoint>::operator Type() const {
+  return m_Val;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 // When using a template class with implementation in a cpp file, linker
-// errors will occur if you do not pre-declare the template types in that same file.
-// This is good for us in this case as we only need to support a binary point of 3 and 8.
-// If you do wish to add support for other binary point positions then simply add them
-// below and re-compile.
+// errors will occur if you do not pre-declare the template types in that same
+// file. This is good for us in this case as we only need to support a binary
+// point of 3 and 8. If you do wish to add support for other binary point
+// positions then simply add them below and re-compile.
 
 template class KDIS::DATA_TYPE::KFIXED<KINT16, 3>;
 template class KDIS::DATA_TYPE::KFIXED<KINT16, 8>;

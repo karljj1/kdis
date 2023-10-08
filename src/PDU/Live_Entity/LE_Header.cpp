@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./LE_Header.h"
+#include "KDIS/PDU/Live_Entity/LE_Header.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,135 +41,108 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LE_Header::LE_Header()
-{
-    m_ui8ProtocolFamily = LiveEntity;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+LE_Header::LE_Header() {
+  m_ui8ProtocolFamily = LiveEntity;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Header::LE_Header( const Header & H ) :
-    Header( H )
-{
+LE_Header::LE_Header(const Header& H) : Header(H) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Header::LE_Header(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+LE_Header::LE_Header(const Header& H, KDataStream& stream) : Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Header::LE_Header( KDataStream & stream ) 
-{
-    Decode( stream, false );
+LE_Header::~LE_Header() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LE_Header::SetSubprotocol(KUINT8 S) {
+  m_ui8Padding1 = S;  // Using the first pading octet from the header.
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Header::LE_Header( const Header & H, KDataStream & stream )  :
-    Header( H )
-{
-    Decode( stream, true );
+KUINT8 LE_Header::GetSubprotocol() const {
+  return m_ui8Padding1;  // Using the first pading octet from the header.
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_Header::~LE_Header()
-{
+void LE_Header::SetLiveEntityID(const LE_EntityIdentifier& ID) { m_EntID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const LE_EntityIdentifier& LE_Header::GetLiveEntityID() const {
+  return m_EntID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Header::SetSubprotocol( KUINT8 S )
-{
-    m_ui8Padding1 = S; // Using the first pading octet from the header.
+LE_EntityIdentifier& LE_Header::GetLiveEntityID() { return m_EntID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString LE_Header::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "Subprotocol:    " << m_ui8Padding1
+     << "Live Entity ID: " << m_EntID.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 LE_Header::GetSubprotocol() const
-{
-    return m_ui8Padding1; // Using the first pading octet from the header.
+void LE_Header::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      LE_HEADER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Header::Decode(stream, ignoreHeader);
+
+  stream >> KDIS_STREAM m_EntID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LE_Header::SetLiveEntityID( const LE_EntityIdentifier & ID )
-{
-    m_EntID = ID;
+KDataStream LE_Header::Encode() const {
+  KDataStream stream;
+
+  LE_Header::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const LE_EntityIdentifier & LE_Header::GetLiveEntityID() const
-{
-    return m_EntID;
+void LE_Header::Encode(KDataStream& stream) const {
+  Header::Encode(stream);
+
+  stream << KDIS_STREAM m_EntID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LE_EntityIdentifier & LE_Header::GetLiveEntityID()
-{
-    return m_EntID;
+KBOOL LE_Header::operator==(const LE_Header& Value) const {
+  if (Header::operator!=(Value)) return false;
+  if (m_EntID != Value.m_EntID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString LE_Header::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "Subprotocol:    " << m_ui8Padding1
-       << "Live Entity ID: " << m_EntID.GetAsString();
-
-    return ss.str();
+KBOOL LE_Header::operator!=(const LE_Header& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void LE_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Header::Decode( stream, ignoreHeader );
-
-    stream >> KDIS_STREAM m_EntID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream LE_Header::Encode() const
-{
-    KDataStream stream;
-
-    LE_Header::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LE_Header::Encode( KDataStream & stream ) const
-{
-    Header::Encode( stream );
-
-    stream << KDIS_STREAM m_EntID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LE_Header::operator == ( const LE_Header & Value ) const
-{
-    if( Header::operator != ( Value ) )     return false;
-    if( m_EntID          != Value.m_EntID ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LE_Header::operator != ( const LE_Header & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

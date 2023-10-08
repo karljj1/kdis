@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Reliability_Header.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Reliability_Header.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,105 +42,83 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Reliability_Header::Reliability_Header() :
-    m_ui8ReqRelSrv( 0 ),
-    m_ui16Padding1( 0 ),
-    m_ui8Padding( 0 )
-{
+Reliability_Header::Reliability_Header()
+    : m_ui8ReqRelSrv(0), m_ui16Padding1(0), m_ui8Padding(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Reliability_Header::Reliability_Header(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Reliability_Header::Reliability_Header(RequiredReliabilityService RRS)
+    : m_ui8ReqRelSrv(RRS), m_ui16Padding1(0), m_ui8Padding(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Reliability_Header::~Reliability_Header() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Reliability_Header::SetRequiredReliabilityService(
+    RequiredReliabilityService RRS) {
+  m_ui8ReqRelSrv = RRS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Reliability_Header::Reliability_Header( KDataStream & stream ) 
-{
-    Decode( stream );
+RequiredReliabilityService Reliability_Header::GetRequiredReliabilityService()
+    const {
+  return (RequiredReliabilityService)m_ui8ReqRelSrv;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Reliability_Header::Reliability_Header( RequiredReliabilityService RRS ) :
-    m_ui8ReqRelSrv( RRS ),
-    m_ui16Padding1( 0 ),
-    m_ui8Padding( 0 )
-{
+KString Reliability_Header::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Required Reliability Service: "
+     << GetEnumAsStringRequiredReliabilityService(m_ui8ReqRelSrv) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Reliability_Header::~Reliability_Header()
-{
+void Reliability_Header::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < RELIABILITY_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8ReqRelSrv >> m_ui16Padding1 >> m_ui8Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Reliability_Header::SetRequiredReliabilityService( RequiredReliabilityService RRS )
-{
-    m_ui8ReqRelSrv = RRS;
+KDataStream Reliability_Header::Encode() const {
+  KDataStream stream;
+
+  Reliability_Header::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RequiredReliabilityService Reliability_Header::GetRequiredReliabilityService() const
-{
-    return ( RequiredReliabilityService )m_ui8ReqRelSrv;
+void Reliability_Header::Encode(KDataStream& stream) const {
+  stream << m_ui8ReqRelSrv << m_ui16Padding1 << m_ui8Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Reliability_Header::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Required Reliability Service: " << GetEnumAsStringRequiredReliabilityService( m_ui8ReqRelSrv )
-       << "\n";
-
-    return ss.str();
+KBOOL Reliability_Header::operator==(const Reliability_Header& Value) const {
+  if (m_ui8ReqRelSrv != Value.m_ui8ReqRelSrv) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Reliability_Header::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < RELIABILITY_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8ReqRelSrv
-           >> m_ui16Padding1
-           >> m_ui8Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Reliability_Header::Encode() const
-{
-    KDataStream stream;
-
-    Reliability_Header::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Reliability_Header::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8ReqRelSrv
-           << m_ui16Padding1
-           << m_ui8Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Reliability_Header::operator == ( const Reliability_Header & Value ) const
-{
-    if( m_ui8ReqRelSrv != Value.m_ui8ReqRelSrv ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Reliability_Header::operator != ( const Reliability_Header & Value ) const
-{
-    return !( *this == Value );
+KBOOL Reliability_Header::operator!=(const Reliability_Header& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

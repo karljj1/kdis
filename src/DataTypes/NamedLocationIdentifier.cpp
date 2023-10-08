@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./NamedLocationIdentifier.h"
+#include "KDIS/DataTypes/NamedLocationIdentifier.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,120 +37,100 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier::NamedLocationIdentifier() :
-    m_ui16StnName( 0 ),
-    m_ui16StnNum( 0 )
-{
+NamedLocationIdentifier::NamedLocationIdentifier()
+    : m_ui16StnName(0), m_ui16StnNum(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+NamedLocationIdentifier::NamedLocationIdentifier(StationName SN,
+                                                 KUINT16 StationNumber)
+    : m_ui16StnName(SN), m_ui16StnNum(StationNumber) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+NamedLocationIdentifier::NamedLocationIdentifier(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier::NamedLocationIdentifier( StationName SN,  KUINT16 StationNumber ) :
-    m_ui16StnName( SN ),
-    m_ui16StnNum( StationNumber )
-{
+NamedLocationIdentifier::~NamedLocationIdentifier() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void NamedLocationIdentifier::SetStationName(StationName SN) {
+  m_ui16StnName = SN;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier::NamedLocationIdentifier( KDataStream & stream ) 
-{
-    Decode( stream );
+StationName NamedLocationIdentifier::GetStationName() const {
+  return (StationName)m_ui16StnName;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier::~NamedLocationIdentifier()
-{
+void NamedLocationIdentifier::SetStationNumber(KUINT16 SN) {
+  m_ui16StnNum = SN;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void NamedLocationIdentifier::SetStationName( StationName SN )
-{
-    m_ui16StnName = SN;
+KUINT16 NamedLocationIdentifier::GetStationNumber() const {
+  return m_ui16StnNum;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-StationName NamedLocationIdentifier::GetStationName() const
-{
-    return ( StationName )m_ui16StnName;
+KString NamedLocationIdentifier::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Named Location Identifier:"
+     << "\n\tName:   " << GetEnumAsStringStationName(m_ui16StnName)
+     << "\n\tNumber: " << m_ui16StnNum << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void NamedLocationIdentifier::SetStationNumber( KUINT16 SN )
-{
-    m_ui16StnNum = SN;
+void NamedLocationIdentifier::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < NAMED_LOCATION_ID_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16StnName >> m_ui16StnNum;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 NamedLocationIdentifier::GetStationNumber() const
-{
-    return m_ui16StnNum;
+KDataStream NamedLocationIdentifier::Encode() const {
+  KDataStream stream;
+
+  NamedLocationIdentifier::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString NamedLocationIdentifier::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Named Location Identifier:"
-       << "\n\tName:   " << GetEnumAsStringStationName( m_ui16StnName )
-       << "\n\tNumber: " << m_ui16StnNum
-       << "\n";
-
-    return ss.str();
+void NamedLocationIdentifier::Encode(KDataStream& stream) const {
+  stream << m_ui16StnName << m_ui16StnNum;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void NamedLocationIdentifier::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < NAMED_LOCATION_ID_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16StnName
-           >> m_ui16StnNum;
+KBOOL NamedLocationIdentifier::operator==(
+    const NamedLocationIdentifier& Value) const {
+  if (m_ui16StnName != Value.m_ui16StnName) return false;
+  if (m_ui16StnNum != Value.m_ui16StnNum) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream NamedLocationIdentifier::Encode() const
-{
-    KDataStream stream;
-
-    NamedLocationIdentifier::Encode( stream );
-
-    return stream;
+KBOOL NamedLocationIdentifier::operator!=(
+    const NamedLocationIdentifier& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void NamedLocationIdentifier::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16StnName
-           << m_ui16StnNum;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL NamedLocationIdentifier::operator == ( const NamedLocationIdentifier & Value ) const
-{
-    if( m_ui16StnName != Value.m_ui16StnName ) return false;
-    if( m_ui16StnNum  != Value.m_ui16StnNum )  return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL NamedLocationIdentifier::operator != ( const NamedLocationIdentifier & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

@@ -45,40 +45,38 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../KDefines.h"
-#include "./Enums/KDISEnums.h"
+#include "KDIS/DataTypes/Enums/KDISEnums.hpp"
+#include "KDIS/KDefines.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-struct KDIS_EXPORT SupplyAppearance
-{
-protected:
-                                       // Bits
-  KUINT32 m_PaintScheme           : 1; // 0
-  KUINT32 m_Unused1               : 2; // 1-2
-  KUINT32 m_Damage                : 2; // 3-4
-  KUINT32 m_Unused2               : 2; // 5-6
-  KUINT32 m_ParachuteStatus       : 2; // 7-8
-  KUINT32 m_Unused3               : 6; // 9-14
-  KUINT32 m_FlamingEffectField    : 1; // 15
-  KUINT32 m_Unused4               : 5; // 16-20
-  KUINT32 m_FrozenStatus          : 1; // 21
-  KUINT32 m_Unused5               : 1; // 22
-  KUINT32 m_State                 : 1; // 23
-  KUINT32 m_DeployedStatus        : 2; // 24-25
-  KUINT32 m_Unused6               : 5; // 26-30
-  KUINT32 m_MaskedCloaked         : 1; // 31
+struct KDIS_EXPORT SupplyAppearance {
+ protected:
+  // Bits
+  KUINT32 m_PaintScheme : 1;         // 0
+  KUINT32 m_Unused1 : 2;             // 1-2
+  KUINT32 m_Damage : 2;              // 3-4
+  KUINT32 m_Unused2 : 2;             // 5-6
+  KUINT32 m_ParachuteStatus : 2;     // 7-8
+  KUINT32 m_Unused3 : 6;             // 9-14
+  KUINT32 m_FlamingEffectField : 1;  // 15
+  KUINT32 m_Unused4 : 5;             // 16-20
+  KUINT32 m_FrozenStatus : 1;        // 21
+  KUINT32 m_Unused5 : 1;             // 22
+  KUINT32 m_State : 1;               // 23
+  KUINT32 m_DeployedStatus : 2;      // 24-25
+  KUINT32 m_Unused6 : 5;             // 26-30
+  KUINT32 m_MaskedCloaked : 1;       // 31
 
-public:
-
+ public:
   //************************************
   // FullName:    KDIS::DATA_TYPE::SupplyAppearance::SetEntityPaintScheme
   //              KDIS::DATA_TYPE::SupplyAppearance::GetEntityPaintScheme
   // Description: Describes the paint scheme of an entity.
   // Parameter:   EntityPaintScheme EPS
   //************************************
-  void SetEntityPaintScheme( KDIS::DATA_TYPE::ENUMS::EntityPaintScheme EPS );
+  void SetEntityPaintScheme(KDIS::DATA_TYPE::ENUMS::EntityPaintScheme EPS);
   KDIS::DATA_TYPE::ENUMS::EntityPaintScheme GetEntityPaintScheme() const;
 
   //************************************
@@ -87,7 +85,7 @@ public:
   // Description: Entity Damage/Health State.
   // Parameter:   EntityDamage ED
   //************************************
-  void SetEntityDamage( KDIS::DATA_TYPE::ENUMS::EntityDamage ED );
+  void SetEntityDamage(KDIS::DATA_TYPE::ENUMS::EntityDamage ED);
   KDIS::DATA_TYPE::ENUMS::EntityDamage GetEntityDamage() const;
 
   //************************************
@@ -96,7 +94,7 @@ public:
   // Description: Entity Parachute Status.
   // Parameter:   EntityParachuteStatus EPS
   //************************************
-  void SetEntityParachuteStatus( KDIS::DATA_TYPE::ENUMS::Parachute EPS );
+  void SetEntityParachuteStatus(KDIS::DATA_TYPE::ENUMS::Parachute EPS);
   KDIS::DATA_TYPE::ENUMS::Parachute GetEntityParachuteStatus() const;
 
   //************************************
@@ -105,7 +103,7 @@ public:
   // Description: Are flames rising from the entity?
   // Parameter:   KBOOL EFE
   //************************************
-  void SetEntityFlamingEffect( KBOOL EFE );
+  void SetEntityFlamingEffect(KBOOL EFE);
   KBOOL IsEntityFlaming() const;
 
   //************************************
@@ -115,7 +113,7 @@ public:
   //              Note: Frozen entities should not be dead-reckoned.
   // Parameter:   KBOOL EFS
   //************************************
-  void SetEntityFrozenStatus( KBOOL EFS );
+  void SetEntityFrozenStatus(KBOOL EFS);
   KBOOL IsEntityFrozen() const;
 
   //************************************
@@ -124,7 +122,7 @@ public:
   // Description: Active(true) / De active(false)
   // Parameter:   KBOOL ES
   //************************************
-  void SetEntityStateActive( KBOOL ES );
+  void SetEntityStateActive(KBOOL ES);
   KBOOL IsEntityStateActive() const;
 
   //************************************
@@ -133,7 +131,7 @@ public:
   // Description: Entity Parachute Status.
   // Parameter:   EntityDeployedStatus EDS
   //************************************
-  void SetEntityDeployedStatus( KDIS::DATA_TYPE::ENUMS::SupplyDeployed EDS );
+  void SetEntityDeployedStatus(KDIS::DATA_TYPE::ENUMS::SupplyDeployed EDS);
   KDIS::DATA_TYPE::ENUMS::SupplyDeployed GetEntityDeployedStatus() const;
 
   //************************************
@@ -143,7 +141,7 @@ public:
   //              True = Masked/Cloaked, False = Not Masked/Cloaked.
   // Parameter:   KBOOL MC
   //************************************
-  void SetEntityMaskedCloaked( KBOOL MC );
+  void SetEntityMaskedCloaked(KBOOL MC);
   KBOOL IsEntityMaskedCloaked() const;
 
   //************************************
@@ -152,9 +150,9 @@ public:
   //************************************
   KString GetAsString() const;
 
-  KBOOL operator == ( const SupplyAppearance & Value ) const;
-  KBOOL operator != ( const SupplyAppearance & Value ) const;
+  KBOOL operator==(const SupplyAppearance& Value) const;
+  KBOOL operator!=(const SupplyAppearance& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

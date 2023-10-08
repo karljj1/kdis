@@ -37,21 +37,21 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnumHeader.h"
-#include "./EnumEmitter.h"
-#include "./EnumEntityInfoInteraction.h"
-#include "./EnumBurstDescriptor.h"
-#include "./EnumDetonationResult.h"
-#include "./EnumSupply.h"
-#include "./EnumDesignator.h"
-#include "./EnumRadio.h"
-#include "./EnumSystemIdentifier.h"
-#include "./EnumIFF.h"
-#include "./EnumEntityManagement.h"
-#include "./EnumSimulationManagement.h"
-#include "./EnumSyntheticEnvironment.h"
-#include "./EnumMinefield.h"
+#include "KDIS/DataTypes/Enums/EnumBurstDescriptor.hpp"
+#include "KDIS/DataTypes/Enums/EnumDesignator.hpp"
+#include "KDIS/DataTypes/Enums/EnumDetonationResult.hpp"
+#include "KDIS/DataTypes/Enums/EnumEmitter.hpp"
+#include "KDIS/DataTypes/Enums/EnumEntityInfoInteraction.hpp"
+#include "KDIS/DataTypes/Enums/EnumEntityManagement.hpp"
+#include "KDIS/DataTypes/Enums/EnumHeader.hpp"
+#include "KDIS/DataTypes/Enums/EnumIFF.hpp"
+#include "KDIS/DataTypes/Enums/EnumMinefield.hpp"
+#include "KDIS/DataTypes/Enums/EnumRadio.hpp"
+#include "KDIS/DataTypes/Enums/EnumSimulationManagement.hpp"
+#include "KDIS/DataTypes/Enums/EnumSupply.hpp"
+#include "KDIS/DataTypes/Enums/EnumSyntheticEnvironment.hpp"
+#include "KDIS/DataTypes/Enums/EnumSystemIdentifier.hpp"
 
 #if DIS_VERSION > 6
-#include "./EnumInformationOperations.h"
+#include "KDIS/DataTypes/Enums/EnumInformationOperations.hpp"
 #endif

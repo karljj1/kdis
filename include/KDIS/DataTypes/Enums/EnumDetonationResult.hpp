@@ -37,7 +37,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnumDescriptor.h"
+#include "KDIS/DataTypes/Enums/EnumDescriptor.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -51,59 +51,61 @@ namespace ENUMS {
 /*  LE Detonation PDU                                                   */
 /************************************************************************/
 
-enum DetonationResult
-{
-    OtherDetonationResult                                             = 0,
-    EntityImpact                                                      = 1,
-    EntityProximateDetonation                                         = 2,
-    GroundImpact                                                      = 3,
-    GroundProximateDetonation                                         = 4,
-    Detonation                                                        = 5,
-    NoneOrNoDetonation_Dud                                            = 6,
-    HEhit_Small                                                       = 7,
-    HEhit_Medium                                                      = 8,
-    HEhit_Large                                                       = 9,
-    Armor_PiercingHit                                                 = 10,
-    Dirtblast_Small                                                   = 11,
-    Dirtblast_Medium                                                  = 12,
-    Dirtblast_Large                                                   = 13,
-    Waterblast_Small                                                  = 14,
-    Waterblast_Medium                                                 = 15,
-    Waterblast_Large                                                  = 16,
-    AirHit                                                            = 17,
-    BuildingHit_Small                                                 = 18,
-    BuildingHit_Medium                                                = 19,
-    BuildingHit_Large                                                 = 20,
-    MineClearingLineCharge                                            = 21,
-    EnvironmentObjectImpact                                           = 22,
-    EnvironmentObjectProximateDetonation                              = 23,
-    WaterImpact                                                       = 24,
-    AirBurst                                                          = 25,
-    KillWithFragmentType1                                             = 26,
-    KillWithFragmentType2                                             = 27,
-    KillWithFragmentType3                                             = 28,
-    KillWithFragmentType1AfterflyOutFailure                           = 29,
-    KillWithFragmentType2AfterflyOutFailure                           = 30,
-    MissDueToflyOutFailure                                            = 31,
-    MissDueToEndGameFailure                                           = 32,
-    MissDueToflyOutAndEndGameFailure                                  = 33
+enum DetonationResult {
+  OtherDetonationResult = 0,
+  EntityImpact = 1,
+  EntityProximateDetonation = 2,
+  GroundImpact = 3,
+  GroundProximateDetonation = 4,
+  Detonation = 5,
+  NoneOrNoDetonation_Dud = 6,
+  HEhit_Small = 7,
+  HEhit_Medium = 8,
+  HEhit_Large = 9,
+  Armor_PiercingHit = 10,
+  Dirtblast_Small = 11,
+  Dirtblast_Medium = 12,
+  Dirtblast_Large = 13,
+  Waterblast_Small = 14,
+  Waterblast_Medium = 15,
+  Waterblast_Large = 16,
+  AirHit = 17,
+  BuildingHit_Small = 18,
+  BuildingHit_Medium = 19,
+  BuildingHit_Large = 20,
+  MineClearingLineCharge = 21,
+  EnvironmentObjectImpact = 22,
+  EnvironmentObjectProximateDetonation = 23,
+  WaterImpact = 24,
+  AirBurst = 25,
+  KillWithFragmentType1 = 26,
+  KillWithFragmentType2 = 27,
+  KillWithFragmentType3 = 28,
+  KillWithFragmentType1AfterflyOutFailure = 29,
+  KillWithFragmentType2AfterflyOutFailure = 30,
+  MissDueToflyOutFailure = 31,
+  MissDueToEndGameFailure = 32,
+  MissDueToflyOutAndEndGameFailure = 33
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeDetonationResult();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorDetonationResult( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorDetonationResult(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringDetonationResult( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringDetonationResult(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringDetonationResult( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringDetonationResult(const KString& Value,
+                                                    KINT32& ValueOut);
 
-} // END namespace ENUMS
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // END namespace ENUMS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

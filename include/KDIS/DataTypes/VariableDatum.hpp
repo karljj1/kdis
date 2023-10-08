@@ -33,19 +33,20 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Stores variable data types and their values. Such as strings.
-                Get as string does not know what the data type is so for now assumes
-                each byte is a ASCII char.
-                
-                Note: See FactoryDecoder for a guide to adding support for using your own VariableDatums. 
+                Get as string does not know what the data type is so for now
+assumes each byte is a ASCII char.
+
+                Note: See FactoryDecoder for a guide to adding support for using
+your own VariableDatums.
 
     size:       64 bits / 8 octets - Min size
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./FactoryDecoder.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/FactoryDecoder.hpp"
+#include "KDIS/Extras/KRef_Ptr.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -57,119 +58,116 @@ namespace DATA_TYPE {
 // pointer or one of your own then simply change it below.
 /************************************************************************/
 class VariableDatum;
-typedef KDIS::UTILS::KRef_Ptr<VariableDatum> VarDtmPtr; // Ref counter
-//typedef VariableDatum* VarDtmPtr; // Weak ref
+typedef KDIS::UTILS::KRef_Ptr<VariableDatum> VarDtmPtr;  // Ref counter
+// typedef VariableDatum* VarDtmPtr; // Weak ref
 
-class KDIS_EXPORT VariableDatum : public DataTypeBase, public FactoryDecoderUser<VariableDatum>
-{
-protected:
+class KDIS_EXPORT VariableDatum : public DataTypeBase,
+                                  public FactoryDecoderUser<VariableDatum> {
+ protected:
+  KUINT32 m_ui32DatumID;
 
-    KUINT32 m_ui32DatumID;
+  KUINT32 m_ui32DatumLength;
 
-    KUINT32 m_ui32DatumLength;
+  struct DatumEntry {
+    KOCTET Buffer[8];
 
-    struct DatumEntry
-    {
-        KOCTET Buffer[8];
+    DatumEntry() { memset(Buffer, 0x00, 8); };
+  };
 
-        DatumEntry()
-        {
-            memset( Buffer, 0x00, 8 );
-        };
-    };
+  // Holds 64 bits, not all bits may belong to the value as padding is also
+  // added.
+  std::vector<DatumEntry> m_v8DatumValue;
 
-    // Holds 64 bits, not all bits may belong to the value as padding is also added.
-    std::vector<DatumEntry> m_v8DatumValue;
+ public:
+  static const KUINT16 VARIABLE_DATUM_SIZE = 8;  // Min Size
 
-public:
+  VariableDatum();
 
-    static const KUINT16 VARIABLE_DATUM_SIZE = 8; // Min Size
+  VariableDatum(KDIS::DATA_TYPE::ENUMS::DatumID ID, const KString& Value);
 
-    VariableDatum();
+  VariableDatum(KDIS::DATA_TYPE::ENUMS::DatumID ID, const KOCTET* data,
+                KUINT32 sizeInBits);
 
-    VariableDatum( KDIS::DATA_TYPE::ENUMS::DatumID ID, const KString & Value );
+  VariableDatum(KDataStream& stream);
 
-    VariableDatum( KDIS::DATA_TYPE::ENUMS::DatumID ID, const KOCTET * data, KUINT32 sizeInBits );
+  virtual ~VariableDatum();
 
-    VariableDatum( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::SetDatumID
+  //              KDIS::DATA_TYPE::VariableDatum::GetDatumID
+  // Description: Set the datum id, indicates what the datum value
+  //              is for and what format it should be in.
+  // Parameter:   DatumID ID
+  //************************************
+  virtual void SetDatumID(KDIS::DATA_TYPE::ENUMS::DatumID ID);
+  virtual KDIS::DATA_TYPE::ENUMS::DatumID GetDatumID() const;
 
-    virtual ~VariableDatum();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumLength
+  // Description: Returns length of datum VALUE in bits.
+  //              Note: Does not include the datum id or length field.
+  //************************************
+  virtual KUINT32 GetDatumLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::SetDatumID
-    //              KDIS::DATA_TYPE::VariableDatum::GetDatumID
-    // Description: Set the datum id, indicates what the datum value
-    //              is for and what format it should be in.
-    // Parameter:   DatumID ID
-    //************************************
-    virtual void SetDatumID( KDIS::DATA_TYPE::ENUMS::DatumID ID );
-    virtual KDIS::DATA_TYPE::ENUMS::DatumID GetDatumID() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumLength
+  // Description: Returns length of Datum in octets that it will
+  //              occupy when put into a PDU.
+  //************************************
+  virtual KUINT32 GetPDULength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumLength
-    // Description: Returns length of datum VALUE in bits.
-    //              Note: Does not include the datum id or length field.
-    //************************************
-    virtual KUINT32 GetDatumLength() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumValueCopyIntoBuffer
+  //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKString
+  //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKUINT64
+  //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKFLOAT64
+  //              KDIS::DATA_TYPE::VariableDatum::ClearDatumValue
+  // Description: Copy datum value into a buffer or
+  //              return as a privative data type.
+  //              primitives are returned as vectors,
+  //              If the datum length is not a multiple of
+  //              8 then the last octets are ignored.
+  // Parameter:   KOCTET * Buffer
+  // Parameter:   KUINT16 BufferSize
+  //************************************
+  virtual void GetDatumValueCopyIntoBuffer(KOCTET* Buffer,
+                                           KUINT16 BufferSize) const;
+  virtual KString GetDatumValueAsKString() const;
+  virtual std::vector<KUINT64> GetDatumValueAsKUINT64() const;
+  virtual std::vector<KFLOAT64> GetDatumValueAsKFLOAT64() const;
+  virtual void SetDatumValue(const KString& s);
+  virtual void ClearDatumValue();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumLength
-    // Description: Returns length of Datum in octets that it will
-    //              occupy when put into a PDU.
-    //************************************
-    virtual KUINT32 GetPDULength() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::SetDatumValue
+  // Description: Set value from a byte array ... note that length is in bits.
+  //************************************
+  virtual void SetDatumValue(const KOCTET* data, KUINT32 sizeInBits);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumValueCopyIntoBuffer
-    //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKString
-    //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKUINT64
-    //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKFLOAT64
-    //              KDIS::DATA_TYPE::VariableDatum::ClearDatumValue
-    // Description: Copy datum value into a buffer or
-    //              return as a privative data type.
-    //              primitives are returned as vectors,
-    //              If the datum length is not a multiple of
-    //              8 then the last octets are ignored.
-    // Parameter:   KOCTET * Buffer
-    // Parameter:   KUINT16 BufferSize
-    //************************************
-    virtual void GetDatumValueCopyIntoBuffer( KOCTET * Buffer, KUINT16 BufferSize ) const ;
-    virtual KString GetDatumValueAsKString() const;
-    virtual std::vector<KUINT64> GetDatumValueAsKUINT64() const;
-    virtual std::vector<KFLOAT64> GetDatumValueAsKFLOAT64() const;
-    virtual void SetDatumValue( const KString & s );
-    virtual void ClearDatumValue();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::SetDatumValue
-    // Description: Set value from a byte array ... note that length is in bits.
-    //************************************
-    virtual void SetDatumValue( const KOCTET * data, KUINT32 sizeInBits );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableDatum::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const VariableDatum & Value ) const;
-    KBOOL operator != ( const VariableDatum & Value ) const;
+  KBOOL operator==(const VariableDatum& Value) const;
+  KBOOL operator!=(const VariableDatum& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

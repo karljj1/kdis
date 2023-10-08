@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./GaussianPlumeRecord.h"
+#include "KDIS/DataTypes/GaussianPlumeRecord.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,248 +37,196 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPlumeRecord::GaussianPlumeRecord() :
-    m_f32LdEdgeCenHght( 0.0f ),
-    m_ui32Padding( 0 )
-{
-    m_ui32EnvRecTyp = GaussianPlumeRecordType;
-    m_ui16Length = ( GAUSSIAN_PLUME_RECORD_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+GaussianPlumeRecord::GaussianPlumeRecord()
+    : m_f32LdEdgeCenHght(0.0f), m_ui32Padding(0) {
+  m_ui32EnvRecTyp = GaussianPlumeRecordType;
+  m_ui16Length = (GAUSSIAN_PLUME_RECORD_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPlumeRecord::GaussianPlumeRecord( KDataStream & stream )
-{
-    Decode( stream );
+GaussianPlumeRecord::GaussianPlumeRecord(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPlumeRecord::~GaussianPlumeRecord()
-{
+GaussianPlumeRecord::~GaussianPlumeRecord() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+GaussianPlumeRecord::GaussianPlumeRecord(KUINT8 Index,
+                                         const WorldCoordinates& Location,
+                                         const EulerAngles& Orientation,
+                                         const Vector& LWH, const Vector& DDT,
+                                         KFLOAT32 LECH, const Vector& LEV)
+    : m_SrcLocation(Location),
+      m_Ori(Orientation),
+      m_PlumeLWH(LWH),
+      m_DDTLEH(DDT),
+      m_f32LdEdgeCenHght(LECH),
+      m_LdEdgeVel(LEV),
+      m_ui32Padding(0) {
+  m_ui8Index = Index;
+  m_ui32EnvRecTyp = GaussianPlumeRecordType;
+  m_ui16Length = (GAUSSIAN_PLUME_RECORD_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GaussianPlumeRecord::GaussianPlumeRecord( KUINT8 Index, const WorldCoordinates & Location, const EulerAngles & Orientation,
-        const Vector & LWH, const Vector & DDT, KFLOAT32 LECH, const Vector & LEV ) :
-    m_SrcLocation( Location ),
-    m_Ori( Orientation ),
-    m_PlumeLWH( LWH ),
-    m_DDTLEH( DDT ),
-    m_f32LdEdgeCenHght( LECH ),
-    m_LdEdgeVel( LEV ),
-    m_ui32Padding( 0 )
-{
-    m_ui8Index = Index;
-    m_ui32EnvRecTyp = GaussianPlumeRecordType;
-    m_ui16Length = ( GAUSSIAN_PLUME_RECORD_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+void GaussianPlumeRecord::SetSourceLocation(const WorldCoordinates& L) {
+  m_SrcLocation = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GaussianPlumeRecord::SetSourceLocation( const WorldCoordinates & L )
-{
-    m_SrcLocation = L;
+const WorldCoordinates& GaussianPlumeRecord::GetSourceLocation() const {
+  return m_SrcLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & GaussianPlumeRecord::GetSourceLocation() const
-{
-    return m_SrcLocation;
+WorldCoordinates& GaussianPlumeRecord::GetSourceLocation() {
+  return m_SrcLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & GaussianPlumeRecord::GetSourceLocation()
-{
-    return m_SrcLocation;
+void GaussianPlumeRecord::SetOrientation(const EulerAngles& O) { m_Ori = O; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const EulerAngles& GaussianPlumeRecord::GetOrientation() const { return m_Ori; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EulerAngles& GaussianPlumeRecord::GetOrientation() { return m_Ori; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void GaussianPlumeRecord::SetPlumeLengthWidthHeight(const Vector& LWH) {
+  m_PlumeLWH = LWH;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GaussianPlumeRecord::SetOrientation( const EulerAngles & O )
-{
-    m_Ori = O;
+const Vector& GaussianPlumeRecord::GetPlumeLengthWidthHeight() const {
+  return m_PlumeLWH;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EulerAngles & GaussianPlumeRecord::GetOrientation() const
-{
-    return m_Ori;
+Vector& GaussianPlumeRecord::GetPlumeLengthWidthHeight() { return m_PlumeLWH; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void GaussianPlumeRecord::SetDOverDtLengthWidthHeight(const Vector& DDT) {
+  m_DDTLEH = DDT;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EulerAngles & GaussianPlumeRecord::GetOrientation()
-{
-    return m_Ori;
+const Vector& GaussianPlumeRecord::GetDOverDtLengthWidthHeight() const {
+  return m_DDTLEH;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GaussianPlumeRecord::SetPlumeLengthWidthHeight( const Vector & LWH )
-{
-    m_PlumeLWH = LWH;
+Vector& GaussianPlumeRecord::GetDOverDtLengthWidthHeight() { return m_DDTLEH; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void GaussianPlumeRecord::SetLeadingEdgeCentroidHeight(KFLOAT32 LECH) {
+  m_f32LdEdgeCenHght = LECH;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & GaussianPlumeRecord::GetPlumeLengthWidthHeight() const
-{
-    return m_PlumeLWH;
+KFLOAT32 GaussianPlumeRecord::GetLeadingEdgeCentroidHeight() const {
+  return m_f32LdEdgeCenHght;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & GaussianPlumeRecord::GetPlumeLengthWidthHeight()
-{
-    return m_PlumeLWH;
+void GaussianPlumeRecord::SetLeadingEdgeVelocity(const Vector& LEV) {
+  m_LdEdgeVel = LEV;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GaussianPlumeRecord::SetDOverDtLengthWidthHeight( const Vector & DDT )
-{
-    m_DDTLEH = DDT;
+const Vector& GaussianPlumeRecord::GetLeadingEdgeVelocity() const {
+  return m_LdEdgeVel;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & GaussianPlumeRecord::GetDOverDtLengthWidthHeight() const
-{
-    return m_DDTLEH;
+Vector& GaussianPlumeRecord::GetLeadingEdgeVelocity() { return m_LdEdgeVel; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString GaussianPlumeRecord::GetAsString() const {
+  KStringStream ss;
+
+  ss << EnvironmentRecord::GetAsString()
+     << "\tLocation:                     " << m_SrcLocation.GetAsString()
+     << "\tOrientation:                  " << m_Ori.GetAsString()
+     << "\tPlume Length, Width, Height:  " << m_PlumeLWH.GetAsString()
+     << "\td/dt:                         " << m_DDTLEH.GetAsString()
+     << "\tLeading Edge Centroid Height: " << m_f32LdEdgeCenHght << "\n"
+     << "\tLeading Edge Velocity:        " << m_LdEdgeVel.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & GaussianPlumeRecord::GetDOverDtLengthWidthHeight()
-{
-    return m_DDTLEH;
+void GaussianPlumeRecord::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < GAUSSIAN_PLUME_RECORD_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
+      KDIS_STREAM m_SrcLocation >> KDIS_STREAM m_Ori >>
+      KDIS_STREAM m_PlumeLWH >> KDIS_STREAM m_DDTLEH >> m_f32LdEdgeCenHght >>
+      KDIS_STREAM m_LdEdgeVel >> m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GaussianPlumeRecord::SetLeadingEdgeCentroidHeight( KFLOAT32 LECH )
-{
-    m_f32LdEdgeCenHght = LECH;
+KDataStream GaussianPlumeRecord::Encode() const {
+  KDataStream stream;
+
+  GaussianPlumeRecord::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 GaussianPlumeRecord::GetLeadingEdgeCentroidHeight() const
-{
-    return m_f32LdEdgeCenHght;
+void GaussianPlumeRecord::Encode(KDataStream& stream) const {
+  stream << m_ui32EnvRecTyp << m_ui16Length << m_ui8Index << m_ui8Padding
+         << KDIS_STREAM m_SrcLocation << KDIS_STREAM m_Ori
+         << KDIS_STREAM m_PlumeLWH << KDIS_STREAM m_DDTLEH << m_f32LdEdgeCenHght
+         << KDIS_STREAM m_LdEdgeVel << m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GaussianPlumeRecord::SetLeadingEdgeVelocity( const Vector & LEV )
-{
-    m_LdEdgeVel = LEV;
+KBOOL GaussianPlumeRecord::operator==(const GaussianPlumeRecord& Value) const {
+  if (EnvironmentRecord::operator!=(Value)) return false;
+  if (m_SrcLocation != Value.m_SrcLocation) return false;
+  if (m_Ori != Value.m_Ori) return false;
+  if (m_PlumeLWH != Value.m_PlumeLWH) return false;
+  if (m_DDTLEH != Value.m_DDTLEH) return false;
+  if (m_SrcLocation != Value.m_SrcLocation) return false;
+  if (m_f32LdEdgeCenHght != Value.m_f32LdEdgeCenHght) return false;
+  if (m_LdEdgeVel != Value.m_LdEdgeVel) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & GaussianPlumeRecord::GetLeadingEdgeVelocity() const
-{
-    return m_LdEdgeVel;
+KBOOL GaussianPlumeRecord::operator!=(const GaussianPlumeRecord& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-Vector & GaussianPlumeRecord::GetLeadingEdgeVelocity()
-{
-    return m_LdEdgeVel;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString GaussianPlumeRecord::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << EnvironmentRecord::GetAsString()
-       << "\tLocation:                     " << m_SrcLocation.GetAsString()
-       << "\tOrientation:                  " << m_Ori.GetAsString()
-       << "\tPlume Length, Width, Height:  " << m_PlumeLWH.GetAsString()
-       << "\td/dt:                         " << m_DDTLEH.GetAsString()
-       << "\tLeading Edge Centroid Height: " << m_f32LdEdgeCenHght << "\n"
-       << "\tLeading Edge Velocity:        " << m_LdEdgeVel.GetAsString();
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void GaussianPlumeRecord::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < GAUSSIAN_PLUME_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui32EnvRecTyp
-           >> m_ui16Length
-           >> m_ui8Index
-           >> m_ui8Padding
-           >> KDIS_STREAM m_SrcLocation
-           >> KDIS_STREAM m_Ori
-           >> KDIS_STREAM m_PlumeLWH
-           >> KDIS_STREAM m_DDTLEH
-           >> m_f32LdEdgeCenHght
-           >> KDIS_STREAM m_LdEdgeVel
-           >> m_ui32Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream GaussianPlumeRecord::Encode() const
-{
-    KDataStream stream;
-
-    GaussianPlumeRecord::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void GaussianPlumeRecord::Encode( KDataStream & stream ) const
-{
-    stream << m_ui32EnvRecTyp
-           << m_ui16Length
-           << m_ui8Index
-           << m_ui8Padding
-           << KDIS_STREAM m_SrcLocation
-           << KDIS_STREAM m_Ori
-           << KDIS_STREAM m_PlumeLWH
-           << KDIS_STREAM m_DDTLEH
-           << m_f32LdEdgeCenHght
-           << KDIS_STREAM m_LdEdgeVel
-           << m_ui32Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GaussianPlumeRecord::operator == ( const GaussianPlumeRecord & Value )const
-{
-    if( EnvironmentRecord::operator !=( Value ) )           return false;
-    if( m_SrcLocation       != Value.m_SrcLocation )        return false;
-    if( m_Ori               != Value.m_Ori )                return false;
-    if( m_PlumeLWH          != Value.m_PlumeLWH )           return false;
-    if( m_DDTLEH            != Value.m_DDTLEH )             return false;
-    if( m_SrcLocation       != Value.m_SrcLocation )        return false;
-    if( m_f32LdEdgeCenHght  != Value.m_f32LdEdgeCenHght )   return false;
-    if( m_LdEdgeVel         != Value.m_LdEdgeVel )          return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GaussianPlumeRecord::operator != ( const GaussianPlumeRecord & Value )const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

@@ -38,112 +38,110 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnvironmentRecord.h"
-#include "./EntityType.h"
-#include "./EulerAngles.h"
+#include "KDIS/DataTypes/EntityType.hpp"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
+#include "KDIS/DataTypes/EulerAngles.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT FlareState : public EnvironmentRecord
-{
-protected:
+class KDIS_EXPORT FlareState : public EnvironmentRecord {
+ protected:
+  KUINT32 m_ui32TSC;
 
-    KUINT32 m_ui32TSC;
+  EntityType m_Src;
 
-    EntityType m_Src;
+  KUINT32 m_ui32NumInt;
 
-    KUINT32 m_ui32NumInt;
+  KUINT32 m_ui32NumSrcs;
 
-    KUINT32 m_ui32NumSrcs;
+  KUINT16 m_ui16GeometryIndex;
 
-    KUINT16 m_ui16GeometryIndex;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+ public:
+  static const KUINT16 FLARE_STATE_SIZE = 32;
 
-public:
+  FlareState();
 
-    static const KUINT16 FLARE_STATE_SIZE = 32;
+  FlareState(KDataStream& stream);
 
-    FlareState();
+  FlareState(KUINT8 Index, KUINT32 TimeSinceCreation,
+             const EntityType& MunitionSource, KUINT32 NumberIntensity,
+             KUINT32 NumberOfSources, KUINT16 GeometryIndex);
 
-    FlareState( KDataStream & stream ) ;
+  virtual ~FlareState();
 
-    FlareState( KUINT8 Index, KUINT32 TimeSinceCreation, const EntityType & MunitionSource,
-                KUINT32 NumberIntensity, KUINT32 NumberOfSources, KUINT16 GeometryIndex );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::SetTimeSinceCreation
+  //              KDIS::DATA_TYPE::FlareState::GetLGetTimeSinceCreationocation
+  // Description: The time elapsed since the flare object was created.
+  // Parameter:   KUINT32 TSC
+  //************************************
+  void SetTimeSinceCreation(KUINT32 TSC);
+  KUINT32 GetTimeSinceCreation() const;
 
-    virtual ~FlareState();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::SetSource
+  //              KDIS::DATA_TYPE::FlareState::GetSource
+  // Description: The source of the flare.
+  // Parameter:   const EntityType & S
+  //************************************
+  void SetSource(const EntityType& S);
+  const EntityType GetSource() const;
+  EntityType GetSource();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::SetTimeSinceCreation
-    //              KDIS::DATA_TYPE::FlareState::GetLGetTimeSinceCreationocation
-    // Description: The time elapsed since the flare object was created.
-    // Parameter:   KUINT32 TSC
-    //************************************
-    void SetTimeSinceCreation( KUINT32 TSC );
-    KUINT32 GetTimeSinceCreation() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::SetNumberIntensity
+  //              KDIS::DATA_TYPE::FlareState::GetNumberIntensity
+  // Description: Number Intensity of the flare.
+  // Parameter:   KUINT32 NI, void
+  //************************************
+  void SetNumberIntensity(KUINT32 NI);
+  KUINT32 GetNumberIntensity() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::SetSource
-    //              KDIS::DATA_TYPE::FlareState::GetSource
-    // Description: The source of the flare.
-    // Parameter:   const EntityType & S
-    //************************************
-    void SetSource( const EntityType & S );
-    const EntityType GetSource() const;
-    EntityType GetSource();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::SetNumberOfSources
+  //              KDIS::DATA_TYPE::FlareState::GetNumberOfSources
+  // Description: The number of sources that have created the flare object.
+  // Parameter:   KUINT32 NOS
+  //************************************
+  void SetNumberOfSources(KUINT32 NOS);
+  KUINT32 GetNumberOfSources() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::SetNumberIntensity
-    //              KDIS::DATA_TYPE::FlareState::GetNumberIntensity
-    // Description: Number Intensity of the flare.
-    // Parameter:   KUINT32 NI, void
-    //************************************
-    void SetNumberIntensity( KUINT32 NI );
-    KUINT32 GetNumberIntensity() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::SetGeometryIndex
+  //              KDIS::DATA_TYPE::FlareState::GetGeometryIndex
+  // Description: The geometry index.
+  // Parameter:   KUINT16 GI
+  //************************************
+  void SetGeometryIndex(KUINT16 GI);
+  KUINT16 GetGeometryIndex() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::SetNumberOfSources
-    //              KDIS::DATA_TYPE::FlareState::GetNumberOfSources
-    // Description: The number of sources that have created the flare object.
-    // Parameter:   KUINT32 NOS
-    //************************************
-    void SetNumberOfSources( KUINT32 NOS );
-    KUINT32 GetNumberOfSources() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::SetGeometryIndex
-    //              KDIS::DATA_TYPE::FlareState::GetGeometryIndex
-    // Description: The geometry index.
-    // Parameter:   KUINT16 GI
-    //************************************
-    void SetGeometryIndex( KUINT16 GI );
-    KUINT16 GetGeometryIndex() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FlareState::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FlareState::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const FlareState & Value )const;
-    KBOOL operator != ( const FlareState & Value )const;
+  KBOOL operator==(const FlareState& Value) const;
+  KBOOL operator!=(const FlareState& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

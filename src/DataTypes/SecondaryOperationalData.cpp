@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SecondaryOperationalData.h"
+#include "KDIS/DataTypes/SecondaryOperationalData.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,138 +36,108 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData::SecondaryOperationalData() :
-    m_ui8Param1( 0 ),
-    m_ui8Param2( 0 ),
-    m_ui16NumFundParamSets( 0 )
-{
+SecondaryOperationalData::SecondaryOperationalData()
+    : m_ui8Param1(0), m_ui8Param2(0), m_ui16NumFundParamSets(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SecondaryOperationalData::SecondaryOperationalData(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData::SecondaryOperationalData( KDataStream & stream ) 
-{
-    Decode( stream );
+SecondaryOperationalData::SecondaryOperationalData(KUINT8 Param1, KUINT8 Param2,
+                                                   KUINT16 NumFundParamSets)
+    : m_ui8Param1(Param1),
+      m_ui8Param2(Param2),
+      m_ui16NumFundParamSets(NumFundParamSets) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SecondaryOperationalData::~SecondaryOperationalData() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SecondaryOperationalData::SetParameter1(KUINT8 P) { m_ui8Param1 = P; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 SecondaryOperationalData::GetParameter1() const { return m_ui8Param1; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SecondaryOperationalData::SetParameter2(KUINT8 P) { m_ui8Param2 = P; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 SecondaryOperationalData::GetParameter2() const { return m_ui8Param2; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SecondaryOperationalData::SetNumberOfFundamentalParamSets(KUINT8 NFPDS) {
+  m_ui16NumFundParamSets = NFPDS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData::SecondaryOperationalData( KUINT8 Param1, KUINT8 Param2, KUINT16 NumFundParamSets ) :
-    m_ui8Param1( Param1 ),
-    m_ui8Param2( Param2 ),
-    m_ui16NumFundParamSets( NumFundParamSets )
-{
+KUINT16 SecondaryOperationalData::GetNumberOfFundamentalParamSets() const {
+  return m_ui16NumFundParamSets;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData::~SecondaryOperationalData()
-{
+KString SecondaryOperationalData::GetAsString() const {
+  KStringStream ss;
+
+  ss << "SecondaryOperationalData:"
+     << "\n\tParameter 1:                   " << (KUINT16)m_ui8Param1
+     << "\n\tParameter 2:                   " << (KUINT16)m_ui8Param2
+     << "\n\tNumber Fundamental Param Sets: " << m_ui16NumFundParamSets << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SecondaryOperationalData::SetParameter1( KUINT8 P )
-{
-    m_ui8Param1 = P;
+void SecondaryOperationalData::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < SECONDARY_OPERATIONAL_DATA_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8Param1 >> m_ui8Param2 >> m_ui16NumFundParamSets;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 SecondaryOperationalData::GetParameter1() const
-{
-    return m_ui8Param1;
+KDataStream SecondaryOperationalData::Encode() const {
+  KDataStream stream;
+
+  SecondaryOperationalData::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SecondaryOperationalData::SetParameter2( KUINT8 P )
-{
-    m_ui8Param2 = P;
+void SecondaryOperationalData::Encode(KDataStream& stream) const {
+  stream << m_ui8Param1 << m_ui8Param2 << m_ui16NumFundParamSets;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 SecondaryOperationalData::GetParameter2() const
-{
-    return m_ui8Param2;
+KBOOL SecondaryOperationalData::operator==(
+    const SecondaryOperationalData& Value) const {
+  if (m_ui8Param1 != Value.m_ui8Param1) return false;
+  if (m_ui8Param2 != Value.m_ui8Param2) return false;
+  if (m_ui16NumFundParamSets != Value.m_ui16NumFundParamSets) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SecondaryOperationalData::SetNumberOfFundamentalParamSets( KUINT8 NFPDS )
-{
-    m_ui16NumFundParamSets = NFPDS;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 SecondaryOperationalData::GetNumberOfFundamentalParamSets() const
-{
-    return m_ui16NumFundParamSets;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString SecondaryOperationalData::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "SecondaryOperationalData:"
-       << "\n\tParameter 1:                   " << ( KUINT16 )m_ui8Param1
-       << "\n\tParameter 2:                   " << ( KUINT16 )m_ui8Param2
-       << "\n\tNumber Fundamental Param Sets: " << m_ui16NumFundParamSets
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SecondaryOperationalData::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < SECONDARY_OPERATIONAL_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8Param1
-           >> m_ui8Param2
-           >> m_ui16NumFundParamSets;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream SecondaryOperationalData::Encode() const
-{
-    KDataStream stream;
-
-    SecondaryOperationalData::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SecondaryOperationalData::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8Param1
-           << m_ui8Param2
-           << m_ui16NumFundParamSets;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SecondaryOperationalData::operator == ( const SecondaryOperationalData & Value ) const
-{
-    if( m_ui8Param1             != Value.m_ui8Param1 )            return false;
-    if( m_ui8Param2             != Value.m_ui8Param2 )            return false;
-    if( m_ui16NumFundParamSets  != Value.m_ui16NumFundParamSets ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SecondaryOperationalData::operator != ( const SecondaryOperationalData & Value ) const
-{
-    return !( *this == Value );
+KBOOL SecondaryOperationalData::operator!=(
+    const SecondaryOperationalData& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

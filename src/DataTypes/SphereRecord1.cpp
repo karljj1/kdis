@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SphereRecord1.h"
+#include "KDIS/DataTypes/SphereRecord1.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,45 +37,36 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord1::SphereRecord1()
-{
-    m_ui32EnvRecTyp = SphereRecord1Type;
+SphereRecord1::SphereRecord1() { m_ui32EnvRecTyp = SphereRecord1Type; }
+
+//////////////////////////////////////////////////////////////////////////
+
+SphereRecord1::SphereRecord1(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+SphereRecord1::SphereRecord1(KUINT8 Index,
+                             const WorldCoordinates& CentroidLocation,
+                             KFLOAT32 Radius)
+    : BoundingSphereRecord(Index, CentroidLocation, Radius) {
+  m_ui32EnvRecTyp = SphereRecord1Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord1::SphereRecord1( KDataStream & stream )
-{
-    Decode( stream );
+SphereRecord1::~SphereRecord1() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SphereRecord1::operator==(const SphereRecord1& Value) const {
+  if (BoundingSphereRecord::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SphereRecord1::SphereRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius  ) :
-    BoundingSphereRecord( Index, CentroidLocation, Radius )
-{
-    m_ui32EnvRecTyp = SphereRecord1Type;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-SphereRecord1::~SphereRecord1()
-{
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SphereRecord1::operator == ( const SphereRecord1 & Value )const
-{
-    if( BoundingSphereRecord::operator !=( Value ) ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SphereRecord1::operator != ( const SphereRecord1 & Value )const
-{
-    return !( *this == Value );
+KBOOL SphereRecord1::operator!=(const SphereRecord1& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

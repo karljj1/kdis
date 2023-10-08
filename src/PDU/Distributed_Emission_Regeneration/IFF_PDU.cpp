@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IFF_PDU.h"
+#include "KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,402 +42,323 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::IFF_PDU() :
-    m_ui8SystemDesignator( 0 ),
-	m_ui8SystemSpecific( 0 )
-{
-    m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
-    m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
-    m_ui16PDULength = IFF_PDU_SIZE;
+IFF_PDU::IFF_PDU() : m_ui8SystemDesignator(0), m_ui8SystemSpecific(0) {
+  m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
+  m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
+  m_ui16PDULength = IFF_PDU_SIZE;
 
-	#if DIS_VERSION > 6
-	m_ui8ProtocolVersion = IEEE_1278_1_2012;
-	#else 
-	m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-	#endif
+#if DIS_VERSION > 6
+  m_ui8ProtocolVersion = IEEE_1278_1_2012;
+#else
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::IFF_PDU( const Header & H ) :
-	Header( H ),
-	m_ui8SystemDesignator( 0 ),
-	m_ui8SystemSpecific( 0 )
-{
+IFF_PDU::IFF_PDU(const Header& H)
+    : Header(H), m_ui8SystemDesignator(0), m_ui8SystemSpecific(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IFF_PDU::IFF_PDU(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+IFF_PDU::IFF_PDU(const Header& H, KDataStream& stream) : Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::IFF_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+IFF_PDU::IFF_PDU(const EntityIdentifier& EmittingID,
+                 const EntityIdentifier& EventID, const Vector& Location,
+                 const SystemIdentifier& ID,
+                 const FundamentalOperationalData& FOD)
+    : m_EmittingEntityID(EmittingID),
+      m_EventID(EventID),
+      m_Location(Location),
+      m_SystemID(ID),
+      m_FOD(FOD),
+      m_ui8SystemDesignator(0),
+      m_ui8SystemSpecific(0) {
+  m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
+  m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
+  m_ui16PDULength = IFF_PDU_SIZE;
+
+#if DIS_VERSION > 6
+  m_ui8ProtocolVersion = IEEE_1278_1_2012;
+#else
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::IFF_PDU( const Header & H, KDataStream & stream )  :
-	Header( H )
-{
-    Decode( stream, true );
+IFF_PDU::~IFF_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::SetEmittingEntityID(const EntityIdentifier& ID) {
+  m_EmittingEntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::IFF_PDU( const EntityIdentifier & EmittingID, const EntityIdentifier & EventID, const Vector & Location,
-        const SystemIdentifier & ID, const FundamentalOperationalData & FOD ) :
-    m_EmittingEntityID( EmittingID ),
-    m_EventID( EventID ),
-    m_Location( Location ),
-    m_SystemID( ID ),
-    m_FOD( FOD ),
-	m_ui8SystemDesignator( 0 ),
-	m_ui8SystemSpecific( 0 )
-{
-    m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
-    m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
-    m_ui16PDULength = IFF_PDU_SIZE;
-
-	#if DIS_VERSION > 6
-	m_ui8ProtocolVersion = IEEE_1278_1_2012;
-	#else 
-	m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-	#endif
+const EntityIdentifier& IFF_PDU::GetEmittingEntityID() const {
+  return m_EmittingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::~IFF_PDU()
-{
+EntityIdentifier& IFF_PDU::GetEmittingEntityID() { return m_EmittingEntityID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::SetEventID(const EntityIdentifier& ID) { m_EventID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityIdentifier& IFF_PDU::GetEventID() const { return m_EventID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityIdentifier& IFF_PDU::GetEventID() { return m_EventID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::SetLocation(const Vector& L) { m_Location = L; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const Vector& IFF_PDU::GetLocation() const { return m_Location; }
+
+//////////////////////////////////////////////////////////////////////////
+
+Vector& IFF_PDU::GetLocation() { return m_Location; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::SetSystemIdentifier(const SystemIdentifier& ID) {
+  m_SystemID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::SetEmittingEntityID( const EntityIdentifier & ID )
-{
-    m_EmittingEntityID = ID;
+const SystemIdentifier& IFF_PDU::GetSystemIdentifier() const {
+  return m_SystemID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & IFF_PDU::GetEmittingEntityID() const
-{
-    return m_EmittingEntityID;
+SystemIdentifier& IFF_PDU::GetSystemIdentifier() { return m_SystemID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::SetFundamentalOperationalData(
+    const FundamentalOperationalData& FOD) {
+  m_FOD = FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & IFF_PDU::GetEmittingEntityID()
-{
-    return m_EmittingEntityID;
+const FundamentalOperationalData& IFF_PDU::GetFundamentalOperationalData()
+    const {
+  return m_FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::SetEventID( const EntityIdentifier & ID )
-{
-    m_EventID = ID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const EntityIdentifier & IFF_PDU::GetEventID() const
-{
-    return m_EventID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-EntityIdentifier & IFF_PDU::GetEventID()
-{
-    return m_EventID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IFF_PDU::SetLocation( const Vector & L )
-{
-    m_Location = L;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const Vector & IFF_PDU::GetLocation() const
-{
-    return m_Location;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Vector & IFF_PDU::GetLocation()
-{
-    return m_Location;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IFF_PDU::SetSystemIdentifier( const SystemIdentifier & ID )
-{
-    m_SystemID = ID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const SystemIdentifier & IFF_PDU::GetSystemIdentifier() const
-{
-    return m_SystemID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-SystemIdentifier & IFF_PDU::GetSystemIdentifier()
-{
-    return m_SystemID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IFF_PDU::SetFundamentalOperationalData( const FundamentalOperationalData & FOD )
-{
-    m_FOD = FOD;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const FundamentalOperationalData & IFF_PDU::GetFundamentalOperationalData() const
-{
-    return m_FOD;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-FundamentalOperationalData & IFF_PDU::GetFundamentalOperationalData()
-{
-    return m_FOD;
+FundamentalOperationalData& IFF_PDU::GetFundamentalOperationalData() {
+  return m_FOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 #if DIS_VERSION > 6
 
-void IFF_PDU::SetSystemDesignator ( KUINT8 SD )
-{
-	m_ui8SystemDesignator = SD;
-}
+void IFF_PDU::SetSystemDesignator(KUINT8 SD) { m_ui8SystemDesignator = SD; }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 IFF_PDU::GetSystemDesignator() const
-{
-	return m_ui8SystemDesignator;
-}
+KUINT8 IFF_PDU::GetSystemDesignator() const { return m_ui8SystemDesignator; }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::SetSystemSpecificData ( KUINT8 SSD )
-{
-	m_ui8SystemSpecific = SSD;
-}
+void IFF_PDU::SetSystemSpecificData(KUINT8 SSD) { m_ui8SystemSpecific = SSD; }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 IFF_PDU::GetSystemSpecificData() const
-{
-	return m_ui8SystemSpecific;
-}
+KUINT8 IFF_PDU::GetSystemSpecificData() const { return m_ui8SystemSpecific; }
 
 #endif
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::AddLayer( const LyrHdrPtr & L )
-{
-	m_vLayers.push_back( L );
-	m_ui16PDULength += L->GetLayerLength();
-}
-
-//////////////////////////////////////////////////////////////////////////
- 
-void IFF_PDU::SetLayers( const vector<LyrHdrPtr> & L )
-{
-	m_vLayers = L;
-	m_ui16PDULength = IFF_PDU_SIZE;
-	vector<LyrHdrPtr>::const_iterator citr = L.begin();
-	vector<LyrHdrPtr>::const_iterator citrEnd = L.end();
-	for( ; citr != citrEnd; ++citr )
-	{
-		m_ui16PDULength += ( *citr )->GetLayerLength();
-	}
+void IFF_PDU::AddLayer(const LyrHdrPtr& L) {
+  m_vLayers.push_back(L);
+  m_ui16PDULength += L->GetLayerLength();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const std::vector<LyrHdrPtr> & IFF_PDU::GetLayers() const
-{
-	return m_vLayers;
+void IFF_PDU::SetLayers(const vector<LyrHdrPtr>& L) {
+  m_vLayers = L;
+  m_ui16PDULength = IFF_PDU_SIZE;
+  vector<LyrHdrPtr>::const_iterator citr = L.begin();
+  vector<LyrHdrPtr>::const_iterator citrEnd = L.end();
+  for (; citr != citrEnd; ++citr) {
+    m_ui16PDULength += (*citr)->GetLayerLength();
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::ClearLayers()
-{
-	m_vLayers.clear();
-	m_ui16PDULength = IFF_PDU_SIZE;
+const std::vector<LyrHdrPtr>& IFF_PDU::GetLayers() const { return m_vLayers; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::ClearLayers() {
+  m_vLayers.clear();
+  m_ui16PDULength = IFF_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString IFF_PDU::GetAsString() const
-{
-    KStringStream ss;
+KString IFF_PDU::GetAsString() const {
+  KStringStream ss;
 
-    ss << Header::GetAsString()
-       << "-IFF/ATC/NAVAIDS Layer 1 PDU-\n"
-       << "Emitting Entity ID:\n"
-       << IndentString( m_EmittingEntityID.GetAsString(), 1 )
-       << "Event ID:\n"
-       << IndentString( m_EventID.GetAsString(), 1 )
-       << "Location:    " << m_Location.GetAsString()
-       << m_SystemID.GetAsString()
-       << m_FOD.GetAsString();
+  ss << Header::GetAsString() << "-IFF/ATC/NAVAIDS Layer 1 PDU-\n"
+     << "Emitting Entity ID:\n"
+     << IndentString(m_EmittingEntityID.GetAsString(), 1) << "Event ID:\n"
+     << IndentString(m_EventID.GetAsString(), 1)
+     << "Location:    " << m_Location.GetAsString() << m_SystemID.GetAsString()
+     << m_FOD.GetAsString();
 
-	#if DIS_VERSION > 6
+#if DIS_VERSION > 6
 
-	ss << "System Designator:    " << ( KUINT16 )m_ui8SystemDesignator << "\n"
-	   << "System Specific Data: " << ( KUINT16 )m_ui8SystemSpecific << "\n";
+  ss << "System Designator:    " << (KUINT16)m_ui8SystemDesignator << "\n"
+     << "System Specific Data: " << (KUINT16)m_ui8SystemSpecific << "\n";
 
-	#endif
+#endif
 
-	vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
-	vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
-	for( ; citr != citrEnd; ++citr )
-	{
-		ss << ( *citr )->GetAsString();
-	}
+  vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
+  vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
+  for (; citr != citrEnd; ++citr) {
+    ss << (*citr)->GetAsString();
+  }
 
-    return ss.str();	
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IFF_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      IFF_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    Header::Decode( stream, ignoreHeader );
+  Header::Decode(stream, ignoreHeader);
 
-	// Record the size of the stream so we can calculate how much data is left. We could just use 
-	// stream.GetBufferSize() but what if this PDU was part of a PDU bundle...
-	KUINT32 streamSizeSnapshot = stream.GetBufferSize();
+  // Record the size of the stream so we can calculate how much data is left. We
+  // could just use stream.GetBufferSize() but what if this PDU was part of a
+  // PDU bundle...
+  KUINT32 streamSizeSnapshot = stream.GetBufferSize();
 
-    stream >> KDIS_STREAM m_EmittingEntityID
-           >> KDIS_STREAM m_EventID
-           >> KDIS_STREAM m_Location
-           >> KDIS_STREAM m_SystemID
-           >> m_ui8SystemDesignator
-		   >> m_ui8SystemSpecific
-           >> KDIS_STREAM m_FOD;
-	
-	KUINT16 remainingData = m_ui16PDULength - HEADER6_PDU_SIZE - ( streamSizeSnapshot - stream.GetBufferSize() );
-	
-	// Decode each layer
-	while( remainingData )
-	{
-		LayerHeader hdr( stream );
-		LayerHeader * layer = NULL;
+  stream >> KDIS_STREAM m_EmittingEntityID >> KDIS_STREAM m_EventID >>
+      KDIS_STREAM m_Location >> KDIS_STREAM m_SystemID >>
+      m_ui8SystemDesignator >> m_ui8SystemSpecific >> KDIS_STREAM m_FOD;
 
-		switch ( hdr.GetLayerNumber() )
-		{
-			case 2: layer = new IFF_Layer2( hdr, stream ); break;
+  KUINT16 remainingData = m_ui16PDULength - HEADER6_PDU_SIZE -
+                          (streamSizeSnapshot - stream.GetBufferSize());
 
-			#if DIS_VERSION > 6
-			case 3: 
-				switch( m_SystemID.GetSystemType() )
-				{
-					case Mark_X_XII_ATCRBS_ModeS_Transponder:
-					case RRB_Transponder:
-					case Soviet_Transponder:
-						layer = new IFF_Layer3Transponder( hdr, stream );
-						break;
+  // Decode each layer
+  while (remainingData) {
+    LayerHeader hdr(stream);
+    LayerHeader* layer = NULL;
 
-					case Mark_X_XII_ATCRBS_ModeS_Interrogator:
-					case Soviet_Interrogator:
-						layer = new IFF_Layer3Interrogator( hdr, stream );
-						break;
-				}							
-				break;
-			#endif
-			
-			//case 4: layer = new IFF_Layer4( hdr, stream ); break;
-			//case 5: layer = new IFF_Layer5( hdr, stream ); break;
-				
-			default: throw KException( __FUNCTION__, UNSUPPORTED_DATATYPE, static_cast<KUINT16>(hdr.GetLayerNumber()) );
-		}
+    switch (hdr.GetLayerNumber()) {
+      case 2:
+        layer = new IFF_Layer2(hdr, stream);
+        break;
 
-		if( layer )
-		{
-			m_vLayers.push_back( layer );
-			remainingData -= layer->GetLayerLength();
-		}
-		else
-		{
-			throw KException( __FUNCTION__, INVALID_OPERATION, "Layer is null" );
-		}
-	}
+#if DIS_VERSION > 6
+      case 3:
+        switch (m_SystemID.GetSystemType()) {
+          case Mark_X_XII_ATCRBS_ModeS_Transponder:
+          case RRB_Transponder:
+          case Soviet_Transponder:
+            layer = new IFF_Layer3Transponder(hdr, stream);
+            break;
+
+          case Mark_X_XII_ATCRBS_ModeS_Interrogator:
+          case Soviet_Interrogator:
+            layer = new IFF_Layer3Interrogator(hdr, stream);
+            break;
+        }
+        break;
+#endif
+
+        // case 4: layer = new IFF_Layer4( hdr, stream ); break;
+        // case 5: layer = new IFF_Layer5( hdr, stream ); break;
+
+      default:
+        throw KException(__FUNCTION__, UNSUPPORTED_DATATYPE,
+                         static_cast<KUINT16>(hdr.GetLayerNumber()));
+    }
+
+    if (layer) {
+      m_vLayers.push_back(layer);
+      remainingData -= layer->GetLayerLength();
+    } else {
+      throw KException(__FUNCTION__, INVALID_OPERATION, "Layer is null");
+    }
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream IFF_PDU::Encode() const
-{
-    KDataStream stream;
+KDataStream IFF_PDU::Encode() const {
+  KDataStream stream;
 
-    IFF_PDU::Encode( stream );
+  IFF_PDU::Encode(stream);
 
-    return stream;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::Encode( KDataStream & stream ) const
-{
-    Header::Encode( stream );
+void IFF_PDU::Encode(KDataStream& stream) const {
+  Header::Encode(stream);
 
-    stream << KDIS_STREAM m_EmittingEntityID
-           << KDIS_STREAM m_EventID
-           << KDIS_STREAM m_Location
-           << KDIS_STREAM m_SystemID
-           << m_ui8SystemDesignator
-		   << m_ui8SystemSpecific
-           << KDIS_STREAM m_FOD;
+  stream << KDIS_STREAM m_EmittingEntityID << KDIS_STREAM m_EventID
+         << KDIS_STREAM m_Location << KDIS_STREAM m_SystemID
+         << m_ui8SystemDesignator << m_ui8SystemSpecific << KDIS_STREAM m_FOD;
 
-	vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
-	vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
-	for( ; citr != citrEnd; ++citr )
-	{
-		( *citr )->Encode( stream );
-	}
+  vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
+  vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
+  for (; citr != citrEnd; ++citr) {
+    (*citr)->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_PDU::operator == ( const IFF_PDU & Value ) const
-{
-    if( Header::operator    !=( Value ) )                 return false;
-    if( m_EmittingEntityID  != Value.m_EmittingEntityID ) return false;
-    if( m_EventID           != Value.m_EventID )          return false;
-    if( m_Location          != Value.m_Location )         return false;
-    if( m_SystemID          != Value.m_SystemID )         return false;
-    if( m_FOD               != Value.m_FOD )              return false;
-	if( m_vLayers           != Value.m_vLayers )          return false;
-    return true;
+KBOOL IFF_PDU::operator==(const IFF_PDU& Value) const {
+  if (Header::operator!=(Value)) return false;
+  if (m_EmittingEntityID != Value.m_EmittingEntityID) return false;
+  if (m_EventID != Value.m_EventID) return false;
+  if (m_Location != Value.m_Location) return false;
+  if (m_SystemID != Value.m_SystemID) return false;
+  if (m_FOD != Value.m_FOD) return false;
+  if (m_vLayers != Value.m_vLayers) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_PDU::operator != ( const IFF_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL IFF_PDU::operator!=(const IFF_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-

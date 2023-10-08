@@ -1,20 +1,16 @@
 # KDIS
 
-Hi,
+[![codeql](https://github.com/karljj1/kdis/actions/workflows/codeql.yaml/badge.svg)](https://github.com/karljj1/kdis/actions/workflows/codeql.yaml)
 
-Thanks for downloading KDIS.
+Open source implementation of `DIS` (_Distributed Interactive Simulation_) `IEEE 1278.1`
 
-NOTE: KDIS has now been tested on Linux,Windows and Mac OSX Leopard however if you do have any problems please let me know.
+## Contributing
 
-The KDIS website including a users guide can be found at:
+I would love to see your contribution :heart:
 
-<http://p.sf.net/kdis/UserGuide>
+See [CONTRIBUTING](./CONTRIBUTING.md) guidelines
 
-This explains how to use the CMakeLists.txt file to quickly set up KDIS for your chosen IDE as well as details on the various examples.
+## License
 
-Full class documentation can be found on the wiki:
-
-<http://p.sf.net/kdis/UserGuide>
-
-Note: From KDIS Version 2.1.0 a new cross-platform socket class exists called 'Connection', this class replaces the old windows only KSockets class.
-
+This project is licensed under the [BSD 2-Clause](https://opensource.org/license/bsd-2-clause) "Simplified" License \
+See [LICENSE](./LICENSE) file for details

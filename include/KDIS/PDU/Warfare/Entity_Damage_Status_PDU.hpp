@@ -33,108 +33,109 @@ http://p.sf.net/kdis/UserGuide
     created:    27/07/2011
     author:     Karl Jones
 
-    purpose:    Used to communicate detailed damage information sustained by an entity regardless
-                of the source of the damage.
-                The cause of the damage may be a weapon fired at the entity, a collision with
-                another object, or some other reason. The Entity Damage Status PDU enables damage
-                to a specific location on an entity to be conveyed whether or not that location
-                is associated with an articulated or attached part.
-                The information conveyed in this PDU augments damage information communicated in
-                the Entity State and other PDUs.
+    purpose:    Used to communicate detailed damage information sustained by an
+entity regardless of the source of the damage. The cause of the damage may be a
+weapon fired at the entity, a collision with another object, or some other
+reason. The Entity Damage Status PDU enables damage to a specific location on an
+entity to be conveyed whether or not that location is associated with an
+articulated or attached part. The information conveyed in this PDU augments
+damage information communicated in the Entity State and other PDUs.
 
     Size:       192 bits / 24 octets - Min size
 *********************************************************************/
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
-#include "./../../DataTypes/StandardVariable.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/StandardVariable.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Entity_Damage_Status_PDU : public Header
-{
-protected:
+class KDIS_EXPORT Entity_Damage_Status_PDU : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_DmgEnt;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_DmgEnt;
+  KUINT32 m_ui32Padding;
 
-    KUINT32 m_ui32Padding;
+  KUINT16 m_ui16NumDmgDescRecs;
 
-    KUINT16 m_ui16NumDmgDescRecs;
+  std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDdRec;
 
-    std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDdRec;
+ public:
+  static const KUINT16 ENTITY_DAMAGE_STATE_PDU = 24;  // Min size
 
-public:
+  Entity_Damage_Status_PDU();
 
-    static const KUINT16 ENTITY_DAMAGE_STATE_PDU = 24; // Min size
+  Entity_Damage_Status_PDU(KDataStream& stream);
 
-    Entity_Damage_Status_PDU();
+  Entity_Damage_Status_PDU(const Header& H, KDataStream& stream);
 
-    Entity_Damage_Status_PDU( KDataStream & stream ) ;
+  Entity_Damage_Status_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& DamagedEntityID);
 
-    Entity_Damage_Status_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Entity_Damage_Status_PDU();
 
-    Entity_Damage_Status_PDU( const KDIS::DATA_TYPE::EntityIdentifier & DamagedEntityID );
+  //************************************
+  // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::SetDamagedEntityID
+  //              KDIS::PDU::Entity_Damage_Status_PDU::GetDamagedEntityID
+  // Description: The damaged entity.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetDamagedEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetDamagedEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetDamagedEntityID();
 
-    virtual ~Entity_Damage_Status_PDU();
+  //************************************
+  // FullName:
+  // KDIS::PDU::Entity_Damage_Status_PDU::GetNumberOfDamageDescriptionRecords
+  // Description: The Number of Damage Description records stored in this PDU.
+  //************************************
+  KUINT16 GetNumberOfDamageDescriptionRecords() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::SetDamagedEntityID
-    //              KDIS::PDU::Entity_Damage_Status_PDU::GetDamagedEntityID
-    // Description: The damaged entity.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetDamagedEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetDamagedEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetDamagedEntityID();
+  //************************************
+  // FullName: KDIS::PDU::Directed_Energy_Fire_PDU::AddDamageDescriptionRecord
+  //              KDIS::PDU::Directed_Energy_Fire_PDU::SetDamageDescriptionRecords
+  //              KDIS::PDU::Directed_Energy_Fire_PDU::GetDamageDescriptionRecords
+  //              KDIS::PDU::Directed_Energy_Fire_PDU::ClearDamageDescriptionRecords
+  // Description: This field can contain one or more DD records and may also
+  // contain
+  //              other Standard Variable records.
+  // Parameter:   StdVarPtr DD, const vector<StdVarPtr> & DD
+  //************************************
+  void AddDamageDescriptionRecord(KDIS::DATA_TYPE::StdVarPtr DD);
+  void SetDamageDescriptionRecords(
+      const std::vector<KDIS::DATA_TYPE::StdVarPtr>& DD);
+  const std::vector<KDIS::DATA_TYPE::StdVarPtr>& GetDamageDescriptionRecords()
+      const;
+  void ClearDamageDescriptionRecords();
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetNumberOfDamageDescriptionRecords
-    // Description: The Number of Damage Description records stored in this PDU.
-    //************************************
-    KUINT16 GetNumberOfDamageDescriptionRecords() const;
+  //************************************
+  // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Directed_Energy_Fire_PDU::AddDamageDescriptionRecord
-    //              KDIS::PDU::Directed_Energy_Fire_PDU::SetDamageDescriptionRecords
-    //              KDIS::PDU::Directed_Energy_Fire_PDU::GetDamageDescriptionRecords
-    //              KDIS::PDU::Directed_Energy_Fire_PDU::ClearDamageDescriptionRecords
-    // Description: This field can contain one or more DD records and may also contain
-    //              other Standard Variable records.
-    // Parameter:   StdVarPtr DD, const vector<StdVarPtr> & DD
-    //************************************
-    void AddDamageDescriptionRecord( KDIS::DATA_TYPE::StdVarPtr DD );
-    void SetDamageDescriptionRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & DD );
-    const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetDamageDescriptionRecords() const;
-    void ClearDamageDescriptionRecords();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Entity_Damage_Status_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Entity_Damage_Status_PDU & Value ) const;
-    KBOOL operator != ( const Entity_Damage_Status_PDU & Value ) const;
+  KBOOL operator==(const Entity_Damage_Status_PDU& Value) const;
+  KBOOL operator!=(const Entity_Damage_Status_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

@@ -39,70 +39,67 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Data_PDU.h"
-#include "./Action_Request_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Action_Request_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management/Data_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Action_Response_PDU : public Data_PDU
-{
-protected:
+class KDIS_EXPORT Action_Response_PDU : public Data_PDU {
+ protected:
+  KUINT32 m_ui32RequestStatus;
 
-    KUINT32 m_ui32RequestStatus;
+ public:
+  static const KUINT16 ACTION_RESPONSE_PDU_SIZE = 40;
 
-public:
+  Action_Response_PDU();
 
-    static const KUINT16 ACTION_RESPONSE_PDU_SIZE = 40;
+  explicit Action_Response_PDU(const Header& H);
 
-    Action_Response_PDU();
+  Action_Response_PDU(KDataStream& stream);
 
-    explicit Action_Response_PDU( const Header & H );
+  Action_Response_PDU(const Header& H, KDataStream& stream);
 
-    Action_Response_PDU( KDataStream & stream ) ;
+  // Generate a response from a PDU.
+  Action_Response_PDU(const Action_Request_PDU& pdu,
+                      KDIS::DATA_TYPE::ENUMS::RequestStatus RS);
 
-    Action_Response_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Action_Response_PDU();
 
-    // Generate a response from a PDU.
-    Action_Response_PDU( const Action_Request_PDU & pdu, KDIS::DATA_TYPE::ENUMS::RequestStatus RS );
+  //************************************
+  // FullName:    KDIS::PDU::Action_Response_PDU::SetRequestStatus
+  //              KDIS::PDU::Action_Response_PDU::GetRequestStatus
+  // Description: Identifies the status of the request action
+  // Parameter:   RequestStatus RS
+  //************************************
+  void SetRequestStatus(KDIS::DATA_TYPE::ENUMS::RequestStatus RS);
+  KDIS::DATA_TYPE::ENUMS::RequestStatus GetRequestStatus() const;
 
-    virtual ~Action_Response_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Action_Response_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Action_Response_PDU::SetRequestStatus
-    //              KDIS::PDU::Action_Response_PDU::GetRequestStatus
-    // Description: Identifies the status of the request action
-    // Parameter:   RequestStatus RS
-    //************************************
-    void SetRequestStatus( KDIS::DATA_TYPE::ENUMS::RequestStatus RS );
-    KDIS::DATA_TYPE::ENUMS::RequestStatus GetRequestStatus() const;
+  //************************************
+  // FullName:    KDIS::PDU::Action_Response_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Action_Response_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Action_Response_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Action_Response_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Action_Response_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Action_Response_PDU & Value ) const;
-    KBOOL operator != ( const Action_Response_PDU & Value ) const;
+  KBOOL operator==(const Action_Response_PDU& Value) const;
+  KBOOL operator!=(const Action_Response_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
-
+}  // END namespace PDU
+}  // END namespace KDIS

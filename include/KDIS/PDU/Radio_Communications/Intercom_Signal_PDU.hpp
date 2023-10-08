@@ -41,38 +41,37 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Signal_PDU.h"
+#include "KDIS/PDU/Radio_Communications/Signal_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Intercom_Signal_PDU : public Signal_PDU
-{
-protected:
+class KDIS_EXPORT Intercom_Signal_PDU : public Signal_PDU {
+ protected:
+ public:
+  Intercom_Signal_PDU();
 
-public:
+  Intercom_Signal_PDU(KDataStream& stream);
 
-    Intercom_Signal_PDU();
+  Intercom_Signal_PDU(const Header& H, KDataStream& stream);
 
-    Intercom_Signal_PDU( KDataStream & stream ) ;
+  Intercom_Signal_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ID,
+                      KUINT16 RadioID,
+                      const KDIS::DATA_TYPE::EncodingScheme& ES,
+                      KUINT32 SampleRate, KUINT16 Samples, const KOCTET* Data,
+                      KUINT16 DataLength);
 
-    Intercom_Signal_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Intercom_Signal_PDU();
 
-    Intercom_Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
-                         KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
+  //************************************
+  // FullName:    KDIS::PDU::Intercom_Signal_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    virtual ~Intercom_Signal_PDU();
-
-    //************************************
-    // FullName:    KDIS::PDU::Intercom_Signal_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Intercom_Signal_PDU & Value ) const;
-    KBOOL operator != ( const Intercom_Signal_PDU & Value ) const;
+  KBOOL operator==(const Intercom_Signal_PDU& Value) const;
+  KBOOL operator!=(const Intercom_Signal_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
-
+}  // END namespace PDU
+}  // END namespace KDIS

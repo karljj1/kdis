@@ -44,140 +44,139 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./IO_Header.h"
-
-// Standard Variable Records
-#include "./../../DataTypes/IOCommunicationsNode.h"
-#include "./../../DataTypes/IOEffect.h"
+#include "KDIS/DataTypes/IOCommunicationsNode.hpp"
+#include "KDIS/DataTypes/IOEffect.hpp"
+#include "KDIS/PDU/Information_Operations/IO_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT IO_Report_PDU : public IO_Header
-{
-protected:
+class KDIS_EXPORT IO_Report_PDU : public IO_Header {
+ protected:
+  KUINT16 m_ui16SimSrc;
 
-    KUINT16 m_ui16SimSrc;
+  KUINT8 m_ui8RptTyp;
 
-    KUINT8 m_ui8RptTyp;
+  KUINT8 m_ui8Padding;
 
-    KUINT8 m_ui8Padding;
+  KDIS::DATA_TYPE::EntityIdentifier m_AtkEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_AtkEntityID;
+  KDIS::DATA_TYPE::EntityIdentifier m_TgtEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_TgtEntityID;
+  KUINT32 m_ui32Padding;  // 2 * KUINT16 padding in 1278.1-2012 standard.
 
-    KUINT32 m_ui32Padding; // 2 * KUINT16 padding in 1278.1-2012 standard.
+  KUINT16 m_ui16NumStdVarRec;
 
-    KUINT16 m_ui16NumStdVarRec;
+  std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
 
-    std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
+ public:
+  static const KUINT16 IO_REPORT_PDU_SIZE = 40;
 
-public:
+  IO_Report_PDU();
 
-    static const KUINT16 IO_REPORT_PDU_SIZE = 40;
+  IO_Report_PDU(KDataStream& stream);
 
-    IO_Report_PDU();
+  IO_Report_PDU(const Header& H, KDataStream& stream);
 
-    IO_Report_PDU( KDataStream & stream ) ;
+  IO_Report_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OrigID, KUINT16 SimSrc,
+                KDIS::DATA_TYPE::ENUMS::IOReportType RT,
+                const KDIS::DATA_TYPE::EntityIdentifier& AtkID,
+                const KDIS::DATA_TYPE::EntityIdentifier& TgtID);
 
-    IO_Report_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~IO_Report_PDU();
 
-    IO_Report_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OrigID, KUINT16 SimSrc, KDIS::DATA_TYPE::ENUMS::IOReportType RT,
-                   const KDIS::DATA_TYPE::EntityIdentifier & AtkID, const KDIS::DATA_TYPE::EntityIdentifier & TgtID );
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::SetSimulationSource
+  //              KDIS::PDU::IO_Report_PDU::GetSimulationSource
+  // Description: Identifies the name of the simulation model issuing this PDU.
+  //              0       No statement.
+  //              1-200   Reserved for future Io simulation sources.
+  //              201-255 Reserved for United States IO Simulation Sources ï¿½
+  //                      See applicable agreement or the organizers of the
+  //                      event (training, exercise, etc) in which information
+  //                      operations is included.
+  // Parameter:   KUINT16 SS
+  //************************************
+  void SetSimulationSource(KUINT16 SS);
+  KUINT16 GetSimulationSource() const;
 
-    virtual ~IO_Report_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::SetReportType
+  //              KDIS::PDU::IO_Report_PDU::GetReportType
+  // Description: The type of report this PDU represents.
+  // Parameter:   IOReportType RT
+  //************************************
+  void SetReportType(KDIS::DATA_TYPE::ENUMS::IOReportType RT);
+  KDIS::DATA_TYPE::ENUMS::IOReportType GetReportType() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::SetSimulationSource
-    //              KDIS::PDU::IO_Report_PDU::GetSimulationSource
-    // Description: Identifies the name of the simulation model issuing this PDU.
-    //              0       No statement.
-    //              1-200   Reserved for future Io simulation sources.
-    //              201-255 Reserved for United States IO Simulation Sources –
-    //                      See applicable agreement or the organizers of the event
-    //                      (training, exercise, etc) in which information operations
-    //                      is included.
-    // Parameter:   KUINT16 SS
-    //************************************
-    void SetSimulationSource( KUINT16 SS );
-    KUINT16 GetSimulationSource() const;
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::SetAttackerEntityID
+  //              KDIS::PDU::IO_Report_PDU::GetAttackerEntityID
+  // Description: Identifies the IO Attacker Entity ID.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetAttackerEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetAttackerEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetAttackerEntityID();
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::SetReportType
-    //              KDIS::PDU::IO_Report_PDU::GetReportType
-    // Description: The type of report this PDU represents.
-    // Parameter:   IOReportType RT
-    //************************************
-    void SetReportType( KDIS::DATA_TYPE::ENUMS::IOReportType RT );
-    KDIS::DATA_TYPE::ENUMS::IOReportType GetReportType() const;
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::SetPrimaryTargetEntityID
+  //              KDIS::PDU::IO_Report_PDU::GetPrimaryTargetEntityID
+  // Description: Identifies the IO Primary Target Entity ID.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetPrimaryTargetEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetPrimaryTargetEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetPrimaryTargetEntityID();
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::SetAttackerEntityID
-    //              KDIS::PDU::IO_Report_PDU::GetAttackerEntityID
-    // Description: Identifies the IO Attacker Entity ID.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetAttackerEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetAttackerEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetAttackerEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::GetNumberOfIORecords
+  // Description: Indicates the number of IO standard variable records included.
+  //************************************
+  KUINT16 GetNumberOfIORecords() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::SetPrimaryTargetEntityID
-    //              KDIS::PDU::IO_Report_PDU::GetPrimaryTargetEntityID
-    // Description: Identifies the IO Primary Target Entity ID.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetPrimaryTargetEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetPrimaryTargetEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetPrimaryTargetEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::AddStandardVariableRecord
+  //              KDIS::PDU::IO_Report_PDU::SetStandardVariableRecords
+  //              KDIS::PDU::IO_Report_PDU::GetStandardVariableRecords
+  //              KDIS::PDU::IO_Report_PDU::ClearStandardVariableRecords
+  // Description: The following Standard Records currently exist:
+  //              -   IOCommunicationsNode
+  //              -   IOEffect
+  // Parameter:   StdVarPtr SVR, const vector<StdVarPtr> & SVR
+  //************************************
+  void AddStandardVariableRecord(KDIS::DATA_TYPE::StdVarPtr SVR);
+  void SetStandardVariableRecords(
+      const std::vector<KDIS::DATA_TYPE::StdVarPtr>& SVR);
+  const std::vector<KDIS::DATA_TYPE::StdVarPtr>& GetStandardVariableRecords()
+      const;
+  void ClearStandardVariableRecords();
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::GetNumberOfIORecords
-    // Description: Indicates the number of IO standard variable records included.
-    //************************************
-    KUINT16 GetNumberOfIORecords() const;
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::AddStandardVariableRecord
-    //              KDIS::PDU::IO_Report_PDU::SetStandardVariableRecords
-    //              KDIS::PDU::IO_Report_PDU::GetStandardVariableRecords
-    //              KDIS::PDU::IO_Report_PDU::ClearStandardVariableRecords
-    // Description: The following Standard Records currently exist:
-    //              -   IOCommunicationsNode
-    //              -   IOEffect
-    // Parameter:   StdVarPtr SVR, const vector<StdVarPtr> & SVR
-    //************************************
-    void AddStandardVariableRecord( KDIS::DATA_TYPE::StdVarPtr SVR );
-    void SetStandardVariableRecords( const std::vector<KDIS::DATA_TYPE::StdVarPtr> & SVR );
-    const std::vector<KDIS::DATA_TYPE::StdVarPtr> & GetStandardVariableRecords() const;
-    void ClearStandardVariableRecords();
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::IO_Report_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::IO_Report_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const IO_Report_PDU & Value ) const;
-    KBOOL operator != ( const IO_Report_PDU & Value ) const;
+  KBOOL operator==(const IO_Report_PDU& Value) const;
+  KBOOL operator!=(const IO_Report_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

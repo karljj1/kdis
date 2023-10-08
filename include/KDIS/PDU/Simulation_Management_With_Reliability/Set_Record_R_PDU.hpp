@@ -39,98 +39,97 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Simulation_Management/Simulation_Management_Header.h"
-#include "./Reliability_Header.h"
-#include "./../../DataTypes/RecordSet.h"
+#include "KDIS/DataTypes/RecordSet.hpp"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Reliability_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Set_Record_R_PDU : public Simulation_Management_Header,
-                                     public Reliability_Header
-{
-protected:
+                                     public Reliability_Header {
+ protected:
+  KUINT32 m_ui32RqId;
 
-    KUINT32 m_ui32RqId;
+  KUINT32 m_ui32NumRecSets;
 
-    KUINT32 m_ui32NumRecSets;
+  KUINT8 m_ui8Padding1;
 
-    KUINT8 m_ui8Padding1;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+  KUINT32 m_ui32Padding;
 
-    KUINT32 m_ui32Padding;
+  std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
 
-    std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
+ public:
+  static const KUINT16 SET_RECORD_R_PDU_SIZE = 40;
 
-public:
+  Set_Record_R_PDU();
 
-    static const KUINT16 SET_RECORD_R_PDU_SIZE = 40;
+  explicit Set_Record_R_PDU(const Header& H);
 
-    Set_Record_R_PDU();
+  explicit Set_Record_R_PDU(KDataStream& stream);
 
-    explicit Set_Record_R_PDU( const Header & H );
+  Set_Record_R_PDU(const Header& H, KDataStream& stream);
 
-    Set_Record_R_PDU( KDataStream & stream ) ;
+  Set_Record_R_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+                   const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+                   KUINT32 RequestID,
+                   KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
-    Set_Record_R_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Set_Record_R_PDU();
 
-    Set_Record_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-        KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+  //************************************
+  // FullName:    KDIS::PDU::Set_Record_R_PDU::SetRequestID
+  //              KDIS::PDU::Set_Record_R_PDU::GetRequestID
+  // Description: Request ID
+  // Parameter:   KUINT32 ID
+  //************************************
+  void SetRequestID(KUINT32 ID);
+  KUINT32 GetRequestID() const;
 
-    virtual ~Set_Record_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Set_Record_R_PDU::GetNumberOfRecords
+  // Description: Returns number of records.
+  //************************************
+  KUINT32 GetNumberOfRecords() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Set_Record_R_PDU::SetRequestID
-    //              KDIS::PDU::Set_Record_R_PDU::GetRequestID
-    // Description: Request ID
-    // Parameter:   KUINT32 ID
-    //************************************
-    void SetRequestID( KUINT32 ID );
-    KUINT32 GetRequestID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Set_Record_R_PDU::AddRecordSet
+  //              KDIS::PDU::Set_Record_R_PDU::SetRecordSets
+  //              KDIS::PDU::Set_Record_R_PDU::GetRecordSets
+  // Description:
+  // Parameter:   const RecordSet & RS, vector<RecordSet> & RC
+  //************************************
+  void AddRecordSet(const KDIS::DATA_TYPE::RecordSet& RS);
+  void SetRecordSets(const std::vector<KDIS::DATA_TYPE::RecordSet>& RS);
+  const std::vector<KDIS::DATA_TYPE::RecordSet>& GetRecordSets() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Set_Record_R_PDU::GetNumberOfRecords
-    // Description: Returns number of records.
-    //************************************
-    KUINT32 GetNumberOfRecords() const;
+  //************************************
+  // FullName:    KDIS::PDU::Set_Record_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Set_Record_R_PDU::AddRecordSet
-    //              KDIS::PDU::Set_Record_R_PDU::SetRecordSets
-    //              KDIS::PDU::Set_Record_R_PDU::GetRecordSets
-    // Description:
-    // Parameter:   const RecordSet & RS, vector<RecordSet> & RC
-    //************************************
-    void AddRecordSet( const KDIS::DATA_TYPE::RecordSet & RS );
-    void SetRecordSets( const std::vector<KDIS::DATA_TYPE::RecordSet> & RS );
-    const std::vector<KDIS::DATA_TYPE::RecordSet> & GetRecordSets() const;
+  //************************************
+  // FullName:    KDIS::PDU::Set_Record_R_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Set_Record_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Set_Record_R_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Set_Record_R_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Set_Record_R_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Set_Record_R_PDU & Value ) const;
-    KBOOL operator != ( const Set_Record_R_PDU & Value ) const;
+  KBOOL operator==(const Set_Record_R_PDU& Value) const;
+  KBOOL operator!=(const Set_Record_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

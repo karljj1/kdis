@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./RectangularVolumeRecord3.h"
+#include "KDIS/DataTypes/RectangularVolumeRecord3.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,170 +37,142 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-RectangularVolumeRecord3::RectangularVolumeRecord3()
-{
-    m_ui32EnvRecTyp = RectangularVolumeRecord3Type;
-    m_ui16Length = ( RECTANGLE_VOLUME_RECORD_3_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+RectangularVolumeRecord3::RectangularVolumeRecord3() {
+  m_ui32EnvRecTyp = RectangularVolumeRecord3Type;
+  m_ui16Length = (RECTANGLE_VOLUME_RECORD_3_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RectangularVolumeRecord3::RectangularVolumeRecord3( KDataStream & stream )
-{
-    Decode( stream );
+RectangularVolumeRecord3::RectangularVolumeRecord3(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RectangularVolumeRecord3::RectangularVolumeRecord3( KUINT8 Index, const WorldCoordinates & CenterLocation, const Vector & RectangleLength,
-        const EulerAngles & Orientation ) :
-    m_CentLocation( CenterLocation ),
-    m_RecLength( RectangleLength ),
-    m_Ori( Orientation )
-{
-    m_ui8Index = Index;
-    m_ui32EnvRecTyp = RectangularVolumeRecord3Type;
-    m_ui16Length = ( RECTANGLE_VOLUME_RECORD_3_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+RectangularVolumeRecord3::RectangularVolumeRecord3(
+    KUINT8 Index, const WorldCoordinates& CenterLocation,
+    const Vector& RectangleLength, const EulerAngles& Orientation)
+    : m_CentLocation(CenterLocation),
+      m_RecLength(RectangleLength),
+      m_Ori(Orientation) {
+  m_ui8Index = Index;
+  m_ui32EnvRecTyp = RectangularVolumeRecord3Type;
+  m_ui16Length = (RECTANGLE_VOLUME_RECORD_3_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RectangularVolumeRecord3::~RectangularVolumeRecord3()
-{
+RectangularVolumeRecord3::~RectangularVolumeRecord3() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void RectangularVolumeRecord3::SetCenterLocation(const WorldCoordinates& RL) {
+  m_CentLocation = RL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RectangularVolumeRecord3::SetCenterLocation( const WorldCoordinates & RL )
-{
-    m_CentLocation = RL;
+const WorldCoordinates& RectangularVolumeRecord3::GetCenterLocation() const {
+  return m_CentLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & RectangularVolumeRecord3::GetCenterLocation() const
-{
-    return m_CentLocation;
+WorldCoordinates& RectangularVolumeRecord3::GetCenterLocation() {
+  return m_CentLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & RectangularVolumeRecord3::GetCenterLocation()
-{
-    return m_CentLocation;
+void RectangularVolumeRecord3::SetRectangleLength(const Vector& L) {
+  m_RecLength = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RectangularVolumeRecord3::SetRectangleLength( const Vector & L )
-{
-    m_RecLength = L;
+const Vector& RectangularVolumeRecord3::GetRectangleLength() const {
+  return m_RecLength;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & RectangularVolumeRecord3::GetRectangleLength() const
-{
-    return m_RecLength;
+Vector& RectangularVolumeRecord3::GetRectangleLength() { return m_RecLength; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void RectangularVolumeRecord3::SetOrientation(const EulerAngles& O) {
+  m_Ori = O;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & RectangularVolumeRecord3::GetRectangleLength()
-{
-    return m_RecLength;
+const EulerAngles& RectangularVolumeRecord3::GetOrientation() const {
+  return m_Ori;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RectangularVolumeRecord3::SetOrientation( const EulerAngles & O )
-{
-    m_Ori = O;
+EulerAngles& RectangularVolumeRecord3::GetOrientation() { return m_Ori; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString RectangularVolumeRecord3::GetAsString() const {
+  KStringStream ss;
+
+  ss << EnvironmentRecord::GetAsString()
+     << "\tCenter Location:  " << m_CentLocation.GetAsString()
+     << "\tRectangle Length: " << m_RecLength.GetAsString()
+     << "\tOrientation:      " << m_Ori.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EulerAngles & RectangularVolumeRecord3::GetOrientation() const
-{
-    return m_Ori;
+void RectangularVolumeRecord3::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < RECTANGLE_VOLUME_RECORD_3_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
+      KDIS_STREAM m_CentLocation >> KDIS_STREAM m_RecLength >>
+      KDIS_STREAM m_Ori;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EulerAngles & RectangularVolumeRecord3::GetOrientation()
-{
-    return m_Ori;
+KDataStream RectangularVolumeRecord3::Encode() const {
+  KDataStream stream;
+
+  RectangularVolumeRecord3::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString RectangularVolumeRecord3::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << EnvironmentRecord::GetAsString()
-       << "\tCenter Location:  " << m_CentLocation.GetAsString()
-       << "\tRectangle Length: " << m_RecLength.GetAsString()
-       << "\tOrientation:      " << m_Ori.GetAsString();
-
-    return ss.str();
+void RectangularVolumeRecord3::Encode(KDataStream& stream) const {
+  stream << m_ui32EnvRecTyp << m_ui16Length << m_ui8Index << m_ui8Padding
+         << KDIS_STREAM m_CentLocation << KDIS_STREAM m_RecLength
+         << KDIS_STREAM m_Ori;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RectangularVolumeRecord3::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < RECTANGLE_VOLUME_RECORD_3_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui32EnvRecTyp
-           >> m_ui16Length
-           >> m_ui8Index
-           >> m_ui8Padding
-           >> KDIS_STREAM m_CentLocation
-           >> KDIS_STREAM m_RecLength
-           >> KDIS_STREAM m_Ori;
+KBOOL RectangularVolumeRecord3::operator==(
+    const RectangularVolumeRecord3& Value) const {
+  if (EnvironmentRecord::operator!=(Value)) return false;
+  if (m_CentLocation != Value.m_CentLocation) return false;
+  if (m_RecLength != Value.m_RecLength) return false;
+  if (m_Ori != Value.m_Ori) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream RectangularVolumeRecord3::Encode() const
-{
-    KDataStream stream;
-
-    RectangularVolumeRecord3::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void RectangularVolumeRecord3::Encode( KDataStream & stream ) const
-{
-    stream << m_ui32EnvRecTyp
-           << m_ui16Length
-           << m_ui8Index
-           << m_ui8Padding
-           << KDIS_STREAM m_CentLocation
-           << KDIS_STREAM m_RecLength
-           << KDIS_STREAM m_Ori;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL RectangularVolumeRecord3::operator == ( const RectangularVolumeRecord3 & Value )const
-{
-    if( EnvironmentRecord::operator !=( Value ) )     return false;
-    if( m_CentLocation   != Value.m_CentLocation )  return false;
-    if( m_RecLength      != Value.m_RecLength )       return false;
-    if( m_Ori            != Value.m_Ori )             return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL RectangularVolumeRecord3::operator != ( const RectangularVolumeRecord3 & Value )const
-{
-    return !( *this == Value );
+KBOOL RectangularVolumeRecord3::operator!=(
+    const RectangularVolumeRecord3& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

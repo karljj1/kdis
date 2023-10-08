@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./VectoringNozzleSystem.h"
+#include "KDIS/DataTypes/VectoringNozzleSystem.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,118 +37,101 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-VectoringNozzleSystem::VectoringNozzleSystem() :
-    m_f32HDeflAngle( 0 ),
-    m_f32VDeflAngle( 0 )
-{
+VectoringNozzleSystem::VectoringNozzleSystem()
+    : m_f32HDeflAngle(0), m_f32VDeflAngle(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+VectoringNozzleSystem::VectoringNozzleSystem(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VectoringNozzleSystem::VectoringNozzleSystem( KDataStream & stream ) 
-{
-    Decode( stream );
+VectoringNozzleSystem::VectoringNozzleSystem(KFLOAT32 HorizontalDeflectionAngle,
+                                             KFLOAT32 VerticalDeflectionAngle)
+    : m_f32HDeflAngle(HorizontalDeflectionAngle),
+      m_f32VDeflAngle(VerticalDeflectionAngle) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+VectoringNozzleSystem::~VectoringNozzleSystem() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void VectoringNozzleSystem::SetHorizontalDeflectionAngle(KFLOAT32 HDA) {
+  m_f32HDeflAngle = HDA;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VectoringNozzleSystem::VectoringNozzleSystem( KFLOAT32 HorizontalDeflectionAngle, KFLOAT32 VerticalDeflectionAngle ) :
-    m_f32HDeflAngle( HorizontalDeflectionAngle ),
-    m_f32VDeflAngle( VerticalDeflectionAngle )
-{
+KFLOAT32 VectoringNozzleSystem::GetHorizontalDeflectionAngle() const {
+  return m_f32HDeflAngle;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VectoringNozzleSystem::~VectoringNozzleSystem()
-{
+void VectoringNozzleSystem::SetVerticalDeflectionAngle(KFLOAT32 VDA) {
+  m_f32VDeflAngle = VDA;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VectoringNozzleSystem::SetHorizontalDeflectionAngle( KFLOAT32 HDA )
-{
-    m_f32HDeflAngle = HDA;
+KFLOAT32 VectoringNozzleSystem::GetVerticalDeflectionAngle() const {
+  return m_f32VDeflAngle;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 VectoringNozzleSystem::GetHorizontalDeflectionAngle() const
-{
-    return m_f32HDeflAngle;
+KString VectoringNozzleSystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Vectoring Nozzle System:"
+     << "\n\tHorizontal Deflection Angle: " << m_f32HDeflAngle
+     << "\n\tVertical Deflection Angle:   " << m_f32VDeflAngle << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VectoringNozzleSystem::SetVerticalDeflectionAngle( KFLOAT32 VDA )
-{
-    m_f32VDeflAngle = VDA;
+void VectoringNozzleSystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < VECTORING_NOZZLE_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_f32HDeflAngle >> m_f32VDeflAngle;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 VectoringNozzleSystem::GetVerticalDeflectionAngle() const
-{
-    return m_f32VDeflAngle;
+KDataStream VectoringNozzleSystem::Encode() const {
+  KDataStream stream;
+
+  VectoringNozzleSystem::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString VectoringNozzleSystem::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Vectoring Nozzle System:"
-       << "\n\tHorizontal Deflection Angle: " << m_f32HDeflAngle
-       << "\n\tVertical Deflection Angle:   " << m_f32VDeflAngle
-       << "\n";
-
-    return ss.str();
+void VectoringNozzleSystem::Encode(KDataStream& stream) const {
+  stream << m_f32HDeflAngle << m_f32VDeflAngle;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VectoringNozzleSystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < VECTORING_NOZZLE_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_f32HDeflAngle
-           >> m_f32VDeflAngle;
+KBOOL VectoringNozzleSystem::operator==(
+    const VectoringNozzleSystem& Value) const {
+  if (m_f32HDeflAngle != Value.m_f32HDeflAngle) return false;
+  if (m_f32VDeflAngle != Value.m_f32VDeflAngle) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream VectoringNozzleSystem::Encode() const
-{
-    KDataStream stream;
-
-    VectoringNozzleSystem::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void VectoringNozzleSystem::Encode( KDataStream & stream ) const
-{
-    stream << m_f32HDeflAngle
-           << m_f32VDeflAngle;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL VectoringNozzleSystem::operator == ( const VectoringNozzleSystem & Value ) const
-{
-    if( m_f32HDeflAngle != Value.m_f32HDeflAngle ) return false;
-    if( m_f32VDeflAngle != Value.m_f32VDeflAngle ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL VectoringNozzleSystem::operator != ( const VectoringNozzleSystem & Value ) const
-{
-    return !( *this == Value );
+KBOOL VectoringNozzleSystem::operator!=(
+    const VectoringNozzleSystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

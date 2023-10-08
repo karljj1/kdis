@@ -39,108 +39,108 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./EntityType.h"
-#include "./EntityAppearance.h"
 #include <vector>
+
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/EntityAppearance.hpp"
+#include "KDIS/DataTypes/EntityType.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT SilentEntitySystem : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT SilentEntitySystem : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16NumEnts;
 
-    KUINT16 m_ui16NumEnts;
+  KUINT16 m_ui16NumOfAppearanceRecords;
 
-    KUINT16 m_ui16NumOfAppearanceRecords;
+  EntityType m_EntTyp;
 
-    EntityType m_EntTyp;
+  std::vector<EntityAppearance> m_vEA;
 
-    std::vector<EntityAppearance> m_vEA;
+ public:
+  static const KUINT16 SILENT_ENTITY_SYSTEM_SIZE = 12;  // Min Size
 
-public:
+  SilentEntitySystem();
 
-    static const KUINT16 SILENT_ENTITY_SYSTEM_SIZE = 12; // Min Size
+  SilentEntitySystem(KDataStream& stream);
 
-    SilentEntitySystem();
+  virtual ~SilentEntitySystem();
 
-    SilentEntitySystem( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::SetNumberOfEntities
+  //              KDIS::DATA_TYPE::SilentEntitySystem::GetNumberOfEntities
+  // Description: Number of entities of this type.
+  // Parameter:   KUINT16 NOE
+  //************************************
+  void SetNumberOfEntities(KUINT16 NOE);
+  KUINT16 GetNumberOfEntities() const;
 
-    virtual ~SilentEntitySystem();
+  //************************************
+  // FullName: KDIS::DATA_TYPE::SilentEntitySystem::GetNumberOfAppearanceRecords
+  // Description: Number of appearance records.
+  //************************************
+  KUINT16 GetNumberOfAppearanceRecords() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::SetNumberOfEntities
-    //              KDIS::DATA_TYPE::SilentEntitySystem::GetNumberOfEntities
-    // Description: Number of entities of this type.
-    // Parameter:   KUINT16 NOE
-    //************************************
-    void SetNumberOfEntities( KUINT16 NOE );
-    KUINT16 GetNumberOfEntities() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::AddEntityAppearance
+  //              KDIS::DATA_TYPE::SilentEntitySystem::SetEntityAppearanceList
+  //              KDIS::DATA_TYPE::SilentEntitySystem::GetEntityAppearanceList
+  //              KDIS::DATA_TYPE::SilentEntitySystem::ClearEntityAppearanceList
+  // Description: The number of Entity Appearance records should be between zero
+  // and the number of
+  //              entities of this type.
+  //              Simulation applications representing the aggregate that do not
+  //              model entity appearances shall set this field to zero.
+  //              Simulation applications representing the aggregate that model
+  //              entity appearances shall set this field to the number of
+  //              entity appearances that deviate from the default appearance.
+  //              Other simulations can safely assume that any entity
+  //              appearances not specified are default appearances. Exception
+  //              thrown if the size of the list is greater than the number of
+  //              entities.
+  // Parameter:   const EntityAppearance & EA, const vector<EntityAppearance> &
+  // EA
+  //************************************
+  void AddEntityAppearance(const EntityAppearance& EA);
+  void SetEntityAppearanceList(const std::vector<EntityAppearance>& EA);
+  const std::vector<EntityAppearance>& GetEntityAppearanceList() const;
+  void ClearEntityAppearanceList();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::GetNumberOfAppearanceRecords
-    // Description: Number of appearance records.
-    //************************************
-    KUINT16 GetNumberOfAppearanceRecords() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::SetEntityType
+  //              KDIS::DATA_TYPE::SilentEntitySystem::GetEntityType
+  // Description: Aggregate type for this record.
+  // Parameter:   const EntityType & E
+  //************************************
+  void SetEntityType(const EntityType& A);
+  const EntityType& GetEntityType() const;
+  EntityType& GetEntityType();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::AddEntityAppearance
-    //              KDIS::DATA_TYPE::SilentEntitySystem::SetEntityAppearanceList
-    //              KDIS::DATA_TYPE::SilentEntitySystem::GetEntityAppearanceList
-    //              KDIS::DATA_TYPE::SilentEntitySystem::ClearEntityAppearanceList
-    // Description: The number of Entity Appearance records should be between zero and the number of
-    //              entities of this type.
-    //              Simulation applications representing the aggregate that do not model
-    //              entity appearances shall set this field to zero.
-    //              Simulation applications representing the aggregate that model entity
-    //              appearances shall set this field to the number of entity appearances
-    //              that deviate from the default appearance.
-    //              Other simulations can safely assume that any entity appearances not specified are
-    //              default appearances.
-    //              Exception thrown if the size of the list is greater than the number of entities.
-    // Parameter:   const EntityAppearance & EA, const vector<EntityAppearance> & EA
-    //************************************
-    void AddEntityAppearance( const EntityAppearance & EA ) ;
-    void SetEntityAppearanceList( const std::vector<EntityAppearance> & EA ) ;
-    const std::vector<EntityAppearance> & GetEntityAppearanceList() const;
-    void ClearEntityAppearanceList();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::SetEntityType
-    //              KDIS::DATA_TYPE::SilentEntitySystem::GetEntityType
-    // Description: Aggregate type for this record.
-    // Parameter:   const EntityType & E
-    //************************************
-    void SetEntityType( const EntityType & A );
-    const EntityType & GetEntityType() const;
-    EntityType & GetEntityType();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SilentEntitySystem::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const SilentEntitySystem & Value ) const;
-    KBOOL operator != ( const SilentEntitySystem & Value ) const;
+  KBOOL operator==(const SilentEntitySystem& Value) const;
+  KBOOL operator!=(const SilentEntitySystem& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

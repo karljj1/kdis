@@ -40,77 +40,76 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/LE_EntityIdentifier.h"
+#include "KDIS/DataTypes/LE_EntityIdentifier.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT LE_Header : public Header
-{
-protected:
+class KDIS_EXPORT LE_Header : public Header {
+ protected:
+  KDIS::DATA_TYPE::LE_EntityIdentifier m_EntID;
 
-    KDIS::DATA_TYPE::LE_EntityIdentifier m_EntID;
+ public:
+  static const KUINT16 LE_HEADER_SIZE = 16;
 
-public:
+  LE_Header();
 
-    static const KUINT16 LE_HEADER_SIZE = 16;
+  explicit LE_Header(const Header& H);
 
-    LE_Header();
+  LE_Header(KDataStream& stream);
 
-    explicit LE_Header( const Header & H );
+  LE_Header(const Header& H, KDataStream& stream);
 
-    LE_Header( KDataStream & stream ) ;
+  virtual ~LE_Header();
 
-    LE_Header( const Header & H, KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::PDU::LE_Header::SetLiveEntityID
+  //              KDIS::PDU::LE_Header::GetLiveEntityID
+  // Description: Identifies the entity issuing the PDU.
+  // Parameter:   const LE_EntityIdentifier & ID
+  //************************************
+  void SetLiveEntityID(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::LE_EntityIdentifier& GetLiveEntityID() const;
+  KDIS::DATA_TYPE::LE_EntityIdentifier& GetLiveEntityID();
 
-    virtual ~LE_Header();
+  //************************************
+  // FullName:    KDIS::PDU::LE_Header::SetSubprotocol
+  //              KDIS::PDU::LE_Header::GetSubprotocol
+  // Description: This field shall specify the sub protocol to be used to decode
+  // the PDU.
+  //              The value of zero is reserved for PDUs complying to the
+  //              published standard.
+  // Parameter:   KUINT8 S
+  //************************************
+  void SetSubprotocol(KUINT8 S);
+  KUINT8 GetSubprotocol() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::LE_Header::SetLiveEntityID
-    //              KDIS::PDU::LE_Header::GetLiveEntityID
-    // Description: Identifies the entity issuing the PDU.
-    // Parameter:   const LE_EntityIdentifier & ID
-    //************************************
-    void SetLiveEntityID( const KDIS::DATA_TYPE::LE_EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::LE_EntityIdentifier & GetLiveEntityID() const;
-    KDIS::DATA_TYPE::LE_EntityIdentifier & GetLiveEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::LE_Header::GetAsString
+  // Description: Returns a string representation of the PDU
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::LE_Header::SetSubprotocol
-    //              KDIS::PDU::LE_Header::GetSubprotocol
-    // Description: This field shall specify the sub protocol to be used to decode the PDU.
-    //              The value of zero is reserved for PDUs complying to the published standard.
-    // Parameter:   KUINT8 S
-    //************************************
-    void SetSubprotocol( KUINT8 S );
-    KUINT8 GetSubprotocol() const;
+  //************************************
+  // FullName:    KDIS::PDU::LE_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::LE_Header::GetAsString
-    // Description: Returns a string representation of the PDU
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::LE_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::LE_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::LE_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const LE_Header & Value ) const;
-    KBOOL operator != ( const LE_Header & Value ) const;
+  KBOOL operator==(const LE_Header& Value) const;
+  KBOOL operator!=(const LE_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

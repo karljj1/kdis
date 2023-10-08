@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Repair_Response_PDU.h"
+#include "KDIS/PDU/Logistics/Repair_Response_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,127 +42,108 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Response_PDU::Repair_Response_PDU() :
-    m_ui8RepairResult( 0 ),
-    m_ui8Padding( 0 ),
-    m_ui16Padding( 0 )
-{
-    m_ui8PDUType = Repair_Response_PDU_Type;
-    m_ui16PDULength = REPAIR_RESPONSE_PDU_SIZE;
+Repair_Response_PDU::Repair_Response_PDU()
+    : m_ui8RepairResult(0), m_ui8Padding(0), m_ui16Padding(0) {
+  m_ui8PDUType = Repair_Response_PDU_Type;
+  m_ui16PDULength = REPAIR_RESPONSE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Response_PDU::Repair_Response_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Repair_Response_PDU::Repair_Response_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Response_PDU::Repair_Response_PDU( const Header & H, KDataStream & stream )  :
-    Logistics_Header( H )
-{
-    Decode( stream, true );
+Repair_Response_PDU::Repair_Response_PDU(const Header& H, KDataStream& stream)
+    : Logistics_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Response_PDU::Repair_Response_PDU( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID,
-        RepairResult RR ) :
-    Logistics_Header( ReceivingEntityID, SupplyingEntityID ),
-    m_ui8Padding( 0 ),
-    m_ui16Padding( 0 ),
-    m_ui8RepairResult( RR )
-{
-    m_ui8PDUType = Repair_Response_PDU_Type;
-    m_ui16PDULength = REPAIR_RESPONSE_PDU_SIZE;
+Repair_Response_PDU::Repair_Response_PDU(
+    const EntityIdentifier& ReceivingEntityID,
+    const EntityIdentifier& SupplyingEntityID, RepairResult RR)
+    : Logistics_Header(ReceivingEntityID, SupplyingEntityID),
+      m_ui8Padding(0),
+      m_ui16Padding(0),
+      m_ui8RepairResult(RR) {
+  m_ui8PDUType = Repair_Response_PDU_Type;
+  m_ui16PDULength = REPAIR_RESPONSE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Response_PDU::~Repair_Response_PDU()
-{
+Repair_Response_PDU::~Repair_Response_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Repair_Response_PDU::SetRepairResult(RepairResult RR) {
+  m_ui8RepairResult = RR;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Repair_Response_PDU::SetRepairResult( RepairResult RR )
-{
-    m_ui8RepairResult = RR;
+RepairResult Repair_Response_PDU::GetRepairResult() const {
+  return (RepairResult)m_ui8RepairResult;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RepairResult Repair_Response_PDU::GetRepairResult() const
-{
-    return ( RepairResult )m_ui8RepairResult;
+KString Repair_Response_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Repair Response PDU-\n"
+     << IndentString(Logistics_Header::GetAsString(), 1)
+     << "\tRepair Result:         "
+     << GetEnumAsStringRepairResult(m_ui8RepairResult) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Repair_Response_PDU::GetAsString() const
-{
-    KStringStream ss;
+void Repair_Response_PDU::Decode(KDataStream& stream,
+                                 bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      REPAIR_RESPONSE_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    ss << Header::GetAsString()
-       << "-Repair Response PDU-\n"
-       << IndentString( Logistics_Header::GetAsString(), 1 )
-       << "\tRepair Result:         " << GetEnumAsStringRepairResult( m_ui8RepairResult )
-       << "\n";
-
-    return ss.str();
+  Logistics_Header::Decode(stream, ignoreHeader);
+  stream >> m_ui8RepairResult >> m_ui8Padding >> m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Repair_Response_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < REPAIR_RESPONSE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Repair_Response_PDU::Encode() const {
+  KDataStream stream;
 
-    Logistics_Header::Decode( stream, ignoreHeader );
-    stream >> m_ui8RepairResult
-           >> m_ui8Padding
-           >> m_ui16Padding;
+  Repair_Response_PDU::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Repair_Response_PDU::Encode() const
-{
-    KDataStream stream;
-
-    Repair_Response_PDU::Encode( stream );
-
-    return stream;
+void Repair_Response_PDU::Encode(KDataStream& stream) const {
+  Logistics_Header::Encode(stream);
+  stream << m_ui8RepairResult << m_ui8Padding << m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Repair_Response_PDU::Encode( KDataStream & stream ) const
-{
-    Logistics_Header::Encode( stream );
-    stream << m_ui8RepairResult
-           << m_ui8Padding
-           << m_ui16Padding;
+KBOOL Repair_Response_PDU::operator==(const Repair_Response_PDU& Value) const {
+  if (Logistics_Header::operator!=(Value)) return false;
+  if (m_ui8RepairResult != Value.m_ui8RepairResult) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Repair_Response_PDU::operator == ( const Repair_Response_PDU & Value ) const
-{
-    if( Logistics_Header::operator  !=( Value ) )                 return false;
-    if( m_ui8RepairResult           != Value.m_ui8RepairResult )  return false;
-    return true;
+KBOOL Repair_Response_PDU::operator!=(const Repair_Response_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Repair_Response_PDU::operator != ( const Repair_Response_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

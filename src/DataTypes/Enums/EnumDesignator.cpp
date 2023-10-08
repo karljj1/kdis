@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnumDesignator.h"
+#include "KDIS/DataTypes/Enums/EnumDesignator.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,33 +37,36 @@ using namespace ENUMS;
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor DesignatorCodeNameDescriptor[] =
-{
-    { 0 , "OtherDesignatorCodeName" }
-};
+const EnumDescriptor DesignatorCodeNameDescriptor[] = {
+    {0, "OtherDesignatorCodeName"}};
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCodeName( KINT32 Value )
-{
-    return GetEnumAsString( DesignatorCodeNameDescriptor, sizeof( DesignatorCodeNameDescriptor ) / sizeof( EnumDescriptor ), Value );
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCodeName(
+    KINT32 Value) {
+  return GetEnumAsString(
+      DesignatorCodeNameDescriptor,
+      sizeof(DesignatorCodeNameDescriptor) / sizeof(EnumDescriptor), Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName( const KString & Value, KINT32 & ValueOut )
-{
-    return GetEnumFromString( DesignatorCodeNameDescriptor, sizeof( DesignatorCodeNameDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName(
+    const KString& Value, KINT32& ValueOut) {
+  return GetEnumFromString(
+      DesignatorCodeNameDescriptor,
+      sizeof(DesignatorCodeNameDescriptor) / sizeof(EnumDescriptor), Value,
+      ValueOut);
 }
 
 #else
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCodeName( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCodeName(
+    KINT32 Value) {
+  KStringStream ss;
+  ss << Value;
+  return ss.str().c_str();
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName( const KString & Value, KINT32 & ValueOut )
-{
-    return false; // Maybe throw an exception?
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName(
+    const KString& Value, KINT32& ValueOut) {
+  return false;  // Maybe throw an exception?
 }
 
 #endif
@@ -74,38 +77,36 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCodeName( const KString
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor DesignatorCodeDescriptor[] =
-{
-    { 0 , "OtherDesignatorCode" }
-};
+const EnumDescriptor DesignatorCodeDescriptor[] = {{0, "OtherDesignatorCode"}};
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCode( KINT32 Value )
-{
-    return GetEnumAsString( DesignatorCodeDescriptor, sizeof( DesignatorCodeDescriptor ) / sizeof( EnumDescriptor ), Value );
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCode(KINT32 Value) {
+  return GetEnumAsString(
+      DesignatorCodeDescriptor,
+      sizeof(DesignatorCodeDescriptor) / sizeof(EnumDescriptor), Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode( const KString & Value, KINT32 & ValueOut )
-{
-    return GetEnumFromString( DesignatorCodeDescriptor, sizeof( DesignatorCodeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode(
+    const KString& Value, KINT32& ValueOut) {
+  return GetEnumFromString(
+      DesignatorCodeDescriptor,
+      sizeof(DesignatorCodeDescriptor) / sizeof(EnumDescriptor), Value,
+      ValueOut);
 }
 
 #else
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCode( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringDesignatorCode(KINT32 Value) {
+  KStringStream ss;
+  ss << Value;
+  return ss.str().c_str();
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode( const KString & Value, KINT32 & ValueOut )
-{
-    return false; // Maybe throw an exception?
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode(
+    const KString& Value, KINT32& ValueOut) {
+  return false;  // Maybe throw an exception?
 }
 
 #endif
-
-
 
 //////////////////////////////////////////////////////////////////////////
 // DIS 7
@@ -116,38 +117,36 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode( const KString & V
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor BeamSpotShapeDescriptor[] =
-{
-    { 0 , "OtherBeamSpotShape" },
-    { 1 , "Gaussian" },
-    { 2 , "TopHat" }
-};
+const EnumDescriptor BeamSpotShapeDescriptor[] = {
+    {0, "OtherBeamSpotShape"}, {1, "Gaussian"}, {2, "TopHat"}};
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape( KINT32 Value )
-{
-    return GetEnumAsString( BeamSpotShapeDescriptor, sizeof( BeamSpotShapeDescriptor ) / sizeof( EnumDescriptor ), Value );
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape(KINT32 Value) {
+  return GetEnumAsString(
+      BeamSpotShapeDescriptor,
+      sizeof(BeamSpotShapeDescriptor) / sizeof(EnumDescriptor), Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape( const KString & Value, KINT32 & ValueOut )
-{
-    return GetEnumFromString( BeamSpotShapeDescriptor, sizeof( BeamSpotShapeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape(
+    const KString& Value, KINT32& ValueOut) {
+  return GetEnumFromString(
+      BeamSpotShapeDescriptor,
+      sizeof(BeamSpotShapeDescriptor) / sizeof(EnumDescriptor), Value,
+      ValueOut);
 }
 
 #else
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape(KINT32 Value) {
+  KStringStream ss;
+  ss << Value;
+  return ss.str().c_str();
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape( const KString & Value, KINT32 & ValueOut )
-{
-    return false; // Maybe throw an exception?
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape(
+    const KString& Value, KINT32& ValueOut) {
+  return false;  // Maybe throw an exception?
 }
 
 #endif
 
 #endif
-

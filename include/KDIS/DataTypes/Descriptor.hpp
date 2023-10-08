@@ -32,23 +32,25 @@ http://p.sf.net/kdis/UserGuide
     created:    22/04/2013
     author:     Karl Jones
 
-    purpose:    Base class for Descriptor records.  
+    purpose:    Base class for Descriptor records.
 
-				In DIS < 7:
-				All descriptors should use the Munition Descriptor record AKA Burst descriptor.
+                                In DIS < 7:
+                                All descriptors should use the Munition
+Descriptor record AKA Burst descriptor.
 
-				In DIS  7 onwards:
-				A Fire PDU descriptor can be either a Munition(AKA Burst) or an Expendable descriptor.
-				A Detonation PDU descriptor can be either a Munition(AKA Burst), Expendable or an Explosion descriptor.
-				
+                                In DIS  7 onwards:
+                                A Fire PDU descriptor can be either a
+Munition(AKA Burst) or an Expendable descriptor. A Detonation PDU descriptor can
+be either a Munition(AKA Burst), Expendable or an Explosion descriptor.
+
     size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./EntityType.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/EntityType.hpp"
+#include "KDIS/Extras/KRef_Ptr.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -60,62 +62,58 @@ namespace DATA_TYPE {
 // pointer or one of your own then simply change it below.
 /************************************************************************/
 class Descriptor;
-typedef KDIS::UTILS::KRef_Ptr<Descriptor> DescPtr; // Ref counter
-//typedef Descriptor* DescPtr; // Weak ref
+typedef KDIS::UTILS::KRef_Ptr<Descriptor> DescPtr;  // Ref counter
+// typedef Descriptor* DescPtr; // Weak ref
 
+class KDIS_EXPORT Descriptor : public DataTypeBase {
+ protected:
+  EntityType m_Type;
 
-class KDIS_EXPORT Descriptor : public DataTypeBase
-{
-protected:
+ public:
+  static const KUINT16 DESCRIPTOR_SIZE = 16;
 
-    EntityType m_Type;
+  Descriptor();
 
-public:
+  Descriptor(KDataStream& stream);
 
-    static const KUINT16 DESCRIPTOR_SIZE = 16;
+  Descriptor(const EntityType& T);
 
-    Descriptor();
+  virtual ~Descriptor();
 
-    Descriptor( KDataStream & stream );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Descriptor::SetMunition
+  //              KDIS::DATA_TYPE::Descriptor::GetMunition
+  // Description: Munition, Explosion or Expendable Type.
+  // Parameter:   const EntityType & T
+  //************************************
+  void SetType(const EntityType& T);
+  const EntityType& GetType() const;
+  EntityType& GetType();
 
-    Descriptor( const EntityType & T );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Descriptor::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    virtual ~Descriptor();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Descriptor::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::SetMunition
-    //              KDIS::DATA_TYPE::Descriptor::GetMunition
-    // Description: Munition, Explosion or Expendable Type.
-    // Parameter:   const EntityType & T
-    //************************************
-    void SetType( const EntityType & T );
-    const EntityType & GetType() const;
-    EntityType & GetType();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Descriptor::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Descriptor::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Descriptor & Value ) const;
-    KBOOL operator != ( const Descriptor & Value ) const;
+  KBOOL operator==(const Descriptor& Value) const;
+  KBOOL operator!=(const Descriptor& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

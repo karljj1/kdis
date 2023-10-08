@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnumDescriptor.h"
+#include "KDIS/DataTypes/Enums/EnumDescriptor.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -37,52 +37,49 @@ using namespace DATA_TYPE;
 
 //////////////////////////////////////////////////////////////////////////
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsString( const EnumDescriptor * pArray, KUINT32 NumElements, KINT32 Value )
-{
-    KStringStream ss;
-    KINT32 i32Lower = 0, i32Upper = NumElements - 1, i32Middle = ( i32Lower + i32Upper ) / 2;
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsString(const EnumDescriptor* pArray,
+                                                KUINT32 NumElements,
+                                                KINT32 Value) {
+  KStringStream ss;
+  KINT32 i32Lower = 0, i32Upper = NumElements - 1,
+         i32Middle = (i32Lower + i32Upper) / 2;
 
-    while( pArray[i32Middle].Value != Value && i32Lower <= i32Upper )
-    {
-        if( pArray[i32Middle].Value > Value )
-        {
-            // Search the left side.
-            i32Upper = i32Middle - 1;
-        }
-        else
-        {
-            // Search the right side.
-            i32Lower = i32Middle + 1;
-        }
-
-        i32Middle = ( i32Lower + i32Upper ) / 2;
+  while (pArray[i32Middle].Value != Value && i32Lower <= i32Upper) {
+    if (pArray[i32Middle].Value > Value) {
+      // Search the left side.
+      i32Upper = i32Middle - 1;
+    } else {
+      // Search the right side.
+      i32Lower = i32Middle + 1;
     }
 
-    if( i32Lower <= i32Upper )
-    {
-        ss << pArray[i32Middle].Name << "(" << Value << ")";
-        return ss.str();
-    }
+    i32Middle = (i32Lower + i32Upper) / 2;
+  }
 
-    ss << "Unknown Enum: " << Value;
+  if (i32Lower <= i32Upper) {
+    ss << pArray[i32Middle].Name << "(" << Value << ")";
     return ss.str();
+  }
+
+  ss << "Unknown Enum: " << Value;
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromString( const EnumDescriptor * pArray, KUINT32 NumElements, const KString & Value, KINT32 & ValueOut )
-{
-    for( KINT32 i = 0; i < NumElements; ++i )
-    {
-        if( Value == pArray[i].Name )
-        {
-            ValueOut = pArray[i].Value;
-            return true;
-        }
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromString(const EnumDescriptor* pArray,
+                                                KUINT32 NumElements,
+                                                const KString& Value,
+                                                KINT32& ValueOut) {
+  for (KINT32 i = 0; i < NumElements; ++i) {
+    if (Value == pArray[i].Name) {
+      ValueOut = pArray[i].Value;
+      return true;
     }
+  }
 
-    // No match found
-    return false;
-};
+  // No match found
+  return false;
+}
 
 //////////////////////////////////////////////////////////////////////////

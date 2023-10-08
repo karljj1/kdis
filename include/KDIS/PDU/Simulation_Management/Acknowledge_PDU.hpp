@@ -33,109 +33,116 @@ http://p.sf.net/kdis/UserGuide
     created:    2008/10/19
     author:     Karl Jones
 
-    purpose:    Sent to acknowledges receipt of a Start/Resume PDU, Stop/Freeze PDU,
-                Create Entity PDU or Remove Entity PDU.
-    size:       256 bits / 32 octets
+    purpose:    Sent to acknowledges receipt of a Start/Resume PDU, Stop/Freeze
+PDU, Create Entity PDU or Remove Entity PDU. size:       256 bits / 32 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./Simulation_Management_Header.h"
-#include "./Create_Entity_PDU.h"
-#include "./Remove_Entity_PDU.h"
-#include "./Start_Resume_PDU.h"
-#include "./Stop_Freeze_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Create_Entity_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management/Remove_Entity_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
+#include "KDIS/PDU/Simulation_Management/Start_Resume_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management/Stop_Freeze_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Acknowledge_PDU : public Simulation_Management_Header
-{
-protected:
+class KDIS_EXPORT Acknowledge_PDU : public Simulation_Management_Header {
+ protected:
+  KUINT16 m_ui16AcknowledgeFlag;
 
-    KUINT16 m_ui16AcknowledgeFlag;
+  KUINT16 m_ui16ResponseFlag;
 
-    KUINT16 m_ui16ResponseFlag;
+  KUINT32 m_ui32RequestID;
 
-    KUINT32 m_ui32RequestID;
+ public:
+  static const KUINT16 ACKNOWLEDGE_PDU_SIZE = 32;
 
-public:
+  Acknowledge_PDU();
 
-    static const KUINT16 ACKNOWLEDGE_PDU_SIZE = 32;
+  explicit Acknowledge_PDU(const Header& H);
 
-    Acknowledge_PDU();
+  Acknowledge_PDU(KDataStream& stream);
 
-    explicit Acknowledge_PDU( const Header & H );
+  Acknowledge_PDU(const Header& H, KDataStream& stream);
 
-    Acknowledge_PDU( KDataStream & stream ) ;
+  Acknowledge_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+                  const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF,
+                  KUINT32 RequestID);
 
-    Acknowledge_PDU( const Header & H, KDataStream & stream ) ;
+  Acknowledge_PDU(const Simulation_Management_Header& SimMgrHeader,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF,
+                  KUINT32 RequestID);
 
-    Acknowledge_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-                     KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );
+  // Generate a response to a specific PDU
+  Acknowledge_PDU(const Create_Entity_PDU& pdu,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  Acknowledge_PDU(const Remove_Entity_PDU& pdu,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  Acknowledge_PDU(const Start_Resume_PDU& pdu,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  Acknowledge_PDU(const Stop_Freeze_PDU& pdu,
+                  KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
 
-    Acknowledge_PDU( const Simulation_Management_Header & SimMgrHeader, KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF,
-                     KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );
+  virtual ~Acknowledge_PDU();
 
-    // Generate a response to a specific PDU
-    Acknowledge_PDU( const Create_Entity_PDU & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    Acknowledge_PDU( const Remove_Entity_PDU & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    Acknowledge_PDU( const Start_Resume_PDU  & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    Acknowledge_PDU( const Stop_Freeze_PDU   & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
+  //************************************
+  // FullName:    KDIS::PDU::Acknowledge_PDU::SetAcknowledgeFlag
+  //              KDIS::PDU::Acknowledge_PDU::GetAcknowledgeFlag
+  // Description: Indicates the type of message being acknowledged
+  // Parameter:   AcknowledgeFlag AF
+  //************************************
+  void SetAcknowledgeFlag(KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF);
+  KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag GetAcknowledgeFlag() const;
 
-    virtual ~Acknowledge_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Acknowledge_PDU::SetAcknowledgeResponseFlag
+  //              KDIS::PDU::Acknowledge_PDU::GetAcknowledgeResponseFlag
+  // Description: Indicates if the receiving entity is able to comply with the
+  // request Parameter:   AcknowledgeResponseFlag ARF
+  //************************************
+  void SetAcknowledgeResponseFlag(
+      KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag GetAcknowledgeResponseFlag()
+      const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Acknowledge_PDU::SetAcknowledgeFlag
-    //              KDIS::PDU::Acknowledge_PDU::GetAcknowledgeFlag
-    // Description: Indicates the type of message being acknowledged
-    // Parameter:   AcknowledgeFlag AF
-    //************************************
-    void SetAcknowledgeFlag( KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF );
-    KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag GetAcknowledgeFlag() const;
+  //************************************
+  // FullName:    KDIS::PDU::Acknowledge_PDU::SetRequestID
+  //              KDIS::PDU::Acknowledge_PDU::GetRequestID
+  // Description: Request ID
+  // Parameter:   KUINT32 ID, void
+  //************************************
+  void SetRequestID(KUINT32 ID);
+  KUINT32 GetRequestID() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Acknowledge_PDU::SetAcknowledgeResponseFlag
-    //              KDIS::PDU::Acknowledge_PDU::GetAcknowledgeResponseFlag
-    // Description: Indicates if the receiving entity is able to comply with the request
-    // Parameter:   AcknowledgeResponseFlag ARF
-    //************************************
-    void SetAcknowledgeResponseFlag( KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag GetAcknowledgeResponseFlag() const;
+  //************************************
+  // FullName:    KDIS::PDU::Acknowledge_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Acknowledge_PDU::SetRequestID
-    //              KDIS::PDU::Acknowledge_PDU::GetRequestID
-    // Description: Request ID
-    // Parameter:   KUINT32 ID, void
-    //************************************
-    void SetRequestID( KUINT32 ID );
-    KUINT32 GetRequestID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Acknowledge_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Acknowledge_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Acknowledge_PDU::Encode
+  // Description: Convert To Network Data.
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Acknowledge_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Acknowledge_PDU::Encode
-    // Description: Convert To Network Data.
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Acknowledge_PDU & Value ) const;
-    KBOOL operator != ( const Acknowledge_PDU & Value ) const;
+  KBOOL operator==(const Acknowledge_PDU& Value) const;
+  KBOOL operator!=(const Acknowledge_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

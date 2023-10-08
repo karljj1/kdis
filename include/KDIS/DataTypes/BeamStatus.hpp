@@ -39,8 +39,9 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
 #include <vector>
+
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -49,59 +50,56 @@ namespace DATA_TYPE {
 
 using KDIS::DATA_TYPE::ENUMS::BeamState;
 
-class KDIS_EXPORT BeamStatus : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT BeamStatus : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8BeamStatus;  // bit 0 - BeamState, bits 1-7 - padding
 
-    KUINT8 m_ui8BeamStatus; //bit 0 - BeamState, bits 1-7 - padding
+ public:
+  static const KUINT16 BEAM_STATUS_SIZE = 1;
 
-public:
+  BeamStatus();
 
-    static const KUINT16 BEAM_STATUS_SIZE = 1;
+  BeamStatus(KDataStream& stream);
 
-    BeamStatus();
+  BeamStatus(BeamState BS);
 
-    BeamStatus( KDataStream & stream );
+  virtual ~BeamStatus();
 
-    BeamStatus( BeamState BS );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamStatus::SetBeamState
+  //              KDIS::DATA_TYPE::BeamStatus::GetBeamState
+  // Description: Beam State.
+  // Parameter:   BeamState BS, void
+  //************************************
+  void SetBeamState(BeamState BS);
+  BeamState GetBeamState() const;
 
-    virtual ~BeamStatus();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamStatus::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamStatus::SetBeamState
-    //              KDIS::DATA_TYPE::BeamStatus::GetBeamState
-    // Description: Beam State.
-    // Parameter:   BeamState BS, void
-    //************************************
-    void SetBeamState( BeamState BS );
-    BeamState GetBeamState() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamStatus::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamStatus::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamStatus::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamStatus::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamStatus::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const BeamStatus & Value ) const;
-    KBOOL operator != ( const BeamStatus & Value ) const;
+  KBOOL operator==(const BeamStatus& Value) const;
+  KBOOL operator!=(const BeamStatus& Value) const;
 };
 
 #endif
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

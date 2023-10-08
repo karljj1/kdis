@@ -34,50 +34,49 @@ http://p.sf.net/kdis/UserGuide
     created:    03/05/2018
     author:     Todd Klasik
 
-    purpose:    Represents the burst of a chaff expendable or ignition of a flare
-                This descriptor is applicable to the Fire PDU and Detonation PDU.
-    size:       128 bits / 16 octets
+    purpose:    Represents the burst of a chaff expendable or ignition of a
+flare This descriptor is applicable to the Fire PDU and Detonation PDU. size:
+128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./Descriptor.h"
+#include "KDIS/DataTypes/Descriptor.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ExpendableDescriptor : public Descriptor
-{
-protected:
-    KUINT64 m_ui64Padding;
-public:
+class KDIS_EXPORT ExpendableDescriptor : public Descriptor {
+ protected:
+  KUINT64 m_ui64Padding;
 
-    ExpendableDescriptor();
+ public:
+  ExpendableDescriptor();
 
-    ExpendableDescriptor( KDataStream & stream );
+  ExpendableDescriptor(KDataStream& stream);
 
-    ExpendableDescriptor( const EntityType & T);
+  ExpendableDescriptor(const EntityType& T);
 
-    virtual ~ExpendableDescriptor();
+  virtual ~ExpendableDescriptor();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MunitionDescriptor::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    KBOOL operator == ( const ExpendableDescriptor & Value ) const;
-    KBOOL operator != ( const ExpendableDescriptor & Value ) const;
+  KBOOL operator==(const ExpendableDescriptor& Value) const;
+  KBOOL operator!=(const ExpendableDescriptor& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

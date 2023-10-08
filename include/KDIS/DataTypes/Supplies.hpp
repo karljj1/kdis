@@ -38,65 +38,64 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EntityType.h"
+#include "KDIS/DataTypes/EntityType.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT Supplies : public EntityType
-{
-protected:
+class KDIS_EXPORT Supplies : public EntityType {
+ protected:
+  KFLOAT32 m_f32Quantity;
 
-    KFLOAT32 m_f32Quantity;
+ public:
+  static const KUINT16 SUPPLIES_SIZE = 12;
 
-public:
+  Supplies();
 
-    static const KUINT16 SUPPLIES_SIZE = 12;
+  Supplies(KDIS::DATA_TYPE::ENUMS::EntityKind Kind, KUINT8 Domain,
+           KDIS::DATA_TYPE::ENUMS::Country Country, KUINT8 Categoy,
+           KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra,
+           KFLOAT32 Quantity);
 
-    Supplies();
+  Supplies(EntityType Type, KFLOAT32 Quantity);
 
-    Supplies( KDIS::DATA_TYPE::ENUMS::EntityKind Kind, KUINT8 Domain, KDIS::DATA_TYPE::ENUMS::Country Country, 
-			  KUINT8 Categoy, KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra, KFLOAT32 Quantity );
+  Supplies(KDataStream& stream);
 
-    Supplies( EntityType Type, KFLOAT32 Quantity );
+  virtual ~Supplies();
 
-    Supplies( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Supplies::SetQuantity
+  //              KDIS::DATA_TYPE::Supplies::GetQuantity
+  // Description: Quantity for selected supply.
+  // Parameter:   KFLOAT32  F, void
+  //************************************
+  void SetQuantity(KFLOAT32 F);
+  KFLOAT32 GetQuantity() const;
 
-    virtual ~Supplies();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Supplies::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Supplies::SetQuantity
-    //              KDIS::DATA_TYPE::Supplies::GetQuantity
-    // Description: Quantity for selected supply.
-    // Parameter:   KFLOAT32  F, void
-    //************************************
-    void SetQuantity( KFLOAT32 F );
-    KFLOAT32 GetQuantity() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Supplies::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Supplies::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Supplies::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Supplies & Value ) const;
-    KBOOL operator != ( const Supplies & Value ) const;
+  KBOOL operator==(const Supplies& Value) const;
+  KBOOL operator!=(const Supplies& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -41,151 +41,153 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/WorldCoordinates.h"
-#include "./../../DataTypes/Vector.h"
-#include "./../../DataTypes/EntityIdentifier.h"
-#include "./../../DataTypes/EntityType.h"
-#include "./../../DataTypes/EulerAngles.h"
-#include "./../../DataTypes/EntityAppearance.h"
-#include "./../../DataTypes/VariableParameter.h"
 #include <vector>
+
+#include "KDIS/DataTypes/EntityAppearance.hpp"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/EntityType.hpp"
+#include "KDIS/DataTypes/EulerAngles.hpp"
+#include "KDIS/DataTypes/VariableParameter.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Entity_State_Update_PDU : public Header
-{
-protected:
+class KDIS_EXPORT Entity_State_Update_PDU : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
+  KUINT8 m_ui8Padding1;
 
-    KUINT8 m_ui8Padding1;
+  KUINT8 m_ui8NumOfVariableParams;
 
-    KUINT8 m_ui8NumOfVariableParams;
+  KDIS::DATA_TYPE::Vector m_EntityLinearVelocity;
 
-    KDIS::DATA_TYPE::Vector m_EntityLinearVelocity;
+  KDIS::DATA_TYPE::WorldCoordinates m_EntityLocation;
 
-    KDIS::DATA_TYPE::WorldCoordinates m_EntityLocation;
+  KDIS::DATA_TYPE::EulerAngles m_EntityOrientation;
 
-    KDIS::DATA_TYPE::EulerAngles m_EntityOrientation;
+  KDIS::DATA_TYPE::EntityAppearance m_EntityAppearance;
 
-    KDIS::DATA_TYPE::EntityAppearance m_EntityAppearance;
+  std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
-    std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
+ public:
+  // Min Size not including variable variable parameters field
+  static const KUINT16 ENTITY_STATE_UPDATE_PDU_SIZE = 72;
 
-public:
+  Entity_State_Update_PDU();
 
-    // Min Size not including variable variable parameters field
-    static const KUINT16 ENTITY_STATE_UPDATE_PDU_SIZE = 72;
+  Entity_State_Update_PDU(KDataStream& stream);
 
-    Entity_State_Update_PDU();
+  Entity_State_Update_PDU(const Header& H, KDataStream& stream);
 
-    Entity_State_Update_PDU( KDataStream & stream ) ;
+  Entity_State_Update_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& EI,
+      const KDIS::DATA_TYPE::Vector& EntityLinearVelocity,
+      const KDIS::DATA_TYPE::WorldCoordinates& EntityLocation,
+      const KDIS::DATA_TYPE::EulerAngles& EntityOrientation,
+      const KDIS::DATA_TYPE::EntityAppearance& EA);
 
-    Entity_State_Update_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Entity_State_Update_PDU();
 
-    Entity_State_Update_PDU( const KDIS::DATA_TYPE::EntityIdentifier & EI, const KDIS::DATA_TYPE::Vector & EntityLinearVelocity,
-                             const KDIS::DATA_TYPE::WorldCoordinates & EntityLocation, const KDIS::DATA_TYPE::EulerAngles & EntityOrientation,
-                             const KDIS::DATA_TYPE::EntityAppearance & EA );
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityIdentifier
+  //              KDIS::PDU::Entity_State_Update_PDU::GetEntityIdentifier
+  // Description: Entity ID
+  // Parameter:   const EntityIdentifier & EI
+  //************************************
+  void SetEntityIdentifier(const KDIS::DATA_TYPE::EntityIdentifier& EI);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetEntityIdentifier() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetEntityIdentifier();
 
-    virtual ~Entity_State_Update_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetNumberOfVariableParams
+  // Description: Number of variable parameters.
+  //************************************
+  KUINT8 GetNumberOfVariableParams() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityIdentifier
-    //              KDIS::PDU::Entity_State_Update_PDU::GetEntityIdentifier
-    // Description: Entity ID
-    // Parameter:   const EntityIdentifier & EI
-    //************************************
-    void SetEntityIdentifier( const KDIS::DATA_TYPE::EntityIdentifier & EI );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetEntityIdentifier() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetEntityIdentifier();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityLinearVelocity
+  //              KDIS::PDU::Entity_State_Update_PDU::GetEntityLinearVelocity
+  // Description: Linear Velocity
+  // Parameter:   const Vector & ELV
+  //************************************
+  void SetEntityLinearVelocity(const KDIS::DATA_TYPE::Vector& ELV);
+  const KDIS::DATA_TYPE::Vector& GetEntityLinearVelocity() const;
+  KDIS::DATA_TYPE::Vector& GetEntityLinearVelocity();
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetNumberOfVariableParams
-    // Description: Number of variable parameters.
-    //************************************
-    KUINT8 GetNumberOfVariableParams() const;
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityLocation
+  // Description: Entity Location
+  // Parameter:   const WorldCoordinates & EL
+  //************************************
+  void SetEntityLocation(const KDIS::DATA_TYPE::WorldCoordinates& EL);
+  const KDIS::DATA_TYPE::WorldCoordinates& GetEntityLocation() const;
+  KDIS::DATA_TYPE::WorldCoordinates& GetEntityLocation();
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityLinearVelocity
-    //              KDIS::PDU::Entity_State_Update_PDU::GetEntityLinearVelocity
-    // Description: Linear Velocity
-    // Parameter:   const Vector & ELV
-    //************************************
-    void SetEntityLinearVelocity( const KDIS::DATA_TYPE::Vector & ELV );
-    const KDIS::DATA_TYPE::Vector & GetEntityLinearVelocity() const;
-    KDIS::DATA_TYPE::Vector & GetEntityLinearVelocity();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityOrientation
+  //              KDIS::PDU::Entity_State_Update_PDU::GetEntityOrientation
+  // Description: Orientation of entity. Euler Angles
+  // Parameter:   const EulerAngles & EO
+  //************************************
+  void SetEntityOrientation(const KDIS::DATA_TYPE::EulerAngles& EO);
+  const KDIS::DATA_TYPE::EulerAngles& GetEntityOrientation() const;
+  KDIS::DATA_TYPE::EulerAngles& GetEntityOrientation();
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityLocation
-    // Description: Entity Location
-    // Parameter:   const WorldCoordinates & EL
-    //************************************
-    void SetEntityLocation( const KDIS::DATA_TYPE::WorldCoordinates & EL );
-    const KDIS::DATA_TYPE::WorldCoordinates & GetEntityLocation() const;
-    KDIS::DATA_TYPE::WorldCoordinates & GetEntityLocation();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityAppearance
+  //              KDIS::PDU::Entity_State_Update_PDU::GetEntityAppearance
+  // Description: Entity Appearance bit field accessors/mutator
+  // Parameter:   const EntityAppearance & EA
+  //************************************
+  void SetEntityAppearance(const KDIS::DATA_TYPE::EntityAppearance& EA);
+  const KDIS::DATA_TYPE::EntityAppearance& GetEntityAppearance() const;
+  KDIS::DATA_TYPE::EntityAppearance& GetEntityAppearance();
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityOrientation
-    //              KDIS::PDU::Entity_State_Update_PDU::GetEntityOrientation
-    // Description: Orientation of entity. Euler Angles
-    // Parameter:   const EulerAngles & EO
-    //************************************
-    void SetEntityOrientation( const KDIS::DATA_TYPE::EulerAngles & EO );
-    const KDIS::DATA_TYPE::EulerAngles & GetEntityOrientation() const;
-    KDIS::DATA_TYPE::EulerAngles & GetEntityOrientation();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::AddVariableParameter
+  //              KDIS::PDU::Entity_State_Update_PDU::SetVariableParameter
+  //              KDIS::PDU::Entity_State_Update_PDU::GetVariableParameters
+  //              KDIS::PDU::Entity_State_Update_PDU::ClearVariableParameters
+  // Description: Information associated with an entity or detonation, not
+  // otherwise accounted
+  //	            for in a PDU such as Articulated and Attached Parts.
+  //              See VariableParameter for supported/implemented types.
+  // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
+  //************************************
+  void AddVariableParameter(KDIS::DATA_TYPE::VarPrmPtr VP);
+  void SetVariableParameters(const std::vector<KDIS::DATA_TYPE::VarPrmPtr>& VP);
+  const std::vector<KDIS::DATA_TYPE::VarPrmPtr>& GetVariableParameters() const;
+  void ClearVariableParameters();
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::SetEntityAppearance
-    //              KDIS::PDU::Entity_State_Update_PDU::GetEntityAppearance
-    // Description: Entity Appearance bit field accessors/mutator
-    // Parameter:   const EntityAppearance & EA
-    //************************************
-    void SetEntityAppearance( const KDIS::DATA_TYPE::EntityAppearance & EA );
-    const KDIS::DATA_TYPE::EntityAppearance & GetEntityAppearance() const;
-    KDIS::DATA_TYPE::EntityAppearance & GetEntityAppearance();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::AddVariableParameter
-    //              KDIS::PDU::Entity_State_Update_PDU::SetVariableParameter
-    //              KDIS::PDU::Entity_State_Update_PDU::GetVariableParameters
-    //              KDIS::PDU::Entity_State_Update_PDU::ClearVariableParameters
-    // Description: Information associated with an entity or detonation, not otherwise accounted
-    //	            for in a PDU such as Articulated and Attached Parts.
-    //              See VariableParameter for supported/implemented types.
-    // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
-    //************************************
-    void AddVariableParameter( KDIS::DATA_TYPE::VarPrmPtr VP );
-    void SetVariableParameters( const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & VP );
-    const std::vector<KDIS::DATA_TYPE::VarPrmPtr> & GetVariableParameters() const;
-    void ClearVariableParameters();
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Entity_State_Update_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Entity_State_Update_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Entity_State_Update_PDU & Value ) const;
-    KBOOL operator != ( const Entity_State_Update_PDU & Value ) const;
+  KBOOL operator==(const Entity_State_Update_PDU& Value) const;
+  KBOOL operator!=(const Entity_State_Update_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

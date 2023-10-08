@@ -39,94 +39,92 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./KFIXED.h"
+#include "KDIS/DataTypes/KFIXED.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-template<class Type>
-class KDIS_EXPORT LE_Vector : public DataTypeBase
-{
-protected:
+template <class Type>
+class KDIS_EXPORT LE_Vector : public DataTypeBase {
+ protected:
+  Type m_X;
 
-    Type m_X;
+  Type m_Y;
 
-    Type m_Y;
+  Type m_Z;
 
-    Type m_Z;
+ public:
+  static const KUINT16 LE_VECTOR_SIZE = sizeof(typename Type::ValueType) * 3;
 
-public:
+  LE_Vector();
 
-    static const KUINT16 LE_VECTOR_SIZE = sizeof( typename Type::ValueType ) * 3;
+  LE_Vector(Type X, Type Y, Type Z);
 
-    LE_Vector();
+  LE_Vector(KDataStream& stream);
 
-    LE_Vector( Type X, Type Y, Type Z );
+  virtual ~LE_Vector();
 
-    LE_Vector( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LE_Vector::SetX
+  //              KDIS::DATA_TYPE::LE_Vector::GetX
+  // Description: First Value / X
+  // Parameter:   Type  X
+  //************************************
+  void SetX(Type X);
+  Type GetX() const;
 
-    virtual ~LE_Vector();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LE_Vector::SetY
+  //              KDIS::DATA_TYPE::LE_Vector::GetY
+  // Description: Second Value / Y
+  // Parameter:   Type Y
+  //************************************
+  void SetY(Type Y);
+  Type GetY() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LE_Vector::SetX
-    //              KDIS::DATA_TYPE::LE_Vector::GetX
-    // Description: First Value / X
-    // Parameter:   Type  X
-    //************************************
-    void SetX( Type X );
-    Type GetX() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LE_Vector::SetZ
+  //              KDIS::DATA_TYPE::LE_Vector::GetZ
+  // Description: Third Value / Z
+  // Parameter:   Type Z
+  //************************************
+  void SetZ(Type Z);
+  Type GetZ() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LE_Vector::SetY
-    //              KDIS::DATA_TYPE::LE_Vector::GetY
-    // Description: Second Value / Y
-    // Parameter:   Type Y
-    //************************************
-    void SetY( Type Y );
-    Type GetY() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LE_Vector::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LE_Vector::SetZ
-    //              KDIS::DATA_TYPE::LE_Vector::GetZ
-    // Description: Third Value / Z
-    // Parameter:   Type Z
-    //************************************
-    void SetZ( Type Z );
-    Type GetZ() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LE_Vector::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LE_Vector::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LE_Vector::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LE_Vector::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  KBOOL operator==(const LE_Vector& Value) const;
+  KBOOL operator!=(const LE_Vector& Value) const;
+  LE_Vector operator*(const LE_Vector& Value) const;
+  LE_Vector operator*(KFLOAT64 Value) const;
+  LE_Vector operator+(const LE_Vector& Value) const;
+  LE_Vector& operator+=(const LE_Vector& Value);
+  LE_Vector operator-(const LE_Vector& Value) const;
+  LE_Vector& operator-=(const LE_Vector& Value);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LE_Vector::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const LE_Vector & Value ) const;
-    KBOOL operator != ( const LE_Vector & Value ) const;
-    LE_Vector operator * ( const LE_Vector & Value ) const;
-    LE_Vector operator * ( KFLOAT64 Value ) const;
-    LE_Vector operator + ( const LE_Vector & Value ) const;
-    LE_Vector & operator += ( const LE_Vector & Value );
-    LE_Vector operator - ( const LE_Vector & Value ) const;
-    LE_Vector & operator -= ( const LE_Vector & Value );
-
-    // Valid values 0 - X, 1 - Y, 2 - Z. throws OUT_OF_BOUNDS exception for any other value.
-    Type & operator[] ( KUINT16 i ) ;
-    const Type & operator[]  ( KUINT16 i ) const ;
+  // Valid values 0 - X, 1 - Y, 2 - Z. throws OUT_OF_BOUNDS exception for any
+  // other value.
+  Type& operator[](KUINT16 i);
+  const Type& operator[](KUINT16 i) const;
 };
 
 // Predefined LE_Vector types.
@@ -136,5 +134,5 @@ public:
 typedef LE_Vector<KFIXED8_3> LE_Vector8_3;
 typedef LE_Vector<KFIXED16_3> LE_Vector16_3;
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

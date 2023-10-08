@@ -33,22 +33,22 @@ http://p.sf.net/kdis/UserGuide
 // Determine which header we should use for all PDU.
 //
 
-#include "./../KDefines.h"
+#include "KDIS/KDefines.hpp"
 
 #if DIS_VERSION > 6
-	#include "./Header7.h"
+#include "KDIS/PDU/Header7.hpp"
 #else
-	#include "./Header6.h"
+#include "KDIS/PDU/Header6.hpp"
 #endif
 
 namespace KDIS {
 namespace PDU {
 
 #if DIS_VERSION > 6
-	typedef Header7 Header;
+typedef Header7 Header;
 #else
-	typedef Header6 Header;
+typedef Header6 Header;
 #endif
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

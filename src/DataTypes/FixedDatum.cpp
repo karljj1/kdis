@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./FixedDatum.h"
+#include "KDIS/DataTypes/FixedDatum.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,118 +37,92 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-FixedDatum::FixedDatum() :
-    m_ui32DatumID( 0 )
-{
-    memset( m_cDatumValue, 0, 4 );
+FixedDatum::FixedDatum() : m_ui32DatumID(0) { memset(m_cDatumValue, 0, 4); }
+
+//////////////////////////////////////////////////////////////////////////
+
+FixedDatum::FixedDatum(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+FixedDatum::~FixedDatum() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void FixedDatum::SetDatumID(DatumID ID) { m_ui32DatumID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+DatumID FixedDatum::GetDatumID() const { return (DatumID)m_ui32DatumID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void FixedDatum::GetDatumValue(KOCTET* Buffer, KUINT16 BufferSize) const {
+  if (BufferSize < 4) throw KException(__FUNCTION__, BUFFER_TOO_SMALL);
+  memcpy(Buffer, m_cDatumValue, 4);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FixedDatum::FixedDatum( KDataStream & stream ) 
-{
-    Decode( stream );
+KString FixedDatum::GetAsString() const {
+  KStringStream ss;
+
+  NetToKUINT32 NetToSys(m_cDatumValue, false);
+
+  // TODO: maybe determine what the data type should be when printing out, this
+  // could be a lot of work.
+  ss << "Fixed Datum:"
+     << "\n\tID:          " << GetEnumAsStringDatumID(m_ui32DatumID)
+     << "\n\tValue(UI32): " << NetToSys.m_Value << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FixedDatum::~FixedDatum()
-{
+void FixedDatum::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < FixedDatum::FIXED_DATUM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui32DatumID;
+
+  for (KUINT16 i = 0; i < 4; ++i) {
+    stream >> m_cDatumValue[i];
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FixedDatum::SetDatumID( DatumID ID )
-{
-    m_ui32DatumID = ID;
+KDataStream FixedDatum::Encode() const {
+  KDataStream stream;
+
+  FixedDatum::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-DatumID FixedDatum::GetDatumID() const
-{
-    return ( DatumID )m_ui32DatumID;
+void FixedDatum::Encode(KDataStream& stream) const {
+  stream << m_ui32DatumID;
+
+  for (KUINT16 i = 0; i < 4; ++i) {
+    stream << m_cDatumValue[i];
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void FixedDatum::GetDatumValue( KOCTET * Buffer, KUINT16 BufferSize ) const 
-{
-    if( BufferSize < 4 )throw KException( __FUNCTION__, BUFFER_TOO_SMALL );
-	memcpy( Buffer, m_cDatumValue, 4 );
+KBOOL FixedDatum::operator==(const FixedDatum& Value) const {
+  if (m_ui32DatumID != Value.m_ui32DatumID) return false;
+  if (memcmp(m_cDatumValue, Value.m_cDatumValue, 4) != 0) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString FixedDatum::GetAsString() const
-{
-    KStringStream ss;
-
-    NetToKUINT32 NetToSys( m_cDatumValue, false );
-
-    // TODO: maybe determine what the data type should be when printing out, this
-    // could be a lot of work.
-    ss << "Fixed Datum:"
-       << "\n\tID:          " << GetEnumAsStringDatumID( m_ui32DatumID )
-       << "\n\tValue(UI32): " << NetToSys.m_Value
-       << "\n";
-
-    return ss.str();
+KBOOL FixedDatum::operator!=(const FixedDatum& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void FixedDatum::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < FixedDatum::FIXED_DATUM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui32DatumID;
-
-    for( KUINT16 i = 0; i < 4; ++i )
-    {
-        stream >> m_cDatumValue[i];
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream FixedDatum::Encode() const
-{
-    KDataStream stream;
-
-    FixedDatum::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void FixedDatum::Encode( KDataStream & stream ) const
-{
-    stream << m_ui32DatumID;
-
-    for( KUINT16 i = 0; i < 4; ++i )
-    {
-        stream << m_cDatumValue[i];
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL FixedDatum::operator == ( const FixedDatum & Value ) const
-{
-    if( m_ui32DatumID != Value.m_ui32DatumID )                 return false;
-    if( memcmp( m_cDatumValue, Value.m_cDatumValue, 4 ) != 0 ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL FixedDatum::operator != ( const FixedDatum & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

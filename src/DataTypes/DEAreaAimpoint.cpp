@@ -27,8 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./DEAreaAimpoint.h"
-
+#include "KDIS/DataTypes/DEAreaAimpoint.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,101 +39,86 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-DEAreaAimpoint::DEAreaAimpoint() :
-	m_ui16Padding( 0 ),
-	m_ui16BAPRC( 0 ),
-	m_ui16DETEDRC( 0 )
-{
-	m_ui32Type = DEAreaAimpointRecord;
+DEAreaAimpoint::DEAreaAimpoint()
+    : m_ui16Padding(0), m_ui16BAPRC(0), m_ui16DETEDRC(0) {
+  m_ui32Type = DEAreaAimpointRecord;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-DEAreaAimpoint::DEAreaAimpoint( KDataStream & stream ) :
-    m_ui16Padding( 0 ),
-    m_ui16BAPRC( 0 ),
-    m_ui16DETEDRC( 0 )
-{
-    Decode( stream );
+DEAreaAimpoint::DEAreaAimpoint(KDataStream& stream)
+    : m_ui16Padding(0), m_ui16BAPRC(0), m_ui16DETEDRC(0) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-DEAreaAimpoint::~DEAreaAimpoint()
-{
+DEAreaAimpoint::~DEAreaAimpoint() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 DEAreaAimpoint::GetBeamAntennaPatternCount() const {
+  return m_ui16BAPRC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 DEAreaAimpoint::GetBeamAntennaPatternCount() const
-{
-	return m_ui16BAPRC;
+KUINT16 DEAreaAimpoint::GetTargetEnergyDepositionCount() const {
+  return m_ui16DETEDRC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 DEAreaAimpoint::GetTargetEnergyDepositionCount() const
-{
-	return m_ui16DETEDRC;
+KString DEAreaAimpoint::GetAsString() const {
+  KStringStream ss;
+
+  // ss << "Standard Variable:"
+  //    << "\n\tType:    " << GetEnumAsStringStandardVariableType( m_ui32Type )
+  //    << "\n\tLength:  " << m_ui16Length
+  //    << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString DEAreaAimpoint::GetAsString() const
-{
-    KStringStream ss;
+void DEAreaAimpoint::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < STANDARD_VARIABLE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    //ss << "Standard Variable:"
-    //   << "\n\tType:    " << GetEnumAsStringStandardVariableType( m_ui32Type )
-    //   << "\n\tLength:  " << m_ui16Length
-    //   << "\n";
-
-    return ss.str();
+  // stream >> m_ui32Type
+  //        >> m_ui16Length;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void DEAreaAimpoint::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < STANDARD_VARIABLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream DEAreaAimpoint::Encode() const {
+  KDataStream stream;
 
-    //stream >> m_ui32Type
-    //       >> m_ui16Length;
+  DEAreaAimpoint::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream DEAreaAimpoint::Encode() const
-{
-    KDataStream stream;
-
-    DEAreaAimpoint::Encode( stream );
-
-    return stream;
+void DEAreaAimpoint::Encode(KDataStream& stream) const {
+  // stream << m_ui32Type
+  //        << m_ui16Length;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void DEAreaAimpoint::Encode( KDataStream & stream ) const
-{
-    //stream << m_ui32Type
-    //       << m_ui16Length;
+KBOOL DEAreaAimpoint::operator==(const DEAreaAimpoint& Value) const {
+  // if( m_ui32Type   != Value.m_ui32Type )   return false;
+  // if( m_ui16Length != Value.m_ui16Length ) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL DEAreaAimpoint::operator == ( const DEAreaAimpoint & Value ) const
-{
-    //if( m_ui32Type   != Value.m_ui32Type )   return false;
-    //if( m_ui16Length != Value.m_ui16Length ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL DEAreaAimpoint::operator != ( const DEAreaAimpoint & Value ) const
-{
-    return !( *this == Value );
+KBOOL DEAreaAimpoint::operator!=(const DEAreaAimpoint& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

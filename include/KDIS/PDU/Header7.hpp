@@ -33,7 +33,8 @@ http://p.sf.net/kdis/UserGuide
     created:    03/02/2011
     author:     Karl Jones
 
-    purpose:    Provides access to the PDU status field introduced in the DIS 7 standard.
+    purpose:    Provides access to the PDU status field introduced in the DIS 7
+standard.
 
                 This field is used to indicate status information that either:
                 (1) affects the processing of this specific PDU as a whole
@@ -41,59 +42,37 @@ http://p.sf.net/kdis/UserGuide
                 (2) provides information related to the interpretation of
                     one or more data fields or their content.
                 (3) provides information that affects the processing of an
-                    entity, other object or environmental process associated with this PDU.
+                    entity, other object or environmental process associated
+with this PDU.
 
                 Note: Some of these fields are specific to certain PDU, the
                 following shows the PDU status associated with each PDU Type:
 
-                -- PDU Type --                          -- PDU status associated --
-                1 Entity State                          TEI LVC CEI
-                2 Fire                                      LVC CEI FTI
-                3 Detonation                                LVC CEI     DTI
-                4 Collision                                     CEI
-                5 Service Request                               CEI
-                6 Resupply Offer                                CEI
-                7 Resupply Received                             CEI
-                8 Resupply Cancel                               CEI
-                9 Repair Complete                               CEI
-               10 Repair Response                               CEI
-               11 Create Entity                                 CEI
-               12 Remove Entity                                 CEI
-               13 Start Resume                                  CEI
-               14 Stop Freeze                                   CEI
-               15 Acknowledge                                   CEI
-               16 Action Request                                CEI
-               17 Action Response                               CEI
-               18 Data Query                                    CEI
-               19 Set Data                                      CEI
-               20 Data                                          CEI
-               21 Event Report                                  CEI
-               22 Message                                       CEI
-               23 Electromagnetic Emission              TEI LVC CEI
-               24 Designator                            TEI LVC CEI
-               25 Transmitter                           TEI LVC CEI         RAI
-               26 Signal                                TEI LVC CEI         RAI
-               27 Receiver                              TEI LVC CEI         RAI
-               28 IFF ATC NAVAIDS                       TEI LVC CEI                 SM
-               29 UnderwaterAcoustic                            CEI
-               30 SupplementalEmission EntityState              CEI
-               31 IntercomSignal                        TEI LVC CEI             IAI
-               32 IntercomControl                       TEI LVC CEI             IAI
-               33 AggregateState                                CEI
-               34 IsGroupOf                                     CEI
-               35 TransferControl                               CEI
-               36 IsPartOf                                      CEI
-               37 MinefieldState                                CEI
-               38 MinefieldQuery                                CEI
-               39 MinefieldData                                 CEI
-               40 MinefieldResponseNAK                          CEI
-               41 EnvironmentalProcess                  TEI LVC CEI
-               42 GriddedData                                   CEI
-               43 PointObjectState                              CEI
-               44 LinearObjectState                             CEI
-               45 ArealObjectState                              CEI
-               46 TSPI                                          CEI
-               47 Appearance                                    CEI
+                -- PDU Type --                          -- PDU status associated
+-- 1 Entity State                          TEI LVC CEI 2 Fire LVC CEI FTI 3
+Detonation                                LVC CEI     DTI 4 Collision CEI 5
+Service Request                               CEI 6 Resupply Offer CEI 7
+Resupply Received                             CEI 8 Resupply Cancel CEI 9 Repair
+Complete                               CEI 10 Repair Response CEI 11 Create
+Entity                                 CEI 12 Remove Entity CEI 13 Start Resume
+CEI 14 Stop Freeze                                   CEI 15 Acknowledge CEI 16
+Action Request                                CEI 17 Action Response CEI 18 Data
+Query                                    CEI 19 Set Data CEI 20 Data CEI 21
+Event Report                                  CEI 22 Message CEI 23
+Electromagnetic Emission              TEI LVC CEI 24 Designator TEI LVC CEI 25
+Transmitter                           TEI LVC CEI         RAI 26 Signal TEI LVC
+CEI         RAI 27 Receiver                              TEI LVC CEI         RAI
+               28 IFF ATC NAVAIDS                       TEI LVC CEI SM 29
+UnderwaterAcoustic                            CEI 30 SupplementalEmission
+EntityState              CEI 31 IntercomSignal                        TEI LVC
+CEI             IAI 32 IntercomControl                       TEI LVC CEI IAI 33
+AggregateState                                CEI 34 IsGroupOf CEI 35
+TransferControl                               CEI 36 IsPartOf CEI 37
+MinefieldState                                CEI 38 MinefieldQuery CEI 39
+MinefieldData                                 CEI 40 MinefieldResponseNAK CEI 41
+EnvironmentalProcess                  TEI LVC CEI 42 GriddedData CEI 43
+PointObjectState                              CEI 44 LinearObjectState CEI 45
+ArealObjectState                              CEI 46 TSPI CEI 47 Appearance CEI
                48 ArticulatedParts                              CEI
                49 LEFire                                        CEI
                50 LEDetonation                                  CEI
@@ -134,159 +113,167 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Header6.h"
 #include <bitset>
+
+#include "KDIS/PDU/Header6.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Header7 : public Header6
-{
-protected:
+class KDIS_EXPORT Header7 : public Header6 {
+ protected:
+  std::bitset<8> m_PDUStatus;
 
-    std::bitset<8> m_PDUStatus;
+ public:
+  Header7();
 
-public:
+  explicit Header7(KDataStream& stream);
 
-    Header7();
+  Header7(KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KUINT8 ExerciseID,
+          KDIS::DATA_TYPE::ENUMS::PDUType PT,
+          KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF,
+          const KDIS::DATA_TYPE::TimeStamp& TS, KUINT16 PDULength);
 
-    Header7( KDataStream & stream ) ;
+  virtual ~Header7();
 
-    Header7( KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KUINT8 ExerciseID, KDIS::DATA_TYPE::ENUMS::PDUType PT,
-             KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF, const KDIS::DATA_TYPE::TimeStamp & TS, KUINT16 PDULength );
+  //************************************
+  // FullName:    KDIS::PDU::Header7::SetPDUStatus
+  //              KDIS::PDU::Header7::GetPDUStatus
+  // Description: The entire PDU status field.
+  // Parameter:   KUINT8 S
+  //************************************
+  void SetPDUStatus(KUINT8 S);
+  KUINT8 GetPDUStatus() const;
 
-    virtual ~Header7();
+  //************************************
+  // FullName:    KDIS::PDU::Header7::SetPDUStatusCEI
+  //              KDIS::PDU::Header7::GetPDUStatusCEI
+  // Description: Indicates whether the PDU is Coupled true(1)
+  //              or Not Coupled false(0) with an Attribute PDU.
+  // PDU:         Applies to all PDU's(1-71) except the Attribute PDU.
+  // Parameter:   KBOOL TEI
+  //************************************
+  void SetPDUStatusCEI(KBOOL CEI);
+  KBOOL GetPDUStatusCEI() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Header7::SetPDUStatus
-    //              KDIS::PDU::Header7::GetPDUStatus
-    // Description: The entire PDU status field.
-    // Parameter:   KUINT8 S
-    //************************************
-    void SetPDUStatus( KUINT8 S );
-    KUINT8 GetPDUStatus() const;
+  //************************************
+  // FullName:    KDIS::PDU::Header7::SetPDUStatusTEI
+  //              KDIS::PDU::Header7::GetPDUStatusTEI
+  // Description: Identifies whether the Simulation Address of the Entity ID
+  // contained
+  //              in this PDU is the owner of the entity.
+  //              false(0) = no difference. The Simulation Address of the Entity
+  //              ID is the owner of Indicator. true(1) = difference. The
+  //              Simulation Address of the Entity ID is not the owner of this
+  //              entity.
+  // PDU:         See Header7 description to see which PDU's use this field.
+  // Parameter:   KBOOL TEI
+  //************************************
+  void SetPDUStatusTEI(KBOOL TEI);
+  KBOOL GetPDUStatusTEI() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Header7::SetPDUStatusCEI
-    //              KDIS::PDU::Header7::GetPDUStatusCEI
-    // Description: Indicates whether the PDU is Coupled true(1)
-    //              or Not Coupled false(0) with an Attribute PDU.
-    // PDU:         Applies to all PDU's(1-71) except the Attribute PDU.
-    // Parameter:   KBOOL TEI
-    //************************************
-    void SetPDUStatusCEI( KBOOL CEI );
-    KBOOL GetPDUStatusCEI() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusLVC
+  //              KDIS::DATA_TYPE::Header7::GetPDUStatusLVC
+  // Description: Indicates whether the data contained in this PDU is related to
+  // a
+  //              live(1), virtual(2) or constructive(3) entity. If the LVC
+  //              designation is not able to be determined, this field shall be
+  //              set to No Statement(0). For more information on LVC try the
+  //              Wikipedia page:
+  //              http://en.wikipedia.org/wiki/Live,_Virtual,_and_Constructive
+  // PDU:         See Header7 description to see which PDU's use this field.
+  // Parameter:   LVCIndicator LVC
+  //************************************
+  void SetPDUStatusLVC(KDIS::DATA_TYPE::ENUMS::LVCIndicator LVC);
+  KDIS::DATA_TYPE::ENUMS::LVCIndicator GetPDUStatusLVC() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Header7::SetPDUStatusTEI
-    //              KDIS::PDU::Header7::GetPDUStatusTEI
-    // Description: Identifies whether the Simulation Address of the Entity ID contained
-    //              in this PDU is the owner of the entity.
-    //              false(0) = no difference. The Simulation Address of the Entity ID is the owner of Indicator.
-    //              true(1) = difference. The Simulation Address of the Entity ID is not the owner of this entity.
-    // PDU:         See Header7 description to see which PDU's use this field.
-    // Parameter:   KBOOL TEI
-    //************************************
-    void SetPDUStatusTEI( KBOOL TEI );
-    KBOOL GetPDUStatusTEI() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusFTI
+  //              KDIS::DATA_TYPE::Header7::GetPDUStatusFTI
+  // Description: Indicates whether the type of object fired was
+  //              a Munition false(0) or an Expendable true(1).
+  // PDU:         Fire(2)
+  // Parameter:   KBOOL FTI
+  //************************************
+  void SetPDUStatusFTI(KBOOL FTI);
+  KBOOL GetPDUStatusFTI() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusLVC
-    //              KDIS::DATA_TYPE::Header7::GetPDUStatusLVC
-    // Description: Indicates whether the data contained in this PDU is related to a
-    //              live(1), virtual(2) or constructive(3) entity. If the LVC designation is not
-    //              able to be determined, this field shall be set to No Statement(0).
-    //              For more information on LVC try the Wikipedia page:
-    //              http://en.wikipedia.org/wiki/Live,_Virtual,_and_Constructive
-    // PDU:         See Header7 description to see which PDU's use this field.
-    // Parameter:   LVCIndicator LVC
-    //************************************
-    void SetPDUStatusLVC( KDIS::DATA_TYPE::ENUMS::LVCIndicator LVC );
-    KDIS::DATA_TYPE::ENUMS::LVCIndicator GetPDUStatusLVC() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusDTI
+  //              KDIS::DATA_TYPE::Header7::GetPDUStatusDTI
+  // Description: Indicates whether the type of object that detonated,
+  //              exploded or burst was a Munition (0), Expendable (1),
+  //              or Non-Munition Explosion (2).
+  // PDU:         Detonation(3)
+  // Parameter:   DetonationType DTI
+  //************************************
+  void SetPDUStatusDTI(KDIS::DATA_TYPE::ENUMS::DetonationType DTI);
+  KDIS::DATA_TYPE::ENUMS::DetonationType GetPDUStatusDTI() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusFTI
-    //              KDIS::DATA_TYPE::Header7::GetPDUStatusFTI
-    // Description: Indicates whether the type of object fired was
-    //              a Munition false(0) or an Expendable true(1).
-    // PDU:         Fire(2)
-    // Parameter:   KBOOL FTI
-    //************************************
-    void SetPDUStatusFTI( KBOOL FTI );
-    KBOOL GetPDUStatusFTI() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusRAI
+  //              KDIS::DATA_TYPE::Header7::GetPDUStatusRAI
+  // Description: Used to indicate whether the radio transmitter or receiver
+  //              is attached to an entity or object as follows: No
+  //              Statement(0), Unattached (1) and Attached (2).
+  // PDU:         Transmitter(25), Signal(26), Receiver(27)
+  // Parameter:   AttachedIndicator RAI
+  //************************************
+  void SetPDUStatusRAI(KDIS::DATA_TYPE::ENUMS::AttachedIndicator RAI);
+  KDIS::DATA_TYPE::ENUMS::AttachedIndicator GetPDUStatusRAI() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusDTI
-    //              KDIS::DATA_TYPE::Header7::GetPDUStatusDTI
-    // Description: Indicates whether the type of object that detonated,
-    //              exploded or burst was a Munition (0), Expendable (1),
-    //              or Non-Munition Explosion (2).
-    // PDU:         Detonation(3)
-    // Parameter:   DetonationType DTI
-    //************************************
-    void SetPDUStatusDTI( KDIS::DATA_TYPE::ENUMS::DetonationType DTI );
-    KDIS::DATA_TYPE::ENUMS::DetonationType GetPDUStatusDTI() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusIAI
+  //              KDIS::DATA_TYPE::Header7::GetPDUStatusIAI
+  // Description: Used to indicate whether the intercom is attached to an entity
+  // or
+  //              object as follows: No Statement(0), Unattached (1) and
+  //              Attached (2).
+  // PDU:         IntercomSignal(31), IntercomControl(32)
+  // Parameter:   AttachedIndicator IAI
+  //************************************
+  void SetPDUStatusIAI(KDIS::DATA_TYPE::ENUMS::AttachedIndicator RAI);
+  KDIS::DATA_TYPE::ENUMS::AttachedIndicator GetPDUStatusIAI() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusRAI
-    //              KDIS::DATA_TYPE::Header7::GetPDUStatusRAI
-    // Description: Used to indicate whether the radio transmitter or receiver
-    //              is attached to an entity or object as follows: No Statement(0),
-    //              Unattached (1) and Attached (2).
-    // PDU:         Transmitter(25), Signal(26), Receiver(27)
-    // Parameter:   AttachedIndicator RAI
-    //************************************
-    void SetPDUStatusRAI( KDIS::DATA_TYPE::ENUMS::AttachedIndicator RAI );
-    KDIS::DATA_TYPE::ENUMS::AttachedIndicator GetPDUStatusRAI() const;
+  //************************************
+  // FullName:    KDIS::PDU::Header7::SetPDUStatusSM
+  //              KDIS::PDU::Header7::GetPDUStatusSM
+  // Description: Indicates whether the Simulation Mode field of the
+  // Change/Options record
+  //              for this IFF PDU is set to Regeneration false(0) or
+  //              Interactive true(1).
+  // PDU:         IFF ATC NAVAIDS(28)
+  // Parameter:   KBOOL SM
+  //************************************
+  void SetPDUStatusSM(KBOOL SM);
+  KBOOL GetPDUStatusSM() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Header7::SetPDUStatusIAI
-    //              KDIS::DATA_TYPE::Header7::GetPDUStatusIAI
-    // Description: Used to indicate whether the intercom is attached to an entity or
-    //              object as follows: No Statement(0), Unattached (1) and Attached (2).
-    // PDU:         IntercomSignal(31), IntercomControl(32)
-    // Parameter:   AttachedIndicator IAI
-    //************************************
-    void SetPDUStatusIAI( KDIS::DATA_TYPE::ENUMS::AttachedIndicator RAI );
-    KDIS::DATA_TYPE::ENUMS::AttachedIndicator GetPDUStatusIAI() const;
+  //************************************
+  // FullName:    KDIS::PDU::Header7::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Header7::SetPDUStatusSM
-    //              KDIS::PDU::Header7::GetPDUStatusSM
-    // Description: Indicates whether the Simulation Mode field of the Change/Options record
-    //              for this IFF PDU is set to Regeneration false(0) or Interactive true(1).
-    // PDU:         IFF ATC NAVAIDS(28)
-    // Parameter:   KBOOL SM
-    //************************************
-    void SetPDUStatusSM( KBOOL SM );
-    KBOOL GetPDUStatusSM() const;
+  //************************************
+  // FullName:    KDIS::PDU::Header7::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Header7::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Header7::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Header7::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Header7::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Header7 & Value ) const;
-    KBOOL operator != ( const Header7 & Value ) const;
+  KBOOL operator==(const Header7& Value) const;
+  KBOOL operator!=(const Header7& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
-
+}  // END namespace PDU
+}  // END namespace KDIS

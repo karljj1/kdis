@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./DIS_Logger_Record.h"
+#include "KDIS/Extras/DIS_Logger_Record.hpp"
 
 using namespace std;
 using namespace KDIS;
@@ -37,64 +37,50 @@ using namespace UTILS;
 // protected:
 //////////////////////////////////////////////////////////////////////////
 
-void DIS_Logger_Record::writeToFile( const KString & S ) 
-{
-    if( m_File.is_open() == false )throw KException( __FUNCTION__, FILE_NOT_OPEN );
+void DIS_Logger_Record::writeToFile(const KString& S) {
+  if (m_File.is_open() == false) throw KException(__FUNCTION__, FILE_NOT_OPEN);
 
-    m_File << S << endl;
+  m_File << S << endl;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void DIS_Logger_Record::writeToBuffer( const KString & S )
-{
-    m_vsLog.push_back( S );
+void DIS_Logger_Record::writeToBuffer(const KString& S) {
+  m_vsLog.push_back(S);
 }
 
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-DIS_Logger_Record::DIS_Logger_Record( const KString & FileName, KBOOL WriteToFile ) :
-    m_bWriteToFile( WriteToFile )
-{
-    m_File.open( FileName.c_str(), ios::out );
+DIS_Logger_Record::DIS_Logger_Record(const KString& FileName, KBOOL WriteToFile)
+    : m_bWriteToFile(WriteToFile) {
+  m_File.open(FileName.c_str(), ios::out);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-DIS_Logger_Record::~DIS_Logger_Record()
-{
-    m_vsLog.clear();
+DIS_Logger_Record::~DIS_Logger_Record() { m_vsLog.clear(); }
+
+//////////////////////////////////////////////////////////////////////////
+
+void DIS_Logger_Record::Save() {
+  vector<KString>::const_iterator citr = m_vsLog.begin();
+  vector<KString>::const_iterator citrEnd = m_vsLog.end();
+
+  for (; citr != citrEnd; ++citr) {
+    writeToFile(*citr);
+  }
+
+  Clear();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void DIS_Logger_Record::Save() 
-{
-    vector<KString>::const_iterator citr = m_vsLog.begin();
-    vector<KString>::const_iterator citrEnd = m_vsLog.end();
-
-    for( ; citr != citrEnd; ++citr )
-    {
-        writeToFile( *citr );
-    }
-
-    Clear();
-}
+void DIS_Logger_Record::Clear() { m_vsLog.clear(); }
 
 //////////////////////////////////////////////////////////////////////////
 
-void DIS_Logger_Record::Clear()
-{
-    m_vsLog.clear();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 DIS_Logger_Record::GetBufferSize() const
-{
-    return m_vsLog.size();
-}
+KUINT16 DIS_Logger_Record::GetBufferSize() const { return m_vsLog.size(); }
 
 //////////////////////////////////////////////////////////////////////////

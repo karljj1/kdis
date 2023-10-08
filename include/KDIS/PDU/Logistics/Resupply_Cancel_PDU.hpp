@@ -34,41 +34,41 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Resupply Received PDU
-    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of supplies ) )
+    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of
+supplies ) )
 *********************************************************************/
 
 #pragma once
 
-#include "./Logistics_Header.h"
+#include "KDIS/PDU/Logistics/Logistics_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Resupply_Cancel_PDU : public Logistics_Header
-{
-public:
+class KDIS_EXPORT Resupply_Cancel_PDU : public Logistics_Header {
+ public:
+  static const KUINT16 RESUPPLY_CANCEL_PDU_SIZE = 24;
 
-    static const KUINT16 RESUPPLY_CANCEL_PDU_SIZE = 24;
+  Resupply_Cancel_PDU();
 
-    Resupply_Cancel_PDU();
+  explicit Resupply_Cancel_PDU(KDataStream& stream);
 
-    Resupply_Cancel_PDU( KDataStream & stream ) ;
+  Resupply_Cancel_PDU(const Header& H, KDataStream& stream);
 
-    Resupply_Cancel_PDU( const Header & H, KDataStream & stream ) ;
+  Resupply_Cancel_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                      const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity);
 
-    Resupply_Cancel_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
+  virtual ~Resupply_Cancel_PDU();
 
-    virtual ~Resupply_Cancel_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Resupply_Cancel_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Resupply_Cancel_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Resupply_Cancel_PDU & Value ) const;
-    KBOOL operator != ( const Resupply_Cancel_PDU & Value ) const;
+  KBOOL operator==(const Resupply_Cancel_PDU& Value) const;
+  KBOOL operator!=(const Resupply_Cancel_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

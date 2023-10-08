@@ -38,26 +38,25 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./BoundingSphereRecord.h"
+#include "KDIS/DataTypes/BoundingSphereRecord.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT SphereRecord1 : public BoundingSphereRecord
-{
-public:
+class KDIS_EXPORT SphereRecord1 : public BoundingSphereRecord {
+ public:
+  SphereRecord1();
 
-    SphereRecord1();
+  SphereRecord1(KDataStream& stream);
 
-    SphereRecord1( KDataStream & stream ) ;
+  SphereRecord1(KUINT8 Index, const WorldCoordinates& CentroidLocation,
+                KFLOAT32 Radius);
 
-    SphereRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius  );
+  virtual ~SphereRecord1();
 
-    virtual ~SphereRecord1();
-
-    KBOOL operator == ( const SphereRecord1 & Value )const;
-    KBOOL operator != ( const SphereRecord1 & Value )const;
+  KBOOL operator==(const SphereRecord1& Value) const;
+  KBOOL operator!=(const SphereRecord1& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./GuidedMunitionsAppearance.h"
+#include "KDIS/DataTypes/GuidedMunitionsAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,185 +37,165 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetEntityDamage( EntityDamage ED )
-{
-    m_Damage = ED;
+void GuidedMunitionsAppearance::SetEntityDamage(EntityDamage ED) {
+  m_Damage = ED;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDamage GuidedMunitionsAppearance::GetEntityDamage() const
-{
-    return ( EntityDamage )m_Damage;
+EntityDamage GuidedMunitionsAppearance::GetEntityDamage() const {
+  return (EntityDamage)m_Damage;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetEntitySmoke( EntitySmoke ES )
-{
-    m_Smoke = ES;
+void GuidedMunitionsAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntitySmoke GuidedMunitionsAppearance::GetEntitySmoke() const {
+  return (EntitySmoke)m_Smoke;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntitySmoke GuidedMunitionsAppearance::GetEntitySmoke() const
-{
-    return ( EntitySmoke )m_Smoke;
+void GuidedMunitionsAppearance::SetEntityTrailingEffect(
+    EntityTrailingEffect ETE) {
+  m_TrailingEffect = ETE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetEntityTrailingEffect( EntityTrailingEffect ETE )
-{
-    m_TrailingEffect = ETE;
+EntityTrailingEffect GuidedMunitionsAppearance::GetEntityTrailingEffect()
+    const {
+  return (EntityTrailingEffect)m_TrailingEffect;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityTrailingEffect GuidedMunitionsAppearance::GetEntityTrailingEffect() const
-{
-    return ( EntityTrailingEffect )m_TrailingEffect;
+void GuidedMunitionsAppearance::SetEntityFlamingEffect(KBOOL EFE) {
+  m_FlamingEffectField = EFE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetEntityFlamingEffect( KBOOL EFE )
-{
-    m_FlamingEffectField = EFE;
+KBOOL GuidedMunitionsAppearance::IsEntityFlaming() const {
+  return m_FlamingEffectField;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::IsEntityFlaming() const
-{
-    return m_FlamingEffectField;
+void GuidedMunitionsAppearance::SetLaunchFlashPresent(KBOOL LF) {
+  m_LaunchFlash = LF;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetLaunchFlashPresent( KBOOL LF )
-{
-	m_LaunchFlash = LF;
+KBOOL GuidedMunitionsAppearance::IsLaunchFlashPresent() const {
+  return m_LaunchFlash;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::IsLaunchFlashPresent() const
-{
-	return m_LaunchFlash;
+void GuidedMunitionsAppearance::SetEntityFrozenStatus(KBOOL EFS) {
+  m_FrozenStatus = EFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
-    m_FrozenStatus = EFS;
+KBOOL GuidedMunitionsAppearance::IsEntityFrozen() const {
+  return m_FrozenStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::IsEntityFrozen() const
-{
-    return m_FrozenStatus;
+void GuidedMunitionsAppearance::SetEntityPowerPlantOn(KBOOL EPPS) {
+  m_PowerPlantStatus = EPPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetEntityPowerPlantOn( KBOOL EPPS )
-{
-    m_PowerPlantStatus = EPPS;
+KBOOL GuidedMunitionsAppearance::IsEntityPowerPlantOn() const {
+  return m_PowerPlantStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::IsEntityPowerPlantOn() const
-{
-    return m_PowerPlantStatus;
+void GuidedMunitionsAppearance::SetEntityStateActive(KBOOL ES) {
+  m_State = !ES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetEntityStateActive( KBOOL ES )
-{
-    m_State = !ES;
+KBOOL GuidedMunitionsAppearance::IsEntityStateActive() const {
+  return !m_State;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::IsEntityStateActive() const
-{
-    return !m_State;
+void GuidedMunitionsAppearance::SetCoverShroudStatus(CoverShroudStatus CSS) {
+  m_CoverShroudStatus = CSS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GuidedMunitionsAppearance::SetCoverShroudStatus( CoverShroudStatus CSS )
-{
-    m_CoverShroudStatus = CSS;
+CoverShroudStatus GuidedMunitionsAppearance::GetCoverShroudStatus() const {
+  return static_cast<CoverShroudStatus>(m_CoverShroudStatus);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CoverShroudStatus GuidedMunitionsAppearance::GetCoverShroudStatus() const
-{
-    return static_cast<CoverShroudStatus>(m_CoverShroudStatus);
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void GuidedMunitionsAppearance::SetMaskedCloaked( KBOOL MC )
-{
+void GuidedMunitionsAppearance::SetMaskedCloaked(KBOOL MC) {
   m_MaskedCloaked = MC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::IsMaskedCloaked() const
-{
-	return m_MaskedCloaked;
+KBOOL GuidedMunitionsAppearance::IsMaskedCloaked() const {
+  return m_MaskedCloaked;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString GuidedMunitionsAppearance::GetAsString() const
-{
-    KStringStream ss;
+KString GuidedMunitionsAppearance::GetAsString() const {
+  KStringStream ss;
 
-    ss << "Guided Munitions Appearance:"       	   
-       << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
-       << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
-       << "\n\tTrailing Effect:        " << GetEnumAsStringEntityTrailingEffect( m_TrailingEffect )
-       << "\n\tFlaming Effect:         " << m_FlamingEffectField		
-       << "\n\tLaunch Flash:           " << m_LaunchFlash
-       << "\n\tFrozen Status:          " << m_FrozenStatus
-       << "\n\tPower Plant:            " << m_PowerPlantStatus
-       << "\n\tState:                  " << m_State
-       << "\n\tCover/Shroud Status:    " << GetEnumAsStringCoverShroudStatus( m_CoverShroudStatus )
-       << "\n\tMasked/Cloaked:         " << m_MaskedCloaked
-       << "\n";
+  ss << "Guided Munitions Appearance:"
+     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)
+     << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke(m_Smoke)
+     << "\n\tTrailing Effect:        "
+     << GetEnumAsStringEntityTrailingEffect(m_TrailingEffect)
+     << "\n\tFlaming Effect:         " << m_FlamingEffectField
+     << "\n\tLaunch Flash:           " << m_LaunchFlash
+     << "\n\tFrozen Status:          " << m_FrozenStatus
+     << "\n\tPower Plant:            " << m_PowerPlantStatus
+     << "\n\tState:                  " << m_State
+     << "\n\tCover/Shroud Status:    "
+     << GetEnumAsStringCoverShroudStatus(m_CoverShroudStatus)
+     << "\n\tMasked/Cloaked:         " << m_MaskedCloaked << "\n";
 
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::operator == ( const GuidedMunitionsAppearance & Value ) const
-{
-	// Lets do a single comparison instead of checking every field. 
-	// This struct is basically a KUINT32 so lets cast it to one and compare.
+KBOOL GuidedMunitionsAppearance::operator==(
+    const GuidedMunitionsAppearance& Value) const {
+  // Lets do a single comparison instead of checking every field.
+  // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-	KUINT32 a = *( KUINT32 * )this;
-	KUINT32 b = *( KUINT32 * )&Value;
+  KUINT32 a = *(KUINT32*)this;
+  KUINT32 b = *(KUINT32*)&Value;
 
-    if( a != b )return false;
-    return true;
+  if (a != b) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GuidedMunitionsAppearance::operator != ( const GuidedMunitionsAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL GuidedMunitionsAppearance::operator!=(
+    const GuidedMunitionsAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

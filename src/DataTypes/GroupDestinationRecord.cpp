@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./GroupDestinationRecord.h"
+#include "KDIS/DataTypes/GroupDestinationRecord.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,162 +40,146 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-GroupDestinationRecord::GroupDestinationRecord() :
-    m_ui32GrpBtField( 0 ),
-    m_ui8DstPriority( 0 ),
-    m_ui8LnStCmd( 0 ),
-    m_ui16Padding1( 0 )
-{
+GroupDestinationRecord::GroupDestinationRecord()
+    : m_ui32GrpBtField(0),
+      m_ui8DstPriority(0),
+      m_ui8LnStCmd(0),
+      m_ui16Padding1(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+GroupDestinationRecord::GroupDestinationRecord(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupDestinationRecord::GroupDestinationRecord( KDataStream & stream )
-{
-    Decode( stream );
+GroupDestinationRecord::GroupDestinationRecord(KUINT32 GroupBitField,
+                                               KUINT8 Priority,
+                                               LineStateCommand LSC)
+    : m_ui32GrpBtField(GroupBitField),
+      m_ui8DstPriority(Priority),
+      m_ui8LnStCmd(LSC),
+      m_ui16Padding1(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void GroupDestinationRecord::SetGroupBitField(KUINT32 AllGroups) {
+  m_ui32GrpBtField = AllGroups;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupDestinationRecord::GroupDestinationRecord( KUINT32 GroupBitField, KUINT8 Priority, LineStateCommand LSC ) :
-    m_ui32GrpBtField( GroupBitField ),
-    m_ui8DstPriority( Priority ),
-    m_ui8LnStCmd( LSC ),
-    m_ui16Padding1( 0 )
-{
+KUINT32 GroupDestinationRecord::GetGroupBitField() const {
+  return m_ui32GrpBtField;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupDestinationRecord::SetGroupBitField( KUINT32 AllGroups )
-{
-    m_ui32GrpBtField = AllGroups;
+void GroupDestinationRecord::SetGroupBitField(KUINT8 Group,
+                                              KBOOL InGroup /*= true*/) {
+  if (Group > 31) throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+
+  bitset<32> bits(
+      (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
+                                  // visual studio 2010 fix
+  InGroup ? bits.set(Group) : bits.reset(Group);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT32 GroupDestinationRecord::GetGroupBitField() const
-{
-    return m_ui32GrpBtField;
+KBOOL GroupDestinationRecord::IsGroupBitSet(KUINT8 Group) const {
+  if (Group > 31) throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+
+  const bitset<32> bits(
+      (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
+                                  // visual studio 2010 fix
+  return bits.test(Group);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupDestinationRecord::SetGroupBitField( KUINT8 Group, KBOOL InGroup /*= true*/ ) 
-{
-    if( Group > 31 )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+GroupDestinationRecord::~GroupDestinationRecord() {}
 
-    bitset<32> bits( ( KINT32 )m_ui32GrpBtField ); // We need to cast to a signed int, this is a visual studio 2010 fix
-    InGroup ? bits.set( Group ) : bits.reset( Group );
+//////////////////////////////////////////////////////////////////////////
+
+void GroupDestinationRecord::SetDestinationPriority(KUINT8 TP) {
+  m_ui8DstPriority = TP;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL GroupDestinationRecord::IsGroupBitSet( KUINT8 Group ) const 
-{
-    if( Group > 31 )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
-
-    const bitset<32> bits( ( KINT32 )m_ui32GrpBtField ); // We need to cast to a signed int, this is a visual studio 2010 fix
-    return bits.test( Group );
+KUINT8 GroupDestinationRecord::GetDestinationPriority() const {
+  return m_ui8DstPriority;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupDestinationRecord::~GroupDestinationRecord()
-{
+void GroupDestinationRecord::SetLineStateCommand(LineStateCommand LSC) {
+  m_ui8LnStCmd = LSC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupDestinationRecord::SetDestinationPriority( KUINT8 TP )
-{
-    m_ui8DstPriority = TP;
+LineStateCommand GroupDestinationRecord::GetLineStateCommand() const {
+  return (LineStateCommand)m_ui8LnStCmd;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 GroupDestinationRecord::GetDestinationPriority() const
-{
-    return m_ui8DstPriority;
+KString GroupDestinationRecord::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Group Destination Record"
+     << "\nGroup Bit Field:       " << m_ui32GrpBtField
+     << "\nPriority:              " << (KUINT16)m_ui8DstPriority
+     << "\nLine State Command:    " << (KUINT16)m_ui8LnStCmd << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupDestinationRecord::SetLineStateCommand( LineStateCommand LSC )
-{
-    m_ui8LnStCmd = LSC;
+void GroupDestinationRecord::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < GROUP_DESTINATION_RECORD_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui32GrpBtField >> m_ui8DstPriority >> m_ui8LnStCmd >>
+      m_ui16Padding1;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LineStateCommand GroupDestinationRecord::GetLineStateCommand() const
-{
-    return ( LineStateCommand )m_ui8LnStCmd;
+KDataStream GroupDestinationRecord::Encode() const {
+  KDataStream stream;
+
+  GroupDestinationRecord::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString GroupDestinationRecord::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Group Destination Record"
-       << "\nGroup Bit Field:       " << m_ui32GrpBtField
-       << "\nPriority:              " << ( KUINT16 )m_ui8DstPriority
-       << "\nLine State Command:    " << ( KUINT16 )m_ui8LnStCmd
-       << "\n";
-
-    return ss.str();
+void GroupDestinationRecord::Encode(KDataStream& stream) const {
+  stream << m_ui32GrpBtField << m_ui8DstPriority << m_ui8LnStCmd
+         << m_ui16Padding1;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GroupDestinationRecord::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < GROUP_DESTINATION_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui32GrpBtField
-           >> m_ui8DstPriority
-           >> m_ui8LnStCmd
-           >> m_ui16Padding1;
+KBOOL GroupDestinationRecord::operator==(
+    const GroupDestinationRecord& Value) const {
+  if (m_ui32GrpBtField != Value.m_ui32GrpBtField) return false;
+  if (m_ui8DstPriority != Value.m_ui8DstPriority) return false;
+  if (m_ui8LnStCmd != Value.m_ui8LnStCmd) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream GroupDestinationRecord::Encode() const
-{
-    KDataStream stream;
-
-    GroupDestinationRecord::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void GroupDestinationRecord::Encode( KDataStream & stream ) const
-{
-    stream << m_ui32GrpBtField
-           << m_ui8DstPriority
-           << m_ui8LnStCmd
-           << m_ui16Padding1;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GroupDestinationRecord::operator == ( const GroupDestinationRecord & Value ) const
-{
-    if( m_ui32GrpBtField != Value.m_ui32GrpBtField ) return false;
-    if( m_ui8DstPriority != Value.m_ui8DstPriority ) return false;
-    if( m_ui8LnStCmd     != Value.m_ui8LnStCmd )     return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GroupDestinationRecord::operator != ( const GroupDestinationRecord & Value ) const
-{
-    return !( *this == Value );
+KBOOL GroupDestinationRecord::operator!=(
+    const GroupDestinationRecord& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

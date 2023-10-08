@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./BeamData.h"
+#include "KDIS/DataTypes/BeamData.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,179 +36,127 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-BeamData::BeamData() :
-    m_f32AziCtr( 0 ),
-    m_f32AziSwp( 0 ),
-    m_f32EleCtr( 0 ),
-    m_f32EleSwp( 0 ),
-    m_f32SwpSyn( 0 )
-{
+BeamData::BeamData()
+    : m_f32AziCtr(0),
+      m_f32AziSwp(0),
+      m_f32EleCtr(0),
+      m_f32EleSwp(0),
+      m_f32SwpSyn(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+BeamData::BeamData(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+BeamData::BeamData(KFLOAT32 AziCtr, KFLOAT32 AziSwp, KFLOAT32 EleCtr,
+                   KFLOAT32 EleSwp, KFLOAT32 SwpSyn)
+    : m_f32AziCtr(AziCtr),
+      m_f32AziSwp(AziSwp),
+      m_f32EleCtr(EleCtr),
+      m_f32EleSwp(EleSwp),
+      m_f32SwpSyn(SwpSyn) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+BeamData::~BeamData() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void BeamData::SetAzimuthCenter(KFLOAT32 AC) { m_f32AziCtr = AC; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 BeamData::GetAzimuthCenter() const { return m_f32AziCtr; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void BeamData::SetAzimuthSweep(KFLOAT32 AS) { m_f32AziSwp = AS; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 BeamData::GetAzimuthSweep() const { return m_f32AziSwp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void BeamData::SetElevationCenter(KFLOAT32 EC) { m_f32EleCtr = EC; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 BeamData::GetElevationCenter() const { return m_f32EleCtr; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void BeamData::SetElevationSweep(KFLOAT32 ES) { m_f32EleSwp = ES; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 BeamData::GetElevationSweep() const { return m_f32EleSwp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void BeamData::SetBeamSweepSync(KFLOAT32 BSS) { m_f32SwpSyn = BSS; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 BeamData::GetBeamSweepSync() const { return m_f32SwpSyn; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString BeamData::GetAsString() const {
+  KStringStream ss;
+
+  ss << "BeamData:"
+     << "\n\tAzimuth Center:    " << m_f32AziCtr
+     << "\n\tAzimuth Sweep:     " << m_f32AziSwp
+     << "\n\tElevation Center:  " << m_f32EleCtr
+     << "\n\tElevation Sweep:   " << m_f32EleSwp
+     << "\n\tBeam Sweep Sync:   " << m_f32SwpSyn << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamData::BeamData( KDataStream & stream ) 
-{
-    Decode( stream );
+void BeamData::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < BEAM_DATA_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_f32AziCtr >> m_f32AziSwp >> m_f32EleCtr >> m_f32EleSwp >>
+      m_f32SwpSyn;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamData::BeamData( KFLOAT32 AziCtr, KFLOAT32 AziSwp, KFLOAT32 EleCtr,
-                    KFLOAT32 EleSwp, KFLOAT32 SwpSyn ) :
-    m_f32AziCtr( AziCtr ),
-    m_f32AziSwp( AziSwp ),
-    m_f32EleCtr( EleCtr ),
-    m_f32EleSwp( EleSwp ),
-    m_f32SwpSyn( SwpSyn )
-{
+KDataStream BeamData::Encode() const {
+  KDataStream stream;
+
+  BeamData::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamData::~BeamData()
-{
+void BeamData::Encode(KDataStream& stream) const {
+  stream << m_f32AziCtr << m_f32AziSwp << m_f32EleCtr << m_f32EleSwp
+         << m_f32SwpSyn;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void BeamData::SetAzimuthCenter( KFLOAT32 AC )
-{
-    m_f32AziCtr = AC;
+KBOOL BeamData::operator==(const BeamData& Value) const {
+  if (m_f32AziCtr != Value.m_f32AziCtr) return false;
+  if (m_f32AziSwp != Value.m_f32AziSwp) return false;
+  if (m_f32EleCtr != Value.m_f32EleCtr) return false;
+  if (m_f32SwpSyn != Value.m_f32SwpSyn) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 BeamData::GetAzimuthCenter()const
-{
-    return m_f32AziCtr;
+KBOOL BeamData::operator!=(const BeamData& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void BeamData::SetAzimuthSweep( KFLOAT32 AS )
-{
-    m_f32AziSwp= AS;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFLOAT32 BeamData::GetAzimuthSweep()const
-{
-    return m_f32AziSwp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void BeamData::SetElevationCenter( KFLOAT32 EC )
-{
-    m_f32EleCtr = EC;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFLOAT32 BeamData::GetElevationCenter()const
-{
-    return m_f32EleCtr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void BeamData::SetElevationSweep( KFLOAT32 ES )
-{
-    m_f32EleSwp = ES;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFLOAT32 BeamData::GetElevationSweep()const
-{
-    return m_f32EleSwp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void BeamData::SetBeamSweepSync( KFLOAT32 BSS )
-{
-    m_f32SwpSyn = BSS;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFLOAT32 BeamData::GetBeamSweepSync()const
-{
-    return m_f32SwpSyn;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString BeamData::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "BeamData:"
-       << "\n\tAzimuth Center:    " << m_f32AziCtr
-       << "\n\tAzimuth Sweep:     " << m_f32AziSwp
-       << "\n\tElevation Center:  " << m_f32EleCtr
-       << "\n\tElevation Sweep:   " << m_f32EleSwp
-       << "\n\tBeam Sweep Sync:   " << m_f32SwpSyn
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void BeamData::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < BEAM_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_f32AziCtr
-           >> m_f32AziSwp
-           >> m_f32EleCtr
-           >> m_f32EleSwp
-           >> m_f32SwpSyn;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream BeamData::Encode() const
-{
-    KDataStream stream;
-
-    BeamData::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void BeamData::Encode( KDataStream & stream ) const
-{
-    stream << m_f32AziCtr
-           << m_f32AziSwp
-           << m_f32EleCtr
-           << m_f32EleSwp
-           << m_f32SwpSyn;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL BeamData::operator == ( const BeamData & Value ) const
-{
-    if( m_f32AziCtr != Value.m_f32AziCtr ) return false;
-    if( m_f32AziSwp != Value.m_f32AziSwp ) return false;
-    if( m_f32EleCtr != Value.m_f32EleCtr ) return false;
-    if( m_f32SwpSyn != Value.m_f32SwpSyn ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL BeamData::operator != ( const BeamData & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

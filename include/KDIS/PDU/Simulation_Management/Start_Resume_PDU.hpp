@@ -39,97 +39,97 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Simulation_Management_Header.h"
-#include "./../../DataTypes/ClockTime.h"
+#include "KDIS/DataTypes/ClockTime.hpp"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Start_Resume_PDU : public Simulation_Management_Header
-{
-protected:
+class KDIS_EXPORT Start_Resume_PDU : public Simulation_Management_Header {
+ protected:
+  KDIS::DATA_TYPE::ClockTime m_RealWorldTime;
 
-    KDIS::DATA_TYPE::ClockTime m_RealWorldTime;
+  KDIS::DATA_TYPE::ClockTime m_SimTime;
 
-    KDIS::DATA_TYPE::ClockTime m_SimTime;
+  KUINT32 m_ui32RequestID;
 
-    KUINT32 m_ui32RequestID;
+ public:
+  static const KUINT16 START_RESUME_PDU_SIZE = 44;
 
-public:
+  Start_Resume_PDU();
 
-    static const KUINT16 START_RESUME_PDU_SIZE = 44;
+  explicit Start_Resume_PDU(const Header& H);
 
-    Start_Resume_PDU();
+  Start_Resume_PDU(KDataStream& stream);
 
-    explicit Start_Resume_PDU( const Header & H );
+  Start_Resume_PDU(const Header& H, KDataStream& stream);
 
-    Start_Resume_PDU( KDataStream & stream ) ;
+  Start_Resume_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                   const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity,
+                   const KDIS::DATA_TYPE::ClockTime& RealWorldTime,
+                   const KDIS::DATA_TYPE::ClockTime& SimTime, KUINT32 ReqID);
 
-    Start_Resume_PDU( const Header & H, KDataStream & stream ) ;
+  Start_Resume_PDU(const Simulation_Management_Header& SimMgrHeader,
+                   const KDIS::DATA_TYPE::ClockTime& RealWorldTime,
+                   const KDIS::DATA_TYPE::ClockTime& SimTime, KUINT32 ReqID);
 
-    Start_Resume_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
-                      const KDIS::DATA_TYPE::ClockTime & RealWorldTime, const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID );
+  virtual ~Start_Resume_PDU();
 
-    Start_Resume_PDU( const Simulation_Management_Header & SimMgrHeader, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
-                      const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID  );
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_PDU::SetRealWorldTime
+  //              KDIS::PDU::Start_Resume_PDU::GetRealWorldTime
+  // Description: specify the real-world time at which the entity
+  //              is to start/resume in the exercise.
+  // Parameter:   const ClockTime & T
+  //************************************
+  void SetRealWorldTime(const KDIS::DATA_TYPE::ClockTime& T);
+  const KDIS::DATA_TYPE::ClockTime& GetRealWorldTime() const;
+  KDIS::DATA_TYPE::ClockTime& GetRealWorldTime();
 
-    virtual ~Start_Resume_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_PDU::SetSimulationTime
+  //              KDIS::PDU::Start_Resume_PDU::GetSimulationTime
+  // Description: specify the simulation time at which the entity
+  //              is to start/resume in the exercises.
+  // Parameter:   const ClockTime & T
+  //************************************
+  void SetSimulationTime(const KDIS::DATA_TYPE::ClockTime& T);
+  const KDIS::DATA_TYPE::ClockTime& GetSimulationTime() const;
+  KDIS::DATA_TYPE::ClockTime& GetSimulationTime();
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_PDU::SetRealWorldTime
-    //              KDIS::PDU::Start_Resume_PDU::GetRealWorldTime
-    // Description: specify the real-world time at which the entity
-    //              is to start/resume in the exercise.
-    // Parameter:   const ClockTime & T
-    //************************************
-    void  SetRealWorldTime( const KDIS::DATA_TYPE::ClockTime & T );
-    const KDIS::DATA_TYPE::ClockTime & GetRealWorldTime() const;
-    KDIS::DATA_TYPE::ClockTime & GetRealWorldTime();
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_PDU::SetRequestID
+  //              KDIS::PDU::Start_Resume_PDU::GetRequestID
+  // Description: Request ID
+  // Parameter:   KUINT32 ID
+  //************************************
+  void SetRequestID(KUINT32 ID);
+  KUINT32 GetRequestID() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_PDU::SetSimulationTime
-    //              KDIS::PDU::Start_Resume_PDU::GetSimulationTime
-    // Description: specify the simulation time at which the entity
-    //              is to start/resume in the exercises.
-    // Parameter:   const ClockTime & T
-    //************************************
-    void SetSimulationTime( const KDIS::DATA_TYPE::ClockTime & T );
-    const KDIS::DATA_TYPE::ClockTime & GetSimulationTime() const;
-    KDIS::DATA_TYPE::ClockTime & GetSimulationTime();
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_PDU::SetRequestID
-    //              KDIS::PDU::Start_Resume_PDU::GetRequestID
-    // Description: Request ID
-    // Parameter:   KUINT32 ID
-    //************************************
-    void SetRequestID( KUINT32 ID );
-    KUINT32 GetRequestID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_PDU::Encode
+  // Description: Convert To Network Data.
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_PDU::Encode
-    // Description: Convert To Network Data.
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Start_Resume_PDU & Value ) const;
-    KBOOL operator != ( const Start_Resume_PDU & Value ) const;
+  KBOOL operator==(const Start_Resume_PDU& Value) const;
+  KBOOL operator!=(const Start_Resume_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

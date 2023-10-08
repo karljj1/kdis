@@ -39,60 +39,61 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Simulation_Management/Create_Entity_PDU.h"
-#include "./Reliability_Header.h"
+#include "KDIS/PDU/Simulation_Management/Create_Entity_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Reliability_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Create_Entity_R_PDU : public Create_Entity_PDU,
-                                        public Reliability_Header
-{
-public:
+                                        public Reliability_Header {
+ public:
+  static const KUINT16 CREATE_ENTITY_R_PDU_SIZE = 32;
 
-    static const KUINT16 CREATE_ENTITY_R_PDU_SIZE = 32;
+  Create_Entity_R_PDU();
 
-    Create_Entity_R_PDU();
+  explicit Create_Entity_R_PDU(const Header& H);
 
-    explicit Create_Entity_R_PDU( const Header & H );
+  Create_Entity_R_PDU(KDataStream& stream);
 
-    Create_Entity_R_PDU( KDataStream & stream ) ;
+  Create_Entity_R_PDU(const Header& H, KDataStream& stream);
 
-    Create_Entity_R_PDU( const Header & H, KDataStream & stream ) ;
+  Create_Entity_R_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                      const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity,
+                      KUINT32 RequestID,
+                      KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
-    Create_Entity_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
-                         KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+  Create_Entity_R_PDU(const Simulation_Management_Header& SimMgrHeader,
+                      KUINT32 RequestID,
+                      KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
-    Create_Entity_R_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID,
-                         KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+  virtual ~Create_Entity_R_PDU();
 
-    virtual ~Create_Entity_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Create_Entity_R_PDU::GetString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Create_Entity_R_PDU::GetString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Create_Entity_R_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Create_Entity_R_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
+  //************************************
+  // FullName:    KDIS::PDU::Create_Entity_R_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Create_Entity_R_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Create_Entity_R_PDU & Value ) const;
-    KBOOL operator != ( const Create_Entity_R_PDU & Value ) const;
+  KBOOL operator==(const Create_Entity_R_PDU& Value) const;
+  KBOOL operator!=(const Create_Entity_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

@@ -38,88 +38,86 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./LineRecord1.h"
-#include "./Vector.h"
+#include "KDIS/DataTypes/LineRecord1.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT LineRecord2 : public LineRecord1
-{
-protected:
+class KDIS_EXPORT LineRecord2 : public LineRecord1 {
+ protected:
+  Vector m_StartVel;
 
-    Vector m_StartVel;
+  Vector m_EndVel;
 
-    Vector m_EndVel;
+ public:
+  static const KUINT16 LINE_RECORD_2_SIZE = 80;
 
-public:
+  LineRecord2();
 
-    static const KUINT16 LINE_RECORD_2_SIZE = 80;
+  LineRecord2(KDataStream& stream);
 
-    LineRecord2();
+  LineRecord2(KUINT8 Index, const WorldCoordinates& StartLoc,
+              const WorldCoordinates& EndLoc, const Vector& StartVel,
+              const Vector& EndVel);
 
-    LineRecord2( KDataStream & stream ) ;
+  virtual ~LineRecord2();
 
-    LineRecord2( KUINT8 Index, const WorldCoordinates & StartLoc, const WorldCoordinates & EndLoc,
-                 const Vector & StartVel, const Vector & EndVel );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord2::SetVelocity
+  // Description: Specifies the start and end velocity of the line.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & Start
+  // Parameter:   const Vector & End
+  //************************************
+  void SetVelocity(const Vector& Start, const Vector& End);
 
-    virtual ~LineRecord2();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord2::SetStartVelocity
+  //              KDIS::DATA_TYPE::LineRecord2::GetStartVelocity
+  // Description: Specifies the start velocity of the line.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetStartVelocity(const Vector& V);
+  const Vector& GetStartVelocity() const;
+  Vector& GetStartVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord2::SetVelocity
-    // Description: Specifies the start and end velocity of the line.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & Start
-    // Parameter:   const Vector & End
-    //************************************
-    void SetVelocity( const Vector & Start, const Vector & End );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord2::SetEndVelocity
+  //              KDIS::DATA_TYPE::LineRecord2::GetEndVelocity
+  // Description: Specifies the end velocity of the line.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetEndVelocity(const Vector& V);
+  const Vector& GetEndVelocity() const;
+  Vector& GetEndVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord2::SetStartVelocity
-    //              KDIS::DATA_TYPE::LineRecord2::GetStartVelocity
-    // Description: Specifies the start velocity of the line.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetStartVelocity( const Vector & V);
-    const Vector & GetStartVelocity() const;
-    Vector & GetStartVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord2::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord2::SetEndVelocity
-    //              KDIS::DATA_TYPE::LineRecord2::GetEndVelocity
-    // Description: Specifies the end velocity of the line.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetEndVelocity( const Vector & V );
-    const Vector & GetEndVelocity() const;
-    Vector & GetEndVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord2::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord2::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord2::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord2::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord2::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const LineRecord2 & Value )const;
-    KBOOL operator != ( const LineRecord2 & Value )const;
+  KBOOL operator==(const LineRecord2& Value) const;
+  KBOOL operator!=(const LineRecord2& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

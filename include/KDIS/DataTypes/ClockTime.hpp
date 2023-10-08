@@ -41,77 +41,73 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ClockTime : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT ClockTime : public DataTypeBase {
+ protected:
+  KINT32 m_i32Hour;
 
-    KINT32 m_i32Hour;
+  KUINT32 m_ui32TimePastHour;
 
-    KUINT32 m_ui32TimePastHour;
+ public:
+  static const KUINT16 CLOCK_TIME_SIZE = 8;
 
-public:
+  static const KFLOAT64 SEC_PER_UNIT_TIME;
 
-    static const KUINT16 CLOCK_TIME_SIZE = 8;
+  ClockTime();
 
-    static const KFLOAT64 SEC_PER_UNIT_TIME;
+  ClockTime(KINT32 Hour, KUINT32 TimePastHour);
 
-    ClockTime();
+  ClockTime(KDataStream& stream);
 
-    ClockTime( KINT32 Hour, KUINT32 TimePastHour );
+  virtual ~ClockTime();
 
-    ClockTime( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ClockTime::SetHour
+  //              KDIS::DATA_TYPE::ClockTime::GetHour
+  // Description: Time.
+  // Parameter:   KINT32 H, void
+  //************************************
+  void SetHour(KINT32 H);
+  KINT32 GetHour() const;
 
-    virtual ~ClockTime();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ClockTime::SetTimePastHour
+  //              KDIS::DATA_TYPE::ClockTime::GetTimePastHour
+  // Description: Time Past Hour. The time past the hour field.
+  // Parameter:   KFLOAT32 Z, void
+  //************************************
+  void SetTimePastHour(KUINT32 TPH);
+  KUINT32 GetTimePastHour() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ClockTime::SetHour
-    //              KDIS::DATA_TYPE::ClockTime::GetHour
-    // Description: Time.
-    // Parameter:   KINT32 H, void
-    //************************************
-    void SetHour( KINT32 H );
-    KINT32 GetHour() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ClockTime::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ClockTime::SetTimePastHour
-    //              KDIS::DATA_TYPE::ClockTime::GetTimePastHour
-    // Description: Time Past Hour. The time past the hour field.
-    // Parameter:   KFLOAT32 Z, void
-    //************************************
-    void SetTimePastHour( KUINT32 TPH );
-    KUINT32 GetTimePastHour() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ClockTime::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ClockTime::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ClockTime::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ClockTime::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ClockTime::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const ClockTime & Value ) const;
-    KBOOL operator != ( const ClockTime & Value ) const;
-    KBOOL operator  < ( const ClockTime & Value ) const;
+  KBOOL operator==(const ClockTime& Value) const;
+  KBOOL operator!=(const ClockTime& Value) const;
+  KBOOL operator<(const ClockTime& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

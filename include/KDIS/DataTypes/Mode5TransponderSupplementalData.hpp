@@ -40,92 +40,88 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT Mode5TransponderSupplementalData : public DataTypeBase
-{
-protected:
-	
-	union
-	{
-		struct
-		{
-			KUINT8 m_ui8SquitterStatus     : 1;
-			KUINT8 m_ui8Lvl2SquitterStatus : 1;
-			KUINT8 m_ui8IFFMission         : 3;
-			KUINT8 m_ui8Padding            : 3;
+class KDIS_EXPORT Mode5TransponderSupplementalData : public DataTypeBase {
+ protected:
+  union {
+    struct {
+      KUINT8 m_ui8SquitterStatus : 1;
+      KUINT8 m_ui8Lvl2SquitterStatus : 1;
+      KUINT8 m_ui8IFFMission : 3;
+      KUINT8 m_ui8Padding : 3;
+    };
+    KUINT8 m_ui8SupplementalData;
+  } m_SupplementalDataUnion;
 
-		};
-		KUINT8 m_ui8SupplementalData;
-	} m_SupplementalDataUnion;
+ public:
+  static const KUINT16 MODE_5_TRANSPONDER_SUPPLEMENTAL_DATA_SIZE = 1;
 
-public:
+  Mode5TransponderSupplementalData();
 
-    static const KUINT16 MODE_5_TRANSPONDER_SUPPLEMENTAL_DATA_SIZE = 1; 
+  Mode5TransponderSupplementalData(KBOOL Squitter, KBOOL Lvl2Squitter,
+                                   KUINT8 IFFMission);
 
-    Mode5TransponderSupplementalData();
+  Mode5TransponderSupplementalData(KDataStream& stream);
 
-	Mode5TransponderSupplementalData( KBOOL Squitter, KBOOL Lvl2Squitter, KUINT8 IFFMission ) ;
+  virtual ~Mode5TransponderSupplementalData();
 
-    Mode5TransponderSupplementalData( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::SetSquitter
+  //              KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetHasAntiHandlingDevice
+  // Description: Indicates if the Mode 5 squitter is On(true) or Off(false).
+  // Parameter:   KBOOL S
+  //************************************
+  void SetSquitter(KBOOL S);
+  KBOOL GetSquitter() const;
 
-    virtual ~Mode5TransponderSupplementalData();
+  //************************************
+  // FullName: KDIS::DATA_TYPE::Mode5TransponderSupplementalData::vel2Squitter(
+  //              KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetLevel2Squitter
+  // Description: Indicates if the Level 2 Mode 5 squitter Enabled(true) or
+  // Disabled(false). Parameter:   KBOOL L2S
+  //************************************
+  void SetLevel2Squitter(KBOOL L2S);
+  KBOOL GetLevel2Squitter() const;
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::SetSquitter
-    //              KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetHasAntiHandlingDevice
-    // Description: Indicates if the Mode 5 squitter is On(true) or Off(false).
-    // Parameter:   KBOOL S
-    //************************************
-    void SetSquitter( KBOOL S );
-    KBOOL GetSquitter() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::Mode5TransponderSupplementalData::SetIFFMission
+  //              KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetIFFMission
+  // Description: Identifies the IFF mission of this Mode 5 transponder.
+  //              Throws DATA_TYPE_TOO_LARGE exception if value is greater
+  //              than 7.
+  // Parameter:   KUINT8 IFFM
+  //************************************
+  void SetIFFMission(KUINT8 IFFM);
+  KUINT8 GetIFFMission() const;
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::vel2Squitter(
-    //              KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetLevel2Squitter
-    // Description: Indicates if the Level 2 Mode 5 squitter Enabled(true) or Disabled(false).
-    // Parameter:   KBOOL L2S
-    //************************************
-	void SetLevel2Squitter( KBOOL L2S );
-    KBOOL GetLevel2Squitter() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::SetIFFMission
-    //              KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetIFFMission
-    // Description: Identifies the IFF mission of this Mode 5 transponder. 
-	//              Throws DATA_TYPE_TOO_LARGE exception if value is greater than 7.
-    // Parameter:   KUINT8 IFFM 
-    //************************************
-	void SetIFFMission( KUINT8 IFFM ) ;
-    KUINT8 GetIFFMission() const;
-	
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Mode5TransponderSupplementalData::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Mode5TransponderSupplementalData & Value ) const;
-    KBOOL operator != ( const Mode5TransponderSupplementalData & Value ) const;
+  KBOOL operator==(const Mode5TransponderSupplementalData& Value) const;
+  KBOOL operator!=(const Mode5TransponderSupplementalData& Value) const;
 };
 
-} // END namespace DATA_TYPE
-} // END namespace KDIS
+}  // END namespace DATA_TYPE
+}  // END namespace KDIS

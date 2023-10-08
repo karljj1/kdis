@@ -35,16 +35,18 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Used by the Standard Variable Specification record.
                 Provides base class for all standard variable records.
 
-				Note: See FactoryDecoder for a guide to adding support for using your own VariableDatums. 
+                                Note: See FactoryDecoder for a guide to adding
+support for using your own VariableDatums.
 
-    size:       48 bits / 6 octets - not including record-specific fields or padding.
+    size:       48 bits / 6 octets - not including record-specific fields or
+padding.
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./FactoryDecoder.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/FactoryDecoder.hpp"
+#include "KDIS/Extras/KRef_Ptr.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -56,78 +58,78 @@ namespace DATA_TYPE {
 // pointer or one of your own then simply change it below.
 /************************************************************************/
 class StandardVariable;
-typedef KDIS::UTILS::KRef_Ptr<StandardVariable> StdVarPtr; // Ref counter
-//typedef StandardVariable* StdVarPtr; // Weak ref
+typedef KDIS::UTILS::KRef_Ptr<StandardVariable> StdVarPtr;  // Ref counter
+// typedef StandardVariable* StdVarPtr; // Weak ref
 
-class KDIS_EXPORT StandardVariable : public DataTypeBase, public FactoryDecoderUser<StandardVariable>
-{
-protected:
+class KDIS_EXPORT StandardVariable
+    : public DataTypeBase,
+      public FactoryDecoderUser<StandardVariable> {
+ protected:
+  KUINT32 m_ui32Type;
 
-    KUINT32 m_ui32Type;
+  KUINT16 m_ui16Length;
 
-    KUINT16 m_ui16Length;
+ public:
+  static const KUINT16 STANDARD_VARIABLE_SIZE = 6;
 
-public:
+  StandardVariable();
 
-    static const KUINT16 STANDARD_VARIABLE_SIZE = 6;
+  StandardVariable(KDataStream& stream);
 
-    StandardVariable();
+  virtual ~StandardVariable();
 
-    StandardVariable( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::StandardVariable::GetStandardVariableType
+  // Description: The record type for this StandardVariable.
+  //************************************
+  KDIS::DATA_TYPE::ENUMS::StandardVariableType GetStandardVariableType() const;
 
-    virtual ~StandardVariable();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::StandardVariable::GetAsString
+  // Description: The total record length in octets.
+  //              The value of the Record Length shall be the sum of
+  //              the sizes of the Record Type field, the Record Length field,
+  //              all Record-Specific fields, and any padding required to end
+  //              the record on a 64-bit boundary.
+  //************************************
+  KUINT16 GetRecordLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::StandardVariable::GetStandardVariableType
-    // Description: The record type for this StandardVariable.
-    //************************************
-    KDIS::DATA_TYPE::ENUMS::StandardVariableType GetStandardVariableType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::StandardVariable::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::StandardVariable::GetAsString
-    // Description: The total record length in octets.
-    //              The value of the Record Length shall be the sum of
-    //              the sizes of the Record Type field, the Record Length field,
-    //              all Record-Specific fields, and any padding required to end
-    //              the record on a 64-bit boundary.
-    //************************************
-    KUINT16 GetRecordLength() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::StandardVariable::FactoryDecodeStandardVariable
+  // Description: Decode method for decoding any StandardVariable child classes
+  // that are part of KDIS.
+  //              If you want to create a new StandardVariable child class then
+  //              see the FactoryDecoder class for further info.
+  //              Throws exception for unknown records(UNSUPPORTED_DATATYPE) or
+  //              when stream is too small(NOT_ENOUGH_DATA_IN_BUFFER).
+  // Parameter:   KDataStream & stream
+  //************************************
+  static StdVarPtr FactoryDecodeStandardVariable(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::StandardVariable::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::StandardVariable::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::StandardVariable::FactoryDecodeStandardVariable
-    // Description: Decode method for decoding any StandardVariable child classes that are part of KDIS.
-    //              If you want to create a new StandardVariable child class then see the FactoryDecoder
-	//              class for further info.
-    //              Throws exception for unknown records(UNSUPPORTED_DATATYPE) or when stream is
-    //              too small(NOT_ENOUGH_DATA_IN_BUFFER).
-    // Parameter:   KDataStream & stream
-    //************************************
-    static StdVarPtr FactoryDecodeStandardVariable(  KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::StandardVariable::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::StandardVariable::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::StandardVariable::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const StandardVariable & Value ) const;
-    KBOOL operator != ( const StandardVariable & Value ) const;
+  KBOOL operator==(const StandardVariable& Value) const;
+  KBOOL operator!=(const StandardVariable& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

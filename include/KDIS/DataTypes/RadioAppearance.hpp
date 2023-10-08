@@ -45,55 +45,51 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../KDefines.h"
-#include "./Enums/KDISEnums.h"
+#include "KDIS/DataTypes/Enums/KDISEnums.hpp"
+#include "KDIS/KDefines.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-struct KDIS_EXPORT RadioAppearance
-{
-protected:
+struct KDIS_EXPORT RadioAppearance {
+ protected:
+  KUINT32 m_Unused1 : 21;      // 0-20
+  KUINT32 m_FrozenStatus : 1;  // 21
+  KUINT32 m_Unused3 : 1;       // 22
+  KUINT32 m_State : 1;         // 23
+  KUINT32 m_Unused4 : 8;       // 24-31
 
-    KUINT32 m_Unused1               : 21; // 0-20
-    KUINT32 m_FrozenStatus          : 1;  // 21
-    KUINT32 m_Unused3               : 1;  // 22
-    KUINT32 m_State                 : 1;  // 23
-    KUINT32 m_Unused4               : 8;  // 24-31
+ public:
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioAppearance::SetEntityFrozenStatus
+  //              KDIS::DATA_TYPE::RadioAppearance::IsEntityFrozen
+  // Description: Is the entity frozen?
+  //              Note: Frozen entities should not be dead-reckoned, they should
+  //              remain frozen in place. You would likely freeze entites when
+  //              your application is in a paused state.
+  // Parameter:   KBOOL EFS
+  //************************************
+  void SetEntityFrozenStatus(KBOOL EFS);
+  KBOOL IsEntityFrozen() const;
 
-public:
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioAppearance::SetEntityStateActive
+  //              KDIS::DATA_TYPE::RadioAppearance::IsEntityStateActive
+  // Description: Active(true) / De active(false)
+  // Parameter:   KBOOL ES
+  //************************************
+  void SetEntityStateActive(KBOOL ES);
+  KBOOL IsEntityStateActive() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioAppearance::SetEntityFrozenStatus
-    //              KDIS::DATA_TYPE::RadioAppearance::IsEntityFrozen
-    // Description: Is the entity frozen?
-    //              Note: Frozen entities should not be dead-reckoned, they should remain
-    //              frozen in place. You would likely freeze entites when your application is
-    //              in a paused state.
-    // Parameter:   KBOOL EFS
-    //************************************
-    void SetEntityFrozenStatus( KBOOL EFS );
-    KBOOL IsEntityFrozen() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioAppearance::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioAppearance::SetEntityStateActive
-    //              KDIS::DATA_TYPE::RadioAppearance::IsEntityStateActive
-    // Description: Active(true) / De active(false)
-    // Parameter:   KBOOL ES
-    //************************************
-    void SetEntityStateActive( KBOOL ES );
-    KBOOL IsEntityStateActive() const;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioAppearance::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    KString GetAsString() const;
-
-    KBOOL operator == ( const RadioAppearance & Value ) const;
-    KBOOL operator != ( const RadioAppearance & Value ) const;
+  KBOOL operator==(const RadioAppearance& Value) const;
+  KBOOL operator!=(const RadioAppearance& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

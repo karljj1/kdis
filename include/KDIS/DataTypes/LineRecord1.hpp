@@ -38,84 +38,82 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnvironmentRecord.h"
-#include "./WorldCoordinates.h"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT LineRecord1 : public EnvironmentRecord
-{
-protected:
+class KDIS_EXPORT LineRecord1 : public EnvironmentRecord {
+ protected:
+  WorldCoordinates m_StartLocation;
 
-    WorldCoordinates m_StartLocation;
+  WorldCoordinates m_EndLocation;
 
-    WorldCoordinates m_EndLocation;
+ public:
+  static const KUINT16 LINE_RECORD_1_SIZE = 56;
 
-public:
+  LineRecord1();
 
-    static const KUINT16 LINE_RECORD_1_SIZE = 56;
+  LineRecord1(KDataStream& stream);
 
-    LineRecord1();
+  LineRecord1(KUINT8 Index, const WorldCoordinates& Start,
+              const WorldCoordinates& End);
 
-    LineRecord1( KDataStream & stream ) ;
+  virtual ~LineRecord1();
 
-    LineRecord1( KUINT8 Index, const WorldCoordinates & Start, const WorldCoordinates & End  );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord1::SetLocation
+  // Description: Specifies the start and end location of the line.
+  // Parameter:   const WorldCoordinates & Start
+  // Parameter:   const WorldCoordinates & End
+  //************************************
+  void SetLocation(const WorldCoordinates& Start, const WorldCoordinates& End);
 
-    virtual ~LineRecord1();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord1::SetStartLocation
+  //              KDIS::DATA_TYPE::LineRecord1::GetStartLocation
+  // Description: Specifies the start location of the line.
+  // Parameter:   const WorldCoordinates & L, void
+  //************************************
+  void SetStartLocation(const WorldCoordinates& L);
+  const WorldCoordinates& GetStartLocation() const;
+  WorldCoordinates& GetStartLocation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord1::SetLocation
-    // Description: Specifies the start and end location of the line.
-    // Parameter:   const WorldCoordinates & Start
-    // Parameter:   const WorldCoordinates & End
-    //************************************
-    void SetLocation( const WorldCoordinates & Start, const WorldCoordinates & End );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord1::SetEndLocation
+  //              KDIS::DATA_TYPE::LineRecord1::GetEndLocation
+  // Description: Specifies the end location of the line.
+  // Parameter:   const WorldCoordinates & L, void
+  //************************************
+  void SetEndLocation(const WorldCoordinates& L);
+  const WorldCoordinates& GetEndLocation() const;
+  WorldCoordinates& GetEndLocation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord1::SetStartLocation
-    //              KDIS::DATA_TYPE::LineRecord1::GetStartLocation
-    // Description: Specifies the start location of the line.
-    // Parameter:   const WorldCoordinates & L, void
-    //************************************
-    void SetStartLocation( const WorldCoordinates & L );
-    const WorldCoordinates & GetStartLocation() const;
-    WorldCoordinates & GetStartLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord1::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord1::SetEndLocation
-    //              KDIS::DATA_TYPE::LineRecord1::GetEndLocation
-    // Description: Specifies the end location of the line.
-    // Parameter:   const WorldCoordinates & L, void
-    //************************************
-    void SetEndLocation( const WorldCoordinates & L );
-    const WorldCoordinates & GetEndLocation() const;
-    WorldCoordinates & GetEndLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord1::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord1::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LineRecord1::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord1::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LineRecord1::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const LineRecord1 & Value )const;
-    KBOOL operator != ( const LineRecord1 & Value )const;
+  KBOOL operator==(const LineRecord1& Value) const;
+  KBOOL operator!=(const LineRecord1& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

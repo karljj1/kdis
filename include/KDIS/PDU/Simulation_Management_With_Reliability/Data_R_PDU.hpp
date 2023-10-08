@@ -39,57 +39,56 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Simulation_Management/Data_PDU.h"
-#include "./Reliability_Header.h"
+#include "KDIS/PDU/Simulation_Management/Data_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Reliability_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Data_R_PDU : public Data_PDU,
-                               public Reliability_Header
-{
-public:
+class KDIS_EXPORT Data_R_PDU : public Data_PDU, public Reliability_Header {
+ public:
+  static const KUINT16 DATA_R_PDU_SIZE = 40;
 
-    static const KUINT16 DATA_R_PDU_SIZE = 40;
+  Data_R_PDU();
 
-    Data_R_PDU();
+  explicit Data_R_PDU(const Header& H);
 
-    explicit Data_R_PDU( const Header & H );
+  explicit Data_R_PDU(KDataStream& stream);
 
-    Data_R_PDU( KDataStream & stream ) ;
+  Data_R_PDU(const Header& H, KDataStream& stream);
 
-    Data_R_PDU( const Header & H, KDataStream & stream ) ;
+  Data_R_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+             const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+             KUINT32 RequestID,
+             KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
-    Data_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-                KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+  virtual ~Data_R_PDU();
 
-    virtual ~Data_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Data_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Data_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Data_R_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Data_R_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
+  //************************************
+  // FullName:    KDIS::PDU::Data_R_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Data_R_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Data_R_PDU & Value ) const;
-    KBOOL operator != ( const Data_R_PDU & Value ) const;
+  KBOOL operator==(const Data_R_PDU& Value) const;
+  KBOOL operator!=(const Data_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

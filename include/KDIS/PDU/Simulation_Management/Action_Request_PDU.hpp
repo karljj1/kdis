@@ -40,7 +40,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Data_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Data_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
@@ -48,65 +48,63 @@ namespace PDU {
 using KDIS::DATA_TYPE::EntityIdentifier;
 using KDIS::DATA_TYPE::ENUMS::ActionID;
 
-class KDIS_EXPORT Action_Request_PDU : public Data_PDU
-{
-protected:
+class KDIS_EXPORT Action_Request_PDU : public Data_PDU {
+ protected:
+  KUINT32 m_ui32ActionID;
 
-    KUINT32 m_ui32ActionID;
+ public:
+  static const KUINT16 ACTION_REQUEST_PDU_SIZE = 40;
 
-public:
+  Action_Request_PDU();
 
-    static const KUINT16 ACTION_REQUEST_PDU_SIZE = 40;
+  explicit Action_Request_PDU(const Header& H);
 
-    Action_Request_PDU();
+  Action_Request_PDU(KDataStream& stream);
 
-    explicit Action_Request_PDU( const Header & H );
+  Action_Request_PDU(const Header& H, KDataStream& stream);
 
-    Action_Request_PDU( KDataStream & stream ) ;
+  Action_Request_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+      const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+      KUINT32 RequestID, KUINT32 ActionID);
 
-    Action_Request_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Action_Request_PDU();
 
-    Action_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-                        KUINT32 RequestID, KUINT32 ActionID );
+  //************************************
+  // FullName:    KDIS::PDU::Action_Request_PDU::SetActionID
+  //              KDIS::PDU::Action_Request_PDU::GetActionID
+  // Description: Specifies the particular action that is requested
+  //              by the sim manger.
+  // Parameter:   ActionID ID
+  //************************************
+  void SetActionID(KDIS::DATA_TYPE::ENUMS::ActionID ID);
+  KDIS::DATA_TYPE::ENUMS::ActionID GetActionID() const;
 
-    virtual ~Action_Request_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Action_Request_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Action_Request_PDU::SetActionID
-    //              KDIS::PDU::Action_Request_PDU::GetActionID
-    // Description: Specifies the particular action that is requested
-    //              by the sim manger.
-    // Parameter:   ActionID ID
-    //************************************
-    void SetActionID( KDIS::DATA_TYPE::ENUMS::ActionID ID );
-    KDIS::DATA_TYPE::ENUMS::ActionID GetActionID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Action_Request_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Action_Request_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Action_Request_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Action_Request_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Action_Request_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Action_Request_PDU & Value ) const;
-    KBOOL operator != ( const Action_Request_PDU & Value ) const;
+  KBOOL operator==(const Action_Request_PDU& Value) const;
+  KBOOL operator!=(const Action_Request_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
-
+}  // END namespace PDU
+}  // END namespace KDIS

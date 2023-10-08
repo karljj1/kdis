@@ -39,117 +39,121 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Simulation_Management/Simulation_Management_Header.h"
-#include "./Reliability_Header.h"
-#include "./../../DataTypes/RecordSet.h"
 #include <vector>
+
+#include "KDIS/DataTypes/RecordSet.hpp"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Reliability_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Record_Query_R_PDU : public Simulation_Management_Header,
-                                       public Reliability_Header
-{
-protected:
+                                       public Reliability_Header {
+ protected:
+  KUINT32 m_ui32RqId;
 
-    KUINT32 m_ui32RqId;
+  KUINT16 m_ui16EvntTyp;
 
-    KUINT16 m_ui16EvntTyp;
+  KUINT32 m_ui32Time;
 
-    KUINT32 m_ui32Time;
+  KUINT32 m_ui32NumRecs;
 
-    KUINT32 m_ui32NumRecs;
+  std::vector<KUINT32> m_vui32RecID;
 
-    std::vector<KUINT32> m_vui32RecID;
+ public:
+  static const KUINT16 RECORD_QUERY_R_PDU_SIZE = 40;
 
-public:
+  Record_Query_R_PDU();
 
-    static const KUINT16 RECORD_QUERY_R_PDU_SIZE = 40;
+  Record_Query_R_PDU(KDataStream& stream);
 
-    Record_Query_R_PDU();
+  Record_Query_R_PDU(const Header& H, KDataStream& stream);
 
-    Record_Query_R_PDU( KDataStream & stream ) ;
+  Record_Query_R_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+      const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+      KUINT32 RequestID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS,
+      KDIS::DATA_TYPE::ENUMS::EventType ET, KUINT32 Time);
 
-    Record_Query_R_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Record_Query_R_PDU();
 
-    Record_Query_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
-                        KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS, KDIS::DATA_TYPE::ENUMS::EventType ET, KUINT32 Time );
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::SetRequestID
+  //              KDIS::PDU::Record_Query_R_PDU::GetRequestID
+  // Description: Request ID
+  // Parameter:   KUINT32 ID
+  //************************************
+  void SetRequestID(KUINT32 ID);
+  KUINT32 GetRequestID() const;
 
-    virtual ~Record_Query_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::SetEventType
+  //              KDIS::PDU::Record_Query_R_PDU::GetEventType
+  // Description: Event type
+  // Parameter:   EventType ET
+  //************************************
+  void SetEventType(KDIS::DATA_TYPE::ENUMS::EventType ET);
+  KDIS::DATA_TYPE::ENUMS::EventType GetEventType() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::SetRequestID
-    //              KDIS::PDU::Record_Query_R_PDU::GetRequestID
-    // Description: Request ID
-    // Parameter:   KUINT32 ID
-    //************************************
-    void SetRequestID( KUINT32 ID );
-    KUINT32 GetRequestID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::SetTime
+  //              KDIS::PDU::Record_Query_R_PDU::GetTime
+  // Description: Specifies the time interval between issues of Record-R PDUs
+  // for periodic reporting.
+  //              This value may also represent a specific time for time-based
+  //              reporting. A value of zero in this field shall mean that the
+  //              requested data should be sent once and not at any previously
+  //              specified time interval.
+  // Parameter:   KUINT32 T
+  //************************************
+  void SetTime(KUINT32 T);
+  KUINT32 GetTime() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::SetEventType
-    //              KDIS::PDU::Record_Query_R_PDU::GetEventType
-    // Description: Event type
-    // Parameter:   EventType ET
-    //************************************
-    void SetEventType( KDIS::DATA_TYPE::ENUMS::EventType ET );
-    KDIS::DATA_TYPE::ENUMS::EventType GetEventType() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::GetNumberRecords
+  // Description: Number of Record IDs.
+  //************************************
+  KUINT32 GetNumberRecords() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::SetTime
-    //              KDIS::PDU::Record_Query_R_PDU::GetTime
-    // Description: Specifies the time interval between issues of Record-R PDUs for periodic reporting.
-    //              This value may also represent a specific time for time-based reporting.
-    //              A value of zero in this field shall mean that the requested data should be sent
-    //              once and not at any previously specified time interval.
-    // Parameter:   KUINT32 T
-    //************************************
-    void SetTime( KUINT32 T );
-    KUINT32 GetTime() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::AddRecordID
+  //              KDIS::PDU::Record_Query_R_PDU::SetRecordIDs
+  //              KDIS::PDU::Record_Query_R_PDU::GetRecordIDs
+  // Description: Specifies the identification of the records for which
+  // information
+  //              is requested.
+  // Parameter:   vector<KUINT32> & ID
+  //************************************
+  void AddRecordID(const KUINT32 ID);
+  void SetRecordIDs(const std::vector<KUINT32>& ID);
+  const std::vector<KUINT32>& GetRecordIDs() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::GetNumberRecords
-    // Description: Number of Record IDs.
-    //************************************
-    KUINT32 GetNumberRecords() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::AddRecordID
-    //              KDIS::PDU::Record_Query_R_PDU::SetRecordIDs
-    //              KDIS::PDU::Record_Query_R_PDU::GetRecordIDs
-    // Description: Specifies the identification of the records for which information
-    //              is requested.
-    // Parameter:   vector<KUINT32> & ID
-    //************************************
-    void AddRecordID( const KUINT32 ID );
-    void SetRecordIDs( const std::vector<KUINT32> & ID );
-    const std::vector<KUINT32> & GetRecordIDs() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_Query_R_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Record_Query_R_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Record_Query_R_PDU & Value ) const;
-    KBOOL operator != ( const Record_Query_R_PDU & Value ) const;
+  KBOOL operator==(const Record_Query_R_PDU& Value) const;
+  KBOOL operator!=(const Record_Query_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

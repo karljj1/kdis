@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SilentAggregateSystem.h"
+#include "KDIS/DataTypes/SilentAggregateSystem.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,127 +36,105 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SilentAggregateSystem::SilentAggregateSystem() :
-    m_ui16NumAggregates( 0 ),
-    m_ui16Padding( 0 )
-{
+SilentAggregateSystem::SilentAggregateSystem()
+    : m_ui16NumAggregates(0), m_ui16Padding(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SilentAggregateSystem::SilentAggregateSystem(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentAggregateSystem::SilentAggregateSystem( KDataStream & stream ) 
-{
-    Decode( stream );
+SilentAggregateSystem::SilentAggregateSystem(KUINT16 NumAggregates,
+                                             const AggregateType& T)
+    : m_ui16NumAggregates(NumAggregates), m_ui16Padding(0), m_AggTyp(T) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SilentAggregateSystem::~SilentAggregateSystem() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SilentAggregateSystem::SetNumberOfAggregates(KUINT16 NOA) {
+  m_ui16NumAggregates = NOA;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentAggregateSystem::SilentAggregateSystem( KUINT16 NumAggregates, const AggregateType & T ) :
-    m_ui16NumAggregates( NumAggregates ),
-    m_ui16Padding( 0 ),
-    m_AggTyp( T )
-{
+KUINT16 SilentAggregateSystem::GetNumberOfAggregates() const {
+  return m_ui16NumAggregates;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentAggregateSystem::~SilentAggregateSystem()
-{
+void SilentAggregateSystem::SetAggregateType(const AggregateType& A) {
+  m_AggTyp = A;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentAggregateSystem::SetNumberOfAggregates( KUINT16 NOA )
-{
-    m_ui16NumAggregates = NOA;
+const AggregateType& SilentAggregateSystem::GetAggregateType() const {
+  return m_AggTyp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 SilentAggregateSystem::GetNumberOfAggregates() const
-{
-    return m_ui16NumAggregates;
+AggregateType& SilentAggregateSystem::GetAggregateType() { return m_AggTyp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString SilentAggregateSystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Silent Aggregate System:\n"
+     << "Number Of Aggregates:  " << m_ui16NumAggregates << "\n"
+     << m_AggTyp.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentAggregateSystem::SetAggregateType( const AggregateType & A )
-{
-    m_AggTyp = A;
+void SilentAggregateSystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() <
+      SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16NumAggregates >> KDIS_STREAM m_AggTyp >> m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const AggregateType & SilentAggregateSystem::GetAggregateType() const
-{
-    return m_AggTyp;
+KDataStream SilentAggregateSystem::Encode() const {
+  KDataStream stream;
+
+  SilentAggregateSystem::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateType & SilentAggregateSystem::GetAggregateType()
-{
-    return m_AggTyp;
+void SilentAggregateSystem::Encode(KDataStream& stream) const {
+  stream << m_ui16NumAggregates << KDIS_STREAM m_AggTyp << m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString SilentAggregateSystem::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Silent Aggregate System:\n"
-       << "Number Of Aggregates:  " << m_ui16NumAggregates << "\n"
-       << m_AggTyp.GetAsString();
-
-    return ss.str();
+KBOOL SilentAggregateSystem::operator==(
+    const SilentAggregateSystem& Value) const {
+  if (m_ui16NumAggregates != Value.m_ui16NumAggregates) return false;
+  if (m_AggTyp != Value.m_AggTyp) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentAggregateSystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < SilentAggregateSystem::SILENT_AGGREGATE_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16NumAggregates
-           >> KDIS_STREAM m_AggTyp
-           >> m_ui16Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream SilentAggregateSystem::Encode() const
-{
-    KDataStream stream;
-
-    SilentAggregateSystem::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SilentAggregateSystem::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16NumAggregates
-           << KDIS_STREAM m_AggTyp
-           << m_ui16Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SilentAggregateSystem::operator == ( const SilentAggregateSystem & Value ) const
-{
-    if( m_ui16NumAggregates != Value.m_ui16NumAggregates ) return false;
-    if( m_AggTyp            != Value.m_AggTyp )            return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SilentAggregateSystem::operator != ( const SilentAggregateSystem & Value ) const
-{
-    return !( *this == Value );
+KBOOL SilentAggregateSystem::operator!=(
+    const SilentAggregateSystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

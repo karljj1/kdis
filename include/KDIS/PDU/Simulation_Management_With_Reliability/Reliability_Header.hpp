@@ -40,69 +40,68 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../../KDefines.h"
-#include "./../../DataTypes/Enums/KDISEnums.h"
-#include "./../../KDataStream.h"
+#include "KDIS/DataTypes/Enums/KDISEnums.hpp"
+#include "KDIS/KDataStream.hpp"
+#include "KDIS/KDefines.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Reliability_Header
-{
-protected:
+class KDIS_EXPORT Reliability_Header {
+ protected:
+  KUINT8 m_ui8ReqRelSrv;
 
-    KUINT8 m_ui8ReqRelSrv;
+  KUINT16 m_ui16Padding1;
 
-    KUINT16 m_ui16Padding1;
+  KUINT8 m_ui8Padding;
 
-    KUINT8 m_ui8Padding;
+ public:
+  static const KUINT16 RELIABILITY_SIZE = 4;
 
-public:
+  Reliability_Header();
 
-    static const KUINT16 RELIABILITY_SIZE = 4;
+  Reliability_Header(KDataStream& stream);
 
-    Reliability_Header();
+  Reliability_Header(KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
-    Reliability_Header( KDataStream & stream ) ;
+  virtual ~Reliability_Header();
 
-    Reliability_Header( KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+  //************************************
+  // FullName:    KDIS::PDU::Reliability_Header::SetRequiredReliabilityService
+  //              KDIS::PDU::Reliability_Header::GetRequiredReliabilityService
+  // Description: specifies the required level of reliability service to be
+  //              used for this transaction/PDU.
+  // Parameter:   RequiredReliabilityService RRS
+  //************************************
+  void SetRequiredReliabilityService(
+      KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
+  KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService
+  GetRequiredReliabilityService() const;
 
-    virtual ~Reliability_Header();
+  //************************************
+  // FullName:    KDIS::PDU::Reliability_Header::GetString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Reliability_Header::SetRequiredReliabilityService
-    //              KDIS::PDU::Reliability_Header::GetRequiredReliabilityService
-    // Description: specifies the required level of reliability service to be
-    //              used for this transaction/PDU.
-    // Parameter:   RequiredReliabilityService RRS
-    //************************************
-    void SetRequiredReliabilityService( KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
-    KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService GetRequiredReliabilityService() const;
+  //************************************
+  // FullName:    KDIS::PDU::Reliability_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::PDU::Reliability_Header::GetString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Reliability_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Reliability_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Reliability_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Reliability_Header & Value ) const;
-    KBOOL operator != ( const Reliability_Header & Value ) const;
+  KBOOL operator==(const Reliability_Header& Value) const;
+  KBOOL operator!=(const Reliability_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

@@ -39,39 +39,37 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Simulation_Management/Action_Response_PDU.h"
-#include "./Action_Request_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Action_Response_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Action_Request_R_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Action_Response_R_PDU : public Action_Response_PDU
-{
-public:
+class KDIS_EXPORT Action_Response_R_PDU : public Action_Response_PDU {
+ public:
+  static const KUINT16 ACTION_RESPONSE_R_PDU_SIZE = 40;
 
-    static const KUINT16 ACTION_RESPONSE_R_PDU_SIZE = 40;
+  Action_Response_R_PDU();
 
-    Action_Response_R_PDU();
+  explicit Action_Response_R_PDU(KDataStream& stream);
 
-    Action_Response_R_PDU( KDataStream & stream ) ;
+  Action_Response_R_PDU(const Header& H, KDataStream& stream);
 
-    Action_Response_R_PDU( const Header & H, KDataStream & stream ) ;
+  // Generate a response from a PDU.
+  Action_Response_R_PDU(const Action_Request_R_PDU& pdu,
+                        KDIS::DATA_TYPE::ENUMS::RequestStatus RS);
 
-    // Generate a response from a PDU.
-    Action_Response_R_PDU( const Action_Request_R_PDU & pdu, KDIS::DATA_TYPE::ENUMS::RequestStatus RS );
+  virtual ~Action_Response_R_PDU();
 
-    virtual ~Action_Response_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Action_Response_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Action_Response_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Action_Response_R_PDU & Value ) const;
-    KBOOL operator != ( const Action_Response_R_PDU & Value ) const;
+  KBOOL operator==(const Action_Response_R_PDU& Value) const;
+  KBOOL operator!=(const Action_Response_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
-
+}  // END namespace PDU
+}  // END namespace KDIS

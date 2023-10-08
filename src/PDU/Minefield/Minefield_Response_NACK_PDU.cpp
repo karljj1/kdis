@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Minefield_Response_NACK_PDU.h"
+#include "KDIS/PDU/Minefield/Minefield_Response_NACK_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,231 +41,205 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU() :
-    m_ui8ReqID( 0 ),
-    m_ui8NumMisPdus( 0 )
-{
-    m_ui8PDUType = MinefieldResponseNAK_PDU_Type;
-    m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU()
+    : m_ui8ReqID(0), m_ui8NumMisPdus(0) {
+  m_ui8PDUType = MinefieldResponseNAK_PDU_Type;
+  m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream )  :
-    Minefield_Header( H )
-{
-    Decode( stream, true );
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU(const Header& H,
+                                                         KDataStream& stream)
+    : Minefield_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
-        KUINT8 ReqID ) :
-    m_ReqID( RequestingSimulationID ),
-    m_ui8ReqID( ReqID ),
-    m_ui8NumMisPdus( 0 )
-{
-    m_MinefieldID = MinefieldID;
-    m_ui8PDUType = MinefieldResponseNAK_PDU_Type;
-    m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU(
+    const EntityIdentifier& MinefieldID,
+    const EntityIdentifier& RequestingSimulationID, KUINT8 ReqID)
+    : m_ReqID(RequestingSimulationID), m_ui8ReqID(ReqID), m_ui8NumMisPdus(0) {
+  m_MinefieldID = MinefieldID;
+  m_ui8PDUType = MinefieldResponseNAK_PDU_Type;
+  m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU( const EntityIdentifier & MinefieldID, const EntityIdentifier & RequestingSimulationID,
-        KUINT8 ReqID, const vector<KUINT8> & MissingSeqNums ) :
-    m_ReqID( RequestingSimulationID ),
-    m_ui8ReqID( ReqID )
-{
-    m_MinefieldID = MinefieldID;
-    m_ui8PDUType = MinefieldResponseNAK_PDU_Type;
-    m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
-    SetMissingPDUSequenceNumbers( MissingSeqNums );
+Minefield_Response_NACK_PDU::Minefield_Response_NACK_PDU(
+    const EntityIdentifier& MinefieldID,
+    const EntityIdentifier& RequestingSimulationID, KUINT8 ReqID,
+    const vector<KUINT8>& MissingSeqNums)
+    : m_ReqID(RequestingSimulationID), m_ui8ReqID(ReqID) {
+  m_MinefieldID = MinefieldID;
+  m_ui8PDUType = MinefieldResponseNAK_PDU_Type;
+  m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
+  SetMissingPDUSequenceNumbers(MissingSeqNums);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Response_NACK_PDU::~Minefield_Response_NACK_PDU()
-{
+Minefield_Response_NACK_PDU::~Minefield_Response_NACK_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Minefield_Response_NACK_PDU::SetRequestingSimulationID(
+    const EntityIdentifier& ID) {
+  m_ReqID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Response_NACK_PDU::SetRequestingSimulationID( const EntityIdentifier & ID )
-{
-    m_ReqID = ID;
+const EntityIdentifier& Minefield_Response_NACK_PDU::GetRequestingSimulationID()
+    const {
+  return m_ReqID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Minefield_Response_NACK_PDU::GetRequestingSimulationID() const
-{
-    return m_ReqID;
+EntityIdentifier& Minefield_Response_NACK_PDU::GetRequestingSimulationID() {
+  return m_ReqID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Minefield_Response_NACK_PDU::GetRequestingSimulationID()
-{
-    return m_ReqID;
+void Minefield_Response_NACK_PDU::SetRequestID(KUINT8 ID) { m_ui8ReqID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 Minefield_Response_NACK_PDU::GetRequestID() const { return m_ui8ReqID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 Minefield_Response_NACK_PDU::GetNumberMissingPDUs() const {
+  return m_ui8NumMisPdus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Response_NACK_PDU::SetRequestID( KUINT8 ID )
-{
-    m_ui8ReqID = ID;
+void Minefield_Response_NACK_PDU::AddMissingPDUSequenceNumber(KUINT8 N) {
+  m_vSeqNums.push_back(N);
+  ++m_ui8NumMisPdus;
+  ++m_ui16PDULength;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Minefield_Response_NACK_PDU::GetRequestID() const
-{
-    return m_ui8ReqID;
+void Minefield_Response_NACK_PDU::SetMissingPDUSequenceNumbers(
+    const std::vector<KUINT8>& N) {
+  m_vSeqNums = N;
+  m_ui8NumMisPdus = N.size();
+  m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE + m_ui8NumMisPdus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Minefield_Response_NACK_PDU::GetNumberMissingPDUs() const
-{
-    return m_ui8NumMisPdus;
+const std::vector<KUINT8>&
+Minefield_Response_NACK_PDU::GetMissingPDUSequenceNumbers() const {
+  return m_vSeqNums;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Response_NACK_PDU::AddMissingPDUSequenceNumber( KUINT8 N )
-{
-    m_vSeqNums.push_back( N );
-    ++m_ui8NumMisPdus;
-    ++m_ui16PDULength;
+void Minefield_Response_NACK_PDU::ClearMissingPDUSequenceNumbers() {
+  m_vSeqNums.clear();
+  m_ui8NumMisPdus = 0;
+
+  // Reset PDU length.
+  m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Response_NACK_PDU::SetMissingPDUSequenceNumbers( const std::vector<KUINT8> & N )
-{
-    m_vSeqNums = N;
-    m_ui8NumMisPdus = N.size();
-    m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE + m_ui8NumMisPdus;
+KString Minefield_Response_NACK_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Minefield Response NACK PDU-\n"
+     << Minefield_Header::GetAsString()
+     << "Requesting Entity ID.: " << m_ReqID.GetAsString()
+     << "Request ID: " << (KUINT16)m_ui8ReqID << "\n"
+     << "Number Missing PDU's: " << (KUINT16)m_ui8NumMisPdus << "\n"
+     << "Missing PDU Sequence Numbers:\n";
+
+  vector<KUINT8>::const_iterator citr = m_vSeqNums.begin();
+  vector<KUINT8>::const_iterator citrEnd = m_vSeqNums.end();
+  for (; citr != citrEnd; ++citr) {
+    ss << "\t" << (KUINT16)*citr << "\n";
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const std::vector<KUINT8> & Minefield_Response_NACK_PDU::GetMissingPDUSequenceNumbers() const
-{
-    return m_vSeqNums;
+void Minefield_Response_NACK_PDU::Decode(KDataStream& stream,
+                                         bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      MINEFIELD_RESPONSE_NACK_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  m_vSeqNums.clear();
+
+  Minefield_Header::Decode(stream, ignoreHeader);
+
+  stream >> KDIS_STREAM m_ReqID >> m_ui8ReqID >> m_ui8NumMisPdus;
+
+  KUINT8 ui8Tmp = 0;
+  for (KUINT8 i = 0; i < m_ui8NumMisPdus; ++i) {
+    stream >> ui8Tmp;
+    m_vSeqNums.push_back(ui8Tmp);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Response_NACK_PDU::ClearMissingPDUSequenceNumbers()
-{
-    m_vSeqNums.clear();
-    m_ui8NumMisPdus = 0;
+KDataStream Minefield_Response_NACK_PDU::Encode() const {
+  KDataStream stream;
 
-    // Reset PDU length.
-    m_ui16PDULength = MINEFIELD_RESPONSE_NACK_SIZE;
+  Minefield_Response_NACK_PDU::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Minefield_Response_NACK_PDU::GetAsString() const
-{
-    KStringStream ss;
+void Minefield_Response_NACK_PDU::Encode(KDataStream& stream) const {
+  Minefield_Header::Encode(stream);
 
-    ss << Header::GetAsString()
-       << "-Minefield Response NACK PDU-\n"
-       << Minefield_Header::GetAsString()
-       << "Requesting Entity ID.: " << m_ReqID.GetAsString()
-       << "Request ID: "            << ( KUINT16 )m_ui8ReqID        << "\n"
-       << "Number Missing PDU's: "  << ( KUINT16 )m_ui8NumMisPdus   << "\n"
-       << "Missing PDU Sequence Numbers:\n";
+  stream << KDIS_STREAM m_ReqID << m_ui8ReqID << m_ui8NumMisPdus;
 
-    vector<KUINT8>::const_iterator citr = m_vSeqNums.begin();
-    vector<KUINT8>::const_iterator citrEnd = m_vSeqNums.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << "\t" << ( KUINT16 )*citr << "\n";
-    }
-
-    return ss.str();
+  vector<KUINT8>::const_iterator citr = m_vSeqNums.begin();
+  vector<KUINT8>::const_iterator citrEnd = m_vSeqNums.end();
+  for (; citr != citrEnd; ++citr) {
+    stream << *citr;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Response_NACK_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_RESPONSE_NACK_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    m_vSeqNums.clear();
-
-    Minefield_Header::Decode( stream, ignoreHeader );
-
-    stream >> KDIS_STREAM m_ReqID
-           >> m_ui8ReqID
-           >> m_ui8NumMisPdus;
-
-    KUINT8 ui8Tmp = 0;
-    for( KUINT8 i = 0; i < m_ui8NumMisPdus; ++i )
-    {
-        stream >> ui8Tmp;
-        m_vSeqNums.push_back( ui8Tmp );
-    }
+KBOOL Minefield_Response_NACK_PDU::operator==(
+    const Minefield_Response_NACK_PDU& Value) const {
+  if (Minefield_Header::operator!=(Value)) return false;
+  if (m_ReqID != Value.m_ReqID) return false;
+  if (m_ui8ReqID != Value.m_ui8ReqID) return false;
+  if (m_ui8NumMisPdus != Value.m_ui8NumMisPdus) return false;
+  if (m_vSeqNums != Value.m_vSeqNums) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Minefield_Response_NACK_PDU::Encode() const
-{
-    KDataStream stream;
-
-    Minefield_Response_NACK_PDU::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Minefield_Response_NACK_PDU::Encode( KDataStream & stream ) const
-{
-    Minefield_Header::Encode( stream );
-
-    stream << KDIS_STREAM m_ReqID
-           << m_ui8ReqID
-           << m_ui8NumMisPdus;
-
-    vector<KUINT8>::const_iterator citr = m_vSeqNums.begin();
-    vector<KUINT8>::const_iterator citrEnd = m_vSeqNums.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        stream << *citr;
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Minefield_Response_NACK_PDU::operator == ( const Minefield_Response_NACK_PDU & Value ) const
-{
-    if( Minefield_Header::operator != ( Value ) )             return false;
-    if( m_ReqID                    != Value.m_ReqID )         return false;
-    if( m_ui8ReqID                 != Value.m_ui8ReqID )      return false;
-    if( m_ui8NumMisPdus            != Value.m_ui8NumMisPdus ) return false;
-    if( m_vSeqNums                 != Value.m_vSeqNums )      return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Minefield_Response_NACK_PDU::operator != ( const Minefield_Response_NACK_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL Minefield_Response_NACK_PDU::operator!=(
+    const Minefield_Response_NACK_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

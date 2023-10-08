@@ -38,120 +38,117 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT BeamData : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT BeamData : public DataTypeBase {
+ protected:
+  KFLOAT32 m_f32AziCtr;
 
-    KFLOAT32 m_f32AziCtr;
+  KFLOAT32 m_f32AziSwp;
 
-    KFLOAT32 m_f32AziSwp;
+  KFLOAT32 m_f32EleCtr;
 
-    KFLOAT32 m_f32EleCtr;
+  KFLOAT32 m_f32EleSwp;
 
-    KFLOAT32 m_f32EleSwp;
+  KFLOAT32 m_f32SwpSyn;
 
-    KFLOAT32 m_f32SwpSyn;
+ public:
+  static const KUINT16 BEAM_DATA_SIZE = 20;
 
-public:
+  BeamData();
 
-    static const KUINT16 BEAM_DATA_SIZE = 20;
+  BeamData(KDataStream& stream);
 
-    BeamData();
+  BeamData(KFLOAT32 AziCtr, KFLOAT32 AziSwp, KFLOAT32 EleCtr, KFLOAT32 EleSwp,
+           KFLOAT32 SwpSyn);
 
-    BeamData( KDataStream & stream ) ;
+  virtual ~BeamData();
 
-    BeamData( KFLOAT32 AziCtr, KFLOAT32 AziSwp, KFLOAT32 EleCtr,
-              KFLOAT32 EleSwp, KFLOAT32 SwpSyn );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::SetAzimuthCenter
+  //              KDIS::DATA_TYPE::BeamData::GetAzimuthCenter
+  // Description: Beam azimuth center angle in radians. All angles shall be
+  // measured in
+  //              relation to the emitter coordinate system.
+  //              The azimuth center for 360ï¿½ scan systems shall be 0ï¿½.
+  // Parameter:   KFLOAT32 AC
+  //************************************
+  void SetAzimuthCenter(KFLOAT32 AC);
+  KFLOAT32 GetAzimuthCenter() const;
 
-    virtual ~BeamData();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::SetAzimuthSweep
+  //              KDIS::DATA_TYPE::BeamData::GetAzimuthSweep
+  // Description: Azimuth sweep angle in radians.
+  //              All angles shall be measured in
+  //              relation to the emitter coordinate system.
+  // Parameter:   KFLOAT32 AS
+  //************************************
+  void SetAzimuthSweep(KFLOAT32 AS);
+  KFLOAT32 GetAzimuthSweep() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::SetAzimuthCenter
-    //              KDIS::DATA_TYPE::BeamData::GetAzimuthCenter
-    // Description: Beam azimuth center angle in radians. All angles shall be measured in
-    //              relation to the emitter coordinate system.
-    //              The azimuth center for 360° scan systems shall be 0°.
-    // Parameter:   KFLOAT32 AC
-    //************************************
-    void SetAzimuthCenter( KFLOAT32 AC );
-    KFLOAT32 GetAzimuthCenter()const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::SetElevationCenter
+  //              KDIS::DATA_TYPE::BeamData::GetElevationCenter
+  // Description: Elevation center angle in radians.
+  //              All angles shall be measured in
+  //              relation to the emitter coordinate system.
+  // Parameter:   KFLOAT32 EC
+  //************************************
+  void SetElevationCenter(KFLOAT32 EC);
+  KFLOAT32 GetElevationCenter() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::SetAzimuthSweep
-    //              KDIS::DATA_TYPE::BeamData::GetAzimuthSweep
-    // Description: Azimuth sweep angle in radians.
-    //              All angles shall be measured in
-    //              relation to the emitter coordinate system.
-    // Parameter:   KFLOAT32 AS
-    //************************************
-    void SetAzimuthSweep( KFLOAT32 AS );
-    KFLOAT32 GetAzimuthSweep()const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::SetElevationSweep
+  //              KDIS::DATA_TYPE::BeamData::GetElevationSweep
+  // Description: Elevation sweep angle in radians.
+  //              All angles shall be measured in
+  //              relation to the emitter coordinate system.
+  // Parameter:   KFLOAT32 ES
+  //************************************
+  void SetElevationSweep(KFLOAT32 ES);
+  KFLOAT32 GetElevationSweep() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::SetElevationCenter
-    //              KDIS::DATA_TYPE::BeamData::GetElevationCenter
-    // Description: Elevation center angle in radians.
-    //              All angles shall be measured in
-    //              relation to the emitter coordinate system.
-    // Parameter:   KFLOAT32 EC
-    //************************************
-    void SetElevationCenter( KFLOAT32 EC );
-    KFLOAT32 GetElevationCenter()const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::SetBeamSweepSync
+  //              KDIS::DATA_TYPE::BeamData::GetBeamSweepSync
+  // Description: Specifies the percentage of time a scan is through its
+  //              pattern from its origin. The pattern and origin data
+  //              shall be derived from database parameters.
+  //              Provided to allow a receiver to synchronize its regeneration
+  //              scan pattern to that of the emitter.
+  // Parameter:   KFLOAT32 BSS
+  //************************************
+  void SetBeamSweepSync(KFLOAT32 BSS);
+  KFLOAT32 GetBeamSweepSync() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::SetElevationSweep
-    //              KDIS::DATA_TYPE::BeamData::GetElevationSweep
-    // Description: Elevation sweep angle in radians.
-    //              All angles shall be measured in
-    //              relation to the emitter coordinate system.
-    // Parameter:   KFLOAT32 ES
-    //************************************
-    void SetElevationSweep( KFLOAT32 ES );
-    KFLOAT32 GetElevationSweep()const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::SetBeamSweepSync
-    //              KDIS::DATA_TYPE::BeamData::GetBeamSweepSync
-    // Description: Specifies the percentage of time a scan is through its
-    //              pattern from its origin. The pattern and origin data
-    //              shall be derived from database parameters.
-    //              Provided to allow a receiver to synchronize its regeneration
-    //              scan pattern to that of the emitter.
-    // Parameter:   KFLOAT32 BSS
-    //************************************
-    void SetBeamSweepSync( KFLOAT32 BSS );
-    KFLOAT32 GetBeamSweepSync()const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::BeamData::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::BeamData::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const BeamData & Value ) const;
-    KBOOL operator != ( const BeamData & Value ) const;
+  KBOOL operator==(const BeamData& Value) const;
+  KBOOL operator!=(const BeamData& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

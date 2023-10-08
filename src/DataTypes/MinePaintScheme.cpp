@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./MinePaintScheme.h"
+#include "KDIS/DataTypes/MinePaintScheme.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,116 +37,96 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MinePaintScheme::MinePaintScheme()
-{
-    m_PntScmUnion.m_ui8PntSchm = 0;
+MinePaintScheme::MinePaintScheme() { m_PntScmUnion.m_ui8PntSchm = 0; }
+
+//////////////////////////////////////////////////////////////////////////
+
+MinePaintScheme::MinePaintScheme(MineAlgae A, PaintScheme PS) {
+  m_PntScmUnion.m_ui8Alg = A;
+  m_PntScmUnion.m_ui8PntSchm = PS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinePaintScheme::MinePaintScheme( MineAlgae A, PaintScheme PS )
-{
-    m_PntScmUnion.m_ui8Alg = A;
-    m_PntScmUnion.m_ui8PntSchm = PS;
+MinePaintScheme::MinePaintScheme(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+MinePaintScheme::~MinePaintScheme() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void MinePaintScheme::SetAlgae(MineAlgae A) { m_PntScmUnion.m_ui8Alg = A; }
+
+//////////////////////////////////////////////////////////////////////////
+
+MineAlgae MinePaintScheme::GetAlgae() const {
+  return (MineAlgae)m_PntScmUnion.m_ui8Alg;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinePaintScheme::MinePaintScheme( KDataStream & stream ) 
-{
-    Decode( stream );
+void MinePaintScheme::SetPaintScheme(PaintScheme PS) {
+  m_PntScmUnion.m_ui8Scm = PS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinePaintScheme::~MinePaintScheme()
-{
+PaintScheme MinePaintScheme::GetPaintScheme() const {
+  return (PaintScheme)m_PntScmUnion.m_ui8Scm;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinePaintScheme::SetAlgae( MineAlgae A )
-{
-    m_PntScmUnion.m_ui8Alg = A;
+KString MinePaintScheme::GetAsString() const {
+  KStringStream ss;
+
+  ss << "MinePaintScheme:"
+     << "\n\tAlgae:           "
+     << GetEnumAsStringMineAlgae(m_PntScmUnion.m_ui8Alg)
+     << "\n\tPaint Scheme:    "
+     << GetEnumAsStringPaintScheme(m_PntScmUnion.m_ui8Scm) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MineAlgae MinePaintScheme::GetAlgae() const
-{
-    return ( MineAlgae )m_PntScmUnion.m_ui8Alg;
+void MinePaintScheme::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < MINE_PAINT_SCHEME_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_PntScmUnion.m_ui8PntSchm;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinePaintScheme::SetPaintScheme( PaintScheme PS )
-{
-    m_PntScmUnion.m_ui8Scm = PS;
+KDataStream MinePaintScheme::Encode() const {
+  KDataStream stream;
+
+  MinePaintScheme::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PaintScheme MinePaintScheme::GetPaintScheme() const
-{
-    return ( PaintScheme )m_PntScmUnion.m_ui8Scm;
+void MinePaintScheme::Encode(KDataStream& stream) const {
+  stream << m_PntScmUnion.m_ui8PntSchm;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString MinePaintScheme::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "MinePaintScheme:"
-       << "\n\tAlgae:           " << GetEnumAsStringMineAlgae( m_PntScmUnion.m_ui8Alg )
-       << "\n\tPaint Scheme:    " << GetEnumAsStringPaintScheme( m_PntScmUnion.m_ui8Scm )
-       << "\n";
-
-    return ss.str();
+KBOOL MinePaintScheme::operator==(const MinePaintScheme& Value) const {
+  if (m_PntScmUnion.m_ui8PntSchm != Value.m_PntScmUnion.m_ui8PntSchm)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinePaintScheme::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < MINE_PAINT_SCHEME_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_PntScmUnion.m_ui8PntSchm;
+KBOOL MinePaintScheme::operator!=(const MinePaintScheme& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KDataStream MinePaintScheme::Encode() const
-{
-    KDataStream stream;
-
-    MinePaintScheme::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void MinePaintScheme::Encode( KDataStream & stream ) const
-{
-    stream << m_PntScmUnion.m_ui8PntSchm;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MinePaintScheme::operator == ( const MinePaintScheme & Value ) const
-{
-    if( m_PntScmUnion.m_ui8PntSchm != Value.m_PntScmUnion.m_ui8PntSchm )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MinePaintScheme::operator != ( const MinePaintScheme & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

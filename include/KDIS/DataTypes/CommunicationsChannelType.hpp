@@ -38,81 +38,76 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT CommunicationsChannelType : public DataTypeBase
-{
-protected:
-
-    union
-    {
-        struct
-        {
-            KUINT8 m_ui8Type  : 7;
-            KUINT8 m_ui8Class : 1;
-        };
-
-        KUINT8 m_ui8CommChannelType;
+class KDIS_EXPORT CommunicationsChannelType : public DataTypeBase {
+ protected:
+  union {
+    struct {
+      KUINT8 m_ui8Type : 7;
+      KUINT8 m_ui8Class : 1;
     };
 
-public:
+    KUINT8 m_ui8CommChannelType;
+  };
 
-	static const KUINT16 COMM_CHANNEL_TYPE_SIZE = 1;
+ public:
+  static const KUINT16 COMM_CHANNEL_TYPE_SIZE = 1;
 
-    CommunicationsChannelType();
+  CommunicationsChannelType();
 
-    CommunicationsChannelType( KDataStream & stream ) ;
+  CommunicationsChannelType(KDataStream& stream);
 
-    CommunicationsChannelType( KDIS::DATA_TYPE::ENUMS::ChannelType CT, KDIS::DATA_TYPE::ENUMS::ChannelClass CC );
+  CommunicationsChannelType(KDIS::DATA_TYPE::ENUMS::ChannelType CT,
+                            KDIS::DATA_TYPE::ENUMS::ChannelClass CC);
 
-    virtual ~CommunicationsChannelType();
+  virtual ~CommunicationsChannelType();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::SetType
-    //              KDIS::DATA_TYPE::CommunicationsChannelType::GetType
-    // Description: Type of channel.
-    // Parameter:   ChannelType CT, void
-    //************************************
-    void SetType( KDIS::DATA_TYPE::ENUMS::ChannelType CT );
-    KDIS::DATA_TYPE::ENUMS::ChannelType GetType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::SetType
+  //              KDIS::DATA_TYPE::CommunicationsChannelType::GetType
+  // Description: Type of channel.
+  // Parameter:   ChannelType CT, void
+  //************************************
+  void SetType(KDIS::DATA_TYPE::ENUMS::ChannelType CT);
+  KDIS::DATA_TYPE::ENUMS::ChannelType GetType() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::SetClass
-    //              KDIS::DATA_TYPE::CommunicationsChannelType::GetClass
-    // Description: Communications class.
-    // Parameter:   ChannelClass CC, void
-    //************************************
-    void SetClass( KDIS::DATA_TYPE::ENUMS::ChannelClass CC );
-    KDIS::DATA_TYPE::ENUMS::ChannelClass GetClass() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::SetClass
+  //              KDIS::DATA_TYPE::CommunicationsChannelType::GetClass
+  // Description: Communications class.
+  // Parameter:   ChannelClass CC, void
+  //************************************
+  void SetClass(KDIS::DATA_TYPE::ENUMS::ChannelClass CC);
+  KDIS::DATA_TYPE::ENUMS::ChannelClass GetClass() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsChannelType::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    KBOOL operator == ( const CommunicationsChannelType & Value ) const;
-    KBOOL operator != ( const CommunicationsChannelType & Value ) const;
+  KBOOL operator==(const CommunicationsChannelType& Value) const;
+  KBOOL operator!=(const CommunicationsChannelType& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

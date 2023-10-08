@@ -38,58 +38,54 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../KDefines.h"
-#include "./Enums/KDISEnums.h"
-#include "./../KDataStream.h"
-#include "./../Extras/KUtils.h"
+#include "KDIS/DataTypes/Enums/KDISEnums.hpp"
+#include "KDIS/Extras/KUtils.hpp"
+#include "KDIS/KDataStream.hpp"
+#include "KDIS/KDefines.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT DataTypeBase
-{
-public:
+class KDIS_EXPORT DataTypeBase {
+ public:
+  DataTypeBase();
 
-    DataTypeBase();
+  virtual ~DataTypeBase();
 
-    virtual ~DataTypeBase();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DataTypeBase::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const = 0;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DataTypeBase::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const = 0;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream) = 0;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream )  = 0;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DataTypeBase::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const = 0;
+  virtual void Encode(KDataStream& stream) const = 0;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DataTypeBase::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const = 0;
-    virtual void Encode( KDataStream & stream ) const = 0;
+  friend KDataStream& operator>>(KDataStream& stream, DataTypeBase* DTB) {
+    DTB->Decode(stream);
+    return stream;
+  };
 
-    friend KDataStream & operator >> ( KDataStream & stream, DataTypeBase * DTB )
-    {
-        DTB->Decode( stream );
-        return stream;
-    };
+  friend KDataStream& operator<<(KDataStream& stream, DataTypeBase* DTB) {
+    DTB->Encode(stream);
+    return stream;
+  };
 
-    friend KDataStream & operator << ( KDataStream & stream, DataTypeBase * DTB )
-    {
-        DTB->Encode( stream );
-        return stream;
-    };
-
-    // For streaming a data type into a KDataStream,
-#define KDIS_STREAM ( DataTypeBase * ) &
+  // For streaming a data type into a KDataStream,
+#define KDIS_STREAM (DataTypeBase*)&
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

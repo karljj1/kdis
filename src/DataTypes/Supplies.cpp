@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Supplies.h"
+#include "KDIS/DataTypes/Supplies.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,115 +37,86 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::Supplies() :
-    m_f32Quantity( 0 )
-{
+Supplies::Supplies() : m_f32Quantity(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Supplies::Supplies(EntityKind Kind, KUINT8 Domain, Country Country,
+                   KUINT8 Categoy, KUINT8 SubCategory, KUINT8 Specific,
+                   KUINT8 Extra, KFLOAT32 Quantity)
+    : EntityType(Kind, Domain, Country, Categoy, SubCategory, Specific, Extra),
+      m_f32Quantity(Quantity) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Supplies::Supplies(EntityType Type, KFLOAT32 Quantity)
+    : EntityType(Type), m_f32Quantity(Quantity) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Supplies::Supplies(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Supplies::~Supplies() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Supplies::SetQuantity(KFLOAT32 F) { m_f32Quantity = F; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 Supplies::GetQuantity() const { return m_f32Quantity; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Supplies::GetAsString() const {
+  KStringStream ss;
+
+  ss << EntityType::GetAsString() << "Quantity:   " << m_f32Quantity << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::Supplies( EntityKind Kind, KUINT8 Domain, Country Country, KUINT8 Categoy,
-                    KUINT8 SubCategory, KUINT8 Specific, KUINT8 Extra, KFLOAT32 Quantity ) :
-    EntityType( Kind, Domain, Country, Categoy, SubCategory, Specific, Extra ),
-    m_f32Quantity( Quantity )
-{
+void Supplies::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < SUPPLIES_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  EntityType::Decode(stream);
+  stream >> m_f32Quantity;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::Supplies( EntityType Type, KFLOAT32 Quantity ) :
-    EntityType( Type ),
-    m_f32Quantity( Quantity )
-{
+KDataStream Supplies::Encode() const {
+  KDataStream stream;
+
+  Supplies::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::Supplies( KDataStream & stream ) 
-{
-    Decode( stream );
+void Supplies::Encode(KDataStream& stream) const {
+  EntityType::Encode(stream);
+  stream << m_f32Quantity;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Supplies::~Supplies()
-{
+KBOOL Supplies::operator==(const Supplies& Value) const {
+  if (EntityType::operator!=(Value)) return false;
+  if (m_f32Quantity != Value.m_f32Quantity) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Supplies::SetQuantity( KFLOAT32 F )
-{
-    m_f32Quantity = F;
+KBOOL Supplies::operator!=(const Supplies& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KFLOAT32 Supplies::GetQuantity() const
-{
-    return m_f32Quantity;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString Supplies::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << EntityType::GetAsString()
-       << "Quantity:   " << m_f32Quantity
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Supplies::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < SUPPLIES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    EntityType::Decode( stream );
-    stream >> m_f32Quantity;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Supplies::Encode() const
-{
-    KDataStream stream;
-
-    Supplies::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Supplies::Encode( KDataStream & stream ) const
-{
-    EntityType::Encode( stream );
-    stream << m_f32Quantity;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Supplies::operator == ( const Supplies & Value ) const
-{
-    if( EntityType::operator !=( Value ) )            return false;
-    if( m_f32Quantity        != Value.m_f32Quantity ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Supplies::operator != ( const Supplies & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-
-
-

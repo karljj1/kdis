@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IO_Header.h"
+#include "KDIS/PDU/Information_Operations/IO_Header.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,128 +41,108 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header()
-{
-    m_ui8ProtocolFamily = Information_Operations;
-    m_ui8ProtocolVersion = IEEE_1278_1_2012;
+IO_Header::IO_Header() {
+  m_ui8ProtocolFamily = Information_Operations;
+  m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header( const Header & H ) :
-    Header( H )
-{
+IO_Header::IO_Header(const Header& H) : Header(H) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IO_Header::IO_Header(const EntityIdentifier& OrigID)
+    : m_OriginatingEntityID(OrigID) {
+  m_ui8ProtocolFamily = Information_Operations;
+  m_ui8ProtocolVersion = IEEE_1278_1_2012;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header( const EntityIdentifier & OrigID ) :
-    m_OriginatingEntityID( OrigID )
-{
-    m_ui8ProtocolFamily = Information_Operations;
-    m_ui8ProtocolVersion = IEEE_1278_1_2012;
+IO_Header::IO_Header(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+IO_Header::IO_Header(const Header& H, KDataStream& stream) : Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header( KDataStream & stream ) 
-{
-    Decode( stream, false );
+IO_Header::~IO_Header() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IO_Header::SetOriginatingEntityID(const EntityIdentifier& ID) {
+  m_OriginatingEntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::IO_Header( const Header & H, KDataStream & stream )  :
-    Header( H )
-{
-    Decode( stream, true );
+const EntityIdentifier& IO_Header::GetOriginatingEntityID() const {
+  return m_OriginatingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IO_Header::~IO_Header()
-{
+EntityIdentifier& IO_Header::GetOriginatingEntityID() {
+  return m_OriginatingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Header::SetOriginatingEntityID( const EntityIdentifier & ID )
-{
-    m_OriginatingEntityID = ID;
+KString IO_Header::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Originating Entity ID:\n"
+     << IndentString(m_OriginatingEntityID.GetAsString(), 1);
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & IO_Header::GetOriginatingEntityID() const
-{
-    return m_OriginatingEntityID;
+void IO_Header::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      IO_HEADER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Header::Decode(stream, ignoreHeader);
+
+  stream >> KDIS_STREAM m_OriginatingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & IO_Header::GetOriginatingEntityID()
-{
-    return m_OriginatingEntityID;
+KDataStream IO_Header::Encode() const {
+  KDataStream stream;
+
+  IO_Header::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString IO_Header::GetAsString() const
-{
-    KStringStream ss;
+void IO_Header::Encode(KDataStream& stream) const {
+  Header::Encode(stream);
 
-    ss << "Originating Entity ID:\n"
-       << IndentString( m_OriginatingEntityID.GetAsString(), 1 );
-
-    return ss.str();
+  stream << KDIS_STREAM m_OriginatingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < IO_HEADER_SIZE  )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Header::Decode( stream, ignoreHeader );
-
-    stream >> KDIS_STREAM m_OriginatingEntityID;
+KBOOL IO_Header::operator==(const IO_Header& Value) const {
+  if (Header::operator!=(Value)) return false;
+  if (m_OriginatingEntityID != Value.m_OriginatingEntityID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream IO_Header::Encode() const
-{
-    KDataStream stream;
-
-    IO_Header::Encode( stream );
-
-    return stream;
+KBOOL IO_Header::operator!=(const IO_Header& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void IO_Header::Encode( KDataStream & stream ) const
-{
-    Header::Encode( stream );
-
-    stream << KDIS_STREAM m_OriginatingEntityID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL IO_Header::operator == ( const IO_Header & Value ) const
-{
-    if( Header::operator        !=( Value ) )                    return false;
-    if( m_OriginatingEntityID   != Value.m_OriginatingEntityID ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL IO_Header::operator != ( const IO_Header & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

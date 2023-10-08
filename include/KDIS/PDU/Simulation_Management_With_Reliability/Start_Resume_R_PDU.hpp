@@ -39,57 +39,60 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Simulation_Management/Start_Resume_PDU.h"
-#include "./Reliability_Header.h"
+#include "KDIS/PDU/Simulation_Management/Start_Resume_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Reliability_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Start_Resume_R_PDU : public Start_Resume_PDU,
-                                       public Reliability_Header
-{
-public:
+                                       public Reliability_Header {
+ public:
+  static const KUINT16 START_RESUME_R_PDU_SIZE = 48;
 
-    static const KUINT16 START_RESUME_R_PDU_SIZE = 48;
+  Start_Resume_R_PDU();
 
-    Start_Resume_R_PDU();
+  explicit Start_Resume_R_PDU(KDataStream& stream);
 
-    Start_Resume_R_PDU( KDataStream & stream ) ;
+  Start_Resume_R_PDU(const Header& H, KDataStream& stream);
 
-    Start_Resume_R_PDU( const Header & H, KDataStream & stream ) ;
+  Start_Resume_R_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                     const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity,
+                     const KDIS::DATA_TYPE::ClockTime& RealWorldTime,
+                     const KDIS::DATA_TYPE::ClockTime& SimTime, KUINT32 ReqID,
+                     KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
-    Start_Resume_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
-        const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS );
+  Start_Resume_R_PDU(const Simulation_Management_Header& SimMgrHeader,
+                     const KDIS::DATA_TYPE::ClockTime& RealWorldTime,
+                     const KDIS::DATA_TYPE::ClockTime& SimTime, KUINT32 ReqID,
+                     KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
-    Start_Resume_R_PDU( const Simulation_Management_Header & SimMgrHeader, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
-        const KDIS::DATA_TYPE::ClockTime & SimTime, KUINT32 ReqID, KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS  );
+  virtual ~Start_Resume_R_PDU();
 
-    virtual ~Start_Resume_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_R_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_R_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
+  //************************************
+  // FullName:    KDIS::PDU::Start_Resume_R_PDU::Encode
+  // Description: Convert To Network Data.
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Start_Resume_R_PDU::Encode
-    // Description: Convert To Network Data.
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Start_Resume_R_PDU & Value ) const;
-    KBOOL operator != ( const Start_Resume_R_PDU & Value ) const;
+  KBOOL operator==(const Start_Resume_R_PDU& Value) const;
+  KBOOL operator!=(const Start_Resume_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

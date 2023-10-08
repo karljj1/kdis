@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./GED_EnhancedGroundCombatSoldier.h"
+#include "KDIS/DataTypes/GED_EnhancedGroundCombatSoldier.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,197 +37,176 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier() :
-    m_ui8WaterStatus( 0 ),
-    m_ui8RestStatus( 0 ),
-    m_ui8PriAmmun( 0 ),
-    m_ui8SecAmmun( 0 )
-{
+GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier()
+    : m_ui8WaterStatus(0),
+      m_ui8RestStatus(0),
+      m_ui8PriAmmun(0),
+      m_ui8SecAmmun(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier(
+    KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier( KDataStream & stream )
-{
-    Decode( stream );
+GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier(
+    KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset,
+    const EntityAppearance& EA, KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed,
+    KINT8 HeadAzimuth, KINT8 HeadElevation, KINT8 HeadScanRate,
+    KINT8 HeadElevationRate, KUINT8 WaterStatus, RestStatus R,
+    KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition)
+    : GED_BasicGroundCombatSoldier(
+          ID, XOffset, YOffset, ZOffset, EA, Psi, Theta, Phi, Speed,
+          HeadAzimuth, HeadElevation, HeadScanRate, HeadElevationRate),
+      m_ui8WaterStatus(WaterStatus),
+      m_ui8RestStatus(R),
+      m_ui8PriAmmun(PrimaryAmmunition),
+      m_ui8SecAmmun(SecondaryAmmunition) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier(
+    const GED_BasicGroundCombatSoldier& BGCS, KUINT8 WaterStatus, RestStatus R,
+    KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition)
+    : GED_BasicGroundCombatSoldier(BGCS),
+      m_ui8WaterStatus(WaterStatus),
+      m_ui8RestStatus(R),
+      m_ui8PriAmmun(PrimaryAmmunition),
+      m_ui8SecAmmun(SecondaryAmmunition) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+GED_EnhancedGroundCombatSoldier::~GED_EnhancedGroundCombatSoldier() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+GroupedEntityCategory
+GED_EnhancedGroundCombatSoldier::GetGroupedEntityCategory() const {
+  return EnhancedGroundCombatSoldierGEC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA,
-        KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed, KINT8 HeadAzimuth, KINT8 HeadElevation,
-        KINT8 HeadScanRate, KINT8 HeadElevationRate, KUINT8 WaterStatus, RestStatus R,
-        KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition ) :
-    GED_BasicGroundCombatSoldier( ID, XOffset, YOffset, ZOffset, EA, Psi, Theta, Phi, Speed,
-                                  HeadAzimuth, HeadElevation, HeadScanRate, HeadElevationRate ),
-    m_ui8WaterStatus( WaterStatus ),
-    m_ui8RestStatus( R ),
-    m_ui8PriAmmun( PrimaryAmmunition ),
-    m_ui8SecAmmun( SecondaryAmmunition )
-{
+KUINT8 GED_EnhancedGroundCombatSoldier::GetLength() const {
+  return GED_ENHANCED_GROUND_COMBAT_SOLDIER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatSoldier::GED_EnhancedGroundCombatSoldier( const GED_BasicGroundCombatSoldier & BGCS, KUINT8 WaterStatus, RestStatus R,
-        KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition ) :
-    GED_BasicGroundCombatSoldier( BGCS ),
-    m_ui8WaterStatus( WaterStatus ),
-    m_ui8RestStatus( R ),
-    m_ui8PriAmmun( PrimaryAmmunition ),
-    m_ui8SecAmmun( SecondaryAmmunition )
-{
+void GED_EnhancedGroundCombatSoldier::SetWaterStatus(KUINT8 W) {
+  m_ui8WaterStatus = W;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GED_EnhancedGroundCombatSoldier::~GED_EnhancedGroundCombatSoldier()
-{
+KUINT8 GED_EnhancedGroundCombatSoldier::GetWaterStatus() const {
+  return m_ui8WaterStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GroupedEntityCategory GED_EnhancedGroundCombatSoldier::GetGroupedEntityCategory() const
-{
-    return EnhancedGroundCombatSoldierGEC;
+void GED_EnhancedGroundCombatSoldier::SetRestStatus(RestStatus R) {
+  m_ui8RestStatus = R;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 GED_EnhancedGroundCombatSoldier::GetLength() const
-{
-    return GED_ENHANCED_GROUND_COMBAT_SOLDIER_SIZE;
+RestStatus GED_EnhancedGroundCombatSoldier::GetRestStatus() const {
+  return (RestStatus)m_ui8RestStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_EnhancedGroundCombatSoldier::SetWaterStatus( KUINT8 W )
-{
-    m_ui8WaterStatus = W;
+void GED_EnhancedGroundCombatSoldier::SetPrimaryAmmunition(KUINT8 P) {
+  m_ui8PriAmmun = P;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 GED_EnhancedGroundCombatSoldier::GetWaterStatus() const
-{
-    return m_ui8WaterStatus;
+KUINT8 GED_EnhancedGroundCombatSoldier::GetPrimaryAmmunition() const {
+  return m_ui8PriAmmun;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_EnhancedGroundCombatSoldier::SetRestStatus( RestStatus R )
-{
-    m_ui8RestStatus = R;
+void GED_EnhancedGroundCombatSoldier::SetSecondaryAmmunition(KUINT8 S) {
+  m_ui8SecAmmun = S;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RestStatus GED_EnhancedGroundCombatSoldier::GetRestStatus() const
-{
-    return ( RestStatus )m_ui8RestStatus;
+KUINT8 GED_EnhancedGroundCombatSoldier::GetSecondaryAmmunition() const {
+  return m_ui8SecAmmun;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_EnhancedGroundCombatSoldier::SetPrimaryAmmunition( KUINT8 P )
-{
-    m_ui8PriAmmun = P;
+KString GED_EnhancedGroundCombatSoldier::GetAsString() const {
+  KStringStream ss;
+
+  ss << GED_BasicGroundCombatSoldier::GetAsString();
+
+  ss << "GED Enhanced Ground Combat Vehicle\n"
+     << "\tWater Status:         " << (KUINT16)m_ui8WaterStatus << " ounce/s\n"
+     << "\tRest Status:          " << GetEnumAsStringRestStatus(m_ui8RestStatus)
+     << "\n"
+     << "\tPrimary Ammunition:   " << (KUINT16)m_ui8PriAmmun << "\n"
+     << "\tSecondary Ammunition: " << (KUINT16)m_ui8SecAmmun << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 GED_EnhancedGroundCombatSoldier::GetPrimaryAmmunition() const
-{
-    return m_ui8PriAmmun;
+void GED_EnhancedGroundCombatSoldier::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < GED_ENHANCED_GROUND_COMBAT_SOLDIER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  GED_BasicGroundCombatSoldier::Decode(stream);
+
+  stream >> m_ui8WaterStatus >> m_ui8RestStatus >> m_ui8PriAmmun >>
+      m_ui8SecAmmun;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_EnhancedGroundCombatSoldier::SetSecondaryAmmunition( KUINT8 S )
-{
-    m_ui8SecAmmun = S;
+KDataStream GED_EnhancedGroundCombatSoldier::Encode() const {
+  KDataStream stream;
+
+  GED_EnhancedGroundCombatSoldier::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 GED_EnhancedGroundCombatSoldier::GetSecondaryAmmunition() const
-{
-    return m_ui8SecAmmun;
+void GED_EnhancedGroundCombatSoldier::Encode(KDataStream& stream) const {
+  GED_BasicGroundCombatSoldier::Encode(stream);
+
+  stream << m_ui8WaterStatus << m_ui8RestStatus << m_ui8PriAmmun
+         << m_ui8SecAmmun;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString GED_EnhancedGroundCombatSoldier::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << GED_BasicGroundCombatSoldier::GetAsString();
-
-    ss << "GED Enhanced Ground Combat Vehicle\n"
-       << "\tWater Status:         " << ( KUINT16 )m_ui8WaterStatus                  << " ounce/s\n"
-       << "\tRest Status:          " << GetEnumAsStringRestStatus( m_ui8RestStatus ) << "\n"
-       << "\tPrimary Ammunition:   " << ( KUINT16 )m_ui8PriAmmun                     << "\n"
-       << "\tSecondary Ammunition: " << ( KUINT16 )m_ui8SecAmmun                     << "\n";
-
-    return ss.str();
+KBOOL GED_EnhancedGroundCombatSoldier::operator==(
+    const GED_EnhancedGroundCombatSoldier& Value) const {
+  if (GED_BasicGroundCombatSoldier::operator!=(Value)) return false;
+  if (m_ui8WaterStatus != Value.m_ui8WaterStatus) return false;
+  if (m_ui8RestStatus != Value.m_ui8RestStatus) return false;
+  if (m_ui8PriAmmun != Value.m_ui8PriAmmun) return false;
+  if (m_ui8SecAmmun != Value.m_ui8SecAmmun) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GED_EnhancedGroundCombatSoldier::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < GED_ENHANCED_GROUND_COMBAT_SOLDIER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    GED_BasicGroundCombatSoldier::Decode( stream );
-
-    stream >> m_ui8WaterStatus
-           >> m_ui8RestStatus
-           >> m_ui8PriAmmun
-           >> m_ui8SecAmmun;
+KBOOL GED_EnhancedGroundCombatSoldier::operator!=(
+    const GED_EnhancedGroundCombatSoldier& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KDataStream GED_EnhancedGroundCombatSoldier::Encode() const
-{
-    KDataStream stream;
-
-    GED_EnhancedGroundCombatSoldier::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void GED_EnhancedGroundCombatSoldier::Encode( KDataStream & stream ) const
-{
-    GED_BasicGroundCombatSoldier::Encode( stream );
-
-    stream << m_ui8WaterStatus
-           << m_ui8RestStatus
-           << m_ui8PriAmmun
-           << m_ui8SecAmmun;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GED_EnhancedGroundCombatSoldier::operator == ( const GED_EnhancedGroundCombatSoldier & Value ) const
-{
-    if( GED_BasicGroundCombatSoldier::operator!=( Value ) ) return false;
-    if( m_ui8WaterStatus  != Value.m_ui8WaterStatus )       return false;
-    if( m_ui8RestStatus   != Value.m_ui8RestStatus )        return false;
-    if( m_ui8PriAmmun     != Value.m_ui8PriAmmun )          return false;
-    if( m_ui8SecAmmun     != Value.m_ui8SecAmmun )          return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GED_EnhancedGroundCombatSoldier::operator != ( const GED_EnhancedGroundCombatSoldier & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

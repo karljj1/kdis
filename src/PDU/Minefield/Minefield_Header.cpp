@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Minefield_Header.h"
+#include "KDIS/PDU/Minefield/Minefield_Header.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,121 +41,102 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header()
-{
-    m_ui8ProtocolFamily = Minefield;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+Minefield_Header::Minefield_Header() {
+  m_ui8ProtocolFamily = Minefield;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header( const Header & H ) :
-    Header( H )
-{
+Minefield_Header::Minefield_Header(const Header& H) : Header(H) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Minefield_Header::Minefield_Header(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Minefield_Header::Minefield_Header(const Header& H, KDataStream& stream)
+    : Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::Minefield_Header( const Header & H, KDataStream & stream )  :
-    Header( H )
-{
-    Decode( stream, true );
+Minefield_Header::~Minefield_Header() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Minefield_Header::SetMinefieldID(const EntityIdentifier& ID) {
+  m_MinefieldID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Header::~Minefield_Header()
-{
+const EntityIdentifier& Minefield_Header::GetMinefieldID() const {
+  return m_MinefieldID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Header::SetMinefieldID( const EntityIdentifier & ID )
-{
-    m_MinefieldID = ID;
+EntityIdentifier& Minefield_Header::GetMinefieldID() { return m_MinefieldID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Minefield_Header::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Minefield ID:\n"
+     << IndentString(m_MinefieldID.GetAsString(), 1) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Minefield_Header::GetMinefieldID() const
-{
-    return m_MinefieldID;
+void Minefield_Header::Decode(KDataStream& stream,
+                              bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      MINEFIELD_HEADER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Header::Decode(stream, ignoreHeader);
+
+  stream >> KDIS_STREAM m_MinefieldID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Minefield_Header::GetMinefieldID()
-{
-    return m_MinefieldID;
+KDataStream Minefield_Header::Encode() const {
+  KDataStream stream;
+
+  Minefield_Header::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Minefield_Header::GetAsString() const
-{
-    KStringStream ss;
+void Minefield_Header::Encode(KDataStream& stream) const {
+  Header::Encode(stream);
 
-    ss << "Minefield ID:\n"
-       << IndentString( m_MinefieldID.GetAsString(), 1 )
-       << "\n";
-
-    return ss.str();
+  stream << KDIS_STREAM m_MinefieldID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Minefield_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < MINEFIELD_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Header::Decode( stream, ignoreHeader );
-
-    stream >> KDIS_STREAM m_MinefieldID;
+KBOOL Minefield_Header::operator==(const Minefield_Header& Value) const {
+  if (Header::operator!=(Value)) return false;
+  if (m_MinefieldID != Value.m_MinefieldID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Minefield_Header::Encode() const
-{
-    KDataStream stream;
-
-    Minefield_Header::Encode( stream );
-
-    return stream;
+KBOOL Minefield_Header::operator!=(const Minefield_Header& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void Minefield_Header::Encode( KDataStream & stream ) const
-{
-    Header::Encode( stream );
-
-    stream << KDIS_STREAM m_MinefieldID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Minefield_Header::operator == ( const Minefield_Header & Value ) const
-{
-    if( Header::operator  != ( Value ) )           return false;
-    if( m_MinefieldID     != Value.m_MinefieldID ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Minefield_Header::operator != ( const Minefield_Header & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

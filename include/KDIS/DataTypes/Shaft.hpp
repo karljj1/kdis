@@ -38,94 +38,90 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT Shaft : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT Shaft : public DataTypeBase {
+ protected:
+  KINT16 m_i16CurrentRPM;
 
-    KINT16 m_i16CurrentRPM;
+  KINT16 m_i16OrderedRPM;
 
-    KINT16 m_i16OrderedRPM;
+  KINT32 m_i32RPMRateOfChange;
 
-    KINT32 m_i32RPMRateOfChange;
+ public:
+  static const KUINT16 SHAFT_SIZE = 8;
 
-public:
+  Shaft();
 
-    static const KUINT16 SHAFT_SIZE = 8;
+  Shaft(KDataStream& stream);
 
-    Shaft();
+  Shaft(KINT16 CurrentRPM, KINT16 OrderedRPM, KINT32 RateOfChange);
 
-    Shaft( KDataStream & stream ) ;
+  virtual ~Shaft();
 
-    Shaft( KINT16 CurrentRPM, KINT16 OrderedRPM, KINT32 RateOfChange );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Shaft::SetCurrentRPM
+  //              KDIS::DATA_TYPE::Shaft::GetCurrentRPM
+  // Description: Current speed in RPM of the shaft.
+  //              A positive value indicates a clockwise
+  //              rotation. Shafts are defined from port to
+  //              starboard locations(refrence view is from stern to bow).
+  // Parameter:   KINT16 RPM, void
+  //************************************
+  void SetCurrentRPM(KINT16 RPM);
+  KINT16 GetCurrentRPM() const;
 
-    virtual ~Shaft();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Shaft::SetOrderedRPM
+  //              KDIS::DATA_TYPE::Shaft::GetOrderedRPM
+  // Description: Current speed in RPM of the shaft.
+  //              A positive value indicates a clockwise
+  //              rotation. Shafts are defined from port to
+  //              starboard locations(refrence view is from stern to bow).
+  // Parameter:   KINT16 RPM, void
+  //************************************
+  void SetOrderedRPM(KINT16 RPM);
+  KINT16 GetOrderedRPM() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Shaft::SetCurrentRPM
-    //              KDIS::DATA_TYPE::Shaft::GetCurrentRPM
-    // Description: Current speed in RPM of the shaft.
-    //              A positive value indicates a clockwise
-    //              rotation. Shafts are defined from port to
-    //              starboard locations(refrence view is from stern to bow).
-    // Parameter:   KINT16 RPM, void
-    //************************************
-    void SetCurrentRPM( KINT16 RPM );
-    KINT16 GetCurrentRPM() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Shaft::SetRateOfChange
+  //              KDIS::DATA_TYPE::Shaft::GetRateOfChange
+  // Description: Current speed in RPM of the shaft.
+  //              A positive value indicates a clockwise
+  //              rotation. Shafts are defined from port to
+  //              starboard locations(refrence view is from stern to bow).
+  // Parameter:   KINT32 ROC, void
+  //************************************
+  void SetRateOfChange(KINT32 ROC);
+  KINT32 GetRateOfChange() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Shaft::SetOrderedRPM
-    //              KDIS::DATA_TYPE::Shaft::GetOrderedRPM
-    // Description: Current speed in RPM of the shaft.
-    //              A positive value indicates a clockwise
-    //              rotation. Shafts are defined from port to
-    //              starboard locations(refrence view is from stern to bow).
-    // Parameter:   KINT16 RPM, void
-    //************************************
-    void SetOrderedRPM( KINT16 RPM );
-    KINT16 GetOrderedRPM() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Shaft::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Shaft::SetRateOfChange
-    //              KDIS::DATA_TYPE::Shaft::GetRateOfChange
-    // Description: Current speed in RPM of the shaft.
-    //              A positive value indicates a clockwise
-    //              rotation. Shafts are defined from port to
-    //              starboard locations(refrence view is from stern to bow).
-    // Parameter:   KINT32 ROC, void
-    //************************************
-    void SetRateOfChange( KINT32 ROC );
-    KINT32 GetRateOfChange() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Shaft::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Shaft::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::Shaft::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Shaft::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::Shaft::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Shaft & Value ) const;
-    KBOOL operator != ( const Shaft & Value ) const;
+  KBOOL operator==(const Shaft& Value) const;
+  KBOOL operator!=(const Shaft& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

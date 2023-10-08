@@ -40,78 +40,74 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./KFIXED.h"
+#include "KDIS/DataTypes/KFIXED.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT PositionError : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT PositionError : public DataTypeBase {
+ protected:
+  KFIXED16_8 m_HorzErr;
 
-    KFIXED16_8 m_HorzErr;
+  KFIXED16_8 m_VertErr;
 
-    KFIXED16_8 m_VertErr;
+ public:
+  static const KUINT16 POSITION_ERROR_SIZE = 4;
 
-public:
+  PositionError();
 
-    static const KUINT16 POSITION_ERROR_SIZE = 4;
+  PositionError(KFIXED16_8 Horizontal, KFIXED16_8 Vertical);
 
-    PositionError();
+  PositionError(KDataStream& stream);
 
-    PositionError( KFIXED16_8 Horizontal, KFIXED16_8 Vertical );
+  virtual ~PositionError();
 
-    PositionError( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PositionError::SetHorizontalError
+  //              KDIS::DATA_TYPE::PositionError::GetHorizontalError
+  // Description: The error components that are associated with the
+  //              location measurement  for an entity. These errors
+  //              are measured in entity-centered tangent planes.
+  // Parameter:   KFIXED16_8 HE
+  //************************************
+  void SetHorizontalError(KFIXED16_8 HE);
+  KFIXED16_8 GetHorizontalError() const;
 
-    virtual ~PositionError();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PositionError::SetVerticalError
+  //              KDIS::DATA_TYPE::PositionError::GetVerticalError
+  // Description: The error components that are associated with the
+  //              location measurement  for an entity. These errors
+  //              are measured in entity-centered tangent planes.
+  // Parameter:   KFIXED16_8 VE
+  //************************************
+  void SetVerticalError(KFIXED16_8 VE);
+  KFIXED16_8 GetVerticalError() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PositionError::SetHorizontalError
-    //              KDIS::DATA_TYPE::PositionError::GetHorizontalError
-    // Description: The error components that are associated with the
-    //              location measurement  for an entity. These errors
-    //              are measured in entity-centered tangent planes.
-    // Parameter:   KFIXED16_8 HE
-    //************************************
-    void SetHorizontalError( KFIXED16_8 HE );
-    KFIXED16_8 GetHorizontalError() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PositionError::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PositionError::SetVerticalError
-    //              KDIS::DATA_TYPE::PositionError::GetVerticalError
-    // Description: The error components that are associated with the
-    //              location measurement  for an entity. These errors
-    //              are measured in entity-centered tangent planes.
-    // Parameter:   KFIXED16_8 VE
-    //************************************
-    void SetVerticalError( KFIXED16_8 VE );
-    KFIXED16_8 GetVerticalError() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PositionError::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PositionError::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::DataTypeBase::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PositionError::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const PositionError & Value ) const;
-    KBOOL operator != ( const PositionError & Value ) const;
+  KBOOL operator==(const PositionError& Value) const;
+  KBOOL operator!=(const PositionError& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

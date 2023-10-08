@@ -40,139 +40,135 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT SystemIdentifier : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT SystemIdentifier : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16SystemType;
 
-    KUINT16 m_ui16SystemType;
+  KUINT16 m_ui16SystemName;
 
-    KUINT16 m_ui16SystemName;
+  KUINT8 m_ui8SystemMode;
 
-    KUINT8 m_ui8SystemMode;
-
-    union
-    {
-        struct
-        {
-            KUINT8 m_ui8ChangeIndicator : 1;
-            KUINT8 m_ui8AltMode4        : 1;
-            KUINT8 m_ui8AltModeC        : 1;
-            // Bits 3-7 not used
-	        #if DIS_VERSION > 6
-            KUINT8 m_ui8HeartbeatIndicator                  : 1;
-            KUINT8 m_ui8TransponderInterrogatorIndicator    : 1;
-            KUINT8 m_ui8SimulationMode                      : 1;
-            KUINT8 m_ui8InteractiveCapable                  : 1;
-            KUINT8 m_ui8TestMode                            : 1;
-            #endif
-        };
-
-        KUINT8 m_ui8ChangeOptions;
+  union {
+    struct {
+      KUINT8 m_ui8ChangeIndicator : 1;
+      KUINT8 m_ui8AltMode4 : 1;
+      KUINT8 m_ui8AltModeC : 1;
+      // Bits 3-7 not used
+#if DIS_VERSION > 6
+      KUINT8 m_ui8HeartbeatIndicator : 1;
+      KUINT8 m_ui8TransponderInterrogatorIndicator : 1;
+      KUINT8 m_ui8SimulationMode : 1;
+      KUINT8 m_ui8InteractiveCapable : 1;
+      KUINT8 m_ui8TestMode : 1;
+#endif
     };
 
-public:
+    KUINT8 m_ui8ChangeOptions;
+  };
 
-    static const KUINT16 SYSTEM_IDENTIFER_SIZE = 6;
+ public:
+  static const KUINT16 SYSTEM_IDENTIFER_SIZE = 6;
 
-    SystemIdentifier();
+  SystemIdentifier();
 
-    SystemIdentifier( KDIS::DATA_TYPE::ENUMS::SystemType T, KDIS::DATA_TYPE::ENUMS::SystemName N, KDIS::DATA_TYPE::ENUMS::SystemMode M, 
-		              KBOOL ChangeIndicator, KBOOL AltMode4 = false, KBOOL AltModeC = false );
+  SystemIdentifier(KDIS::DATA_TYPE::ENUMS::SystemType T,
+                   KDIS::DATA_TYPE::ENUMS::SystemName N,
+                   KDIS::DATA_TYPE::ENUMS::SystemMode M, KBOOL ChangeIndicator,
+                   KBOOL AltMode4 = false, KBOOL AltModeC = false);
 
-    SystemIdentifier( KDataStream & stream ) ;
+  SystemIdentifier(KDataStream& stream);
 
-    virtual ~SystemIdentifier();
+  virtual ~SystemIdentifier();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemType
-    //              KDIS::DATA_TYPE::SystemIdentifier::GetSystemType
-    // Description: System Type
-    // Parameter:   SystemType T
-    //************************************
-    void SetSystemType( KDIS::DATA_TYPE::ENUMS::SystemType T );
-    KDIS::DATA_TYPE::ENUMS::SystemType GetSystemType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemType
+  //              KDIS::DATA_TYPE::SystemIdentifier::GetSystemType
+  // Description: System Type
+  // Parameter:   SystemType T
+  //************************************
+  void SetSystemType(KDIS::DATA_TYPE::ENUMS::SystemType T);
+  KDIS::DATA_TYPE::ENUMS::SystemType GetSystemType() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemName
-    //              KDIS::DATA_TYPE::SystemIdentifier::GetSystemName
-    // Description: A particular named type of system
-    // Parameter:   SystemName ID
-    //************************************
-    void SetSystemName( KDIS::DATA_TYPE::ENUMS::SystemName N );
-    KDIS::DATA_TYPE::ENUMS::SystemName GetSystemName() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemName
+  //              KDIS::DATA_TYPE::SystemIdentifier::GetSystemName
+  // Description: A particular named type of system
+  // Parameter:   SystemName ID
+  //************************************
+  void SetSystemName(KDIS::DATA_TYPE::ENUMS::SystemName N);
+  KDIS::DATA_TYPE::ENUMS::SystemName GetSystemName() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemMode
-    //              KDIS::DATA_TYPE::SystemIdentifier::GetSystemMode
-    // Description: Mode of operation for the named system.
-    // Parameter:   SystemMode M
-    //************************************
-    void SetSystemMode( KDIS::DATA_TYPE::ENUMS::SystemMode M );
-    KDIS::DATA_TYPE::ENUMS::SystemMode GetSystemMode() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetSystemMode
+  //              KDIS::DATA_TYPE::SystemIdentifier::GetSystemMode
+  // Description: Mode of operation for the named system.
+  // Parameter:   SystemMode M
+  //************************************
+  void SetSystemMode(KDIS::DATA_TYPE::ENUMS::SystemMode M);
+  KDIS::DATA_TYPE::ENUMS::SystemMode GetSystemMode() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetChangeOptions
-    //              KDIS::DATA_TYPE::SystemIdentifier::GetChangeOptions
-    // Description: Used to specifiy the status of the PDU(existence of
-    //              changes from previous indicators for alternative fields etc).
-    //              Note: Alternative Mode 4 and Alternative Mode C changes
-    //              only apply to Mark X/XII/ATCRBS/MODE S Transponder and
-    //              Mark X/XII/ATCRBS/MODE S Interrogator systems.
-    // Parameter:   KBOOL ChangeIndicator
-    // Parameter:   KBOOL AltMode4
-    // Parameter:   KBOOL AltModeC
-    //************************************
-    void SetChangeOptions( KBOOL ChangeIndicator, KBOOL AltMode4, KBOOL AltModeC );
-    void SetChangeIndicator( KBOOL CI );
-    void SetAltMode4( KBOOL AM );
-    void SetAltModeC( KBOOL AM );
-    KBOOL GetChangeIndicator() const;
-    KBOOL GetAltMode4() const;
-    KBOOL GetAltModeC() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SystemIdentifier::SetChangeOptions
+  //              KDIS::DATA_TYPE::SystemIdentifier::GetChangeOptions
+  // Description: Used to specifiy the status of the PDU(existence of
+  //              changes from previous indicators for alternative fields etc).
+  //              Note: Alternative Mode 4 and Alternative Mode C changes
+  //              only apply to Mark X/XII/ATCRBS/MODE S Transponder and
+  //              Mark X/XII/ATCRBS/MODE S Interrogator systems.
+  // Parameter:   KBOOL ChangeIndicator
+  // Parameter:   KBOOL AltMode4
+  // Parameter:   KBOOL AltModeC
+  //************************************
+  void SetChangeOptions(KBOOL ChangeIndicator, KBOOL AltMode4, KBOOL AltModeC);
+  void SetChangeIndicator(KBOOL CI);
+  void SetAltMode4(KBOOL AM);
+  void SetAltModeC(KBOOL AM);
+  KBOOL GetChangeIndicator() const;
+  KBOOL GetAltMode4() const;
+  KBOOL GetAltModeC() const;
 
-    #if DIS_VERSION > 6
-    void SetHeartbeatIndicator ( KBOOL HI);
-    void SetTransponderInterrogatorIndicator ( KBOOL TII);
-    void SetSimulationMode ( KBOOL SM);
-    void SetInteractiveCapable ( KBOOL IC);
-    void SetTestMode ( KBOOL TM);
-    KBOOL GetHeartbeatIndicator() const;
-    KBOOL GetTransponderInterrogatorIndicator() const;
-    KBOOL GetSimulationMode() const;
-    KBOOL GetInteractiveCapable() const;
-    KBOOL GetTestMode() const;
-    #endif
+#if DIS_VERSION > 6
+  void SetHeartbeatIndicator(KBOOL HI);
+  void SetTransponderInterrogatorIndicator(KBOOL TII);
+  void SetSimulationMode(KBOOL SM);
+  void SetInteractiveCapable(KBOOL IC);
+  void SetTestMode(KBOOL TM);
+  KBOOL GetHeartbeatIndicator() const;
+  KBOOL GetTransponderInterrogatorIndicator() const;
+  KBOOL GetSimulationMode() const;
+  KBOOL GetInteractiveCapable() const;
+  KBOOL GetTestMode() const;
+#endif
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SystemIdentifier::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SystemIdentifier::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::SystemIdentifier::DataTypeBase::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::SystemIdentifier::DataTypeBase::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SystemIdentifier::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SystemIdentifier::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    KBOOL operator == ( const SystemIdentifier & Value ) const;
-    KBOOL operator != ( const SystemIdentifier & Value ) const;
+  KBOOL operator==(const SystemIdentifier& Value) const;
+  KBOOL operator!=(const SystemIdentifier& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

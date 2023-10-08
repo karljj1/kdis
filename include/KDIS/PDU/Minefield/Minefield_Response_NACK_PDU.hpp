@@ -33,121 +33,123 @@ http://p.sf.net/kdis/UserGuide
     created:    25/06/2010
     author:     Karl Jones
 
-    purpose:    Provides the means by which a simulation shall request a minefield
-                simulation to retransmit Minefield Data PDUs not received in response
+    purpose:    Provides the means by which a simulation shall request a
+minefield simulation to retransmit Minefield Data PDUs not received in response
                 to a query when operating in QRP mode.
     size:       208 bits / 26 octets  - Min size
 *********************************************************************/
 
 #pragma once
 
-#include "./Minefield_Header.h"
-#include "./../../DataTypes/EntityType.h"
 #include <vector>
+
+#include "KDIS/DataTypes/EntityType.hpp"
+#include "KDIS/PDU/Minefield/Minefield_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Minefield_Response_NACK_PDU : public Minefield_Header
-{
-protected:
+class KDIS_EXPORT Minefield_Response_NACK_PDU : public Minefield_Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_ReqID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_ReqID;
+  KUINT8 m_ui8ReqID;
 
-    KUINT8 m_ui8ReqID;
+  KUINT8 m_ui8NumMisPdus;
 
-    KUINT8 m_ui8NumMisPdus;
+  std::vector<KUINT8> m_vSeqNums;
 
-    std::vector<KUINT8> m_vSeqNums;
+ public:
+  static const KUINT16 MINEFIELD_RESPONSE_NACK_SIZE = 26;  // Min size
 
-public:
+  Minefield_Response_NACK_PDU();
 
-    static const KUINT16 MINEFIELD_RESPONSE_NACK_SIZE = 26; // Min size
+  Minefield_Response_NACK_PDU(KDataStream& stream);
 
-    Minefield_Response_NACK_PDU();
+  Minefield_Response_NACK_PDU(const Header& H, KDataStream& stream);
 
-    Minefield_Response_NACK_PDU( KDataStream & stream ) ;
+  Minefield_Response_NACK_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& MinefieldID,
+      const KDIS::DATA_TYPE::EntityIdentifier& RequestingSimulationID,
+      KUINT8 ReqID);
 
-    Minefield_Response_NACK_PDU( const Header & H, KDataStream & stream ) ;
+  Minefield_Response_NACK_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& MinefieldID,
+      const KDIS::DATA_TYPE::EntityIdentifier& RequestingSimulationID,
+      KUINT8 ReqID, const std::vector<KUINT8>& MissingSeqNums);
 
-    Minefield_Response_NACK_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
-                                 KUINT8 ReqID );
+  virtual ~Minefield_Response_NACK_PDU();
 
-    Minefield_Response_NACK_PDU( const KDIS::DATA_TYPE::EntityIdentifier & MinefieldID, const KDIS::DATA_TYPE::EntityIdentifier & RequestingSimulationID,
-                                 KUINT8 ReqID, const std::vector<KUINT8> & MissingSeqNums );
+  //************************************
+  // FullName: KDIS::PDU::Minefield_Response_NACK_PDU::SetRequestingSimulationID
+  //              KDIS::PDU::Minefield_Response_NACK_PDU::GetRequestingSimulationID
+  // Description: Identifies the simulation that generated the query and is
+  // requesting
+  //              retransmission of information from the minefield simulation.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetRequestingSimulationID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetRequestingSimulationID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetRequestingSimulationID();
 
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::SetRequestID
+  //              KDIS::PDU::Minefield_Response_NACK_PDU::GetRequestID
+  // Description: Identifies the minefield query request.
+  // Parameter:   KUINT8 ID
+  //************************************
+  void SetRequestID(KUINT8 ID);
+  KUINT8 GetRequestID() const;
 
-    virtual ~Minefield_Response_NACK_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::GetNumberMissingPDUs
+  // Description: Identifies the number of PDUs that were not received by
+  //              the requesting simulation in response to a minefield query
+  //              request. This value is derived from the Minefield Data PDUs
+  //              that were received in response to the minefield query request.
+  //************************************
+  KUINT8 GetNumberMissingPDUs() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::SetRequestingSimulationID
-    //              KDIS::PDU::Minefield_Response_NACK_PDU::GetRequestingSimulationID
-    // Description: Identifies the simulation that generated the query and is requesting
-    //              retransmission of information from the minefield simulation.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetRequestingSimulationID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetRequestingSimulationID();
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::GetNumberMissingPDUs
+  //              KDIS::PDU::Minefield_Response_NACK_PDU::SetMissingPDUSequenceNumbers
+  //              KDIS::PDU::Minefield_Response_NACK_PDU::GetMissingPDUSequenceNumbers
+  //              KDIS::PDU::Minefield_Response_NACK_PDU::ClearMissingPDUSequenceNumbers
+  // Description: The sequence number(s) of the missing PDU(s).
+  //              These values are derived from the Minefield Data PDUs that
+  //              were received in response to the minefield query request.
+  // Parameter:   KUINT8 N, const vector<KUINT8> & N
+  //************************************
+  void AddMissingPDUSequenceNumber(KUINT8 N);
+  void SetMissingPDUSequenceNumbers(const std::vector<KUINT8>& N);
+  const std::vector<KUINT8>& GetMissingPDUSequenceNumbers() const;
+  void ClearMissingPDUSequenceNumbers();
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::SetRequestID
-    //              KDIS::PDU::Minefield_Response_NACK_PDU::GetRequestID
-    // Description: Identifies the minefield query request.
-    // Parameter:   KUINT8 ID
-    //************************************
-    void SetRequestID( KUINT8 ID );
-    KUINT8 GetRequestID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::GetNumberMissingPDUs
-    // Description: Identifies the number of PDUs that were not received by
-    //              the requesting simulation in response to a minefield query request.
-    //              This value is derived from the Minefield Data PDUs that were
-    //              received in response to the minefield query request.
-    //************************************
-    KUINT8 GetNumberMissingPDUs() const;
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::GetNumberMissingPDUs
-    //              KDIS::PDU::Minefield_Response_NACK_PDU::SetMissingPDUSequenceNumbers
-    //              KDIS::PDU::Minefield_Response_NACK_PDU::GetMissingPDUSequenceNumbers
-    //              KDIS::PDU::Minefield_Response_NACK_PDU::ClearMissingPDUSequenceNumbers
-    // Description: The sequence number(s) of the missing PDU(s).
-    //              These values are derived from the Minefield Data PDUs that were
-    //              received in response to the minefield query request.
-    // Parameter:   KUINT8 N, const vector<KUINT8> & N
-    //************************************
-    void AddMissingPDUSequenceNumber( KUINT8 N );
-    void SetMissingPDUSequenceNumbers( const std::vector<KUINT8> & N );
-    const std::vector<KUINT8> & GetMissingPDUSequenceNumbers() const;
-    void ClearMissingPDUSequenceNumbers();
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Response_NACK_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Minefield_Response_NACK_PDU & Value ) const;
-    KBOOL operator != ( const Minefield_Response_NACK_PDU & Value ) const;
+  KBOOL operator==(const Minefield_Response_NACK_PDU& Value) const;
+  KBOOL operator!=(const Minefield_Response_NACK_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

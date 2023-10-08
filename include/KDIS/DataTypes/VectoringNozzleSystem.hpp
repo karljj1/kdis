@@ -39,76 +39,75 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT VectoringNozzleSystem : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT VectoringNozzleSystem : public DataTypeBase {
+ protected:
+  KFLOAT32 m_f32HDeflAngle;
 
-    KFLOAT32 m_f32HDeflAngle;
+  KFLOAT32 m_f32VDeflAngle;
 
-    KFLOAT32 m_f32VDeflAngle;
+ public:
+  static const KUINT16 VECTORING_NOZZLE_SYSTEM_SIZE = 8;
 
-public:
+  VectoringNozzleSystem();
 
-    static const KUINT16 VECTORING_NOZZLE_SYSTEM_SIZE = 8;
+  VectoringNozzleSystem(KDataStream& stream);
 
-    VectoringNozzleSystem();
+  VectoringNozzleSystem(KFLOAT32 HorizontalDeflectionAngle,
+                        KFLOAT32 VerticalDeflectionAngle);
 
-    VectoringNozzleSystem( KDataStream & stream ) ;
+  virtual ~VectoringNozzleSystem();
 
-    VectoringNozzleSystem( KFLOAT32 HorizontalDeflectionAngle, KFLOAT32 VerticalDeflectionAngle );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::VectoringNozzleSystem::SetHorizontalDeflectionAngle
+  //              KDIS::DATA_TYPE::VectoringNozzleSystem::GetHorizontalDeflectionAngle
+  // Description: Nozzle deflection angle in degrees in the horizontal body axis
+  //              of the entity.
+  // Parameter:   KFLOAT32  HDA, void
+  //************************************
+  void SetHorizontalDeflectionAngle(KFLOAT32 HDA);
+  KFLOAT32 GetHorizontalDeflectionAngle() const;
 
-    virtual ~VectoringNozzleSystem();
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::VectoringNozzleSystem::SetVerticalDeflectionAngle
+  //              KDIS::DATA_TYPE::VectoringNozzleSystem::GetVerticalDeflectionAngle
+  // Description: Nozzle deflection angle in degrees in the horizontal body axis
+  //              of the entity.
+  // Parameter:   KFLOAT32 VDA, void
+  //************************************
+  void SetVerticalDeflectionAngle(KFLOAT32 VDA);
+  KFLOAT32 GetVerticalDeflectionAngle() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::SetHorizontalDeflectionAngle
-    //              KDIS::DATA_TYPE::VectoringNozzleSystem::GetHorizontalDeflectionAngle
-    // Description: Nozzle deflection angle in degrees in the horizontal body axis
-    //              of the entity.
-    // Parameter:   KFLOAT32  HDA, void
-    //************************************
-    void SetHorizontalDeflectionAngle( KFLOAT32 HDA );
-    KFLOAT32 GetHorizontalDeflectionAngle() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::SetVerticalDeflectionAngle
-    //              KDIS::DATA_TYPE::VectoringNozzleSystem::GetVerticalDeflectionAngle
-    // Description: Nozzle deflection angle in degrees in the horizontal body axis
-    //              of the entity.
-    // Parameter:   KFLOAT32 VDA, void
-    //************************************
-    void SetVerticalDeflectionAngle( KFLOAT32 VDA );
-    KFLOAT32 GetVerticalDeflectionAngle() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VectoringNozzleSystem::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const VectoringNozzleSystem & Value ) const;
-    KBOOL operator != ( const VectoringNozzleSystem & Value ) const;
+  KBOOL operator==(const VectoringNozzleSystem& Value) const;
+  KBOOL operator!=(const VectoringNozzleSystem& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

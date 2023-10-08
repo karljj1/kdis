@@ -39,77 +39,73 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT PropulsionSystem : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT PropulsionSystem : public DataTypeBase {
+ protected:
+  KFLOAT32 m_f32PowerSetting;
 
-    KFLOAT32 m_f32PowerSetting;
+  KFLOAT32 m_f32EngineRPM;
 
-    KFLOAT32 m_f32EngineRPM;
+ public:
+  static const KUINT16 PROPULSION_SYSTEM_SIZE = 8;
 
-public:
+  PropulsionSystem();
 
-    static const KUINT16 PROPULSION_SYSTEM_SIZE = 8;
+  PropulsionSystem(KDataStream& stream);
 
-    PropulsionSystem();
+  PropulsionSystem(KFLOAT32 PowerSetting, KFLOAT32 EngineRPM);
 
-    PropulsionSystem( KDataStream & stream ) ;
+  virtual ~PropulsionSystem();
 
-    PropulsionSystem( KFLOAT32 PowerSetting, KFLOAT32 EngineRPM );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PropulsionSystem::SetPowerSetting
+  //              KDIS::DATA_TYPE::PropulsionSystem::GetPowerSetting
+  // Description: The power settings after any response lags have been
+  // incorprated. Parameter:   KFLOAT32 PS, PowerSetting PS
+  //************************************
+  void SetPowerSetting(KFLOAT32 PS);
+  void SetPowerSetting(KDIS::DATA_TYPE::ENUMS::PowerSettingAircraft PS);
+  void SetPowerSetting(KDIS::DATA_TYPE::ENUMS::PowerSettingHelicopter PS);
+  void SetPowerSetting(KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex PS);
+  KFLOAT32 GetPowerSetting() const;
 
-    virtual ~PropulsionSystem();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PropulsionSystem::SetEngineRPM
+  //              KDIS::DATA_TYPE::PropulsionSystem::GetEngineRPM
+  // Description: Current engine speed in RPM
+  // Parameter:   KFLOAT32 RPM, void
+  //************************************
+  void SetEngineRPM(KFLOAT32 RPM);
+  KFLOAT32 GetEngineRPM() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PropulsionSystem::SetPowerSetting
-    //              KDIS::DATA_TYPE::PropulsionSystem::GetPowerSetting
-    // Description: The power settings after any response lags have been incorprated.
-    // Parameter:   KFLOAT32 PS, PowerSetting PS
-    //************************************
-    void SetPowerSetting( KFLOAT32 PS );
-    void SetPowerSetting( KDIS::DATA_TYPE::ENUMS::PowerSettingAircraft PS );
-    void SetPowerSetting( KDIS::DATA_TYPE::ENUMS::PowerSettingHelicopter PS );
-    void SetPowerSetting( KDIS::DATA_TYPE::ENUMS::ActiveEmissionParameterIndex PS );
-    KFLOAT32 GetPowerSetting() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PropulsionSystem::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PropulsionSystem::SetEngineRPM
-    //              KDIS::DATA_TYPE::PropulsionSystem::GetEngineRPM
-    // Description: Current engine speed in RPM
-    // Parameter:   KFLOAT32 RPM, void
-    //************************************
-    void SetEngineRPM( KFLOAT32 RPM );
-    KFLOAT32 GetEngineRPM() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PropulsionSystem::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PropulsionSystem::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PropulsionSystem::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PropulsionSystem::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PropulsionSystem::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const PropulsionSystem & Value ) const;
-    KBOOL operator != ( const PropulsionSystem & Value ) const;
+  KBOOL operator==(const PropulsionSystem& Value) const;
+  KBOOL operator!=(const PropulsionSystem& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

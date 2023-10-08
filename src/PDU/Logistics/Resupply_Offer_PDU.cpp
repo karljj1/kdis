@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Resupply_Offer_PDU.h"
+#include "KDIS/PDU/Logistics/Resupply_Offer_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,81 +42,70 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::Resupply_Offer_PDU()
-{
-    m_ui8PDUType = Resupply_Offer_PDU_Type;
-    m_ui16PDULength = RESUPPLY_OFFER_PDU_SIZE;
+Resupply_Offer_PDU::Resupply_Offer_PDU() {
+  m_ui8PDUType = Resupply_Offer_PDU_Type;
+  m_ui16PDULength = RESUPPLY_OFFER_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::Resupply_Offer_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Resupply_Offer_PDU::Resupply_Offer_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::Resupply_Offer_PDU( const Header & H, KDataStream & stream )  :
-    Resupply_Received_PDU( H )
-{
-    Decode( stream, true );
+Resupply_Offer_PDU::Resupply_Offer_PDU(const Header& H, KDataStream& stream)
+    : Resupply_Received_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::Resupply_Offer_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity ) :
-    Resupply_Received_PDU( ReceivingEntity, SupplyingEntity )
-{
-    m_ui8PDUType = Resupply_Offer_PDU_Type;
-    m_ui16PDULength = RESUPPLY_OFFER_PDU_SIZE;
+Resupply_Offer_PDU::Resupply_Offer_PDU(const EntityIdentifier& ReceivingEntity,
+                                       const EntityIdentifier& SupplyingEntity)
+    : Resupply_Received_PDU(ReceivingEntity, SupplyingEntity) {
+  m_ui8PDUType = Resupply_Offer_PDU_Type;
+  m_ui16PDULength = RESUPPLY_OFFER_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Offer_PDU::~Resupply_Offer_PDU()
-{
+Resupply_Offer_PDU::~Resupply_Offer_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Resupply_Offer_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Resupply Offer-\n"
+     << IndentString(Logistics_Header::GetAsString(), 1)
+     << "\tNumber Of Supply Types: " << (KUINT16)m_ui8NumSupplyTypes;
+
+  // Now add supplies
+  vector<Supplies>::const_iterator citr = m_vSupplies.begin();
+  vector<Supplies>::const_iterator citrEnd = m_vSupplies.end();
+
+  // Add supplies to the stream
+  for (; citr != citrEnd; ++citr) {
+    ss << IndentString(citr->GetAsString(), 1)
+       << "\tQuantity :	" << citr->GetQuantity();
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Resupply_Offer_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Resupply Offer-\n"
-       << IndentString( Logistics_Header::GetAsString(), 1 )
-       << "\tNumber Of Supply Types: " << (KUINT16)m_ui8NumSupplyTypes;
-
-    // Now add supplies
-    vector<Supplies>::const_iterator citr = m_vSupplies.begin();
-    vector<Supplies>::const_iterator citrEnd = m_vSupplies.end();
-
-    // Add supplies to the stream
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << IndentString( citr->GetAsString(), 1 )
-           << "\tQuantity :	" << citr->GetQuantity();
-    }
-
-    return ss.str();
+KBOOL Resupply_Offer_PDU::operator==(const Resupply_Offer_PDU& Value) const {
+  if (Resupply_Received_PDU::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Resupply_Offer_PDU::operator == ( const Resupply_Offer_PDU & Value ) const
-{
-    if( Resupply_Received_PDU::operator !=( Value ) ) return false;
-    return true;
+KBOOL Resupply_Offer_PDU::operator!=(const Resupply_Offer_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Resupply_Offer_PDU::operator != ( const Resupply_Offer_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

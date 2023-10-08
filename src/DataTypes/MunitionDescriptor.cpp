@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./MunitionDescriptor.h"
+#include "KDIS/DataTypes/MunitionDescriptor.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,166 +40,118 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-MunitionDescriptor::MunitionDescriptor() :
-    m_ui16Warhead( 0 ),
-    m_ui16Fuse( 0 ),
-    m_ui16Quantity( 0 ),
-    m_ui16Rate( 0 )
-{
+MunitionDescriptor::MunitionDescriptor()
+    : m_ui16Warhead(0), m_ui16Fuse(0), m_ui16Quantity(0), m_ui16Rate(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+MunitionDescriptor::MunitionDescriptor(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+MunitionDescriptor::MunitionDescriptor(const EntityType& T, WarheadType WT,
+                                       FuseType FT, KUINT16 Quantity,
+                                       KUINT16 Rate)
+    : Descriptor(T),
+      m_ui16Warhead(WT),
+      m_ui16Fuse(FT),
+      m_ui16Quantity(Quantity),
+      m_ui16Rate(Rate) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+MunitionDescriptor::~MunitionDescriptor() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void MunitionDescriptor::SetWarhead(WarheadType WT) { m_ui16Warhead = WT; }
+
+//////////////////////////////////////////////////////////////////////////
+
+WarheadType MunitionDescriptor::GetWarhead() const {
+  return (WarheadType)m_ui16Warhead;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MunitionDescriptor::MunitionDescriptor( KDataStream & stream )
-{
-    Decode( stream );
+void MunitionDescriptor::SetFuse(FuseType FT) { m_ui16Fuse = FT; }
+
+//////////////////////////////////////////////////////////////////////////
+
+FuseType MunitionDescriptor::GetFuse() const { return (FuseType)m_ui16Fuse; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void MunitionDescriptor::SetQuantity(KUINT16 Q) { m_ui16Quantity = Q; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 MunitionDescriptor::GetQuantity() const { return m_ui16Quantity; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void MunitionDescriptor::SetRate(KUINT16 R) { m_ui16Rate = R; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 MunitionDescriptor::GetRate() const { return m_ui16Rate; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString MunitionDescriptor::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Descriptor:"
+     << "\n\tType:     " << m_Type.GetAsString()
+     << "\tWarhead:  " << GetEnumAsStringWarheadType(m_ui16Warhead)
+     << "\n\tFuse:     " << GetEnumAsStringFuseType(m_ui16Fuse)
+     << "\n\tQuantity: " << m_ui16Quantity << "\n\tRate:     " << m_ui16Rate
+     << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MunitionDescriptor::MunitionDescriptor( const EntityType & T, WarheadType WT, FuseType FT,
-                                        KUINT16 Quantity, KUINT16 Rate ) :
-    Descriptor( T ),
-    m_ui16Warhead( WT ),
-    m_ui16Fuse( FT ),
-    m_ui16Quantity( Quantity ),
-    m_ui16Rate( Rate )
-{
+void MunitionDescriptor::Decode(KDataStream& stream) {
+  Descriptor::Decode(stream);
+
+  stream >> m_ui16Warhead >> m_ui16Fuse >> m_ui16Quantity >> m_ui16Rate;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MunitionDescriptor::~MunitionDescriptor()
-{
+KDataStream MunitionDescriptor::Encode() const {
+  KDataStream stream;
+
+  MunitionDescriptor::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MunitionDescriptor::SetWarhead( WarheadType WT )
-{
-    m_ui16Warhead = WT;
+void MunitionDescriptor::Encode(KDataStream& stream) const {
+  Descriptor::Encode(stream);
+
+  stream << m_ui16Warhead << m_ui16Fuse << m_ui16Quantity << m_ui16Rate;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WarheadType MunitionDescriptor::GetWarhead() const
-{
-    return ( WarheadType )m_ui16Warhead;
+KBOOL MunitionDescriptor::operator==(const MunitionDescriptor& Value) const {
+  if (Descriptor::operator!=(Value)) return false;
+  if (m_ui16Warhead != Value.m_ui16Warhead) return false;
+  if (m_ui16Fuse != Value.m_ui16Fuse) return false;
+  if (m_ui16Quantity != Value.m_ui16Quantity) return false;
+  if (m_ui16Rate != Value.m_ui16Rate) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MunitionDescriptor::SetFuse( FuseType FT )
-{
-    m_ui16Fuse = FT;
+KBOOL MunitionDescriptor::operator!=(const MunitionDescriptor& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-FuseType MunitionDescriptor::GetFuse() const
-{
-    return ( FuseType )m_ui16Fuse;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void MunitionDescriptor::SetQuantity( KUINT16 Q )
-{
-    m_ui16Quantity = Q;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 MunitionDescriptor::GetQuantity() const
-{
-    return m_ui16Quantity;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void MunitionDescriptor::SetRate( KUINT16 R )
-{
-    m_ui16Rate = R;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 MunitionDescriptor::GetRate() const
-{
-    return m_ui16Rate;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString MunitionDescriptor::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Descriptor:"
-       << "\n\tType:     " << m_Type.GetAsString()
-       << "\tWarhead:  "   << GetEnumAsStringWarheadType( m_ui16Warhead )
-       << "\n\tFuse:     " << GetEnumAsStringFuseType( m_ui16Fuse )
-       << "\n\tQuantity: " << m_ui16Quantity
-       << "\n\tRate:     " << m_ui16Rate
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void MunitionDescriptor::Decode( KDataStream & stream ) 
-{
-	Descriptor::Decode( stream );
-
-    stream >> m_ui16Warhead
-           >> m_ui16Fuse
-           >> m_ui16Quantity
-           >> m_ui16Rate;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream MunitionDescriptor::Encode() const
-{
-    KDataStream stream;
-
-    MunitionDescriptor::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void MunitionDescriptor::Encode( KDataStream & stream ) const
-{
-	Descriptor::Encode( stream );
-
-    stream << m_ui16Warhead
-           << m_ui16Fuse
-           << m_ui16Quantity
-           << m_ui16Rate;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MunitionDescriptor::operator == ( const MunitionDescriptor & Value ) const
-{
-	if( Descriptor::operator != ( Value ) )            return false;
-    if( m_ui16Warhead        != Value.m_ui16Warhead )  return false;
-    if( m_ui16Fuse           != Value.m_ui16Fuse )     return false;
-    if( m_ui16Quantity       != Value.m_ui16Quantity ) return false;
-    if( m_ui16Rate           != Value.m_ui16Rate )     return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MunitionDescriptor::operator != ( const MunitionDescriptor & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

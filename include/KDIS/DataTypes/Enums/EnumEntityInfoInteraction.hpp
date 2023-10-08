@@ -37,7 +37,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnumDescriptor.h"
+#include "KDIS/DataTypes/Enums/EnumDescriptor.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -408,7 +408,7 @@ enum Country
     Honduras                                                          = 94,
     HongKong_UK                                                       = 95,  // This was correct when DIS standard was published. Honk Kong is no longer part of the UK.
     HowlandIsland_USA                                                 = 96,  //Deprecated use United States Minor Outlying Islands
-    Hungary                                                           = 97,  
+    Hungary                                                           = 97,
     Iceland                                                           = 98,
     India                                                             = 99
 };

@@ -39,68 +39,67 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Logistics_Header.h"
+#include "KDIS/PDU/Logistics/Logistics_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Repair_Complete_PDU : public Logistics_Header
-{
-protected:
+class KDIS_EXPORT Repair_Complete_PDU : public Logistics_Header {
+ protected:
+  KUINT16 m_ui16Repair;
 
-    KUINT16 m_ui16Repair;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+ public:
+  static const KUINT16 REPAIR_COMPLETE_PDU_SIZE = 28;
 
-public:
+  Repair_Complete_PDU();
 
-    static const KUINT16 REPAIR_COMPLETE_PDU_SIZE = 28;
+  explicit Repair_Complete_PDU(KDataStream& stream);
 
-    Repair_Complete_PDU();
+  Repair_Complete_PDU(const Header& H, KDataStream& stream);
 
-    Repair_Complete_PDU( KDataStream & stream ) ;
+  Repair_Complete_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+      const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntityID,
+      KDIS::DATA_TYPE::ENUMS::RepairTypePerformed RTP);
 
-    Repair_Complete_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Repair_Complete_PDU();
 
-    Repair_Complete_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntityID,
-                         KDIS::DATA_TYPE::ENUMS::RepairTypePerformed RTP );
+  //************************************
+  // FullName:    KDIS::PDU::Repair_Complete_PDU::SetRepairTypePerformed
+  //              KDIS::PDU::Repair_Complete_PDU::GetRepairTypePerformed
+  // Description: Enumeration to describe the type of repair provided
+  // Parameter:   RepairTypePerformed RTP, void
+  //************************************
+  void SetRepairTypePerformed(KDIS::DATA_TYPE::ENUMS::RepairTypePerformed RTP);
+  KDIS::DATA_TYPE::ENUMS::RepairTypePerformed GetRepairTypePerformed() const;
 
-    virtual ~Repair_Complete_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Repair_Complete_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Repair_Complete_PDU::SetRepairTypePerformed
-    //              KDIS::PDU::Repair_Complete_PDU::GetRepairTypePerformed
-    // Description: Enumeration to describe the type of repair provided
-    // Parameter:   RepairTypePerformed RTP, void
-    //************************************
-    void SetRepairTypePerformed( KDIS::DATA_TYPE::ENUMS::RepairTypePerformed RTP );
-    KDIS::DATA_TYPE::ENUMS::RepairTypePerformed GetRepairTypePerformed() const;
+  //************************************
+  // FullName:    KDIS::PDU::Repair_Complete_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Repair_Complete_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Repair_Complete_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Repair_Complete_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Repair_Complete_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Repair_Complete_PDU & Value ) const;
-    KBOOL operator != ( const Repair_Complete_PDU & Value ) const;
+  KBOOL operator==(const Repair_Complete_PDU& Value) const;
+  KBOOL operator!=(const Repair_Complete_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

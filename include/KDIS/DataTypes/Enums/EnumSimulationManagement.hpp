@@ -37,7 +37,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnumDescriptor.h"
+#include "KDIS/DataTypes/Enums/EnumDescriptor.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {

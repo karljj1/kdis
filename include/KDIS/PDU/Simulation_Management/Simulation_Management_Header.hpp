@@ -39,85 +39,85 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Simulation_Management_Header : public Header
-{
-protected:
+class KDIS_EXPORT Simulation_Management_Header : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntityID;
+  KDIS::DATA_TYPE::EntityIdentifier m_ReceivingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_ReceivingEntityID;
+ public:
+  static const KUINT16 SIMULATION_MANAGEMENT_HEADER_SIZE = 24;
 
-public:
+  Simulation_Management_Header();
 
-    static const KUINT16 SIMULATION_MANAGEMENT_HEADER_SIZE = 24;
+  explicit Simulation_Management_Header(const Simulation_Management_Header& H);
 
-    explicit Simulation_Management_Header();
+  explicit Simulation_Management_Header(KDataStream& stream);
 
-    explicit Simulation_Management_Header( const Simulation_Management_Header & H ); 
+  explicit Simulation_Management_Header(const Header& H);
 
-    explicit Simulation_Management_Header( KDataStream & stream ) ;
+  explicit Simulation_Management_Header(const Header& H, KDataStream& stream);
 
-    explicit Simulation_Management_Header( const Header & H );
+  explicit Simulation_Management_Header(
+      const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+      const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID);
 
-    explicit Simulation_Management_Header( const Header & H, KDataStream & stream ) ;
+  virtual ~Simulation_Management_Header();
 
-    explicit Simulation_Management_Header( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
+  Simulation_Management_Header& operator=(
+      const Simulation_Management_Header& H);
 
-    virtual ~Simulation_Management_Header();
+  //************************************
+  // FullName: KDIS::PDU::Simulation_Management_Header::SetOriginatingEntityID
+  //              KDIS::PDU::Simulation_Management_Header::GetOriginatingEntityID
+  // Description: Originating Entity ID
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetOriginatingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetOriginatingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetOriginatingEntityID();
 
-    Simulation_Management_Header& operator=(const Simulation_Management_Header & H);
+  //************************************
+  // FullName:    KDIS::PDU::Simulation_Management_Header::SetReceivingEntityID
+  //              KDIS::PDU::Simulation_Management_Header::GetReceivingEntityID
+  // Description: Receiving Entity ID:
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetReceivingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetReceivingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetReceivingEntityID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Simulation_Management_Header::SetOriginatingEntityID
-    //              KDIS::PDU::Simulation_Management_Header::GetOriginatingEntityID
-    // Description: Originating Entity ID
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetOriginatingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::Simulation_Management_Header::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Simulation_Management_Header::SetReceivingEntityID
-    //              KDIS::PDU::Simulation_Management_Header::GetReceivingEntityID
-    // Description: Receiving Entity ID:
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetReceivingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetReceivingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::Simulation_Management_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Simulation_Management_Header::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Simulation_Management_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Simulation_Management_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Simulation_Management_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Simulation_Management_Header & Value ) const;
-    KBOOL operator != ( const Simulation_Management_Header & Value ) const;
+  KBOOL operator==(const Simulation_Management_Header& Value) const;
+  KBOOL operator!=(const Simulation_Management_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

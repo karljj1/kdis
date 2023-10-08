@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./LandPlatformAppearance.h"
+#include "KDIS/DataTypes/LandPlatformAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,413 +37,334 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityPaintScheme( EntityPaintScheme EPS )
-{
-    m_PaintScheme = EPS;
+void LandPlatformAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
+  m_PaintScheme = EPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityPaintScheme LandPlatformAppearance::GetEntityPaintScheme() const
-{
-    return (EntityPaintScheme)m_PaintScheme;
+EntityPaintScheme LandPlatformAppearance::GetEntityPaintScheme() const {
+  return (EntityPaintScheme)m_PaintScheme;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityMobilityKill( KBOOL MK )
-{
-    m_MobilityKill = MK;
+void LandPlatformAppearance::SetEntityMobilityKill(KBOOL MK) {
+  m_MobilityKill = MK;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::DoesEntityMobilityKill() const
-{
-    return m_MobilityKill;
+KBOOL LandPlatformAppearance::DoesEntityMobilityKill() const {
+  return m_MobilityKill;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityFirePower( KBOOL FP )
-{
-    m_FirePower = FP;
+void LandPlatformAppearance::SetEntityFirePower(KBOOL FP) { m_FirePower = FP; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LandPlatformAppearance::DoesFirePowerKill() const { return m_FirePower; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LandPlatformAppearance::SetEntityDamage(EntityDamage ED) { m_Damage = ED; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityDamage LandPlatformAppearance::GetEntityDamage() const {
+  return (EntityDamage)m_Damage;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::DoesFirePowerKill() const
-{
-    return m_FirePower;
+void LandPlatformAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntitySmoke LandPlatformAppearance::GetEntitySmoke() const {
+  return (EntitySmoke)m_Smoke;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityDamage( EntityDamage ED )
-{
-    m_Damage = ED;
+void LandPlatformAppearance::SetEntityTrailingEffect(EntityTrailingEffect ETE) {
+  m_TrailingEffect = ETE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDamage LandPlatformAppearance::GetEntityDamage() const
-{
-    return ( EntityDamage )m_Damage;
+EntityTrailingEffect LandPlatformAppearance::GetEntityTrailingEffect() const {
+  return (EntityTrailingEffect)m_TrailingEffect;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntitySmoke( EntitySmoke ES )
-{
-    m_Smoke = ES;
+void LandPlatformAppearance::SetEntityHatchState(EntityHatchState EHS) {
+  m_HatchState = EHS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntitySmoke LandPlatformAppearance::GetEntitySmoke() const
-{
-    return ( EntitySmoke )m_Smoke;
+EntityHatchState LandPlatformAppearance::GetEntityHatchState() const {
+  return (EntityHatchState)m_HatchState;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityTrailingEffect( EntityTrailingEffect ETE )
-{
-    m_TrailingEffect = ETE;
+void LandPlatformAppearance::SetEntityHeadLights(KBOOL HL) {
+  m_HeadLights = HL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityTrailingEffect LandPlatformAppearance::GetEntityTrailingEffect() const
-{
-    return ( EntityTrailingEffect )m_TrailingEffect;
+KBOOL LandPlatformAppearance::IsEntityHeadLightsOn() const {
+  return m_HeadLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityHatchState( EntityHatchState EHS )
-{
-    m_HatchState = EHS;
+void LandPlatformAppearance::SetEntityTailLights(KBOOL TL) {
+  m_TailLights = TL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityHatchState LandPlatformAppearance::GetEntityHatchState() const
-{
-    return ( EntityHatchState )m_HatchState;
+KBOOL LandPlatformAppearance::IsEntityTailLightsOn() const {
+  return m_TailLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityHeadLights( KBOOL HL )
-{
-	m_HeadLights = HL;
+void LandPlatformAppearance::SetEntityBrakeLights(KBOOL BL) {
+  m_BrakeLights = BL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityHeadLightsOn() const
-{
-	return m_HeadLights;
+KBOOL LandPlatformAppearance::IsEntityBrakeLightsOn() const {
+  return m_BrakeLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityTailLights( KBOOL TL )
-{
-	m_TailLights = TL;
+void LandPlatformAppearance::SetEntityFlamingEffect(KBOOL EFE) {
+  m_FlamingEffectField = EFE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityTailLightsOn() const
-{
-	return m_TailLights;
+KBOOL LandPlatformAppearance::IsEntityFlaming() const {
+  return m_FlamingEffectField;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityBrakeLights( KBOOL BL )
-{
-	m_BrakeLights = BL;
+void LandPlatformAppearance::SetEntityLauncher(KBOOL EL) { m_Launcher = EL; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LandPlatformAppearance::IsEntityLauncherRaised() const {
+  return m_Launcher;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityBrakeLightsOn() const	
-{
-	return m_BrakeLights;
+void LandPlatformAppearance::SetEntityCamouflage(EntityCamouflage EC) {
+  m_Camouflage = EC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityFlamingEffect( KBOOL EFE )
-{
-    m_FlamingEffectField = EFE;
+EntityCamouflage LandPlatformAppearance::GetEntityCamouflage() const {
+  return (EntityCamouflage)m_Camouflage;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityFlaming() const
-{
-    return m_FlamingEffectField;
+void LandPlatformAppearance::SetEntityConcealed(KBOOL EC) { m_Concealed = EC; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LandPlatformAppearance::IsEntityConcealed() const { return m_Concealed; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LandPlatformAppearance::SetEntityFrozenStatus(KBOOL EFS) {
+  m_FrozenStatus = EFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityLauncher( KBOOL EL )
-{
-    m_Launcher = EL;
+KBOOL LandPlatformAppearance::IsEntityFrozen() const { return m_FrozenStatus; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LandPlatformAppearance::SetEntityPowerPlantOn(KBOOL EPPS) {
+  m_PowerPlantStatus = EPPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityLauncherRaised() const
-{
-    return m_Launcher;
+KBOOL LandPlatformAppearance::IsEntityPowerPlantOn() const {
+  return m_PowerPlantStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityCamouflage( EntityCamouflage EC )
-{
-    m_Camouflage = EC;
+void LandPlatformAppearance::SetEntityStateActive(KBOOL ES) { m_State = !ES; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LandPlatformAppearance::IsEntityStateActive() const { return !m_State; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LandPlatformAppearance::SetEntityTentExtended(KBOOL ET) { m_Tent = ET; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LandPlatformAppearance::IsEntityTentExtended() const { return m_Tent; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LandPlatformAppearance::SetEntityRampDown(KBOOL ER) { m_Ramp = ER; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL LandPlatformAppearance::IsEntityRampDown() const { return m_Ramp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LandPlatformAppearance::SetEntityBlackoutLights(KBOOL BL) {
+  m_BlackoutLights = BL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCamouflage LandPlatformAppearance::GetEntityCamouflage() const
-{
-    return ( EntityCamouflage )m_Camouflage;
+KBOOL LandPlatformAppearance::IsEntityBlackoutLightsOn() const {
+  return m_BlackoutLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityConcealed( KBOOL EC )
-{
-    m_Concealed = EC;
+void LandPlatformAppearance::SetEntityBlackoutBrakeLights(KBOOL BBL) {
+  m_BlackoutBrakeLights = BBL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityConcealed() const
-{
-    return m_Concealed;
+KBOOL LandPlatformAppearance::IsEntityBlackoutBrakeLightsOn() const {
+  return m_BlackoutBrakeLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
-    m_FrozenStatus = EFS;
+void LandPlatformAppearance::SetEntitySpotLights(KBOOL SL) {
+  m_SpotLights = SL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityFrozen() const
-{
-    return m_FrozenStatus;
+KBOOL LandPlatformAppearance::IsEntitySpotLightsOn() const {
+  return m_SpotLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityPowerPlantOn( KBOOL EPPS )
-{
-    m_PowerPlantStatus = EPPS;
+void LandPlatformAppearance::SetEntityInteriorLights(KBOOL IL) {
+  m_InteriorLights = IL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityPowerPlantOn() const
-{
-    return m_PowerPlantStatus;
+KBOOL LandPlatformAppearance::IsEntityInteriorLightsOn() const {
+  return m_InteriorLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityStateActive( KBOOL ES )
-{
-    m_State = !ES;
+void LandPlatformAppearance::SetEntitySurrdenderState(KBOOL SS) {
+  m_SurrenderState = SS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityStateActive() const
-{
-    return !m_State;
+KBOOL LandPlatformAppearance::HasEntitySurrendered() const {
+  return m_SurrenderState;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityTentExtended( KBOOL ET )
-{
-    m_Tent = ET;
+void LandPlatformAppearance::SetEntityMaskedCloaked(KBOOL MC) {
+  m_MaskedCloaked = MC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityTentExtended() const
-{
-    return m_Tent;
+KBOOL LandPlatformAppearance::IsEntityMaskedCloaked() const {
+  return m_MaskedCloaked;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityRampDown( KBOOL ER )
-{
-    m_Ramp = ER;
+KString LandPlatformAppearance::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Land Platform Appearance:"
+     << "\n\tPaint Scheme:           "
+     << GetEnumAsStringPaintScheme(m_PaintScheme)
+     << "\n\tMobility Kill:          " << m_MobilityKill
+     << "\n\tFire Power Kill:        " << m_FirePower
+     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)
+     << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke(m_Smoke)
+     << "\n\tTrailing Effect:        "
+     << GetEnumAsStringEntityTrailingEffect(m_TrailingEffect)
+     << "\n\tHatch State:            "
+     << GetEnumAsStringEntityHatchState(m_HatchState)
+     << "\n\tHead Lights:            " << m_HeadLights
+     << "\n\tTail Lights:            " << m_TailLights
+     << "\n\tBrake Lights:           " << m_BrakeLights
+     << "\n\tFlaming Effect:         " << m_FlamingEffectField
+     << "\n\tLauncher:               " << m_Launcher
+     << "\n\tCamouflage:             "
+     << GetEnumAsStringEntityCamouflage(m_Camouflage)
+     << "\n\tConcealed:              " << m_Concealed
+     << "\n\tFrozen Status:          " << m_FrozenStatus
+     << "\n\tPower Plant:            " << m_PowerPlantStatus
+     << "\n\tState:                  " << m_State
+     << "\n\tTent:                   " << m_Tent
+     << "\n\tRamp:                   " << m_Ramp
+     << "\n\tBlackout Lights:        " << m_BlackoutLights
+     << "\n\tBlackout Brake Lights:  " << m_BlackoutBrakeLights
+     << "\n\tSpot Lights:            " << m_SpotLights
+     << "\n\tInterior Lights:        " << m_InteriorLights
+     << "\n\tSurrender State:        " << m_SurrenderState
+     << "\n\tMasked/Cloaked:         " << m_MaskedCloaked << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LandPlatformAppearance::IsEntityRampDown() const
-{
-    return m_Ramp;
+KBOOL LandPlatformAppearance::operator==(
+    const LandPlatformAppearance& Value) const {
+  // Lets do a single comparison instead of checking every field.
+  // This struct is basically a KUINT32 so lets cast it to one and compare.
+
+  KUINT32 a = *(KUINT32*)this;
+  KUINT32 b = *(KUINT32*)&Value;
+
+  if (a != b) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LandPlatformAppearance::SetEntityBlackoutLights( KBOOL BL )
-{
-	m_BlackoutLights = BL;
+KBOOL LandPlatformAppearance::operator!=(
+    const LandPlatformAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::IsEntityBlackoutLightsOn() const
-{
-	return m_BlackoutLights;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LandPlatformAppearance::SetEntityBlackoutBrakeLights( KBOOL BBL )
-{
-	m_BlackoutBrakeLights = BBL;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::IsEntityBlackoutBrakeLightsOn() const
-{
-	return m_BlackoutBrakeLights;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LandPlatformAppearance::SetEntitySpotLights( KBOOL SL )
-{
-	m_SpotLights = SL;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::IsEntitySpotLightsOn() const
-{
-	return m_SpotLights;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LandPlatformAppearance::SetEntityInteriorLights( KBOOL IL )
-{
-	m_InteriorLights = IL;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::IsEntityInteriorLightsOn() const
-{
-	return m_InteriorLights;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LandPlatformAppearance::SetEntitySurrdenderState( KBOOL SS )
-{
-	m_SurrenderState = SS;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::HasEntitySurrendered() const
-{
-	return m_SurrenderState;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LandPlatformAppearance::SetEntityMaskedCloaked( KBOOL MC )
-{
-	m_MaskedCloaked = MC;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::IsEntityMaskedCloaked() const
-{
-	return m_MaskedCloaked;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString LandPlatformAppearance::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Land Platform Appearance:"
-       << "\n\tPaint Scheme:           " << GetEnumAsStringPaintScheme( m_PaintScheme )
-	   << "\n\tMobility Kill:          " << m_MobilityKill
-       << "\n\tFire Power Kill:        " << m_FirePower
-       << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
-       << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
-       << "\n\tTrailing Effect:        " << GetEnumAsStringEntityTrailingEffect( m_TrailingEffect )
-       << "\n\tHatch State:            " << GetEnumAsStringEntityHatchState( m_HatchState )
-	   << "\n\tHead Lights:            " << m_HeadLights
-	   << "\n\tTail Lights:            " << m_TailLights 
-	   << "\n\tBrake Lights:           " << m_BrakeLights	   
-       << "\n\tFlaming Effect:         " << m_FlamingEffectField		
-	   << "\n\tLauncher:               " << m_Launcher
-       << "\n\tCamouflage:             " << GetEnumAsStringEntityCamouflage( m_Camouflage )
-       << "\n\tConcealed:              " << m_Concealed
-       << "\n\tFrozen Status:          " << m_FrozenStatus
-       << "\n\tPower Plant:            " << m_PowerPlantStatus
-       << "\n\tState:                  " << m_State
-       << "\n\tTent:                   " << m_Tent
-       << "\n\tRamp:                   " << m_Ramp
-	   << "\n\tBlackout Lights:        " << m_BlackoutLights
-	   << "\n\tBlackout Brake Lights:  " << m_BlackoutBrakeLights
-	   << "\n\tSpot Lights:            " << m_SpotLights
-	   << "\n\tInterior Lights:        " << m_InteriorLights
-	   << "\n\tSurrender State:        " << m_SurrenderState 
-	   << "\n\tMasked/Cloaked:         " << m_MaskedCloaked
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::operator == ( const LandPlatformAppearance & Value ) const
-{
-	// Lets do a single comparison instead of checking every field. 
-	// This struct is basically a KUINT32 so lets cast it to one and compare.
-
-	KUINT32 a = *( KUINT32 * )this;
-	KUINT32 b = *( KUINT32 * )&Value;
-
-    if( a != b )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LandPlatformAppearance::operator != ( const LandPlatformAppearance & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-
-

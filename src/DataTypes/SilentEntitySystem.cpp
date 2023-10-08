@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SilentEntitySystem.h"
+#include "KDIS/DataTypes/SilentEntitySystem.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -39,189 +39,156 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SilentEntitySystem::SilentEntitySystem() :
-    m_ui16NumEnts( 0 ),
-    m_ui16NumOfAppearanceRecords( 0 )
-{
+SilentEntitySystem::SilentEntitySystem()
+    : m_ui16NumEnts(0), m_ui16NumOfAppearanceRecords(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SilentEntitySystem::SilentEntitySystem(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+SilentEntitySystem::~SilentEntitySystem() { m_vEA.clear(); }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SilentEntitySystem::SetNumberOfEntities(KUINT16 NOE) {
+  m_ui16NumEnts = NOE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentEntitySystem::SilentEntitySystem( KDataStream & stream ) 
-{
-    Decode( stream );
+KUINT16 SilentEntitySystem::GetNumberOfEntities() const {
+  return m_ui16NumEnts;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SilentEntitySystem::~SilentEntitySystem()
-{
-    m_vEA.clear();
+KUINT16 SilentEntitySystem::GetNumberOfAppearanceRecords() const {
+  return m_ui16NumOfAppearanceRecords;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::SetNumberOfEntities( KUINT16 NOE )
-{
-    m_ui16NumEnts = NOE;
+void SilentEntitySystem::SetEntityType(const EntityType& A) { m_EntTyp = A; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityType& SilentEntitySystem::GetEntityType() const { return m_EntTyp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityType& SilentEntitySystem::GetEntityType() { return m_EntTyp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SilentEntitySystem::AddEntityAppearance(const EntityAppearance& EA) {
+  if (m_vEA.size() >= m_ui16NumEnts)
+    throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+
+  m_vEA.push_back(EA);
+  m_ui16NumOfAppearanceRecords = m_vEA.size();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 SilentEntitySystem::GetNumberOfEntities() const
-{
-    return m_ui16NumEnts;
+void SilentEntitySystem::SetEntityAppearanceList(
+    const vector<EntityAppearance>& EA) {
+  if (EA.size() >= m_ui16NumEnts) throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+
+  m_vEA = EA;
+  m_ui16NumOfAppearanceRecords = m_vEA.size();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 SilentEntitySystem::GetNumberOfAppearanceRecords() const
-{
-    return m_ui16NumOfAppearanceRecords;
+const vector<EntityAppearance>& SilentEntitySystem::GetEntityAppearanceList()
+    const {
+  return m_vEA;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::SetEntityType( const EntityType & A )
-{
-    m_EntTyp = A;
+void SilentEntitySystem::ClearEntityAppearanceList() {
+  m_vEA.clear();
+  m_ui16NumOfAppearanceRecords = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityType & SilentEntitySystem::GetEntityType() const
-{
-    return m_EntTyp;
+KString SilentEntitySystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Silent Entity System:\n"
+     << "Number Of Entities:             " << m_ui16NumEnts << "\n"
+     << "Number Of Appearance Records:   " << m_ui16NumOfAppearanceRecords
+     << "\n"
+     << m_EntTyp.GetAsString();
+
+  vector<EntityAppearance>::const_iterator citr = m_vEA.begin();
+  vector<EntityAppearance>::const_iterator citrEnd = m_vEA.end();
+
+  for (; citr != citrEnd; ++citr) {
+    ss << citr->GetAsString(m_EntTyp);
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityType & SilentEntitySystem::GetEntityType()
-{
-    return m_EntTyp;
+void SilentEntitySystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < SILENT_ENTITY_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  m_vEA.clear();
+
+  stream >> m_ui16NumEnts >> m_ui16NumOfAppearanceRecords >>
+      KDIS_STREAM m_EntTyp;
+
+  for (KUINT16 i = 0; i < m_ui16NumOfAppearanceRecords; ++i) {
+    m_vEA.push_back(EntityAppearance(stream));
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::AddEntityAppearance( const EntityAppearance & EA ) 
-{
-    if( m_vEA.size() >= m_ui16NumEnts )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+KDataStream SilentEntitySystem::Encode() const {
+  KDataStream stream;
 
+  SilentEntitySystem::Encode(stream);
 
-    m_vEA.push_back( EA );
-    m_ui16NumOfAppearanceRecords = m_vEA.size();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::SetEntityAppearanceList( const vector<EntityAppearance> & EA ) 
-{
-    if( EA.size() >= m_ui16NumEnts )throw KException( __FUNCTION__, OUT_OF_BOUNDS );
+void SilentEntitySystem::Encode(KDataStream& stream) const {
+  stream << m_ui16NumEnts << m_ui16NumOfAppearanceRecords
+         << KDIS_STREAM m_EntTyp;
 
-    m_vEA = EA;
-    m_ui16NumOfAppearanceRecords = m_vEA.size();
+  vector<EntityAppearance>::const_iterator citr = m_vEA.begin();
+  vector<EntityAppearance>::const_iterator citrEnd = m_vEA.end();
+  for (; citr != citrEnd; ++citr) {
+    citr->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<EntityAppearance> & SilentEntitySystem::GetEntityAppearanceList() const
-{
-    return m_vEA;
+KBOOL SilentEntitySystem::operator==(const SilentEntitySystem& Value) const {
+  if (m_ui16NumEnts != Value.m_ui16NumEnts) return false;
+  if (m_ui16NumOfAppearanceRecords != Value.m_ui16NumOfAppearanceRecords)
+    return false;
+  if (m_EntTyp != Value.m_EntTyp) return false;
+  if (m_vEA != Value.m_vEA) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SilentEntitySystem::ClearEntityAppearanceList()
-{
-    m_vEA.clear();
-    m_ui16NumOfAppearanceRecords = 0;
+KBOOL SilentEntitySystem::operator!=(const SilentEntitySystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KString SilentEntitySystem::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Silent Entity System:\n"
-       << "Number Of Entities:             " << m_ui16NumEnts               << "\n"
-       << "Number Of Appearance Records:   " << m_ui16NumOfAppearanceRecords << "\n"
-       << m_EntTyp.GetAsString();
-
-    vector<EntityAppearance>::const_iterator citr = m_vEA.begin();
-    vector<EntityAppearance>::const_iterator citrEnd = m_vEA.end();
-
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << citr->GetAsString( m_EntTyp );
-    }
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SilentEntitySystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < SILENT_ENTITY_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    m_vEA.clear();
-
-    stream >> m_ui16NumEnts
-           >> m_ui16NumOfAppearanceRecords
-           >> KDIS_STREAM m_EntTyp;
-
-    for( KUINT16 i = 0; i < m_ui16NumOfAppearanceRecords; ++i )
-    {
-        m_vEA.push_back( EntityAppearance( stream ) );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream SilentEntitySystem::Encode() const
-{
-    KDataStream stream;
-
-    SilentEntitySystem::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SilentEntitySystem::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16NumEnts
-           << m_ui16NumOfAppearanceRecords
-           << KDIS_STREAM m_EntTyp;
-
-    vector<EntityAppearance>::const_iterator citr = m_vEA.begin();
-    vector<EntityAppearance>::const_iterator citrEnd = m_vEA.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        citr->Encode( stream );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SilentEntitySystem::operator == ( const SilentEntitySystem & Value ) const
-{
-    if( m_ui16NumEnts                 != Value.m_ui16NumEnts )                return false;
-    if( m_ui16NumOfAppearanceRecords  != Value.m_ui16NumOfAppearanceRecords ) return false;
-    if( m_EntTyp                      != Value.m_EntTyp )                     return false;
-    if( m_vEA                         != Value.m_vEA )                        return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SilentEntitySystem::operator != ( const SilentEntitySystem & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

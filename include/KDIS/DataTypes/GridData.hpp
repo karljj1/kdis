@@ -40,80 +40,78 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT GridData : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT GridData : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16SmpTyp;
 
-    KUINT16 m_ui16SmpTyp;
+  KUINT16 m_ui16DtRep;
 
-    KUINT16 m_ui16DtRep;
+ public:
+  static const KUINT16 GRID_DATA_SIZE = 4;
 
-public:
+  GridData();
 
-    static const KUINT16 GRID_DATA_SIZE = 4;
+  GridData(KDataStream& stream);
 
-    GridData();
+  virtual ~GridData();
 
-    GridData( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GridData::SetSampleType
+  //              KDIS::DATA_TYPE::GridData::GetSampleType
+  // Description: Specifies the environmental data sample contained in
+  //              the PDU (e.g. u-comconent of wind).
+  // Parameter:   KUINT16 ST, void
+  //************************************
+  void SetSampleType(KUINT16 ST);
+  KUINT16 GetSampleType() const;
 
-    virtual ~GridData();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GridData::GetDataRepresentation
+  // Description: Specifies the value that describes the data representation
+  // method
+  //              for the environmental state variable data contained within the
+  //              Data Values fields of this record. Use this value to know what
+  //              type you should up cast to. E.G if the value was 1 then you
+  //              would upcast to a "GridDataType1" to get access to the data.
+  //************************************
+  KDIS::DATA_TYPE::ENUMS::GridDataRepresentation GetDataRepresentation() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GridData::SetSampleType
-    //              KDIS::DATA_TYPE::GridData::GetSampleType
-    // Description: Specifies the environmental data sample contained in
-    //              the PDU (e.g. u-comconent of wind).
-    // Parameter:   KUINT16 ST, void
-    //************************************
-    void SetSampleType( KUINT16 ST );
-    KUINT16 GetSampleType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GridData::GetDataRepresentation
+  // Description: Returns size of Grid Data in octets.
+  //              Note this information is not encoded into the PDU.
+  //************************************
+  virtual KUINT16 GetSize() const = 0;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GridData::GetDataRepresentation
-    // Description: Specifies the value that describes the data representation method
-    //              for the environmental state variable data contained within the Data
-    //              Values fields of this record. Use this value to know what type you should up cast to.
-    //              E.G if the value was 1 then you would upcast to a "GridDataType1" to get access to the data.
-    //************************************
-    KDIS::DATA_TYPE::ENUMS::GridDataRepresentation GetDataRepresentation() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GridData::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GridData::GetDataRepresentation
-    // Description: Returns size of Grid Data in octets.
-    //              Note this information is not encoded into the PDU.
-    //************************************
-    virtual KUINT16 GetSize() const = 0;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GridData::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GridData::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GridData::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GridData::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GridData::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const GridData & Value ) const;
-    KBOOL operator != ( const GridData & Value ) const;
+  KBOOL operator==(const GridData& Value) const;
+  KBOOL operator!=(const GridData& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

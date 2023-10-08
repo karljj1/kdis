@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./GridData.h"
+#include "KDIS/DataTypes/GridData.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,104 +37,80 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridData::GridData() :
-    m_ui16SmpTyp( 0 ),
-    m_ui16DtRep( 0 )
-{
+GridData::GridData() : m_ui16SmpTyp(0), m_ui16DtRep(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+GridData::GridData(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+GridData::~GridData() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void GridData::SetSampleType(KUINT16 ST) { m_ui16SmpTyp = ST; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 GridData::GetSampleType() const { return m_ui16SmpTyp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+GridDataRepresentation GridData::GetDataRepresentation() const {
+  return (GridDataRepresentation)m_ui16DtRep;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GridData::GridData( KDataStream & stream ) 
-{
-    Decode( stream );
+KString GridData::GetAsString() const {
+  KStringStream ss;
+
+  ss << "GridData:"
+     << "\n\tSample Type:         " << m_ui16SmpTyp
+     << "\n\tData Representation: "
+     << GetEnumAsStringGridDataRepresentation(m_ui16DtRep) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GridData::~GridData()
-{
+void GridData::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < GRID_DATA_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16SmpTyp >> m_ui16DtRep;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridData::SetSampleType( KUINT16 ST )
-{
-    m_ui16SmpTyp = ST;
+KDataStream GridData::Encode() const {
+  KDataStream stream;
+
+  GridData::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 GridData::GetSampleType() const
-{
-    return m_ui16SmpTyp;
+void GridData::Encode(KDataStream& stream) const {
+  stream << m_ui16SmpTyp << m_ui16DtRep;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataRepresentation GridData::GetDataRepresentation() const
-{
-    return ( GridDataRepresentation )m_ui16DtRep;
+KBOOL GridData::operator==(const GridData& Value) const {
+  if (m_ui16SmpTyp != Value.m_ui16SmpTyp) return false;
+  if (m_ui16DtRep != Value.m_ui16DtRep) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString GridData::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "GridData:"
-       << "\n\tSample Type:         " << m_ui16SmpTyp
-       << "\n\tData Representation: " << GetEnumAsStringGridDataRepresentation( m_ui16DtRep )
-       << "\n";
-
-    return ss.str();
+KBOOL GridData::operator!=(const GridData& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void GridData::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < GRID_DATA_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16SmpTyp
-           >> m_ui16DtRep;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream GridData::Encode() const
-{
-    KDataStream stream;
-
-    GridData::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void GridData::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16SmpTyp
-           << m_ui16DtRep;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GridData::operator == ( const GridData & Value ) const
-{
-    if( m_ui16SmpTyp != Value.m_ui16SmpTyp ) return false;
-    if( m_ui16DtRep  != Value.m_ui16DtRep )       return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GridData::operator != ( const GridData & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

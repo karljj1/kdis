@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Radio_Communications_Header.h"
+#include "KDIS/PDU/Radio_Communications/Radio_Communications_Header.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,150 +42,129 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::Radio_Communications_Header() :
-    m_ui16RadioID( 0 )
-{
-    m_ui8ProtocolFamily = Radio_Communications;
-    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+Radio_Communications_Header::Radio_Communications_Header() : m_ui16RadioID(0) {
+  m_ui8ProtocolFamily = Radio_Communications;
+  m_ui8ProtocolVersion = IEEE_1278_1_1995;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::Radio_Communications_Header( const Header & H ) :
-    Header( H ),
-    m_ui16RadioID( 0 )
-{
+Radio_Communications_Header::Radio_Communications_Header(const Header& H)
+    : Header(H), m_ui16RadioID(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Radio_Communications_Header::Radio_Communications_Header(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::Radio_Communications_Header( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Radio_Communications_Header::Radio_Communications_Header(const Header& H,
+                                                         KDataStream& stream)
+    : Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::Radio_Communications_Header( const Header & H, KDataStream & stream )  :
-    Header( H )
-{
-    Decode( stream, true );
+Radio_Communications_Header::Radio_Communications_Header(
+    const EntityIdentifier& ID, KUINT16 RadioID)
+    : m_EntityID(ID), m_ui16RadioID(RadioID) {
+  m_ui8ProtocolFamily = Radio_Communications;
+  m_ui8ProtocolVersion = IEEE_1278_1_1995;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::Radio_Communications_Header( const EntityIdentifier & ID, KUINT16 RadioID ) :
-    m_EntityID( ID ),
-    m_ui16RadioID( RadioID )
-{
-    m_ui8ProtocolFamily = Radio_Communications;
-    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+Radio_Communications_Header::~Radio_Communications_Header() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Radio_Communications_Header::SetEntityID(const EntityIdentifier& ID) {
+  m_EntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Radio_Communications_Header::~Radio_Communications_Header()
-{
+const EntityIdentifier& Radio_Communications_Header::GetEntityID() const {
+  return m_EntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Radio_Communications_Header::SetEntityID( const EntityIdentifier & ID )
-{
-    m_EntityID = ID;
+EntityIdentifier& Radio_Communications_Header::GetEntityID() {
+  return m_EntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Radio_Communications_Header::GetEntityID() const
-{
-    return m_EntityID;
+void Radio_Communications_Header::SetRadioID(KUINT16 ID) { m_ui16RadioID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 Radio_Communications_Header::GetRadioID() const {
+  return m_ui16RadioID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Radio_Communications_Header::GetEntityID()
-{
-    return m_EntityID;
+KString Radio_Communications_Header::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Entity ID:\n"
+     << IndentString(m_EntityID.GetAsString(), 1)
+     << "Radio ID:        " << m_ui16RadioID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Radio_Communications_Header::SetRadioID( KUINT16 ID )
-{
-    m_ui16RadioID = ID;
+void Radio_Communications_Header::Decode(KDataStream& stream,
+                                         bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      RADIO_COMMUNICATIONS_HEADER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Header::Decode(stream, ignoreHeader);
+
+  stream >> KDIS_STREAM m_EntityID >> m_ui16RadioID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 Radio_Communications_Header::GetRadioID() const
-{
-    return m_ui16RadioID;
-}
+KDataStream Radio_Communications_Header::Encode() const {
+  KDataStream stream;
 
+  Radio_Communications_Header::Encode(stream);
 
-//////////////////////////////////////////////////////////////////////////
-
-KString Radio_Communications_Header::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Entity ID:\n"
-       << IndentString( m_EntityID.GetAsString(), 1 )
-       << "Radio ID:        " << m_ui16RadioID << "\n";
-
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Radio_Communications_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < RADIO_COMMUNICATIONS_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void Radio_Communications_Header::Encode(KDataStream& stream) const {
+  Header::Encode(stream);
 
-    Header::Decode( stream, ignoreHeader );
-
-    stream >> KDIS_STREAM m_EntityID
-           >> m_ui16RadioID;
+  stream << KDIS_STREAM m_EntityID << m_ui16RadioID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Radio_Communications_Header::Encode() const
-{
-    KDataStream stream;
-
-    Radio_Communications_Header::Encode( stream );
-
-    return stream;
+KBOOL Radio_Communications_Header::operator==(
+    const Radio_Communications_Header& Value) const {
+  if (Header::operator!=(Value)) return false;
+  if (m_EntityID != Value.m_EntityID) return false;
+  if (m_ui16RadioID != Value.m_ui16RadioID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Radio_Communications_Header::Encode( KDataStream & stream ) const
-{
-    Header::Encode( stream );
-
-    stream << KDIS_STREAM m_EntityID
-           << m_ui16RadioID;
+KBOOL Radio_Communications_Header::operator!=(
+    const Radio_Communications_Header& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Radio_Communications_Header::operator == ( const Radio_Communications_Header & Value ) const
-{
-    if( Header::operator !=( Value ) )            return false;
-    if( m_EntityID       != Value.m_EntityID )    return false;
-    if( m_ui16RadioID    != Value.m_ui16RadioID ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Radio_Communications_Header::operator != ( const Radio_Communications_Header & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

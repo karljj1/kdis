@@ -27,7 +27,8 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./VariableParameter.h"
+#include "KDIS/DataTypes/VariableParameter.hpp"
+
 #include <math.h>
 
 //////////////////////////////////////////////////////////////////////////
@@ -42,142 +43,117 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::VariableParameter() :
-    m_ui8VarParamType( 0 )    
-{
-	// Clear data
-	memset( m_Data, 0, 15 );
+VariableParameter::VariableParameter() : m_ui8VarParamType(0) {
+  // Clear data
+  memset(m_Data, 0, 15);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize )  :
-	m_ui8VarParamType( VPT )
-{
-	SetData( Data, DataSize );
+VariableParameter::VariableParameter(VariableParameterType VPT, KUINT8* Data,
+                                     KUINT8 DataSize)
+    : m_ui8VarParamType(VPT) {
+  SetData(Data, DataSize);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::VariableParameter( KDataStream & stream ) 
-{
-    Decode( stream );
+VariableParameter::VariableParameter(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+VariableParameter::~VariableParameter() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void VariableParameter::SetVariableParameterType(VariableParameterType VPT) {
+  m_ui8VarParamType = VPT;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameter::~VariableParameter()
-{
+VariableParameterType VariableParameter::GetVariableParameterType() const {
+  return (VariableParameterType)m_ui8VarParamType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::SetVariableParameterType( VariableParameterType VPT )
-{
-	m_ui8VarParamType = VPT;
+void VariableParameter::SetData(const KUINT8* D, KUINT8 DataSize) {
+  if (DataSize > 15) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
+
+  // Set
+  memcpy(m_Data, D, DataSize);
+
+  // Clear extra space
+  if (DataSize < 15) memset(m_Data + DataSize, 0, 15 - DataSize);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-VariableParameterType VariableParameter::GetVariableParameterType() const
-{
-	return ( VariableParameterType )m_ui8VarParamType;
+const KUINT8* VariableParameter::GetData() const { return &m_Data[0]; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8* VariableParameter::GetData() { return &m_Data[0]; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString VariableParameter::GetAsString() const {
+  KStringStream ss;
+
+  // For now we return the datum value as a string.
+  ss << "Variable Parameter:"
+     << "\n\tType:          "
+     << GetEnumAsStringVariableParameterType(m_ui8VarParamType) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::SetData( const KUINT8 * D, KUINT8 DataSize ) 
-{
-	if( DataSize > 15 )throw KException( __FUNCTION__, DATA_TYPE_TOO_LARGE );
+void VariableParameter::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < VARIABLE_PARAMETER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-	// Set
-	memcpy( m_Data, D, DataSize );
-		
-	// Clear extra space
-	if( DataSize < 15 )
-		memset( m_Data + DataSize, 0, 15 - DataSize );
+  stream >> m_ui8VarParamType;
+
+  for (KUINT8 i = 0; i < 15; ++i) {
+    stream >> m_Data[i];
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const KUINT8 * VariableParameter::GetData() const
-{
-	return &m_Data[0];
+KDataStream VariableParameter::Encode() const {
+  KDataStream stream;
+
+  VariableParameter::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 * VariableParameter::GetData() 
-{
-	return &m_Data[0];
+void VariableParameter::Encode(KDataStream& stream) const {
+  stream << m_ui8VarParamType;
+
+  for (KUINT8 i = 0; i < 15; ++i) {
+    stream << m_Data[i];
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString VariableParameter::GetAsString() const
-{
-    KStringStream ss;
-
-    // For now we return the datum value as a string.
-    ss << "Variable Parameter:"
-       << "\n\tType:          " << GetEnumAsStringVariableParameterType( m_ui8VarParamType )
-       << "\n";
-
-    return ss.str();
+KBOOL VariableParameter::operator==(const VariableParameter& Value) const {
+  if (m_ui8VarParamType != Value.m_ui8VarParamType) return false;
+  if (memcmp(m_Data, Value.m_Data, 15) != 0) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void VariableParameter::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-	stream >> m_ui8VarParamType;
-		
-	for( KUINT8 i = 0; i < 15; ++i )
-	{
-		stream >> m_Data[i];
-	}
+KBOOL VariableParameter::operator!=(const VariableParameter& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KDataStream VariableParameter::Encode() const
-{
-    KDataStream stream;
-
-    VariableParameter::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void VariableParameter::Encode( KDataStream & stream ) const
-{
-	stream << m_ui8VarParamType;
-		
-	for( KUINT8 i = 0; i < 15; ++i )
-	{
-		stream << m_Data[i];
-	}
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL VariableParameter::operator == ( const VariableParameter & Value ) const
-{
-    if( m_ui8VarParamType != Value.m_ui8VarParamType ) return false;
-    if( memcmp( m_Data, Value.m_Data, 15 ) != 0 ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL VariableParameter::operator != ( const VariableParameter & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

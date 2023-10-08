@@ -37,7 +37,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnumDescriptor.h"
+#include "KDIS/DataTypes/Enums/EnumDescriptor.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -51,45 +51,46 @@ namespace ENUMS {
 /*  System Identifier                                                   */
 /************************************************************************/
 
-enum SystemType
-{
-    OtherSystemType                                                   = 0,
-    Mark_X_XII_ATCRBS_ModeS_Transponder                               = 1,
-    Mark_X_XII_ATCRBS_ModeS_Interrogator                              = 2,
-    Soviet_Transponder                                                = 3,
-    Soviet_Interrogator                                               = 4,
-    RRB_Transponder                                                   = 5,
-    #if DIS_VERSION > 6
-    Mark_XIIA_Interrogator                                            = 6,
-    Mode_5_Interrogator                                               = 7,
-    Mode_S_Interrogator                                               = 8,
-    Mark_XIIA_Transponder                                             = 9,
-    Mode_5_Transponder                                                = 10,
-    Mode_S_Transponder                                                = 11,
-    Mark_XIIA_Combined_Interrogator_Transponder_CIT                   = 12,
-    Mark_XII_Combined_Interrogator_Transponder_CIT                    = 13,
-    TCAS_ACAS_Transceiver                                             = 14,
-    Generic_TCAS_I_ACAS_I_Transceiver                                 = 15,
-    Generic_TCAS_II_ACAS_II_Transceiver                               = 16,
-    Generic_Mark_X_A                                                  = 17,
-    Generic_Mark_X_SIF                                                = 18,
-    #endif
+enum SystemType {
+  OtherSystemType = 0,
+  Mark_X_XII_ATCRBS_ModeS_Transponder = 1,
+  Mark_X_XII_ATCRBS_ModeS_Interrogator = 2,
+  Soviet_Transponder = 3,
+  Soviet_Interrogator = 4,
+  RRB_Transponder = 5,
+#if DIS_VERSION > 6
+  Mark_XIIA_Interrogator = 6,
+  Mode_5_Interrogator = 7,
+  Mode_S_Interrogator = 8,
+  Mark_XIIA_Transponder = 9,
+  Mode_5_Transponder = 10,
+  Mode_S_Transponder = 11,
+  Mark_XIIA_Combined_Interrogator_Transponder_CIT = 12,
+  Mark_XII_Combined_Interrogator_Transponder_CIT = 13,
+  TCAS_ACAS_Transceiver = 14,
+  Generic_TCAS_I_ACAS_I_Transceiver = 15,
+  Generic_TCAS_II_ACAS_II_Transceiver = 16,
+  Generic_Mark_X_A = 17,
+  Generic_Mark_X_SIF = 18,
+#endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeSystemType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSystemType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorSystemType(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringSystemType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSystemType(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringSystemType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSystemType(const KString& Value,
+                                              KINT32& ValueOut);
 
 /************************************************************************/
 /* System Name                                                          */
@@ -99,39 +100,40 @@ KDIS_EXPORT KBOOL GetEnumFromStringSystemType( const KString & Value, KINT32 & V
 /*  System Identifier                                                   */
 /************************************************************************/
 
-enum SystemName
-{
-    OtherSystemName                                                   = 0,
-    Mark_X                                                            = 1,
-    Mark_XII                                                          = 2,
-    ATCRBS                                                            = 3,
-    Soviet                                                            = 4,
-    Mode_S                                                            = 5,
-    Mark_X_XII_ATCRBS                                                 = 6,
-    Mark_X_XII_ATCRBS_Mode_S                                          = 7,
-    ARI_5954                                                          = 8,
-    ARI_5983                                                          = 9,
-    #if DIS_VERSION > 6
-    Generic_RRB                                                       = 10,
-    Generic_Mark_XIIA                                                 = 11,
-    Generic_Mode_5                                                    = 12,
-    #endif
+enum SystemName {
+  OtherSystemName = 0,
+  Mark_X = 1,
+  Mark_XII = 2,
+  ATCRBS = 3,
+  Soviet = 4,
+  Mode_S = 5,
+  Mark_X_XII_ATCRBS = 6,
+  Mark_X_XII_ATCRBS_Mode_S = 7,
+  ARI_5954 = 8,
+  ARI_5983 = 9,
+#if DIS_VERSION > 6
+  Generic_RRB = 10,
+  Generic_Mark_XIIA = 11,
+  Generic_Mode_5 = 12,
+#endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeSystemName();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSystemName( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorSystemName(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringSystemName( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSystemName(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringSystemName( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSystemName(const KString& Value,
+                                              KINT32& ValueOut);
 
 /************************************************************************/
 /* System Mode                                                          */
@@ -141,35 +143,36 @@ KDIS_EXPORT KBOOL GetEnumFromStringSystemName( const KString & Value, KINT32 & V
 /*  System Identifier                                                   */
 /************************************************************************/
 
-enum SystemMode
-{
-    #if DIS_VERSION < 7
-    OtherSystemMode                                                   = 0,
-    #elif DIS_VERSION > 6
-    No_Statement                                                      = 0,
-    OffSystemMode                                                     = 1,
-    Standby                                                           = 2,
-    Normal                                                            = 3,
-    Emergency                                                         = 4,
-    Low_or_Low_Sensitivity                                            = 5,
-    #endif
+enum SystemMode {
+#if DIS_VERSION < 7
+  OtherSystemMode = 0,
+#elif DIS_VERSION > 6
+  No_Statement = 0,
+  OffSystemMode = 1,
+  Standby = 2,
+  Normal = 3,
+  Emergency = 4,
+  Low_or_Low_Sensitivity = 5,
+#endif
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeSystemMode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSystemMode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorSystemMode(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringSystemMode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSystemMode(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringSystemMode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSystemMode(const KString& Value,
+                                              KINT32& ValueOut);
 
-} // END namespace ENUMS
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // END namespace ENUMS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

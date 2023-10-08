@@ -38,102 +38,101 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./ConeRecord1.h"
-#include "./Vector.h"
+#include "KDIS/DataTypes/ConeRecord1.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ConeRecord2 : public ConeRecord1
-{
-protected:
+class KDIS_EXPORT ConeRecord2 : public ConeRecord1 {
+ protected:
+  Vector m_Velocity;
 
-    Vector m_Velocity;
+  Vector m_AngularVelocity;
 
-    Vector m_AngularVelocity;
+  KFLOAT32 m_f32ddtHeight;
 
-    KFLOAT32 m_f32ddtHeight;
+  KFLOAT32 m_f32ddtPeak;
 
-    KFLOAT32 m_f32ddtPeak;
+ public:
+  static const KUINT16 CONE_RECORD_2_SIZE = 88;
 
-public:
+  ConeRecord2();
 
-    static const KUINT16 CONE_RECORD_2_SIZE = 88;
+  ConeRecord2(KDataStream& stream);
 
-    ConeRecord2();
+  ConeRecord2(KUINT8 Index, const WorldCoordinates& VertexLocation,
+              const EulerAngles& Orientation, const Vector& Velocity,
+              const Vector& AngularVelocity, KFLOAT32 Height,
+              KFLOAT32 PeakAngle, KFLOAT32 DHeightOverDt,
+              KFLOAT32 DPeakAngleOverDt);
 
-    ConeRecord2( KDataStream & stream ) ;
+  virtual ~ConeRecord2();
 
-    ConeRecord2( KUINT8 Index, const WorldCoordinates & VertexLocation, const EulerAngles & Orientation,
-                 const Vector & Velocity, const Vector & AngularVelocity, KFLOAT32 Height,
-                 KFLOAT32 PeakAngle, KFLOAT32 DHeightOverDt, KFLOAT32 DPeakAngleOverDt );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetVelocity
+  //              KDIS::DATA_TYPE::ConeRecord2::GetVelocity
+  // Description: Specifies the velocity of the cone.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetVelocity(const Vector& V);
+  const Vector& GetVelocity() const;
+  Vector& GetVelocity();
 
-    virtual ~ConeRecord2();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetAngularVelocity
+  //              KDIS::DATA_TYPE::ConeRecord2::GetAngularVelocity
+  // Description: Specifies the angular velocity of the cone.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetAngularVelocity(const Vector& V);
+  const Vector& GetAngularVelocity() const;
+  Vector& GetAngularVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetVelocity
-    //              KDIS::DATA_TYPE::ConeRecord2::GetVelocity
-    // Description: Specifies the velocity of the cone.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetDHeightOverDt
+  //              KDIS::DATA_TYPE::ConeRecord2::GetDHeightOverDt
+  // Description: d(Height)/dt.
+  // Parameter:   KFLOAT32 DDT, void
+  //************************************
+  void SetDHeightOverDt(KFLOAT32 DDT);
+  KFLOAT32 GetDHeightOverDt() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetAngularVelocity
-    //              KDIS::DATA_TYPE::ConeRecord2::GetAngularVelocity
-    // Description: Specifies the angular velocity of the cone.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetAngularVelocity( const Vector & V );
-    const Vector & GetAngularVelocity() const;
-    Vector & GetAngularVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetDPeakAngleOverDt
+  //              KDIS::DATA_TYPE::ConeRecord2::GetDPeakAngleOverDt
+  // Description: d(Peak Angle)/dt.
+  // Parameter:   KFLOAT32 DDT, void
+  //************************************
+  void SetDPeakAngleOverDt(KFLOAT32 DDT);
+  KFLOAT32 GetDPeakAngleOverDt() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetDHeightOverDt
-    //              KDIS::DATA_TYPE::ConeRecord2::GetDHeightOverDt
-    // Description: d(Height)/dt.
-    // Parameter:   KFLOAT32 DDT, void
-    //************************************
-    void SetDHeightOverDt( KFLOAT32 DDT );
-    KFLOAT32 GetDHeightOverDt() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord2::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord2::SetDPeakAngleOverDt
-    //              KDIS::DATA_TYPE::ConeRecord2::GetDPeakAngleOverDt
-    // Description: d(Peak Angle)/dt.
-    // Parameter:   KFLOAT32 DDT, void
-    //************************************
-    void SetDPeakAngleOverDt( KFLOAT32 DDT );
-    KFLOAT32 GetDPeakAngleOverDt() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord2::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord2::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord2::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord2::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord2::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const ConeRecord2 & Value )const;
-    KBOOL operator != ( const ConeRecord2 & Value )const;
+  KBOOL operator==(const ConeRecord2& Value) const;
+  KBOOL operator!=(const ConeRecord2& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

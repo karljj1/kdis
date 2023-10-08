@@ -33,74 +33,76 @@ http://p.sf.net/kdis/UserGuide
     created:    6/03/2014
     author:     Karl Jones
 
-    purpose:    Mode 5 Enhanced Mode 1 information. 
+    purpose:    Mode 5 Enhanced Mode 1 information.
 
-    Size:       16 bits / 2 octets 
+    Size:       16 bits / 2 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./ModeXCodeRecord.h"
+#include "KDIS/DataTypes/ModeXCodeRecord.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT EnhancedMode1Code : public ModeXCodeRecord
-{
-public:
+class KDIS_EXPORT EnhancedMode1Code : public ModeXCodeRecord {
+ public:
+  EnhancedMode1Code();
 
-    EnhancedMode1Code();
+  EnhancedMode1Code(KDataStream& stream);
 
-    EnhancedMode1Code( KDataStream & stream ) ;
+  virtual ~EnhancedMode1Code();
 
-    virtual ~EnhancedMode1Code();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement1
+  //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement1
+  // Description: Element 1 of the Enhanced Mode 1 code also known as Code
+  // Element D.
+  //              Value must be between 0-7.
+  // Parameter:   KUINT8 CE
+  //************************************
+  void SetCodeElement1(KUINT8 CE);
+  KUINT8 GetCodeElement1();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement1
-    //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement1
-    // Description: Element 1 of the Enhanced Mode 1 code also known as Code Element D.
-	//              Value must be between 0-7.
-    // Parameter:   KUINT8 CE
-    //************************************
-    void SetCodeElement1( KUINT8 CE );    
-    KUINT8 GetCodeElement1();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement2
-    //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement2
-    // Description: Element 2 of the Enhanced Mode 1 code also known as Code Element C.
-	//              Value must be between 0-7.
-    // Parameter:   KUINT8 CE
-    //************************************
-    void SetCodeElement2( KUINT8 CE );    
-    KUINT8 GetCodeElement2();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement3
-    //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement3
-    // Description: Element 3 of the Enhanced Mode 1 code also known as Code Element B.
-	//              Value must be between 0-7.
-    // Parameter:   KUINT8 CE
-    //************************************
-    void SetCodeElement3( KUINT8 CE );    
-    KUINT8 GetCodeElement3();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement4
-    //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement4
-    // Description: Element 4 of the Enhanced Mode 1 code also known as Code Element A.
-	//              Value must be between 0-7.
-    // Parameter:   KUINT8 CE
-    //************************************
-    void SetCodeElement4( KUINT8 CE );    
-    KUINT8 GetCodeElement4();
-	
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::GetAsString
-    // Description: Returns a string representation 
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement2
+  //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement2
+  // Description: Element 2 of the Enhanced Mode 1 code also known as Code
+  // Element C.
+  //              Value must be between 0-7.
+  // Parameter:   KUINT8 CE
+  //************************************
+  void SetCodeElement2(KUINT8 CE);
+  KUINT8 GetCodeElement2();
+
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement3
+  //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement3
+  // Description: Element 3 of the Enhanced Mode 1 code also known as Code
+  // Element B.
+  //              Value must be between 0-7.
+  // Parameter:   KUINT8 CE
+  //************************************
+  void SetCodeElement3(KUINT8 CE);
+  KUINT8 GetCodeElement3();
+
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::SetCodeElement4
+  //              KDIS::DATA_TYPE::EnhancedMode1Code::GetCodeElement4
+  // Description: Element 4 of the Enhanced Mode 1 code also known as Code
+  // Element A.
+  //              Value must be between 0-7.
+  // Parameter:   KUINT8 CE
+  //************************************
+  void SetCodeElement4(KUINT8 CE);
+  KUINT8 GetCodeElement4();
+
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 };
 
-} // END namespace DATA_TYPE
-} // END namespace KDIS
+}  // END namespace DATA_TYPE
+}  // END namespace KDIS

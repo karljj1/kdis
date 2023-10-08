@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./AntennaLocation.h"
+#include "KDIS/DataTypes/AntennaLocation.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -39,130 +39,111 @@ using namespace DATA_TYPE;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-AntennaLocation::AntennaLocation()
-{
+AntennaLocation::AntennaLocation() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+AntennaLocation::AntennaLocation(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+AntennaLocation::AntennaLocation(const WorldCoordinates& Location,
+                                 const Vector& RelativeLocation)
+    : m_AntennaLocation(Location),
+      m_RelativeAntennaLocation(RelativeLocation) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+AntennaLocation::~AntennaLocation() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AntennaLocation::SetAntennaLocation(const WorldCoordinates& AL) {
+  m_AntennaLocation = AL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AntennaLocation::AntennaLocation( KDataStream & stream )
-{
-    Decode( stream );
+const WorldCoordinates& AntennaLocation::GetAntennaLocation() const {
+  return m_AntennaLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AntennaLocation::AntennaLocation( const WorldCoordinates & Location, const Vector & RelativeLocation ) :
-    m_AntennaLocation( Location ),
-    m_RelativeAntennaLocation( RelativeLocation )
-{
+WorldCoordinates& AntennaLocation::GetAntennaLocation() {
+  return m_AntennaLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AntennaLocation::~AntennaLocation()
-{
+void AntennaLocation::SetRelativeAntennaLocation(const Vector& RAL) {
+  m_RelativeAntennaLocation = RAL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AntennaLocation::SetAntennaLocation( const WorldCoordinates & AL )
-{
-    m_AntennaLocation = AL;
+const Vector& AntennaLocation::GetRelativeAntennaLocation() const {
+  return m_RelativeAntennaLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & AntennaLocation::GetAntennaLocation() const
-{
-    return m_AntennaLocation;
+Vector& AntennaLocation::GetRelativeAntennaLocation() {
+  return m_RelativeAntennaLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & AntennaLocation::GetAntennaLocation()
-{
-    return m_AntennaLocation;
+KString AntennaLocation::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Antenna Location:\n"
+     << "\tWorld Location:       " << m_AntennaLocation.GetAsString()
+     << "\tEntity Location:      " << m_RelativeAntennaLocation.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AntennaLocation::SetRelativeAntennaLocation( const Vector & RAL )
-{
-    m_RelativeAntennaLocation = RAL;
+void AntennaLocation::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ANTENNA_LOCATION_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> KDIS_STREAM m_AntennaLocation >>
+      KDIS_STREAM m_RelativeAntennaLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & AntennaLocation::GetRelativeAntennaLocation() const
-{
-    return m_RelativeAntennaLocation;
+KDataStream AntennaLocation::Encode() const {
+  KDataStream stream;
+
+  AntennaLocation::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & AntennaLocation::GetRelativeAntennaLocation()
-{
-    return m_RelativeAntennaLocation;
+void AntennaLocation::Encode(KDataStream& stream) const {
+  stream << KDIS_STREAM m_AntennaLocation
+         << KDIS_STREAM m_RelativeAntennaLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString AntennaLocation::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Antenna Location:\n"
-       << "\tWorld Location:       " << m_AntennaLocation.GetAsString()
-       << "\tEntity Location:      " << m_RelativeAntennaLocation.GetAsString();
-
-    return ss.str();
+KBOOL AntennaLocation::operator==(const AntennaLocation& Value) const {
+  if (m_AntennaLocation != Value.m_AntennaLocation) return false;
+  if (m_RelativeAntennaLocation != Value.m_RelativeAntennaLocation)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AntennaLocation::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ANTENNA_LOCATION_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> KDIS_STREAM m_AntennaLocation
-           >> KDIS_STREAM m_RelativeAntennaLocation;
+KBOOL AntennaLocation::operator!=(const AntennaLocation& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KDataStream AntennaLocation::Encode() const
-{
-    KDataStream stream;
-
-    AntennaLocation::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AntennaLocation::Encode( KDataStream & stream ) const
-{
-    stream << KDIS_STREAM m_AntennaLocation
-           << KDIS_STREAM m_RelativeAntennaLocation;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AntennaLocation::operator == ( const AntennaLocation & Value ) const
-{
-    if( m_AntennaLocation           != Value.m_AntennaLocation )         return false;
-    if( m_RelativeAntennaLocation   != Value.m_RelativeAntennaLocation ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AntennaLocation::operator != ( const AntennaLocation & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

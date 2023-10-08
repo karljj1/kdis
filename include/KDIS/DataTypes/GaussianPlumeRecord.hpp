@@ -38,133 +38,132 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnvironmentRecord.h"
-#include "./WorldCoordinates.h"
-#include "./EulerAngles.h"
-#include "./Vector.h"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
+#include "KDIS/DataTypes/EulerAngles.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT GaussianPlumeRecord : public EnvironmentRecord
-{
-protected:
+class KDIS_EXPORT GaussianPlumeRecord : public EnvironmentRecord {
+ protected:
+  WorldCoordinates m_SrcLocation;
 
-    WorldCoordinates m_SrcLocation;
+  EulerAngles m_Ori;
 
-    EulerAngles m_Ori;
+  Vector m_PlumeLWH;
 
-    Vector m_PlumeLWH;
+  Vector m_DDTLEH;
 
-    Vector m_DDTLEH;
+  KFLOAT32 m_f32LdEdgeCenHght;
 
-    KFLOAT32 m_f32LdEdgeCenHght;
+  Vector m_LdEdgeVel;
 
-    Vector m_LdEdgeVel;
+  KUINT32 m_ui32Padding;
 
-    KUINT32 m_ui32Padding;
+ public:
+  static const KUINT16 GAUSSIAN_PLUME_RECORD_SIZE = 88;
 
-public:
+  GaussianPlumeRecord();
 
-    static const KUINT16 GAUSSIAN_PLUME_RECORD_SIZE = 88;
+  GaussianPlumeRecord(KDataStream& stream);
 
-    GaussianPlumeRecord();
+  GaussianPlumeRecord(KUINT8 Index, const WorldCoordinates& Location,
+                      const EulerAngles& Orientation, const Vector& LWH,
+                      const Vector& DDT, KFLOAT32 LECH, const Vector& LEV);
 
-    GaussianPlumeRecord( KDataStream & stream ) ;
+  virtual ~GaussianPlumeRecord();
 
-    GaussianPlumeRecord( KUINT8 Index, const WorldCoordinates & Location, const EulerAngles & Orientation,
-                         const Vector & LWH, const Vector & DDT, KFLOAT32 LECH, const Vector & LEV );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetSourceLocation
+  //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetSourceLocation
+  // Description: Specifies the plumes location.
+  // Parameter:   const WorldCoordinates & L, void
+  //************************************
+  void SetSourceLocation(const WorldCoordinates& L);
+  const WorldCoordinates& GetSourceLocation() const;
+  WorldCoordinates& GetSourceLocation();
 
-    virtual ~GaussianPlumeRecord();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetOrientation
+  //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetOrientation
+  // Description: Orientation of the plume.
+  // Parameter:   const EulerAngles & O
+  //************************************
+  void SetOrientation(const EulerAngles& O);
+  const EulerAngles& GetOrientation() const;
+  EulerAngles& GetOrientation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetSourceLocation
-    //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetSourceLocation
-    // Description: Specifies the plumes location.
-    // Parameter:   const WorldCoordinates & L, void
-    //************************************
-    void SetSourceLocation( const WorldCoordinates & L );
-    const WorldCoordinates & GetSourceLocation() const;
-    WorldCoordinates & GetSourceLocation();
+  //************************************
+  // FullName: KDIS::DATA_TYPE::GaussianPlumeRecord::SetPlumeLengthWidthHeight
+  //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetPlumeLengthWidthHeight
+  // Description: The length, width and height of the plume in meters.
+  //              X = Length, Y = Width, Z = Height
+  // Parameter:   const Vector & LWH
+  //************************************
+  void SetPlumeLengthWidthHeight(const Vector& LWH);
+  const Vector& GetPlumeLengthWidthHeight() const;
+  Vector& GetPlumeLengthWidthHeight();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetOrientation
-    //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetOrientation
-    // Description: Orientation of the plume.
-    // Parameter:   const EulerAngles & O
-    //************************************
-    void SetOrientation( const EulerAngles & O );
-    const EulerAngles & GetOrientation() const;
-    EulerAngles & GetOrientation();
+  //************************************
+  // FullName: KDIS::DATA_TYPE::GaussianPlumeRecord::SetPlumeLengthWidthHeight
+  //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetPlumeLengthWidthHeight
+  // Description: The length, width and height of the plume in meters.
+  //              X = d(Plume Length)/dt
+  //              Y = d(Plume Width)/dt
+  //              Z = d(Plume Height)/dt
+  // Parameter:   const Vector & DDT
+  //************************************
+  void SetDOverDtLengthWidthHeight(const Vector& DDT);
+  const Vector& GetDOverDtLengthWidthHeight() const;
+  Vector& GetDOverDtLengthWidthHeight();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetPlumeLengthWidthHeight
-    //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetPlumeLengthWidthHeight
-    // Description: The length, width and height of the plume in meters.
-    //              X = Length, Y = Width, Z = Height
-    // Parameter:   const Vector & LWH
-    //************************************
-    void SetPlumeLengthWidthHeight( const Vector & LWH );
-    const Vector & GetPlumeLengthWidthHeight() const;
-    Vector & GetPlumeLengthWidthHeight();
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GaussianPlumeRecord::SetLeadingEdgeCentroidHeight
+  //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetLeadingEdgeCentroidHeight
+  // Description: The leading edge centroid height in meters.
+  // Parameter:   KFLOAT32 LECH, void
+  //************************************
+  void SetLeadingEdgeCentroidHeight(KFLOAT32 LECH);
+  KFLOAT32 GetLeadingEdgeCentroidHeight() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetPlumeLengthWidthHeight
-    //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetPlumeLengthWidthHeight
-    // Description: The length, width and height of the plume in meters.
-    //              X = d(Plume Length)/dt
-    //              Y = d(Plume Width)/dt
-    //              Z = d(Plume Height)/dt
-    // Parameter:   const Vector & DDT
-    //************************************
-    void SetDOverDtLengthWidthHeight( const Vector & DDT );
-    const Vector & GetDOverDtLengthWidthHeight() const;
-    Vector & GetDOverDtLengthWidthHeight();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetLeadingEdgeVelocity
+  //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetLeadingEdgeVelocity
+  // Description: Specifies the velocity of the leading edge of the plume.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & DDT
+  //************************************
+  void SetLeadingEdgeVelocity(const Vector& LEV);
+  const Vector& GetLeadingEdgeVelocity() const;
+  Vector& GetLeadingEdgeVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetLeadingEdgeCentroidHeight
-    //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetLeadingEdgeCentroidHeight
-    // Description: The leading edge centroid height in meters.
-    // Parameter:   KFLOAT32 LECH, void
-    //************************************
-    void SetLeadingEdgeCentroidHeight( KFLOAT32 LECH );
-    KFLOAT32 GetLeadingEdgeCentroidHeight() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::SetLeadingEdgeVelocity
-    //              KDIS::DATA_TYPE::GaussianPlumeRecord::GetLeadingEdgeVelocity
-    // Description: Specifies the velocity of the leading edge of the plume.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & DDT
-    //************************************
-    void SetLeadingEdgeVelocity( const Vector & LEV );
-    const Vector & GetLeadingEdgeVelocity() const;
-    Vector & GetLeadingEdgeVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GaussianPlumeRecord::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const GaussianPlumeRecord & Value )const;
-    KBOOL operator != ( const GaussianPlumeRecord & Value )const;
+  KBOOL operator==(const GaussianPlumeRecord& Value) const;
+  KBOOL operator!=(const GaussianPlumeRecord& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

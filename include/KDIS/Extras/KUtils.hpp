@@ -36,13 +36,13 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #ifndef _USE_MATH_DEFINES
-    #define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
 #endif
 #include <cmath>
 
-#include "./../KDefines.h"
-#include "./KConversions.h"
-#include "./../KEncodersDecoders.h"
+#include "KDIS/Extras/KConversions.hpp"
+#include "KDIS/KDefines.hpp"
+#include "KDIS/KEncodersDecoders.hpp"
 
 #pragma once
 
@@ -53,58 +53,49 @@ namespace UTILS {
 /* Add a tab to all new lines in a string, used for formatting PDU data */
 /************************************************************************/
 
-static inline void AddTabsToStringStream( KStringStream & Stream, KUINT16 Tabs, KCHAR8 Tab )
-{
-    for( KUINT16 i = 0; i < Tabs; ++i )
-    {
-        Stream << Tab;
-    }
+static inline void AddTabsToStringStream(KStringStream& Stream, KUINT16 Tabs,
+                                         KCHAR8 Tab) {
+  for (KUINT16 i = 0; i < Tabs; ++i) {
+    Stream << Tab;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-static inline KString IndentString( const KString & S, KUINT16 Tabs = 1, KCHAR8 Tab = '\t' )
-{
-    KStringStream NewS;
+static inline KString IndentString(const KString& S, KUINT16 Tabs = 1,
+                                   KCHAR8 Tab = '\t') {
+  KStringStream NewS;
 
-    // Add tab to first item and then check all new lines
-    AddTabsToStringStream( NewS, Tabs, Tab );
+  // Add tab to first item and then check all new lines
+  AddTabsToStringStream(NewS, Tabs, Tab);
 
-    for( KUINT16 i = 0; i < S.size(); ++i )
-    {
-        if( S.c_str()[i] == '\n' && i != ( S.size() - 1 ) )
-        {
-            NewS << S.c_str()[i];
-            AddTabsToStringStream( NewS, Tabs, Tab );
-        }
-        else
-        {
-            NewS << S.c_str()[i];
-        }
+  for (KUINT16 i = 0; i < S.size(); ++i) {
+    if (S.c_str()[i] == '\n' && i != (S.size() - 1)) {
+      NewS << S.c_str()[i];
+      AddTabsToStringStream(NewS, Tabs, Tab);
+    } else {
+      NewS << S.c_str()[i];
     }
+  }
 
-    return NewS.str();
+  return NewS.str();
 }
 
 /************************************************************************/
 /* Determine the endian of the machine at run time                      */
 /************************************************************************/
 
-static inline KBOOL IsMachineBigEndian()
-{
-    static KUINT16 ui = 0x01;
+static inline KBOOL IsMachineBigEndian() {
+  static KUINT16 ui = 0x01;
 
-    static NetToKUINT16 conv( ui, false );
+  static NetToKUINT16 conv(ui, false);
 
-    if( conv.m_Octs[0] == 0x01 )
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+  if (conv.m_Octs[0] == 0x01) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
-} // END namespace UTILS
-} // END namespace KDIS
+}  // END namespace UTILS
+}  // END namespace KDIS

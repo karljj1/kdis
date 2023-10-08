@@ -41,153 +41,165 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
 #include <vector>
-#include "./../../DataTypes/PropulsionSystem.h"
-#include "./../../DataTypes/VectoringNozzleSystem.h"
+
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/PropulsionSystem.hpp"
+#include "KDIS/DataTypes/VectoringNozzleSystem.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT SEES_PDU : public Header
-{
-protected:
+class KDIS_EXPORT SEES_PDU : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntity;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntity;
+  KUINT16 m_ui16IrSigRepIndex;
 
-    KUINT16 m_ui16IrSigRepIndex;
+  KUINT16 m_ui16AcousticSigRepIndex;
 
-    KUINT16 m_ui16AcousticSigRepIndex;
+  KUINT16 m_ui16CrossSection;
 
-    KUINT16 m_ui16CrossSection;
+  KUINT16 m_ui16NumPropulsionSys;
 
-    KUINT16 m_ui16NumPropulsionSys;
+  KUINT16 m_ui16NumVectoringNozzleSys;
 
-    KUINT16 m_ui16NumVectoringNozzleSys;
+  std::vector<KDIS::DATA_TYPE::PropulsionSystem> m_vPropSys;
 
-	std::vector<KDIS::DATA_TYPE::PropulsionSystem> m_vPropSys;
+  std::vector<KDIS::DATA_TYPE::VectoringNozzleSystem> m_vVecNozzleSys;
 
-	std::vector<KDIS::DATA_TYPE::VectoringNozzleSystem> m_vVecNozzleSys;
+ public:
+  static const KUINT16 SEES_PDU_SIZE = 28;  // Min size
 
-public:
+  SEES_PDU();
 
-    static const KUINT16 SEES_PDU_SIZE = 28; // Min size
+  SEES_PDU(KDataStream& stream);
 
-    SEES_PDU();
+  SEES_PDU(const Header& H, KDataStream& stream);
 
-    SEES_PDU( KDataStream & stream ) ;
+  SEES_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEnt,
+           KUINT16 IrSigIndex, KUINT16 AcousticSigIndex,
+           KUINT16 RadarCrossSectionSigIndex);
 
-	SEES_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~SEES_PDU();
 
-    SEES_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEnt, KUINT16 IrSigIndex, 
-		      KUINT16 AcousticSigIndex, KUINT16 RadarCrossSectionSigIndex );
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::SetOriginatingEntityID
+  //              KDIS::PDU::SEES_PDU::GetOriginatingEntityID
+  // Description: Entity that is the source of the information
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetOriginatingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetOriginatingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetOriginatingEntityID();
 
-    virtual ~SEES_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::SetInfraredSignatureRepresentationIndex
+  //              KDIS::PDU::SEES_PDU::GetInfraredSignatureRepresentationIndex
+  // Description: Represents an index to a specific value or an index pointer
+  //              to a data table accessed with other information to obtain a
+  //              specific value for the system state in which the entity is
+  //              currently.
+  // Parameter:   KUINT16 ISRI
+  //************************************
+  void SetInfraredSignatureRepresentationIndex(KUINT16 ISRI);
+  KUINT16 GetInfraredSignatureRepresentationIndex() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::SetOriginatingEntityID
-    //              KDIS::PDU::SEES_PDU::GetOriginatingEntityID
-    // Description: Entity that is the source of the information
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetOriginatingEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetOriginatingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::SetAcousticSignatureRepresentationIndex
+  //              KDIS::PDU::SEES_PDU::GetAcousticSignatureRepresentationIndex
+  // Description: Represents an index to a specific value or an index pointer
+  //              to a data table accessed with other information to obtain a
+  //              specific value for the system state in which the entity is
+  //              currently.
+  // Parameter:   KUINT16 ASRI
+  //************************************
+  void SetAcousticSignatureRepresentationIndex(KUINT16 ASRI);
+  KUINT16 GetAcousticSignatureRepresentationIndex() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::SetInfraredSignatureRepresentationIndex
-    //              KDIS::PDU::SEES_PDU::GetInfraredSignatureRepresentationIndex
-    // Description: Represents an index to a specific value or an index pointer
-    //              to a data table accessed with other information to obtain a specific value
-    //              for the system state in which the entity is currently.
-    // Parameter:   KUINT16 ISRI
-    //************************************
-    void SetInfraredSignatureRepresentationIndex( KUINT16 ISRI );
-    KUINT16 GetInfraredSignatureRepresentationIndex() const;
+  //************************************
+  // FullName:
+  // KDIS::PDU::SEES_PDU::SetRadarCrossSectionSignatureRepresentationIndex
+  //              KDIS::PDU::SEES_PDU::GetRadarCrossSectionSignatureRepresentationIndex
+  // Description: Represents an index to a specific value or an index pointer
+  //              to a data table accessed with other information to obtain a
+  //              specific value for the system state in which the entity is
+  //              currently.
+  // Parameter:   KUINT16 RCSSRI
+  //************************************
+  void SetRadarCrossSectionSignatureRepresentationIndex(KUINT16 RCSSRI);
+  KUINT16 GetRadarCrossSectionSignatureRepresentationIndex() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::SetAcousticSignatureRepresentationIndex
-    //              KDIS::PDU::SEES_PDU::GetAcousticSignatureRepresentationIndex
-    // Description: Represents an index to a specific value or an index pointer
-    //              to a data table accessed with other information to obtain a specific value
-    //              for the system state in which the entity is currently.
-    // Parameter:   KUINT16 ASRI
-    //************************************
-    void SetAcousticSignatureRepresentationIndex( KUINT16 ASRI );
-    KUINT16 GetAcousticSignatureRepresentationIndex() const;
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::GetNumberOfPropulsionSystems
+  // Description: Specifies the number of operational propulsion systems aboard
+  // the entity. one, several
+  //              or all may be specified in a single SEES PDU.
+  //************************************
+  KUINT16 GetNumberOfPropulsionSystems() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::SetRadarCrossSectionSignatureRepresentationIndex
-    //              KDIS::PDU::SEES_PDU::GetRadarCrossSectionSignatureRepresentationIndex
-    // Description: Represents an index to a specific value or an index pointer
-    //              to a data table accessed with other information to obtain a specific value
-    //              for the system state in which the entity is currently.
-    // Parameter:   KUINT16 RCSSRI
-    //************************************
-    void SetRadarCrossSectionSignatureRepresentationIndex( KUINT16 RCSSRI );
-    KUINT16 GetRadarCrossSectionSignatureRepresentationIndex() const;
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::GetNumberOfVectoringNozzleSystems
+  // Description: Specifies the number of operational vector nozzle systems
+  // aboard the entity. one, several
+  //              or all may be specified in a single SEES PDU.
+  //************************************
+  KUINT16 GetNumberOfVectoringNozzleSystems() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::GetNumberOfPropulsionSystems
-    // Description: Specifies the number of operational propulsion systems aboard the entity. one, several
-    //              or all may be specified in a single SEES PDU.
-    //************************************
-    KUINT16 GetNumberOfPropulsionSystems() const;
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::AddPropulsionSystem
+  //              KDIS::PDU::SEES_PDU::SetPropulsionSystem
+  //              KDIS::PDU::SEES_PDU::GetPropulsionSystem
+  // Description: Entity propulsion system
+  // Parameter:   const PropulsionSystem & PS, const vector<PropulsionSystem> &
+  // PS
+  //************************************
+  void AddPropulsionSystem(const KDIS::DATA_TYPE::PropulsionSystem& PS);
+  void SetPropulsionSystem(
+      const std::vector<KDIS::DATA_TYPE::PropulsionSystem>& PS);
+  const std::vector<KDIS::DATA_TYPE::PropulsionSystem> GetPropulsionSystem()
+      const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::GetNumberOfVectoringNozzleSystems
-    // Description: Specifies the number of operational vector nozzle systems aboard the entity. one, several
-    //              or all may be specified in a single SEES PDU.
-    //************************************
-    KUINT16 GetNumberOfVectoringNozzleSystems() const;
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::AddVectoringNozzleSystem
+  //              KDIS::PDU::SEES_PDU::SetVectoringNozzleSystem
+  //              KDIS::PDU::SEES_PDU::GetVectoringNozzleSystem
+  // Description:
+  // Parameter:   const VectoringNozzleSystem & VNS, const
+  // vector<VectoringNozzleSystem> & VNS
+  //************************************
+  void AddVectoringNozzleSystem(
+      const KDIS::DATA_TYPE::VectoringNozzleSystem& VNS);
+  void SetVectoringNozzleSystem(
+      const std::vector<KDIS::DATA_TYPE::VectoringNozzleSystem>& VNS);
+  const std::vector<KDIS::DATA_TYPE::VectoringNozzleSystem>
+  GetVectoringNozzleSystem() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::AddPropulsionSystem
-    //              KDIS::PDU::SEES_PDU::SetPropulsionSystem
-    //              KDIS::PDU::SEES_PDU::GetPropulsionSystem
-    // Description: Entity propulsion system
-    // Parameter:   const PropulsionSystem & PS, const vector<PropulsionSystem> & PS
-    //************************************
-    void AddPropulsionSystem( const KDIS::DATA_TYPE::PropulsionSystem & PS );
-	void SetPropulsionSystem( const std::vector<KDIS::DATA_TYPE::PropulsionSystem> & PS );
-	const std::vector<KDIS::DATA_TYPE::PropulsionSystem> GetPropulsionSystem() const;
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::AddVectoringNozzleSystem
-    //              KDIS::PDU::SEES_PDU::SetVectoringNozzleSystem
-    //              KDIS::PDU::SEES_PDU::GetVectoringNozzleSystem
-    // Description:
-    // Parameter:   const VectoringNozzleSystem & VNS, const vector<VectoringNozzleSystem> & VNS
-    //************************************
-    void AddVectoringNozzleSystem( const KDIS::DATA_TYPE::VectoringNozzleSystem & VNS );
-	void SetVectoringNozzleSystem( const std::vector<KDIS::DATA_TYPE::VectoringNozzleSystem> & VNS );
-	const std::vector<KDIS::DATA_TYPE::VectoringNozzleSystem> GetVectoringNozzleSystem() const;
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::SEES_PDU::Encode
+  // Description: Convert To Network Data.
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::SEES_PDU::Encode
-    // Description: Convert To Network Data.
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const SEES_PDU & Value ) const;
-    KBOOL operator != ( const SEES_PDU & Value ) const;
+  KBOOL operator==(const SEES_PDU& Value) const;
+  KBOOL operator!=(const SEES_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

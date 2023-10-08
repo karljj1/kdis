@@ -39,38 +39,36 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Data_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Data_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Set_Data_PDU : public Data_PDU
-{
-public:
+class KDIS_EXPORT Set_Data_PDU : public Data_PDU {
+ public:
+  static const KUINT16 SET_DATA_PDU_SIZE = 40;
 
-    static const KUINT16 SET_DATA_PDU_SIZE = 40;
+  Set_Data_PDU();
 
-    Set_Data_PDU();
+  explicit Set_Data_PDU(KDataStream& stream);
 
-    Set_Data_PDU( KDataStream & stream ) ;
+  Set_Data_PDU(const Header& H, KDataStream& stream);
 
-    Set_Data_PDU( const Header & H, KDataStream & stream ) ;
+  Set_Data_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+               const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+               KUINT32 RequestID);
 
-    Set_Data_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-                  KUINT32 RequestID );
+  virtual ~Set_Data_PDU();
 
-    virtual ~Set_Data_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Set_Data_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Set_Data_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Set_Data_PDU & Value ) const;
-    KBOOL operator != ( const Set_Data_PDU & Value ) const;
+  KBOOL operator==(const Set_Data_PDU& Value) const;
+  KBOOL operator!=(const Set_Data_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
-
+}  // END namespace PDU
+}  // END namespace KDIS

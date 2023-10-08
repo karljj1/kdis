@@ -45,9 +45,9 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
-#include "./../../DataTypes/Vector.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
@@ -55,189 +55,188 @@ namespace PDU {
 using KDIS::DATA_TYPE::EntityIdentifier;
 using KDIS::DATA_TYPE::Vector;
 
-class KDIS_EXPORT Collision_Elastic_PDU : public Header
-{
-protected:
+class KDIS_EXPORT Collision_Elastic_PDU : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_IssuingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_IssuingEntityID;
+  KDIS::DATA_TYPE::EntityIdentifier m_CollidingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_CollidingEntityID;
+  KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
+  KUINT16 m_ui16Padding1;
 
-    KUINT16 m_ui16Padding1;
+  KDIS::DATA_TYPE::Vector m_ContactVelocity;
 
-    KDIS::DATA_TYPE::Vector m_ContactVelocity;
+  KFLOAT32 m_f32Mass;
 
-    KFLOAT32 m_f32Mass;
+  KDIS::DATA_TYPE::Vector m_Location;
 
-    KDIS::DATA_TYPE::Vector m_Location;
+  KFLOAT32 m_f32CIRXX;
 
-    KFLOAT32 m_f32CIRXX;
+  KFLOAT32 m_f32CIRXY;
 
-    KFLOAT32 m_f32CIRXY;
+  KFLOAT32 m_f32CIRXZ;
 
-    KFLOAT32 m_f32CIRXZ;
+  KFLOAT32 m_f32CIRYY;
 
-    KFLOAT32 m_f32CIRYY;
+  KFLOAT32 m_f32CIRYZ;
 
-    KFLOAT32 m_f32CIRYZ;
+  KFLOAT32 m_f32CIRZZ;
 
-    KFLOAT32 m_f32CIRZZ;
+  KDIS::DATA_TYPE::Vector m_UnitSurfaceNormal;
 
-    KDIS::DATA_TYPE::Vector m_UnitSurfaceNormal;
+  KFLOAT32 m_f32COR;
 
-    KFLOAT32 m_f32COR;
+ public:
+  static const KUINT16 COLLISION_ELASTIC_PDU_SIZE = 100;
 
-public:
+  Collision_Elastic_PDU();
 
-    static const KUINT16 COLLISION_ELASTIC_PDU_SIZE = 100;
+  Collision_Elastic_PDU(KDataStream& stream);
 
-    Collision_Elastic_PDU();
+  Collision_Elastic_PDU(const Header& H, KDataStream& stream);
 
-    Collision_Elastic_PDU( KDataStream & stream ) ;
+  virtual ~Collision_Elastic_PDU();
 
-    Collision_Elastic_PDU( const Header & H, KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetIssuingEntityID
+  //              KDIS::PDU::Collision_Elastic_PDU::GetIssuingEntityID
+  // Description: Entity Issuing the collision
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetIssuingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetIssuingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetIssuingEntityID();
 
-    virtual ~Collision_Elastic_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetCollidingEntityID
+  //              KDIS::PDU::Collision_Elastic_PDU::GetCollidingEntityID
+  // Description: Entity that has collided with the issuing entity
+  //              If collision is with terrain or unknown entity
+  //              the id will be ENTITY_ID_UNKNOWN
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetCollidingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetCollidingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetCollidingEntityID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetIssuingEntityID
-    //              KDIS::PDU::Collision_Elastic_PDU::GetIssuingEntityID
-    // Description: Entity Issuing the collision
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetIssuingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetIssuingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetIssuingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetEventID
+  //              KDIS::PDU::Collision_Elastic_PDU::GetEventID
+  // Description: ID generated to associate related collision events
+  //              to this one.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetEventID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetEventID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetEventID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetCollidingEntityID
-    //              KDIS::PDU::Collision_Elastic_PDU::GetCollidingEntityID
-    // Description: Entity that has collided with the issuing entity
-    //              If collision is with terrain or unknown entity
-    //              the id will be ENTITY_ID_UNKNOWN
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetCollidingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetCollidingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetCollidingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetContactVelocity
+  //              KDIS::PDU::Collision_Elastic_PDU::GetContactVelocity
+  // Description: Velocity at the time collision is detected at the point the
+  //              collision is detected.
+  //              Linear Velocity Vector.
+  // Parameter:   const Vector & V
+  //************************************
+  void SetContactVelocity(const KDIS::DATA_TYPE::Vector& V);
+  const KDIS::DATA_TYPE::Vector& GetContactVelocity() const;
+  KDIS::DATA_TYPE::Vector& GetContactVelocity();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetEventID
-    //              KDIS::PDU::Collision_Elastic_PDU::GetEventID
-    // Description: ID generated to associate related collision events
-    //              to this one.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetMass
+  //              KDIS::PDU::Collision_Elastic_PDU::GetMass
+  // Description: Issuing entity mass in kilograms
+  // Parameter:   KFLOAT32 M
+  //************************************
+  void SetMass(KFLOAT32 M);
+  KFLOAT32 GetMass() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetContactVelocity
-    //              KDIS::PDU::Collision_Elastic_PDU::GetContactVelocity
-    // Description: Velocity at the time collision is detected at the point the
-    //              collision is detected.
-    //              Linear Velocity Vector.
-    // Parameter:   const Vector & V
-    //************************************
-    void SetContactVelocity( const KDIS::DATA_TYPE::Vector & V );
-    const KDIS::DATA_TYPE::Vector & GetContactVelocity() const;
-    KDIS::DATA_TYPE::Vector & GetContactVelocity();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetLocation
+  //              KDIS::PDU::Collision_Elastic_PDU::GetLocation
+  // Description: Location of collision with respect to the
+  //              issuing entity. Represented by an
+  //              Entity Coordinate Vector.
+  // Parameter:   const Vector & L
+  //************************************
+  void SetLocation(const KDIS::DATA_TYPE::Vector& L);
+  const KDIS::DATA_TYPE::Vector& GetLocation() const;
+  KDIS::DATA_TYPE::Vector& GetLocation();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetMass
-    //              KDIS::PDU::Collision_Elastic_PDU::GetMass
-    // Description: Issuing entity mass in kilograms
-    // Parameter:   KFLOAT32 M
-    //************************************
-    void SetMass( KFLOAT32 M );
-    KFLOAT32 GetMass() const;
+  //************************************
+  // FullName: KDIS::PDU::Collision_Elastic_PDU::SetCollisionIntermediateResult
+  //              KDIS::PDU::Collision_Elastic_PDU::GetCollisionIntermediateResult
+  // Description: Collision intermediate result. Theese six records represent
+  //              the six independent components of a positive semi-definite
+  //              matrix formed by pre-multiplying and post-multiplying the
+  //              tensor inertia, by the antisymmetric matrix generated by the
+  //              moment arm.
+  // Parameter:   KFLOAT32 CIR, void
+  //************************************
+  void SetCollisionIntermediateResultXX(KFLOAT32 CIR);
+  void SetCollisionIntermediateResultXY(KFLOAT32 CIR);
+  void SetCollisionIntermediateResultXZ(KFLOAT32 CIR);
+  void SetCollisionIntermediateResultYY(KFLOAT32 CIR);
+  void SetCollisionIntermediateResultYZ(KFLOAT32 CIR);
+  void SetCollisionIntermediateResultZZ(KFLOAT32 CIR);
+  KFLOAT32 GetCollisionIntermediateResultXX() const;
+  KFLOAT32 GetCollisionIntermediateResultXY() const;
+  KFLOAT32 GetCollisionIntermediateResultXZ() const;
+  KFLOAT32 GetCollisionIntermediateResultYY() const;
+  KFLOAT32 GetCollisionIntermediateResultYZ() const;
+  KFLOAT32 GetCollisionIntermediateResultZZ() const;
+  void SetCollisionIntermediateResult(KFLOAT32 XX, KFLOAT32 XY, KFLOAT32 XZ,
+                                      KFLOAT32 YY, KFLOAT32 YZ, KFLOAT32 ZZ);
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetLocation
-    //              KDIS::PDU::Collision_Elastic_PDU::GetLocation
-    // Description: Location of collision with respect to the
-    //              issuing entity. Represented by an
-    //              Entity Coordinate Vector.
-    // Parameter:   const Vector & L
-    //************************************
-    void SetLocation( const KDIS::DATA_TYPE::Vector & L );
-    const KDIS::DATA_TYPE::Vector & GetLocation() const;
-    KDIS::DATA_TYPE::Vector & GetLocation();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetUnitSurfaceNormal
+  //              KDIS::PDU::Collision_Elastic_PDU::GetUnitSurfaceNormal
+  // Description: Normal vector to the surface at the point
+  //              of collision detection. Represented in world coordinates.
+  //              Vector type = Entity Coordinate Vector.
+  // Parameter:   const Vector & USN
+  //************************************
+  void SetUnitSurfaceNormal(const KDIS::DATA_TYPE::Vector& USN);
+  const KDIS::DATA_TYPE::Vector& GetUnitSurfaceNormal() const;
+  KDIS::DATA_TYPE::Vector& GetUnitSurfaceNormal();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetCollisionIntermediateResult
-    //              KDIS::PDU::Collision_Elastic_PDU::GetCollisionIntermediateResult
-    // Description: Collision intermediate result. Theese six records represent
-    //              the six independent components of a positive semi-definite matrix
-    //              formed by pre-multiplying and post-multiplying the tensor inertia, by
-    //              the antisymmetric matrix generated by the moment arm.
-    // Parameter:   KFLOAT32 CIR, void
-    //************************************
-    void SetCollisionIntermediateResultXX( KFLOAT32 CIR );
-    void SetCollisionIntermediateResultXY( KFLOAT32 CIR );
-    void SetCollisionIntermediateResultXZ( KFLOAT32 CIR );
-    void SetCollisionIntermediateResultYY( KFLOAT32 CIR );
-    void SetCollisionIntermediateResultYZ( KFLOAT32 CIR );
-    void SetCollisionIntermediateResultZZ( KFLOAT32 CIR );
-    KFLOAT32 GetCollisionIntermediateResultXX() const;
-    KFLOAT32 GetCollisionIntermediateResultXY() const;
-    KFLOAT32 GetCollisionIntermediateResultXZ() const;
-    KFLOAT32 GetCollisionIntermediateResultYY() const;
-    KFLOAT32 GetCollisionIntermediateResultYZ() const;
-    KFLOAT32 GetCollisionIntermediateResultZZ() const;
-    void SetCollisionIntermediateResult( KFLOAT32 XX, KFLOAT32 XY, KFLOAT32 XZ, KFLOAT32 YY, KFLOAT32 YZ, KFLOAT32 ZZ );
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetCoefficientOfRestitution
+  //              KDIS::PDU::Collision_Elastic_PDU::GetCoefficientOfRestitution
+  // Description: Represents the degree to which energy is conserved
+  //              in addition represents a free parameter which developers
+  //              may tune their collision interactions.
+  // Parameter:   KFLOAT32 COR
+  //************************************
+  void SetCoefficientOfRestitution(KFLOAT32 COR);
+  KFLOAT32 GetCoefficientOfRestitution() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetUnitSurfaceNormal
-    //              KDIS::PDU::Collision_Elastic_PDU::GetUnitSurfaceNormal
-    // Description: Normal vector to the surface at the point
-    //              of collision detection. Represented in world coordinates.
-    //              Vector type = Entity Coordinate Vector.
-    // Parameter:   const Vector & USN
-    //************************************
-    void SetUnitSurfaceNormal( const KDIS::DATA_TYPE::Vector & USN );
-    const KDIS::DATA_TYPE::Vector & GetUnitSurfaceNormal() const;
-    KDIS::DATA_TYPE::Vector & GetUnitSurfaceNormal();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::SetCoefficientOfRestitution
-    //              KDIS::PDU::Collision_Elastic_PDU::GetCoefficientOfRestitution
-    // Description: Represents the degree to which energy is conserved
-    //              in addition represents a free parameter which developers
-    //              may tune their collision interactions.
-    // Parameter:   KFLOAT32 COR
-    //************************************
-    void SetCoefficientOfRestitution( KFLOAT32 COR );
-    KFLOAT32 GetCoefficientOfRestitution() const;
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Collision_Elastic_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Collision_Elastic_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Collision_Elastic_PDU & Value ) const;
-    KBOOL operator != ( const Collision_Elastic_PDU & Value ) const;
+  KBOOL operator==(const Collision_Elastic_PDU& Value) const;
+  KBOOL operator!=(const Collision_Elastic_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

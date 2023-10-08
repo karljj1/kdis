@@ -38,91 +38,89 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnvironmentRecord.h"
-#include "./WorldCoordinates.h"
-#include "./Vector.h"
-#include "./EulerAngles.h"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
+#include "KDIS/DataTypes/EulerAngles.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT RectangularVolumeRecord1 : public EnvironmentRecord
-{
-protected:
+class KDIS_EXPORT RectangularVolumeRecord1 : public EnvironmentRecord {
+ protected:
+  WorldCoordinates m_CornerLocation;
 
-    WorldCoordinates m_CornerLocation;
+  Vector m_RecLength;
 
-    Vector m_RecLength;
+  EulerAngles m_Ori;
 
-    EulerAngles m_Ori;
+ public:
+  static const KUINT16 RECTANGLE_VOLUME_RECORD_1_SIZE = 56;
 
-public:
+  RectangularVolumeRecord1();
 
-    static const KUINT16 RECTANGLE_VOLUME_RECORD_1_SIZE = 56;
+  RectangularVolumeRecord1(KDataStream& stream);
 
-    RectangularVolumeRecord1();
+  RectangularVolumeRecord1(KUINT8 Index, const WorldCoordinates& CornerLocation,
+                           const Vector& RectangleLength,
+                           const EulerAngles& Orientation);
 
-    RectangularVolumeRecord1( KDataStream & stream ) ;
+  virtual ~RectangularVolumeRecord1();
 
-    RectangularVolumeRecord1( KUINT8 Index, const WorldCoordinates & CornerLocation, const Vector & RectangleLength,
-                              const EulerAngles & Orientation );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::SetCornerLocation
+  //              KDIS::DATA_TYPE::RectangularVolumeRecord1::GetCornerLocation
+  // Description: Specifies the location of the corner of the rectangle.
+  // Parameter:   const WorldCoordinates & RL
+  //************************************
+  void SetCornerLocation(const WorldCoordinates& RL);
+  const WorldCoordinates& GetCornerLocation() const;
+  WorldCoordinates& GetCornerLocation();
 
-    virtual ~RectangularVolumeRecord1();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::SetRectangleLength
+  //              KDIS::DATA_TYPE::RectangularVolumeRecord1::GetRectangleLength
+  // Description: Specifies the length of the rectangle.
+  // Parameter:   const Vector & L
+  //************************************
+  void SetRectangleLength(const Vector& L);
+  const Vector& GetRectangleLength() const;
+  Vector& GetRectangleLength();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::SetCornerLocation
-    //              KDIS::DATA_TYPE::RectangularVolumeRecord1::GetCornerLocation
-    // Description: Specifies the location of the corner of the rectangle.
-    // Parameter:   const WorldCoordinates & RL
-    //************************************
-    void SetCornerLocation( const WorldCoordinates & RL );
-    const WorldCoordinates & GetCornerLocation() const;
-    WorldCoordinates & GetCornerLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::SetOrientation
+  //              KDIS::DATA_TYPE::RectangularVolumeRecord1::GetOrientation
+  // Description: Orientation of the rectangle.
+  // Parameter:   const EulerAngles & O
+  //************************************
+  void SetOrientation(const EulerAngles& O);
+  const EulerAngles& GetOrientation() const;
+  EulerAngles& GetOrientation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::SetRectangleLength
-    //              KDIS::DATA_TYPE::RectangularVolumeRecord1::GetRectangleLength
-    // Description: Specifies the length of the rectangle.
-    // Parameter:   const Vector & L
-    //************************************
-    void SetRectangleLength( const Vector & L );
-    const Vector & GetRectangleLength() const;
-    Vector & GetRectangleLength();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::SetOrientation
-    //              KDIS::DATA_TYPE::RectangularVolumeRecord1::GetOrientation
-    // Description: Orientation of the rectangle.
-    // Parameter:   const EulerAngles & O
-    //************************************
-    void SetOrientation( const EulerAngles & O );
-    const EulerAngles & GetOrientation() const;
-    EulerAngles & GetOrientation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord1::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const RectangularVolumeRecord1 & Value )const;
-    KBOOL operator != ( const RectangularVolumeRecord1 & Value )const;
+  KBOOL operator==(const RectangularVolumeRecord1& Value) const;
+  KBOOL operator!=(const RectangularVolumeRecord1& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

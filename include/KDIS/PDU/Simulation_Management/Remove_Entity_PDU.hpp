@@ -39,38 +39,39 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Create_Entity_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Create_Entity_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Remove_Entity_PDU : public Create_Entity_PDU
-{
-public:
+class KDIS_EXPORT Remove_Entity_PDU : public Create_Entity_PDU {
+ public:
+  static const KUINT16 REMOVE_ENTITY_PDU_SIZE = 28;
 
-    static const KUINT16 REMOVE_ENTITY_PDU_SIZE = 28;
+  Remove_Entity_PDU();
 
-    Remove_Entity_PDU();
+  explicit Remove_Entity_PDU(KDataStream& stream);
 
-    Remove_Entity_PDU( KDataStream & stream ) ;
+  Remove_Entity_PDU(const Header& H, KDataStream& stream);
 
-    Remove_Entity_PDU( const Header & H, KDataStream & stream ) ;
+  Remove_Entity_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OrigintatingID,
+                    const KDIS::DATA_TYPE::EntityIdentifier& ReceivingID,
+                    KUINT32 RequestID);
 
-    Remove_Entity_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OrigintatingID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingID, KUINT32 RequestID );
+  Remove_Entity_PDU(const Simulation_Management_Header& SimMgrHeader,
+                    KUINT32 RequestID);
 
-    Remove_Entity_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID );
+  virtual ~Remove_Entity_PDU();
 
-    virtual ~Remove_Entity_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Remove_Entity_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Remove_Entity_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Remove_Entity_PDU & Value ) const;
-    KBOOL operator != ( const Remove_Entity_PDU & Value ) const;
+  KBOOL operator==(const Remove_Entity_PDU& Value) const;
+  KBOOL operator!=(const Remove_Entity_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

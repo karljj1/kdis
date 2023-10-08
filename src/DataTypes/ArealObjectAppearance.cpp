@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./ArealObjectAppearance.h"
+#include "KDIS/DataTypes/ArealObjectAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,108 +38,100 @@ using namespace std;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ArealObjectAppearance::ArealObjectAppearance()
-{
-    m_SpecificAppearanceUnion.m_ui32SpecificAppearance = 0;
+ArealObjectAppearance::ArealObjectAppearance() {
+  m_SpecificAppearanceUnion.m_ui32SpecificAppearance = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ArealObjectAppearance::ArealObjectAppearance( KDataStream & stream ) 
-{
-    Decode( stream );
+ArealObjectAppearance::ArealObjectAppearance(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ArealObjectAppearance::~ArealObjectAppearance()
-{
+ArealObjectAppearance::~ArealObjectAppearance() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ArealObjectAppearance::SetBreach(Breach2bit B) {
+  m_SpecificAppearanceUnion.m_Minefield.m_ui32Breach = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ArealObjectAppearance::SetBreach( Breach2bit B )
-{
-    m_SpecificAppearanceUnion.m_Minefield.m_ui32Breach = B;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Breach2bit ArealObjectAppearance::GetBreach() const
-{
-    return ( Breach2bit )m_SpecificAppearanceUnion.m_Minefield.m_ui32Breach;
+Breach2bit ArealObjectAppearance::GetBreach() const {
+  return (Breach2bit)m_SpecificAppearanceUnion.m_Minefield.m_ui32Breach;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 
-void ArealObjectAppearance::SetMineCount( KUINT16 M )
-{
-    m_SpecificAppearanceUnion.m_Minefield.m_ui32Mines = M;
+void ArealObjectAppearance::SetMineCount(KUINT16 M) {
+  m_SpecificAppearanceUnion.m_Minefield.m_ui32Mines = M;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 
-KUINT16 ArealObjectAppearance::GetMineCount() const
-{
-    return m_SpecificAppearanceUnion.m_Minefield.m_ui32Mines;
+KUINT16 ArealObjectAppearance::GetMineCount() const {
+  return m_SpecificAppearanceUnion.m_Minefield.m_ui32Mines;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString ArealObjectAppearance::GetAsString() const
-{
-    KStringStream ss;
+KString ArealObjectAppearance::GetAsString() const {
+  KStringStream ss;
 
-    ss << ObjectAppearance::GetAsString()
-       << "\tSpecific Appearance: " << m_SpecificAppearanceUnion.m_ui32SpecificAppearance << "\n";
+  ss << ObjectAppearance::GetAsString() << "\tSpecific Appearance: "
+     << m_SpecificAppearanceUnion.m_ui32SpecificAppearance << "\n";
 
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ArealObjectAppearance::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ArealObjectAppearance::AREAL_OBJECT_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void ArealObjectAppearance::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() <
+      ArealObjectAppearance::AREAL_OBJECT_APPEARANCE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    stream >> m_SpecificAppearanceUnion.m_ui32SpecificAppearance
-           >> m_GeneralAppearanceUnion.m_ui16GeneralAppearance;
+  stream >> m_SpecificAppearanceUnion.m_ui32SpecificAppearance >>
+      m_GeneralAppearanceUnion.m_ui16GeneralAppearance;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream ArealObjectAppearance::Encode() const
-{
-    KDataStream stream;
+KDataStream ArealObjectAppearance::Encode() const {
+  KDataStream stream;
 
-    ArealObjectAppearance::Encode( stream );
+  ArealObjectAppearance::Encode(stream);
 
-    return stream;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ArealObjectAppearance::Encode( KDataStream & stream ) const
-{
-    // First add the specific bytes and then the general.
-    stream << m_SpecificAppearanceUnion.m_ui32SpecificAppearance
-           << m_GeneralAppearanceUnion.m_ui16GeneralAppearance;
+void ArealObjectAppearance::Encode(KDataStream& stream) const {
+  // First add the specific bytes and then the general.
+  stream << m_SpecificAppearanceUnion.m_ui32SpecificAppearance
+         << m_GeneralAppearanceUnion.m_ui16GeneralAppearance;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ArealObjectAppearance::operator == ( const ArealObjectAppearance & Value ) const
-{
-    if( ObjectAppearance::operator  != ( Value ) ) return false;
-    if( m_SpecificAppearanceUnion.m_ui32SpecificAppearance != Value.m_SpecificAppearanceUnion.m_ui32SpecificAppearance ) return false;
-    return true;
+KBOOL ArealObjectAppearance::operator==(
+    const ArealObjectAppearance& Value) const {
+  if (ObjectAppearance::operator!=(Value)) return false;
+  if (m_SpecificAppearanceUnion.m_ui32SpecificAppearance !=
+      Value.m_SpecificAppearanceUnion.m_ui32SpecificAppearance)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ArealObjectAppearance::operator != ( const ArealObjectAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL ArealObjectAppearance::operator!=(
+    const ArealObjectAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,14 +36,10 @@ using namespace DATA_TYPE;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-DataTypeBase::DataTypeBase()
-{
-}
+DataTypeBase::DataTypeBase() {}
 
 //////////////////////////////////////////////////////////////////////////
 
-DataTypeBase::~DataTypeBase()
-{
-}
+DataTypeBase::~DataTypeBase() {}
 
 //////////////////////////////////////////////////////////////////////////

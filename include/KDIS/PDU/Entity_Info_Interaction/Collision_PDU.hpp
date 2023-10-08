@@ -34,8 +34,8 @@ http://p.sf.net/kdis/UserGuide
     created:    08/10/2008
     author:     Karl Jones
 
-    purpose:    PDU Sent upon a collision event. This could be between a simulated
-                entity or another object in the simulated world (e.g., a cultural
+    purpose:    PDU Sent upon a collision event. This could be between a
+simulated entity or another object in the simulated world (e.g., a cultural
                 feature such as a bridge or building).
 
     Size:       480 bits / 60 octets
@@ -43,149 +43,149 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
-#include "./../../DataTypes/Vector.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Collision_PDU : public Header
-{
-protected:
+class KDIS_EXPORT Collision_PDU : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_IssuingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_IssuingEntityID;
+  KDIS::DATA_TYPE::EntityIdentifier m_CollidingEntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_CollidingEntityID;
+  KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_EventID;
+  KUINT8 m_ui8CollisionType;
 
-    KUINT8 m_ui8CollisionType;
+  KUINT8 m_ui8Padding;
 
-    KUINT8 m_ui8Padding;
+  KDIS::DATA_TYPE::Vector m_Velocity;
 
-    KDIS::DATA_TYPE::Vector m_Velocity;
+  KFLOAT32 m_f32Mass;
 
-    KFLOAT32 m_f32Mass;
+  KDIS::DATA_TYPE::Vector m_Location;
 
-    KDIS::DATA_TYPE::Vector m_Location;
+ public:
+  static const KUINT16 COLLISION_PDU_SIZE = 60;
 
-public:
+  Collision_PDU();
 
-    static const KUINT16 COLLISION_PDU_SIZE = 60;
+  Collision_PDU(KDataStream& stream);
 
-    Collision_PDU();
+  Collision_PDU(const Header& H, KDataStream& stream);
 
-    Collision_PDU( KDataStream & stream ) ;
+  Collision_PDU(const KDIS::DATA_TYPE::EntityIdentifier& IssuingID,
+                const KDIS::DATA_TYPE::EntityIdentifier& CollidingID,
+                const KDIS::DATA_TYPE::EntityIdentifier& EventID,
+                KDIS::DATA_TYPE::ENUMS::CollisionType CT,
+                const KDIS::DATA_TYPE::Vector& Velocity, KFLOAT32 Mass,
+                const KDIS::DATA_TYPE::Vector& Location);
 
-    Collision_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Collision_PDU();
 
-    Collision_PDU( const KDIS::DATA_TYPE::EntityIdentifier & IssuingID, const KDIS::DATA_TYPE::EntityIdentifier & CollidingID,
-                   const KDIS::DATA_TYPE::EntityIdentifier & EventID, KDIS::DATA_TYPE::ENUMS::CollisionType CT,const KDIS::DATA_TYPE::Vector & Velocity,
-                   KFLOAT32 Mass, const KDIS::DATA_TYPE::Vector & Location );
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::SetIssuingEntityID
+  //              KDIS::PDU::Collision_PDU::GetIssuingEntityID
+  // Description: Entity Issuing the collision
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetIssuingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetIssuingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetIssuingEntityID();
 
-    virtual ~Collision_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::SetCollidingEntityID
+  //              KDIS::PDU::Collision_PDU::GetCollidingEntityID
+  // Description: Entity that has collided with the issuing entity
+  //              If collision is with terrain or unknown entity
+  //              the id will be ENTITY_ID_UNKNOWN
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetCollidingEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetCollidingEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetCollidingEntityID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::SetIssuingEntityID
-    //              KDIS::PDU::Collision_PDU::GetIssuingEntityID
-    // Description: Entity Issuing the collision
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetIssuingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetIssuingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetIssuingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::SetEventID
+  //              KDIS::PDU::Collision_PDU::GetEventID
+  // Description: ID generated to associate related collision events
+  //              to this one.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetEventID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetEventID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetEventID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::SetCollidingEntityID
-    //              KDIS::PDU::Collision_PDU::GetCollidingEntityID
-    // Description: Entity that has collided with the issuing entity
-    //              If collision is with terrain or unknown entity
-    //              the id will be ENTITY_ID_UNKNOWN
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetCollidingEntityID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetCollidingEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetCollidingEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::SetCollisionType
+  //              KDIS::PDU::Collision_PDU::GetCollisionType
+  // Description: Describes the type of collision that occurred
+  // Parameter:   CollisionType CT
+  //************************************
+  void SetCollisionType(KDIS::DATA_TYPE::ENUMS::CollisionType CT);
+  KDIS::DATA_TYPE::ENUMS::CollisionType GetCollisionType() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::SetEventID
-    //              KDIS::PDU::Collision_PDU::GetEventID
-    // Description: ID generated to associate related collision events
-    //              to this one.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetEventID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetEventID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetEventID();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::SetVelocity
+  //              KDIS::PDU::Collision_PDU::GetVelocity
+  // Description: Issuing Entity Velocity at time of collision
+  //              detection. Represented as a Linear
+  //              Velocity Vector.
+  // Parameter:   const Vector & V
+  //************************************
+  void SetVelocity(const KDIS::DATA_TYPE::Vector& V);
+  const KDIS::DATA_TYPE::Vector& GetVelocity() const;
+  KDIS::DATA_TYPE::Vector& GetVelocity();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::SetCollisionType
-    //              KDIS::PDU::Collision_PDU::GetCollisionType
-    // Description: Describes the type of collision that occurred
-    // Parameter:   CollisionType CT
-    //************************************
-    void SetCollisionType( KDIS::DATA_TYPE::ENUMS::CollisionType CT );
-    KDIS::DATA_TYPE::ENUMS::CollisionType GetCollisionType() const;
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::SetMass
+  //              KDIS::PDU::Collision_PDU::GetMass
+  // Description: Issuing entity mass in kilograms
+  // Parameter:   KFLOAT32 M
+  //************************************
+  void SetMass(KFLOAT32 M);
+  KFLOAT32 GetMass() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::SetVelocity
-    //              KDIS::PDU::Collision_PDU::GetVelocity
-    // Description: Issuing Entity Velocity at time of collision
-    //              detection. Represented as a Linear
-    //              Velocity Vector.
-    // Parameter:   const Vector & V
-    //************************************
-    void SetVelocity( const KDIS::DATA_TYPE::Vector & V );
-    const KDIS::DATA_TYPE::Vector & GetVelocity() const;
-    KDIS::DATA_TYPE::Vector & GetVelocity();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::SetLocation
+  //              KDIS::PDU::Collision_PDU::GetLocation
+  // Description: Location of collision with respect to the
+  //              issuing entity. Represented by an
+  //              Entity Coordinate Vector.
+  // Parameter:   const Vector & L
+  //************************************
+  void SetLocation(const KDIS::DATA_TYPE::Vector& L);
+  const KDIS::DATA_TYPE::Vector& GetLocation() const;
+  KDIS::DATA_TYPE::Vector& GetLocation();
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::SetMass
-    //              KDIS::PDU::Collision_PDU::GetMass
-    // Description: Issuing entity mass in kilograms
-    // Parameter:   KFLOAT32 M
-    //************************************
-    void SetMass( KFLOAT32 M );
-    KFLOAT32 GetMass() const;
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::SetLocation
-    //              KDIS::PDU::Collision_PDU::GetLocation
-    // Description: Location of collision with respect to the
-    //              issuing entity. Represented by an
-    //              Entity Coordinate Vector.
-    // Parameter:   const Vector & L
-    //************************************
-    void SetLocation( const KDIS::DATA_TYPE::Vector & L );
-    const KDIS::DATA_TYPE::Vector & GetLocation() const;
-    KDIS::DATA_TYPE::Vector & GetLocation();
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Collision_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Collision_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Collision_PDU & Value ) const;
-    KBOOL operator != ( const Collision_PDU & Value ) const;
+  KBOOL operator==(const Collision_PDU& Value) const;
+  KBOOL operator!=(const Collision_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

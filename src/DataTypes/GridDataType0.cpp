@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./GridDataType0.h"
+#include "KDIS/DataTypes/GridDataType0.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,225 +38,191 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::GridDataType0() :
-    m_ui16NumBytes( 0 ),
-    m_ui8Padding( 0 )
-{
-    m_ui16DtRep = Type0;
+GridDataType0::GridDataType0() : m_ui16NumBytes(0), m_ui8Padding(0) {
+  m_ui16DtRep = Type0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::GridDataType0( KDataStream & stream ) 
-{
-    Decode( stream );
+GridDataType0::GridDataType0(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+GridDataType0::GridDataType0(KUINT16 SampleType, KUINT16 DataRepresentation,
+                             KDataStream& stream)
+    : m_ui8Padding(0) {
+  m_ui16SmpTyp = SampleType;
+  m_ui16DtRep = DataRepresentation;
+
+  stream >> m_ui16NumBytes;
+
+  KUINT8 tmp = 0;
+  for (KUINT16 i = 0; i < m_ui16NumBytes; ++i) {
+    stream >> tmp;
+    m_vui8DataVals.push_back(tmp);
+  }
+
+  // Do we need to extract any padding?
+  if (m_ui16NumBytes % 2 == 1) {
+    stream >> m_ui8Padding;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::GridDataType0( KUINT16 SampleType, KUINT16 DataRepresentation, KDataStream & stream ) :
-    m_ui8Padding( 0 )
-{
-    m_ui16SmpTyp = SampleType;
-    m_ui16DtRep = DataRepresentation;
+GridDataType0::GridDataType0(KUINT16 SampleType, KUINT8* Data, KUINT16 NumBytes)
+    : m_ui16NumBytes(NumBytes), m_ui8Padding(0) {
+  m_ui16SmpTyp = SampleType;
+  m_ui16DtRep = Type0;
 
-    stream >> m_ui16NumBytes;
-
-    KUINT8 tmp = 0;
-    for( KUINT16 i = 0; i < m_ui16NumBytes; ++i )
-    {
-        stream >> tmp;
-        m_vui8DataVals.push_back( tmp );
-    }
-
-    // Do we need to extract any padding?
-    if( m_ui16NumBytes % 2 == 1 )
-    {
-        stream >> m_ui8Padding;
-    }
+  for (KUINT16 i = 0; i < m_ui16NumBytes; ++i) {
+    m_vui8DataVals.push_back(Data[i]);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::GridDataType0( KUINT16 SampleType, KUINT8 * Data, KUINT16 NumBytes ) :
-    m_ui16NumBytes( NumBytes ),
-    m_ui8Padding( 0 )
-{
-    m_ui16SmpTyp = SampleType;
-    m_ui16DtRep = Type0;
+GridDataType0::~GridDataType0() {}
 
-    for( KUINT16 i = 0; i < m_ui16NumBytes; ++i )
-    {
-        m_vui8DataVals.push_back( Data[i] );
-    }
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 GridDataType0::GetNumberOfBytes() const { return m_ui16NumBytes; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void GridDataType0::AddDataValue(KUINT8 D) {
+  ++m_ui16NumBytes;
+  m_vui8DataVals.push_back(D);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::~GridDataType0()
-{
+void GridDataType0::SetDataValues(KUINT8* Data, KUINT16 NumBytes) {
+  m_vui8DataVals.clear();
+  m_ui16NumBytes = NumBytes;
+  for (KUINT16 i = 0; i < m_ui16NumBytes; ++i) {
+    m_vui8DataVals.push_back(Data[i]);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 GridDataType0::GetNumberOfBytes() const
-{
-    return m_ui16NumBytes;
+void GridDataType0::SetDataValues(const std::vector<KUINT8>& DV) {
+  m_vui8DataVals = DV;
+  m_ui16NumBytes = m_vui8DataVals.size();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridDataType0::AddDataValue( KUINT8 D )
-{
-    ++m_ui16NumBytes;
-    m_vui8DataVals.push_back( D );
+const std::vector<KUINT8>& GridDataType0::GetDataValues() const {
+  return m_vui8DataVals;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridDataType0::SetDataValues( KUINT8 * Data, KUINT16 NumBytes )
-{
-    m_vui8DataVals.clear();
-    m_ui16NumBytes = NumBytes;
-    for( KUINT16 i = 0; i < m_ui16NumBytes; ++i )
-    {
-        m_vui8DataVals.push_back( Data[i] );
-    }
+void GridDataType0::ClearValues() {
+  m_vui8DataVals.clear();
+  m_ui16NumBytes = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridDataType0::SetDataValues( const std::vector<KUINT8> & DV )
-{
-    m_vui8DataVals = DV;
-    m_ui16NumBytes = m_vui8DataVals.size();
+KUINT16 GridDataType0::GetSize() const {
+  if (m_ui16NumBytes % 2 == 1) {
+    // Padding is included.
+    return m_ui16NumBytes + GRID_DATA_TYPE0_SIZE;
+  }
+
+  return m_ui16NumBytes + GRID_DATA_TYPE0_SIZE -
+         1;  // No padding. GRID_DATA_TYPE0_SIZE has padding included in its
+             // size so we need to remove it.
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const std::vector<KUINT8> & GridDataType0::GetDataValues() const
-{
-    return m_vui8DataVals;
+KString GridDataType0::GetAsString() const {
+  KStringStream ss;
+
+  ss << GridData::GetAsString() << "GridDataType0:"
+     << "\n\tNumber Of Bytes: " << m_ui16NumBytes << "\n\tData: ";
+
+  vector<KUINT8>::const_iterator citr = m_vui8DataVals.begin();
+  vector<KUINT8>::const_iterator citrEnd = m_vui8DataVals.end();
+  for (; citr != citrEnd; ++citr) {
+    ss << " " << (KUINT16)*citr;
+  }
+  ss << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridDataType0::ClearValues()
-{
-    m_vui8DataVals.clear();
-    m_ui16NumBytes = 0;
+void GridDataType0::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < GRID_DATA_TYPE0_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  m_vui8DataVals.clear();
+
+  GridData::Decode(stream);
+
+  stream >> m_ui16NumBytes;
+
+  KUINT8 tmp = 0;
+  for (KUINT16 i = 0; i < m_ui16NumBytes; ++i) {
+    stream >> tmp;
+    m_vui8DataVals.push_back(tmp);
+  }
+
+  // Do we need to extract any padding?
+  if (m_ui16NumBytes % 2 == 1) {
+    stream >> m_ui8Padding;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 GridDataType0::GetSize() const
-{
-    if( m_ui16NumBytes % 2 == 1 )
-    {
-        // Padding is included.
-        return m_ui16NumBytes + GRID_DATA_TYPE0_SIZE;
-    }
+KDataStream GridDataType0::Encode() const {
+  KDataStream stream;
 
-    return m_ui16NumBytes + GRID_DATA_TYPE0_SIZE - 1; // No padding. GRID_DATA_TYPE0_SIZE has padding included in its size so we need to remove it.
+  GridDataType0::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString GridDataType0::GetAsString() const
-{
-    KStringStream ss;
+void GridDataType0::Encode(KDataStream& stream) const {
+  GridData::Encode(stream);
 
-    ss << GridData::GetAsString()
-       << "GridDataType0:"
-       << "\n\tNumber Of Bytes: " << m_ui16NumBytes
-       << "\n\tData: ";
+  stream << m_ui16NumBytes;
 
-    vector<KUINT8>::const_iterator citr = m_vui8DataVals.begin();
-    vector<KUINT8>::const_iterator citrEnd = m_vui8DataVals.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << " " << ( KUINT16 )*citr;
-    }
-    ss << "\n";
+  vector<KUINT8>::const_iterator citr = m_vui8DataVals.begin();
+  vector<KUINT8>::const_iterator citrEnd = m_vui8DataVals.end();
+  for (; citr != citrEnd; ++citr) {
+    stream << *citr;
+  }
 
-    return ss.str();
+  // Should we add some padding onto the end? We need to have a 16 bit
+  // alignment.
+  if (m_ui16NumBytes % 2 == 1) {
+    stream << m_ui8Padding;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void GridDataType0::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < GRID_DATA_TYPE0_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    m_vui8DataVals.clear();
-
-    GridData::Decode( stream );
-
-    stream >> m_ui16NumBytes;
-
-    KUINT8 tmp = 0;
-    for( KUINT16 i = 0; i < m_ui16NumBytes; ++i )
-    {
-        stream >> tmp;
-        m_vui8DataVals.push_back( tmp );
-    }
-
-    // Do we need to extract any padding?
-    if( m_ui16NumBytes % 2 == 1 )
-    {
-        stream >> m_ui8Padding;
-    }
+KBOOL GridDataType0::operator==(const GridDataType0& Value) const {
+  if (GridData::operator!=(Value)) return false;
+  if (m_ui16NumBytes != Value.m_ui16NumBytes) return false;
+  if (m_vui8DataVals != Value.m_vui8DataVals) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream GridDataType0::Encode() const
-{
-    KDataStream stream;
-
-    GridDataType0::Encode( stream );
-
-    return stream;
+KBOOL GridDataType0::operator!=(const GridDataType0& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void GridDataType0::Encode( KDataStream & stream ) const
-{
-    GridData::Encode( stream );
-
-    stream << m_ui16NumBytes;
-
-    vector<KUINT8>::const_iterator citr = m_vui8DataVals.begin();
-    vector<KUINT8>::const_iterator citrEnd = m_vui8DataVals.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        stream << *citr;
-    }
-
-    // Should we add some padding onto the end? We need to have a 16 bit alignment.
-    if( m_ui16NumBytes % 2 == 1 )
-    {
-        stream << m_ui8Padding;
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GridDataType0::operator == ( const GridDataType0 & Value ) const
-{
-    if( GridData::operator != ( Value ) )         return false;
-    if( m_ui16NumBytes != Value.m_ui16NumBytes )  return false;
-    if( m_vui8DataVals  != Value.m_vui8DataVals ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL GridDataType0::operator != ( const GridDataType0 & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

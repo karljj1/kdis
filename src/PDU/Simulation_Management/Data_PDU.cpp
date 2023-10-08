@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Data_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Data_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,232 +42,188 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::Data_PDU() :
-    m_ui32RequestID( 0 ),
-    m_ui32Padding( 0 )
-{
-    m_ui8PDUType = Data_PDU_Type;
-    m_ui16PDULength = DATA_PDU_SIZE;
+Data_PDU::Data_PDU() : m_ui32RequestID(0), m_ui32Padding(0) {
+  m_ui8PDUType = Data_PDU_Type;
+  m_ui16PDULength = DATA_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::Data_PDU( const Header & H ) :
-    Comment_PDU( H ),
-        m_ui32RequestID( 0 ),
-    m_ui32Padding( 0 )
-{
+Data_PDU::Data_PDU(const Header& H)
+    : Comment_PDU(H), m_ui32RequestID(0), m_ui32Padding(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Data_PDU::Data_PDU(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Data_PDU::Data_PDU(const Header& H, KDataStream& stream) : Comment_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::Data_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Data_PDU::Data_PDU(const EntityIdentifier& OriginatingEntityID,
+                   const EntityIdentifier& ReceivingEntityID, KUINT32 RequestID)
+    : Comment_PDU(OriginatingEntityID, ReceivingEntityID),
+      m_ui32RequestID(RequestID),
+      m_ui32Padding(0) {
+  m_ui8PDUType = Data_PDU_Type;
+  m_ui16PDULength = DATA_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::Data_PDU( const Header & H, KDataStream & stream )  :
-    Comment_PDU( H )
-{
-    Decode( stream, true );
+Data_PDU::~Data_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Data_PDU::SetRequestID(KUINT32 ID) { m_ui32RequestID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT32 Data_PDU::GetRequestID() const { return m_ui32RequestID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void KDIS::PDU::Data_PDU::SetVariableDatum(
+    const std::vector<KDIS::DATA_TYPE::VarDtmPtr>& VD) {
+  Comment_PDU::SetVariableDatum(VD);
+
+  // The calculated length uses COMMENT_PDU_SIZE as the default so we need to
+  // add any extra on for this PDU.
+  m_ui16PDULength += DATA_PDU_SIZE - COMMENT_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::Data_PDU(  const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                     KUINT32 RequestID ) :
-    Comment_PDU( OriginatingEntityID, ReceivingEntityID ),
-    m_ui32RequestID( RequestID ),
-    m_ui32Padding( 0 )
-{
-    m_ui8PDUType = Data_PDU_Type;
-    m_ui16PDULength = DATA_PDU_SIZE;
+KString Data_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Data PDU-\n"
+     << Simulation_Management_Header::GetAsString()
+     << "Request ID:            " << m_ui32RequestID
+     << "\nNumber Fixed Datum:    " << m_ui32NumFixedDatum
+     << "\nNumber Variable Datum: " << m_ui32NumVariableDatum << "\n";
+
+  ss << "Fixed Datum\n";
+  vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
+  vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+  for (; citrFixed != citrFixedEnd; ++citrFixed) {
+    ss << IndentString((*citrFixed)->GetAsString());
+  }
+
+  ss << "Variable Datum\n";
+  vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
+  vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+  for (; citrVar != citrVarEnd; ++citrVar) {
+    ss << IndentString((*citrVar)->GetAsString());
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Data_PDU::~Data_PDU()
-{
-}
+void Data_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      DATA_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-//////////////////////////////////////////////////////////////////////////
+  Simulation_Management_Header::Decode(stream, ignoreHeader);
 
-void Data_PDU::SetRequestID( KUINT32 ID )
-{
-    m_ui32RequestID = ID;
-}
+  stream >> m_ui32RequestID >> m_ui32Padding >> m_ui32NumFixedDatum >>
+      m_ui32NumVariableDatum;
 
-//////////////////////////////////////////////////////////////////////////
+  // FixedDatum
+  for (KUINT16 i = 0; i < m_ui32NumFixedDatum; ++i) {
+    // Save the current write position so we can peek.
+    KUINT16 pos = stream.GetCurrentWritePosition();
+    KUINT32 datumID;
 
-KUINT32 Data_PDU::GetRequestID() const
-{
-    return m_ui32RequestID;
-}
+    // Extract the datum id then reset the stream.
+    stream >> datumID;
+    stream.SetCurrentWritePosition(pos);
 
-//////////////////////////////////////////////////////////////////////////
+    // Use the factory decoder.
+    FixedDatum* p = FixedDatum::FactoryDecode(datumID, stream);
 
-void KDIS::PDU::Data_PDU::SetVariableDatum(const std::vector<KDIS::DATA_TYPE::VarDtmPtr> & VD)
-{
-    Comment_PDU::SetVariableDatum(VD);
-
-    // The calculated length uses COMMENT_PDU_SIZE as the default so we need to add any extra on for this PDU.
-    m_ui16PDULength += DATA_PDU_SIZE - COMMENT_PDU_SIZE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString Data_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Data PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "Request ID:            "   << m_ui32RequestID
-       << "\nNumber Fixed Datum:    " << m_ui32NumFixedDatum
-       << "\nNumber Variable Datum: " << m_ui32NumVariableDatum
-       << "\n";
-
-    ss << "Fixed Datum\n";
-    vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
-    for( ; citrFixed != citrFixedEnd; ++citrFixed )
-    {
-        ss << IndentString( ( *citrFixed )->GetAsString() );
+    // Did we find a custom decoder? if not then use the default.
+    if (p) {
+      m_vFixedDatum.push_back(FixDtmPtr(p));
+    } else {
+      // Default
+      m_vFixedDatum.push_back(FixDtmPtr(new FixedDatum(stream)));
     }
+  }
 
-    ss << "Variable Datum\n";
-    vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
-    for( ; citrVar != citrVarEnd; ++citrVar )
-    {
-        ss << IndentString( ( *citrVar )->GetAsString() );
+  // VariableDatum
+  for (KUINT16 i = 0; i < m_ui32NumVariableDatum; ++i) {
+    // Save the current write position so we can peek.
+    KUINT16 pos = stream.GetCurrentWritePosition();
+    KUINT32 datumID;
+
+    // Extract the datum id then reset the stream.
+    stream >> datumID;
+    stream.SetCurrentWritePosition(pos);
+
+    // Use the factory decoder.
+    VariableDatum* p = VariableDatum::FactoryDecode(datumID, stream);
+
+    // Did we find a custom decoder? if not then use the default.
+    if (p) {
+      m_vVariableDatum.push_back(VarDtmPtr(p));
+    } else {
+      // Default
+      m_vVariableDatum.push_back(VarDtmPtr(new VariableDatum(stream)));
     }
-
-    return ss.str();
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < DATA_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Data_PDU::Encode() const {
+  KDataStream stream;
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );
+  Data_PDU::Encode(stream);
 
-    stream >> m_ui32RequestID
-           >> m_ui32Padding
-           >> m_ui32NumFixedDatum
-           >> m_ui32NumVariableDatum;
-
-    // FixedDatum
-    for( KUINT16 i = 0; i < m_ui32NumFixedDatum; ++i )
-    {
-        // Save the current write position so we can peek.
-        KUINT16 pos = stream.GetCurrentWritePosition();
-        KUINT32 datumID;
-
-        // Extract the datum id then reset the stream.
-        stream >> datumID;
-        stream.SetCurrentWritePosition( pos );
-
-        // Use the factory decoder.
-        FixedDatum * p = FixedDatum::FactoryDecode( datumID, stream );
-
-        // Did we find a custom decoder? if not then use the default.
-        if( p )
-        {
-            m_vFixedDatum.push_back( FixDtmPtr( p ) );
-        }
-        else
-        {
-            // Default
-            m_vFixedDatum.push_back( FixDtmPtr( new FixedDatum( stream ) ) );
-        }
-    }
-
-    // VariableDatum
-    for( KUINT16 i = 0; i < m_ui32NumVariableDatum; ++i )
-    {
-        // Save the current write position so we can peek.
-        KUINT16 pos = stream.GetCurrentWritePosition();
-        KUINT32 datumID;
-
-        // Extract the datum id then reset the stream.
-        stream >> datumID;
-        stream.SetCurrentWritePosition( pos );
-
-        // Use the factory decoder.
-        VariableDatum * p = VariableDatum::FactoryDecode( datumID, stream );
-
-        // Did we find a custom decoder? if not then use the default.
-        if( p )
-        {
-            m_vVariableDatum.push_back( VarDtmPtr( p ) );
-        }
-        else
-        {
-            // Default
-            m_vVariableDatum.push_back( VarDtmPtr( new VariableDatum( stream ) ) );
-        }
-    }
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Data_PDU::Encode() const
-{
-    KDataStream stream;
+void Data_PDU::Encode(KDataStream& stream) const {
+  Simulation_Management_Header::Encode(stream);
 
-    Data_PDU::Encode( stream );
+  stream << m_ui32RequestID << m_ui32Padding << m_ui32NumFixedDatum
+         << m_ui32NumVariableDatum;
 
-    return stream;
+  vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
+  vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+  for (; citrFixed != citrFixedEnd; ++citrFixed) {
+    ((FixedDatum)(*(*citrFixed))).Encode(stream);
+  }
+
+  vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
+  vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+  for (; citrVar != citrVarEnd; ++citrVar) {
+    ((VariableDatum)(*(*citrVar))).Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Data_PDU::Encode( KDataStream & stream ) const
-{
-    Simulation_Management_Header::Encode( stream );
-
-    stream << m_ui32RequestID
-           << m_ui32Padding
-           << m_ui32NumFixedDatum
-           << m_ui32NumVariableDatum;
-
-    vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
-    for( ; citrFixed != citrFixedEnd; ++citrFixed )
-    {
-		((FixedDatum)(*(*citrFixed))).Encode(stream);
-    }
-
-    vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
-    for( ; citrVar != citrVarEnd; ++citrVar )
-    {
-		((VariableDatum)(*(*citrVar))).Encode(stream);
-    }
+KBOOL Data_PDU::operator==(const Data_PDU& Value) const {
+  if (Simulation_Management_Header::operator!=(Value)) return false;
+  if (m_ui32RequestID != Value.m_ui32RequestID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Data_PDU::operator == ( const Data_PDU & Value ) const
-{
-    if( Simulation_Management_Header::operator !=( Value ) )              return false;
-    if( m_ui32RequestID                        != Value.m_ui32RequestID ) return false;
-    return true;
+KBOOL Data_PDU::operator!=(const Data_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Data_PDU::operator != ( const Data_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./ExplosionDescriptor.h"
+#include "KDIS/DataTypes/ExplosionDescriptor.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,129 +40,102 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ExplosionDescriptor::ExplosionDescriptor() :
-	m_ui16ExplMat( 0 ),
-	m_ui16Padding( 0 ),
-	m_f32ExplForce( 0 )
-{
+ExplosionDescriptor::ExplosionDescriptor()
+    : m_ui16ExplMat(0), m_ui16Padding(0), m_f32ExplForce(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+ExplosionDescriptor::ExplosionDescriptor(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ExplosionDescriptor::ExplosionDescriptor( KDataStream & stream )
-{
-    Decode( stream );
+ExplosionDescriptor::ExplosionDescriptor(const EntityType& T,
+                                         ExplosiveMaterial EM, KFLOAT32 Force)
+    : Descriptor(T),
+      m_ui16ExplMat(EM),
+      m_ui16Padding(0),
+      m_f32ExplForce(Force) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+ExplosionDescriptor::~ExplosionDescriptor() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ExplosionDescriptor::SetExplosiveMaterial(ExplosiveMaterial EM) {
+  m_ui16ExplMat = EM;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ExplosionDescriptor::ExplosionDescriptor( const EntityType & T, ExplosiveMaterial EM, KFLOAT32 Force ) :
-    Descriptor( T ),
-	m_ui16ExplMat( EM ),
-	m_ui16Padding( 0 ),
-	m_f32ExplForce( Force )
-{
+ExplosiveMaterial ExplosionDescriptor::GetExplosiveMaterial() const {
+  return (ExplosiveMaterial)m_ui16ExplMat;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ExplosionDescriptor::~ExplosionDescriptor()
-{
+void ExplosionDescriptor::SetExplosiveForce(KFLOAT32 F) { m_f32ExplForce = F; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFLOAT32 ExplosionDescriptor::GetExplosiveForce() const {
+  return m_f32ExplForce;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ExplosionDescriptor::SetExplosiveMaterial( ExplosiveMaterial EM )
-{
-	m_ui16ExplMat = EM;
+KString ExplosionDescriptor::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Descriptor:"
+     << "\n\tType:     " << m_Type.GetAsString()
+     << "\tMaterial: " << GetEnumAsStringExplosiveMaterial(m_ui16ExplMat)
+     << "\n\tForce:    " << m_f32ExplForce << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ExplosiveMaterial ExplosionDescriptor::GetExplosiveMaterial() const
-{
-	return ( ExplosiveMaterial )m_ui16ExplMat;
+void ExplosionDescriptor::Decode(KDataStream& stream) {
+  Descriptor::Decode(stream);
+
+  stream >> m_ui16ExplMat >> m_ui16Padding >> m_f32ExplForce;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ExplosionDescriptor::SetExplosiveForce( KFLOAT32 F )
-{
-	m_f32ExplForce = F;
+KDataStream ExplosionDescriptor::Encode() const {
+  KDataStream stream;
+
+  ExplosionDescriptor::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFLOAT32 ExplosionDescriptor::GetExplosiveForce() const
-{
-	return m_f32ExplForce;
+void ExplosionDescriptor::Encode(KDataStream& stream) const {
+  Descriptor::Encode(stream);
+
+  stream << m_ui16ExplMat << m_ui16Padding << m_f32ExplForce;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString ExplosionDescriptor::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Descriptor:"
-       << "\n\tType:     " << m_Type.GetAsString()
-       << "\tMaterial: "   << GetEnumAsStringExplosiveMaterial( m_ui16ExplMat )
-       << "\n\tForce:    " << m_f32ExplForce       
-       << "\n";
-
-    return ss.str();
+KBOOL ExplosionDescriptor::operator==(const ExplosionDescriptor& Value) const {
+  if (Descriptor::operator!=(Value)) return false;
+  if (m_ui16ExplMat != Value.m_ui16ExplMat) return false;
+  if (m_f32ExplForce != Value.m_f32ExplForce) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ExplosionDescriptor::Decode( KDataStream & stream ) 
-{
-	Descriptor::Decode( stream );
-
-    stream >> m_ui16ExplMat
-           >> m_ui16Padding
-           >> m_f32ExplForce;           
+KBOOL ExplosionDescriptor::operator!=(const ExplosionDescriptor& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KDataStream ExplosionDescriptor::Encode() const
-{
-    KDataStream stream;
-
-    ExplosionDescriptor::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void ExplosionDescriptor::Encode( KDataStream & stream ) const
-{
-	Descriptor::Encode( stream );
-
-    stream << m_ui16ExplMat
-           << m_ui16Padding
-           << m_f32ExplForce; 
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ExplosionDescriptor::operator == ( const ExplosionDescriptor & Value ) const
-{
-	if( Descriptor::operator != ( Value ) )            return false;
-    if( m_ui16ExplMat        != Value.m_ui16ExplMat )  return false;
-    if( m_f32ExplForce       != Value.m_f32ExplForce ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ExplosionDescriptor::operator != ( const ExplosionDescriptor & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

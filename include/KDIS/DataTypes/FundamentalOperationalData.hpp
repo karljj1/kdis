@@ -39,103 +39,110 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./FundamentalOperationalData_MarkXTransponder.h"
-#include "./FundamentalOperationalData_MarkXInterrogator.h"
-#include "./FundamentalOperationalData_Soviet.h"
-#include "./FundamentalOperationalData_RRB.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/FundamentalOperationalData_MarkXInterrogator.hpp"
+#include "KDIS/DataTypes/FundamentalOperationalData_MarkXTransponder.hpp"
+#include "KDIS/DataTypes/FundamentalOperationalData_RRB.hpp"
+#include "KDIS/DataTypes/FundamentalOperationalData_Soviet.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT FundamentalOperationalData : public DataTypeBase
-{
-protected:
-
-    union
-    {
-        struct
-        {
-            KUINT8 m_ui8SystemStatus;
-            KUINT8 m_ui8AltParam4;
-            KUINT8 m_ui8InfoLayers;
-            KUINT8 m_ui8Modifier;
-            KUINT16 m_ui16Param1;
-            KUINT16 m_ui16Param2;
-            KUINT16 m_ui16Param3;
-            KUINT16 m_ui16Param4;
-            KUINT16 m_ui16Param5;
-            KUINT16 m_ui16Param6;
-        };
-
-        FundamentalOperationalData_MarkXTransponder m_FODSystemMarkTransponder;
-        FundamentalOperationalData_MarkXInterrogator m_FODSystemMarkInterrogator;
-        FundamentalOperationalData_Soviet m_FODSystemSoviet;
-        FundamentalOperationalData_RRB m_FODSystemRRB;
+class KDIS_EXPORT FundamentalOperationalData : public DataTypeBase {
+ protected:
+  union {
+    struct {
+      KUINT8 m_ui8SystemStatus;
+      KUINT8 m_ui8AltParam4;
+      KUINT8 m_ui8InfoLayers;
+      KUINT8 m_ui8Modifier;
+      KUINT16 m_ui16Param1;
+      KUINT16 m_ui16Param2;
+      KUINT16 m_ui16Param3;
+      KUINT16 m_ui16Param4;
+      KUINT16 m_ui16Param5;
+      KUINT16 m_ui16Param6;
     };
 
-public:
+    FundamentalOperationalData_MarkXTransponder m_FODSystemMarkTransponder;
+    FundamentalOperationalData_MarkXInterrogator m_FODSystemMarkInterrogator;
+    FundamentalOperationalData_Soviet m_FODSystemSoviet;
+    FundamentalOperationalData_RRB m_FODSystemRRB;
+  };
 
-    static const KUINT16 FUNDAMENTAL_OPERATIONAL_DATA_SIZE = 16;
+ public:
+  static const KUINT16 FUNDAMENTAL_OPERATIONAL_DATA_SIZE = 16;
 
-    FundamentalOperationalData();
+  FundamentalOperationalData();
 
-    FundamentalOperationalData( KDataStream & stream ) ;
+  FundamentalOperationalData(KDataStream& stream);
 
-    FundamentalOperationalData( const FundamentalOperationalData_MarkXTransponder & FOD );
+  FundamentalOperationalData(
+      const FundamentalOperationalData_MarkXTransponder& FOD);
 
-    FundamentalOperationalData( const FundamentalOperationalData_MarkXInterrogator & FOD );
+  FundamentalOperationalData(
+      const FundamentalOperationalData_MarkXInterrogator& FOD);
 
-    FundamentalOperationalData( const FundamentalOperationalData_Soviet & FOD );
+  FundamentalOperationalData(const FundamentalOperationalData_Soviet& FOD);
 
-    FundamentalOperationalData( const FundamentalOperationalData_RRB & FOD );
+  FundamentalOperationalData(const FundamentalOperationalData_RRB& FOD);
 
-    virtual ~FundamentalOperationalData();
+  virtual ~FundamentalOperationalData();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::SetFundamentalOperationalData
-    //              KDIS::DATA_TYPE::FundamentalOperationalData::GetFundamentalOperationalData
-    // Description: Sets/Gets Fundamental Operational Data for a specific system.
-    // Parameter:   FundamentalOperationalData_X FOD
-    //************************************
-    void SetFundamentalOperationalData_MarkXTransponder( const FundamentalOperationalData_MarkXTransponder & FOD );
-    void SetFundamentalOperationalData_MarkXInterrogator( const FundamentalOperationalData_MarkXInterrogator & FOD );
-    void SetFundamentalOperationalData_Soviet( const FundamentalOperationalData_Soviet & FOD );
-    void SetFundamentalOperationalData_RRB( const FundamentalOperationalData_RRB & FOD );
-    const FundamentalOperationalData_MarkXTransponder & GetSetFundamentalOperationalData_MarkXTransponder() const;
-    FundamentalOperationalData_MarkXTransponder & GetSetFundamentalOperationalData_MarkXTransponder();
-    const FundamentalOperationalData_MarkXInterrogator & GetFundamentalOperationalData_MarkXInterrogator() const;
-    FundamentalOperationalData_MarkXInterrogator & GetFundamentalOperationalData_MarkXInterrogator();
-    const FundamentalOperationalData_Soviet & GetFundamentalOperationalData_Soviet() const;
-    FundamentalOperationalData_Soviet & GetFundamentalOperationalData_Soviet();
-    const FundamentalOperationalData_RRB & GetFundamentalOperationalData_RRB() const;
-    FundamentalOperationalData_RRB & GetFundamentalOperationalData_RRB();
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::FundamentalOperationalData::SetFundamentalOperationalData
+  //              KDIS::DATA_TYPE::FundamentalOperationalData::GetFundamentalOperationalData
+  // Description: Sets/Gets Fundamental Operational Data for a specific system.
+  // Parameter:   FundamentalOperationalData_X FOD
+  //************************************
+  void SetFundamentalOperationalData_MarkXTransponder(
+      const FundamentalOperationalData_MarkXTransponder& FOD);
+  void SetFundamentalOperationalData_MarkXInterrogator(
+      const FundamentalOperationalData_MarkXInterrogator& FOD);
+  void SetFundamentalOperationalData_Soviet(
+      const FundamentalOperationalData_Soviet& FOD);
+  void SetFundamentalOperationalData_RRB(
+      const FundamentalOperationalData_RRB& FOD);
+  const FundamentalOperationalData_MarkXTransponder&
+  GetSetFundamentalOperationalData_MarkXTransponder() const;
+  FundamentalOperationalData_MarkXTransponder&
+  GetSetFundamentalOperationalData_MarkXTransponder();
+  const FundamentalOperationalData_MarkXInterrogator&
+  GetFundamentalOperationalData_MarkXInterrogator() const;
+  FundamentalOperationalData_MarkXInterrogator&
+  GetFundamentalOperationalData_MarkXInterrogator();
+  const FundamentalOperationalData_Soviet&
+  GetFundamentalOperationalData_Soviet() const;
+  FundamentalOperationalData_Soviet& GetFundamentalOperationalData_Soviet();
+  const FundamentalOperationalData_RRB& GetFundamentalOperationalData_RRB()
+      const;
+  FundamentalOperationalData_RRB& GetFundamentalOperationalData_RRB();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::FundamentalOperationalData::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    KBOOL operator == ( const FundamentalOperationalData & Value ) const;
-    KBOOL operator != ( const FundamentalOperationalData & Value ) const;
+  KBOOL operator==(const FundamentalOperationalData& Value) const;
+  KBOOL operator!=(const FundamentalOperationalData& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

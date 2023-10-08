@@ -38,86 +38,82 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include <fstream>
 #include <time.h>
-#include "./../PDU/Header.h"
+
+#include <fstream>
 #include <queue>
+
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace UTILS {
 
-class KDIS_EXPORT DIS_Logger_Playback
-{
-protected:
+class KDIS_EXPORT DIS_Logger_Playback {
+ protected:
+  struct Log {
+    KString sStamp;
 
-    struct Log
-    {
-        KString sStamp;
+    KString sData;
+  };
 
-        KString sData;
-    };
+  std::fstream m_File;
 
-    std::fstream m_File;
+  KUINT16 m_ui16PreLoadLines;
 
-    KUINT16 m_ui16PreLoadLines;
+  std::queue<Log> m_qLog;
 
-    std::queue<Log> m_qLog;
+  //************************************
+  // FullName:    KDIS::UTILS::DIS_Logger_Playback::loadFromFile
+  // Description: Load data from file
+  //************************************
+  void loadFromFile();
 
-    //************************************
-    // FullName:    KDIS::UTILS::DIS_Logger_Playback::loadFromFile
-    // Description: Load data from file
-    //************************************
-    void loadFromFile() ;
+ public:
+  // BufferSz - how many lines of the log to load into memory at a time,
+  // set to 0 to load all data.
+  DIS_Logger_Playback(const KString& FileName, KUINT16 BufferSz);
 
-public:
+  ~DIS_Logger_Playback();
 
-    // BufferSz - how many lines of the log to load into memory at a time,
-    // set to 0 to load all data.
-    DIS_Logger_Playback( const KString & FileName, KUINT16 BufferSz );
+  //************************************
+  // FullName:    KDIS::UTILS::DIS_Logger_Playback::Record
+  // Description: Returns the next item in the log.
+  //              If the end of the log has been reached returns false.
+  // Parameter:   Type & Stamp
+  // Parameter:   KDataStream & Stream
+  //************************************
+  template <class Type>
+  KBOOL GetNext(Type& Stamp, KDataStream& stream);
 
-    ~DIS_Logger_Playback();
-
-    //************************************
-    // FullName:    KDIS::UTILS::DIS_Logger_Playback::Record
-    // Description: Returns the next item in the log.
-    //              If the end of the log has been reached returns false.
-    // Parameter:   Type & Stamp
-    // Parameter:   KDataStream & Stream
-    //************************************
-    template<class Type>
-    KBOOL GetNext( Type & Stamp, KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::UTILS::DIS_Logger_Playback::EndOfLogReached
-    // Description: Returns true if the end of the logged data has
-    //              reached.
-    //************************************
-    KBOOL EndOfLogReached() const;
+  //************************************
+  // FullName:    KDIS::UTILS::DIS_Logger_Playback::EndOfLogReached
+  // Description: Returns true if the end of the logged data has
+  //              reached.
+  //************************************
+  KBOOL EndOfLogReached() const;
 };
 
 //////////////////////////////////////////////////////////////////////////
 // Template Operators
 //////////////////////////////////////////////////////////////////////////
 
-template<class Type>
-KBOOL DIS_Logger_Playback::GetNext( Type & Stamp, KDataStream & Stream ) 
-{
-    if( EndOfLogReached() )return false;
+template <class Type>
+KBOOL DIS_Logger_Playback::GetNext(Type& Stamp, KDataStream& Stream) {
+  if (EndOfLogReached()) return false;
 
-    if( m_qLog.size() == 0 )loadFromFile();
+  if (m_qLog.size() == 0) loadFromFile();
 
-    KStringStream ssStamp( m_qLog.front().sStamp );
-    ssStamp >> Stamp;
+  KStringStream ssStamp(m_qLog.front().sStamp);
+  ssStamp >> Stamp;
 
-    Stream.ReadFromString( m_qLog.front().sData );
+  Stream.ReadFromString(m_qLog.front().sData);
 
-    m_qLog.pop();
+  m_qLog.pop();
 
-    return true;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-} // END namespace UTILS
-} // END namespace KDIS
-
+}  // END namespace UTILS
+}  // END namespace KDIS

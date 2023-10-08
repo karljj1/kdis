@@ -40,107 +40,111 @@ http://p.sf.net/kdis/UserGuide
 
 #include <memory>
 #include <vector>
-#include "./../PDU/Header.h"
-#include "./PDU_Factory_Filters.h"
+
+#include "KDIS/Extras/PDU_Factory_Filters.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace UTILS {
 
-class KDIS_EXPORT PDU_Factory
-{
-protected:
+class KDIS_EXPORT PDU_Factory {
+ protected:
+  std::vector<PDU_Factory_Filter*> m_vFilters;
 
-    std::vector<PDU_Factory_Filter*> m_vFilters;
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory::applyFiltersBeforeDecodingPDUBody
+  // Description: Applies the filter/s to the PDU header before the body is
+  // decoded. Parameter:   const Header * H
+  //************************************
+  KBOOL applyFiltersBeforeDecodingPDUBody(const KDIS::PDU::Header* H);
 
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory::applyFiltersBeforeDecodingPDUBody
-    // Description: Applies the filter/s to the PDU header before the body is decoded.
-    // Parameter:   const Header * H
-    //************************************
-	KBOOL applyFiltersBeforeDecodingPDUBody( const KDIS::PDU::Header * H );
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory::applyFilters
+  // Description: Applies the filter/s to the PDU and returns a NULL
+  //              pointer if the PDU does not pass all filters.
+  // Parameter:   Header * H
+  //************************************
+  std::unique_ptr<KDIS::PDU::Header> applyFilters(KDIS::PDU::Header* H);
 
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory::applyFilters
-    // Description: Applies the filter/s to the PDU and returns a NULL
-    //              pointer if the PDU does not pass all filters.
-    // Parameter:   Header * H
-    //************************************
-    std::unique_ptr<KDIS::PDU::Header> applyFilters( KDIS::PDU::Header * H );
+ public:
+  PDU_Factory();
 
-public:
+  ~PDU_Factory();
 
-    PDU_Factory();
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory::AddFilter
+  // Description: Add a filter that will be applied to all PDU's.
+  //              Note: All filters will be automatically deleted when the PDU
+  //              factory is deleted.
+  // Parameter:   PDU_Factory_Filter * F
+  //************************************
+  void AddFilter(PDU_Factory_Filter* F);
 
-    ~PDU_Factory();
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory::RemoveFilter
+  // Description: Remove a filter.
+  // Parameter:   PDU_Factory_Filters * F
+  //************************************
+  void RemoveFilter(PDU_Factory_Filter* F);
 
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory::AddFilter
-    // Description: Add a filter that will be applied to all PDU's.
-    //              Note: All filters will be automatically deleted when the PDU factory is deleted.
-    // Parameter:   PDU_Factory_Filter * F
-    //************************************
-    void AddFilter( PDU_Factory_Filter * F );
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory::Decode
+  // Description: Converts a stream of OCTETS into the correct PDU type.
+  //              If the PDU type is unknown or not currently
+  //              implemented in KDIS a NULL unique_ptr is returned.
+  // Parameter:   KOCTET * Buffer
+  // Parameter:   KUINT16 BufferSize
+  //************************************
+  virtual std::unique_ptr<KDIS::PDU::Header> Decode(KOCTET* Buffer,
+                                                    KUINT16 BufferSize);
 
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory::RemoveFilter
-    // Description: Remove a filter.
-    // Parameter:   PDU_Factory_Filters * F
-    //************************************
-    void RemoveFilter( PDU_Factory_Filter * F );
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory::Decode
+  // Description: Converts data stream into the correct PDU type.
+  //              If the PDU type is unknown or not currently
+  //              implemented a NULL unique_ptr is returned.
+  //              The full PDU data can be retrieved by casting the header to
+  //              the relevant PDU. For example: unique_ptr<Header> pHeader =
+  //              Factory.Decode(cBuffer, ui32Recv); if (pHeader.get())
+  //              {
+  //                  if (pHeader->GetPDUType() == Entity_State_PDU_Type)
+  //                  {
+  //                      Entity_State_PDU* entityState =
+  //                      dynamic_cast<Entity_State_PDU*>(pHeader.get()); cout
+  //                      << "Entity Force: " << entityState->GetForceID() <<
+  //                      endl;
+  //                  }
+  //              }
+  // Parameter:   KDataStream & Stream
+  //************************************
+  virtual std::unique_ptr<KDIS::PDU::Header> Decode(KDataStream& Stream);
 
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory::Decode
-    // Description: Converts a stream of OCTETS into the correct PDU type.
-    //              If the PDU type is unknown or not currently
-    //              implemented in KDIS a NULL unique_ptr is returned.
-    // Parameter:   KOCTET * Buffer
-    // Parameter:   KUINT16 BufferSize
-    //************************************
-    virtual std::unique_ptr<KDIS::PDU::Header> Decode( KOCTET * Buffer, KUINT16 BufferSize );
-
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory::Decode
-    // Description: Converts data stream into the correct PDU type.
-    //              If the PDU type is unknown or not currently
-    //              implemented a NULL unique_ptr is returned.
-    //              The full PDU data can be retrieved by casting the header to the relevant PDU.
-    //              For example:
-    //              unique_ptr<Header> pHeader = Factory.Decode(cBuffer, ui32Recv);
-    //              if (pHeader.get())
-    //              {
-    //                  if (pHeader->GetPDUType() == Entity_State_PDU_Type)
-    //                  {
-    //                      Entity_State_PDU* entityState = dynamic_cast<Entity_State_PDU*>(pHeader.get());
-    //                      cout << "Entity Force: " << entityState->GetForceID() << endl;
-    //                  }
-    //              }
-    // Parameter:   KDataStream & Stream
-    //************************************
-    virtual std::unique_ptr<KDIS::PDU::Header> Decode( KDataStream & Stream );
-
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory::Decode
-    // Description: Converts data stream into the correct PDU.
-    //              This version takes a known PDU and decodes just the body.
-    //              Note: If you wanted to add support for your own PDU this would be a great
-    //              place to add it, just override this function and check for your PDU first,
-    //              if the PDU is not yours then call the parent function.
-    //              The full PDU data can be retrieved by casting the header to the relevant PDU.
-    //              For example:
-    //              unique_ptr<Header> pHeader = Factory.Decode(cBuffer, ui32Recv);
-    //              if (pHeader.get())
-    //              {
-    //                  if (pHeader->GetPDUType() == Entity_State_PDU_Type)
-    //                  {
-    //                      Entity_State_PDU* entityState = dynamic_cast<Entity_State_PDU*>(pHeader.get());
-    //                      cout << "Entity Force: " << entityState->GetForceID() << endl;
-    //                  }
-    //              }
-    // Parameter:   const Header & H
-    // Parameter:   KDataStream & Stream
-    //************************************
-    virtual std::unique_ptr<KDIS::PDU::Header> Decode( const KDIS::PDU::Header & H, KDataStream & Stream );
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory::Decode
+  // Description: Converts data stream into the correct PDU.
+  //              This version takes a known PDU and decodes just the body.
+  //              Note: If you wanted to add support for your own PDU this would
+  //              be a great place to add it, just override this function and
+  //              check for your PDU first, if the PDU is not yours then call
+  //              the parent function. The full PDU data can be retrieved by
+  //              casting the header to the relevant PDU. For example:
+  //              unique_ptr<Header> pHeader = Factory.Decode(cBuffer,
+  //              ui32Recv); if (pHeader.get())
+  //              {
+  //                  if (pHeader->GetPDUType() == Entity_State_PDU_Type)
+  //                  {
+  //                      Entity_State_PDU* entityState =
+  //                      dynamic_cast<Entity_State_PDU*>(pHeader.get()); cout
+  //                      << "Entity Force: " << entityState->GetForceID() <<
+  //                      endl;
+  //                  }
+  //              }
+  // Parameter:   const Header & H
+  // Parameter:   KDataStream & Stream
+  //************************************
+  virtual std::unique_ptr<KDIS::PDU::Header> Decode(const KDIS::PDU::Header& H,
+                                                    KDataStream& Stream);
 };
 
-} // END namespace UTILS
-} // END namespace KDIS
+}  // END namespace UTILS
+}  // END namespace KDIS

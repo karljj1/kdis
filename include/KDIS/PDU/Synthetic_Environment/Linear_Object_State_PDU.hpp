@@ -33,130 +33,143 @@ http://p.sf.net/kdis/UserGuide
     created:    15/03/2010
     author:     Karl Jones
 
-    purpose:    Contains detailed information about the addition/modification of a
-                synthetic environment object that is geometrically anchored to the
-                terrain with one point and has size and orientation.
+    purpose:    Contains detailed information about the addition/modification of
+a synthetic environment object that is geometrically anchored to the terrain
+with one point and has size and orientation.
 
     size:       320 bits / 40 octets - Min size.
 *********************************************************************/
 
 #pragma once
 
-#include "./Object_State_Header.h"
-#include "./../../DataTypes/SimulationIdentifier.h"
-#include "./../../DataTypes/ObjectType.h"
-#include "./../../DataTypes/LinearSegmentParameter.h"
 #include <vector>
+
+#include "KDIS/DataTypes/LinearSegmentParameter.hpp"
+#include "KDIS/DataTypes/ObjectType.hpp"
+#include "KDIS/DataTypes/SimulationIdentifier.hpp"
+#include "KDIS/PDU/Synthetic_Environment/Object_State_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Linear_Object_State_PDU : public Object_State_Header
-{
-protected:
+class KDIS_EXPORT Linear_Object_State_PDU : public Object_State_Header {
+ protected:
+  KUINT8 m_ui8NumSegment;
 
-    KUINT8 m_ui8NumSegment;
+  KDIS::DATA_TYPE::SimulationIdentifier m_ReqID;
 
-    KDIS::DATA_TYPE::SimulationIdentifier m_ReqID;
+  KDIS::DATA_TYPE::SimulationIdentifier m_RecvID;
 
-    KDIS::DATA_TYPE::SimulationIdentifier m_RecvID;
+  KDIS::DATA_TYPE::ObjectType m_ObjTyp;
 
-    KDIS::DATA_TYPE::ObjectType m_ObjTyp;
+  std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> m_vSegments;
 
-    std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> m_vSegments;
+ public:
+  static const KUINT16 LINEAR_OBJECT_STATE_PDU_SIZE = 40;
 
-public:
+  Linear_Object_State_PDU();
 
-    static const KUINT16 LINEAR_OBJECT_STATE_PDU_SIZE = 40;
+  explicit Linear_Object_State_PDU(KDataStream& stream);
 
-    Linear_Object_State_PDU();
+  Linear_Object_State_PDU(const Header& H, KDataStream& stream);
 
-    Linear_Object_State_PDU( KDataStream & stream ) ;
+  Linear_Object_State_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ObjID,
+                          const KDIS::DATA_TYPE::EntityIdentifier& RefObjID,
+                          KUINT16 UpdateNum, KDIS::DATA_TYPE::ENUMS::ForceID FI,
+                          const KDIS::DATA_TYPE::SimulationIdentifier& ReqID,
+                          const KDIS::DATA_TYPE::SimulationIdentifier& RecvID,
+                          const KDIS::DATA_TYPE::ObjectType& O);
 
-    Linear_Object_State_PDU( const Header & H, KDataStream & stream ) ;
+  Linear_Object_State_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& ObjID,
+      const KDIS::DATA_TYPE::EntityIdentifier& RefObjID, KUINT16 UpdateNum,
+      KDIS::DATA_TYPE::ENUMS::ForceID FI,
+      const KDIS::DATA_TYPE::SimulationIdentifier& ReqID,
+      const KDIS::DATA_TYPE::SimulationIdentifier& RecvID,
+      const KDIS::DATA_TYPE::ObjectType& O,
+      std::vector<KDIS::DATA_TYPE::LinearSegmentParameter>& Segments);
 
-    Linear_Object_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID , KUINT16 UpdateNum,
-                             KDIS::DATA_TYPE::ENUMS::ForceID FI, const KDIS::DATA_TYPE::SimulationIdentifier & ReqID, const KDIS::DATA_TYPE::SimulationIdentifier & RecvID,
-                             const KDIS::DATA_TYPE::ObjectType & O );
+  virtual ~Linear_Object_State_PDU();
 
-    Linear_Object_State_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID , KUINT16 UpdateNum,
-                             KDIS::DATA_TYPE::ENUMS::ForceID FI, const KDIS::DATA_TYPE::SimulationIdentifier & ReqID, const KDIS::DATA_TYPE::SimulationIdentifier & RecvID,
-                             const KDIS::DATA_TYPE::ObjectType & O, std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> & Segments );
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::GetNumberOfSegments
+  // Description: The number of Linear Segment Parameter records contained
+  // within this PDU.
+  //************************************
+  KUINT8 GetNumberOfSegments() const;
 
-    virtual ~Linear_Object_State_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetRequestorSimulationID
+  //              KDIS::PDU::Linear_Object_State_PDU::GetRequestorSimulationID
+  // Description: The simulation application sending the PDU.
+  // Parameter:   const SimulationIdentifier & ID
+  //************************************
+  void SetRequestorSimulationID(
+      const KDIS::DATA_TYPE::SimulationIdentifier& ID);
+  const KDIS::DATA_TYPE::SimulationIdentifier& GetRequestorSimulationID() const;
+  KDIS::DATA_TYPE::SimulationIdentifier& GetRequestorSimulationID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::GetNumberOfSegments
-    // Description: The number of Linear Segment Parameter records contained within this PDU.
-    //************************************
-    KUINT8 GetNumberOfSegments() const;
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetReceivingSimulationID
+  //              KDIS::PDU::Linear_Object_State_PDU::GetReceivingSimulationID
+  // Description: The simulation application that is to receive the PDU.
+  // Parameter:   const SimulationIdentifier & ID
+  //************************************
+  void SetReceivingSimulationID(
+      const KDIS::DATA_TYPE::SimulationIdentifier& ID);
+  const KDIS::DATA_TYPE::SimulationIdentifier& GetReceivingSimulationID() const;
+  KDIS::DATA_TYPE::SimulationIdentifier& GetReceivingSimulationID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetRequestorSimulationID
-    //              KDIS::PDU::Linear_Object_State_PDU::GetRequestorSimulationID
-    // Description: The simulation application sending the PDU.
-    // Parameter:   const SimulationIdentifier & ID
-    //************************************
-    void SetRequestorSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
-    const KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID() const;
-    KDIS::DATA_TYPE::SimulationIdentifier & GetRequestorSimulationID();
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetObjectType
+  //              KDIS::PDU::Linear_Object_State_PDU::GetObjectType
+  // Description: The type of object. Represented as DIS enumeration(domain,
+  // kind, Category and sub category). Parameter:   const ObjectType & O
+  //************************************
+  void SetObjectType(const KDIS::DATA_TYPE::ObjectType& O);
+  const KDIS::DATA_TYPE::ObjectType& GetObjectType() const;
+  KDIS::DATA_TYPE::ObjectType& GetObjectType();
 
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetReceivingSimulationID
-    //              KDIS::PDU::Linear_Object_State_PDU::GetReceivingSimulationID
-    // Description: The simulation application that is to receive the PDU.
-    // Parameter:   const SimulationIdentifier & ID
-    //************************************
-    void SetReceivingSimulationID( const KDIS::DATA_TYPE::SimulationIdentifier & ID );
-    const KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID() const;
-    KDIS::DATA_TYPE::SimulationIdentifier & GetReceivingSimulationID();
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::AddLinearSegmentParameter
+  //              KDIS::PDU::Linear_Object_State_PDU::SetLinearSegmentParameters
+  //              KDIS::PDU::Linear_Object_State_PDU::GetLinearSegmentParameters
+  // Description: Specifies the parameter values for representing each linear
+  // segment. Parameter:   const LinearSegmentParameter & L, const
+  // vector<LinearSegmentParameter> & L
+  //************************************
+  void AddLinearSegmentParameter(
+      const KDIS::DATA_TYPE::LinearSegmentParameter& L);
+  void SetLinearSegmentParameters(
+      const std::vector<KDIS::DATA_TYPE::LinearSegmentParameter>& L);
+  const std::vector<KDIS::DATA_TYPE::LinearSegmentParameter>&
+  GetLinearSegmentParameters() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::SetObjectType
-    //              KDIS::PDU::Linear_Object_State_PDU::GetObjectType
-    // Description: The type of object. Represented as DIS enumeration(domain, kind, Category and sub category).
-    // Parameter:   const ObjectType & O
-    //************************************
-    void SetObjectType( const KDIS::DATA_TYPE::ObjectType & O );
-    const KDIS::DATA_TYPE::ObjectType & GetObjectType() const;
-    KDIS::DATA_TYPE::ObjectType & GetObjectType();
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::AddLinearSegmentParameter
-    //              KDIS::PDU::Linear_Object_State_PDU::SetLinearSegmentParameters
-    //              KDIS::PDU::Linear_Object_State_PDU::GetLinearSegmentParameters
-    // Description: Specifies the parameter values for representing each linear segment.
-    // Parameter:   const LinearSegmentParameter & L, const vector<LinearSegmentParameter> & L
-    //************************************
-    void AddLinearSegmentParameter( const KDIS::DATA_TYPE::LinearSegmentParameter & L );
-    void SetLinearSegmentParameters( const std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> & L );
-    const std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> & GetLinearSegmentParameters() const;
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Linear_Object_State_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Linear_Object_State_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Linear_Object_State_PDU & Value ) const;
-    KBOOL operator != ( const Linear_Object_State_PDU & Value ) const;
+  KBOOL operator==(const Linear_Object_State_PDU& Value) const;
+  KBOOL operator!=(const Linear_Object_State_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./PositionError.h"
+#include "KDIS/DataTypes/PositionError.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,116 +36,86 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-PositionError::PositionError()
-{
+PositionError::PositionError() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+PositionError::PositionError(KFIXED16_8 Horizontal, KFIXED16_8 Vertical)
+    : m_HorzErr(Horizontal), m_VertErr(Vertical) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+PositionError::PositionError(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+PositionError::~PositionError() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void PositionError::SetHorizontalError(KFIXED16_8 HE) { m_HorzErr = HE; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_8 PositionError::GetHorizontalError() const { return m_HorzErr; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void PositionError::SetVerticalError(KFIXED16_8 VE) { m_VertErr = VE; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_8 PositionError::GetVerticalError() const { return m_VertErr; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString PositionError::GetAsString() const {
+  KStringStream ss;
+
+  ss << "PositionError:\n"
+     << "\tHorizontal Error: " << m_HorzErr.GetAsString()
+     << "\tVertical Error:   " << m_VertErr.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PositionError::PositionError( KFIXED16_8 Horizontal, KFIXED16_8 Vertical ) :
-    m_HorzErr( Horizontal ),
-    m_VertErr( Vertical )
-{
+void PositionError::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < POSITION_ERROR_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> KDIS_STREAM m_HorzErr >> KDIS_STREAM m_VertErr;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PositionError::PositionError( KDataStream & stream ) 
-{
-    Decode( stream );
+KDataStream PositionError::Encode() const {
+  KDataStream stream;
+
+  PositionError::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PositionError::~PositionError()
-{
+void PositionError::Encode(KDataStream& stream) const {
+  stream << KDIS_STREAM m_HorzErr << KDIS_STREAM m_VertErr;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void PositionError::SetHorizontalError( KFIXED16_8 HE )
-{
-    m_HorzErr = HE;
+KBOOL PositionError::operator==(const PositionError& Value) const {
+  if (m_HorzErr != Value.m_HorzErr) return false;
+  if (m_VertErr != Value.m_VertErr) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFIXED16_8 PositionError::GetHorizontalError() const
-{
-    return m_HorzErr;
+KBOOL PositionError::operator!=(const PositionError& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void PositionError::SetVerticalError( KFIXED16_8 VE )
-{
-    m_VertErr = VE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFIXED16_8 PositionError::GetVerticalError() const
-{
-    return m_VertErr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString PositionError::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "PositionError:\n"
-       << "\tHorizontal Error: " << m_HorzErr.GetAsString()
-       << "\tVertical Error:   " << m_VertErr.GetAsString();
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void PositionError::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < POSITION_ERROR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> KDIS_STREAM m_HorzErr
-           >> KDIS_STREAM m_VertErr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream PositionError::Encode() const
-{
-    KDataStream stream;
-
-    PositionError::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void PositionError::Encode( KDataStream & stream ) const
-{
-    stream << KDIS_STREAM m_HorzErr
-           << KDIS_STREAM m_VertErr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL PositionError::operator == ( const PositionError & Value ) const
-{
-    if( m_HorzErr != Value.m_HorzErr )return false;
-    if( m_VertErr != Value.m_VertErr )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL PositionError::operator != ( const PositionError & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

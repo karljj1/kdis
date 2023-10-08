@@ -28,7 +28,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./NonHumanLifeFormAppearance.h"
+#include "KDIS/DataTypes/NonHumanLifeFormAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -40,95 +40,85 @@ using namespace ENUMS;
 
 //////////////////////////////////////////////////////////////////////////
 
-void NonHumanLifeFormAppearance::SetEntityDamage( EntityDamage ED )
-{
-    m_Damage = ED;
+void NonHumanLifeFormAppearance::SetEntityDamage(EntityDamage ED) {
+  m_Damage = ED;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDamage NonHumanLifeFormAppearance::GetEntityDamage() const
-{
-    return static_cast<EntityDamage>( m_Damage );
+EntityDamage NonHumanLifeFormAppearance::GetEntityDamage() const {
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void NonHumanLifeFormAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
-    m_FrozenStatus = EFS;
+void NonHumanLifeFormAppearance::SetEntityFrozenStatus(KBOOL EFS) {
+  m_FrozenStatus = EFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL NonHumanLifeFormAppearance::IsEntityFrozen() const
-{
-    return m_FrozenStatus;
+KBOOL NonHumanLifeFormAppearance::IsEntityFrozen() const {
+  return m_FrozenStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void NonHumanLifeFormAppearance::SetEntityMountedHoisted( KBOOL MH )
-{
-    m_MountedHoisted = MH;
+void NonHumanLifeFormAppearance::SetEntityMountedHoisted(KBOOL MH) {
+  m_MountedHoisted = MH;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL NonHumanLifeFormAppearance::IsEntityMountedHoisted() const
-{
-    return m_MountedHoisted;
+KBOOL NonHumanLifeFormAppearance::IsEntityMountedHoisted() const {
+  return m_MountedHoisted;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void NonHumanLifeFormAppearance::SetEntityStateActive( KBOOL ES )
-{
-    m_State = !ES;
+void NonHumanLifeFormAppearance::SetEntityStateActive(KBOOL ES) {
+  m_State = !ES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL NonHumanLifeFormAppearance::IsEntityStateActive() const
-{
-    return !m_State;
+KBOOL NonHumanLifeFormAppearance::IsEntityStateActive() const {
+  return !m_State;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString NonHumanLifeFormAppearance::GetAsString() const
-{
-    KStringStream ss;
+KString NonHumanLifeFormAppearance::GetAsString() const {
+  KStringStream ss;
 
-    ss << "Non-Human Lifeform Appearance:"
-       << "\n\tDamage:               " << GetEnumAsStringEntityDamage( m_Damage )
-       << "\n\tFrozen Status:        " << m_FrozenStatus
-       << "\n\tMounted/Hoisted:      " << m_MountedHoisted
-       << "\n\tState:                " << m_State
-       << "\n";
+  ss << "Non-Human Lifeform Appearance:"
+     << "\n\tDamage:               " << GetEnumAsStringEntityDamage(m_Damage)
+     << "\n\tFrozen Status:        " << m_FrozenStatus
+     << "\n\tMounted/Hoisted:      " << m_MountedHoisted
+     << "\n\tState:                " << m_State << "\n";
 
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL NonHumanLifeFormAppearance::operator == ( const NonHumanLifeFormAppearance & Value ) const
-{
-    // Lets do a single comparison instead of checking every field.
-    // This struct is basically a KUINT32 so lets cast it to one and compare.
+KBOOL NonHumanLifeFormAppearance::operator==(
+    const NonHumanLifeFormAppearance& Value) const {
+  // Lets do a single comparison instead of checking every field.
+  // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-    KUINT32 a = *( KUINT32 * )this;
-    KUINT32 b = *( KUINT32 * )&Value;
+  KUINT32 a = *(KUINT32*)this;
+  KUINT32 b = *(KUINT32*)&Value;
 
-    if( a != b )return false;
-    return true;
+  if (a != b) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL NonHumanLifeFormAppearance::operator != ( const NonHumanLifeFormAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL NonHumanLifeFormAppearance::operator!=(
+    const NonHumanLifeFormAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

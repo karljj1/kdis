@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./UnderwaterAcousticEmitterSystem.h"
+#include "KDIS/DataTypes/UnderwaterAcousticEmitterSystem.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -39,208 +39,190 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem() :
-    m_ui8EmitterSystemDataLength( UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE / 4 ),
-    m_ui8NumBeams( 0 ),
-    m_ui16Padding1( 0 )
-{
+UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem()
+    : m_ui8EmitterSystemDataLength(UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE / 4),
+      m_ui8NumBeams(0),
+      m_ui16Padding1(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem(
+    KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterSystem::UnderwaterAcousticEmitterSystem( KDataStream & stream ) 
-{
-    Decode( stream );
+UnderwaterAcousticEmitterSystem::~UnderwaterAcousticEmitterSystem() {
+  m_vUAEB.clear();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterSystem::~UnderwaterAcousticEmitterSystem()
-{
-    m_vUAEB.clear();
+KUINT8 UnderwaterAcousticEmitterSystem::GetEmitterSystemDataLength() const {
+  return m_ui8EmitterSystemDataLength;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 UnderwaterAcousticEmitterSystem::GetEmitterSystemDataLength() const
-{
-    return m_ui8EmitterSystemDataLength;
+KUINT8 UnderwaterAcousticEmitterSystem::GetNumberOfBeams() const {
+  return m_ui8NumBeams;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 UnderwaterAcousticEmitterSystem::GetNumberOfBeams() const
-{
-    return m_ui8NumBeams;
+void UnderwaterAcousticEmitterSystem::SetAcousticEmitterSystem(
+    const AcousticEmitterSystem& AES) {
+  m_AES = AES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::SetAcousticEmitterSystem( const AcousticEmitterSystem & AES )
-{
-    m_AES = AES;
+const AcousticEmitterSystem&
+UnderwaterAcousticEmitterSystem::GetAcousticEmitterSystem() const {
+  return m_AES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const AcousticEmitterSystem & UnderwaterAcousticEmitterSystem::GetAcousticEmitterSystem() const
-{
-    return m_AES;
+AcousticEmitterSystem&
+UnderwaterAcousticEmitterSystem::GetAcousticEmitterSystem() {
+  return m_AES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem & UnderwaterAcousticEmitterSystem::GetAcousticEmitterSystem()
-{
-    return m_AES;
+void UnderwaterAcousticEmitterSystem::SetLocation(const Vector& L) {
+  m_Location = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::SetLocation( const Vector & L )
-{
-    m_Location = L;
+const Vector& UnderwaterAcousticEmitterSystem::GetLocation() const {
+  return m_Location;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & UnderwaterAcousticEmitterSystem::GetLocation() const
-{
-    return m_Location;
+Vector& UnderwaterAcousticEmitterSystem::GetLocation() { return m_Location; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void UnderwaterAcousticEmitterSystem::AddUnderwaterAcousticEmitterBeam(
+    const UnderwaterAcousticEmitterBeam& UAEB) {
+  ++m_ui8NumBeams;
+  m_vUAEB.push_back(UAEB);
+  m_ui8EmitterSystemDataLength +=
+      UnderwaterAcousticEmitterBeam::UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE / 4;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & UnderwaterAcousticEmitterSystem::GetLocation()
-{
-    return m_Location;
+void UnderwaterAcousticEmitterSystem::SetUnderwaterAcousticEmitterBeams(
+    const vector<UnderwaterAcousticEmitterBeam>& UAEB) {
+  m_ui8EmitterSystemDataLength = UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE / 4;
+  m_vUAEB = UAEB;
+  m_ui8NumBeams = m_vUAEB.size();
+  m_ui8EmitterSystemDataLength +=
+      (m_vUAEB.size() *
+       UnderwaterAcousticEmitterBeam::UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE) /
+      4;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::AddUnderwaterAcousticEmitterBeam( const UnderwaterAcousticEmitterBeam & UAEB )
-{
-    ++m_ui8NumBeams;
-    m_vUAEB.push_back( UAEB );
-    m_ui8EmitterSystemDataLength += UnderwaterAcousticEmitterBeam::UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE / 4;
+const vector<UnderwaterAcousticEmitterBeam>&
+UnderwaterAcousticEmitterSystem::GetUnderwaterAcousticEmitterBeam() const {
+  return m_vUAEB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::SetUnderwaterAcousticEmitterBeams( const vector<UnderwaterAcousticEmitterBeam> & UAEB )
-{
-    m_ui8EmitterSystemDataLength = UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE / 4;
-    m_vUAEB = UAEB;
-    m_ui8NumBeams = m_vUAEB.size();
-    m_ui8EmitterSystemDataLength += ( m_vUAEB.size() * UnderwaterAcousticEmitterBeam::UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE ) / 4;
+void UnderwaterAcousticEmitterSystem::ClearUnderwaterAcousticEmitterBeams() {
+  m_ui8EmitterSystemDataLength = UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE / 4;
+  m_vUAEB.clear();
+  m_ui8NumBeams = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<UnderwaterAcousticEmitterBeam> & UnderwaterAcousticEmitterSystem::GetUnderwaterAcousticEmitterBeam() const
-{
-    return m_vUAEB;
+KString UnderwaterAcousticEmitterSystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Underwater Acoustic Emitter System:"
+     << "\n\tData Length:       " << (KUINT16)m_ui8EmitterSystemDataLength
+     << "\n\tNumber Of Beams:   " << (KUINT16)m_ui8NumBeams
+     << m_AES.GetAsString()
+     << "\n\tLocation:          " << m_Location.GetAsString();
+
+  vector<UnderwaterAcousticEmitterBeam>::const_iterator citr = m_vUAEB.begin();
+  vector<UnderwaterAcousticEmitterBeam>::const_iterator citrEnd = m_vUAEB.end();
+
+  for (; citr != citrEnd; ++citr) {
+    ss << citr->GetAsString();
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::ClearUnderwaterAcousticEmitterBeams()
-{
-    m_ui8EmitterSystemDataLength = UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE / 4;
-    m_vUAEB.clear();
-    m_ui8NumBeams = 0;
+void UnderwaterAcousticEmitterSystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8EmitterSystemDataLength >> m_ui8NumBeams >> m_ui16Padding1 >>
+      KDIS_STREAM m_AES >> KDIS_STREAM m_Location;
+
+  m_vUAEB.clear();
+
+  for (KUINT8 i = 0; i < m_ui8NumBeams; ++i) {
+    UnderwaterAcousticEmitterBeam UAEB;
+    stream >> KDIS_STREAM UAEB;
+    m_vUAEB.push_back(UAEB);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString UnderwaterAcousticEmitterSystem::GetAsString() const
-{
-    KStringStream ss;
+KDataStream UnderwaterAcousticEmitterSystem::Encode() const {
+  KDataStream stream;
 
-    ss << "Underwater Acoustic Emitter System:"
-       << "\n\tData Length:       " << ( KUINT16 )m_ui8EmitterSystemDataLength
-       << "\n\tNumber Of Beams:   " << ( KUINT16 )m_ui8NumBeams
-       << m_AES.GetAsString()
-       << "\n\tLocation:          " << m_Location.GetAsString();
+  UnderwaterAcousticEmitterSystem::Encode(stream);
 
-    vector<UnderwaterAcousticEmitterBeam>::const_iterator citr = m_vUAEB.begin();
-    vector<UnderwaterAcousticEmitterBeam>::const_iterator citrEnd = m_vUAEB.end();
-
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << citr->GetAsString();
-    }
-
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < UNDERWATER_ACOUSTIC_EMITTER_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void UnderwaterAcousticEmitterSystem::Encode(KDataStream& stream) const {
+  stream << m_ui8EmitterSystemDataLength << m_ui8NumBeams << m_ui16Padding1
+         << KDIS_STREAM m_AES << KDIS_STREAM m_Location;
 
-    stream >> m_ui8EmitterSystemDataLength
-           >> m_ui8NumBeams
-           >> m_ui16Padding1
-           >> KDIS_STREAM m_AES
-           >> KDIS_STREAM m_Location;
-
-    m_vUAEB.clear();
-
-    for( KUINT8 i = 0; i < m_ui8NumBeams; ++i )
-    {
-        UnderwaterAcousticEmitterBeam UAEB;
-        stream >> KDIS_STREAM UAEB;
-        m_vUAEB.push_back( UAEB );
-    }
+  vector<UnderwaterAcousticEmitterBeam>::const_iterator citr = m_vUAEB.begin();
+  vector<UnderwaterAcousticEmitterBeam>::const_iterator citrEnd = m_vUAEB.end();
+  for (; citr != citrEnd; ++citr) {
+    stream << KDIS_STREAM * citr;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream UnderwaterAcousticEmitterSystem::Encode() const
-{
-    KDataStream stream;
-
-    UnderwaterAcousticEmitterSystem::Encode( stream );
-
-    return stream;
+KBOOL UnderwaterAcousticEmitterSystem::operator==(
+    const UnderwaterAcousticEmitterSystem& Value) const {
+  if (m_ui8EmitterSystemDataLength != Value.m_ui8EmitterSystemDataLength)
+    return false;
+  if (m_ui8NumBeams != Value.m_ui8NumBeams) return false;
+  if (m_AES != Value.m_AES) return false;
+  if (m_Location != Value.m_Location) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterSystem::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8EmitterSystemDataLength
-           << m_ui8NumBeams
-           << m_ui16Padding1
-           << KDIS_STREAM m_AES
-           << KDIS_STREAM m_Location;
-
-    vector<UnderwaterAcousticEmitterBeam>::const_iterator citr = m_vUAEB.begin();
-    vector<UnderwaterAcousticEmitterBeam>::const_iterator citrEnd = m_vUAEB.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        stream << KDIS_STREAM *citr;
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL UnderwaterAcousticEmitterSystem::operator == ( const UnderwaterAcousticEmitterSystem & Value ) const
-{
-    if( m_ui8EmitterSystemDataLength  != Value.m_ui8EmitterSystemDataLength )  return false;
-    if( m_ui8NumBeams                 != Value.m_ui8NumBeams )                 return false;
-    if( m_AES                         != Value.m_AES )                         return false;
-    if( m_Location                    != Value.m_Location )                    return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL UnderwaterAcousticEmitterSystem::operator != ( const UnderwaterAcousticEmitterSystem & Value ) const
-{
-    return !( *this == Value );
+KBOOL UnderwaterAcousticEmitterSystem::operator!=(
+    const UnderwaterAcousticEmitterSystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

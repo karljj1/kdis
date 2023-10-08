@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Remove_Entity_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Remove_Entity_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,79 +42,70 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::Remove_Entity_PDU()
-{
-    m_ui8PDUType = Remove_Entity_PDU_Type;
-    m_ui16PDULength = REMOVE_ENTITY_PDU_SIZE;
+Remove_Entity_PDU::Remove_Entity_PDU() {
+  m_ui8PDUType = Remove_Entity_PDU_Type;
+  m_ui16PDULength = REMOVE_ENTITY_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::Remove_Entity_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Remove_Entity_PDU::Remove_Entity_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::Remove_Entity_PDU( const Header & H, KDataStream & stream )  :
-    Create_Entity_PDU( H )
-{
-    Decode( stream, true );
+Remove_Entity_PDU::Remove_Entity_PDU(const Header& H, KDataStream& stream)
+    : Create_Entity_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::Remove_Entity_PDU( const EntityIdentifier & OrigintatingID, const EntityIdentifier & ReceivingID, KUINT32 RequestID ) :
-    Create_Entity_PDU( OrigintatingID, ReceivingID, RequestID )
-{
-    m_ui8PDUType = Remove_Entity_PDU_Type;
-    m_ui16PDULength = REMOVE_ENTITY_PDU_SIZE;
+Remove_Entity_PDU::Remove_Entity_PDU(const EntityIdentifier& OrigintatingID,
+                                     const EntityIdentifier& ReceivingID,
+                                     KUINT32 RequestID)
+    : Create_Entity_PDU(OrigintatingID, ReceivingID, RequestID) {
+  m_ui8PDUType = Remove_Entity_PDU_Type;
+  m_ui16PDULength = REMOVE_ENTITY_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::Remove_Entity_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID ) :
-    Create_Entity_PDU( SimMgrHeader, RequestID )
-{
-    m_ui8PDUType = Remove_Entity_PDU_Type;
-    m_ui16PDULength = REMOVE_ENTITY_PDU_SIZE;
+Remove_Entity_PDU::Remove_Entity_PDU(
+    const Simulation_Management_Header& SimMgrHeader, KUINT32 RequestID)
+    : Create_Entity_PDU(SimMgrHeader, RequestID) {
+  m_ui8PDUType = Remove_Entity_PDU_Type;
+  m_ui16PDULength = REMOVE_ENTITY_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Remove_Entity_PDU::~Remove_Entity_PDU()
-{
+Remove_Entity_PDU::~Remove_Entity_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Remove_Entity_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Remove Entity PDU-\n"
+     << Simulation_Management_Header::GetAsString()
+     << "Request ID: " << m_ui32RequestID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Remove_Entity_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Remove Entity PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "Request ID: " << m_ui32RequestID
-       << "\n";
-
-    return ss.str();
+KBOOL Remove_Entity_PDU::operator==(const Remove_Entity_PDU& Value) const {
+  if (Create_Entity_PDU::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Remove_Entity_PDU::operator == ( const Remove_Entity_PDU & Value ) const
-{
-    if( Create_Entity_PDU::operator !=( Value ) ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Remove_Entity_PDU::operator != ( const Remove_Entity_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL Remove_Entity_PDU::operator!=(const Remove_Entity_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

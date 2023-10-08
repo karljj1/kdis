@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./CulturalFeatureAppearance.h"
+#include "KDIS/DataTypes/CulturalFeatureAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,138 +37,119 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntityDamage( EntityDamage ED )
-{
+void CulturalFeatureAppearance::SetEntityDamage(EntityDamage ED) {
   m_Damage = ED;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDamage CulturalFeatureAppearance::GetEntityDamage() const
-{
-  return ( EntityDamage )m_Damage;
+EntityDamage CulturalFeatureAppearance::GetEntityDamage() const {
+  return (EntityDamage)m_Damage;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntitySmokeEmanating( KBOOL ESE )
-{
+void CulturalFeatureAppearance::SetEntitySmokeEmanating(KBOOL ESE) {
   m_Smoke = ESE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsEntitySmokeEmanating() const
-{
-  return static_cast<KBOOL>( m_Smoke );
+KBOOL CulturalFeatureAppearance::IsEntitySmokeEmanating() const {
+  return static_cast<KBOOL>(m_Smoke);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntityFlamingEffect( KBOOL EFE )
-{
+void CulturalFeatureAppearance::SetEntityFlamingEffect(KBOOL EFE) {
   m_FlamingEffectField = EFE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsEntityFlaming() const
-{
+KBOOL CulturalFeatureAppearance::IsEntityFlaming() const {
   return m_FlamingEffectField;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
+void CulturalFeatureAppearance::SetEntityFrozenStatus(KBOOL EFS) {
   m_FrozenStatus = EFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsEntityFrozen() const
-{
+KBOOL CulturalFeatureAppearance::IsEntityFrozen() const {
   return m_FrozenStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetInternalHeatStatusOn( KBOOL IHS )
-{
+void CulturalFeatureAppearance::SetInternalHeatStatusOn(KBOOL IHS) {
   m_InternalHeatStatus = IHS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsInternalHeatOn() const
-{
+KBOOL CulturalFeatureAppearance::IsInternalHeatOn() const {
   return m_InternalHeatStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntityStateActive( KBOOL ES )
-{
+void CulturalFeatureAppearance::SetEntityStateActive(KBOOL ES) {
   m_State = !ES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsEntityStateActive() const
-{
+KBOOL CulturalFeatureAppearance::IsEntityStateActive() const {
   return !m_State;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntityExteriorLights( KBOOL EL )
-{
+void CulturalFeatureAppearance::SetEntityExteriorLights(KBOOL EL) {
   m_ExteriorLights = EL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsEntityExteriorLightsOn() const
-{
+KBOOL CulturalFeatureAppearance::IsEntityExteriorLightsOn() const {
   return m_ExteriorLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntityInteriorLights( KBOOL IL )
-{
+void CulturalFeatureAppearance::SetEntityInteriorLights(KBOOL IL) {
   m_InteriorLights = IL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsEntityInteriorLightsOn() const
-{
+KBOOL CulturalFeatureAppearance::IsEntityInteriorLightsOn() const {
   return m_InteriorLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CulturalFeatureAppearance::SetEntityMaskedCloaked( KBOOL MC )
-{
+void CulturalFeatureAppearance::SetEntityMaskedCloaked(KBOOL MC) {
   m_MaskedCloaked = MC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::IsEntityMaskedCloaked() const
-{
+KBOOL CulturalFeatureAppearance::IsEntityMaskedCloaked() const {
   return m_MaskedCloaked;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString CulturalFeatureAppearance::GetAsString() const
-{
+KString CulturalFeatureAppearance::GetAsString() const {
   KStringStream ss;
 
   ss << "Cultural Feature Appearance:"
-     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
+     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)
      << "\n\tSmoke Emanating:        " << m_Smoke
      << "\n\tFlaming Effect:         " << m_FlamingEffectField
      << "\n\tFrozen Status:          " << m_FrozenStatus
@@ -176,34 +157,30 @@ KString CulturalFeatureAppearance::GetAsString() const
      << "\n\tState:                  " << m_State
      << "\n\tExterior Lights:        " << m_InteriorLights
      << "\n\tInterior Lights:        " << m_InteriorLights
-     << "\n\tMasked/Cloaked:         " << m_MaskedCloaked
-     << "\n";
+     << "\n\tMasked/Cloaked:         " << m_MaskedCloaked << "\n";
 
   return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::operator == ( const CulturalFeatureAppearance & Value ) const
-{
+KBOOL CulturalFeatureAppearance::operator==(
+    const CulturalFeatureAppearance& Value) const {
   // Lets do a single comparison instead of checking every field.
   // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-  KUINT32 a = *( KUINT32 * )this;
-  KUINT32 b = *( KUINT32 * )&Value;
+  KUINT32 a = *(KUINT32*)this;
+  KUINT32 b = *(KUINT32*)&Value;
 
-  if( a != b )return false;
+  if (a != b) return false;
   return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL CulturalFeatureAppearance::operator != ( const CulturalFeatureAppearance & Value ) const
-{
-  return !( *this == Value );
+KBOOL CulturalFeatureAppearance::operator!=(
+    const CulturalFeatureAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-
-

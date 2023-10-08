@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EncodingScheme.h"
+#include "KDIS/DataTypes/EncodingScheme.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,159 +37,133 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::EncodingScheme() :
-    m_ui16TDLType( 0 )
-{
-    m_EncodingSchemeUnion.m_ui16EncodingScheme = 0;
+EncodingScheme::EncodingScheme() : m_ui16TDLType(0) {
+  m_EncodingSchemeUnion.m_ui16EncodingScheme = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::EncodingScheme( KDataStream & stream ) 
-{
-    Decode( stream );
+EncodingScheme::EncodingScheme(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+EncodingScheme::EncodingScheme(EncodingClass EC, KUINT16 EncodingType,
+                               TDLType T)
+    : m_ui16TDLType(T) {
+  m_EncodingSchemeUnion.m_ui16Type = EncodingType;
+  m_EncodingSchemeUnion.m_ui16Class = EC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::EncodingScheme( EncodingClass EC, KUINT16 EncodingType, TDLType T ) :
-    m_ui16TDLType( T )
-{
-    m_EncodingSchemeUnion.m_ui16Type = EncodingType;
-    m_EncodingSchemeUnion.m_ui16Class = EC;
+EncodingScheme::EncodingScheme(EncodingType Audio, TDLType T)
+    : m_ui16TDLType(T) {
+  m_EncodingSchemeUnion.m_ui16Type = Audio;
+  m_EncodingSchemeUnion.m_ui16Class = EncodedAudio;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::EncodingScheme( EncodingType Audio, TDLType T ) :
-    m_ui16TDLType( T )
-{
-    m_EncodingSchemeUnion.m_ui16Type = Audio;
-    m_EncodingSchemeUnion.m_ui16Class = EncodedAudio;
+EncodingScheme::~EncodingScheme() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EncodingScheme::SetEncodingClass(EncodingClass EC) {
+  m_EncodingSchemeUnion.m_ui16Class = EC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingScheme::~EncodingScheme()
-{
+EncodingClass EncodingScheme::GetEncodingClass() const {
+  return (EncodingClass)m_EncodingSchemeUnion.m_ui16Class;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EncodingScheme::SetEncodingClass( EncodingClass EC )
-{
-    m_EncodingSchemeUnion.m_ui16Class = EC;
+void EncodingScheme::SetEncodingTypeAudio(EncodingType T) {
+  m_EncodingSchemeUnion.m_ui16Class = EncodedAudio;
+  m_EncodingSchemeUnion.m_ui16Type = T;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingClass EncodingScheme::GetEncodingClass() const
-{
-    return ( EncodingClass )m_EncodingSchemeUnion.m_ui16Class;
+EncodingType EncodingScheme::GetEncodingTypeAudio() const {
+  return (EncodingType)m_EncodingSchemeUnion.m_ui16Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EncodingScheme::SetEncodingTypeAudio( EncodingType T )
-{
-    m_EncodingSchemeUnion.m_ui16Class = EncodedAudio;
-    m_EncodingSchemeUnion.m_ui16Type = T;
+void EncodingScheme::SetEncodingType(KUINT16 T) {
+  m_EncodingSchemeUnion.m_ui16Type = T;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EncodingType EncodingScheme::GetEncodingTypeAudio() const
-{
-    return ( EncodingType )m_EncodingSchemeUnion.m_ui16Type;
+KUINT16 EncodingScheme::GetEncodingType() const {
+  return m_EncodingSchemeUnion.m_ui16Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EncodingScheme::SetEncodingType( KUINT16 T )
-{
-    m_EncodingSchemeUnion.m_ui16Type = T;
+void EncodingScheme::SetTDLType(TDLType T) { m_ui16TDLType = T; }
+
+//////////////////////////////////////////////////////////////////////////
+
+TDLType EncodingScheme::GetTDLType() const { return (TDLType)m_ui16TDLType; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString EncodingScheme::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Encoding Scheme:"
+     << "\n\tClass:    "
+     << GetEnumAsStringEncodingClass(m_EncodingSchemeUnion.m_ui16Class)
+     << "\n\tType:     " << m_EncodingSchemeUnion.m_ui16Type
+     << "\n\tTDL:      " << GetEnumAsStringTDLType(m_ui16TDLType) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 EncodingScheme::GetEncodingType() const
-{
-    return m_EncodingSchemeUnion.m_ui16Type;
+void EncodingScheme::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ENCODING_SCHEME_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_EncodingSchemeUnion.m_ui16EncodingScheme >> m_ui16TDLType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EncodingScheme::SetTDLType( TDLType T )
-{
-    m_ui16TDLType = T;
+KDataStream EncodingScheme::Encode() const {
+  KDataStream stream;
+
+  EncodingScheme::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-TDLType EncodingScheme::GetTDLType() const
-{
-    return ( TDLType )m_ui16TDLType;
+void EncodingScheme::Encode(KDataStream& stream) const {
+  stream << m_EncodingSchemeUnion.m_ui16EncodingScheme << m_ui16TDLType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString EncodingScheme::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Encoding Scheme:"
-       << "\n\tClass:    " << GetEnumAsStringEncodingClass( m_EncodingSchemeUnion.m_ui16Class )
-       << "\n\tType:     " << m_EncodingSchemeUnion.m_ui16Type
-       << "\n\tTDL:      " << GetEnumAsStringTDLType( m_ui16TDLType )
-       << "\n";
-
-    return ss.str();
+KBOOL EncodingScheme::operator==(const EncodingScheme& Value) const {
+  if (m_EncodingSchemeUnion.m_ui16EncodingScheme !=
+      Value.m_EncodingSchemeUnion.m_ui16EncodingScheme)
+    return false;
+  if (m_ui16TDLType != Value.m_ui16TDLType) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EncodingScheme::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ENCODING_SCHEME_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_EncodingSchemeUnion.m_ui16EncodingScheme
-           >> m_ui16TDLType;
+KBOOL EncodingScheme::operator!=(const EncodingScheme& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KDataStream EncodingScheme::Encode() const
-{
-    KDataStream stream;
-
-    EncodingScheme::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EncodingScheme::Encode( KDataStream & stream ) const
-{
-    stream << m_EncodingSchemeUnion.m_ui16EncodingScheme
-           << m_ui16TDLType;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EncodingScheme::operator == ( const EncodingScheme & Value ) const
-{
-    if( m_EncodingSchemeUnion.m_ui16EncodingScheme != Value.m_EncodingSchemeUnion.m_ui16EncodingScheme ) return false;
-    if( m_ui16TDLType != Value.m_ui16TDLType ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EncodingScheme::operator != ( const EncodingScheme & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

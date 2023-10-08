@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EllipsoidRecord1.h"
+#include "KDIS/DataTypes/EllipsoidRecord1.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,169 +37,127 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-EllipsoidRecord1::EllipsoidRecord1()
-{
-    m_ui32EnvRecTyp = EllipsoidRecord1Type;
-    m_ui16Length = ( ELIPSOID_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+EllipsoidRecord1::EllipsoidRecord1() {
+  m_ui32EnvRecTyp = EllipsoidRecord1Type;
+  m_ui16Length = (ELIPSOID_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EllipsoidRecord1::EllipsoidRecord1( KDataStream & stream )
-{
-    Decode( stream );
+EllipsoidRecord1::EllipsoidRecord1(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+EllipsoidRecord1::EllipsoidRecord1(KUINT8 Index,
+                                   const WorldCoordinates& CentroidLocation,
+                                   const Vector& Sigma,
+                                   const EulerAngles& Orientation)
+    : m_CentLocation(CentroidLocation), m_Sigma(Sigma), m_Ori(Orientation) {
+  m_ui32EnvRecTyp = EllipsoidRecord1Type;
+  m_ui16Length = (ELIPSOID_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE) * 8;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EllipsoidRecord1::EllipsoidRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation,
-                                    const Vector & Sigma, const EulerAngles & Orientation ) :
-    m_CentLocation( CentroidLocation ),
-    m_Sigma( Sigma ),
-    m_Ori( Orientation )
-{
-    m_ui32EnvRecTyp = EllipsoidRecord1Type;
-    m_ui16Length = ( ELIPSOID_RECORD_1_SIZE - ENVIRONMENT_RECORD_SIZE ) * 8;
+EllipsoidRecord1::~EllipsoidRecord1() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EllipsoidRecord1::SetCentroidLocation(const WorldCoordinates& CL) {
+  m_CentLocation = CL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EllipsoidRecord1::~EllipsoidRecord1()
-{
+const WorldCoordinates& EllipsoidRecord1::GetCentroidLocation() const {
+  return m_CentLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EllipsoidRecord1::SetCentroidLocation( const WorldCoordinates & CL )
-{
-    m_CentLocation = CL;
+WorldCoordinates& EllipsoidRecord1::GetCentroidLocation() {
+  return m_CentLocation;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & EllipsoidRecord1::GetCentroidLocation() const
-{
-    return m_CentLocation;
+void EllipsoidRecord1::SetSigma(const Vector& S) { m_Sigma = S; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const Vector& EllipsoidRecord1::GetSigma() const { return m_Sigma; }
+
+//////////////////////////////////////////////////////////////////////////
+
+Vector& EllipsoidRecord1::GetSigma() { return m_Sigma; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void EllipsoidRecord1::SetOrientation(const EulerAngles& O) { m_Ori = O; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const EulerAngles& EllipsoidRecord1::GetOrientation() const { return m_Ori; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EulerAngles& EllipsoidRecord1::GetOrientation() { return m_Ori; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString EllipsoidRecord1::GetAsString() const {
+  KStringStream ss;
+
+  ss << EnvironmentRecord::GetAsString()
+     << "\tCentroid Location: " << m_CentLocation.GetAsString()
+     << "\tSigma:             " << m_Sigma.GetAsString()
+     << "\tOrientation:       " << m_Ori.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & EllipsoidRecord1::GetCentroidLocation()
-{
-    return m_CentLocation;
+void EllipsoidRecord1::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ELIPSOID_RECORD_1_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
+      KDIS_STREAM m_CentLocation >> KDIS_STREAM m_Sigma >> KDIS_STREAM m_Ori;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EllipsoidRecord1::SetSigma( const Vector & S )
-{
-    m_Sigma = S;
+KDataStream EllipsoidRecord1::Encode() const {
+  KDataStream stream;
+
+  EllipsoidRecord1::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const Vector & EllipsoidRecord1::GetSigma() const
-{
-    return m_Sigma;
+void EllipsoidRecord1::Encode(KDataStream& stream) const {
+  stream << m_ui32EnvRecTyp << m_ui16Length << m_ui8Index << m_ui8Padding
+         << KDIS_STREAM m_CentLocation << KDIS_STREAM m_Sigma
+         << KDIS_STREAM m_Ori;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Vector & EllipsoidRecord1::GetSigma()
-{
-    return m_Sigma;
+KBOOL EllipsoidRecord1::operator==(const EllipsoidRecord1& Value) const {
+  if (EnvironmentRecord::operator!=(Value)) return false;
+  if (m_CentLocation != Value.m_CentLocation) return false;
+  if (m_Sigma != Value.m_Sigma) return false;
+  if (m_Ori != Value.m_Ori) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EllipsoidRecord1::SetOrientation( const EulerAngles & O )
-{
-    m_Ori = O;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-const EulerAngles & EllipsoidRecord1::GetOrientation() const
-{
-    return m_Ori;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-EulerAngles & EllipsoidRecord1::GetOrientation()
-{
-    return m_Ori;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString EllipsoidRecord1::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << EnvironmentRecord::GetAsString()
-       << "\tCentroid Location: " << m_CentLocation.GetAsString()
-       << "\tSigma:             " << m_Sigma.GetAsString()
-       << "\tOrientation:       " << m_Ori.GetAsString();
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EllipsoidRecord1::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ELIPSOID_RECORD_1_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui32EnvRecTyp
-           >> m_ui16Length
-           >> m_ui8Index
-           >> m_ui8Padding
-           >> KDIS_STREAM m_CentLocation
-           >> KDIS_STREAM m_Sigma
-           >> KDIS_STREAM m_Ori;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream EllipsoidRecord1::Encode() const
-{
-    KDataStream stream;
-
-    EllipsoidRecord1::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EllipsoidRecord1::Encode( KDataStream & stream ) const
-{
-    stream << m_ui32EnvRecTyp
-           << m_ui16Length
-           << m_ui8Index
-           << m_ui8Padding
-           << KDIS_STREAM m_CentLocation
-           << KDIS_STREAM m_Sigma
-           << KDIS_STREAM m_Ori;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EllipsoidRecord1::operator == ( const EllipsoidRecord1 & Value )const
-{
-    if( EnvironmentRecord::operator !=( Value ) ) return false;
-    if( m_CentLocation != Value.m_CentLocation )  return false;
-    if( m_Sigma        != Value.m_Sigma )         return false;
-    if( m_Ori          != Value.m_Ori )           return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EllipsoidRecord1::operator != ( const EllipsoidRecord1 & Value )const
-{
-    return !( *this == Value );
+KBOOL EllipsoidRecord1::operator!=(const EllipsoidRecord1& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

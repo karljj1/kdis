@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./OrientationError.h"
+#include "KDIS/DataTypes/OrientationError.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,135 +36,99 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-OrientationError::OrientationError()
-{
+OrientationError::OrientationError() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+OrientationError::OrientationError(KFIXED16_8 Azimuth, KFIXED16_8 Elevation,
+                                   KFIXED16_8 Rotation)
+    : m_AziErr(Azimuth), m_ElvErr(Elevation), m_RotErr(Rotation) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+OrientationError::OrientationError(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+OrientationError::~OrientationError() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void OrientationError::SetAzimuthError(KFIXED16_8 AE) { m_AziErr = AE; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_8 OrientationError::GetAzimuthError() const { return m_AziErr; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void OrientationError::SetElevationError(KFIXED16_8 EE) { m_ElvErr = EE; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_8 OrientationError::GetElevationError() const { return m_ElvErr; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void OrientationError::SetRotationError(KFIXED16_8 RE) { m_RotErr = RE; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_8 OrientationError::GetRotationError() const { return m_RotErr; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString OrientationError::GetAsString() const {
+  KStringStream ss;
+
+  ss << "OrientationError:\n"
+     << "\tAzimuth Error:   " << m_AziErr.GetAsString()
+     << "\tElevation Error: " << m_ElvErr.GetAsString()
+     << "\tRotation Error : " << m_RotErr.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-OrientationError::OrientationError( KFIXED16_8 Azimuth, KFIXED16_8 Elevation, KFIXED16_8 Rotation ) :
-    m_AziErr( Azimuth ),
-    m_ElvErr( Elevation ),
-    m_RotErr( Rotation )
-{
+void OrientationError::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ORIENTATION_ERROR_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> KDIS_STREAM m_AziErr >> KDIS_STREAM m_ElvErr >>
+      KDIS_STREAM m_RotErr;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-OrientationError::OrientationError( KDataStream & stream ) 
-{
-    Decode( stream );
+KDataStream OrientationError::Encode() const {
+  KDataStream stream;
+
+  OrientationError::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-OrientationError::~OrientationError()
-{
+void OrientationError::Encode(KDataStream& stream) const {
+  stream << KDIS_STREAM m_AziErr << KDIS_STREAM m_ElvErr
+         << KDIS_STREAM m_RotErr;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void OrientationError::SetAzimuthError( KFIXED16_8 AE )
-{
-    m_AziErr = AE;
+KBOOL OrientationError::operator==(const OrientationError& Value) const {
+  if (m_AziErr != Value.m_AziErr) return false;
+  if (m_ElvErr != Value.m_ElvErr) return false;
+  if (m_RotErr != Value.m_RotErr) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFIXED16_8 OrientationError::GetAzimuthError() const
-{
-    return m_AziErr;
+KBOOL OrientationError::operator!=(const OrientationError& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void OrientationError::SetElevationError( KFIXED16_8 EE )
-{
-    m_ElvErr = EE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFIXED16_8 OrientationError::GetElevationError() const
-{
-    return m_ElvErr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void OrientationError::SetRotationError( KFIXED16_8 RE )
-{
-    m_RotErr = RE;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFIXED16_8 OrientationError::GetRotationError() const
-{
-    return m_RotErr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString OrientationError::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "OrientationError:\n"
-       << "\tAzimuth Error:   " << m_AziErr.GetAsString()
-       << "\tElevation Error: " << m_ElvErr.GetAsString()
-       << "\tRotation Error : " << m_RotErr.GetAsString();
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void OrientationError::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ORIENTATION_ERROR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> KDIS_STREAM m_AziErr
-           >> KDIS_STREAM m_ElvErr
-           >> KDIS_STREAM m_RotErr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream OrientationError::Encode() const
-{
-    KDataStream stream;
-
-    OrientationError::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void OrientationError::Encode( KDataStream & stream ) const
-{
-    stream << KDIS_STREAM m_AziErr
-           << KDIS_STREAM m_ElvErr
-           << KDIS_STREAM m_RotErr;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL OrientationError::operator == ( const OrientationError & Value ) const
-{
-    if( m_AziErr != Value.m_AziErr )return false;
-    if( m_ElvErr != Value.m_ElvErr )return false;
-    if( m_RotErr != Value.m_RotErr )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL OrientationError::operator != ( const OrientationError & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

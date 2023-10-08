@@ -39,91 +39,96 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Radio_Communications_Header : public Header
-{
-protected:
+class KDIS_EXPORT Radio_Communications_Header : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
+  KUINT16 m_ui16RadioID;
 
-    KUINT16 m_ui16RadioID;
+ public:
+  static const KUINT16 RADIO_COMMUNICATIONS_HEADER_SIZE = 20;
 
-public:
+  Radio_Communications_Header();
 
-    static const KUINT16 RADIO_COMMUNICATIONS_HEADER_SIZE = 20;
+  explicit Radio_Communications_Header(const Header& H);
 
-    Radio_Communications_Header();
+  Radio_Communications_Header(KDataStream& stream);
 
-    explicit Radio_Communications_Header( const Header & H );
+  Radio_Communications_Header(const Header& H, KDataStream& stream);
 
-    Radio_Communications_Header( KDataStream & stream ) ;
+  Radio_Communications_Header(const KDIS::DATA_TYPE::EntityIdentifier& ID,
+                              KUINT16 RadioID);
 
-    Radio_Communications_Header( const Header & H, KDataStream & stream ) ;
+  virtual ~Radio_Communications_Header();
 
-    Radio_Communications_Header( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID );
+  //************************************
+  // FullName:    KDIS::PDU::Radio_Communications_Header::SetEntityID
+  //              KDIS::PDU::Radio_Communications_Header::GetEntityID
+  // Description: For attached radios, this field should identify the Entity
+  // Identifier record
+  //              or Object Identifier record to which the radio is attached.
+  //              For unattached radios, this field should contain the
+  //              Unattached Identifier record. Also known as Radio Reference ID
+  //              in DIS 7. Note: The combination of the Radio Reference ID and
+  //              the Radio Number field uniquely identifies a particular radio
+  //              within a simulation exercise. This combination is referred to
+  //              as the Radio Identifier. The Radio Identifier is used to
+  //              associate Transmitter, Signal, and Receiver PDUs with the same
+  //              radio.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetEntityID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetEntityID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetEntityID();
 
-    virtual ~Radio_Communications_Header();
+  //************************************
+  // FullName:    KDIS::PDU::Radio_Communications_Header::SetRadioID
+  //              KDIS::PDU::Radio_Communications_Header::GetRadioID
+  // Description: Identifies a radio/communications device belonging to the
+  // entity.
+  //              IDs should be assigned sequentially to entities, starting
+  //              with 1. Also known as Radio Number in DIS 7. Note: The
+  //              combination of the Radio Reference ID and the Radio Number
+  //              field uniquely identifies a particular radio within a
+  //              simulation exercise. This combination is referred to as the
+  //              Radio Identifier. The Radio Identifier is used to associate
+  //              Transmitter, Signal, and Receiver PDUs with the same radio.
+  // Parameter:   KUINT16 ID
+  //************************************
+  void SetRadioID(KUINT16 ID);
+  KUINT16 GetRadioID() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Radio_Communications_Header::SetEntityID
-    //              KDIS::PDU::Radio_Communications_Header::GetEntityID
-    // Description: For attached radios, this field should identify the Entity Identifier record
-    //              or Object Identifier record to which the radio is attached.
-    //              For unattached radios, this field should contain the Unattached Identifier record.
-    //              Also known as Radio Reference ID in DIS 7.
-    //              Note: The combination of the Radio Reference ID and the Radio Number field uniquely identifies a
-    //              particular radio within a simulation exercise. This combination is referred to as the Radio Identifier.
-    //              The Radio Identifier is used to associate Transmitter, Signal, and Receiver PDUs with the same radio.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetEntityID ( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetEntityID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetEntityID();
+  //************************************
+  // FullName:    KDIS::PDU::Radio_Communications_Header::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Radio_Communications_Header::SetRadioID
-    //              KDIS::PDU::Radio_Communications_Header::GetRadioID
-    // Description: Identifies a radio/communications device belonging to the entity.
-    //              IDs should be assigned sequentially to entities, starting with 1.
-    //              Also known as Radio Number in DIS 7.
-    //              Note: The combination of the Radio Reference ID and the Radio Number field uniquely identifies a
-    //              particular radio within a simulation exercise. This combination is referred to as the Radio Identifier.
-    //              The Radio Identifier is used to associate Transmitter, Signal, and Receiver PDUs with the same radio.
-    // Parameter:   KUINT16 ID
-    //************************************
-    void SetRadioID( KUINT16 ID );
-    KUINT16 GetRadioID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Radio_Communications_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Radio_Communications_Header::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Radio_Communications_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Radio_Communications_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Radio_Communications_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Radio_Communications_Header & Value ) const;
-    KBOOL operator != ( const Radio_Communications_Header & Value ) const;
+  KBOOL operator==(const Radio_Communications_Header& Value) const;
+  KBOOL operator!=(const Radio_Communications_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

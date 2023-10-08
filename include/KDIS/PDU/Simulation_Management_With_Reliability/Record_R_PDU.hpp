@@ -40,79 +40,80 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Set_Record_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Set_Record_R_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Record_R_PDU : public Set_Record_R_PDU
-{
-protected:
+class KDIS_EXPORT Record_R_PDU : public Set_Record_R_PDU {
+ protected:
+  KUINT16 m_ui16EvntTyp;
 
-    KUINT16 m_ui16EvntTyp;
+  KUINT32 m_ui32SrlNm;
 
-    KUINT32 m_ui32SrlNm;
+ public:
+  static const KUINT16 RECORD_R_PDU_SIZE = 40;
 
-public:
+  Record_R_PDU();
 
-    static const KUINT16 RECORD_R_PDU_SIZE = 40;
+  explicit Record_R_PDU(KDataStream& stream);
 
-    Record_R_PDU();
+  Record_R_PDU(const Header& H, KDataStream& stream);
 
-    Record_R_PDU( KDataStream & stream ) ;
+  Record_R_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+               const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+               KUINT32 RequestID,
+               KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS,
+               KDIS::DATA_TYPE::ENUMS::EventType ET,
+               KUINT32 ResponseSerialNumber);
 
-    Record_R_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Record_R_PDU();
 
-    Record_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID, KUINT32 RequestID,
-                  KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS, KDIS::DATA_TYPE::ENUMS::EventType ET, KUINT32 ResponseSerialNumber );
+  //************************************
+  // FullName:    KDIS::PDU::Record_R_PDU::SetEventType
+  //              KDIS::PDU::Record_R_PDU::GetEventType
+  // Description: Event type
+  // Parameter:   EventType ET
+  //************************************
+  void SetEventType(KDIS::DATA_TYPE::ENUMS::EventType ET);
+  KDIS::DATA_TYPE::ENUMS::EventType GetEventType() const;
 
-    virtual ~Record_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Record_R_PDU::SetResponseSerialNumber
+  //              KDIS::PDU::Record_R_PDU::GetResponseSerialNumber
+  // Description: Used to indicate the serial number of the
+  //              Record-R PDU when more than one PDU is used
+  //              to report record values.
+  // Parameter:   KUINT32 RSN, void
+  //************************************
+  void SetResponseSerialNumber(KUINT32 RSN);
+  KUINT32 GetResponseSerialNumber() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_R_PDU::SetEventType
-    //              KDIS::PDU::Record_R_PDU::GetEventType
-    // Description: Event type
-    // Parameter:   EventType ET
-    //************************************
-    void SetEventType( KDIS::DATA_TYPE::ENUMS::EventType ET );
-    KDIS::DATA_TYPE::ENUMS::EventType GetEventType() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_R_PDU::SetResponseSerialNumber
-    //              KDIS::PDU::Record_R_PDU::GetResponseSerialNumber
-    // Description: Used to indicate the serial number of the
-    //              Record-R PDU when more than one PDU is used
-    //              to report record values.
-    // Parameter:   KUINT32 RSN, void
-    //************************************
-    void SetResponseSerialNumber( KUINT32 RSN );
-    KUINT32 GetResponseSerialNumber() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_R_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Record_R_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Record_R_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Record_R_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Record_R_PDU & Value ) const;
-    KBOOL operator != ( const Record_R_PDU & Value ) const;
+  KBOOL operator==(const Record_R_PDU& Value) const;
+  KBOOL operator!=(const Record_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

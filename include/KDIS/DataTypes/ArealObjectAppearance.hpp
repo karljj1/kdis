@@ -38,85 +38,80 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./ObjectAppearance.h"
+#include "KDIS/DataTypes/ObjectAppearance.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ArealObjectAppearance : public ObjectAppearance
-{
-protected:
+class KDIS_EXPORT ArealObjectAppearance : public ObjectAppearance {
+ protected:
+  union {
+    struct {
+      KUINT32 m_ui32Breach : 2;
+      KUINT32 m_ui32Unused : 14;
+      KUINT32 m_ui32Mines : 16;
+    } m_Minefield;
 
-    union
-    {
-        struct
-        {
-            KUINT32 m_ui32Breach : 2;
-			KUINT32 m_ui32Unused : 14;
-            KUINT32 m_ui32Mines  : 16;
-        } m_Minefield;
+    KUINT32 m_ui32SpecificAppearance;
+  } m_SpecificAppearanceUnion;
 
-        KUINT32 m_ui32SpecificAppearance;
-    } m_SpecificAppearanceUnion;
+ public:
+  static const KUINT16 AREAL_OBJECT_APPEARANCE_SIZE = 6;
 
-public:
+  ArealObjectAppearance();
 
-    static const KUINT16 AREAL_OBJECT_APPEARANCE_SIZE = 6;
+  ArealObjectAppearance(KDataStream& stream);
 
-    ArealObjectAppearance();
+  virtual ~ArealObjectAppearance();
 
-    ArealObjectAppearance( KDataStream & stream ) ;
+  /************************************************************************/
+  /* The following appearance values are only for areal's of the type:    */
+  /*  Minefield                                                           */
+  /************************************************************************/
 
-    virtual ~ArealObjectAppearance();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::SetBreach
+  //              KDIS::DATA_TYPE::ArealObjectAppearance::GetBreach
+  // Description: Describes the breached appearance of the object.
+  // Parameter:   Breach2bit B, void
+  ////************************************
+  void SetBreach(KDIS::DATA_TYPE::ENUMS::Breach2bit B);
+  KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for areal's of the type:    */
-    /*  Minefield                                                           */
-    /************************************************************************/
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::SetMineCount
+  //              KDIS::DATA_TYPE::ArealObjectAppearance::GetMineCount
+  // Description: The number of mines in the minefield.
+  // Parameter:   KUINT16 M, void
+  //************************************
+  void SetMineCount(KUINT16 M);
+  KUINT16 GetMineCount() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::SetBreach
-    //              KDIS::DATA_TYPE::ArealObjectAppearance::GetBreach
-    // Description: Describes the breached appearance of the object.
-    // Parameter:   Breach2bit B, void
-    ////************************************
-    void SetBreach( KDIS::DATA_TYPE::ENUMS::Breach2bit B );
-    KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::GetAsString
+  // Description: Returns a string representation of the appearance
+  // Parameter:   const EntityType & EntType
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::SetMineCount
-    //              KDIS::DATA_TYPE::ArealObjectAppearance::GetMineCount
-    // Description: The number of mines in the minefield.
-    // Parameter:   KUINT16 M, void
-    //************************************
-    void SetMineCount( KUINT16 M );
-    KUINT16 GetMineCount() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::GetAsString
-    // Description: Returns a string representation of the appearance
-    // Parameter:   const EntityType & EntType
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const ArealObjectAppearance & Value ) const;
-    KBOOL operator != ( const ArealObjectAppearance & Value ) const;
+  KBOOL operator==(const ArealObjectAppearance& Value) const;
+  KBOOL operator!=(const ArealObjectAppearance& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -32,83 +32,81 @@ http://p.sf.net/kdis/UserGuide
     created:    04/02/2011
     author:     Karl Jones
 
-    purpose:    A simple filter for allowing data through based on its IP address.
+    purpose:    A simple filter for allowing data through based on its IP
+address.
 *********************************************************************/
 
 #pragma once
 
-#include "./ConnectionSubscriber.h"
 #include <set>
+
+#include "KDIS/Network/ConnectionSubscriber.hpp"
 
 namespace KDIS {
 namespace NETWORK {
 
-class KDIS_EXPORT ConnectionAddressFilter : public ConnectionSubscriber
-{
-public:
+class KDIS_EXPORT ConnectionAddressFilter : public ConnectionSubscriber {
+ public:
+  enum FilterMode { AllowAddressesInFilterList, BlockAddressesInFilterList };
 
-    enum FilterMode
-    {
-        AllowAddressesInFilterList,
-        BlockAddressesInFilterList
-    };
+ protected:
+  FilterMode m_FM;
 
-protected:
+  std::set<KString> m_Filter;
 
-    FilterMode m_FM;
+ public:
+  explicit ConnectionAddressFilter(FilterMode FM = AllowAddressesInFilterList);
 
-    std::set<KString> m_Filter;
+  ~ConnectionAddressFilter();
 
-public:
+  //************************************
+  // FullName:    KDIS::NETWORK::ConnectionAddressFilter::SetFilterMode
+  //              KDIS::NETWORK::ConnectionAddressFilter::GetFilterMode
+  // Description: How is the filter operating? Should it block all
+  //              addresses in its list or only allow those?
+  // Parameter:   const KString & A
+  //************************************
+  void SetFilterMode(FilterMode FM);
+  FilterMode GetFilterMode() const;
 
-    ConnectionAddressFilter( FilterMode FM = AllowAddressesInFilterList );
+  //************************************
+  // FullName:    KDIS::NETWORK::ConnectionAddressFilter::AddAddress
+  // Description: Add an address to the filter list, this address will either
+  //              be blocked or allowed depending on the FilterMode.
+  // Parameter:   const KString & A
+  //************************************
+  void AddAddress(const KString& A);
 
-    ~ConnectionAddressFilter();
+  //************************************
+  // FullName:    KDIS::NETWORK::ConnectionAddressFilter::RemoveAddress
+  // Description: Remove an address from the filter list.
+  //              If the address is not in the list then nothing happens.
+  // Parameter:   const KString & A
+  //************************************
+  void RemoveAddress(const KString& A);
 
-    //************************************
-    // FullName:    KDIS::NETWORK::ConnectionAddressFilter::SetFilterMode
-    //              KDIS::NETWORK::ConnectionAddressFilter::GetFilterMode
-    // Description: How is the filter operating? Should it block all
-    //              addresses in its list or only allow those?
-    // Parameter:   const KString & A
-    //************************************
-    void SetFilterMode( FilterMode FM );
-    FilterMode GetFilterMode() const;
+  //************************************
+  // FullName:    KDIS::NETWORK::ConnectionAddressFilter::TestAddress
+  // Description: Test an address to see if it will be allowed through the
+  // filter.
+  //              Returns true if address is allowed else false.
+  // Parameter:   const KString & A
+  //************************************
+  KBOOL TestAddress(const KString& A);
 
-    //************************************
-    // FullName:    KDIS::NETWORK::ConnectionAddressFilter::AddAddress
-    // Description: Add an address to the filter list, this address will either
-    //              be blocked or allowed depending on the FilterMode.
-    // Parameter:   const KString & A
-    //************************************
-    void AddAddress( const KString & A );
-
-    //************************************
-    // FullName:    KDIS::NETWORK::ConnectionAddressFilter::RemoveAddress
-    // Description: Remove an address from the filter list.
-    //              If the address is not in the list then nothing happens.
-    // Parameter:   const KString & A
-    //************************************
-    void RemoveAddress( const KString & A );
-
-    //************************************
-    // FullName:    KDIS::NETWORK::ConnectionAddressFilter::TestAddress
-    // Description: Test an address to see if it will be allowed through the filter.
-    //              Returns true if address is allowed else false.
-    // Parameter:   const KString & A
-    //************************************
-    KBOOL TestAddress( const KString & A );
-
-    //************************************
-    // FullName:    KDIS::NETWORK::ConnectionAddressFilter::OnDataReceived
-    // Description: This is where the filtering is done, we check if the IP address is in
-    //              the block/allow list and return true/false to allow/stop the PDU.
-    // Parameter:   const KOCTET * Data
-    // Parameter:   KUINT32 DataLength
-    // Parameter:   const KString & SenderIp
-    //************************************
-    virtual KBOOL OnDataReceived( const KOCTET * Data, KUINT32 DataLength, const KString & SenderIp );
+  //************************************
+  // FullName:    KDIS::NETWORK::ConnectionAddressFilter::OnDataReceived
+  // Description: This is where the filtering is done, we check if the IP
+  // address is in
+  //              the block/allow list and return true/false to allow/stop the
+  //              PDU.
+  // Parameter:   const KOCTET * Data
+  // Parameter:   KUINT32 DataLength
+  // Parameter:   const KString & SenderIp
+  //************************************
+  virtual KBOOL OnDataReceived(const KOCTET* Data, KUINT32 DataLength,
+                               const KString& SenderIp);
 };
 
-} // END namespace NETWORK
-} // END namespace KDIS
+}  // END namespace NETWORK
+}  // END namespace KDIS

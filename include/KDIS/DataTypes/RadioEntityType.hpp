@@ -38,123 +38,119 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT RadioEntityType : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT RadioEntityType : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8EntityKind;
 
-    KUINT8 m_ui8EntityKind;
+  KUINT8 m_ui8Domain;
 
-    KUINT8 m_ui8Domain;
+  KUINT16 m_ui16Country;
 
-    KUINT16 m_ui16Country;
+  KUINT8 m_ui8Category;
 
-    KUINT8 m_ui8Category;
+  KUINT8 m_ui8NomenclatureVersion;
 
-    KUINT8 m_ui8NomenclatureVersion;
+  KUINT16 m_ui16Nomenclature;
 
-    KUINT16 m_ui16Nomenclature;
+ public:
+  static const KUINT16 RADIO_ENTITY_TYPE_SIZE = 8;
 
-public:
+  RadioEntityType();
 
-    static const KUINT16 RADIO_ENTITY_TYPE_SIZE = 8;
+  RadioEntityType(KDIS::DATA_TYPE::ENUMS::EntityKind Kind, KUINT8 Domain,
+                  KDIS::DATA_TYPE::ENUMS::Country Country, KUINT8 Categoy,
+                  KUINT8 NomenclatureVersion, KUINT16 Nomenclature);
 
-    RadioEntityType();
+  RadioEntityType(KUINT8 Kind, KUINT8 Domain, KUINT8 Country, KUINT8 Categoy,
+                  KUINT8 NomenclatureVersion, KUINT16 Nomenclature);
 
-    RadioEntityType( KDIS::DATA_TYPE::ENUMS::EntityKind Kind, KUINT8 Domain, 
-		             KDIS::DATA_TYPE::ENUMS::Country Country, KUINT8 Categoy, KUINT8 NomenclatureVersion,
-					 KUINT16 Nomenclature );
+  RadioEntityType(KDataStream& stream);
 
-    RadioEntityType( KUINT8 Kind, KUINT8 Domain, KUINT8 Country, KUINT8 Categoy,
-                     KUINT8 NomenclatureVersion, KUINT16 Nomenclature );
+  virtual ~RadioEntityType();
 
-    RadioEntityType( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetEntityKind
+  //              KDIS::DATA_TYPE::RadioEntityType::GetEntityKind
+  // Description: Kind
+  // Parameter:   EntityKind UI
+  //************************************
+  void SetEntityKind(KDIS::DATA_TYPE::ENUMS::EntityKind UI);
+  KDIS::DATA_TYPE::ENUMS::EntityKind GetEntityKind() const;
 
-    virtual ~RadioEntityType();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetDomain
+  //              KDIS::DATA_TYPE::RadioEntityType::GetDomain
+  // Description: Domain
+  // Parameter:   EntityDomain UI
+  //************************************
+  void SetDomain(KDIS::DATA_TYPE::ENUMS::EntityDomain UI);
+  KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetEntityKind
-    //              KDIS::DATA_TYPE::RadioEntityType::GetEntityKind
-    // Description: Kind
-    // Parameter:   EntityKind UI
-    //************************************
-    void SetEntityKind( KDIS::DATA_TYPE::ENUMS::EntityKind UI );
-    KDIS::DATA_TYPE::ENUMS::EntityKind GetEntityKind() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetCountry
+  //              KDIS::DATA_TYPE::RadioEntityType::GetCountry
+  // Description: Country
+  // Parameter:   Country UI
+  //************************************
+  void SetCountry(KDIS::DATA_TYPE::ENUMS::Country UI);
+  KDIS::DATA_TYPE::ENUMS::Country GetCountry() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetDomain
-    //              KDIS::DATA_TYPE::RadioEntityType::GetDomain
-    // Description: Domain
-    // Parameter:   EntityDomain UI
-    //************************************
-    void SetDomain( KDIS::DATA_TYPE::ENUMS::EntityDomain UI );
-    KDIS::DATA_TYPE::ENUMS::EntityDomain GetDomain() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetCategory
+  //              KDIS::DATA_TYPE::RadioEntityType::GetCategory
+  // Description: Category
+  // Parameter:   KUINT8 UI
+  //************************************
+  void SetCategory(KUINT8 UI);
+  KUINT8 GetCategory() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetCountry
-    //              KDIS::DATA_TYPE::RadioEntityType::GetCountry
-    // Description: Country
-    // Parameter:   Country UI
-    //************************************
-    void SetCountry( KDIS::DATA_TYPE::ENUMS::Country UI );
-    KDIS::DATA_TYPE::ENUMS::Country GetCountry() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetNomenclatureVersion
+  //              KDIS::DATA_TYPE::RadioEntityType::GetNomenclatureVersion
+  // Description: Nomenclature Version
+  // Parameter:   KUINT8 UI
+  //************************************
+  void SetNomenclatureVersion(KUINT8 NV);
+  KUINT8 GetNomenclatureVersion() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetCategory
-    //              KDIS::DATA_TYPE::RadioEntityType::GetCategory
-    // Description: Category
-    // Parameter:   KUINT8 UI
-    //************************************
-    void SetCategory( KUINT8 UI );
-    KUINT8 GetCategory() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetNomenclature
+  //              KDIS::DATA_TYPE::RadioEntityType::GetNomenclature
+  // Description: Nomenclature
+  // Parameter:   KINT16 N
+  //************************************
+  void SetNomenclature(KUINT16 N);
+  KUINT16 GetNomenclature() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetNomenclatureVersion
-    //              KDIS::DATA_TYPE::RadioEntityType::GetNomenclatureVersion
-    // Description: Nomenclature Version
-    // Parameter:   KUINT8 UI
-    //************************************
-    void SetNomenclatureVersion( KUINT8 NV );
-    KUINT8 GetNomenclatureVersion() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::SetNomenclature
-    //              KDIS::DATA_TYPE::RadioEntityType::GetNomenclature
-    // Description: Nomenclature
-    // Parameter:   KINT16 N
-    //************************************
-    void SetNomenclature( KUINT16 N );
-    KUINT16 GetNomenclature() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RadioEntityType::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RadioEntityType::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const RadioEntityType & Value ) const;
-    KBOOL operator != ( const RadioEntityType & Value ) const;
+  KBOOL operator==(const RadioEntityType& Value) const;
+  KBOOL operator!=(const RadioEntityType& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

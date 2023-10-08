@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./LinearSegmentParameter.h"
+#include "KDIS/DataTypes/LinearSegmentParameter.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,311 +37,249 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-LinearSegmentParameter::LinearSegmentParameter() :
-    m_ui8SegNum( 0 ),
-    m_ui16Length( 0 ),
-    m_ui16Width( 0 ),
-    m_ui16Height( 0 ),
-    m_ui16Depth( 0 ),
-    m_ui32Padding( 0 )
-{
-    m_ModificationUnion.m_ui8Modifications = 0;
+LinearSegmentParameter::LinearSegmentParameter()
+    : m_ui8SegNum(0),
+      m_ui16Length(0),
+      m_ui16Width(0),
+      m_ui16Height(0),
+      m_ui16Depth(0),
+      m_ui32Padding(0) {
+  m_ModificationUnion.m_ui8Modifications = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearSegmentParameter::LinearSegmentParameter( KDataStream & stream ) 
-{
-    Decode( stream );
+LinearSegmentParameter::LinearSegmentParameter(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearSegmentParameter::LinearSegmentParameter( KUINT8 SegNum, KUINT8 Mod, const LinearObjectAppearance & A,
-        const WorldCoordinates & Loc, const EulerAngles & Ori,
-        KUINT16 Length, KUINT16 Width, KUINT16 Height, KUINT16 Depth ) :
-    m_ui8SegNum( SegNum ),
-    m_ObjApr( A ),
-    m_Loc( Loc ),
-    m_Ori( Ori ),
-    m_ui16Length( Length ),
-    m_ui16Width( Width ),
-    m_ui16Height( Height ),
-    m_ui16Depth( Depth ),
-    m_ui32Padding( 0 )
-{
-    m_ModificationUnion.m_ui8Modifications = Mod;
+LinearSegmentParameter::LinearSegmentParameter(KUINT8 SegNum, KUINT8 Mod,
+                                               const LinearObjectAppearance& A,
+                                               const WorldCoordinates& Loc,
+                                               const EulerAngles& Ori,
+                                               KUINT16 Length, KUINT16 Width,
+                                               KUINT16 Height, KUINT16 Depth)
+    : m_ui8SegNum(SegNum),
+      m_ObjApr(A),
+      m_Loc(Loc),
+      m_Ori(Ori),
+      m_ui16Length(Length),
+      m_ui16Width(Width),
+      m_ui16Height(Height),
+      m_ui16Depth(Depth),
+      m_ui32Padding(0) {
+  m_ModificationUnion.m_ui8Modifications = Mod;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearSegmentParameter::~LinearSegmentParameter()
-{
+LinearSegmentParameter::~LinearSegmentParameter() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void LinearSegmentParameter::SetSegmentNumber(KUINT8 N) { m_ui8SegNum = N; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 LinearSegmentParameter::GetSegmentNumber() const { return m_ui8SegNum; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LinearSegmentParameter::SetModification(KUINT8 M) {
+  m_ModificationUnion.m_ui8Modifications = M;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::SetSegmentNumber( KUINT8 N )
-{
-    m_ui8SegNum = N;
+KUINT8 LinearSegmentParameter::GetModification() const {
+  return m_ModificationUnion.m_ui8Modifications;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 LinearSegmentParameter::GetSegmentNumber() const
-{
-    return m_ui8SegNum;
+void LinearSegmentParameter::SetModificationLocation(KBOOL M /*= true*/) {
+  m_ModificationUnion.m_ui8LocBit = M;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::SetModification( KUINT8 M )
-{
-    m_ModificationUnion.m_ui8Modifications = M;
+KBOOL LinearSegmentParameter::IsModificationLocation() const {
+  return m_ModificationUnion.m_ui8LocBit;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 LinearSegmentParameter::GetModification() const
-{
-    return m_ModificationUnion.m_ui8Modifications;
+void LinearSegmentParameter::SetModificationOrientation(KBOOL M /*= true*/) {
+  m_ModificationUnion.m_ui8OriBit = M;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::SetModificationLocation( KBOOL M /*= true*/ )
-{
-    m_ModificationUnion.m_ui8LocBit = M;
+KBOOL LinearSegmentParameter::IsModificationOrientation() const {
+  return m_ModificationUnion.m_ui8OriBit;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LinearSegmentParameter::IsModificationLocation() const
-{
-    return m_ModificationUnion.m_ui8LocBit;
+void LinearSegmentParameter::SetLinearObjectAppearance(
+    const LinearObjectAppearance& L) {
+  m_ObjApr = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::SetModificationOrientation( KBOOL M /*= true*/ )
-{
-    m_ModificationUnion.m_ui8OriBit = M;
+const LinearObjectAppearance&
+LinearSegmentParameter::GetLinearObjectAppearance() const {
+  return m_ObjApr;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL LinearSegmentParameter::IsModificationOrientation() const
-{
-    return m_ModificationUnion.m_ui8OriBit;
+LinearObjectAppearance& LinearSegmentParameter::GetLinearObjectAppearance() {
+  return m_ObjApr;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::SetLinearObjectAppearance( const LinearObjectAppearance & L )
-{
-    m_ObjApr = L;
+void LinearSegmentParameter::SetLocation(const WorldCoordinates& L) {
+  m_Loc = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const LinearObjectAppearance & LinearSegmentParameter::GetLinearObjectAppearance() const
-{
-    return m_ObjApr;
+const WorldCoordinates& LinearSegmentParameter::GetLocation() const {
+  return m_Loc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LinearObjectAppearance & LinearSegmentParameter::GetLinearObjectAppearance()
-{
-    return m_ObjApr;
+WorldCoordinates& LinearSegmentParameter::GetLocation() { return m_Loc; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LinearSegmentParameter::SetOrientation(const EulerAngles& O) { m_Ori = O; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const EulerAngles& LinearSegmentParameter::GetOrientation() const {
+  return m_Ori;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::SetLocation( const WorldCoordinates & L )
-{
-    m_Loc = L;
+EulerAngles& LinearSegmentParameter::GetOrientation() { return m_Ori; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LinearSegmentParameter::SetLength(KUINT16 L) { m_ui16Length = L; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 LinearSegmentParameter::GetLength() const { return m_ui16Length; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LinearSegmentParameter::SetWidth(KUINT16 W) { m_ui16Width = W; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 LinearSegmentParameter::GetWidth() const { return m_ui16Width; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LinearSegmentParameter::SetHeight(KUINT16 H) { m_ui16Height = H; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 LinearSegmentParameter::GetHeight() const { return m_ui16Height; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void LinearSegmentParameter::SetDepth(KUINT16 D) { m_ui16Depth = D; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 LinearSegmentParameter::GetDepth() const { return m_ui16Depth; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString LinearSegmentParameter::GetAsString() const {
+  KStringStream ss;
+
+  ss << "LinearSegmentParameter:\n"
+     << "\tSegment Number:  " << (KUINT16)m_ui8SegNum << "\n"
+     << "\tModification:\n"
+     << "\t\tLocation:      " << (KUINT16)m_ModificationUnion.m_ui8LocBit
+     << "\n"
+     << "\t\tOrientation:   " << (KUINT16)m_ModificationUnion.m_ui8OriBit
+     << "\n"
+     << IndentString(m_ObjApr.GetAsString(), 1)
+     << "\tLocation:        " << m_Loc.GetAsString()
+     << "\tOrientation:     " << m_Ori.GetAsString()
+     << "\tLength:          " << m_ui16Length << "\n"
+     << "\tWidth:           " << m_ui16Width << "\n"
+     << "\tHeight:          " << m_ui16Height << "\n"
+     << "\tDepth:           " << m_ui16Depth << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const WorldCoordinates & LinearSegmentParameter::GetLocation() const
-{
-    return m_Loc;
+void LinearSegmentParameter::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < LINEAR_SEGMENT_PARAMETER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8SegNum >> m_ModificationUnion.m_ui8Modifications >>
+      KDIS_STREAM m_ObjApr >> KDIS_STREAM m_Loc >> KDIS_STREAM m_Ori >>
+      m_ui16Length >> m_ui16Width >> m_ui16Height >> m_ui16Depth >>
+      m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-WorldCoordinates & LinearSegmentParameter::GetLocation()
-{
-    return m_Loc;
+KDataStream LinearSegmentParameter::Encode() const {
+  KDataStream stream;
+
+  LinearSegmentParameter::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void LinearSegmentParameter::SetOrientation( const EulerAngles & O )
-{
-    m_Ori = O;
+void LinearSegmentParameter::Encode(KDataStream& stream) const {
+  stream << m_ui8SegNum << m_ModificationUnion.m_ui8Modifications
+         << KDIS_STREAM m_ObjApr << KDIS_STREAM m_Loc << KDIS_STREAM m_Ori
+         << m_ui16Length << m_ui16Width << m_ui16Height << m_ui16Depth
+         << m_ui32Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EulerAngles & LinearSegmentParameter::GetOrientation() const
-{
-    return m_Ori;
+KBOOL LinearSegmentParameter::operator==(
+    const LinearSegmentParameter& Value) const {
+  if (m_ui8SegNum != Value.m_ui8SegNum) return false;
+  if (m_ModificationUnion.m_ui8Modifications !=
+      Value.m_ModificationUnion.m_ui8Modifications)
+    return false;
+  if (m_ObjApr != Value.m_ObjApr) return false;
+  if (m_Loc != Value.m_Loc) return false;
+  if (m_Ori != Value.m_Ori) return false;
+  if (m_ui16Length != Value.m_ui16Length) return false;
+  if (m_ui16Width != Value.m_ui16Width) return false;
+  if (m_ui16Height != Value.m_ui16Height) return false;
+  if (m_ui16Depth != Value.m_ui16Depth) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EulerAngles & LinearSegmentParameter::GetOrientation()
-{
-    return m_Ori;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LinearSegmentParameter::SetLength( KUINT16 L )
-{
-    m_ui16Length = L;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 LinearSegmentParameter::GetLength() const
-{
-    return m_ui16Length;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LinearSegmentParameter::SetWidth( KUINT16 W )
-{
-    m_ui16Width = W;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 LinearSegmentParameter::GetWidth() const
-{
-    return m_ui16Width;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LinearSegmentParameter::SetHeight( KUINT16 H )
-{
-    m_ui16Height = H;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 LinearSegmentParameter::GetHeight() const
-{
-    return m_ui16Height;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LinearSegmentParameter::SetDepth( KUINT16 D )
-{
-    m_ui16Depth = D;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 LinearSegmentParameter::GetDepth() const
-{
-    return m_ui16Depth;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString LinearSegmentParameter::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "LinearSegmentParameter:\n"
-       << "\tSegment Number:  " << ( KUINT16 )m_ui8SegNum                     << "\n"
-       << "\tModification:\n"
-       << "\t\tLocation:      " << ( KUINT16 )m_ModificationUnion.m_ui8LocBit << "\n"
-       << "\t\tOrientation:   " << ( KUINT16 )m_ModificationUnion.m_ui8OriBit << "\n"
-       << IndentString( m_ObjApr.GetAsString(), 1 )
-       << "\tLocation:        " << m_Loc.GetAsString()
-       << "\tOrientation:     " << m_Ori.GetAsString()
-       << "\tLength:          " << m_ui16Length                                 << "\n"
-       << "\tWidth:           " << m_ui16Width                                  << "\n"
-       << "\tHeight:          " << m_ui16Height                                 << "\n"
-       << "\tDepth:           " << m_ui16Depth                                  << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LinearSegmentParameter::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < LINEAR_SEGMENT_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8SegNum
-           >> m_ModificationUnion.m_ui8Modifications
-           >> KDIS_STREAM m_ObjApr
-           >> KDIS_STREAM m_Loc
-           >> KDIS_STREAM m_Ori
-           >> m_ui16Length
-           >> m_ui16Width
-           >> m_ui16Height
-           >> m_ui16Depth
-           >> m_ui32Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream LinearSegmentParameter::Encode() const
-{
-    KDataStream stream;
-
-    LinearSegmentParameter::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void LinearSegmentParameter::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8SegNum
-           << m_ModificationUnion.m_ui8Modifications
-           << KDIS_STREAM m_ObjApr
-           << KDIS_STREAM m_Loc
-           << KDIS_STREAM m_Ori
-           << m_ui16Length
-           << m_ui16Width
-           << m_ui16Height
-           << m_ui16Depth
-           << m_ui32Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LinearSegmentParameter::operator == ( const LinearSegmentParameter & Value ) const
-{
-    if( m_ui8SegNum                            != Value.m_ui8SegNum )                            return false;
-    if( m_ModificationUnion.m_ui8Modifications != Value.m_ModificationUnion.m_ui8Modifications ) return false;
-    if( m_ObjApr                               != Value.m_ObjApr )                               return false;
-    if( m_Loc                                  != Value.m_Loc )                                  return false;
-    if( m_Ori                                  != Value.m_Ori )                                  return false;
-    if( m_ui16Length                           != Value.m_ui16Length )                           return false;
-    if( m_ui16Width                            != Value.m_ui16Width )                            return false;
-    if( m_ui16Height                           != Value.m_ui16Height )                           return false;
-    if( m_ui16Depth                            != Value.m_ui16Depth )                            return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL LinearSegmentParameter::operator != ( const LinearSegmentParameter & Value ) const
-{
-    return !( *this == Value );
+KBOOL LinearSegmentParameter::operator!=(
+    const LinearSegmentParameter& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

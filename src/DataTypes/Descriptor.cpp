@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Descriptor.h"
+#include "KDIS/DataTypes/Descriptor.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,106 +40,79 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Descriptor::Descriptor() 
-{
+Descriptor::Descriptor() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Descriptor::Descriptor(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Descriptor::Descriptor(const EntityType& T) : m_Type(T) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Descriptor::~Descriptor() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Descriptor::SetType(const EntityType& T) { m_Type = T; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityType& Descriptor::GetType() const { return m_Type; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityType& Descriptor::GetType() { return m_Type; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Descriptor::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Descriptor:"
+     << "\n\tType: " << m_Type.GetAsString() << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Descriptor::Descriptor( KDataStream & stream )
-{
-    Decode( stream );
+void Descriptor::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < DESCRIPTOR_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> KDIS_STREAM m_Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Descriptor::Descriptor( const EntityType & T ) :
-    m_Type( T )
-{
+KDataStream Descriptor::Encode() const {
+  KDataStream stream;
+
+  Descriptor::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Descriptor::~Descriptor()
-{
+void Descriptor::Encode(KDataStream& stream) const {
+  stream << KDIS_STREAM m_Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Descriptor::SetType( const EntityType & T )
-{
-    m_Type = T;
+KBOOL Descriptor::operator==(const Descriptor& Value) const {
+  if (m_Type != Value.m_Type) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityType & Descriptor::GetType() const
-{
-    return m_Type;
+KBOOL Descriptor::operator!=(const Descriptor& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-EntityType & Descriptor::GetType()
-{
-    return m_Type;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString Descriptor::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Descriptor:"
-       << "\n\tType: " << m_Type.GetAsString()
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Descriptor::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < DESCRIPTOR_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> KDIS_STREAM m_Type;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Descriptor::Encode() const
-{
-    KDataStream stream;
-
-    Descriptor::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Descriptor::Encode( KDataStream & stream ) const
-{
-    stream << KDIS_STREAM m_Type;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Descriptor::operator == ( const Descriptor & Value ) const
-{
-    if( m_Type != Value.m_Type ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Descriptor::operator != ( const Descriptor & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./ObjectType.h"
+#include "KDIS/DataTypes/ObjectType.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,175 +37,131 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType::ObjectType() :
-    m_ui8Domain( 0 ),
-    m_ui8EntityKind( 0 ),
-    m_ui8Category( 0 ),
-    m_ui8SubCategory( 0 )
-{
+ObjectType::ObjectType()
+    : m_ui8Domain(0),
+      m_ui8EntityKind(0),
+      m_ui8Category(0),
+      m_ui8SubCategory(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+ObjectType::ObjectType(KUINT8 Domain, KUINT8 Kind, KUINT8 Categoy,
+                       KUINT8 SubCategory)
+    : m_ui8EntityKind(Kind),
+      m_ui8Domain(Domain),
+      m_ui8Category(Categoy),
+      m_ui8SubCategory(SubCategory) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+ObjectType::ObjectType(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+ObjectType::~ObjectType() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ObjectType::SetDomain(EntityDomain UI) { m_ui8Domain = UI; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityDomain ObjectType::GetDomain() const { return (EntityDomain)m_ui8Domain; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void ObjectType::SetEntityKind(KUINT8 UI) { m_ui8EntityKind = UI; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 ObjectType::GetEntityKind() const { return m_ui8EntityKind; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void ObjectType::SetCategory(KUINT8 UI) { m_ui8Category = UI; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 ObjectType::GetCategory() const { return m_ui8Category; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void ObjectType::SetSubCategory(KUINT8 UI) { m_ui8SubCategory = UI; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 ObjectType::GetSubCategory() const { return m_ui8SubCategory; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString ObjectType::GetAsString() const {
+  KStringStream ss;
+
+  ss << (KUINT16)m_ui8Domain << " , " << (KUINT16)m_ui8EntityKind << " , "
+     << (KUINT16)m_ui8Category << " , " << (KUINT16)m_ui8SubCategory << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType::ObjectType( KUINT8 Domain, KUINT8 Kind, KUINT8 Categoy, KUINT8 SubCategory ) :
-    m_ui8EntityKind( Kind ),
-    m_ui8Domain( Domain ),
-    m_ui8Category( Categoy ),
-    m_ui8SubCategory( SubCategory )
-{
+void ObjectType::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < OBJECT_TYPE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8Domain >> m_ui8EntityKind >> m_ui8Category >> m_ui8SubCategory;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType::ObjectType( KDataStream & stream ) 
-{
-    Decode( stream );
+KDataStream ObjectType::Encode() const {
+  KDataStream stream;
+
+  ObjectType::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType::~ObjectType()
-{
+void ObjectType::Encode(KDataStream& stream) const {
+  stream << m_ui8Domain << m_ui8EntityKind << m_ui8Category << m_ui8SubCategory;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectType::SetDomain( EntityDomain UI )
-{
-    m_ui8Domain = UI;
+KBOOL ObjectType::operator==(const ObjectType& Value) const {
+  if (m_ui8Domain != Value.m_ui8Domain) return false;
+  if (m_ui8EntityKind != Value.m_ui8EntityKind) return false;
+  if (m_ui8Category != Value.m_ui8Category) return false;
+  if (m_ui8SubCategory != Value.m_ui8SubCategory) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDomain ObjectType::GetDomain() const
-{
-    return ( EntityDomain )m_ui8Domain;
+KBOOL ObjectType::operator!=(const ObjectType& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectType::SetEntityKind( KUINT8 UI )
-{
-    m_ui8EntityKind = UI;
-}
+KBOOL ObjectType::operator<(const ObjectType& Value) const {
+  // We will bit shift all 4 fields into a single KUINT32, this will generate a
+  // new unique value which we can then use for comparisons. bits 24-31 =
+  // SubCategory bits 16-23 = Category bits 8-15  = Kind bits 0-7   = Domain
 
-//////////////////////////////////////////////////////////////////////////
+  KUINT32 ui32ThisCmpVal = 0, ui32OtherCmpVal = 0;
 
-KUINT8 ObjectType::GetEntityKind() const
-{
-    return m_ui8EntityKind;
-}
+  ui32ThisCmpVal = (KUINT32)m_ui8SubCategory << 24 |
+                   (KUINT32)m_ui8EntityKind << 16 |
+                   (KUINT32)m_ui8Category << 8 | (KUINT32)m_ui8SubCategory;
+  ui32OtherCmpVal = (KUINT32)Value.m_ui8SubCategory << 24 |
+                    (KUINT32)Value.m_ui8EntityKind << 16 |
+                    (KUINT32)Value.m_ui8Category << 8 |
+                    (KUINT32)Value.m_ui8SubCategory;
 
-//////////////////////////////////////////////////////////////////////////
-
-void ObjectType::SetCategory( KUINT8 UI )
-{
-    m_ui8Category = UI;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT8 ObjectType::GetCategory() const
-{
-    return m_ui8Category;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void ObjectType::SetSubCategory( KUINT8 UI )
-{
-    m_ui8SubCategory = UI;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT8 ObjectType::GetSubCategory() const
-{
-    return m_ui8SubCategory;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString ObjectType::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << ( KUINT16 )m_ui8Domain      << " , "
-       << ( KUINT16 )m_ui8EntityKind  << " , "
-       << ( KUINT16 )m_ui8Category    << " , "
-       << ( KUINT16 )m_ui8SubCategory
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void ObjectType::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < OBJECT_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8Domain
-           >> m_ui8EntityKind
-           >> m_ui8Category
-           >> m_ui8SubCategory;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream ObjectType::Encode() const
-{
-    KDataStream stream;
-
-    ObjectType::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void ObjectType::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8Domain
-           << m_ui8EntityKind
-           << m_ui8Category
-           << m_ui8SubCategory;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ObjectType::operator == ( const ObjectType & Value ) const
-{
-    if( m_ui8Domain      != Value.m_ui8Domain )      return false;
-    if( m_ui8EntityKind  != Value.m_ui8EntityKind )  return false;
-    if( m_ui8Category    != Value.m_ui8Category )    return false;
-    if( m_ui8SubCategory != Value.m_ui8SubCategory ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ObjectType::operator != ( const ObjectType & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ObjectType::operator < ( const ObjectType & Value ) const
-{
-    // We will bit shift all 4 fields into a single KUINT32, this will generate a new unique value which we can then use for comparisons.
-    // bits 24-31 = SubCategory
-    // bits 16-23 = Category
-    // bits 8-15  = Kind
-    // bits 0-7   = Domain
-
-    KUINT32 ui32ThisCmpVal = 0, ui32OtherCmpVal = 0;
-
-    ui32ThisCmpVal = ( KUINT32 )m_ui8SubCategory << 24 | ( KUINT32 )m_ui8EntityKind << 16 | ( KUINT32 )m_ui8Category << 8 | ( KUINT32 )m_ui8SubCategory;
-    ui32OtherCmpVal = ( KUINT32 )Value.m_ui8SubCategory << 24 | ( KUINT32 )Value.m_ui8EntityKind << 16 | ( KUINT32 )Value.m_ui8Category << 8 | ( KUINT32 )Value.m_ui8SubCategory;
-
-    return ui32ThisCmpVal < ui32OtherCmpVal;
+  return ui32ThisCmpVal < ui32OtherCmpVal;
 }
 
 //////////////////////////////////////////////////////////////////////////

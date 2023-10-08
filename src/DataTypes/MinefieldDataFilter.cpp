@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./MinefieldDataFilter.h"
+#include "KDIS/DataTypes/MinefieldDataFilter.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -38,261 +38,227 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::MinefieldDataFilter()
-{
-    m_FilterUnion.m_ui32Filter = 0;
+MinefieldDataFilter::MinefieldDataFilter() { m_FilterUnion.m_ui32Filter = 0; }
+
+//////////////////////////////////////////////////////////////////////////
+
+MinefieldDataFilter::MinefieldDataFilter(
+    KBOOL GroundBurialDepthOffset, KBOOL WaterBurialDepthOffset,
+    KBOOL SnowBurialDepthOffset, KBOOL MineOrientation, KBOOL ThermalContrast,
+    KBOOL Reflectance, KBOOL MineEmplacementAge, KBOOL TripDetonationWire,
+    KBOOL Fusing, KBOOL ScalarDetectionCoefficient, KBOOL PaintScheme) {
+  m_FilterUnion.m_ui32GroundOffset = GroundBurialDepthOffset;
+  m_FilterUnion.m_ui32WaterOffset = WaterBurialDepthOffset;
+  m_FilterUnion.m_ui32SnowOffset = SnowBurialDepthOffset;
+  m_FilterUnion.m_ui32MineOri = MineOrientation;
+  m_FilterUnion.m_ui32ThermalCon = ThermalContrast;
+  m_FilterUnion.m_ui32Reflectance = Reflectance;
+  m_FilterUnion.m_ui32MineEmpAge = MineEmplacementAge;
+  m_FilterUnion.m_ui32TripDetWire = TripDetonationWire;
+  m_FilterUnion.m_ui32Fusing = Fusing;
+  m_FilterUnion.m_ui32ScalarDet = ScalarDetectionCoefficient;
+  m_FilterUnion.m_ui32PaintScm = PaintScheme;
+  m_FilterUnion.m_ui32Padding = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::MinefieldDataFilter( KBOOL GroundBurialDepthOffset, KBOOL WaterBurialDepthOffset, KBOOL SnowBurialDepthOffset,
-        KBOOL MineOrientation, KBOOL ThermalContrast, KBOOL Reflectance, KBOOL MineEmplacementAge,
-        KBOOL TripDetonationWire, KBOOL Fusing, KBOOL ScalarDetectionCoefficient, KBOOL PaintScheme )
-{
-    m_FilterUnion.m_ui32GroundOffset = GroundBurialDepthOffset;
-    m_FilterUnion.m_ui32WaterOffset  = WaterBurialDepthOffset;
-    m_FilterUnion.m_ui32SnowOffset   = SnowBurialDepthOffset;
-    m_FilterUnion.m_ui32MineOri      = MineOrientation;
-    m_FilterUnion.m_ui32ThermalCon   = ThermalContrast;
-    m_FilterUnion.m_ui32Reflectance  = Reflectance;
-    m_FilterUnion.m_ui32MineEmpAge   = MineEmplacementAge;
-    m_FilterUnion.m_ui32TripDetWire  = TripDetonationWire;
-    m_FilterUnion.m_ui32Fusing       = Fusing;
-    m_FilterUnion.m_ui32ScalarDet    = ScalarDetectionCoefficient;
-    m_FilterUnion.m_ui32PaintScm     = PaintScheme;
-    m_FilterUnion.m_ui32Padding      = 0;
+MinefieldDataFilter::MinefieldDataFilter(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::MinefieldDataFilter( KDataStream & stream ) 
-{
-    Decode( stream );
+MinefieldDataFilter::~MinefieldDataFilter() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void MinefieldDataFilter::SetGroundBurialDepthOffset(KBOOL B) {
+  m_FilterUnion.m_ui32GroundOffset = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::~MinefieldDataFilter()
-{
+KBOOL MinefieldDataFilter::IsGroundBurialDepthOffset() const {
+  return m_FilterUnion.m_ui32GroundOffset;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetGroundBurialDepthOffset( KBOOL B )
-{
-    m_FilterUnion.m_ui32GroundOffset = B;
+void MinefieldDataFilter::SetWaterBurialDepthOffset(KBOOL B) {
+  m_FilterUnion.m_ui32WaterOffset = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsGroundBurialDepthOffset() const
-{
-    return m_FilterUnion.m_ui32GroundOffset;
+KBOOL MinefieldDataFilter::IsWaterBurialDepthOffset() const {
+  return m_FilterUnion.m_ui32WaterOffset;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetWaterBurialDepthOffset( KBOOL B )
-{
-    m_FilterUnion.m_ui32WaterOffset = B;
+void MinefieldDataFilter::SetSnowBurialDepthOffset(KBOOL B) {
+  m_FilterUnion.m_ui32SnowOffset = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsWaterBurialDepthOffset() const
-{
-    return m_FilterUnion.m_ui32WaterOffset;
+KBOOL MinefieldDataFilter::IsSnowBurialDepthOffset() const {
+  return m_FilterUnion.m_ui32SnowOffset;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetSnowBurialDepthOffset( KBOOL B )
-{
-    m_FilterUnion.m_ui32SnowOffset = B;
+void MinefieldDataFilter::SetMineOrientation(KBOOL B) {
+  m_FilterUnion.m_ui32MineOri = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsSnowBurialDepthOffset() const
-{
-    return m_FilterUnion.m_ui32SnowOffset;
+KBOOL MinefieldDataFilter::IsMineOrientation() const {
+  return m_FilterUnion.m_ui32MineOri;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetMineOrientation( KBOOL B )
-{
-    m_FilterUnion.m_ui32MineOri = B;
+void MinefieldDataFilter::SetThermalContrast(KBOOL B) {
+  m_FilterUnion.m_ui32ThermalCon = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsMineOrientation() const
-{
-    return m_FilterUnion.m_ui32MineOri;
+KBOOL MinefieldDataFilter::IsThermalContrast() const {
+  return m_FilterUnion.m_ui32ThermalCon;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetThermalContrast( KBOOL B )
-{
-    m_FilterUnion.m_ui32ThermalCon = B;
+void MinefieldDataFilter::SetReflectance(KBOOL B) {
+  m_FilterUnion.m_ui32Reflectance = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsThermalContrast() const
-{
-    return m_FilterUnion.m_ui32ThermalCon;
+KBOOL MinefieldDataFilter::IsReflectance() const {
+  return m_FilterUnion.m_ui32Reflectance;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetReflectance( KBOOL B )
-{
-    m_FilterUnion.m_ui32Reflectance = B;
+void MinefieldDataFilter::SetMineEmplacementAge(KBOOL B) {
+  m_FilterUnion.m_ui32MineEmpAge = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsReflectance() const
-{
-    return m_FilterUnion.m_ui32Reflectance;
+KBOOL MinefieldDataFilter::IsMineEmplacementAge() const {
+  return m_FilterUnion.m_ui32MineEmpAge;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetMineEmplacementAge( KBOOL B )
-{
-    m_FilterUnion.m_ui32MineEmpAge = B;
+void MinefieldDataFilter::SetTripDetonationWire(KBOOL B) {
+  m_FilterUnion.m_ui32TripDetWire = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsMineEmplacementAge() const
-{
-    return m_FilterUnion.m_ui32MineEmpAge;
+KBOOL MinefieldDataFilter::IsTripDetonationWire() const {
+  return m_FilterUnion.m_ui32TripDetWire;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetTripDetonationWire( KBOOL B )
-{
-    m_FilterUnion.m_ui32TripDetWire = B;
+void MinefieldDataFilter::SetFusing(KBOOL B) { m_FilterUnion.m_ui32Fusing = B; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL MinefieldDataFilter::IsFusing() const {
+  return m_FilterUnion.m_ui32Fusing;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsTripDetonationWire() const
-{
-    return m_FilterUnion.m_ui32TripDetWire;
+void MinefieldDataFilter::SetScalarDetectionCoefficient(KBOOL B) {
+  m_FilterUnion.m_ui32ScalarDet = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetFusing( KBOOL B )
-{
-    m_FilterUnion.m_ui32Fusing = B;
+KBOOL MinefieldDataFilter::IsScalarDetectionCoefficient() const {
+  return m_FilterUnion.m_ui32ScalarDet;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsFusing() const
-{
-    return m_FilterUnion.m_ui32Fusing;
+void MinefieldDataFilter::SetPaintScheme(KBOOL B) {
+  m_FilterUnion.m_ui32PaintScm = B;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetScalarDetectionCoefficient( KBOOL B )
-{
-    m_FilterUnion.m_ui32ScalarDet = B;
+KBOOL MinefieldDataFilter::IsPaintScheme() const {
+  return m_FilterUnion.m_ui32PaintScm;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsScalarDetectionCoefficient() const
-{
-    return m_FilterUnion.m_ui32ScalarDet;
+KString MinefieldDataFilter::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Minefield Data Filter:"
+     << "\n\tGround Offset: " << m_FilterUnion.m_ui32GroundOffset
+     << "\n\tWater Offset: " << m_FilterUnion.m_ui32WaterOffset
+     << "\n\tSnow Offset: " << m_FilterUnion.m_ui32SnowOffset
+     << "\n\tMine Orientation: " << m_FilterUnion.m_ui32MineOri
+     << "\n\tThermal Contrast: " << m_FilterUnion.m_ui32ThermalCon
+     << "\n\tReflectance: " << m_FilterUnion.m_ui32Reflectance
+     << "\n\tMine Emplacement Age: " << m_FilterUnion.m_ui32MineEmpAge
+     << "\n\tTrip / Detonation Wire: " << m_FilterUnion.m_ui32TripDetWire
+     << "\n\tFusing: " << m_FilterUnion.m_ui32Fusing
+     << "\n\tScalar Detection Coefficient: " << m_FilterUnion.m_ui32ScalarDet
+     << "\n\tPaint Scheme: " << m_FilterUnion.m_ui32PaintScm << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::SetPaintScheme( KBOOL B )
-{
-    m_FilterUnion.m_ui32PaintScm = B;
+void MinefieldDataFilter::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < MINEFIELD_DATA_FILTER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_FilterUnion.m_ui32Filter;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldDataFilter::IsPaintScheme() const
-{
-    return m_FilterUnion.m_ui32PaintScm;
+KDataStream MinefieldDataFilter::Encode() const {
+  KDataStream stream;
+
+  MinefieldDataFilter::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString MinefieldDataFilter::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Minefield Data Filter:"
-       << "\n\tGround Offset: "                 << m_FilterUnion.m_ui32GroundOffset
-       << "\n\tWater Offset: "                  << m_FilterUnion.m_ui32WaterOffset
-       << "\n\tSnow Offset: "                   << m_FilterUnion.m_ui32SnowOffset
-       << "\n\tMine Orientation: "              << m_FilterUnion.m_ui32MineOri
-       << "\n\tThermal Contrast: "              << m_FilterUnion.m_ui32ThermalCon
-       << "\n\tReflectance: "                   << m_FilterUnion.m_ui32Reflectance
-       << "\n\tMine Emplacement Age: "          << m_FilterUnion.m_ui32MineEmpAge
-       << "\n\tTrip / Detonation Wire: "        << m_FilterUnion.m_ui32TripDetWire
-       << "\n\tFusing: "                        << m_FilterUnion.m_ui32Fusing
-       << "\n\tScalar Detection Coefficient: "  << m_FilterUnion.m_ui32ScalarDet
-       << "\n\tPaint Scheme: "                  << m_FilterUnion.m_ui32PaintScm
-       << "\n";
-
-    return ss.str();
+void MinefieldDataFilter::Encode(KDataStream& stream) const {
+  stream << m_FilterUnion.m_ui32Filter;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldDataFilter::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < MINEFIELD_DATA_FILTER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_FilterUnion.m_ui32Filter;
+KBOOL MinefieldDataFilter::operator==(const MinefieldDataFilter& Value) const {
+  if (m_FilterUnion.m_ui32Filter != Value.m_FilterUnion.m_ui32Filter)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream MinefieldDataFilter::Encode() const
-{
-    KDataStream stream;
-
-    MinefieldDataFilter::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void MinefieldDataFilter::Encode( KDataStream & stream ) const
-{
-    stream << m_FilterUnion.m_ui32Filter;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MinefieldDataFilter::operator == ( const MinefieldDataFilter & Value ) const
-{
-    if( m_FilterUnion.m_ui32Filter != Value.m_FilterUnion.m_ui32Filter )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MinefieldDataFilter::operator != ( const MinefieldDataFilter & Value ) const
-{
-    return !( *this == Value );
+KBOOL MinefieldDataFilter::operator!=(const MinefieldDataFilter& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

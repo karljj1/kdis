@@ -38,166 +38,162 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./ObjectAppearance.h"
 #include <bitset>
+
+#include "KDIS/DataTypes/ObjectAppearance.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT LinearObjectAppearance : public ObjectAppearance
-{
-protected:
+class KDIS_EXPORT LinearObjectAppearance : public ObjectAppearance {
+ protected:
+  union {
+    struct {
+      KUINT32 m_ui32Breach : 2;
+      KUINT32 m_ui32Unused : 14;
+      KUINT32 m_ui32BreachLength : 8;
+      KUINT32 m_ui32BreachLoc : 8;
+    } m_TankDitchConcertinaWire;
 
-    union
-    {
-        struct
-        {
-            KUINT32 m_ui32Breach       : 2;
-            KUINT32 m_ui32Unused       : 14;
-            KUINT32 m_ui32BreachLength : 8;
-            KUINT32 m_ui32BreachLoc    : 8;
-        } m_TankDitchConcertinaWire;
+    struct {
+      KUINT32 m_ui32Opacity : 8;
+      KUINT32 m_ui32Attached : 1;
+      KUINT32 m_ui32Chemical : 2;
+      KUINT32 m_ui32Unused : 21;
+    } m_ExhaustSmoke;
 
-        struct
-        {
-            KUINT32 m_ui32Opacity  : 8;
-            KUINT32 m_ui32Attached : 1;
-            KUINT32 m_ui32Chemical : 2;
-            KUINT32 m_ui32Unused   : 21;
-        } m_ExhaustSmoke;
+    struct {
+      KUINT32 m_ui32VisibleSide : 2;
+      KUINT32 m_ui32Unused : 30;
+    } m_MinefieldLaneMarker;
 
-        struct
-        {
-            KUINT32 m_ui32VisibleSide : 2;
-            KUINT32 m_ui32Unused      : 30;
-        } m_MinefieldLaneMarker;
+    KUINT32 m_ui32SpecificAppearance;
+  } m_SpecificAppearanceUnion;
 
-        KUINT32 m_ui32SpecificAppearance;
-    } m_SpecificAppearanceUnion;
+ public:
+  static const KUINT16 LINEAR_OBJECT_APPEARANCE_SIZE = 6;
 
-public:
+  LinearObjectAppearance();
 
-    static const KUINT16 LINEAR_OBJECT_APPEARANCE_SIZE = 6;
+  LinearObjectAppearance(KDataStream& stream);
 
-    LinearObjectAppearance();
+  virtual ~LinearObjectAppearance();
 
-    LinearObjectAppearance( KDataStream & stream ) ;
+  /************************************************************************/
+  /* The following appearance values are only for linear's of the type:   */
+  /* Tank ditch, and Concertina Wire                                      */
+  /************************************************************************/
 
-    virtual ~LinearObjectAppearance();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreach
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreach
+  // Description: Describes the breached appearance of the object.
+  // Parameter:   Breach2bit B
+  //************************************
+  void SetBreach(KDIS::DATA_TYPE::ENUMS::Breach2bit B);
+  KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for linear's of the type:   */
-    /* Tank ditch, and Concertina Wire                                      */
-    /************************************************************************/
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreachLength
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreachLength
+  // Description: Integer indicating the fixed length in meters of a breached
+  // segment. Parameter:   KUINT8 L
+  //************************************
+  void SetBreachLength(KUINT8 L);
+  KUINT8 GetBreachLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreach
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreach
-    // Description: Describes the breached appearance of the object.
-    // Parameter:   Breach2bit B
-    //************************************
-    void SetBreach( KDIS::DATA_TYPE::ENUMS::Breach2bit B );
-    KDIS::DATA_TYPE::ENUMS::Breach2bit GetBreach() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreachLocation
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreachLocation
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreachLocationAsBitset
+  // Description: Each bit indicates whether its associated segment is breached
+  // or not.
+  //              Bit 40+i indicates whether the portion of the segment
+  //              beginning at the segment origin + (i*Breach Length) and
+  //              extending i* Breach Length meters is breached or not. For each
+  //              bit: 0  Associated portion of segment is not breached 1
+  //              Associated portion of segment is breached
+  // Parameter:   const bitset<8> & L, KUINT8 L
+  //************************************
+  void SetBreachLocation(const std::bitset<8>& L);
+  void SetBreachLocation(KUINT8 L);
+  KUINT8 GetBreachLocation() const;
+  std::bitset<8> GetBreachLocationAsBitset();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreachLength
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreachLength
-    // Description: Integer indicating the fixed length in meters of a breached segment.
-    // Parameter:   KUINT8 L
-    //************************************
-    void SetBreachLength( KUINT8 L );
-    KUINT8 GetBreachLength() const;
+  /************************************************************************/
+  /* The following appearance values are only for linears of the type:    */
+  /* Exhaust Smoke                                                        */
+  /************************************************************************/
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetBreachLocation
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreachLocation
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::GetBreachLocationAsBitset
-    // Description: Each bit indicates whether its associated segment is breached or not.
-    //              Bit 40+i indicates whether the portion of the segment beginning at the
-    //              segment origin + (i*Breach Length) and extending i* Breach
-    //              Length meters is breached or not.
-    //              For each bit:
-    //              0  Associated portion of segment is not breached
-    //              1  Associated portion of segment is breached
-    // Parameter:   const bitset<8> & L, KUINT8 L
-    //************************************
-	void SetBreachLocation( const std::bitset<8> & L );
-    void SetBreachLocation( KUINT8 L );
-    KUINT8 GetBreachLocation() const;
-	std::bitset<8> GetBreachLocationAsBitset();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetOpacity
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::GetOpacity
+  // Description: The percent opacity of the smoke, ranging from 0% opacity to
+  // 100%.
+  //              Acceptable values are 0 - 100 else throws INVALID_DATA
+  //              exception.
+  // Parameter:   KUINT8 O
+  //************************************
+  void SetOpacity(KUINT8 O);
+  KUINT8 GetOpacity() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for linears of the type:    */
-    /* Exhaust Smoke                                                        */
-    /************************************************************************/
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetAttached
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::IsAttached
+  // Description: Describes whether the smoke is attached to the vehicle.
+  // Parameter:   KBOOL A
+  //************************************
+  void SetAttached(KBOOL A);
+  KBOOL IsAttached() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetOpacity
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::GetOpacity
-    // Description: The percent opacity of the smoke, ranging from 0% opacity to 100%.
-    //              Acceptable values are 0 - 100 else throws INVALID_DATA exception.
-    // Parameter:   KUINT8 O
-    //************************************
-    void SetOpacity( KUINT8 O ) ;
-    KUINT8 GetOpacity() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetChemical
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::GetChemical
+  // Description: The chemical content of the smoke.
+  // Parameter:   Chemical C
+  //************************************
+  void SetChemical(KDIS::DATA_TYPE::ENUMS::Chemical C);
+  KDIS::DATA_TYPE::ENUMS::Chemical GetChemical() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetAttached
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::IsAttached
-    // Description: Describes whether the smoke is attached to the vehicle.
-    // Parameter:   KBOOL A
-    //************************************
-    void SetAttached( KBOOL A );
-    KBOOL IsAttached() const;
+  /************************************************************************/
+  /* The following appearance values are only for linears of the type:    */
+  /* Minefield Lane Marker                                                */
+  /************************************************************************/
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetChemical
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::GetChemical
-    // Description: The chemical content of the smoke.
-    // Parameter:   Chemical C
-    //************************************
-    void SetChemical( KDIS::DATA_TYPE::ENUMS::Chemical C );
-    KDIS::DATA_TYPE::ENUMS::Chemical GetChemical() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetVisibleSide
+  //              KDIS::DATA_TYPE::LinearObjectAppearance::GetVisibleSide
+  // Description: Describes the side of the lane marker which is visible.
+  // Parameter:   VisibleSide V
+  //************************************
+  void SetVisibleSide(KDIS::DATA_TYPE::ENUMS::VisibleSide V);
+  KDIS::DATA_TYPE::ENUMS::VisibleSide GetVisibleSide() const;
 
-    /************************************************************************/
-    /* The following appearance values are only for linears of the type:    */
-    /* Minefield Lane Marker                                                */
-    /************************************************************************/
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::GetAsString
+  // Description: Returns a string representation of the appearance
+  // Parameter:   const EntityType & EntType
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::SetVisibleSide
-    //              KDIS::DATA_TYPE::LinearObjectAppearance::GetVisibleSide
-    // Description: Describes the side of the lane marker which is visible.
-    // Parameter:   VisibleSide V
-    //************************************
-    void SetVisibleSide( KDIS::DATA_TYPE::ENUMS::VisibleSide V );
-    KDIS::DATA_TYPE::ENUMS::VisibleSide GetVisibleSide() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::GetAsString
-    // Description: Returns a string representation of the appearance
-    // Parameter:   const EntityType & EntType
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::LinearObjectAppearance::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const LinearObjectAppearance & Value ) const;
-    KBOOL operator != ( const LinearObjectAppearance & Value ) const;
+  KBOOL operator==(const LinearObjectAppearance& Value) const;
+  KBOOL operator!=(const LinearObjectAppearance& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

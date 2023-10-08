@@ -32,83 +32,81 @@ http://p.sf.net/kdis/UserGuide
     created:    09/05/2010
     author:     Karl Jones
 
-    purpose:    The location of each perimeter point, relative to the Minefield Location field.
-    size:       64 bits / 8 octets
+    purpose:    The location of each perimeter point, relative to the Minefield
+Location field. size:       64 bits / 8 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT PerimeterPointCoordinate : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT PerimeterPointCoordinate : public DataTypeBase {
+ protected:
+  KFLOAT32 m_f32X;
 
-    KFLOAT32 m_f32X;
+  KFLOAT32 m_f32Y;
 
-    KFLOAT32 m_f32Y;
+ public:
+  static const KUINT16 PERIMETER_POINT_COORDINATE_SIZE = 8;
 
-public:
+  PerimeterPointCoordinate();
 
-    static const KUINT16 PERIMETER_POINT_COORDINATE_SIZE = 8;
+  PerimeterPointCoordinate(KFLOAT32 X, KFLOAT32 Y);
 
-    PerimeterPointCoordinate();
+  PerimeterPointCoordinate(KDataStream& stream);
 
-    PerimeterPointCoordinate( KFLOAT32 X, KFLOAT32 Y );
+  virtual ~PerimeterPointCoordinate();
 
-    PerimeterPointCoordinate( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::SetX
+  //              KDIS::DATA_TYPE::PerimeterPointCoordinate::GetX
+  // Description: First Value / X
+  // Parameter:   KFLOAT32  X, void
+  //************************************
+  void SetX(KFLOAT32 X);
+  KFLOAT32 GetX() const;
 
-    virtual ~PerimeterPointCoordinate();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::SetY
+  //              KDIS::DATA_TYPE::PerimeterPointCoordinate::GetY
+  // Description: Second Value / Y
+  // Parameter:   KFLOAT32 Y, void
+  //************************************
+  void SetY(KFLOAT32 Y);
+  KFLOAT32 GetY() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::SetX
-    //              KDIS::DATA_TYPE::PerimeterPointCoordinate::GetX
-    // Description: First Value / X
-    // Parameter:   KFLOAT32  X, void
-    //************************************
-    void SetX( KFLOAT32 X );
-    KFLOAT32 GetX() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::SetY
-    //              KDIS::DATA_TYPE::PerimeterPointCoordinate::GetY
-    // Description: Second Value / Y
-    // Parameter:   KFLOAT32 Y, void
-    //************************************
-    void SetY( KFLOAT32 Y );
-    KFLOAT32 GetY() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  KBOOL operator==(const PerimeterPointCoordinate& Value) const;
+  KBOOL operator!=(const PerimeterPointCoordinate& Value) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const PerimeterPointCoordinate & Value ) const;
-    KBOOL operator != ( const PerimeterPointCoordinate & Value ) const;
-
-    // Valid values 0 - X, 1 - Y. throws OUT_OF_BOUNDS exception for any other value.
-    KFLOAT32 & operator[] ( KUINT16 i ) ;
-    const KFLOAT32 & operator[]  ( KUINT16 i ) const ;
+  // Valid values 0 - X, 1 - Y. throws OUT_OF_BOUNDS exception for any other
+  // value.
+  KFLOAT32& operator[](KUINT16 i);
+  const KFLOAT32& operator[](KUINT16 i) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

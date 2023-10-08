@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./UnderwaterAcousticEmitterBeam.h"
+#include "KDIS/DataTypes/UnderwaterAcousticEmitterBeam.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,143 +36,129 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam()  :
-    m_ui8BeamDataLength( UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE / 4 ),
-    m_ui8BeamIDNumber( 0 ),
-    m_ui16Padding1( 0 )
-{
+UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam()
+    : m_ui8BeamDataLength(UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE / 4),
+      m_ui8BeamIDNumber(0),
+      m_ui16Padding1(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam(
+    KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam( KDataStream & stream ) 
-{
-    Decode( stream );
+UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam(
+    KUINT8 ID, const UnderwaterAcousticFundamentalParameterData& UAFPD)
+    : m_ui8BeamDataLength(UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE / 4),
+      m_ui8BeamIDNumber(ID),
+      m_ui16Padding1(0),
+      m_UAFPD(UAFPD) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+UnderwaterAcousticEmitterBeam::~UnderwaterAcousticEmitterBeam() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 UnderwaterAcousticEmitterBeam::GetBeamDataLength() const {
+  return m_ui8BeamDataLength;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterBeam::UnderwaterAcousticEmitterBeam( KUINT8 ID, const UnderwaterAcousticFundamentalParameterData & UAFPD ) :
-    m_ui8BeamDataLength( UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE / 4 ),
-    m_ui8BeamIDNumber( ID ),
-    m_ui16Padding1( 0 ),
-    m_UAFPD( UAFPD )
-{
+void UnderwaterAcousticEmitterBeam::SetUnderwaterAcousticEmitterBeamIDNumber(
+    KUINT8 ID) {
+  m_ui8BeamIDNumber = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticEmitterBeam::~UnderwaterAcousticEmitterBeam()
-{
+KUINT8 UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticEmitterBeamIDNumber()
+    const {
+  return m_ui8BeamIDNumber;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 UnderwaterAcousticEmitterBeam::GetBeamDataLength() const
-{
-    return m_ui8BeamDataLength;
+void UnderwaterAcousticEmitterBeam::
+    SetUnderwaterAcousticFundamentalParameterData(
+        const UnderwaterAcousticFundamentalParameterData& UAFPD) {
+  m_UAFPD = UAFPD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterBeam::SetUnderwaterAcousticEmitterBeamIDNumber( KUINT8 ID )
-{
-    m_ui8BeamIDNumber = ID;
+const UnderwaterAcousticFundamentalParameterData&
+UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticFundamentalParameterData()
+    const {
+  return m_UAFPD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticEmitterBeamIDNumber() const
-{
-    return m_ui8BeamIDNumber;
+UnderwaterAcousticFundamentalParameterData&
+UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticFundamentalParameterData() {
+  return m_UAFPD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterBeam::SetUnderwaterAcousticFundamentalParameterData( const UnderwaterAcousticFundamentalParameterData & UAFPD )
-{
-    m_UAFPD = UAFPD;
+KString UnderwaterAcousticEmitterBeam::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Underwater Acoustic Emitter Beam:"
+     << "\n\tBeam Data Length:              " << (KUINT16)m_ui8BeamDataLength
+     << "\n\tBeam ID Number:		          "
+     << (KUINT16)m_ui8BeamIDNumber << m_UAFPD.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const UnderwaterAcousticFundamentalParameterData & UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticFundamentalParameterData() const
-{
-    return m_UAFPD;
+void UnderwaterAcousticEmitterBeam::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8BeamDataLength >> m_ui8BeamIDNumber >> m_ui16Padding1 >>
+      KDIS_STREAM m_UAFPD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-UnderwaterAcousticFundamentalParameterData & UnderwaterAcousticEmitterBeam::GetUnderwaterAcousticFundamentalParameterData()
-{
-    return m_UAFPD;
+KDataStream UnderwaterAcousticEmitterBeam::Encode() const {
+  KDataStream stream;
+
+  UnderwaterAcousticEmitterBeam::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString UnderwaterAcousticEmitterBeam::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Underwater Acoustic Emitter Beam:"
-       << "\n\tBeam Data Length:              " << ( KUINT16 )m_ui8BeamDataLength
-       << "\n\tBeam ID Number:		          " << ( KUINT16 )m_ui8BeamIDNumber
-       << m_UAFPD.GetAsString();
-
-    return ss.str();
+void UnderwaterAcousticEmitterBeam::Encode(KDataStream& stream) const {
+  stream << m_ui8BeamDataLength << m_ui8BeamIDNumber << m_ui16Padding1
+         << KDIS_STREAM m_UAFPD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void UnderwaterAcousticEmitterBeam::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8BeamDataLength
-           >> m_ui8BeamIDNumber
-           >> m_ui16Padding1
-           >> KDIS_STREAM m_UAFPD;
+KBOOL UnderwaterAcousticEmitterBeam::operator==(
+    const UnderwaterAcousticEmitterBeam& Value) const {
+  if (m_ui8BeamDataLength != Value.m_ui8BeamDataLength) return false;
+  if (m_ui8BeamIDNumber != Value.m_ui8BeamIDNumber) return false;
+  if (m_UAFPD != Value.m_UAFPD) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream UnderwaterAcousticEmitterBeam::Encode() const
-{
-    KDataStream stream;
-
-    UnderwaterAcousticEmitterBeam::Encode( stream );
-
-    return stream;
+KBOOL UnderwaterAcousticEmitterBeam::operator!=(
+    const UnderwaterAcousticEmitterBeam& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void UnderwaterAcousticEmitterBeam::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8BeamDataLength
-           << m_ui8BeamIDNumber
-           << m_ui16Padding1
-           << KDIS_STREAM m_UAFPD;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL UnderwaterAcousticEmitterBeam::operator == ( const UnderwaterAcousticEmitterBeam & Value ) const
-{
-    if( m_ui8BeamDataLength  != Value.m_ui8BeamDataLength ) return false;
-    if( m_ui8BeamIDNumber    != Value.m_ui8BeamIDNumber )   return false;
-    if( m_UAFPD              != Value.m_UAFPD )             return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL UnderwaterAcousticEmitterBeam::operator != ( const UnderwaterAcousticEmitterBeam & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-
-

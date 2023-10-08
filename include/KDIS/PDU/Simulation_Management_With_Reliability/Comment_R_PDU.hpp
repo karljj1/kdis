@@ -33,43 +33,42 @@ http://p.sf.net/kdis/UserGuide
     created:    28:03:2009
     author:     Karl Jones
 
-    purpose:    Arbitrary message (E.G char strings) shall be entered into the data
-                stream by using a comment PDU. For use as comment, test message, error etc.
+    purpose:    Arbitrary message (E.G char strings) shall be entered into the
+data stream by using a comment PDU. For use as comment, test message, error etc.
     size:       256 bits/ 32 octets - not including variable param sizes
 *********************************************************************/
 
 #pragma once
 
-#include "./../Simulation_Management/Comment_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Comment_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Comment_R_PDU : public Comment_PDU
-{
-public:
+class KDIS_EXPORT Comment_R_PDU : public Comment_PDU {
+ public:
+  static const KUINT16 COMMENT_R_PDU_SIZE = 32;  // Min size
 
-    static const KUINT16 COMMENT_R_PDU_SIZE = 32; // Min size
+  Comment_R_PDU();
 
-    Comment_R_PDU();
+  explicit Comment_R_PDU(KDataStream& stream);
 
-    Comment_R_PDU( KDataStream & stream ) ;
+  Comment_R_PDU(const Header& H, KDataStream& stream);
 
-    Comment_R_PDU( const Header & H, KDataStream & stream ) ;
+  Comment_R_PDU(const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+                const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID);
 
-    Comment_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID );
+  virtual ~Comment_R_PDU();
 
-    virtual ~Comment_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Comment_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Comment_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Comment_R_PDU & Value ) const;
-    KBOOL operator != ( const Comment_R_PDU & Value ) const;
+  KBOOL operator==(const Comment_R_PDU& Value) const;
+  KBOOL operator!=(const Comment_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SystemIdentifier.h"
+#include "KDIS/DataTypes/SystemIdentifier.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,269 +37,217 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::SystemIdentifier() :
-    m_ui16SystemType( 0 ),
-    m_ui16SystemName( 0 ),
-    m_ui8SystemMode( 0 ),
-    m_ui8ChangeOptions( 0 )
-{
+SystemIdentifier::SystemIdentifier()
+    : m_ui16SystemType(0),
+      m_ui16SystemName(0),
+      m_ui8SystemMode(0),
+      m_ui8ChangeOptions(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SystemIdentifier::SystemIdentifier(SystemType T, SystemName N, SystemMode M,
+                                   KBOOL ChangeIndicator,
+                                   KBOOL AltMode4 /* = false */,
+                                   KBOOL AltModeC /* = false */)
+    : m_ui16SystemType(T),
+      m_ui16SystemName(N),
+      m_ui8SystemMode(M),
+      m_ui8ChangeIndicator(ChangeIndicator),
+      m_ui8AltMode4(AltMode4),
+      m_ui8AltModeC(AltModeC) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+SystemIdentifier::SystemIdentifier(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+SystemIdentifier::~SystemIdentifier() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SystemIdentifier::SetSystemType(SystemType T) { m_ui16SystemType = T; }
+
+//////////////////////////////////////////////////////////////////////////
+
+SystemType SystemIdentifier::GetSystemType() const {
+  return (SystemType)m_ui16SystemType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::SystemIdentifier( SystemType T, SystemName N, SystemMode M, KBOOL ChangeIndicator,
-                                    KBOOL AltMode4 /* = false */, KBOOL AltModeC /* = false */ ) :
-    m_ui16SystemType( T ),
-    m_ui16SystemName( N ),
-    m_ui8SystemMode( M ),
-    m_ui8ChangeIndicator( ChangeIndicator ),
-    m_ui8AltMode4( AltMode4 ),
-    m_ui8AltModeC( AltModeC )
-{
+void SystemIdentifier::SetSystemName(SystemName N) { m_ui16SystemName = N; }
+
+//////////////////////////////////////////////////////////////////////////
+
+SystemName SystemIdentifier::GetSystemName() const {
+  return (SystemName)m_ui16SystemName;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::SystemIdentifier( KDataStream & stream ) 
-{
-    Decode( stream );
+void SystemIdentifier::SetSystemMode(SystemMode M) { m_ui8SystemMode = M; }
+
+//////////////////////////////////////////////////////////////////////////
+
+SystemMode SystemIdentifier::GetSystemMode() const {
+  return (SystemMode)m_ui8SystemMode;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemIdentifier::~SystemIdentifier()
-{
+void SystemIdentifier::SetChangeOptions(KBOOL ChangeIndicator, KBOOL AltMode4,
+                                        KBOOL AltModeC) {
+  m_ui8ChangeIndicator = ChangeIndicator;
+  m_ui8AltMode4 = AltMode4;
+  m_ui8AltModeC = AltModeC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::SetSystemType( SystemType T )
-{
-    m_ui16SystemType = T;
+void SystemIdentifier::SetChangeIndicator(KBOOL CI) {
+  m_ui8ChangeIndicator = CI;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemType SystemIdentifier::GetSystemType() const
-{
-    return ( SystemType )m_ui16SystemType;
+void SystemIdentifier::SetAltMode4(KBOOL AM) { m_ui8AltMode4 = AM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SystemIdentifier::SetAltModeC(KBOOL AM) { m_ui8AltModeC = AM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SystemIdentifier::GetChangeIndicator() const {
+  return m_ui8ChangeIndicator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::SetSystemName( SystemName N )
-{
-    m_ui16SystemName = N;
-}
+KBOOL SystemIdentifier::GetAltMode4() const { return m_ui8AltMode4; }
 
 //////////////////////////////////////////////////////////////////////////
 
-SystemName SystemIdentifier::GetSystemName() const
-{
-    return ( SystemName )m_ui16SystemName;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SystemIdentifier::SetSystemMode( SystemMode M )
-{
-    m_ui8SystemMode = M;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-SystemMode SystemIdentifier::GetSystemMode() const
-{
-    return ( SystemMode )m_ui8SystemMode;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SystemIdentifier::SetChangeOptions( KBOOL ChangeIndicator, KBOOL AltMode4, KBOOL AltModeC )
-{
-    m_ui8ChangeIndicator = ChangeIndicator;
-    m_ui8AltMode4 = AltMode4;
-    m_ui8AltModeC = AltModeC;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SystemIdentifier::SetChangeIndicator( KBOOL CI )
-{
-    m_ui8ChangeIndicator = CI;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SystemIdentifier::SetAltMode4( KBOOL AM )
-{
-    m_ui8AltMode4 = AM;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SystemIdentifier::SetAltModeC( KBOOL AM )
-{
-    m_ui8AltModeC = AM;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SystemIdentifier::GetChangeIndicator() const
-{
-    return m_ui8ChangeIndicator;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SystemIdentifier::GetAltMode4() const
-{
-    return m_ui8AltMode4;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SystemIdentifier::GetAltModeC() const
-{
-    return m_ui8AltModeC;
-}
+KBOOL SystemIdentifier::GetAltModeC() const { return m_ui8AltModeC; }
 
 //////////////////////////////////////////////////////////////////////////
 
 #if DIS_VERSION > 6
-void SystemIdentifier::SetHeartbeatIndicator ( KBOOL HI) {
-    m_ui8HeartbeatIndicator = HI;
+void SystemIdentifier::SetHeartbeatIndicator(KBOOL HI) {
+  m_ui8HeartbeatIndicator = HI;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::SetTransponderInterrogatorIndicator ( KBOOL TII) {
-    m_ui8TransponderInterrogatorIndicator = TII;
+void SystemIdentifier::SetTransponderInterrogatorIndicator(KBOOL TII) {
+  m_ui8TransponderInterrogatorIndicator = TII;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::SetSimulationMode ( KBOOL SM) {
-    m_ui8SimulationMode = SM;
+void SystemIdentifier::SetSimulationMode(KBOOL SM) { m_ui8SimulationMode = SM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SystemIdentifier::SetInteractiveCapable(KBOOL IC) {
+  m_ui8InteractiveCapable = IC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::SetInteractiveCapable ( KBOOL IC) {
-    m_ui8InteractiveCapable = IC;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SystemIdentifier::SetTestMode ( KBOOL TM) {
-    m_ui8TestMode = TM;
-}
+void SystemIdentifier::SetTestMode(KBOOL TM) { m_ui8TestMode = TM; }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL SystemIdentifier::GetHeartbeatIndicator() const {
-    return m_ui8HeartbeatIndicator;
+  return m_ui8HeartbeatIndicator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL SystemIdentifier::GetTransponderInterrogatorIndicator() const {
-    return m_ui8TransponderInterrogatorIndicator;
+  return m_ui8TransponderInterrogatorIndicator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL SystemIdentifier::GetSimulationMode() const {
-    return m_ui8SimulationMode;
+  return m_ui8SimulationMode;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL SystemIdentifier::GetInteractiveCapable() const {
-    return m_ui8InteractiveCapable;
+  return m_ui8InteractiveCapable;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SystemIdentifier::GetTestMode() const {
-    return m_ui8TestMode;
-}
-#endif //DIS_VERSION > 6
+KBOOL SystemIdentifier::GetTestMode() const { return m_ui8TestMode; }
+#endif  // DIS_VERSION > 6
 
 //////////////////////////////////////////////////////////////////////////
 
-KString SystemIdentifier::GetAsString() const
-{
-    KStringStream ss;
+KString SystemIdentifier::GetAsString() const {
+  KStringStream ss;
 
-    ss << "System Identifier:"
-       << "\n\tType:           " << GetEnumAsStringSystemType( m_ui16SystemType )
-       << "\n\tName:           " << GetEnumAsStringSystemName( m_ui16SystemName )
-       << "\n\tMode:           " << GetEnumAsStringSystemMode( m_ui8SystemMode )
-       << "\n\tChange/Options: " << ( KBOOL )m_ui8ChangeIndicator
-       << "\n";
+  ss << "System Identifier:"
+     << "\n\tType:           " << GetEnumAsStringSystemType(m_ui16SystemType)
+     << "\n\tName:           " << GetEnumAsStringSystemName(m_ui16SystemName)
+     << "\n\tMode:           " << GetEnumAsStringSystemMode(m_ui8SystemMode)
+     << "\n\tChange/Options: " << (KBOOL)m_ui8ChangeIndicator << "\n";
 
-    if( m_ui16SystemType == Mark_X_XII_ATCRBS_ModeS_Interrogator ||
-            m_ui16SystemType == Mark_X_XII_ATCRBS_ModeS_Transponder )
-    {
-        ss << "\tAlt Mode 4: " << ( KUINT16 )m_ui8AltMode4
-           << "\n\tAlt Mode C:  " << ( KUINT16 )m_ui8AltModeC
-           << "\n";
-    }
+  if (m_ui16SystemType == Mark_X_XII_ATCRBS_ModeS_Interrogator ||
+      m_ui16SystemType == Mark_X_XII_ATCRBS_ModeS_Transponder) {
+    ss << "\tAlt Mode 4: " << (KUINT16)m_ui8AltMode4
+       << "\n\tAlt Mode C:  " << (KUINT16)m_ui8AltModeC << "\n";
+  }
 
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < SYSTEM_IDENTIFER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void SystemIdentifier::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < SYSTEM_IDENTIFER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    stream >> m_ui16SystemType
-           >> m_ui16SystemName
-           >> m_ui8SystemMode
-           >> m_ui8ChangeOptions;
+  stream >> m_ui16SystemType >> m_ui16SystemName >> m_ui8SystemMode >>
+      m_ui8ChangeOptions;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream SystemIdentifier::Encode() const
-{
-    KDataStream stream;
+KDataStream SystemIdentifier::Encode() const {
+  KDataStream stream;
 
-    SystemIdentifier::Encode( stream );
+  SystemIdentifier::Encode(stream);
 
-    return stream;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SystemIdentifier::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16SystemType
-           << m_ui16SystemName
-           << m_ui8SystemMode
-           << m_ui8ChangeOptions;
+void SystemIdentifier::Encode(KDataStream& stream) const {
+  stream << m_ui16SystemType << m_ui16SystemName << m_ui8SystemMode
+         << m_ui8ChangeOptions;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SystemIdentifier::operator == ( const SystemIdentifier & Value ) const
-{
-    if( m_ui16SystemType   != Value.m_ui16SystemType )   return false;
-    if( m_ui16SystemName   != Value.m_ui16SystemName )   return false;
-    if( m_ui8SystemMode    != Value.m_ui8SystemMode )    return false;
-    if( m_ui8ChangeOptions != Value.m_ui8ChangeOptions ) return false;
-    return true;
+KBOOL SystemIdentifier::operator==(const SystemIdentifier& Value) const {
+  if (m_ui16SystemType != Value.m_ui16SystemType) return false;
+  if (m_ui16SystemName != Value.m_ui16SystemName) return false;
+  if (m_ui8SystemMode != Value.m_ui8SystemMode) return false;
+  if (m_ui8ChangeOptions != Value.m_ui8ChangeOptions) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SystemIdentifier::operator != ( const SystemIdentifier & Value ) const
-{
-    return !( *this == Value );
+KBOOL SystemIdentifier::operator!=(const SystemIdentifier& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-

@@ -38,93 +38,92 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./RectangularVolumeRecord1.h"
+#include "KDIS/DataTypes/RectangularVolumeRecord1.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT RectangularVolumeRecord2 : public RectangularVolumeRecord1
-{
-protected:
+class KDIS_EXPORT RectangularVolumeRecord2 : public RectangularVolumeRecord1 {
+ protected:
+  Vector m_DDT;
 
-    Vector m_DDT;
+  Vector m_Velocity;
 
-    Vector m_Velocity;
+  Vector m_AngularVelocity;
 
-    Vector m_AngularVelocity;
+  KFLOAT32 m_f32Padding;
 
-    KFLOAT32 m_f32Padding;
+ public:
+  static const KUINT16 RECTANGLE_VOLUME_RECORD_2_SIZE = 88;
 
-public:
+  RectangularVolumeRecord2();
 
-    static const KUINT16 RECTANGLE_VOLUME_RECORD_2_SIZE = 88;
+  RectangularVolumeRecord2(KDataStream& stream);
 
-    RectangularVolumeRecord2();
+  RectangularVolumeRecord2(KUINT8 Index, const WorldCoordinates& CornerLocation,
+                           const Vector& RectangleLength, const Vector& DDT,
+                           const EulerAngles& Orientation,
+                           const Vector& Velocity,
+                           const Vector& AngularVelocity);
 
-    RectangularVolumeRecord2( KDataStream & stream ) ;
+  virtual ~RectangularVolumeRecord2();
 
-    RectangularVolumeRecord2( KUINT8 Index, const WorldCoordinates & CornerLocation, const Vector & RectangleLength,
-                              const Vector & DDT, const EulerAngles & Orientation, const Vector & Velocity,
-                              const Vector & AngularVelocity );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::SetDOverDt
+  //              KDIS::DATA_TYPE::RectangularVolumeRecord2::GetDOverDt
+  // Description: Specifies the location of the corner of the rectangle.
+  // Parameter:   const Vector & DDT
+  //************************************
+  void SetDOverDt(const Vector& DDT);
+  const Vector& GetDOverDt() const;
+  Vector& GetDOverDt();
 
-    virtual ~RectangularVolumeRecord2();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::SetVelocity
+  //              KDIS::DATA_TYPE::RectangularVolumeRecord2::GetVelocity
+  // Description: Specifies the velocity of the rectangle.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetVelocity(const Vector& V);
+  const Vector& GetVelocity() const;
+  Vector& GetVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::SetDOverDt
-    //              KDIS::DATA_TYPE::RectangularVolumeRecord2::GetDOverDt
-    // Description: Specifies the location of the corner of the rectangle.
-    // Parameter:   const Vector & DDT
-    //************************************
-    void SetDOverDt( const Vector & DDT );
-    const Vector & GetDOverDt() const;
-    Vector & GetDOverDt();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::SetAngularVelocity
+  //              KDIS::DATA_TYPE::RectangularVolumeRecord2::GetAngularVelocity
+  // Description: Specifies the angular velocity of the rectangle.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetAngularVelocity(const Vector& V);
+  const Vector& GetAngularVelocity() const;
+  Vector& GetAngularVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::SetVelocity
-    //              KDIS::DATA_TYPE::RectangularVolumeRecord2::GetVelocity
-    // Description: Specifies the velocity of the rectangle.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::SetAngularVelocity
-    //              KDIS::DATA_TYPE::RectangularVolumeRecord2::GetAngularVelocity
-    // Description: Specifies the angular velocity of the rectangle.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetAngularVelocity( const Vector & V );
-    const Vector & GetAngularVelocity() const;
-    Vector & GetAngularVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RectangularVolumeRecord2::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const RectangularVolumeRecord2 & Value )const;
-    KBOOL operator != ( const RectangularVolumeRecord2 & Value )const;
+  KBOOL operator==(const RectangularVolumeRecord2& Value) const;
+  KBOOL operator!=(const RectangularVolumeRecord2& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

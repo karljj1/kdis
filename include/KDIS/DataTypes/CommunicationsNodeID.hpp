@@ -42,70 +42,68 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EntityIdentifier.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT CommunicationsNodeID : public EntityIdentifier
-{
-protected:
+class KDIS_EXPORT CommunicationsNodeID : public EntityIdentifier {
+ protected:
+  KUINT16 m_ui16ElementID;
 
-    KUINT16 m_ui16ElementID;
+ public:
+  static const KUINT16 COMMUNICATIONS_NODE_ID_SIZE = 8;
 
-public:
+  CommunicationsNodeID();
 
-    static const KUINT16 COMMUNICATIONS_NODE_ID_SIZE = 8;
+  CommunicationsNodeID(KDataStream& stream);
 
-    CommunicationsNodeID();
+  CommunicationsNodeID(KUINT16 Site, KUINT16 App, KUINT16 Obj, KUINT16 Element);
 
-    CommunicationsNodeID( KDataStream & stream ) ;
+  CommunicationsNodeID(const SimulationIdentifier& SimID, KUINT16 Obj,
+                       KUINT16 Element);
 
-    CommunicationsNodeID( KUINT16 Site, KUINT16 App, KUINT16 Obj, KUINT16 Element );
+  CommunicationsNodeID(const EntityIdentifier& EntID, KUINT16 Element);
 
-    CommunicationsNodeID( const SimulationIdentifier & SimID, KUINT16 Obj, KUINT16 Element );
+  virtual ~CommunicationsNodeID();
 
-    CommunicationsNodeID( const EntityIdentifier & EntID, KUINT16 Element );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::SetElementID
+  //              KDIS::DATA_TYPE::CommunicationsNodeID::GetElementID
+  // Description: Identifies a particular communications element (e.g. radio,
+  //              network component, or modem) within a given entity.
+  //              If this element is a radio for which a Transmitter PDU
+  //              is being issued, this value shall correspond to the Radio
+  //              ID in that PDU.
+  // Parameter:   KUINT16 ID, void
+  //************************************
+  void SetElementID(KUINT16 ID);
+  KUINT16 GetElementID() const;
 
-    virtual ~CommunicationsNodeID();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::SetElementID
-    //              KDIS::DATA_TYPE::CommunicationsNodeID::GetElementID
-    // Description: Identifies a particular communications element (e.g. radio,
-    //              network component, or modem) within a given entity.
-    //              If this element is a radio for which a Transmitter PDU
-    //              is being issued, this value shall correspond to the Radio
-    //              ID in that PDU.
-    // Parameter:   KUINT16 ID, void
-    //************************************
-    void SetElementID( KUINT16 ID );
-    KUINT16 GetElementID() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CommunicationsNodeID::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const CommunicationsNodeID & Value ) const;
-    KBOOL operator != ( const CommunicationsNodeID & Value ) const;
+  KBOOL operator==(const CommunicationsNodeID& Value) const;
+  KBOOL operator!=(const CommunicationsNodeID& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

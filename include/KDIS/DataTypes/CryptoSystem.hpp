@@ -38,103 +38,99 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT CryptoSystem : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT CryptoSystem : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16CryptoSystemType;
 
-    KUINT16 m_ui16CryptoSystemType;
-
-    union
-    {
-        struct
-        {
-            KUINT16 m_ui16KeyID          : 15;
-            KUINT16 m_ui16EncryptionMode : 1;
-        };
-
-        KUINT16 m_ui16CryptoKey;
+  union {
+    struct {
+      KUINT16 m_ui16KeyID : 15;
+      KUINT16 m_ui16EncryptionMode : 1;
     };
 
-public:
+    KUINT16 m_ui16CryptoKey;
+  };
 
-    static const KUINT16 CRYPTO_SYSTEM_SIZE = 4;
+ public:
+  static const KUINT16 CRYPTO_SYSTEM_SIZE = 4;
 
-    CryptoSystem();
+  CryptoSystem();
 
-    CryptoSystem( KDataStream & stream );
+  CryptoSystem(KDataStream& stream);
 
-    CryptoSystem( KDIS::DATA_TYPE::ENUMS::CryptoSystemType CST, KDIS::DATA_TYPE::ENUMS::EncryptionMode EM, KUINT16 Key );
+  CryptoSystem(KDIS::DATA_TYPE::ENUMS::CryptoSystemType CST,
+               KDIS::DATA_TYPE::ENUMS::EncryptionMode EM, KUINT16 Key);
 
-    virtual ~CryptoSystem();
+  virtual ~CryptoSystem();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetCryptoSystemType
-    //              KDIS::DATA_TYPE::CryptoSystem::GetCryptoSystemType
-    // Description: Equipment being used.
-    // Parameter:   CryptoSystemType T
-    //************************************
-    void SetCryptoSystemType( KDIS::DATA_TYPE::ENUMS::CryptoSystemType T );
-    KDIS::DATA_TYPE::ENUMS::CryptoSystemType GetCryptoSystemType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetCryptoSystemType
+  //              KDIS::DATA_TYPE::CryptoSystem::GetCryptoSystemType
+  // Description: Equipment being used.
+  // Parameter:   CryptoSystemType T
+  //************************************
+  void SetCryptoSystemType(KDIS::DATA_TYPE::ENUMS::CryptoSystemType T);
+  KDIS::DATA_TYPE::ENUMS::CryptoSystemType GetCryptoSystemType() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetEncryptionMode
-    //              KDIS::DATA_TYPE::CryptoSystem::GetEncryptionMode
-    // Description: Mode being used to encrypt the data.
-    // Parameter:   EncryptionMode EM
-    //************************************
-    void SetEncryptionMode( KDIS::DATA_TYPE::ENUMS::EncryptionMode EM );
-    KDIS::DATA_TYPE::ENUMS::EncryptionMode GetEncryptionMode() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetEncryptionMode
+  //              KDIS::DATA_TYPE::CryptoSystem::GetEncryptionMode
+  // Description: Mode being used to encrypt the data.
+  // Parameter:   EncryptionMode EM
+  //************************************
+  void SetEncryptionMode(KDIS::DATA_TYPE::ENUMS::EncryptionMode EM);
+  KDIS::DATA_TYPE::ENUMS::EncryptionMode GetEncryptionMode() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetKeyID
-    //              KDIS::DATA_TYPE::CryptoSystem::GetKeyID
-    // Description: Mode being used to encrypt the data.
-    // Parameter:   EncryptionMode EM
-    //************************************
-    void SetKeyID( KUINT16 KeyID );
-    KUINT16 GetKeyID() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetKeyID
+  //              KDIS::DATA_TYPE::CryptoSystem::GetKeyID
+  // Description: Mode being used to encrypt the data.
+  // Parameter:   EncryptionMode EM
+  //************************************
+  void SetKeyID(KUINT16 KeyID);
+  KUINT16 GetKeyID() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetKey
-    //              KDIS::DATA_TYPE::CryptoSystem::GetKey
-    // Description: Key. Not an actual crypto key, if the key
-    //              from the sender is the same as the key of the
-    //              receiver then they are considered to be using the
-    //              same key.
-    // Parameter:   KUINT16 EM
-    //************************************
-    void SetKey( KUINT16 K );
-    KUINT16 GetKey() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CryptoSystem::SetKey
+  //              KDIS::DATA_TYPE::CryptoSystem::GetKey
+  // Description: Key. Not an actual crypto key, if the key
+  //              from the sender is the same as the key of the
+  //              receiver then they are considered to be using the
+  //              same key.
+  // Parameter:   KUINT16 EM
+  //************************************
+  void SetKey(KUINT16 K);
+  KUINT16 GetKey() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CryptoSystem::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CryptoSystem::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CryptoSystem::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CryptoSystem::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::CryptoSystem::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::CryptoSystem::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    KBOOL operator == ( const CryptoSystem & Value ) const;
-    KBOOL operator != ( const CryptoSystem & Value ) const;
+  KBOOL operator==(const CryptoSystem& Value) const;
+  KBOOL operator!=(const CryptoSystem& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./ObjectAppearance.h"
+#include "KDIS/DataTypes/ObjectAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,201 +37,186 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-ObjectAppearance::ObjectAppearance()
-{
-    m_GeneralAppearanceUnion.m_ui16GeneralAppearance = 0;
+ObjectAppearance::ObjectAppearance() {
+  m_GeneralAppearanceUnion.m_ui16GeneralAppearance = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectAppearance::ObjectAppearance( KDataStream & stream ) 
-{
-    Decode( stream );
+ObjectAppearance::ObjectAppearance(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+ObjectAppearance::ObjectAppearance(KUINT8 PerCent, ObjectDamage OD,
+                                   KBOOL Predist, KBOOL State, KBOOL Smoking,
+                                   KBOOL Flaming) {
+  if (PerCent > 100)
+    throw KException(__FUNCTION__, INVALID_DATA,
+                     "PerCent Acceptable values are 0-100.");
+
+  m_GeneralAppearanceUnion.m_ui16PcComp = PerCent;
+  m_GeneralAppearanceUnion.m_ui16Dmg = OD;
+  m_GeneralAppearanceUnion.m_ui16Predistributed = Predist;
+  m_GeneralAppearanceUnion.m_ui16State = State;
+  m_GeneralAppearanceUnion.m_ui16Smoking = Smoking;
+  m_GeneralAppearanceUnion.m_ui16Flaming = Flaming;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectAppearance::ObjectAppearance( KUINT8 PerCent, ObjectDamage OD, KBOOL Predist, KBOOL State,
-                                    KBOOL Smoking, KBOOL Flaming ) 
-{
-    if( PerCent > 100 ) throw KException( __FUNCTION__, INVALID_DATA, "PerCent Acceptable values are 0-100." );
+ObjectAppearance::~ObjectAppearance() {}
 
-    m_GeneralAppearanceUnion.m_ui16PcComp = PerCent;
-    m_GeneralAppearanceUnion.m_ui16Dmg = OD;
-    m_GeneralAppearanceUnion.m_ui16Predistributed = Predist;
-    m_GeneralAppearanceUnion.m_ui16State = State;
-    m_GeneralAppearanceUnion.m_ui16Smoking = Smoking;
-    m_GeneralAppearanceUnion.m_ui16Flaming = Flaming;
+//////////////////////////////////////////////////////////////////////////
+
+void ObjectAppearance::SetGeneralAppearance(KUINT16 GA) {
+  m_GeneralAppearanceUnion.m_ui16GeneralAppearance = GA;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectAppearance::~ObjectAppearance()
-{
+KUINT16 ObjectAppearance::GetGeneralAppearance() const {
+  return m_GeneralAppearanceUnion.m_ui16GeneralAppearance;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetGeneralAppearance( KUINT16 GA )
-{
-    m_GeneralAppearanceUnion.m_ui16GeneralAppearance = GA;
+void ObjectAppearance::SetPercentageComplete(KUINT8 P) {
+  if (P > 100)
+    throw KException(__FUNCTION__, INVALID_DATA,
+                     "Acceptable values are 0-100.");
+
+  m_GeneralAppearanceUnion.m_ui16PcComp = P;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 ObjectAppearance::GetGeneralAppearance() const
-{
-    return m_GeneralAppearanceUnion.m_ui16GeneralAppearance;
+KUINT8 ObjectAppearance::GetPercentageComplete() const {
+  return m_GeneralAppearanceUnion.m_ui16PcComp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetPercentageComplete( KUINT8 P ) 
-{
-    if( P > 100 ) throw KException( __FUNCTION__, INVALID_DATA, "Acceptable values are 0-100." );
-
-    m_GeneralAppearanceUnion.m_ui16PcComp = P;
+void ObjectAppearance::SetDamage(ObjectDamage OD) {
+  m_GeneralAppearanceUnion.m_ui16Dmg = OD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 ObjectAppearance::GetPercentageComplete() const
-{
-    return m_GeneralAppearanceUnion.m_ui16PcComp;
+ObjectDamage ObjectAppearance::GetDamage() const {
+  return (ObjectDamage)m_GeneralAppearanceUnion.m_ui16Dmg;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetDamage( ObjectDamage OD )
-{
-    m_GeneralAppearanceUnion.m_ui16Dmg = OD;
+void ObjectAppearance::SetPredistributed(KBOOL P) {
+  m_GeneralAppearanceUnion.m_ui16Predistributed = P;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectDamage ObjectAppearance::GetDamage() const
-{
-    return ( ObjectDamage )m_GeneralAppearanceUnion.m_ui16Dmg;
+KBOOL ObjectAppearance::IsPredistributed() const {
+  return m_GeneralAppearanceUnion.m_ui16Predistributed;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetPredistributed( KBOOL P )
-{
-    m_GeneralAppearanceUnion.m_ui16Predistributed = P;
+void ObjectAppearance::SetState(KBOOL S) {
+  m_GeneralAppearanceUnion.m_ui16State = S;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ObjectAppearance::IsPredistributed() const
-{
-    return m_GeneralAppearanceUnion.m_ui16Predistributed;
+KBOOL ObjectAppearance::GetState() const {
+  return m_GeneralAppearanceUnion.m_ui16State;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetState( KBOOL S )
-{
-    m_GeneralAppearanceUnion.m_ui16State = S;
+void ObjectAppearance::SetSmoking(KBOOL S) {
+  m_GeneralAppearanceUnion.m_ui16Smoking = S;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ObjectAppearance::GetState() const
-{
-    return m_GeneralAppearanceUnion.m_ui16State;
+KBOOL ObjectAppearance::IsSmoking() const {
+  return m_GeneralAppearanceUnion.m_ui16Smoking;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetSmoking( KBOOL S )
-{
-    m_GeneralAppearanceUnion.m_ui16Smoking = S;
+void ObjectAppearance::SetFlaming(KBOOL F) {
+  m_GeneralAppearanceUnion.m_ui16Flaming = F;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ObjectAppearance::IsSmoking() const
-{
-    return m_GeneralAppearanceUnion.m_ui16Smoking;
+KBOOL ObjectAppearance::IsFlaming() const {
+  return m_GeneralAppearanceUnion.m_ui16Flaming;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::SetFlaming( KBOOL F )
-{
-    m_GeneralAppearanceUnion.m_ui16Flaming = F;
+KString ObjectAppearance::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Object Appearance:\n"
+     << "\tGeneral Appearance:"
+     << "\tPercent Complete:  " << m_GeneralAppearanceUnion.m_ui16PcComp << "\n"
+     << "\tDamage:            "
+     << GetEnumAsStringObjectDamage(m_GeneralAppearanceUnion.m_ui16Dmg) << "\n"
+     << "\tPredistributed:    " << m_GeneralAppearanceUnion.m_ui16Predistributed
+     << "\n"
+     << "\tState:             " << m_GeneralAppearanceUnion.m_ui16State << "\n"
+     << "\tSmoking:           " << m_GeneralAppearanceUnion.m_ui16Smoking
+     << "\n"
+     << "\tFlaming:           " << m_GeneralAppearanceUnion.m_ui16Flaming
+     << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL ObjectAppearance::IsFlaming() const
-{
-    return m_GeneralAppearanceUnion.m_ui16Flaming;
+void ObjectAppearance::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < OBJECT_APPEARANCE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  // Do not swap endian.
+  stream >> m_GeneralAppearanceUnion.m_ui8GeneralAppearance[1] >>
+      m_GeneralAppearanceUnion.m_ui8GeneralAppearance[0];
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString ObjectAppearance::GetAsString() const
-{
-    KStringStream ss;
+KDataStream ObjectAppearance::Encode() const {
+  KDataStream stream;
 
-    ss << "Object Appearance:\n"
-       << "\tGeneral Appearance:"
-       << "\tPercent Complete:  " << m_GeneralAppearanceUnion.m_ui16PcComp         << "\n"
-       << "\tDamage:            " << GetEnumAsStringObjectDamage( m_GeneralAppearanceUnion.m_ui16Dmg ) << "\n"
-       << "\tPredistributed:    " << m_GeneralAppearanceUnion.m_ui16Predistributed << "\n"
-       << "\tState:             " << m_GeneralAppearanceUnion.m_ui16State          << "\n"
-       << "\tSmoking:           " << m_GeneralAppearanceUnion.m_ui16Smoking        << "\n"
-       << "\tFlaming:           " << m_GeneralAppearanceUnion.m_ui16Flaming        << "\n";
+  ObjectAppearance::Encode(stream);
 
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < OBJECT_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    // Do not swap endian.
-    stream >> m_GeneralAppearanceUnion.m_ui8GeneralAppearance[1]
-           >> m_GeneralAppearanceUnion.m_ui8GeneralAppearance[0];
+void ObjectAppearance::Encode(KDataStream& stream) const {
+  // Do not swap endian.
+  stream << m_GeneralAppearanceUnion.m_ui8GeneralAppearance[1]
+         << m_GeneralAppearanceUnion.m_ui8GeneralAppearance[0];
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream ObjectAppearance::Encode() const
-{
-    KDataStream stream;
-
-    ObjectAppearance::Encode( stream );
-
-    return stream;
+KBOOL ObjectAppearance::operator==(const ObjectAppearance& Value) const {
+  if (m_GeneralAppearanceUnion.m_ui16GeneralAppearance !=
+      Value.m_GeneralAppearanceUnion.m_ui16GeneralAppearance)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ObjectAppearance::Encode( KDataStream & stream ) const
-{
-    // Do not swap endian.
-    stream << m_GeneralAppearanceUnion.m_ui8GeneralAppearance[1]
-           << m_GeneralAppearanceUnion.m_ui8GeneralAppearance[0];
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ObjectAppearance::operator == ( const ObjectAppearance & Value ) const
-{
-    if( m_GeneralAppearanceUnion.m_ui16GeneralAppearance != Value.m_GeneralAppearanceUnion.m_ui16GeneralAppearance ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ObjectAppearance::operator != ( const ObjectAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL ObjectAppearance::operator!=(const ObjectAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -39,119 +39,130 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./GED_BasicGroundCombatSoldier.h"
+#include "KDIS/DataTypes/GED_BasicGroundCombatSoldier.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT GED_EnhancedGroundCombatSoldier : public GED_BasicGroundCombatSoldier
-{
-protected:
+class KDIS_EXPORT GED_EnhancedGroundCombatSoldier
+    : public GED_BasicGroundCombatSoldier {
+ protected:
+  KUINT8 m_ui8WaterStatus;
 
-    KUINT8 m_ui8WaterStatus;
+  KUINT8 m_ui8RestStatus;
 
-    KUINT8 m_ui8RestStatus;
+  KUINT8 m_ui8PriAmmun;
 
-    KUINT8 m_ui8PriAmmun;
+  KUINT8 m_ui8SecAmmun;
 
-    KUINT8 m_ui8SecAmmun;
+ public:
+  static const KUINT16 GED_ENHANCED_GROUND_COMBAT_SOLDIER_SIZE = 24;
 
-public:
+  GED_EnhancedGroundCombatSoldier();
 
-    static const KUINT16 GED_ENHANCED_GROUND_COMBAT_SOLDIER_SIZE = 24;
+  GED_EnhancedGroundCombatSoldier(KDataStream& stream);
 
-    GED_EnhancedGroundCombatSoldier();
+  GED_EnhancedGroundCombatSoldier(KUINT16 ID, KINT16 XOffset, KINT16 YOffset,
+                                  KINT16 ZOffset, const EntityAppearance& EA,
+                                  KINT8 Psi, KINT8 Theta, KINT8 Phi,
+                                  KINT8 Speed, KINT8 HeadAzimuth,
+                                  KINT8 HeadElevation, KINT8 HeadScanRate,
+                                  KINT8 HeadElevationRate, KUINT8 WaterStatus,
+                                  KDIS::DATA_TYPE::ENUMS::RestStatus R,
+                                  KUINT8 PrimaryAmmunition,
+                                  KUINT8 SecondaryAmmunition);
 
-    GED_EnhancedGroundCombatSoldier( KDataStream & stream );
+  GED_EnhancedGroundCombatSoldier(const GED_BasicGroundCombatSoldier& BGCS,
+                                  KUINT8 WaterStatus,
+                                  KDIS::DATA_TYPE::ENUMS::RestStatus R,
+                                  KUINT8 PrimaryAmmunition,
+                                  KUINT8 SecondaryAmmunition);
 
-    GED_EnhancedGroundCombatSoldier( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA,
-                                     KINT8 Psi, KINT8 Theta, KINT8 Phi, KINT8 Speed, KINT8 HeadAzimuth, KINT8 HeadElevation,
-                                     KINT8 HeadScanRate, KINT8 HeadElevationRate, KUINT8 WaterStatus, KDIS::DATA_TYPE::ENUMS::RestStatus R,
-                                     KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
+  virtual ~GED_EnhancedGroundCombatSoldier();
 
-    GED_EnhancedGroundCombatSoldier( const GED_BasicGroundCombatSoldier & BGCS, KUINT8 WaterStatus, KDIS::DATA_TYPE::ENUMS::RestStatus R,
-                                     KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetGroupedEntityCategory
+  // Description: Identifies the derived GED class.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory
+  GetGroupedEntityCategory() const;
 
-    virtual ~GED_EnhancedGroundCombatSoldier();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetLength
+  // Description: Returns size of the GED in octets.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KUINT8 GetLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetGroupedEntityCategory
-    // Description: Identifies the derived GED class.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetWaterStatus
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetWaterStatus
+  // Description: Represents the amount of water on hand.
+  //              Specified in one ounce increments.
+  // Parameter:   KUINT8  W
+  //************************************
+  void SetWaterStatus(KUINT8 W);
+  KUINT8 GetWaterStatus() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetLength
-    // Description: Returns size of the GED in octets.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KUINT8 GetLength() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetRestStatus
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetRestStatus
+  // Description: How rested is the soldier. Number of hours slept on average.
+  // Parameter:   RestStatus  R
+  //************************************
+  void SetRestStatus(KDIS::DATA_TYPE::ENUMS::RestStatus R);
+  KDIS::DATA_TYPE::ENUMS::RestStatus GetRestStatus() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetWaterStatus
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetWaterStatus
-    // Description: Represents the amount of water on hand.
-    //              Specified in one ounce increments.
-    // Parameter:   KUINT8  W
-    //************************************
-    void SetWaterStatus( KUINT8 W );
-    KUINT8 GetWaterStatus() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetPrimaryAmmunition
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetPrimaryAmmunition
+  // Description: Amount of primary ammunition remaining.
+  //              Specified in natural ammunition units for the primary weapon
+  //              system.
+  // Parameter:   KUINT8  P
+  //************************************
+  void SetPrimaryAmmunition(KUINT8 P);
+  KUINT8 GetPrimaryAmmunition() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetRestStatus
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetRestStatus
-    // Description: How rested is the soldier. Number of hours slept on average.
-    // Parameter:   RestStatus  R
-    //************************************
-    void SetRestStatus( KDIS::DATA_TYPE::ENUMS::RestStatus R );
-    KDIS::DATA_TYPE::ENUMS::RestStatus GetRestStatus() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetSecondaryAmmunition
+  //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetSecondaryAmmunition
+  // Description: Amount of secondary ammunition remaining.
+  //              Specified in natural ammunition units for the secondary weapon
+  //              system.
+  // Parameter:   KUINT8  S
+  //************************************
+  void SetSecondaryAmmunition(KUINT8 S);
+  KUINT8 GetSecondaryAmmunition() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetPrimaryAmmunition
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetPrimaryAmmunition
-    // Description: Amount of primary ammunition remaining.
-    //              Specified in natural ammunition units for the primary weapon system.
-    // Parameter:   KUINT8  P
-    //************************************
-    void SetPrimaryAmmunition( KUINT8 P );
-    KUINT8 GetPrimaryAmmunition() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetSecondaryAmmunition
-    //              KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetSecondaryAmmunition
-    // Description: Amount of secondary ammunition remaining.
-    //              Specified in natural ammunition units for the secondary weapon system.
-    // Parameter:   KUINT8  S
-    //************************************
-    void SetSecondaryAmmunition( KUINT8 S );
-    KUINT8 GetSecondaryAmmunition() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const GED_EnhancedGroundCombatSoldier & Value ) const;
-    KBOOL operator != ( const GED_EnhancedGroundCombatSoldier & Value ) const;
+  KBOOL operator==(const GED_EnhancedGroundCombatSoldier& Value) const;
+  KBOOL operator!=(const GED_EnhancedGroundCombatSoldier& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

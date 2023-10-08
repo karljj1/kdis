@@ -27,9 +27,10 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Articulated_Parts_PDU.h"
-#include "./../../DataTypes/ArticulatedPart.h"
-#include "./../../DataTypes/AttachedPart.h"
+#include "KDIS/PDU/Live_Entity/Articulated_Parts_PDU.hpp"
+
+#include "KDIS/DataTypes/ArticulatedPart.hpp"
+#include "KDIS/DataTypes/AttachedPart.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -44,203 +45,185 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Articulated_Parts_PDU::Articulated_Parts_PDU() :
-    m_ui8NumOfVariableParams( 0 )
-{
-    m_ui8PDUType = ArticulatedParts_PDU_Type;
-    m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
+Articulated_Parts_PDU::Articulated_Parts_PDU() : m_ui8NumOfVariableParams(0) {
+  m_ui8PDUType = ArticulatedParts_PDU_Type;
+  m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Articulated_Parts_PDU::Articulated_Parts_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Articulated_Parts_PDU::Articulated_Parts_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Articulated_Parts_PDU::Articulated_Parts_PDU( const Header & H, KDataStream & stream )  :
-    LE_Header( H )
-{
-    Decode( stream, true );
+Articulated_Parts_PDU::Articulated_Parts_PDU(const Header& H,
+                                             KDataStream& stream)
+    : LE_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Articulated_Parts_PDU::Articulated_Parts_PDU( const LE_EntityIdentifier & ID ) :
-    m_ui8NumOfVariableParams( 0 )
-{
-    m_EntID = ID;
-    m_ui8PDUType = ArticulatedParts_PDU_Type;
-    m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
-}
-
-
-//////////////////////////////////////////////////////////////////////////
-
-Articulated_Parts_PDU::~Articulated_Parts_PDU()
-{
+Articulated_Parts_PDU::Articulated_Parts_PDU(const LE_EntityIdentifier& ID)
+    : m_ui8NumOfVariableParams(0) {
+  m_EntID = ID;
+  m_ui8PDUType = ArticulatedParts_PDU_Type;
+  m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Articulated_Parts_PDU::GetNumberOfVariableParams() const
-{
-    return m_ui8NumOfVariableParams;
+Articulated_Parts_PDU::~Articulated_Parts_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 Articulated_Parts_PDU::GetNumberOfVariableParams() const {
+  return m_ui8NumOfVariableParams;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Articulated_Parts_PDU::AddVariableParameter( VarPrmPtr VP )
-{
-    m_vVariableParameters.push_back( VP );
-    ++m_ui8NumOfVariableParams;
-    m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
+void Articulated_Parts_PDU::AddVariableParameter(VarPrmPtr VP) {
+  m_vVariableParameters.push_back(VP);
+  ++m_ui8NumOfVariableParams;
+  m_ui16PDULength += VariableParameter::VARIABLE_PARAMETER_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Articulated_Parts_PDU::SetVariableParameters( const vector<VarPrmPtr> & VP )
-{
-    m_vVariableParameters = VP;
-    m_ui8NumOfVariableParams = m_vVariableParameters.size();
-    m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE + ( m_ui8NumOfVariableParams * VariableParameter::VARIABLE_PARAMETER_SIZE );
+void Articulated_Parts_PDU::SetVariableParameters(const vector<VarPrmPtr>& VP) {
+  m_vVariableParameters = VP;
+  m_ui8NumOfVariableParams = m_vVariableParameters.size();
+  m_ui16PDULength =
+      ARTICULATED_PARTS_PDU_SIZE +
+      (m_ui8NumOfVariableParams * VariableParameter::VARIABLE_PARAMETER_SIZE);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<VarPrmPtr> & Articulated_Parts_PDU::GetVariableParameters() const
-{
-    return m_vVariableParameters;
+const vector<VarPrmPtr>& Articulated_Parts_PDU::GetVariableParameters() const {
+  return m_vVariableParameters;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Articulated_Parts_PDU::ClearVariableParameters()
-{
-    m_vVariableParameters.clear();
-    m_ui8NumOfVariableParams = 0;
-    m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
+void Articulated_Parts_PDU::ClearVariableParameters() {
+  m_vVariableParameters.clear();
+  m_ui8NumOfVariableParams = 0;
+  m_ui16PDULength = ARTICULATED_PARTS_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Articulated_Parts_PDU::GetAsString() const
-{
-    KStringStream ss;
+KString Articulated_Parts_PDU::GetAsString() const {
+  KStringStream ss;
 
-    ss << LE_Header::GetAsString()
-       << "-Articulated Parts PDU-\n"
-       << "Number Of Variable Params: " << ( KUINT16 )m_ui8NumOfVariableParams << "\n";
+  ss << LE_Header::GetAsString() << "-Articulated Parts PDU-\n"
+     << "Number Of Variable Params: " << (KUINT16)m_ui8NumOfVariableParams
+     << "\n";
 
-    // Variable params
-    vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
-    vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
-    for( ; citr != citrEnd; ++ citr )
-    {
-        ss << ( *citr )->GetAsString();
+  // Variable params
+  vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
+  vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
+  for (; citr != citrEnd; ++citr) {
+    ss << (*citr)->GetAsString();
+  }
+
+  return ss.str();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Articulated_Parts_PDU::Decode(KDataStream& stream,
+                                   bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      ARTICULATED_PARTS_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  m_vVariableParameters.clear();
+
+  LE_Header::Decode(stream, ignoreHeader);
+
+  stream >> m_ui8NumOfVariableParams;
+
+  for (KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i) {
+    // Save the current write position so we can peek.
+    KUINT16 pos = stream.GetCurrentWritePosition();
+    KUINT8 paramTyp;
+
+    // Extract the  type then reset the stream.
+    stream >> paramTyp;
+    stream.SetCurrentWritePosition(pos);
+
+    // Use the factory decoder.
+    VariableParameter* p = VariableParameter::FactoryDecode(paramTyp, stream);
+
+    // Did we find a custom decoder? if not then use the default.
+    if (p) {
+      m_vVariableParameters.push_back(VarPrmPtr(p));
+    } else {
+      // Default internals
+      switch (paramTyp) {
+        case ArticulatedPartType:
+          m_vVariableParameters.push_back(
+              VarPrmPtr(new ArticulatedPart(stream)));
+          break;
+
+        case AttachedPartType:
+          m_vVariableParameters.push_back(VarPrmPtr(new AttachedPart(stream)));
+          break;
+
+        default:
+          m_vVariableParameters.push_back(
+              VarPrmPtr(new VariableParameter(stream)));
+          break;
+      }
     }
-
-    return ss.str();
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Articulated_Parts_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < ARTICULATED_PARTS_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Articulated_Parts_PDU::Encode() const {
+  KDataStream stream;
 
-    m_vVariableParameters.clear();
+  Articulated_Parts_PDU::Encode(stream);
 
-    LE_Header::Decode( stream, ignoreHeader );
-
-    stream >> m_ui8NumOfVariableParams;
-
-    for( KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i )
-    {
-        // Save the current write position so we can peek.
-        KUINT16 pos = stream.GetCurrentWritePosition();
-        KUINT8 paramTyp;
-
-        // Extract the  type then reset the stream.
-        stream >> paramTyp;
-        stream.SetCurrentWritePosition( pos );
-
-        // Use the factory decoder.
-        VariableParameter * p = VariableParameter::FactoryDecode( paramTyp, stream );
-
-        // Did we find a custom decoder? if not then use the default.
-        if( p )
-        {
-            m_vVariableParameters.push_back( VarPrmPtr( p ) );
-        }
-        else
-        {
-            // Default internals
-            switch( paramTyp )
-            {
-                case ArticulatedPartType:
-                    m_vVariableParameters.push_back( VarPrmPtr( new ArticulatedPart( stream ) ) );
-                    break;
-
-                case AttachedPartType:
-                    m_vVariableParameters.push_back( VarPrmPtr( new AttachedPart( stream ) ) );
-                    break;
-
-                default:
-                    m_vVariableParameters.push_back( VarPrmPtr( new VariableParameter( stream ) ) );
-                    break;
-            }
-        }
-    }
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Articulated_Parts_PDU::Encode() const
-{
-    KDataStream stream;
+void Articulated_Parts_PDU::Encode(KDataStream& stream) const {
+  LE_Header::Encode(stream);
 
-    Articulated_Parts_PDU::Encode( stream );
+  stream << m_ui8NumOfVariableParams;
 
-    return stream;
+  // Add the variable params
+  vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
+  vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
+  for (; citr != citrEnd; ++citr) {
+    (*citr)->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Articulated_Parts_PDU::Encode( KDataStream & stream ) const
-{
-    LE_Header::Encode( stream );
-
-    stream << m_ui8NumOfVariableParams;
-
-    // Add the variable params
-    vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();
-    vector<VarPrmPtr>::const_iterator citrEnd = m_vVariableParameters.end();
-    for( ; citr != citrEnd; ++ citr )
-    {
-        ( *citr )->Encode( stream );
-    }
+KBOOL Articulated_Parts_PDU::operator==(
+    const Articulated_Parts_PDU& Value) const {
+  if (LE_Header::operator!=(Value)) return false;
+  if (m_ui8NumOfVariableParams != Value.m_ui8NumOfVariableParams) return false;
+  if (m_vVariableParameters != Value.m_vVariableParameters) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Articulated_Parts_PDU::operator == ( const Articulated_Parts_PDU & Value ) const
-{
-    if( LE_Header::operator      != ( Value ) )                     return false;
-    if( m_ui8NumOfVariableParams != Value.m_ui8NumOfVariableParams )return false;
-    if( m_vVariableParameters    != Value.m_vVariableParameters )   return false;
-    return true;
+KBOOL Articulated_Parts_PDU::operator!=(
+    const Articulated_Parts_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Articulated_Parts_PDU::operator != ( const Articulated_Parts_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

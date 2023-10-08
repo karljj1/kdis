@@ -34,94 +34,95 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Resupply Received PDU
-    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of supplies ) )
+    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of
+supplies ) )
 *********************************************************************/
 
 #pragma once
 
-#include "./Logistics_Header.h"
-#include "./../../DataTypes/Supplies.h"
+#include "KDIS/DataTypes/Supplies.hpp"
+#include "KDIS/PDU/Logistics/Logistics_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Resupply_Received_PDU : public Logistics_Header
-{
-protected:
+class KDIS_EXPORT Resupply_Received_PDU : public Logistics_Header {
+ protected:
+  KUINT8 m_ui8NumSupplyTypes;
 
-    KUINT8 m_ui8NumSupplyTypes;
+  KUINT16 m_ui16Padding1;
 
-    KUINT16 m_ui16Padding1;
+  KUINT8 m_ui8Padding2;
 
-    KUINT8 m_ui8Padding2;
+  std::vector<KDIS::DATA_TYPE::Supplies> m_vSupplies;
 
-    std::vector<KDIS::DATA_TYPE::Supplies> m_vSupplies;
+ public:
+  static const KUINT16 RESUPPLY_RECEIVED_PDU_SIZE =
+      28;  // Does not include supply size
 
-public:
+  Resupply_Received_PDU();
 
-    static const KUINT16 RESUPPLY_RECEIVED_PDU_SIZE = 28; // Does not include supply size
+  explicit Resupply_Received_PDU(const Header& H);
 
-    Resupply_Received_PDU();
+  Resupply_Received_PDU(KDataStream& stream);
 
-    explicit Resupply_Received_PDU( const Header & H );
+  Resupply_Received_PDU(const Header& H, KDataStream& stream);
 
-    Resupply_Received_PDU( KDataStream & stream ) ;
+  Resupply_Received_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+      const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity);
 
-    Resupply_Received_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Resupply_Received_PDU();
 
-    Resupply_Received_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity );
+  //************************************
+  // FullName:    KDIS::PDU::Resupply_Received_PDU::SetNumberOfSupplyTypes
+  //              KDIS::PDU::Resupply_Received_PDU::GetNumberOfSupplyTypes
+  // Description: How many supplies are being provided.
+  //              This value is calculated automatically by
+  //              the number of supplies, only change
+  //              if you know what you are doing
+  // Parameter:   KUINT8  UI, void
+  //************************************
+  void SetNumberOfSupplyTypes(KUINT8 UI);
+  KUINT8 GetNumberOfSupplyTypes() const;
 
-    virtual ~Resupply_Received_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Resupply_Received_PDU::AddSupply
+  //              KDIS::PDU::Resupply_Received_PDU::SetSupplies
+  //              KDIS::PDU::Resupply_Received_PDU::GetSupplies
+  // Description: Add a supply, updates Number Of Supply Types and
+  //              PDU size fields automatically.
+  // Parameter:   const Supplies & S, void
+  //************************************
+  void AddSupply(const KDIS::DATA_TYPE::Supplies& S);
+  void SetSupplies(const std::vector<KDIS::DATA_TYPE::Supplies>& S);
+  std::vector<KDIS::DATA_TYPE::Supplies> GetSupplies() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Resupply_Received_PDU::SetNumberOfSupplyTypes
-    //              KDIS::PDU::Resupply_Received_PDU::GetNumberOfSupplyTypes
-    // Description: How many supplies are being provided.
-    //              This value is calculated automatically by
-    //              the number of supplies, only change
-    //              if you know what you are doing
-    // Parameter:   KUINT8  UI, void
-    //************************************
-    void SetNumberOfSupplyTypes( KUINT8  UI );
-    KUINT8 GetNumberOfSupplyTypes() const;
+  //************************************
+  // FullName:    KDIS::PDU::Resupply_Received_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Resupply_Received_PDU::AddSupply
-    //              KDIS::PDU::Resupply_Received_PDU::SetSupplies
-    //              KDIS::PDU::Resupply_Received_PDU::GetSupplies
-    // Description: Add a supply, updates Number Of Supply Types and
-    //              PDU size fields automatically.
-    // Parameter:   const Supplies & S, void
-    //************************************
-    void AddSupply( const KDIS::DATA_TYPE::Supplies & S );
-    void SetSupplies( const std::vector<KDIS::DATA_TYPE::Supplies> & S );
-    std::vector<KDIS::DATA_TYPE::Supplies> GetSupplies() const;
+  //************************************
+  // FullName:    KDIS::PDU::Resupply_Received_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Resupply_Received_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Resupply_Received_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Resupply_Received_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Resupply_Received_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Resupply_Received_PDU & Value ) const;
-    KBOOL operator != ( const Resupply_Received_PDU & Value ) const;
+  KBOOL operator==(const Resupply_Received_PDU& Value) const;
+  KBOOL operator!=(const Resupply_Received_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

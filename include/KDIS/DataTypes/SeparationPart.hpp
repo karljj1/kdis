@@ -34,11 +34,11 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Communicates separation of an entity from another entity.
-                Also provides the capability to specifically identify the station location on
-                the parent entity that the entity separated from. 
-                Examples include the launch of an air-to-surface missile from the wing station 
-                of a fighter aircraft, the separation of a stage of a multistage missile, and the separation 
-                of a component of a smart weapon.
+                Also provides the capability to specifically identify the
+station location on the parent entity that the entity separated from. Examples
+include the launch of an air-to-surface missile from the wing station of a
+fighter aircraft, the separation of a stage of a multistage missile, and the
+separation of a component of a smart weapon.
 
     size:       128 bits / 16 octets
 *********************************************************************/
@@ -46,107 +46,107 @@ http://p.sf.net/kdis/UserGuide
 #if DIS_VERSION > 5
 #pragma once
 
-#include "./VariableParameter.h"
-#include "./EntityIdentifier.h"
-#include "./NamedLocationIdentifier.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/NamedLocationIdentifier.hpp"
+#include "KDIS/DataTypes/VariableParameter.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-using KDIS::DATA_TYPE::ENUMS::ReasonForSeparation;
 using KDIS::DATA_TYPE::ENUMS::PreEntityIndicator;
+using KDIS::DATA_TYPE::ENUMS::ReasonForSeparation;
 
-class KDIS_EXPORT SeparationPart : public VariableParameter
-{
-protected:
+class KDIS_EXPORT SeparationPart : public VariableParameter {
+ protected:
+  KUINT8 m_ui8Reason;
 
-    KUINT8 m_ui8Reason;
+  KUINT8 m_ui8PreEntIndicator;
 
-    KUINT8 m_ui8PreEntIndicator;
+  KUINT8 m_ui8Padding;
 
-    KUINT8 m_ui8Padding;
+  EntityIdentifier m_ParentEntId;
 
-    EntityIdentifier m_ParentEntId;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+  NamedLocationIdentifier m_StationLoc;
 
-    NamedLocationIdentifier m_StationLoc;
+ public:
+  SeparationPart();
 
-public:
+  SeparationPart(ReasonForSeparation RFS, PreEntityIndicator PEI,
+                 const EntityIdentifier& PEID,
+                 const NamedLocationIdentifier& SL);
 
-    SeparationPart();
+  SeparationPart(KDataStream& stream);
 
-    SeparationPart(ReasonForSeparation RFS, PreEntityIndicator PEI, const EntityIdentifier & PEID, const NamedLocationIdentifier & SL);
+  virtual ~SeparationPart();
 
-    SeparationPart( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SeparationPart::SetReasonForSeparation
+  //              KDIS::DATA_TYPE::SeparationPart::GetReasonForSeparation
+  // Description: Indicate the reason for the separation.
+  // Parameter:   ReasonForSeparation RFS
+  //************************************
+  void SetReasonForSeparation(ReasonForSeparation RFS);
+  ReasonForSeparation GetReasonForSeparation() const;
 
-    virtual ~SeparationPart();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SeparationPart::SetPreEntityIndicator
+  //              KDIS::DATA_TYPE::SeparationPart::GetPreEntityIndicator
+  // Description: Indicates whether the entity existed prior to the separation
+  // and,
+  //              if so, in what manner.
+  // Parameter:   PreEntityIndicator PEI
+  //************************************
+  void SetPreEntityIndicator(PreEntityIndicator PEI);
+  PreEntityIndicator GetPreEntityIndicator() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SeparationPart::SetReasonForSeparation
-    //              KDIS::DATA_TYPE::SeparationPart::GetReasonForSeparation
-    // Description: Indicate the reason for the separation.
-    // Parameter:   ReasonForSeparation RFS
-    //************************************
-    void SetReasonForSeparation( ReasonForSeparation RFS );
-    ReasonForSeparation GetReasonForSeparation() const;
+  //************************************
+  // FullName:    KDIS::PDU::SeparationPart::SetParentEntityId
+  //              KDIS::PDU::SeparationPart::GetParentEntityId
+  // Description: Entity ID of the parent entity.
+  // Parameter:   const EntityIdentifier & PEID
+  //************************************
+  void SetParentEntityId(const EntityIdentifier& PEID);
+  const EntityIdentifier& GetParentEntityId() const;
+  EntityIdentifier& GetParentEntityId();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SeparationPart::SetPreEntityIndicator
-    //              KDIS::DATA_TYPE::SeparationPart::GetPreEntityIndicator
-    // Description: Indicates whether the entity existed prior to the separation and,
-    //              if so, in what manner.
-    // Parameter:   PreEntityIndicator PEI
-    //************************************
-    void SetPreEntityIndicator(PreEntityIndicator PEI);
-    PreEntityIndicator GetPreEntityIndicator() const;
+  //************************************
+  // FullName:    KDIS::PDU::SeparationPart::SetStationLocation
+  //              KDIS::PDU::SeparationPart::GetStationLocation
+  // Description: Indicate the station that this entity was attached to prior to
+  //              separation if known.
+  // Parameter:   const NamedLocationIdentifier & SL
+  //************************************
+  void SetStationLocation(const NamedLocationIdentifier& SL);
+  const NamedLocationIdentifier& GetStationLocation() const;
+  NamedLocationIdentifier& GetStationLocation();
 
-    //************************************
-    // FullName:    KDIS::PDU::SeparationPart::SetParentEntityId
-    //              KDIS::PDU::SeparationPart::GetParentEntityId
-    // Description: Entity ID of the parent entity.
-    // Parameter:   const EntityIdentifier & PEID
-    //************************************
-    void SetParentEntityId(const EntityIdentifier & PEID);
-    const EntityIdentifier & GetParentEntityId() const;
-    EntityIdentifier & GetParentEntityId();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SeparationPart::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::SeparationPart::SetStationLocation
-    //              KDIS::PDU::SeparationPart::GetStationLocation
-    // Description: Indicate the station that this entity was attached to prior to
-    //              separation if known.
-    // Parameter:   const NamedLocationIdentifier & SL
-    //************************************
-    void SetStationLocation(const NamedLocationIdentifier & SL);
-    const NamedLocationIdentifier & GetStationLocation() const;
-    NamedLocationIdentifier & GetStationLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SeparationPart::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SeparationPart::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SeparationPart::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SeparationPart::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SeparationPart::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const SeparationPart & Value ) const;
-    KBOOL operator != ( const SeparationPart & Value ) const;
+  KBOOL operator==(const SeparationPart& Value) const;
+  KBOOL operator!=(const SeparationPart& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-#endif // DIS_VERSION > 5
+}  // namespace DATA_TYPE
+}  // END namespace KDIS
+#endif  // DIS_VERSION > 5

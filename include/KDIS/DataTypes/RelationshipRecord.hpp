@@ -32,81 +32,80 @@ http://p.sf.net/kdis/UserGuide
     created:    26/06/2008
     author:     Karl Jones
 
-    purpose:    Specifies the relationship of the part entity to its host entity.
-    size:       32 bits / 4 octets
+    purpose:    Specifies the relationship of the part entity to its host
+entity. size:       32 bits / 4 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT RelationshipRecord : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT RelationshipRecord : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16Nature;
 
-    KUINT16 m_ui16Nature;
+  KUINT16 m_ui16Pos;
 
-    KUINT16 m_ui16Pos;
+ public:
+  static const KUINT16 RELATIONSHIP_RECORD_SIZE = 4;
 
-public:
+  RelationshipRecord();
 
-    static const KUINT16 RELATIONSHIP_RECORD_SIZE = 4;
+  RelationshipRecord(KDataStream& stream);
 
-    RelationshipRecord();
+  RelationshipRecord(KDIS::DATA_TYPE::ENUMS::RelationshipNature N,
+                     KDIS::DATA_TYPE::ENUMS::RelationshipPosition P);
 
-    RelationshipRecord( KDataStream & stream );
+  virtual ~RelationshipRecord();
 
-    RelationshipRecord( KDIS::DATA_TYPE::ENUMS::RelationshipNature N, KDIS::DATA_TYPE::ENUMS::RelationshipPosition P );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RelationshipRecord::SetNature
+  //              KDIS::DATA_TYPE::RelationshipRecord::GetNature
+  // Description: Nature or purpose for joining of the part entity to the host
+  //              entity within a IsPartOf PDU.
+  // Parameter:   RelationshipNature N
+  //************************************
+  void SetNature(KDIS::DATA_TYPE::ENUMS::RelationshipNature N);
+  KDIS::DATA_TYPE::ENUMS::RelationshipNature GetNature() const;
 
-    virtual ~RelationshipRecord();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RelationshipRecord::SetPosition
+  //              KDIS::DATA_TYPE::RelationshipRecord::GetPosition
+  // Description: Specifies the position of the part entity with respect to the
+  // host
+  //              entity within a IsPartOf PDU.
+  // Parameter:   RelationshipPosition P
+  //************************************
+  void SetPosition(KDIS::DATA_TYPE::ENUMS::RelationshipPosition P);
+  KDIS::DATA_TYPE::ENUMS::RelationshipPosition GetPosition() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RelationshipRecord::SetNature
-    //              KDIS::DATA_TYPE::RelationshipRecord::GetNature
-    // Description: Nature or purpose for joining of the part entity to the host
-    //              entity within a IsPartOf PDU.
-    // Parameter:   RelationshipNature N
-    //************************************
-    void SetNature( KDIS::DATA_TYPE::ENUMS::RelationshipNature N );
-    KDIS::DATA_TYPE::ENUMS::RelationshipNature GetNature() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RelationshipRecord::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RelationshipRecord::SetPosition
-    //              KDIS::DATA_TYPE::RelationshipRecord::GetPosition
-    // Description: Specifies the position of the part entity with respect to the host
-    //              entity within a IsPartOf PDU.
-    // Parameter:   RelationshipPosition P
-    //************************************
-    void SetPosition( KDIS::DATA_TYPE::ENUMS::RelationshipPosition P );
-    KDIS::DATA_TYPE::ENUMS::RelationshipPosition GetPosition() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RelationshipRecord::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RelationshipRecord::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::RelationshipRecord::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RelationshipRecord::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::RelationshipRecord::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const RelationshipRecord & Value ) const;
-    KBOOL operator != ( const RelationshipRecord & Value ) const;
+  KBOOL operator==(const RelationshipRecord& Value) const;
+  KBOOL operator!=(const RelationshipRecord& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

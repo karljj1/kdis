@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./MineFusing.h"
+#include "KDIS/DataTypes/MineFusing.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,132 +37,111 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MineFusing::MineFusing()
-{
-    m_FuseUnion.m_ui16Fusing = 0;
+MineFusing::MineFusing() { m_FuseUnion.m_ui16Fusing = 0; }
+
+//////////////////////////////////////////////////////////////////////////
+
+MineFusing::MineFusing(MineFuse Primary, MineFuse Secondary,
+                       KBOOL AntiHandlingDevice) {
+  m_FuseUnion.m_ui16Fusing = 0;
+  m_FuseUnion.m_ui16Primary = Primary;
+  m_FuseUnion.m_ui16Secondary = Secondary;
+  m_FuseUnion.m_ui16AHD = AntiHandlingDevice;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MineFusing::MineFusing( MineFuse Primary, MineFuse Secondary, KBOOL AntiHandlingDevice )
-{
-    m_FuseUnion.m_ui16Fusing = 0;
-    m_FuseUnion.m_ui16Primary = Primary;
-    m_FuseUnion.m_ui16Secondary = Secondary;
-    m_FuseUnion.m_ui16AHD = AntiHandlingDevice;
+MineFusing::MineFusing(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+MineFusing::~MineFusing() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void MineFusing::SetPrimaryFuse(MineFuse F) { m_FuseUnion.m_ui16Primary = F; }
+
+//////////////////////////////////////////////////////////////////////////
+
+MineFuse MineFusing::GetPrimaryFuse() const {
+  return (MineFuse)m_FuseUnion.m_ui16Primary;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MineFusing::MineFusing( KDataStream & stream ) 
-{
-    Decode( stream );
+void MineFusing::SetSecondaryFuse(MineFuse F) {
+  m_FuseUnion.m_ui16Secondary = F;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MineFusing::~MineFusing()
-{
+MineFuse MineFusing::GetSecondaryFuse() const {
+  return (MineFuse)m_FuseUnion.m_ui16Secondary;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MineFusing::SetPrimaryFuse( MineFuse F )
-{
-    m_FuseUnion.m_ui16Primary = F;
+void MineFusing::SetHasAntiHandlingDevice(KBOOL AHD) {
+  m_FuseUnion.m_ui16AHD = AHD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MineFuse MineFusing::GetPrimaryFuse() const
-{
-    return ( MineFuse )m_FuseUnion.m_ui16Primary;
+KBOOL MineFusing::GetHasAntiHandlingDevice() const {
+  return m_FuseUnion.m_ui16AHD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MineFusing::SetSecondaryFuse( MineFuse F )
-{
-    m_FuseUnion.m_ui16Secondary = F;
+KString MineFusing::GetAsString() const {
+  KStringStream ss;
+
+  ss << "MineFusing:"
+     << "\n\tPrimary Fuse:            "
+     << GetEnumAsStringMineFuse(m_FuseUnion.m_ui16Primary)
+     << "\n\tSecondary Fuse:          "
+     << GetEnumAsStringMineFuse(m_FuseUnion.m_ui16Secondary)
+     << "\n\tAnti-Handling Device:    " << m_FuseUnion.m_ui16AHD << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MineFuse MineFusing::GetSecondaryFuse() const
-{
-    return ( MineFuse )m_FuseUnion.m_ui16Secondary;
+void MineFusing::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < MINE_FUSING_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_FuseUnion.m_ui16Fusing;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MineFusing::SetHasAntiHandlingDevice( KBOOL AHD )
-{
-    m_FuseUnion.m_ui16AHD = AHD;
+KDataStream MineFusing::Encode() const {
+  KDataStream stream;
+
+  MineFusing::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MineFusing::GetHasAntiHandlingDevice() const
-{
-    return m_FuseUnion.m_ui16AHD;
+void MineFusing::Encode(KDataStream& stream) const {
+  stream << m_FuseUnion.m_ui16Fusing;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString MineFusing::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "MineFusing:"
-       << "\n\tPrimary Fuse:            " << GetEnumAsStringMineFuse( m_FuseUnion.m_ui16Primary )
-       << "\n\tSecondary Fuse:          " << GetEnumAsStringMineFuse( m_FuseUnion.m_ui16Secondary )
-       << "\n\tAnti-Handling Device:    " << m_FuseUnion.m_ui16AHD
-       << "\n";
-
-    return ss.str();
+KBOOL MineFusing::operator==(const MineFusing& Value) const {
+  if (m_FuseUnion.m_ui16Fusing != Value.m_FuseUnion.m_ui16Fusing) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MineFusing::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < MINE_FUSING_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_FuseUnion.m_ui16Fusing;
+KBOOL MineFusing::operator!=(const MineFusing& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KDataStream MineFusing::Encode() const
-{
-    KDataStream stream;
-
-    MineFusing::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void MineFusing::Encode( KDataStream & stream ) const
-{
-    stream << m_FuseUnion.m_ui16Fusing;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MineFusing::operator == ( const MineFusing & Value ) const
-{
-    if( m_FuseUnion.m_ui16Fusing != Value.m_FuseUnion.m_ui16Fusing )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MineFusing::operator != ( const MineFusing & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

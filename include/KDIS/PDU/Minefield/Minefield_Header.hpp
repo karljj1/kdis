@@ -40,68 +40,67 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Minefield_Header : public Header
-{
-protected:
+class KDIS_EXPORT Minefield_Header : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_MinefieldID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_MinefieldID;
+ public:
+  static const KUINT16 MINEFIELD_HEADER_SIZE = 18;
 
-public:
+  Minefield_Header();
 
-    static const KUINT16 MINEFIELD_HEADER_SIZE = 18;
+  explicit Minefield_Header(const Header& H);
 
-    Minefield_Header();
+  Minefield_Header(KDataStream& stream);
 
-    explicit Minefield_Header( const Header & H );
+  Minefield_Header(const Header& H, KDataStream& stream);
 
-    Minefield_Header( KDataStream & stream ) ;
+  virtual ~Minefield_Header();
 
-    Minefield_Header( const Header & H, KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Header::SetMinefieldID
+  //              KDIS::PDU::Minefield_Header::GetMinefieldID
+  // Description: The Minefield Identifier (Minefield ID) does not represent an
+  // entity but
+  //              rather an aggregation of mine entities for the purpose of
+  //              conserving bandwidth.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetMinefieldID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetMinefieldID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetMinefieldID();
 
-    virtual ~Minefield_Header();
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Header::GetAsString
+  // Description: Returns a string representation of the PDU
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Header::SetMinefieldID
-    //              KDIS::PDU::Minefield_Header::GetMinefieldID
-    // Description: The Minefield Identifier (Minefield ID) does not represent an entity but
-    //              rather an aggregation of mine entities for the purpose of conserving bandwidth.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetMinefieldID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetMinefieldID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetMinefieldID();
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Header::GetAsString
-    // Description: Returns a string representation of the PDU
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Minefield_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Minefield_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Minefield_Header & Value ) const;
-    KBOOL operator != ( const Minefield_Header & Value ) const;
+  KBOOL operator==(const Minefield_Header& Value) const;
+  KBOOL operator!=(const Minefield_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

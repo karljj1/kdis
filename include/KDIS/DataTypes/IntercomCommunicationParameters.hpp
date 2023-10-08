@@ -38,106 +38,108 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./EntityDestinationRecord.h"
-#include "./GroupDestinationRecord.h"
-#include "./GroupAssignmentRecord.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/EntityDestinationRecord.hpp"
+#include "KDIS/DataTypes/GroupAssignmentRecord.hpp"
+#include "KDIS/DataTypes/GroupDestinationRecord.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IntercomCommunicationParameters : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT IntercomCommunicationParameters : public DataTypeBase {
+ protected:
+  KUINT16 m_ui16Type;
 
-    KUINT16 m_ui16Type;
+  KUINT16 m_ui16Length;
 
-    KUINT16 m_ui16Length;
+  DataTypeBase* m_pRecord;
 
-    DataTypeBase * m_pRecord;
+  KBOOL m_bMemoryManage;  // If we create the pointer we should delete it
 
-    KBOOL m_bMemoryManage; // If we create the pointer we should delete it
+ public:
+  static const KUINT16 INTERCOM_COMMS_PARAM_SIZE = 4;
 
-public:
+  IntercomCommunicationParameters();
 
-    static const KUINT16 INTERCOM_COMMS_PARAM_SIZE = 4;
+  IntercomCommunicationParameters(KDataStream& stream);
 
-    IntercomCommunicationParameters();
+  IntercomCommunicationParameters(EntityDestinationRecord* EDR);
 
-    IntercomCommunicationParameters( KDataStream & stream );
+  IntercomCommunicationParameters(GroupDestinationRecord* GDR);
 
-    IntercomCommunicationParameters( EntityDestinationRecord * EDR );
+  IntercomCommunicationParameters(GroupAssignmentRecord* GAR);
 
-    IntercomCommunicationParameters( GroupDestinationRecord * GDR );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IntercomCommunicationParameters::IntercomCommunicationParameters
+  // Description: Copy constructor.
+  // Parameter:   const IntercomCommunicationParameters & ICP
+  //***********************************
+  IntercomCommunicationParameters(const IntercomCommunicationParameters& ICP);
 
-    IntercomCommunicationParameters( GroupAssignmentRecord * GAR );
+  virtual ~IntercomCommunicationParameters();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::IntercomCommunicationParameters
-    // Description: Copy constructor.
-    // Parameter:   const IntercomCommunicationParameters & ICP
-    //***********************************
-    IntercomCommunicationParameters( const IntercomCommunicationParameters & ICP );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::operator=
+  // Description: Copy assignment operator.
+  // Parameter:   const IntercomCommunicationParameters & ICP
+  //************************************
+  IntercomCommunicationParameters& operator=(
+      const IntercomCommunicationParameters& ICP);
 
-    virtual ~IntercomCommunicationParameters();
+  //************************************
+  // FullName: KDIS::DATA_TYPE::IntercomCommunicationParameters::GetRecordType
+  // Description: Identifies the additional parameters type.
+  //************************************
+  KDIS::DATA_TYPE::ENUMS::AdditionalIntrCommParamType GetRecordType() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::operator=
-    // Description: Copy assignment operator.
-    // Parameter:   const IntercomCommunicationParameters & ICP
-    //************************************
-    IntercomCommunicationParameters& operator=( const IntercomCommunicationParameters & ICP );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetLength
+  // Description: Length of the RECORD parameters, does not include size of type
+  // and
+  //              length field.
+  //************************************
+  KUINT16 GetLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetRecordType
-    // Description: Identifies the additional parameters type.
-    //************************************
-    KDIS::DATA_TYPE::ENUMS::AdditionalIntrCommParamType GetRecordType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::SetRecord
+  //              KDIS::DATA_TYPE::IntercomCommunicationParameters::GetRecord
+  // Description: Set the record. GetRecord will return NULL if no record is
+  // stored.
+  //              Use GetType to know what record type to cast the returned
+  //              pointer to.
+  // Parameter:   ...Record *
+  //************************************
+  void SetRecord(EntityDestinationRecord* EDR);
+  void SetRecord(GroupDestinationRecord* GDR);
+  void SetRecord(GroupAssignmentRecord* GAR);
+  const DataTypeBase* GetRecord() const;
+  DataTypeBase* GetRecord();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetLength
-    // Description: Length of the RECORD parameters, does not include size of type and
-    //              length field.
-    //************************************
-    KUINT16 GetLength() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::SetRecord
-    //              KDIS::DATA_TYPE::IntercomCommunicationParameters::GetRecord
-    // Description: Set the record. GetRecord will return NULL if no record is stored.
-    //              Use GetType to know what record type to cast the returned pointer to.
-    // Parameter:   ...Record *
-    //************************************
-    void SetRecord( EntityDestinationRecord * EDR );
-    void SetRecord( GroupDestinationRecord * GDR );
-    void SetRecord( GroupAssignmentRecord * GAR );
-    const DataTypeBase * GetRecord() const;
-    DataTypeBase * GetRecord();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IntercomCommunicationParameters::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const IntercomCommunicationParameters & Value ) const;
-    KBOOL operator != ( const IntercomCommunicationParameters & Value ) const;
+  KBOOL operator==(const IntercomCommunicationParameters& Value) const;
+  KBOOL operator!=(const IntercomCommunicationParameters& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Simulation_Management_Header.h"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,171 +41,163 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::Simulation_Management_Header()
-{
-    m_ui8ProtocolFamily = Simulation_Management;
-    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+Simulation_Management_Header::Simulation_Management_Header() {
+  m_ui8ProtocolFamily = Simulation_Management;
+  m_ui8ProtocolVersion = IEEE_1278_1_1995;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::Simulation_Management_Header( const Simulation_Management_Header & H ) :
-    Header( H )
-{
+Simulation_Management_Header::Simulation_Management_Header(
+    const Simulation_Management_Header& H)
+    : Header(H) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Simulation_Management_Header::Simulation_Management_Header(const Header& H)
+    : Header(H) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Simulation_Management_Header::Simulation_Management_Header(
+    KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::Simulation_Management_Header( const Header & H ) :
-    Header( H )
-{
+Simulation_Management_Header::Simulation_Management_Header(const Header& H,
+                                                           KDataStream& stream)
+    : Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::Simulation_Management_Header( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Simulation_Management_Header::Simulation_Management_Header(
+    const EntityIdentifier& OriginatingEntityID,
+    const EntityIdentifier& ReceivingEntityID)
+    : m_OriginatingEntityID(OriginatingEntityID),
+      m_ReceivingEntityID(ReceivingEntityID) {
+  m_ui8ProtocolFamily = Simulation_Management;
+  m_ui8ProtocolVersion = IEEE_1278_1_1995;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::Simulation_Management_Header( const Header & H, KDataStream & stream )  :
-    Header( H )
-{
-    Decode( stream, true );
+Simulation_Management_Header::~Simulation_Management_Header() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Simulation_Management_Header& Simulation_Management_Header::operator=(
+    const Simulation_Management_Header& H) {
+  Header::operator=(H);
+  m_OriginatingEntityID = H.m_OriginatingEntityID;
+  m_ReceivingEntityID = H.m_ReceivingEntityID;
+
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::Simulation_Management_Header( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID ) :
-    m_OriginatingEntityID( OriginatingEntityID ),
-    m_ReceivingEntityID( ReceivingEntityID )
-{
-    m_ui8ProtocolFamily = Simulation_Management;
-    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+void Simulation_Management_Header::SetOriginatingEntityID(
+    const EntityIdentifier& ID) {
+  m_OriginatingEntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header::~Simulation_Management_Header()
-{
+const EntityIdentifier& Simulation_Management_Header::GetOriginatingEntityID()
+    const {
+  return m_OriginatingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Simulation_Management_Header& Simulation_Management_Header::operator=(const Simulation_Management_Header & H)
-{
-    Header::operator=(H);
-    m_OriginatingEntityID = H.m_OriginatingEntityID;
-    m_ReceivingEntityID = H.m_ReceivingEntityID;
-
-    return *this;
+EntityIdentifier& Simulation_Management_Header::GetOriginatingEntityID() {
+  return m_OriginatingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Simulation_Management_Header::SetOriginatingEntityID( const EntityIdentifier & ID )
-{
-    m_OriginatingEntityID = ID;
+void Simulation_Management_Header::SetReceivingEntityID(
+    const EntityIdentifier& ID) {
+  m_ReceivingEntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Simulation_Management_Header::GetOriginatingEntityID() const
-{
-    return m_OriginatingEntityID;
+const EntityIdentifier& Simulation_Management_Header::GetReceivingEntityID()
+    const {
+  return m_ReceivingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Simulation_Management_Header::GetOriginatingEntityID()
-{
-    return m_OriginatingEntityID;
+EntityIdentifier& Simulation_Management_Header::GetReceivingEntityID() {
+  return m_ReceivingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Simulation_Management_Header::SetReceivingEntityID( const EntityIdentifier & ID )
-{
-    m_ReceivingEntityID = ID;
+KString Simulation_Management_Header::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Originating Entity ID:\n"
+     << IndentString(m_OriginatingEntityID.GetAsString(), 1)
+     << "Receiving Entity ID:\n"
+     << IndentString(m_ReceivingEntityID.GetAsString(), 1);
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Simulation_Management_Header::GetReceivingEntityID() const
-{
-    return m_ReceivingEntityID;
+void Simulation_Management_Header::Decode(KDataStream& stream,
+                                          bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      SIMULATION_MANAGEMENT_HEADER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Header::Decode(stream, ignoreHeader);
+
+  stream >> KDIS_STREAM m_OriginatingEntityID >>
+      KDIS_STREAM m_ReceivingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Simulation_Management_Header::GetReceivingEntityID()
-{
-    return m_ReceivingEntityID;
+KDataStream Simulation_Management_Header::Encode() const {
+  KDataStream stream;
+
+  Simulation_Management_Header::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Simulation_Management_Header::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Originating Entity ID:\n"
-       << IndentString( m_OriginatingEntityID.GetAsString(), 1 )
-       << "Receiving Entity ID:\n"
-       << IndentString( m_ReceivingEntityID.GetAsString(), 1 );
-
-    return ss.str();
+void Simulation_Management_Header::Encode(KDataStream& stream) const {
+  Header::Encode(stream);
+  stream << KDIS_STREAM m_OriginatingEntityID
+         << KDIS_STREAM m_ReceivingEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Simulation_Management_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SIMULATION_MANAGEMENT_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Header::Decode( stream, ignoreHeader );
-
-    stream >> KDIS_STREAM m_OriginatingEntityID
-           >> KDIS_STREAM m_ReceivingEntityID;
+KBOOL Simulation_Management_Header::operator==(
+    const Simulation_Management_Header& Value) const {
+  if (Header::operator!=(Value)) return false;
+  if (m_OriginatingEntityID != Value.m_OriginatingEntityID) return false;
+  if (m_ReceivingEntityID != Value.m_ReceivingEntityID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Simulation_Management_Header::Encode() const
-{
-    KDataStream stream;
-
-    Simulation_Management_Header::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Simulation_Management_Header::Encode( KDataStream & stream ) const
-{
-    Header::Encode( stream );
-    stream << KDIS_STREAM m_OriginatingEntityID
-           << KDIS_STREAM m_ReceivingEntityID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Simulation_Management_Header::operator == ( const Simulation_Management_Header & Value ) const
-{
-    if( Header::operator      !=( Value ) )                    return false;
-    if( m_OriginatingEntityID != Value.m_OriginatingEntityID ) return false;
-    if( m_ReceivingEntityID   != Value.m_ReceivingEntityID )   return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Simulation_Management_Header::operator != ( const Simulation_Management_Header & Value ) const
-{
-    return !( *this == Value );
+KBOOL Simulation_Management_Header::operator!=(
+    const Simulation_Management_Header& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

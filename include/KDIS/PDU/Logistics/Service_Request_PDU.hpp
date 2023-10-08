@@ -34,72 +34,73 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Service Request PDU
-    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of supplies ) )
+    Size:       224 bits / 28 octets + ( 96 bits / 12 octets * ( number of
+supplies ) )
 *********************************************************************/
 
 #pragma once
 
-#include "./Resupply_Received_PDU.h"
+#include "KDIS/PDU/Logistics/Resupply_Received_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Service_Request_PDU : public Resupply_Received_PDU
-{
-protected:
+class KDIS_EXPORT Service_Request_PDU : public Resupply_Received_PDU {
+ protected:
+  KUINT8 m_ui8ServiceTypeRequested;
 
-    KUINT8 m_ui8ServiceTypeRequested;
+ public:
+  // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
+  static const KUINT16 SERVICE_REQUEST_PDU_SIZE =
+      28;  // Does not include supply size
 
-public:
+  Service_Request_PDU();
 
-    // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
-    static const KUINT16 SERVICE_REQUEST_PDU_SIZE = 28; // Does not include supply size
+  Service_Request_PDU(KDataStream& stream);
 
-    Service_Request_PDU();
+  Service_Request_PDU(const Header& H, KDataStream& stream);
 
-    Service_Request_PDU( KDataStream & stream ) ;
+  Service_Request_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                      const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity,
+                      KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR);
 
-    Service_Request_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Service_Request_PDU();
 
-    Service_Request_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
-                         KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
+  //************************************
+  // FullName:    KDIS::PDU::Service_Request_PDU::SetServiceTypeRequested
+  //              KDIS::PDU::Service_Request_PDU::GetServiceTypeRequested
+  // Description: Describes type of service being requested
+  // Parameter:   ServiceTypeRequested  STR, void
+  //************************************
+  void SetServiceTypeRequested(
+      KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR);
+  KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested GetServiceTypeRequested() const;
 
-    virtual ~Service_Request_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Service_Request_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Service_Request_PDU::SetServiceTypeRequested
-    //              KDIS::PDU::Service_Request_PDU::GetServiceTypeRequested
-    // Description: Describes type of service being requested
-    // Parameter:   ServiceTypeRequested  STR, void
-    //************************************
-    void SetServiceTypeRequested( KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested STR );
-    KDIS::DATA_TYPE::ENUMS::ServiceTypeRequested GetServiceTypeRequested() const;
+  //************************************
+  // FullName:    KDIS::PDU::Service_Request_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Service_Request_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Service_Request_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Service_Request_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Service_Request_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Service_Request_PDU & Value ) const;
-    KBOOL operator != ( const Service_Request_PDU & Value ) const;
+  KBOOL operator==(const Service_Request_PDU& Value) const;
+  KBOOL operator!=(const Service_Request_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

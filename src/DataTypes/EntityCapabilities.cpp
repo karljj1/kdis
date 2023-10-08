@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EntityCapabilities.h"
+#include "KDIS/DataTypes/EntityCapabilities.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,191 +37,156 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::EntityCapabilities() :
-    m_ui16Data( 0 )
-{
+EntityCapabilities::EntityCapabilities() : m_ui16Data(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityCapabilities::EntityCapabilities(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityCapabilities::EntityCapabilities(KBOOL AmunitionSupply, KBOOL FuelSupply,
+                                       KBOOL RecoveryService,
+                                       KBOOL RepairService) {
+  m_Unused = 0;
+  m_AmmunitionSupply = AmunitionSupply;
+  m_FuelSupply = FuelSupply;
+  m_RecoveryService = RecoveryService;
+  m_RepairService = RepairService;
+  m_ADSB = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::EntityCapabilities( KDataStream & stream ) 
-{
-    Decode( stream );
+EntityCapabilities::EntityCapabilities(KBOOL AmunitionSupply, KBOOL FuelSupply,
+                                       KBOOL RecoveryService,
+                                       KBOOL RepairService, KBOOL ADSB) {
+  m_Unused = 0;
+  m_AmmunitionSupply = AmunitionSupply;
+  m_FuelSupply = FuelSupply;
+  m_RecoveryService = RecoveryService;
+  m_RepairService = RepairService;
+  m_ADSB = ADSB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply, KBOOL RecoveryService, KBOOL RepairService )
-{
-    m_Unused = 0;
-    m_AmmunitionSupply = AmunitionSupply;
-    m_FuelSupply = FuelSupply;
-    m_RecoveryService = RecoveryService;
-    m_RepairService = RepairService;
-	m_ADSB = 0;
+EntityCapabilities::~EntityCapabilities() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EntityCapabilities::SetHasAmmunitionSupply(KBOOL HAS) {
+  m_AmmunitionSupply = HAS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::EntityCapabilities( KBOOL AmunitionSupply, KBOOL FuelSupply, KBOOL RecoveryService, KBOOL RepairService, KBOOL ADSB )
-{
-    m_Unused = 0;
-    m_AmmunitionSupply = AmunitionSupply;
-    m_FuelSupply = FuelSupply;
-    m_RecoveryService = RecoveryService;
-    m_RepairService = RepairService;
-	m_ADSB = ADSB;
+KBOOL EntityCapabilities::HasAmmunitionSupply() const {
+  return m_AmmunitionSupply;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCapabilities::~EntityCapabilities()
-{
+void EntityCapabilities::SetHasFuelSupply(KBOOL HAS) { m_FuelSupply = HAS; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL EntityCapabilities::HasFuelSupply() const { return m_FuelSupply; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void EntityCapabilities::SetHasRecoveryService(KBOOL HAS) {
+  m_RecoveryService = HAS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityCapabilities::SetHasAmmunitionSupply( KBOOL HAS )
-{
-    m_AmmunitionSupply = HAS;
+KBOOL EntityCapabilities::HasRecoveryService() const {
+  return m_RecoveryService;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL EntityCapabilities::HasAmmunitionSupply() const
-{
-    return m_AmmunitionSupply;
+void EntityCapabilities::SetHasRepairService(KBOOL HAS) {
+  m_RepairService = HAS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityCapabilities::SetHasFuelSupply( KBOOL HAS )
-{
-    m_FuelSupply = HAS;
+KBOOL EntityCapabilities::HasRepairService() const { return m_RepairService; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void EntityCapabilities::SetHasAutomaticDependentSurveillanceBroadcast(
+    KBOOL ADSB) {
+  m_ADSB = ADSB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL EntityCapabilities::HasFuelSupply() const
-{
-    return m_FuelSupply;
+KBOOL EntityCapabilities::HasAutomaticDependentSurveillanceBroadcast() const {
+  return m_ADSB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityCapabilities::SetHasRecoveryService( KBOOL HAS )
-{
-    m_RecoveryService = HAS;
+void EntityCapabilities::SetAllFields(KUINT32 All) { m_ui16Data = All; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT32 EntityCapabilities::GetAllFields() const { return m_ui16Data; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString EntityCapabilities::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Entity Capabilities"
+     << "\n\tAmmunition Supply:    " << m_AmmunitionSupply
+     << "\n\tFuel Supply:          " << m_FuelSupply
+     << "\n\tRecovery Service:     " << m_RecoveryService
+     << "\n\tRepair Service:       " << m_RepairService
+     << "\n\tADS-B Service:        " << m_ADSB << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL EntityCapabilities::HasRecoveryService() const
-{
-    return m_RecoveryService;
+void EntityCapabilities::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ENTITY_CAPABILITIES_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16Data;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityCapabilities::SetHasRepairService( KBOOL HAS )
-{
-    m_RepairService = HAS;
+KDataStream EntityCapabilities::Encode() const {
+  KDataStream stream;
+
+  EntityCapabilities::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL EntityCapabilities::HasRepairService() const
-{
-    return m_RepairService;
+void EntityCapabilities::Encode(KDataStream& stream) const {
+  stream << m_ui16Data;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityCapabilities::SetHasAutomaticDependentSurveillanceBroadcast( KBOOL ADSB )
-{
-	m_ADSB = ADSB;
+KBOOL EntityCapabilities::operator==(const EntityCapabilities& Value) const {
+  if (m_ui16Data != Value.m_ui16Data) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL EntityCapabilities::HasAutomaticDependentSurveillanceBroadcast() const
-{
-	return m_ADSB;
+KBOOL EntityCapabilities::operator!=(const EntityCapabilities& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void EntityCapabilities::SetAllFields( KUINT32 All )
-{
-    m_ui16Data = All;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT32 EntityCapabilities::GetAllFields() const
-{
-    return m_ui16Data;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString EntityCapabilities::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Entity Capabilities"
-       << "\n\tAmmunition Supply:    " << m_AmmunitionSupply
-       << "\n\tFuel Supply:          " << m_FuelSupply
-       << "\n\tRecovery Service:     " << m_RecoveryService
-       << "\n\tRepair Service:       " << m_RepairService
-	   << "\n\tADS-B Service:        " << m_ADSB
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EntityCapabilities::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ENTITY_CAPABILITIES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16Data;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream EntityCapabilities::Encode() const
-{
-    KDataStream stream;
-
-    EntityCapabilities::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void EntityCapabilities::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16Data;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EntityCapabilities::operator == ( const EntityCapabilities & Value ) const
-{
-    if( m_ui16Data != Value.m_ui16Data ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EntityCapabilities::operator != ( const EntityCapabilities & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

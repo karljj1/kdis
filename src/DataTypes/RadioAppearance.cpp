@@ -28,7 +28,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./RadioAppearance.h"
+#include "KDIS/DataTypes/RadioAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,65 +38,49 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-void RadioAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
-    m_FrozenStatus = EFS;
+void RadioAppearance::SetEntityFrozenStatus(KBOOL EFS) { m_FrozenStatus = EFS; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void RadioAppearance::SetEntityStateActive(KBOOL ES) { m_State = !ES; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL RadioAppearance::IsEntityStateActive() const { return !m_State; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL RadioAppearance::IsEntityFrozen() const { return m_FrozenStatus; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString RadioAppearance::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Radio:"
+     << "\n\tFrozen Status:  " << m_FrozenStatus
+     << "\n\tState:          " << m_State << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RadioAppearance::SetEntityStateActive( KBOOL ES )
-{
-    m_State = !ES;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL RadioAppearance::IsEntityStateActive() const
-{
-    return !m_State;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL RadioAppearance::IsEntityFrozen() const
-{
-    return m_FrozenStatus;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString RadioAppearance::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Radio:"
-       << "\n\tFrozen Status:  " << m_FrozenStatus
-       << "\n\tState:          " << m_State
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL RadioAppearance::operator == ( const RadioAppearance & Value ) const
-{
+KBOOL RadioAppearance::operator==(const RadioAppearance& Value) const {
   // Lets do a single comparison instead of checking every field.
   // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-  KUINT32 a = *( KUINT32 * )this;
-  KUINT32 b = *( KUINT32 * )&Value;
+  KUINT32 a = *(KUINT32*)this;
+  KUINT32 b = *(KUINT32*)&Value;
 
-    if( a != b )return false;
-    return true;
+  if (a != b) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL RadioAppearance::operator != ( const RadioAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL RadioAppearance::operator!=(const RadioAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

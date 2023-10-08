@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./AcousticEmitterSystem.h"
+#include "KDIS/DataTypes/AcousticEmitterSystem.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,138 +37,115 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem::AcousticEmitterSystem() :
-    m_ui16EmitterName( 0 ),
-    m_ui8Function( 0 ),
-    m_ui8EmitterIDNumber( 0 )
-{
+AcousticEmitterSystem::AcousticEmitterSystem()
+    : m_ui16EmitterName(0), m_ui8Function(0), m_ui8EmitterIDNumber(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+AcousticEmitterSystem::AcousticEmitterSystem(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem::AcousticEmitterSystem( KDataStream & stream ) 
-{
-    Decode( stream );
+AcousticEmitterSystem::AcousticEmitterSystem(AcousticSystemName ASN,
+                                             AcousticSystemFunction ASF,
+                                             KUINT8 ID)
+    : m_ui16EmitterName(ASN), m_ui8Function(ASF), m_ui8EmitterIDNumber(ID) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+AcousticEmitterSystem::~AcousticEmitterSystem() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AcousticEmitterSystem::SetName(AcousticSystemName ASN) {
+  m_ui16EmitterName = ASN;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem::AcousticEmitterSystem( AcousticSystemName ASN, AcousticSystemFunction ASF, KUINT8 ID ) :
-    m_ui16EmitterName( ASN ),
-    m_ui8Function( ASF ),
-    m_ui8EmitterIDNumber( ID )
-{
+AcousticSystemName AcousticEmitterSystem::GetName() const {
+  return (AcousticSystemName)m_ui16EmitterName;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticEmitterSystem::~AcousticEmitterSystem()
-{
+void AcousticEmitterSystem::SetFunction(AcousticSystemFunction ASF) {
+  m_ui8Function = ASF;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AcousticEmitterSystem::SetName( AcousticSystemName ASN )
-{
-    m_ui16EmitterName = ASN;
+AcousticSystemFunction AcousticEmitterSystem::GetFunction() const {
+  return (AcousticSystemFunction)m_ui8Function;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticSystemName AcousticEmitterSystem::GetName() const
-{
-    return ( AcousticSystemName )m_ui16EmitterName;
+void AcousticEmitterSystem::SetEmitterID(KUINT8 ID) {
+  m_ui8EmitterIDNumber = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AcousticEmitterSystem::SetFunction( AcousticSystemFunction ASF )
-{
-    m_ui8Function = ASF;
+KUINT8 AcousticEmitterSystem::GetEmitterID() const {
+  return m_ui8EmitterIDNumber;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AcousticSystemFunction AcousticEmitterSystem::GetFunction() const
-{
-    return ( AcousticSystemFunction )m_ui8Function;
+KString AcousticEmitterSystem::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Acoustic Emitter System:"
+     << "\n\tName:     " << GetEnumAsStringAcousticSystemName(m_ui16EmitterName)
+     << "\n\tFunction: " << GetEnumAsStringAcousticSystemFunction(m_ui8Function)
+     << "\n\tID:       " << (KUINT16)m_ui8EmitterIDNumber << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AcousticEmitterSystem::SetEmitterID( KUINT8 ID )
-{
-    m_ui8EmitterIDNumber = ID;
+void AcousticEmitterSystem::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ACOUSTIC_EMITTER_SYSTEM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16EmitterName >> m_ui8Function >> m_ui8EmitterIDNumber;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 AcousticEmitterSystem::GetEmitterID() const
-{
-    return m_ui8EmitterIDNumber;
+KDataStream AcousticEmitterSystem::Encode() const {
+  KDataStream stream;
+
+  AcousticEmitterSystem::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString AcousticEmitterSystem::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Acoustic Emitter System:"
-       << "\n\tName:     " << GetEnumAsStringAcousticSystemName( m_ui16EmitterName )
-       << "\n\tFunction: " << GetEnumAsStringAcousticSystemFunction( m_ui8Function )
-       << "\n\tID:       " << ( KUINT16 )m_ui8EmitterIDNumber
-       << "\n";
-
-    return ss.str();
+void AcousticEmitterSystem::Encode(KDataStream& stream) const {
+  stream << m_ui16EmitterName << m_ui8Function << m_ui8EmitterIDNumber;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AcousticEmitterSystem::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ACOUSTIC_EMITTER_SYSTEM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16EmitterName
-           >> m_ui8Function
-           >> m_ui8EmitterIDNumber;
+KBOOL AcousticEmitterSystem::operator==(
+    const AcousticEmitterSystem& Value) const {
+  if (m_ui16EmitterName != Value.m_ui16EmitterName) return false;
+  if (m_ui8Function != Value.m_ui8Function) return false;
+  if (m_ui8EmitterIDNumber != Value.m_ui8EmitterIDNumber) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream AcousticEmitterSystem::Encode() const
-{
-    KDataStream stream;
-
-    AcousticEmitterSystem::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AcousticEmitterSystem::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16EmitterName
-           << m_ui8Function
-           << m_ui8EmitterIDNumber;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AcousticEmitterSystem::operator == ( const AcousticEmitterSystem & Value ) const
-{
-    if( m_ui16EmitterName       != Value.m_ui16EmitterName )    return false;
-    if( m_ui8Function           != Value.m_ui8Function )        return false;
-    if( m_ui8EmitterIDNumber    != Value.m_ui8EmitterIDNumber ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AcousticEmitterSystem::operator != ( const AcousticEmitterSystem & Value ) const
-{
-    return !( *this == Value );
+KBOOL AcousticEmitterSystem::operator!=(
+    const AcousticEmitterSystem& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////

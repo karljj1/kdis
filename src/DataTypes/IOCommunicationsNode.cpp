@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IOCommunicationsNode.h"
+#include "KDIS/DataTypes/IOCommunicationsNode.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -39,136 +39,121 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-IOCommunicationsNode::IOCommunicationsNode() :
-    m_ui8CommNodeTyp( 0 ),
-    m_ui8Padding( 0 )
-{
-    m_ui32Type = IOCommunicationsNodeRecord;
-    m_ui16Length = IO_COMMUNICATIONS_NODE_SIZE;
+IOCommunicationsNode::IOCommunicationsNode()
+    : m_ui8CommNodeTyp(0), m_ui8Padding(0) {
+  m_ui32Type = IOCommunicationsNodeRecord;
+  m_ui16Length = IO_COMMUNICATIONS_NODE_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOCommunicationsNode::IOCommunicationsNode( KDataStream & stream ) 
-{
-    Decode( stream );
+IOCommunicationsNode::IOCommunicationsNode(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOCommunicationsNode::IOCommunicationsNode( IOCommunicationsNodeType T, const CommunicationsNodeID & ID ) :
-    m_ui8CommNodeTyp( T ),
-    m_ui8Padding( 0 ),
-    m_CommID( ID )
-{
-    m_ui32Type = IOCommunicationsNodeRecord;
-    m_ui16Length = IO_COMMUNICATIONS_NODE_SIZE;
+IOCommunicationsNode::IOCommunicationsNode(IOCommunicationsNodeType T,
+                                           const CommunicationsNodeID& ID)
+    : m_ui8CommNodeTyp(T), m_ui8Padding(0), m_CommID(ID) {
+  m_ui32Type = IOCommunicationsNodeRecord;
+  m_ui16Length = IO_COMMUNICATIONS_NODE_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOCommunicationsNode::~IOCommunicationsNode()
-{
+IOCommunicationsNode::~IOCommunicationsNode() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IOCommunicationsNode::SetIOCommunicationsNodeType(
+    IOCommunicationsNodeType T) {
+  m_ui8CommNodeTyp = T;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOCommunicationsNode::SetIOCommunicationsNodeType( IOCommunicationsNodeType T )
-{
-    m_ui8CommNodeTyp = T;
+IOCommunicationsNodeType IOCommunicationsNode::GetIOCommunicationsNodeType()
+    const {
+  return (IOCommunicationsNodeType)m_ui8CommNodeTyp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOCommunicationsNodeType IOCommunicationsNode::GetIOCommunicationsNodeType() const
-{
-    return ( IOCommunicationsNodeType )m_ui8CommNodeTyp;
+void IOCommunicationsNode::SetCommunicationsNodeID(
+    const CommunicationsNodeID& ID) {
+  m_CommID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOCommunicationsNode::SetCommunicationsNodeID( const CommunicationsNodeID & ID )
-{
-    m_CommID = ID;
+const CommunicationsNodeID& IOCommunicationsNode::GetCommunicationsNodeID()
+    const {
+  return m_CommID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const CommunicationsNodeID & IOCommunicationsNode::GetCommunicationsNodeID() const
-{
-    return m_CommID;
+CommunicationsNodeID& IOCommunicationsNode::GetCommunicationsNodeID() {
+  return m_CommID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID & IOCommunicationsNode::GetCommunicationsNodeID()
-{
-    return m_CommID;
+KString IOCommunicationsNode::GetAsString() const {
+  KStringStream ss;
+
+  ss << StandardVariable::GetAsString() << "Node Type: "
+     << GetEnumAsStringIOCommunicationsNodeType(m_ui8CommNodeTyp) << "\n"
+     << m_CommID.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString IOCommunicationsNode::GetAsString() const
-{
-    KStringStream ss;
+void IOCommunicationsNode::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < STANDARD_VARIABLE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    ss << StandardVariable::GetAsString()
-       << "Node Type: " << GetEnumAsStringIOCommunicationsNodeType( m_ui8CommNodeTyp ) << "\n"
-       << m_CommID.GetAsString();
+  StandardVariable::Decode(stream);
 
-    return ss.str();
+  stream >> m_ui8CommNodeTyp >> m_ui8Padding >> KDIS_STREAM m_CommID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOCommunicationsNode::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < STANDARD_VARIABLE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream IOCommunicationsNode::Encode() const {
+  KDataStream stream;
 
-    StandardVariable::Decode( stream );
+  IOCommunicationsNode::Encode(stream);
 
-    stream >> m_ui8CommNodeTyp
-           >> m_ui8Padding
-           >> KDIS_STREAM m_CommID;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream IOCommunicationsNode::Encode() const
-{
-    KDataStream stream;
+void IOCommunicationsNode::Encode(KDataStream& stream) const {
+  StandardVariable::Encode(stream);
 
-    IOCommunicationsNode::Encode( stream );
-
-    return stream;
+  stream << m_ui8CommNodeTyp << m_ui8Padding << KDIS_STREAM m_CommID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOCommunicationsNode::Encode( KDataStream & stream ) const
-{
-    StandardVariable::Encode( stream );
-
-    stream << m_ui8CommNodeTyp
-           << m_ui8Padding
-           << KDIS_STREAM m_CommID;
+KBOOL IOCommunicationsNode::operator==(
+    const IOCommunicationsNode& Value) const {
+  if (StandardVariable::operator!=(Value)) return false;
+  if (m_ui8CommNodeTyp != Value.m_ui8CommNodeTyp) return false;
+  if (m_CommID != Value.m_CommID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IOCommunicationsNode::operator == ( const IOCommunicationsNode & Value ) const
-{
-    if( StandardVariable::operator  !=( Value ) )               return false;
-    if( m_ui8CommNodeTyp            != Value.m_ui8CommNodeTyp ) return false;
-    if( m_CommID                    != Value.m_CommID )         return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL IOCommunicationsNode::operator != ( const IOCommunicationsNode & Value ) const
-{
-    return !( *this == Value );
+KBOOL IOCommunicationsNode::operator!=(
+    const IOCommunicationsNode& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EntityDestinationRecord.h"
+#include "KDIS/DataTypes/EntityDestinationRecord.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,191 +41,164 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityDestinationRecord::EntityDestinationRecord() :
-    m_ui16DstCommsDvcID( 0 ),
-    m_ui8DstLineID( 0 ),
-    m_ui8DstPriority( 0 ),
-    m_ui8LnStCmd( 0 ),
-    m_uiPadding1( 0 )
-{
+EntityDestinationRecord::EntityDestinationRecord()
+    : m_ui16DstCommsDvcID(0),
+      m_ui8DstLineID(0),
+      m_ui8DstPriority(0),
+      m_ui8LnStCmd(0),
+      m_uiPadding1(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityDestinationRecord::EntityDestinationRecord(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDestinationRecord::EntityDestinationRecord( KDataStream & stream )
-{
-    Decode( stream );
+EntityDestinationRecord::EntityDestinationRecord(const EntityIdentifier& ID,
+                                                 KUINT16 CommDeviceID,
+                                                 KUINT8 LineID, KUINT8 Priority,
+                                                 LineStateCommand LSC)
+    : m_Entity(ID),
+      m_ui16DstCommsDvcID(CommDeviceID),
+      m_ui8DstLineID(LineID),
+      m_ui8DstPriority(Priority),
+      m_ui8LnStCmd(LSC),
+      m_uiPadding1(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityDestinationRecord::~EntityDestinationRecord() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EntityDestinationRecord::SetDestinationEntityID(
+    const EntityIdentifier& ID) {
+  m_Entity = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDestinationRecord::EntityDestinationRecord( const EntityIdentifier & ID, KUINT16 CommDeviceID, KUINT8 LineID,
-        KUINT8 Priority, LineStateCommand LSC ) :
-    m_Entity( ID ),
-    m_ui16DstCommsDvcID( CommDeviceID ),
-    m_ui8DstLineID( LineID ),
-    m_ui8DstPriority( Priority ),
-    m_ui8LnStCmd( LSC ),
-    m_uiPadding1( 0 )
-{
+const EntityIdentifier& EntityDestinationRecord::GetDestinationEntityID()
+    const {
+  return m_Entity;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDestinationRecord::~EntityDestinationRecord()
-{
+EntityIdentifier& EntityDestinationRecord::GetDestinationEntityID() {
+  return m_Entity;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityDestinationRecord::SetDestinationEntityID( const EntityIdentifier & ID )
-{
-    m_Entity = ID;
+void EntityDestinationRecord::SetDestinationCommDeviceID(KUINT16 ID) {
+  m_ui16DstCommsDvcID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & EntityDestinationRecord::GetDestinationEntityID() const
-{
-    return m_Entity;
+KUINT16 EntityDestinationRecord::GetDestinationCommDeviceID() const {
+  return m_ui16DstCommsDvcID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & EntityDestinationRecord::GetDestinationEntityID()
-{
-    return m_Entity;
+void EntityDestinationRecord::SetDestinationLineID(KUINT8 ID) {
+  m_ui8DstLineID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityDestinationRecord::SetDestinationCommDeviceID( KUINT16 ID )
-{
-    m_ui16DstCommsDvcID = ID;
+KUINT8 EntityDestinationRecord::GetDestinationLineID() const {
+  return m_ui8DstLineID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 EntityDestinationRecord::GetDestinationCommDeviceID() const
-{
-    return m_ui16DstCommsDvcID;
+void EntityDestinationRecord::SetDestinationPriority(KUINT8 TP) {
+  m_ui8DstPriority = TP;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityDestinationRecord::SetDestinationLineID( KUINT8 ID )
-{
-    m_ui8DstLineID = ID;
+KUINT8 EntityDestinationRecord::GetDestinationPriority() const {
+  return m_ui8DstPriority;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EntityDestinationRecord::GetDestinationLineID() const
-{
-    return m_ui8DstLineID;
+void EntityDestinationRecord::SetLineStateCommand(LineStateCommand LSC) {
+  m_ui8LnStCmd = LSC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityDestinationRecord::SetDestinationPriority( KUINT8 TP )
-{
-    m_ui8DstPriority = TP;
+LineStateCommand EntityDestinationRecord::GetLineStateCommand() const {
+  return (LineStateCommand)m_ui8LnStCmd;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 EntityDestinationRecord::GetDestinationPriority() const
-{
-    return m_ui8DstPriority;
+KString EntityDestinationRecord::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Entity Destination Record\n"
+     << "Entity ID:\n"
+     << IndentString(m_Entity.GetAsString(), 1)
+     << "Device ID:           " << m_ui16DstCommsDvcID
+     << "\nLine ID:             " << (KUINT16)m_ui8DstLineID
+     << "\nPriority:            " << (KUINT16)m_ui8DstPriority
+     << "\nLine State Command:  " << (KUINT16)m_ui8LnStCmd << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityDestinationRecord::SetLineStateCommand( LineStateCommand LSC )
-{
-    m_ui8LnStCmd = LSC;
+void EntityDestinationRecord::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ENTITY_DESTINATION_RECORD_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> KDIS_STREAM m_Entity >> m_ui16DstCommsDvcID >> m_ui8DstLineID >>
+      m_ui8DstPriority >> m_ui8LnStCmd >> m_uiPadding1;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-LineStateCommand EntityDestinationRecord::GetLineStateCommand() const
-{
-    return ( LineStateCommand )m_ui8LnStCmd;
+KDataStream EntityDestinationRecord::Encode() const {
+  KDataStream stream;
+
+  EntityDestinationRecord::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString EntityDestinationRecord::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Entity Destination Record\n"
-       << "Entity ID:\n"          << IndentString( m_Entity.GetAsString(), 1 )
-       << "Device ID:           " << m_ui16DstCommsDvcID
-       << "\nLine ID:             " << ( KUINT16 )m_ui8DstLineID
-       << "\nPriority:            " << ( KUINT16 )m_ui8DstPriority
-       << "\nLine State Command:  " << ( KUINT16 )m_ui8LnStCmd
-       << "\n";
-
-    return ss.str();
+void EntityDestinationRecord::Encode(KDataStream& stream) const {
+  stream << KDIS_STREAM m_Entity << m_ui16DstCommsDvcID << m_ui8DstLineID
+         << m_ui8DstPriority << m_ui8LnStCmd << m_uiPadding1;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityDestinationRecord::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < ENTITY_DESTINATION_RECORD_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> KDIS_STREAM m_Entity
-           >> m_ui16DstCommsDvcID
-           >> m_ui8DstLineID
-           >> m_ui8DstPriority
-           >> m_ui8LnStCmd
-           >> m_uiPadding1;
+KBOOL EntityDestinationRecord::operator==(
+    const EntityDestinationRecord& Value) const {
+  if (m_Entity != Value.m_Entity) return false;
+  if (m_ui16DstCommsDvcID != Value.m_ui16DstCommsDvcID) return false;
+  if (m_ui8DstLineID != Value.m_ui8DstLineID) return false;
+  if (m_ui8DstPriority != Value.m_ui8DstPriority) return false;
+  if (m_ui8LnStCmd != Value.m_ui8LnStCmd) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream EntityDestinationRecord::Encode() const
-{
-    KDataStream stream;
-
-    EntityDestinationRecord::Encode( stream );
-
-    return stream;
+KBOOL EntityDestinationRecord::operator!=(
+    const EntityDestinationRecord& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void EntityDestinationRecord::Encode( KDataStream & stream ) const
-{
-    stream << KDIS_STREAM m_Entity
-           << m_ui16DstCommsDvcID
-           << m_ui8DstLineID
-           << m_ui8DstPriority
-           << m_ui8LnStCmd
-           << m_uiPadding1;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EntityDestinationRecord::operator == ( const EntityDestinationRecord & Value ) const
-{
-    if( m_Entity            != Value.m_Entity )             return false;
-    if( m_ui16DstCommsDvcID != Value.m_ui16DstCommsDvcID )  return false;
-    if( m_ui8DstLineID      != Value.m_ui8DstLineID )       return false;
-    if( m_ui8DstPriority    != Value.m_ui8DstPriority )     return false;
-    if( m_ui8LnStCmd        != Value.m_ui8LnStCmd )         return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL EntityDestinationRecord::operator != ( const EntityDestinationRecord & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

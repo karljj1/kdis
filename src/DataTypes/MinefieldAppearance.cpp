@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./MinefieldAppearance.h"
+#include "KDIS/DataTypes/MinefieldAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,148 +37,129 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldAppearance::MinefieldAppearance()
-{
-    m_ui16BitUnion.m_ui16App = 0;
+MinefieldAppearance::MinefieldAppearance() { m_ui16BitUnion.m_ui16App = 0; }
+
+//////////////////////////////////////////////////////////////////////////
+
+MinefieldAppearance::MinefieldAppearance(MinefieldType T, KBOOL IsStatusActive,
+                                         KBOOL IsLaneActive,
+                                         KBOOL IsStateActive) {
+  m_ui16BitUnion.m_ui16App = 0;
+  m_ui16BitUnion.m_ui16Type = T;
+  m_ui16BitUnion.m_ui16ActiveStatus = (IsStatusActive ? 0 : 1);
+  m_ui16BitUnion.m_ui16Lane = (IsLaneActive ? 0 : 1);
+  m_ui16BitUnion.m_ui16State = (IsStateActive ? 0 : 1);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldAppearance::MinefieldAppearance( MinefieldType T, KBOOL IsStatusActive, KBOOL IsLaneActive, KBOOL IsStateActive )
-{
-    m_ui16BitUnion.m_ui16App = 0;
-    m_ui16BitUnion.m_ui16Type = T;
-    m_ui16BitUnion.m_ui16ActiveStatus = (IsStatusActive ? 0 : 1);
-    m_ui16BitUnion.m_ui16Lane = (IsLaneActive ? 0 : 1);
-    m_ui16BitUnion.m_ui16State = (IsStateActive ? 0 : 1);
+MinefieldAppearance::MinefieldAppearance(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldAppearance::MinefieldAppearance( KDataStream & stream ) 
-{
-    Decode( stream );
+MinefieldAppearance::~MinefieldAppearance() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void MinefieldAppearance::SetMinefieldType(MinefieldType T) {
+  m_ui16BitUnion.m_ui16Type = T;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldAppearance::~MinefieldAppearance()
-{
+MinefieldType MinefieldAppearance::GetMinefieldType() const {
+  return (MinefieldType)m_ui16BitUnion.m_ui16Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldAppearance::SetMinefieldType( MinefieldType T )
-{
-    m_ui16BitUnion.m_ui16Type = T;
+void MinefieldAppearance::SetStatusActive(KBOOL A) {
+  m_ui16BitUnion.m_ui16ActiveStatus = (A ? 0 : 1);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldType MinefieldAppearance::GetMinefieldType() const
-{
-    return ( MinefieldType )m_ui16BitUnion.m_ui16Type;
+KBOOL MinefieldAppearance::IsStatusActive() const {
+  return m_ui16BitUnion.m_ui16ActiveStatus == 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldAppearance::SetStatusActive( KBOOL A )
-{
-    m_ui16BitUnion.m_ui16ActiveStatus = (A ? 0 : 1);
+void MinefieldAppearance::SetLaneActive(KBOOL A) {
+  m_ui16BitUnion.m_ui16Lane = (A ? 0 : 1);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldAppearance::IsStatusActive() const
-{
-    return m_ui16BitUnion.m_ui16ActiveStatus == 0;
+KBOOL MinefieldAppearance::IsLaneActive() const {
+  return m_ui16BitUnion.m_ui16Lane == 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldAppearance::SetLaneActive( KBOOL A )
-{
-    m_ui16BitUnion.m_ui16Lane = (A ? 0 : 1);
+void MinefieldAppearance::SetStateActive(KBOOL A) {
+  m_ui16BitUnion.m_ui16State = (A ? 0 : 1);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldAppearance::IsLaneActive() const
-{
-    return m_ui16BitUnion.m_ui16Lane == 0;
+KBOOL MinefieldAppearance::IsStateActive() const {
+  return m_ui16BitUnion.m_ui16State == 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldAppearance::SetStateActive( KBOOL A )
-{
-    m_ui16BitUnion.m_ui16State = (A ? 0 : 1);
+KString MinefieldAppearance::GetAsString() const {
+  KStringStream ss;
+
+  ss << "MinefieldAppearance:"
+     << "\n\tMinefield Type:           "
+     << GetEnumAsStringMinefieldType(m_ui16BitUnion.m_ui16Type)
+     << "\n\tActive Status(0 = true):  " << m_ui16BitUnion.m_ui16ActiveStatus
+     << "\n\tActive Lane(0 = true):    " << m_ui16BitUnion.m_ui16Lane
+     << "\n\tState(0 = true):          " << m_ui16BitUnion.m_ui16State << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL MinefieldAppearance::IsStateActive() const
-{
-    return m_ui16BitUnion.m_ui16State == 0;
+void MinefieldAppearance::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < MINEFIELD_APPEARANCE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16BitUnion.m_ui16App;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString MinefieldAppearance::GetAsString() const
-{
-    KStringStream ss;
+KDataStream MinefieldAppearance::Encode() const {
+  KDataStream stream;
 
-    ss << "MinefieldAppearance:"
-       << "\n\tMinefield Type:           " << GetEnumAsStringMinefieldType( m_ui16BitUnion.m_ui16Type )
-       << "\n\tActive Status(0 = true):  " << m_ui16BitUnion.m_ui16ActiveStatus
-       << "\n\tActive Lane(0 = true):    " << m_ui16BitUnion.m_ui16Lane
-       << "\n\tState(0 = true):          " << m_ui16BitUnion.m_ui16State
-       << "\n";
+  MinefieldAppearance::Encode(stream);
 
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldAppearance::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < MINEFIELD_APPEARANCE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16BitUnion.m_ui16App;
+void MinefieldAppearance::Encode(KDataStream& stream) const {
+  stream << m_ui16BitUnion.m_ui16App;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream MinefieldAppearance::Encode() const
-{
-    KDataStream stream;
-
-    MinefieldAppearance::Encode( stream );
-
-    return stream;
+KBOOL MinefieldAppearance::operator==(const MinefieldAppearance& Value) const {
+  if (m_ui16BitUnion.m_ui16App != Value.m_ui16BitUnion.m_ui16App) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void MinefieldAppearance::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16BitUnion.m_ui16App;
+KBOOL MinefieldAppearance::operator!=(const MinefieldAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL MinefieldAppearance::operator == ( const MinefieldAppearance & Value ) const
-{
-    if( m_ui16BitUnion.m_ui16App != Value.m_ui16BitUnion.m_ui16App )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL MinefieldAppearance::operator != ( const MinefieldAppearance & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

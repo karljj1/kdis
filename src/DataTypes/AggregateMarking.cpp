@@ -27,7 +27,8 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./AggregateMarking.h"
+#include "KDIS/DataTypes/AggregateMarking.hpp"
+
 #include <string.h>
 
 using namespace KDIS;
@@ -38,133 +39,123 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking() :
-    m_ui8AggregateMarkingCharacterSet( ASCII )
-{
-    memset( m_sAggregateMarkingString, 0x00, 32 );
+AggregateMarking::AggregateMarking()
+    : m_ui8AggregateMarkingCharacterSet(ASCII) {
+  memset(m_sAggregateMarkingString, 0x00, 32);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking( KDataStream & stream ) 
-{
-    Decode( stream );
+AggregateMarking::AggregateMarking(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+AggregateMarking::AggregateMarking(EntityMarkingCharacterSet MarkingCharSet,
+                                   const KCHAR8* MarkingText,
+                                   KUINT16 TextSize) {
+  memset(m_sAggregateMarkingString, 0x00, 32);
+  SetAggregateMarkingCharacterSet(MarkingCharSet);
+  SetAggregateMarkingString(MarkingText, TextSize);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking( EntityMarkingCharacterSet MarkingCharSet, const KCHAR8 * MarkingText, KUINT16 TextSize ) 
-{
-    memset( m_sAggregateMarkingString, 0x00, 32 );
-    SetAggregateMarkingCharacterSet( MarkingCharSet );
-    SetAggregateMarkingString( MarkingText, TextSize );
+AggregateMarking::~AggregateMarking() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AggregateMarking::SetAggregateMarkingCharacterSet(
+    const EntityMarkingCharacterSet EMCS) {
+  m_ui8AggregateMarkingCharacterSet = EMCS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::~AggregateMarking()
-{
+EntityMarkingCharacterSet AggregateMarking::GetAggregateMarkingCharacterSet()
+    const {
+  return (EntityMarkingCharacterSet)m_ui8AggregateMarkingCharacterSet;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateMarking::SetAggregateMarkingCharacterSet( const EntityMarkingCharacterSet EMCS )
-{
-    m_ui8AggregateMarkingCharacterSet = EMCS;
+void AggregateMarking::SetAggregateMarkingString(const KINT8* M,
+                                                 KUINT16 StringSize) {
+  if (StringSize > 31) throw KException(__FUNCTION__, STRING_PDU_SIZE_TOO_BIG);
+
+  strncpy(m_sAggregateMarkingString, M, StringSize);
+
+  m_sAggregateMarkingString[StringSize] = '\0';
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarkingCharacterSet AggregateMarking::GetAggregateMarkingCharacterSet() const
-{
-    return ( EntityMarkingCharacterSet )m_ui8AggregateMarkingCharacterSet;
+KString AggregateMarking::GetAggregateMarkingString() const {
+  return m_sAggregateMarkingString;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateMarking::SetAggregateMarkingString( const KINT8 * M, KUINT16 StringSize )
-{
-    if( StringSize > 31 ) throw KException( __FUNCTION__, STRING_PDU_SIZE_TOO_BIG );
+KString AggregateMarking::GetAsString() const {
+  KStringStream ss;
 
-    strncpy(m_sAggregateMarkingString, M, StringSize);
+  ss << "Aggregate Marking:"
+     << "\n\tMaring Char Set:      "
+     << (KUINT16)m_ui8AggregateMarkingCharacterSet
+     << "\n\tMarking String:       " << GetAggregateMarkingString() << "\n";
 
-    m_sAggregateMarkingString[StringSize] = '\0';
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString AggregateMarking::GetAggregateMarkingString() const
-{
-    return m_sAggregateMarkingString;
+void AggregateMarking::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < AGGREGATE_MARKING_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8AggregateMarkingCharacterSet;
+
+  for (KUINT16 i = 0; i < 31; ++i) {
+    stream >> m_sAggregateMarkingString[i];
+  }
+  m_sAggregateMarkingString[31] = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString AggregateMarking::GetAsString() const
-{
-    KStringStream ss;
+KDataStream AggregateMarking::Encode() const {
+  KDataStream stream;
 
-    ss << "Aggregate Marking:"
-       << "\n\tMaring Char Set:      " << ( KUINT16 )m_ui8AggregateMarkingCharacterSet
-       << "\n\tMarking String:       " << GetAggregateMarkingString()
-       << "\n";
+  AggregateMarking::Encode(stream);
 
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateMarking::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < AGGREGATE_MARKING_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void AggregateMarking::Encode(KDataStream& stream) const {
+  stream << m_ui8AggregateMarkingCharacterSet;
 
-    stream >> m_ui8AggregateMarkingCharacterSet;
-
-    for( KUINT16 i = 0; i < 31; ++i )
-    {
-        stream >> m_sAggregateMarkingString[i];
-    }
-    m_sAggregateMarkingString[31] = 0;
+  for (KUINT16 i = 0; i < 31; ++i) {
+    stream << m_sAggregateMarkingString[i];
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream AggregateMarking::Encode() const
-{
-    KDataStream stream;
-
-    AggregateMarking::Encode( stream );
-
-    return stream;
+KBOOL AggregateMarking::operator==(const AggregateMarking& Value) const {
+  if (m_ui8AggregateMarkingCharacterSet !=
+      Value.m_ui8AggregateMarkingCharacterSet)
+    return false;
+  if (memcmp(m_sAggregateMarkingString, Value.m_sAggregateMarkingString, 31) !=
+      0)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateMarking::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8AggregateMarkingCharacterSet;
-
-    for( KUINT16 i = 0; i < 31; ++i )
-    {
-        stream << m_sAggregateMarkingString[i];
-    }
+KBOOL AggregateMarking::operator!=(const AggregateMarking& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL AggregateMarking::operator == ( const AggregateMarking & Value ) const
-{
-    if( m_ui8AggregateMarkingCharacterSet != Value.m_ui8AggregateMarkingCharacterSet )return false;
-    if( memcmp( m_sAggregateMarkingString, Value.m_sAggregateMarkingString, 31 ) != 0 )return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AggregateMarking::operator != ( const AggregateMarking & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

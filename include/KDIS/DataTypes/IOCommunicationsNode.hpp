@@ -39,77 +39,78 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./StandardVariable.h"
-#include "./CommunicationsNodeID.h"
+#include "KDIS/DataTypes/CommunicationsNodeID.hpp"
+#include "KDIS/DataTypes/StandardVariable.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IOCommunicationsNode : public StandardVariable
-{
-protected:
+class KDIS_EXPORT IOCommunicationsNode : public StandardVariable {
+ protected:
+  KUINT8 m_ui8CommNodeTyp;
 
-    KUINT8 m_ui8CommNodeTyp;
+  KUINT8 m_ui8Padding;
 
-    KUINT8 m_ui8Padding;
+  CommunicationsNodeID m_CommID;
 
-    CommunicationsNodeID m_CommID;
+ public:
+  static const KUINT16 IO_COMMUNICATIONS_NODE_SIZE = 16;
 
-public:
+  IOCommunicationsNode();
 
-    static const KUINT16 IO_COMMUNICATIONS_NODE_SIZE = 16;
+  IOCommunicationsNode(KDataStream& stream);
 
-    IOCommunicationsNode();
+  IOCommunicationsNode(KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType T,
+                       const CommunicationsNodeID& ID);
 
-    IOCommunicationsNode( KDataStream & stream ) ;
+  virtual ~IOCommunicationsNode();
 
-    IOCommunicationsNode( KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType T, const CommunicationsNodeID & ID );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IOCommunicationsNode::SetIOCommunicationsNodeType
+  //              KDIS::DATA_TYPE::IOCommunicationsNode::GetIOCommunicationsNodeType
+  // Description: The type of communication node.
+  // Parameter:   IOCommunicationsNodeType T
+  //************************************
+  void SetIOCommunicationsNodeType(
+      KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType T);
+  KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType GetIOCommunicationsNodeType()
+      const;
 
-    virtual ~IOCommunicationsNode();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::SetCommunicationsNodeID
+  //              KDIS::DATA_TYPE::IOCommunicationsNode::GetCommunicationsNodeID
+  // Description: The type of communication node.
+  // Parameter:   const CommunicationsNodeID & ID
+  //************************************
+  void SetCommunicationsNodeID(const CommunicationsNodeID& ID);
+  const CommunicationsNodeID& GetCommunicationsNodeID() const;
+  CommunicationsNodeID& GetCommunicationsNodeID();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::SetIOCommunicationsNodeType
-    //              KDIS::DATA_TYPE::IOCommunicationsNode::GetIOCommunicationsNodeType
-    // Description: The type of communication node.
-    // Parameter:   IOCommunicationsNodeType T
-    //************************************
-    void SetIOCommunicationsNodeType( KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType T );
-    KDIS::DATA_TYPE::ENUMS::IOCommunicationsNodeType GetIOCommunicationsNodeType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::SetCommunicationsNodeID
-    //              KDIS::DATA_TYPE::IOCommunicationsNode::GetCommunicationsNodeID
-    // Description: The type of communication node.
-    // Parameter:   const CommunicationsNodeID & ID
-    //************************************
-    void SetCommunicationsNodeID( const CommunicationsNodeID & ID );
-    const CommunicationsNodeID & GetCommunicationsNodeID() const;
-    CommunicationsNodeID & GetCommunicationsNodeID();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOCommunicationsNode::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const IOCommunicationsNode & Value ) const;
-    KBOOL operator != ( const IOCommunicationsNode & Value ) const;
+  KBOOL operator==(const IOCommunicationsNode& Value) const;
+  KBOOL operator!=(const IOCommunicationsNode& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

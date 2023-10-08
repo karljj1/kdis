@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./CommunicationsChannelType.h"
+#include "KDIS/DataTypes/CommunicationsChannelType.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,117 +37,95 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsChannelType::CommunicationsChannelType() :
-    m_ui8Type( 0 ),
-    m_ui8Class( 0 )
-{
+CommunicationsChannelType::CommunicationsChannelType()
+    : m_ui8Type(0), m_ui8Class(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CommunicationsChannelType::CommunicationsChannelType(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsChannelType::CommunicationsChannelType( KDataStream & stream ) 
-{
-    Decode( stream );
+CommunicationsChannelType::CommunicationsChannelType(ChannelType CT,
+                                                     ChannelClass CC)
+    : m_ui8Type(CT), m_ui8Class(CC) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CommunicationsChannelType::~CommunicationsChannelType() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void CommunicationsChannelType::SetType(ChannelType CT) { m_ui8Type = CT; }
+
+//////////////////////////////////////////////////////////////////////////
+
+ChannelType CommunicationsChannelType::GetType() const {
+  return (ChannelType)m_ui8Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsChannelType::CommunicationsChannelType( ChannelType CT, ChannelClass CC ) :
-    m_ui8Type( CT ),
-    m_ui8Class( CC )
-{
+void CommunicationsChannelType::SetClass(ChannelClass CC) { m_ui8Class = CC; }
+
+//////////////////////////////////////////////////////////////////////////
+
+ChannelClass CommunicationsChannelType::GetClass() const {
+  return (ChannelClass)m_ui8Class;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsChannelType::~CommunicationsChannelType()
-{
+KString CommunicationsChannelType::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Communications Channel Type:"
+     << "\n\tType  : " << (KUINT16)m_ui8Type
+     << "\n\tClass : " << (KUINT16)m_ui8Class << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CommunicationsChannelType::SetType( ChannelType CT )
-{
-    m_ui8Type = CT;
+void CommunicationsChannelType::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < COMM_CHANNEL_TYPE_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8CommChannelType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ChannelType CommunicationsChannelType::GetType() const
-{
-    return ( ChannelType )m_ui8Type;
+KDataStream CommunicationsChannelType::Encode() const {
+  KDataStream stream;
+
+  CommunicationsChannelType::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CommunicationsChannelType::SetClass( ChannelClass CC )
-{
-    m_ui8Class = CC;
+void CommunicationsChannelType::Encode(KDataStream& stream) const {
+  stream << m_ui8CommChannelType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ChannelClass CommunicationsChannelType::GetClass() const
-{
-    return ( ChannelClass )m_ui8Class;
+KBOOL CommunicationsChannelType::operator==(
+    const CommunicationsChannelType& Value) const {
+  if (m_ui8CommChannelType != Value.m_ui8CommChannelType) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString CommunicationsChannelType::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Communications Channel Type:"
-       << "\n\tType  : " << ( KUINT16 )m_ui8Type
-       << "\n\tClass : " << ( KUINT16 )m_ui8Class
-       << "\n";
-
-    return ss.str();
+KBOOL CommunicationsChannelType::operator!=(
+    const CommunicationsChannelType& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void CommunicationsChannelType::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < COMM_CHANNEL_TYPE_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8CommChannelType;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream CommunicationsChannelType::Encode() const
-{
-    KDataStream stream;
-
-    CommunicationsChannelType::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void CommunicationsChannelType::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8CommChannelType;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL CommunicationsChannelType::operator == ( const CommunicationsChannelType & Value ) const
-{
-    if( m_ui8CommChannelType != Value.m_ui8CommChannelType ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL CommunicationsChannelType::operator != ( const CommunicationsChannelType & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

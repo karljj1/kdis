@@ -28,7 +28,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SupplyAppearance.h"
+#include "KDIS/DataTypes/SupplyAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,160 +38,131 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-void SupplyAppearance::SetEntityPaintScheme( EntityPaintScheme EPS )
-{
-    m_PaintScheme = EPS;
+void SupplyAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
+  m_PaintScheme = EPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityPaintScheme SupplyAppearance::GetEntityPaintScheme() const
-{
-    return static_cast<EntityPaintScheme>( m_PaintScheme );
+EntityPaintScheme SupplyAppearance::GetEntityPaintScheme() const {
+  return static_cast<EntityPaintScheme>(m_PaintScheme);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SupplyAppearance::SetEntityDamage( EntityDamage ED )
-{
-    m_Damage = ED;
+void SupplyAppearance::SetEntityDamage(EntityDamage ED) { m_Damage = ED; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityDamage SupplyAppearance::GetEntityDamage() const {
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDamage SupplyAppearance::GetEntityDamage() const
-{
-    return static_cast<EntityDamage>( m_Damage );
+void SupplyAppearance::SetEntityParachuteStatus(Parachute EPS) {
+  m_ParachuteStatus = EPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SupplyAppearance::SetEntityParachuteStatus( Parachute EPS )
-{
-    m_ParachuteStatus = EPS;
+Parachute SupplyAppearance::GetEntityParachuteStatus() const {
+  return static_cast<Parachute>(m_ParachuteStatus);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Parachute SupplyAppearance::GetEntityParachuteStatus() const
-{
-    return static_cast<Parachute>( m_ParachuteStatus );
+void SupplyAppearance::SetEntityFlamingEffect(KBOOL EFE) {
+  m_FlamingEffectField = EFE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SupplyAppearance::SetEntityFlamingEffect( KBOOL EFE )
-{
-    m_FlamingEffectField = EFE;
+KBOOL SupplyAppearance::IsEntityFlaming() const { return m_FlamingEffectField; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SupplyAppearance::SetEntityFrozenStatus(KBOOL EFS) {
+  m_FrozenStatus = EFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SupplyAppearance::IsEntityFlaming() const
-{
-    return m_FlamingEffectField;
+KBOOL SupplyAppearance::IsEntityFrozen() const { return m_FrozenStatus; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SupplyAppearance::SetEntityStateActive(KBOOL ES) { m_State = !ES; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KBOOL SupplyAppearance::IsEntityStateActive() const { return !m_State; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SupplyAppearance::SetEntityDeployedStatus(SupplyDeployed EDS) {
+  m_DeployedStatus = EDS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SupplyAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
-    m_FrozenStatus = EFS;
+SupplyDeployed SupplyAppearance::GetEntityDeployedStatus() const {
+  return static_cast<SupplyDeployed>(m_DeployedStatus);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SupplyAppearance::IsEntityFrozen() const
-{
-    return m_FrozenStatus;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SupplyAppearance::SetEntityStateActive( KBOOL ES )
-{
-    m_State = !ES;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SupplyAppearance::IsEntityStateActive() const
-{
-    return !m_State;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SupplyAppearance::SetEntityDeployedStatus( SupplyDeployed EDS )
-{
-    m_DeployedStatus = EDS;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-SupplyDeployed SupplyAppearance::GetEntityDeployedStatus() const
-{
-    return static_cast<SupplyDeployed>( m_DeployedStatus );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void SupplyAppearance::SetEntityMaskedCloaked( KBOOL MC )
-{
+void SupplyAppearance::SetEntityMaskedCloaked(KBOOL MC) {
   m_MaskedCloaked = MC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SupplyAppearance::IsEntityMaskedCloaked() const
-{
+KBOOL SupplyAppearance::IsEntityMaskedCloaked() const {
   return m_MaskedCloaked;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-namespace
-{
+namespace {
 const char *sRetTab = "\n\t";
 }
 
-KString SupplyAppearance::GetAsString() const
-{
-    KStringStream ss;
+KString SupplyAppearance::GetAsString() const {
+  KStringStream ss;
 
-    ss <<            "Supply Appearance:"
-       << sRetTab << "Paint Scheme:         " << GetEnumAsStringEntityPaintScheme( m_PaintScheme )
-       << sRetTab << "Damage:               " << GetEnumAsStringEntityDamage( m_Damage )
-       << sRetTab << "Parachute Status:     " << GetEnumAsStringParachute( m_ParachuteStatus )
-       << sRetTab << "Flaming Effect:       " << m_FlamingEffectField
-       << sRetTab << "Frozen Status:        " << m_FrozenStatus
-       << sRetTab << "State:                " << m_State
-       << sRetTab << "Deployed Status:      " << GetEnumAsStringSupplyDeployed( m_DeployedStatus )
-       << sRetTab << "Masked/Cloaked:       " << m_MaskedCloaked
-       << sRetTab;
+  ss << "Supply Appearance:" << sRetTab << "Paint Scheme:         "
+     << GetEnumAsStringEntityPaintScheme(m_PaintScheme) << sRetTab
+     << "Damage:               " << GetEnumAsStringEntityDamage(m_Damage)
+     << sRetTab
+     << "Parachute Status:     " << GetEnumAsStringParachute(m_ParachuteStatus)
+     << sRetTab << "Flaming Effect:       " << m_FlamingEffectField << sRetTab
+     << "Frozen Status:        " << m_FrozenStatus << sRetTab
+     << "State:                " << m_State << sRetTab
+     << "Deployed Status:      "
+     << GetEnumAsStringSupplyDeployed(m_DeployedStatus) << sRetTab
+     << "Masked/Cloaked:       " << m_MaskedCloaked << sRetTab;
 
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SupplyAppearance::operator == ( const SupplyAppearance & Value ) const
-{
-    // Lets do a single comparison instead of checking every field.
-    // This struct is basically a KUINT32 so lets cast it to one and compare.
+KBOOL SupplyAppearance::operator==(const SupplyAppearance &Value) const {
+  // Lets do a single comparison instead of checking every field.
+  // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-    KUINT32 a = *( KUINT32 * )this;
-    KUINT32 b = *( KUINT32 * )&Value;
+  KUINT32 a = *(KUINT32 *)this;
+  KUINT32 b = *(KUINT32 *)&Value;
 
-    if( a != b )return false;
-    return true;
+  if (a != b) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SupplyAppearance::operator != ( const SupplyAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL SupplyAppearance::operator!=(const SupplyAppearance &Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

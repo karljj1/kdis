@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./SubSurfacePlatformAppearance.h"
+#include "KDIS/DataTypes/SubSurfacePlatformAppearance.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,185 +37,165 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityPaintScheme( EntityPaintScheme EPS )
-{
-    m_PaintScheme = EPS;
+void SubSurfacePlatformAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
+  m_PaintScheme = EPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityPaintScheme SubSurfacePlatformAppearance::GetEntityPaintScheme() const
-{
-    return (EntityPaintScheme)m_PaintScheme;
+EntityPaintScheme SubSurfacePlatformAppearance::GetEntityPaintScheme() const {
+  return (EntityPaintScheme)m_PaintScheme;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityMobilityKill( KBOOL MK )
-{
-    m_MobilityKill = MK;
+void SubSurfacePlatformAppearance::SetEntityMobilityKill(KBOOL MK) {
+  m_MobilityKill = MK;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::DoesEntityMobilityKill() const
-{
-    return m_MobilityKill;
+KBOOL SubSurfacePlatformAppearance::DoesEntityMobilityKill() const {
+  return m_MobilityKill;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityDamage( EntityDamage ED )
-{
-    m_Damage = ED;
+void SubSurfacePlatformAppearance::SetEntityDamage(EntityDamage ED) {
+  m_Damage = ED;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDamage SubSurfacePlatformAppearance::GetEntityDamage() const
-{
-    return ( EntityDamage )m_Damage;
+EntityDamage SubSurfacePlatformAppearance::GetEntityDamage() const {
+  return (EntityDamage)m_Damage;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntitySmoke( EntitySmoke ES )
-{
-    m_Smoke = ES;
+void SubSurfacePlatformAppearance::SetEntitySmoke(EntitySmoke ES) {
+  m_Smoke = ES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntitySmoke SubSurfacePlatformAppearance::GetEntitySmoke() const
-{
-    return ( EntitySmoke )m_Smoke;
+EntitySmoke SubSurfacePlatformAppearance::GetEntitySmoke() const {
+  return (EntitySmoke)m_Smoke;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityHatchState( EntityHatchState ECS )
-{
-    m_HatchState = ECS;
+void SubSurfacePlatformAppearance::SetEntityHatchState(EntityHatchState ECS) {
+  m_HatchState = ECS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityHatchState SubSurfacePlatformAppearance::GetEntityHatchState() const
-{
-    return ( EntityHatchState )m_HatchState;
+EntityHatchState SubSurfacePlatformAppearance::GetEntityHatchState() const {
+  return (EntityHatchState)m_HatchState;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityRunningLights(KBOOL RL)
-{
-    m_RunningLights = RL;
+void SubSurfacePlatformAppearance::SetEntityRunningLights(KBOOL RL) {
+  m_RunningLights = RL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::IsEntityRunningLightsOn() const
-{
-    return m_RunningLights;
+KBOOL SubSurfacePlatformAppearance::IsEntityRunningLightsOn() const {
+  return m_RunningLights;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityFlamingEffect( KBOOL EFE )
-{
-    m_FlamingEffectField = EFE;
+void SubSurfacePlatformAppearance::SetEntityFlamingEffect(KBOOL EFE) {
+  m_FlamingEffectField = EFE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::IsEntityFlaming() const
-{
-    return m_FlamingEffectField;
+KBOOL SubSurfacePlatformAppearance::IsEntityFlaming() const {
+  return m_FlamingEffectField;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityFrozenStatus( KBOOL EFS )
-{
-    m_FrozenStatus = EFS;
+void SubSurfacePlatformAppearance::SetEntityFrozenStatus(KBOOL EFS) {
+  m_FrozenStatus = EFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::IsEntityFrozen() const
-{
-    return m_FrozenStatus;
+KBOOL SubSurfacePlatformAppearance::IsEntityFrozen() const {
+  return m_FrozenStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityPowerPlantOn( KBOOL EPPS )
-{
-    m_PowerPlantStatus = EPPS;
+void SubSurfacePlatformAppearance::SetEntityPowerPlantOn(KBOOL EPPS) {
+  m_PowerPlantStatus = EPPS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::IsEntityPowerPlantOn() const
-{
-    return m_PowerPlantStatus;
+KBOOL SubSurfacePlatformAppearance::IsEntityPowerPlantOn() const {
+  return m_PowerPlantStatus;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SubSurfacePlatformAppearance::SetEntityStateActive( KBOOL ES )
-{
-    m_State = !ES;
+void SubSurfacePlatformAppearance::SetEntityStateActive(KBOOL ES) {
+  m_State = !ES;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::IsEntityStateActive() const
-{
-    return !m_State;
+KBOOL SubSurfacePlatformAppearance::IsEntityStateActive() const {
+  return !m_State;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString SubSurfacePlatformAppearance::GetAsString() const
-{
-    KStringStream ss;
+KString SubSurfacePlatformAppearance::GetAsString() const {
+  KStringStream ss;
 
-    ss << "Sub Surface Platform Appearance:"
-       << "\n\tPaint Scheme:           " << GetEnumAsStringPaintScheme( m_PaintScheme )
-       << "\n\tMobility Kill:          " << m_MobilityKill       
-       << "\n\tDamage:                 " << GetEnumAsStringEntityDamage( m_Damage )
-       << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke( m_Smoke )
-       << "\n\tHatch State:            " << GetEnumAsStringEntityHatchState( m_HatchState )
-       << "\n\tRunning Lights:         " << m_RunningLights
-       << "\n\tFlaming Effect:         " << m_FlamingEffectField		
-       << "\n\tFrozen Status:          " << m_FrozenStatus
-       << "\n\tPower Plant:            " << m_PowerPlantStatus
-       << "\n\tState:                  " << m_State
-       << "\n";
+  ss << "Sub Surface Platform Appearance:"
+     << "\n\tPaint Scheme:           "
+     << GetEnumAsStringPaintScheme(m_PaintScheme)
+     << "\n\tMobility Kill:          " << m_MobilityKill
+     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)
+     << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke(m_Smoke)
+     << "\n\tHatch State:            "
+     << GetEnumAsStringEntityHatchState(m_HatchState)
+     << "\n\tRunning Lights:         " << m_RunningLights
+     << "\n\tFlaming Effect:         " << m_FlamingEffectField
+     << "\n\tFrozen Status:          " << m_FrozenStatus
+     << "\n\tPower Plant:            " << m_PowerPlantStatus
+     << "\n\tState:                  " << m_State << "\n";
 
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::operator == ( const SubSurfacePlatformAppearance & Value ) const
-{
-    // Lets do a single comparison instead of checking every field. 
-    // This struct is basically a KUINT32 so lets cast it to one and compare.
+KBOOL SubSurfacePlatformAppearance::operator==(
+    const SubSurfacePlatformAppearance& Value) const {
+  // Lets do a single comparison instead of checking every field.
+  // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-    KUINT32 a = *( KUINT32 * )this;
-    KUINT32 b = *( KUINT32 * )&Value;
+  KUINT32 a = *(KUINT32*)this;
+  KUINT32 b = *(KUINT32*)&Value;
 
-    if( a != b )return false;
-    return true;
+  if (a != b) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SubSurfacePlatformAppearance::operator != ( const SubSurfacePlatformAppearance & Value ) const
-{
-    return !( *this == Value );
+KBOOL SubSurfacePlatformAppearance::operator!=(
+    const SubSurfacePlatformAppearance& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

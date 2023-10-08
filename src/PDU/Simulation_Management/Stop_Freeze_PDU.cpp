@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Stop_Freeze_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Stop_Freeze_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,216 +42,181 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU() :
-    m_ui8Reason( 0 ),
-    m_ui8FrozenBehaviour( 0 ),
-    m_ui16Padding( 0 ),
-    m_ui32RequestID( 0 )
-{
-    m_ui8PDUType = Stop_Freeze_PDU_Type;
-    m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
+Stop_Freeze_PDU::Stop_Freeze_PDU()
+    : m_ui8Reason(0),
+      m_ui8FrozenBehaviour(0),
+      m_ui16Padding(0),
+      m_ui32RequestID(0) {
+  m_ui8PDUType = Stop_Freeze_PDU_Type;
+  m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( const Header & H ) :
-    Simulation_Management_Header( H ),
-    m_ui8Reason( 0 ),
-    m_ui8FrozenBehaviour( 0 ),
-    m_ui16Padding( 0 ),
-    m_ui32RequestID( 0 )
-{
+Stop_Freeze_PDU::Stop_Freeze_PDU(const Header& H)
+    : Simulation_Management_Header(H),
+      m_ui8Reason(0),
+      m_ui8FrozenBehaviour(0),
+      m_ui16Padding(0),
+      m_ui32RequestID(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Stop_Freeze_PDU::Stop_Freeze_PDU(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Stop_Freeze_PDU::Stop_Freeze_PDU(const Header& H, KDataStream& stream)
+    : Simulation_Management_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Stop_Freeze_PDU::Stop_Freeze_PDU(const EntityIdentifier& ReceivingEntity,
+                                 const EntityIdentifier& SupplyingEntity,
+                                 const ClockTime& RealWorldTime,
+                                 StopFreezeReason SFR, FrozenBehavior FB,
+                                 KUINT32 ReqID)
+    : Simulation_Management_Header(ReceivingEntity, SupplyingEntity),
+      m_RealWorldTime(RealWorldTime),
+      m_ui8Reason(SFR),
+      m_ui8FrozenBehaviour(FB),
+      m_ui16Padding(0),
+      m_ui32RequestID(ReqID) {
+  m_ui8PDUType = Stop_Freeze_PDU_Type;
+  m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( const Header & H, KDataStream & stream )  :
-    Simulation_Management_Header( H )
-{
-    Decode( stream, true );
+Stop_Freeze_PDU::Stop_Freeze_PDU(
+    const Simulation_Management_Header& SimMgrHeader,
+    const ClockTime& RealWorldTime, StopFreezeReason SFR, FrozenBehavior FB,
+    KUINT32 ReqID)
+    : Simulation_Management_Header(SimMgrHeader),
+      m_RealWorldTime(RealWorldTime),
+      m_ui8Reason(SFR),
+      m_ui8FrozenBehaviour(FB),
+      m_ui16Padding(0),
+      m_ui32RequestID(ReqID) {
+  m_ui8PDUType = Stop_Freeze_PDU_Type;
+  m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity,
-                                  const ClockTime & RealWorldTime, StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID ) :
-    Simulation_Management_Header( ReceivingEntity, SupplyingEntity ),
-    m_RealWorldTime( RealWorldTime ),
-    m_ui8Reason( SFR ),
-    m_ui8FrozenBehaviour( FB ),
-    m_ui16Padding( 0 ),
-    m_ui32RequestID( ReqID )
-{
-    m_ui8PDUType = Stop_Freeze_PDU_Type;
-    m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
+Stop_Freeze_PDU::~Stop_Freeze_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Stop_Freeze_PDU::SetRealWorldTime(const ClockTime& T) {
+  m_RealWorldTime = T;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::Stop_Freeze_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
-                                  StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID ) :
-    Simulation_Management_Header( SimMgrHeader ),
-    m_RealWorldTime( RealWorldTime ),
-    m_ui8Reason( SFR ),
-    m_ui8FrozenBehaviour( FB ),
-    m_ui16Padding( 0 ),
-    m_ui32RequestID( ReqID )
-{
-    m_ui8PDUType = Stop_Freeze_PDU_Type;
-    m_ui16PDULength = STOP_FREEZE_PDU_SIZE;
+const ClockTime& Stop_Freeze_PDU::GetRealWorldTime() const {
+  return m_RealWorldTime;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_PDU::~Stop_Freeze_PDU()
-{
+ClockTime& Stop_Freeze_PDU::GetRealWorldTime() { return m_RealWorldTime; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void Stop_Freeze_PDU::SetReason(StopFreezeReason SFR) { m_ui8Reason = SFR; }
+
+//////////////////////////////////////////////////////////////////////////
+
+StopFreezeReason Stop_Freeze_PDU::GetReason() const {
+  return (StopFreezeReason)m_ui8Reason;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void  Stop_Freeze_PDU::SetRealWorldTime( const ClockTime & T )
-{
-    m_RealWorldTime = T;
+void Stop_Freeze_PDU::SetFrozenBehavior(FrozenBehavior FB) {
+  m_ui8FrozenBehaviour = FB;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const ClockTime & Stop_Freeze_PDU::GetRealWorldTime() const
-{
-    return m_RealWorldTime;
+FrozenBehavior Stop_Freeze_PDU::GetFrozenBehavior() const {
+  return (FrozenBehavior)m_ui8FrozenBehaviour;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ClockTime & Stop_Freeze_PDU::GetRealWorldTime()
-{
-    return m_RealWorldTime;
+void Stop_Freeze_PDU::SetRequestID(KUINT32 ID) { m_ui32RequestID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT32 Stop_Freeze_PDU::GetRequestID() const { return m_ui32RequestID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Stop_Freeze_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Stop/Freeze PDU-\n"
+     << Simulation_Management_Header::GetAsString() << "Real World Time:\n"
+     << IndentString(m_RealWorldTime.GetAsString(), 1)
+     << "\tReason:           " << GetEnumAsStringStopFreezeReason(m_ui8Reason)
+     << "\n\tFrozen Behavior:  "
+     << GetEnumAsStringFrozenBehavior(m_ui8FrozenBehaviour)
+     << "\n\tRequest ID:       " << m_ui32RequestID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Stop_Freeze_PDU::SetReason( StopFreezeReason SFR )
-{
-    m_ui8Reason = SFR;
+void Stop_Freeze_PDU::Decode(KDataStream& stream,
+                             bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      STOP_FREEZE_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Simulation_Management_Header::Decode(stream, ignoreHeader);
+
+  stream >> KDIS_STREAM m_RealWorldTime >> m_ui8Reason >>
+      m_ui8FrozenBehaviour >> m_ui16Padding >> m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-StopFreezeReason Stop_Freeze_PDU::GetReason() const
-{
-    return ( StopFreezeReason )m_ui8Reason;
+KDataStream Stop_Freeze_PDU::Encode() const {
+  KDataStream stream;
+
+  Stop_Freeze_PDU::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Stop_Freeze_PDU::SetFrozenBehavior( FrozenBehavior FB )
-{
-    m_ui8FrozenBehaviour = FB;
+void Stop_Freeze_PDU::Encode(KDataStream& stream) const {
+  Simulation_Management_Header::Encode(stream);
+  stream << KDIS_STREAM m_RealWorldTime << m_ui8Reason << m_ui8FrozenBehaviour
+         << m_ui16Padding << m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-FrozenBehavior Stop_Freeze_PDU::GetFrozenBehavior() const
-{
-    return ( FrozenBehavior )m_ui8FrozenBehaviour;
+KBOOL Stop_Freeze_PDU::operator==(const Stop_Freeze_PDU& Value) const {
+  if (Simulation_Management_Header::operator!=(Value)) return false;
+  if (m_RealWorldTime != Value.m_RealWorldTime) return false;
+  if (m_ui8Reason != Value.m_ui8Reason) return false;
+  if (m_ui8FrozenBehaviour != Value.m_ui8FrozenBehaviour) return false;
+  if (m_ui32RequestID != Value.m_ui32RequestID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Stop_Freeze_PDU::SetRequestID( KUINT32 ID )
-{
-    m_ui32RequestID = ID;
+KBOOL Stop_Freeze_PDU::operator!=(const Stop_Freeze_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KUINT32 Stop_Freeze_PDU::GetRequestID() const
-{
-    return m_ui32RequestID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString Stop_Freeze_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Stop/Freeze PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "Real World Time:\n"
-       << IndentString( m_RealWorldTime.GetAsString(), 1 )
-       << "\tReason:           "   << GetEnumAsStringStopFreezeReason( m_ui8Reason )
-       << "\n\tFrozen Behavior:  " << GetEnumAsStringFrozenBehavior( m_ui8FrozenBehaviour )
-       << "\n\tRequest ID:       " << m_ui32RequestID
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Stop_Freeze_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < STOP_FREEZE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Simulation_Management_Header::Decode( stream, ignoreHeader );
-
-    stream >> KDIS_STREAM m_RealWorldTime
-           >> m_ui8Reason
-           >> m_ui8FrozenBehaviour
-           >> m_ui16Padding
-           >> m_ui32RequestID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Stop_Freeze_PDU::Encode() const
-{
-    KDataStream stream;
-
-    Stop_Freeze_PDU::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Stop_Freeze_PDU::Encode( KDataStream & stream ) const
-{
-    Simulation_Management_Header::Encode( stream );
-    stream << KDIS_STREAM m_RealWorldTime
-           << m_ui8Reason
-           << m_ui8FrozenBehaviour
-           << m_ui16Padding
-           << m_ui32RequestID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Stop_Freeze_PDU::operator == ( const Stop_Freeze_PDU & Value ) const
-{
-    if( Simulation_Management_Header::operator !=( Value ) )                   return false;
-    if( m_RealWorldTime                        != Value.m_RealWorldTime )      return false;
-    if( m_ui8Reason                            != Value.m_ui8Reason )          return false;
-    if( m_ui8FrozenBehaviour                   != Value.m_ui8FrozenBehaviour ) return false;
-    if( m_ui32RequestID                        != Value.m_ui32RequestID )      return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Stop_Freeze_PDU::operator != ( const Stop_Freeze_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

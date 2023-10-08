@@ -39,7 +39,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./GED_BasicRotorWingAircraft.h"
+#include "KDIS/DataTypes/GED_BasicRotorWingAircraft.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./RelativeWorldCoordinates.h"
+#include "KDIS/DataTypes/RelativeWorldCoordinates.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,156 +36,119 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-RelativeWorldCoordinates::RelativeWorldCoordinates () :
-    m_ui16RefPnt( 0 )
-{
+RelativeWorldCoordinates::RelativeWorldCoordinates() : m_ui16RefPnt(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+RelativeWorldCoordinates::RelativeWorldCoordinates(KUINT16 RefPnt,
+                                                   KFIXED16_3 DelX,
+                                                   KFIXED16_3 DelY,
+                                                   KFIXED16_3 DelZ)
+    : m_ui16RefPnt(RefPnt), m_DelX(DelX), m_DelY(DelY), m_DelZ(DelZ) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+RelativeWorldCoordinates::RelativeWorldCoordinates(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RelativeWorldCoordinates::RelativeWorldCoordinates( KUINT16 RefPnt, KFIXED16_3 DelX, KFIXED16_3 DelY, KFIXED16_3 DelZ ) :
-    m_ui16RefPnt( RefPnt ),
-    m_DelX( DelX ),
-    m_DelY( DelY ),
-    m_DelZ( DelZ )
-{
+RelativeWorldCoordinates::~RelativeWorldCoordinates() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void RelativeWorldCoordinates::SetReferencePoint(KUINT16 RP) {
+  m_ui16RefPnt = RP;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RelativeWorldCoordinates::RelativeWorldCoordinates ( KDataStream & stream ) 
-{
-    Decode( stream );
+KUINT16 RelativeWorldCoordinates::GetReferencePoint() const {
+  return m_ui16RefPnt;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RelativeWorldCoordinates::~RelativeWorldCoordinates ()
-{
+void RelativeWorldCoordinates::SetDeltaX(KFIXED16_3 X) { m_DelX = X; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_3 RelativeWorldCoordinates::GetDeltaX() const { return m_DelX; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void RelativeWorldCoordinates::SetDeltaY(KFIXED16_3 Y) { m_DelY = Y; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_3 RelativeWorldCoordinates::GetDeltaY() const { return m_DelY; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void RelativeWorldCoordinates::SetDeltaZ(KFIXED16_3 Z) { m_DelZ = Z; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KFIXED16_3 RelativeWorldCoordinates::GetDeltaZ() const { return m_DelZ; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString RelativeWorldCoordinates::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Relative World Coordinates"
+     << "\n\tReference Point: " << m_ui16RefPnt
+     << ", Delta-X: " << m_DelX.GetAsFloat32()
+     << ", Delta-Y: " << m_DelY.GetAsFloat32()
+     << ", Delta-Z: " << m_DelZ.GetAsFloat32() << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RelativeWorldCoordinates::SetReferencePoint( KUINT16 RP )
-{
-    m_ui16RefPnt = RP;
+void RelativeWorldCoordinates::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < RELATVE_WORLD_COORDINATES_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16RefPnt >> KDIS_STREAM m_DelX >> KDIS_STREAM m_DelY >>
+      KDIS_STREAM m_DelZ;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 RelativeWorldCoordinates::GetReferencePoint() const
-{
-    return m_ui16RefPnt;
+KDataStream RelativeWorldCoordinates::Encode() const {
+  KDataStream stream;
+
+  RelativeWorldCoordinates::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RelativeWorldCoordinates::SetDeltaX( KFIXED16_3 X )
-{
-    m_DelX = X;
+void RelativeWorldCoordinates::Encode(KDataStream& stream) const {
+  stream << m_ui16RefPnt << KDIS_STREAM m_DelX << KDIS_STREAM m_DelY
+         << KDIS_STREAM m_DelZ;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KFIXED16_3 RelativeWorldCoordinates::GetDeltaX() const
-{
-    return m_DelX;
+KBOOL RelativeWorldCoordinates::operator==(
+    const RelativeWorldCoordinates& Value) const {
+  if (m_ui16RefPnt != Value.m_ui16RefPnt) return false;
+  if (m_DelX != Value.m_DelX) return false;
+  if (m_DelY != Value.m_DelY) return false;
+  if (m_DelZ != Value.m_DelZ) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void RelativeWorldCoordinates::SetDeltaY( KFIXED16_3 Y )
-{
-    m_DelY = Y;
+KBOOL RelativeWorldCoordinates::operator!=(
+    const RelativeWorldCoordinates& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KFIXED16_3 RelativeWorldCoordinates::GetDeltaY() const
-{
-    return m_DelY;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void RelativeWorldCoordinates::SetDeltaZ( KFIXED16_3 Z )
-{
-    m_DelZ = Z;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KFIXED16_3 RelativeWorldCoordinates::GetDeltaZ() const
-{
-    return m_DelZ;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString RelativeWorldCoordinates::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Relative World Coordinates"
-       << "\n\tReference Point: " << m_ui16RefPnt
-       << ", Delta-X: " << m_DelX.GetAsFloat32()
-       << ", Delta-Y: " << m_DelY.GetAsFloat32()
-       << ", Delta-Z: " << m_DelZ.GetAsFloat32()
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void RelativeWorldCoordinates::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < RELATVE_WORLD_COORDINATES_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui16RefPnt
-           >> KDIS_STREAM m_DelX
-           >> KDIS_STREAM m_DelY
-           >> KDIS_STREAM m_DelZ;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream RelativeWorldCoordinates::Encode() const
-{
-    KDataStream stream;
-
-    RelativeWorldCoordinates::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void RelativeWorldCoordinates::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16RefPnt
-           << KDIS_STREAM m_DelX
-           << KDIS_STREAM m_DelY
-           << KDIS_STREAM m_DelZ;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL RelativeWorldCoordinates::operator == ( const RelativeWorldCoordinates  & Value ) const
-{
-    if( m_ui16RefPnt != Value.m_ui16RefPnt ) return false;
-    if( m_DelX       != Value.m_DelX )       return false;
-    if( m_DelY       != Value.m_DelY )       return false;
-    if( m_DelZ       != Value.m_DelZ )       return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL RelativeWorldCoordinates::operator != ( const RelativeWorldCoordinates  & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

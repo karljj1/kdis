@@ -39,69 +39,69 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Simulation_Management_Header.h"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Create_Entity_PDU : public Simulation_Management_Header
-{
-protected:
+class KDIS_EXPORT Create_Entity_PDU : public Simulation_Management_Header {
+ protected:
+  KUINT32 m_ui32RequestID;
 
-    KUINT32 m_ui32RequestID;
+ public:
+  static const KUINT16 CREATE_ENTITY_PDU_SIZE = 28;
 
-public:
+  Create_Entity_PDU();
 
-    static const KUINT16 CREATE_ENTITY_PDU_SIZE = 28;
+  explicit Create_Entity_PDU(const Header& H);
 
-    Create_Entity_PDU();
+  explicit Create_Entity_PDU(KDataStream& stream);
 
-    explicit Create_Entity_PDU( const Header & H );
+  Create_Entity_PDU(const Header& H, KDataStream& stream);
 
-    Create_Entity_PDU( KDataStream & stream ) ;
+  Create_Entity_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                    const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity,
+                    KUINT32 RequestID);
 
-    Create_Entity_PDU( const Header & H, KDataStream & stream ) ;
+  Create_Entity_PDU(const Simulation_Management_Header& SimMgrHeader,
+                    KUINT32 RequestID);
 
-    Create_Entity_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity, KUINT32 RequestID );
+  virtual ~Create_Entity_PDU();
 
-    Create_Entity_PDU( const Simulation_Management_Header & SimMgrHeader, KUINT32 RequestID );
+  //************************************
+  // FullName:    KDIS::PDU::Create_Entity_PDU::SetRequestID
+  //              KDIS::PDU::Create_Entity_PDU::GetRequestID
+  // Description: Request ID
+  // Parameter:   KUINT32 ID
+  //************************************
+  void SetRequestID(KUINT32 ID);
+  KUINT32 GetRequestID() const;
 
-    virtual ~Create_Entity_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Create_Entity_PDU::GetString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Create_Entity_PDU::SetRequestID
-    //              KDIS::PDU::Create_Entity_PDU::GetRequestID
-    // Description: Request ID
-    // Parameter:   KUINT32 ID
-    //************************************
-    void SetRequestID( KUINT32 ID );
-    KUINT32 GetRequestID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Create_Entity_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Create_Entity_PDU::GetString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Create_Entity_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Create_Entity_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Create_Entity_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Create_Entity_PDU & Value ) const;
-    KBOOL operator != ( const Create_Entity_PDU & Value ) const;
+  KBOOL operator==(const Create_Entity_PDU& Value) const;
+  KBOOL operator!=(const Create_Entity_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

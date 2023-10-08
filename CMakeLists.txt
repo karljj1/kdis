@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 #
 # Project
@@ -7,12 +7,14 @@ project(
   KDIS
   VERSION 3.0.0
   LANGUAGES CXX
+  HOMEPAGE_URL https://github.com/karljj1/kdis
+  DESCRIPTION "Open source implementation of DIS (Distributed Interactive Simulation) IEEE 1278.1"
 )
 
 #
 # Settings
 #
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -21,33 +23,23 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #
 # Options
 #
+# cmake-lint: disable=C0301
 set(DIS_VERSION
     7
     CACHE
       STRING
       "DIS version. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)"
 )
-option(BUILD_EXAMPLES "Build examples" ON)
-option(BUILD_TESTS "Build tests" ON)
-option(BUILD_DOCS "Build documentation" ON)
+# cmake-lint: disable=C0301
 option(
   KDIS_USE_ENUM_DESCRIPTORS
   "Enumeration descriptors. Allow enum values to be turned into their text labels. This increase the memory footprint of the library"
   ON
 )
-
-# FIXME
-option(
-  BUILD_EXAMPLES_TO_LINK_TO_LIB
-  "Build the examples so they link against a Lib version of KDIS instead of including the whole source for each example"
-  ON
-)
-set(EXAMPLES_USE_STATIC_OR_SHARED_LIB
-    STATIC
-    CACHE
-      STRING
-      "If BUILD_EXAMPLES_TO_LINK_TO_LIB is ON then do you want to build against a STATIC library or a SHARED library(dll)"
-)
+option(BUILD_SHARED_LIBS "Build shared library" ON)
+option(BUILD_DOCS "Build documentation" OFF)
+option(BUILD_EXAMPLES "Build examples" OFF)
+option(BUILD_TESTS "Build tests" OFF)
 
 #
 # Checks
@@ -59,14 +51,19 @@ if(NOT ${DIS_VERSION} EQUAL 5
   message(FATAL_ERROR "Invalid DIS version ${DIS_VERSION}")
 endif()
 
-if(NOT EXAMPLES_USE_STATIC_OR_SHARED_LIB MATCHES SHARED AND NOT EXAMPLES_USE_STATIC_OR_SHARED_LIB
-                                                            MATCHES STATIC
+#
+# Includes
+#
+include(CPM)
+include(GNUInstallDirs)
+
+#
+# Configuration file
+#
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/config.hpp"
+  @ONLY
 )
-  message(
-    FATAL_ERROR
-      "Invalid EXAMPLES_USE_STATIC_OR_SHARED_LIB parameter, only STATIC or SHARED is allowed"
-  )
-endif()
 
 #
 # Headers & Sources
@@ -74,14 +71,12 @@ endif()
 set(KDIS_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS)
 set(KDIS_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-set(KDIS_HEADERS "")
-set(KDIS_SOURCES "")
-
-# Base
-list(APPEND KDIS_HEADERS ${KDIS_HEADERS_DIR}/KDataStream.hpp ${KDIS_HEADERS_DIR}/KDefines.hpp
-     ${KDIS_HEADERS_DIR}/KEncodersDecoders.hpp ${KDIS_HEADERS_DIR}/KSymbolicNames.hpp
+set(KDIS_HEADERS
+    ${KDIS_HEADERS_DIR}/config.hpp ${KDIS_HEADERS_DIR}/KDataStream.hpp
+    ${KDIS_HEADERS_DIR}/KDefines.hpp ${KDIS_HEADERS_DIR}/KEncodersDecoders.hpp
+    ${KDIS_HEADERS_DIR}/KSymbolicNames.hpp
 )
-list(APPEND KDIS_SOURCES ${KDIS_SOURCES_DIR}/KDataStream.cpp)
+set(KDIS_SOURCES ${KDIS_SOURCES_DIR}/KDataStream.cpp)
 
 # DataTypes
 set(KDIS_DATATYPES_HEADERS_DIR ${KDIS_HEADERS_DIR}/DataTypes)
@@ -895,25 +890,54 @@ list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
 #
 add_library(${CMAKE_PROJECT_NAME} ${KDIS_HEADERS} ${KDIS_SOURCES})
 add_library(${CMAKE_PROJECT_NAME}::${CMAKE_PROJECT_NAME} ALIAS ${CMAKE_PROJECT_NAME})
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC "DIS_VERSION=${DIS_VERSION}")
+target_include_directories(
+  ${CMAKE_PROJECT_NAME}
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+target_compile_definitions(
+  ${CMAKE_PROJECT_NAME} PRIVATE DIS_VERSION=${DIS_VERSION}
+                                $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
+)
+# TODO RT library in UNIX (NOT APPLE)
+
+# TODO target_compile_options( ${CMAKE_PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
+# $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
 set_target_properties(
   ${CMAKE_PROJECT_NAME} PROPERTIES VERSION ${CMAKE_PROJECT_VERSION} DEBUG_POSTFIX "d"
 )
 
 #
-# Examples
+# Install
 #
-if(${BUILD_EXAMPLES})
-  # FIXME add_subdirectory(examples)
-endif()
+install(FILES ${KDIS_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/KDIS)
+install(
+  TARGETS KDIS
+  EXPORT KDISTargets
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+install(
+  EXPORT KDISTargets
+  NAMESPACE KDIS::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/KDIS
+)
 
 #
-# Tests
+# CPack
 #
-if(${BUILD_TESTS})
-  add_subdirectory(tests)
-endif()
+set(CPACK_GENERATOR DEB RPM TXZ TGZ)
+set(CPACK_PACKAGE_VERSION ${CMAKE_PROJECT_VERSION})
+set(CPACK_PACKAGE_NAME KDIS)
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${CMAKE_PROJECT_DESCRIPTION})
+set(CPACK_PACKAGE_FILE_NAME
+    "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.${CMAKE_SYSTEM_PROCESSOR}"
+)
+set(CPACK_PACKAGE_RPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/_CPack_Packages/Linux/RPM")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Karl Jones <Karljj1@yahoo.com>")
+include(CPack)
 
 #
 # Documentation
@@ -923,6 +947,15 @@ if(${BUILD_DOCS})
 endif()
 
 #
-# Install
+# Examples
 #
-# TODO
+if(${BUILD_EXAMPLES})
+  add_subdirectory(examples)
+endif()
+
+#
+# Tests
+#
+if(${BUILD_TESTS})
+  add_subdirectory(tests)
+endif()

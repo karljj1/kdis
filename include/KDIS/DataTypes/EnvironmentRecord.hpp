@@ -39,9 +39,9 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./FactoryDecoder.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/FactoryDecoder.hpp"
+#include "KDIS/Extras/KRef_Ptr.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -53,70 +53,75 @@ namespace DATA_TYPE {
 // pointer or one of your own then simply change it below.
 /************************************************************************/
 class EnvironmentRecord;
-typedef KDIS::UTILS::KRef_Ptr<EnvironmentRecord> EnvironmentRecordPtr; // Ref counter
-//typedef EnvironmentRecord* EnvironmentRecordPtr; // Weak ref
+typedef KDIS::UTILS::KRef_Ptr<EnvironmentRecord>
+    EnvironmentRecordPtr;  // Ref counter
+// typedef EnvironmentRecord* EnvironmentRecordPtr; // Weak ref
 
-class KDIS_EXPORT EnvironmentRecord : public DataTypeBase, public FactoryDecoderUser<EnvironmentRecord>
-{
-protected:
+class KDIS_EXPORT EnvironmentRecord
+    : public DataTypeBase,
+      public FactoryDecoderUser<EnvironmentRecord> {
+ protected:
+  KUINT32 m_ui32EnvRecTyp;
 
-    KUINT32 m_ui32EnvRecTyp;
+  KUINT16 m_ui16Length;
 
-    KUINT16 m_ui16Length;
+  KUINT8 m_ui8Index;
 
-    KUINT8 m_ui8Index;
+  KUINT8 m_ui8Padding;
 
-    KUINT8 m_ui8Padding;
+ public:
+  static const KUINT16 ENVIRONMENT_RECORD_SIZE = 8;
 
-public:
+  EnvironmentRecord();
 
-    static const KUINT16 ENVIRONMENT_RECORD_SIZE = 8;
+  virtual ~EnvironmentRecord();
 
-    EnvironmentRecord();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetEnvironmentRecordType
+  // Description: Specifies the record type.
+  // Parameter:   EnvironmentRecordType RT, void
+  //************************************
+  KDIS::DATA_TYPE::ENUMS::EnvironmentRecordType GetEnvironmentRecordType()
+      const;
 
-    virtual ~EnvironmentRecord();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetLength
+  // Description: Specifies the length in bits of the Environment record.
+  //************************************
+  virtual KUINT16 GetLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetEnvironmentRecordType
-    // Description: Specifies the record type.
-    // Parameter:   EnvironmentRecordType RT, void
-    //************************************
-    KDIS::DATA_TYPE::ENUMS::EnvironmentRecordType GetEnvironmentRecordType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::SetIndex
+  //              KDIS::DATA_TYPE::EnvironmentRecord::GetIndex
+  // Description: Identifies the sequentially numbered record index.
+  // Parameter:   KUINT8 I, void
+  //************************************
+  void SetIndex(KUINT8 I);
+  KUINT8 GetIndex() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetLength
-    // Description: Specifies the length in bits of the Environment record.
-    //************************************
-    virtual KUINT16 GetLength() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::SetIndex
-    //              KDIS::DATA_TYPE::EnvironmentRecord::GetIndex
-    // Description: Identifies the sequentially numbered record index.
-    // Parameter:   KUINT8 I, void
-    //************************************
-    void SetIndex( KUINT8 I );
-    KUINT8 GetIndex() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::EnvironmentRecord::FactoryDecodeEnvironmentRecord
+  // Description: Decode method for decoding any EnvironmentRecord child
+  // classes.
+  //              First checks for a custom decode, if one can not be found then
+  //              uses one of the KDIS EnvironmentRecord data types. Throws
+  //              exception for unknown records(UNSUPPORTED_DATATYPE) or when
+  //              stream is too small(NOT_ENOUGH_DATA_IN_BUFFER).
+  // Parameter:   KDataStream & stream
+  //************************************
+  static EnvironmentRecordPtr FactoryDecodeEnvironmentRecord(
+      KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::FactoryDecodeEnvironmentRecord
-    // Description: Decode method for decoding any EnvironmentRecord child classes.
-    //              First checks for a custom decode, if one can not be found then uses one of the KDIS EnvironmentRecord data types.
-    //              Throws exception for unknown records(UNSUPPORTED_DATATYPE) or when stream is
-    //              too small(NOT_ENOUGH_DATA_IN_BUFFER).
-    // Parameter:   KDataStream & stream
-    //************************************
-    static EnvironmentRecordPtr FactoryDecodeEnvironmentRecord(  KDataStream & stream ) ;
-
-    KBOOL operator == ( const EnvironmentRecord & Value )const;
-    KBOOL operator != ( const EnvironmentRecord & Value )const;
+  KBOOL operator==(const EnvironmentRecord& Value) const;
+  KBOOL operator!=(const EnvironmentRecord& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

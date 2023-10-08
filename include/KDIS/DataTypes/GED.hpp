@@ -51,34 +51,32 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT GED : public DataTypeBase
-{
-public:
+class KDIS_EXPORT GED : public DataTypeBase {
+ public:
+  GED(){};
 
-    GED() {};
+  virtual ~GED(){};
 
-    virtual ~GED() {};
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED::GetGroupedEntityCategory
+  // Description: Identifies the derived GED class.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory
+  GetGroupedEntityCategory() const = 0;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED::GetGroupedEntityCategory
-    // Description: Identifies the derived GED class.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const = 0;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED::GetLength
-    // Description: Returns size of the GED in octets.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KUINT8 GetLength() const = 0;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED::GetLength
+  // Description: Returns size of the GED in octets.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KUINT8 GetLength() const = 0;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

@@ -38,103 +38,101 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnvironmentRecord.h"
-#include "./WorldCoordinates.h"
-#include "./EulerAngles.h"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
+#include "KDIS/DataTypes/EulerAngles.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ConeRecord1 : public EnvironmentRecord
-{
-protected:
+class KDIS_EXPORT ConeRecord1 : public EnvironmentRecord {
+ protected:
+  WorldCoordinates m_Loc;
 
-    WorldCoordinates m_Loc;
+  EulerAngles m_Ori;
 
-    EulerAngles m_Ori;
+  KFLOAT32 m_f32Height;
 
-    KFLOAT32 m_f32Height;
+  KFLOAT32 m_f32PeakAngle;
 
-    KFLOAT32 m_f32PeakAngle;
+  KUINT32 m_ui32Padding;
 
-    KUINT32 m_ui32Padding;
+ public:
+  static const KUINT16 CONE_RECORD_1_SIZE = 56;
 
-public:
+  ConeRecord1();
 
-    static const KUINT16 CONE_RECORD_1_SIZE = 56;
+  ConeRecord1(KDataStream& stream);
 
-    ConeRecord1();
+  ConeRecord1(KUINT8 Index, const WorldCoordinates& VertexLocation,
+              const EulerAngles& Orientation, KFLOAT32 Height,
+              KFLOAT32 PeakAngle);
 
-    ConeRecord1( KDataStream & stream ) ;
+  virtual ~ConeRecord1();
 
-    ConeRecord1( KUINT8 Index, const WorldCoordinates & VertexLocation, const EulerAngles & Orientation,
-                 KFLOAT32 Height, KFLOAT32 PeakAngle );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetVertexLocation
+  //              KDIS::DATA_TYPE::ConeRecord1::GetVertexLocation
+  // Description: Specifies the location of the cones vertex.
+  // Parameter:   const WorldCoordinates & VL
+  //************************************
+  void SetVertexLocation(const WorldCoordinates& VL);
+  const WorldCoordinates& GetVertexLocation() const;
+  WorldCoordinates& GetVertexLocation();
 
-    virtual ~ConeRecord1();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetOrientation
+  //              KDIS::DATA_TYPE::ConeRecord1::GetOrientation
+  // Description: Orientation for the cone.
+  // Parameter:   const EulerAngles & O
+  //************************************
+  void SetOrientation(const EulerAngles& O);
+  const EulerAngles& GetOrientation() const;
+  EulerAngles& GetOrientation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetVertexLocation
-    //              KDIS::DATA_TYPE::ConeRecord1::GetVertexLocation
-    // Description: Specifies the location of the cones vertex.
-    // Parameter:   const WorldCoordinates & VL
-    //************************************
-    void SetVertexLocation( const WorldCoordinates & VL );
-    const WorldCoordinates & GetVertexLocation() const;
-    WorldCoordinates & GetVertexLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetHeight
+  //              KDIS::DATA_TYPE::ConeRecord1::GetHeight
+  // Description: Height of the cone in meters.
+  // Parameter:   KFLOAT32 H
+  //************************************
+  void SetHeight(KFLOAT32 H);
+  KFLOAT32 GetHeight() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetOrientation
-    //              KDIS::DATA_TYPE::ConeRecord1::GetOrientation
-    // Description: Orientation for the cone.
-    // Parameter:   const EulerAngles & O
-    //************************************
-    void SetOrientation( const EulerAngles & O );
-    const EulerAngles & GetOrientation() const;
-    EulerAngles & GetOrientation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetPeakAngle
+  //              KDIS::DATA_TYPE::ConeRecord1::GetPeakAngle
+  // Description: The cones peak angle. Measured in radians i presume,
+  //              it does not say in SISO-REF-010-2006.
+  // Parameter:   KFLOAT32 H
+  //************************************
+  void SetPeakAngle(KFLOAT32 PA);
+  KFLOAT32 GetPeakAngle() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetHeight
-    //              KDIS::DATA_TYPE::ConeRecord1::GetHeight
-    // Description: Height of the cone in meters.
-    // Parameter:   KFLOAT32 H
-    //************************************
-    void SetHeight( KFLOAT32 H );
-    KFLOAT32 GetHeight() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord1::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord1::SetPeakAngle
-    //              KDIS::DATA_TYPE::ConeRecord1::GetPeakAngle
-    // Description: The cones peak angle. Measured in radians i presume,
-    //              it does not say in SISO-REF-010-2006.
-    // Parameter:   KFLOAT32 H
-    //************************************
-    void SetPeakAngle( KFLOAT32 PA );
-    KFLOAT32 GetPeakAngle() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord1::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord1::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ConeRecord1::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord1::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ConeRecord1::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const ConeRecord1 & Value )const;
-    KBOOL operator != ( const ConeRecord1 & Value )const;
+  KBOOL operator==(const ConeRecord1& Value) const;
+  KBOOL operator!=(const ConeRecord1& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

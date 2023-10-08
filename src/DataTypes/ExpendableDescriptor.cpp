@@ -29,7 +29,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./ExpendableDescriptor.h"
+#include "KDIS/DataTypes/ExpendableDescriptor.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,76 +42,62 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ExpendableDescriptor::ExpendableDescriptor() :
-    m_ui64Padding(0)
-{
+ExpendableDescriptor::ExpendableDescriptor() : m_ui64Padding(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+ExpendableDescriptor::ExpendableDescriptor(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ExpendableDescriptor::ExpendableDescriptor( KDataStream & stream )
-{
-    Decode( stream );
+ExpendableDescriptor::ExpendableDescriptor(const EntityType& T)
+    : Descriptor(T), m_ui64Padding(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+ExpendableDescriptor::~ExpendableDescriptor() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ExpendableDescriptor::Decode(KDataStream& stream) {
+  Descriptor::Decode(stream);
+
+  stream >> m_ui64Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ExpendableDescriptor::ExpendableDescriptor( const EntityType & T) :
-    Descriptor( T ),
-    m_ui64Padding(0)
-{
+KDataStream ExpendableDescriptor::Encode() const {
+  KDataStream stream;
+
+  ExpendableDescriptor::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ExpendableDescriptor::~ExpendableDescriptor()
-{
+void ExpendableDescriptor::Encode(KDataStream& stream) const {
+  Descriptor::Encode(stream);
+
+  stream << m_ui64Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ExpendableDescriptor::Decode( KDataStream & stream )
-{
-	Descriptor::Decode( stream );
-
-    stream >> m_ui64Padding;
+KBOOL ExpendableDescriptor::operator==(
+    const ExpendableDescriptor& Value) const {
+  if (Descriptor::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream ExpendableDescriptor::Encode() const
-{
-    KDataStream stream;
-
-    ExpendableDescriptor::Encode( stream );
-
-    return stream;
+KBOOL ExpendableDescriptor::operator!=(
+    const ExpendableDescriptor& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void ExpendableDescriptor::Encode( KDataStream & stream ) const
-{
-	Descriptor::Encode( stream );
-
-    stream << m_ui64Padding;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ExpendableDescriptor::operator == ( const ExpendableDescriptor & Value ) const
-{
-	if( Descriptor::operator != ( Value ) )            return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ExpendableDescriptor::operator != ( const ExpendableDescriptor & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

@@ -40,67 +40,66 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./IFF_Layer3.h"
-#include "./SimulationIdentifier.h"
-#include "./Mode5TransponderBasicData.h"
+#include "KDIS/DataTypes/IFF_Layer3.hpp"
+#include "KDIS/DataTypes/Mode5TransponderBasicData.hpp"
+#include "KDIS/DataTypes/SimulationIdentifier.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3
-{
-protected:
+class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3 {
+ protected:
+  Mode5TransponderBasicData m_BasicData;
 
-    Mode5TransponderBasicData m_BasicData;
+ public:
+  IFF_Layer3Transponder();
 
-public:
+  IFF_Layer3Transponder(KDataStream& stream);
 
-    IFF_Layer3Transponder();
+  IFF_Layer3Transponder(const SimulationIdentifier& ReportingSimulation,
+                        const Mode5TransponderBasicData& Data,
+                        std::vector<StdVarPtr>& Records);
 
-    IFF_Layer3Transponder( KDataStream & stream ) ;
+  IFF_Layer3Transponder(const LayerHeader& H, KDataStream& stream);
 
-    IFF_Layer3Transponder( const SimulationIdentifier & ReportingSimulation, const Mode5TransponderBasicData & Data,
-                           std::vector<StdVarPtr> & Records );
+  virtual ~IFF_Layer3Transponder();
 
-    IFF_Layer3Transponder( const LayerHeader & H, KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::SetBasicData
+  //              KDIS::DATA_TYPE::IFF_Layer3Transponder::GetBasicData
+  // Description: Basic Mode 5 transponder data that is always required to be
+  // transmitted. Parameter:   const Mode5TransponderBasicData & BD
+  //************************************
+  void SetBasicData(const Mode5TransponderBasicData& BD);
+  const Mode5TransponderBasicData& GetBasicData() const;
+  Mode5TransponderBasicData& GetBasicDatan();
 
-    virtual ~IFF_Layer3Transponder();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::SetBasicData
-    //              KDIS::DATA_TYPE::IFF_Layer3Transponder::GetBasicData
-    // Description: Basic Mode 5 transponder data that is always required to be transmitted.
-    // Parameter:   const Mode5TransponderBasicData & BD
-    //************************************
-    void SetBasicData( const Mode5TransponderBasicData & BD );
-    const Mode5TransponderBasicData & GetBasicData() const;
-    Mode5TransponderBasicData & GetBasicDatan();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the layer header from the
+  // stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the layer header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const IFF_Layer3Transponder & Value ) const;
-    KBOOL operator != ( const IFF_Layer3Transponder & Value ) const;
+  KBOOL operator==(const IFF_Layer3Transponder& Value) const;
+  KBOOL operator!=(const IFF_Layer3Transponder& Value) const;
 };
 
-} // END namespace DATA_TYPE
-} // END namespace KDIS
+}  // END namespace DATA_TYPE
+}  // END namespace KDIS

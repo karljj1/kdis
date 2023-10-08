@@ -33,100 +33,96 @@ http://p.sf.net/kdis/UserGuide
     created:    30/03/2014
     author:     Karl Jones
 
-    purpose:    Base class for many of the Mode Code records, contains the shared properties.
+    purpose:    Base class for many of the Mode Code records, contains the
+shared properties.
 
-    Size:       16 bits / 2 octets 
+    Size:       16 bits / 2 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT ModeXCodeRecord : public DataTypeBase
-{
-protected:
-	
-	union
-	{
-		struct
-		{
-			KUINT16 m_ui16Bits0_2   : 3;
-			KUINT16 m_ui16Bits3_5   : 3;
-			KUINT16 m_ui16Bits6_8   : 3;
-			KUINT16 m_ui16Bits9_11  : 3;
-			KUINT16 m_ui16Padding   : 1;
-			KUINT16 m_ui16OnOff     : 1;
-			KUINT16 m_ui16Dmg       : 1;
-			KUINT16 m_ui16MalFnc    : 1;
-		};
-		KUINT16 m_ui16Code;
+class KDIS_EXPORT ModeXCodeRecord : public DataTypeBase {
+ protected:
+  union {
+    struct {
+      KUINT16 m_ui16Bits0_2 : 3;
+      KUINT16 m_ui16Bits3_5 : 3;
+      KUINT16 m_ui16Bits6_8 : 3;
+      KUINT16 m_ui16Bits9_11 : 3;
+      KUINT16 m_ui16Padding : 1;
+      KUINT16 m_ui16OnOff : 1;
+      KUINT16 m_ui16Dmg : 1;
+      KUINT16 m_ui16MalFnc : 1;
+    };
+    KUINT16 m_ui16Code;
 
-	} m_CodeUnion;
-	
-public:
+  } m_CodeUnion;
 
-    static const KUINT16 MODE_X_CODE_RECORD_SIZE = 2; 
+ public:
+  static const KUINT16 MODE_X_CODE_RECORD_SIZE = 2;
 
-    ModeXCodeRecord();
+  ModeXCodeRecord();
 
-    ModeXCodeRecord( KDataStream & stream ) ;
+  ModeXCodeRecord(KDataStream& stream);
 
-    virtual ~ModeXCodeRecord();
+  virtual ~ModeXCodeRecord();
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::SetStatus
-    //              KDIS::DATA_TYPE::ModeXCodeRecord::GetStatus
-    // Description: Indicates whether the device is On (true or Off (false).
-    // Parameter:   KBOOL S
-    //************************************
-	void SetStatus( KBOOL S );
-	KBOOL GetStatus() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::SetStatus
+  //              KDIS::DATA_TYPE::ModeXCodeRecord::GetStatus
+  // Description: Indicates whether the device is On (true or Off (false).
+  // Parameter:   KBOOL S
+  //************************************
+  void SetStatus(KBOOL S);
+  KBOOL GetStatus() const;
 
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::SetDamaged
-    //              KDIS::DATA_TYPE::ModeXCodeRecord::IsDamaged
-    // Description: Indicates whether there is damage to the device.
-    // Parameter:   KBOOL S
-    //************************************
-	void SetDamaged( KBOOL D );
-	KBOOL IsDamaged() const;
-		
-	//************************************
-    // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::SetMalfunctioning
-    //              KDIS::DATA_TYPE::ModeXCodeRecord::IsMalfunctioning
-    // Description: Indicates whether there is damage to the device.
-    // Parameter:   KBOOL M
-    //************************************
-	void SetMalfunctioning( KBOOL M );
-	KBOOL IsMalfunctioning() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::SetDamaged
+  //              KDIS::DATA_TYPE::ModeXCodeRecord::IsDamaged
+  // Description: Indicates whether there is damage to the device.
+  // Parameter:   KBOOL S
+  //************************************
+  void SetDamaged(KBOOL D);
+  KBOOL IsDamaged() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::GetAsString
-    // Description: Returns a string representation 
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::SetMalfunctioning
+  //              KDIS::DATA_TYPE::ModeXCodeRecord::IsMalfunctioning
+  // Description: Indicates whether there is damage to the device.
+  // Parameter:   KBOOL M
+  //************************************
+  void SetMalfunctioning(KBOOL M);
+  KBOOL IsMalfunctioning() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    KBOOL operator == ( const ModeXCodeRecord & Value ) const;
-    KBOOL operator != ( const ModeXCodeRecord & Value ) const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::ModeXCodeRecord::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
+
+  KBOOL operator==(const ModeXCodeRecord& Value) const;
+  KBOOL operator!=(const ModeXCodeRecord& Value) const;
 };
 
-} // END namespace DATA_TYPE
-} // END namespace KDIS
+}  // END namespace DATA_TYPE
+}  // END namespace KDIS

@@ -39,110 +39,112 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./Simulation_Management_Header.h"
-#include "./../../DataTypes/ClockTime.h"
+#include "KDIS/DataTypes/ClockTime.hpp"
+#include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Stop_Freeze_PDU : public Simulation_Management_Header
-{
-protected:
+class KDIS_EXPORT Stop_Freeze_PDU : public Simulation_Management_Header {
+ protected:
+  KDIS::DATA_TYPE::ClockTime m_RealWorldTime;
 
-    KDIS::DATA_TYPE::ClockTime m_RealWorldTime;
+  KUINT8 m_ui8Reason;
 
-    KUINT8 m_ui8Reason;
+  KUINT8 m_ui8FrozenBehaviour;
 
-    KUINT8 m_ui8FrozenBehaviour;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+  KUINT32 m_ui32RequestID;
 
-    KUINT32 m_ui32RequestID;
+ public:
+  static const KUINT16 STOP_FREEZE_PDU_SIZE = 40;
 
-public:
+  Stop_Freeze_PDU();
 
-    static const KUINT16 STOP_FREEZE_PDU_SIZE = 40;
+  explicit Stop_Freeze_PDU(const Header& H);
 
-    Stop_Freeze_PDU();
+  Stop_Freeze_PDU(KDataStream& stream);
 
-    explicit Stop_Freeze_PDU( const Header & H );
+  Stop_Freeze_PDU(const Header& H, KDataStream& stream);
 
-    Stop_Freeze_PDU( KDataStream & stream ) ;
+  Stop_Freeze_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntity,
+                  const KDIS::DATA_TYPE::EntityIdentifier& SupplyingEntity,
+                  const KDIS::DATA_TYPE::ClockTime& RealWorldTime,
+                  KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR,
+                  KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID);
 
-    Stop_Freeze_PDU( const Header & H, KDataStream & stream ) ;
+  Stop_Freeze_PDU(const Simulation_Management_Header& SimMgrHeader,
+                  const KDIS::DATA_TYPE::ClockTime& RealWorldTime,
+                  KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR,
+                  KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID);
 
-    Stop_Freeze_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntity, const KDIS::DATA_TYPE::EntityIdentifier & SupplyingEntity,
-        const KDIS::DATA_TYPE::ClockTime & RealWorldTime, KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR, KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID );
+  virtual ~Stop_Freeze_PDU();
 
-    Stop_Freeze_PDU( const Simulation_Management_Header & SimMgrHeader, const KDIS::DATA_TYPE::ClockTime & RealWorldTime,
-                     KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR, KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB, KUINT32 ReqID );
+  //************************************
+  // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetRealWorldTime
+  //              KDIS::PDU::Stop_Freeze_PDU::GetRealWorldTime
+  // Description: specify the real-world time at which the entity
+  //              is to start/resume in the exercise.
+  // Parameter:   const ClockTime T
+  //************************************
+  void SetRealWorldTime(const KDIS::DATA_TYPE::ClockTime& T);
+  const KDIS::DATA_TYPE::ClockTime& GetRealWorldTime() const;
+  KDIS::DATA_TYPE::ClockTime& GetRealWorldTime();
 
-    virtual ~Stop_Freeze_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetReason
+  //              KDIS::PDU::Stop_Freeze_PDU::GetReason
+  // Description: Reason the entity/exercise was frozen
+  // Parameter:   StopFreezeReason SFR
+  //************************************
+  void SetReason(KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR);
+  KDIS::DATA_TYPE::ENUMS::StopFreezeReason GetReason() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetRealWorldTime
-    //              KDIS::PDU::Stop_Freeze_PDU::GetRealWorldTime
-    // Description: specify the real-world time at which the entity
-    //              is to start/resume in the exercise.
-    // Parameter:   const ClockTime T
-    //************************************
-    void  SetRealWorldTime( const KDIS::DATA_TYPE::ClockTime & T );
-    const KDIS::DATA_TYPE::ClockTime & GetRealWorldTime() const;
-    KDIS::DATA_TYPE::ClockTime & GetRealWorldTime();
+  //************************************
+  // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetFrozenBehavior
+  //              KDIS::PDU::Stop_Freeze_PDU::GetFrozenBehavior
+  // Description: Specifies the internal behavior of the simulation and its
+  //              appearance whilst the frozen to the other participants of the
+  //              exercise
+  // Parameter:   FrozenBehavior FB
+  //************************************
+  void SetFrozenBehavior(KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB);
+  KDIS::DATA_TYPE::ENUMS::FrozenBehavior GetFrozenBehavior() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetReason
-    //              KDIS::PDU::Stop_Freeze_PDU::GetReason
-    // Description: Reason the entity/exercise was frozen
-    // Parameter:   StopFreezeReason SFR
-    //************************************
-    void SetReason( KDIS::DATA_TYPE::ENUMS::StopFreezeReason SFR );
-    KDIS::DATA_TYPE::ENUMS::StopFreezeReason GetReason() const;
+  //************************************
+  // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetRequestID
+  //              KDIS::PDU::Stop_Freeze_PDU::GetRequestID
+  // Description: Request ID
+  // Parameter:   KUINT32 ID
+  //************************************
+  void SetRequestID(KUINT32 ID);
+  KUINT32 GetRequestID() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetFrozenBehavior
-    //              KDIS::PDU::Stop_Freeze_PDU::GetFrozenBehavior
-    // Description: Specifies the internal behavior of the simulation and its
-    //              appearance whilst the frozen to the other participants of the
-    //              exercise
-    // Parameter:   FrozenBehavior FB
-    //************************************
-    void SetFrozenBehavior( KDIS::DATA_TYPE::ENUMS::FrozenBehavior FB );
-    KDIS::DATA_TYPE::ENUMS::FrozenBehavior GetFrozenBehavior() const;
+  //************************************
+  // FullName:    KDIS::PDU::Stop_Freeze_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Stop_Freeze_PDU::SetRequestID
-    //              KDIS::PDU::Stop_Freeze_PDU::GetRequestID
-    // Description: Request ID
-    // Parameter:   KUINT32 ID
-    //************************************
-    void SetRequestID( KUINT32 ID );
-    KUINT32 GetRequestID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Stop_Freeze_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Stop_Freeze_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Stop_Freeze_PDU::Encode
+  // Description: Convert To Network Data.
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Stop_Freeze_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Stop_Freeze_PDU::Encode
-    // Description: Convert To Network Data.
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Stop_Freeze_PDU & Value ) const;
-    KBOOL operator != ( const Stop_Freeze_PDU & Value ) const;
+  KBOOL operator==(const Stop_Freeze_PDU& Value) const;
+  KBOOL operator!=(const Stop_Freeze_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

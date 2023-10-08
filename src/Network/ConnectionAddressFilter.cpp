@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./ConnectionAddressFilter.h"
+#include "KDIS/Network/ConnectionAddressFilter.hpp"
 
 using namespace std;
 using namespace KDIS;
@@ -37,70 +37,59 @@ using namespace NETWORK;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-ConnectionAddressFilter::ConnectionAddressFilter( FilterMode FM /* = AllowAddressesInFilterList */ ) :
-	m_FM( FM )
-{
+ConnectionAddressFilter::ConnectionAddressFilter(
+    FilterMode FM /* = AllowAddressesInFilterList */)
+    : m_FM(FM) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+ConnectionAddressFilter::~ConnectionAddressFilter() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void ConnectionAddressFilter::SetFilterMode(FilterMode FM) { m_FM = FM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+ConnectionAddressFilter::FilterMode ConnectionAddressFilter::GetFilterMode()
+    const {
+  return m_FM;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ConnectionAddressFilter::~ConnectionAddressFilter()
-{
+void ConnectionAddressFilter::AddAddress(const KString& A) {
+  m_Filter.insert(A);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ConnectionAddressFilter::SetFilterMode( FilterMode FM )
-{
-	m_FM = FM;
+void ConnectionAddressFilter::RemoveAddress(const KString& A) {
+  set<KString>::iterator itr = m_Filter.find(A);
+  if (itr != m_Filter.end()) {
+    // If we found the address then remove it.
+    m_Filter.erase(itr);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ConnectionAddressFilter::FilterMode ConnectionAddressFilter::GetFilterMode() const
-{
-	return m_FM;
+KBOOL ConnectionAddressFilter::TestAddress(const KString& A) {
+  // Check if the sender is in our filter.
+  set<KString>::iterator itr = m_Filter.find(A);
+  if (itr != m_Filter.end()) {
+    return (m_FM == AllowAddressesInFilterList) ? true : false;
+  }
+
+  return (m_FM == AllowAddressesInFilterList) ? false : true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void ConnectionAddressFilter::AddAddress( const KString & A )
-{
-	m_Filter.insert( A );
+KBOOL ConnectionAddressFilter::OnDataReceived(const KOCTET* Data,
+                                              KUINT32 DataLength,
+                                              const KString& SenderIp) {
+  return TestAddress(SenderIp);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-void ConnectionAddressFilter::RemoveAddress( const KString & A )
-{
-	set<KString>::iterator itr = m_Filter.find( A );
-	if( itr != m_Filter.end() )
-	{
-		// If we found the address then remove it.
-		m_Filter.erase( itr );
-	}
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ConnectionAddressFilter::TestAddress( const KString & A )
-{
-	// Check if the sender is in our filter.
-	set<KString>::iterator itr = m_Filter.find( A );
-	if( itr != m_Filter.end() )
-	{
-		return ( m_FM == AllowAddressesInFilterList ) ? true : false;
-	}
-
-	return ( m_FM == AllowAddressesInFilterList ) ? false : true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL ConnectionAddressFilter::OnDataReceived( const KOCTET * Data, KUINT32 DataLength, const KString & SenderIp )
-{
-	return TestAddress( SenderIp );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Acknowledge_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Acknowledge_R_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,144 +42,142 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU()
-{
-    m_ui8PDUType = Acknowledge_R_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU() {
+  m_ui8PDUType = Acknowledge_R_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Acknowledge_R_PDU::Acknowledge_R_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Header & H, KDataStream & stream )  :
-    Acknowledge_PDU( H )
-{
-    Decode( stream, true );
+Acknowledge_R_PDU::Acknowledge_R_PDU(const Header& H, KDataStream& stream)
+    : Acknowledge_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                                      AcknowledgeFlag AF, AcknowledgeResponseFlag ARF, KUINT32 RequestID ) :
-    Acknowledge_PDU( OriginatingEntityID, ReceivingEntityID, AF, ARF, RequestID )
-{
-    m_ui8PDUType = Acknowledge_R_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU(
+    const EntityIdentifier& OriginatingEntityID,
+    const EntityIdentifier& ReceivingEntityID, AcknowledgeFlag AF,
+    AcknowledgeResponseFlag ARF, KUINT32 RequestID)
+    : Acknowledge_PDU(OriginatingEntityID, ReceivingEntityID, AF, ARF,
+                      RequestID) {
+  m_ui8PDUType = Acknowledge_R_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Simulation_Management_Header & SimMgrHeader, AcknowledgeFlag AF,
-                                      AcknowledgeResponseFlag ARF, KUINT32 RequestID ) :
-    Acknowledge_PDU( SimMgrHeader, AF, ARF, RequestID )
-{
-    m_ui8PDUType = Acknowledge_R_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU(
+    const Simulation_Management_Header& SimMgrHeader, AcknowledgeFlag AF,
+    AcknowledgeResponseFlag ARF, KUINT32 RequestID)
+    : Acknowledge_PDU(SimMgrHeader, AF, ARF, RequestID) {
+  m_ui8PDUType = Acknowledge_R_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Create_Entity_R_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Acknowledge_PDU( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(), CreateEntityPDU, ARF, pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU(const Create_Entity_R_PDU& pdu,
+                                     AcknowledgeResponseFlag ARF)
+    : Acknowledge_PDU(pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(),
+                      CreateEntityPDU, ARF, pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Remove_Entity_R_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Acknowledge_PDU( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(), RemoveEntityPDU, ARF, pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU(const Remove_Entity_R_PDU& pdu,
+                                     AcknowledgeResponseFlag ARF)
+    : Acknowledge_PDU(pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(),
+                      RemoveEntityPDU, ARF, pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Start_Resume_R_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Acknowledge_PDU( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(), Start_ResumePDU, ARF, pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU(const Start_Resume_R_PDU& pdu,
+                                     AcknowledgeResponseFlag ARF)
+    : Acknowledge_PDU(pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(),
+                      Start_ResumePDU, ARF, pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Stop_Freeze_R_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Acknowledge_PDU( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(), Stop_FreezePDU, ARF, pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU(const Stop_Freeze_R_PDU& pdu,
+                                     AcknowledgeResponseFlag ARF)
+    : Acknowledge_PDU(pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(),
+                      Stop_FreezePDU, ARF, pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::Acknowledge_R_PDU( const Transfer_Control_Request_PDU & pdu, AcknowledgeResponseFlag ARF ) :
-    Acknowledge_PDU( pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(), TransferControlRequest, ARF, pdu.GetRequestID() )
-{
-    m_ui8PDUType = Acknowledge_PDU_Type;
-    m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Acknowledge_R_PDU::Acknowledge_R_PDU(const Transfer_Control_Request_PDU& pdu,
+                                     AcknowledgeResponseFlag ARF)
+    : Acknowledge_PDU(pdu.GetOriginatingEntityID(), pdu.GetReceivingEntityID(),
+                      TransferControlRequest, ARF, pdu.GetRequestID()) {
+  m_ui8PDUType = Acknowledge_PDU_Type;
+  m_ui16PDULength = ACKNOWLEDGE_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Acknowledge_R_PDU::~Acknowledge_R_PDU()
-{
+Acknowledge_R_PDU::~Acknowledge_R_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Acknowledge_R_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Acknowledge-R PDU-\n"
+     << Simulation_Management_Header::GetAsString() << "\tAcknowledge Flag:   "
+     << GetEnumAsStringAcknowledgeFlag(m_ui16AcknowledgeFlag)
+     << "\n\tResponse Flag:      "
+     << GetEnumAsStringAcknowledgeResponseFlag(m_ui16ResponseFlag)
+     << "\n\tRequest ID:         " << m_ui32RequestID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Acknowledge_R_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Acknowledge-R PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "\tAcknowledge Flag:   "   << GetEnumAsStringAcknowledgeFlag( m_ui16AcknowledgeFlag )
-       << "\n\tResponse Flag:      " << GetEnumAsStringAcknowledgeResponseFlag( m_ui16ResponseFlag )
-       << "\n\tRequest ID:         " << m_ui32RequestID
-       << "\n";
-
-    return ss.str();
+KBOOL Acknowledge_R_PDU::operator==(const Acknowledge_R_PDU& Value) const {
+  if (Acknowledge_PDU::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Acknowledge_R_PDU::operator == ( const Acknowledge_R_PDU & Value ) const
-{
-    if( Acknowledge_PDU::operator !=( Value ) ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Acknowledge_R_PDU::operator != ( const Acknowledge_R_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL Acknowledge_R_PDU::operator!=(const Acknowledge_R_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

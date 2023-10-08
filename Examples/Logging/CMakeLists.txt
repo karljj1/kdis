@@ -1,3 +1,0 @@
-
-ADD_SUBDIRECTORY(DIS_Logger_Playback)
-ADD_SUBDIRECTORY(DIS_Logger_Record)

@@ -38,90 +38,87 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnvironmentRecord.h"
-#include "./WorldCoordinates.h"
-#include "./EulerAngles.h"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
+#include "KDIS/DataTypes/EulerAngles.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT EllipsoidRecord1 : public EnvironmentRecord
-{
-protected:
+class KDIS_EXPORT EllipsoidRecord1 : public EnvironmentRecord {
+ protected:
+  WorldCoordinates m_CentLocation;
 
-    WorldCoordinates m_CentLocation;
+  Vector m_Sigma;
 
-    Vector m_Sigma;
+  EulerAngles m_Ori;
 
-    EulerAngles m_Ori;
+ public:
+  static const KUINT16 ELIPSOID_RECORD_1_SIZE = 56;
 
-public:
+  EllipsoidRecord1();
 
-    static const KUINT16 ELIPSOID_RECORD_1_SIZE = 56;
+  EllipsoidRecord1(KDataStream& stream);
 
-    EllipsoidRecord1();
+  EllipsoidRecord1(KUINT8 Index, const WorldCoordinates& CentroidLocation,
+                   const Vector& Sigma, const EulerAngles& Orientation);
 
-    EllipsoidRecord1( KDataStream & stream ) ;
+  virtual ~EllipsoidRecord1();
 
-    EllipsoidRecord1( KUINT8 Index, const WorldCoordinates & CentroidLocation,
-                      const Vector & Sigma, const EulerAngles & Orientation );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::SetCentroidLocation
+  //              KDIS::DATA_TYPE::EllipsoidRecord1::GetCentroidLocation
+  // Description: Specifies the location of the center of the sphere.
+  // Parameter:   const WorldCoordinates & CL
+  //************************************
+  void SetCentroidLocation(const WorldCoordinates& CL);
+  const WorldCoordinates& GetCentroidLocation() const;
+  WorldCoordinates& GetCentroidLocation();
 
-    virtual ~EllipsoidRecord1();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::SetSigma
+  //              KDIS::DATA_TYPE::EllipsoidRecord1::GetSigma
+  // Description: Sigma (X, Y, Z) for the ellipsoid.
+  // Parameter:   const Vector & S
+  //************************************
+  void SetSigma(const Vector& S);
+  const Vector& GetSigma() const;
+  Vector& GetSigma();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::SetCentroidLocation
-    //              KDIS::DATA_TYPE::EllipsoidRecord1::GetCentroidLocation
-    // Description: Specifies the location of the center of the sphere.
-    // Parameter:   const WorldCoordinates & CL
-    //************************************
-    void SetCentroidLocation( const WorldCoordinates & CL );
-    const WorldCoordinates & GetCentroidLocation() const;
-    WorldCoordinates & GetCentroidLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::SetOrientation
+  //              KDIS::DATA_TYPE::EllipsoidRecord1::GetOrientation
+  // Description: Orientation for the ellipsoid.
+  // Parameter:   const EulerAngles & O
+  //************************************
+  void SetOrientation(const EulerAngles& O);
+  const EulerAngles& GetOrientation() const;
+  EulerAngles& GetOrientation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::SetSigma
-    //              KDIS::DATA_TYPE::EllipsoidRecord1::GetSigma
-    // Description: Sigma (X, Y, Z) for the ellipsoid.
-    // Parameter:   const Vector & S
-    //************************************
-    void SetSigma( const Vector & S );
-    const Vector & GetSigma() const;
-    Vector & GetSigma();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::SetOrientation
-    //              KDIS::DATA_TYPE::EllipsoidRecord1::GetOrientation
-    // Description: Orientation for the ellipsoid.
-    // Parameter:   const EulerAngles & O
-    //************************************
-    void SetOrientation( const EulerAngles & O );
-    const EulerAngles & GetOrientation() const;
-    EulerAngles & GetOrientation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const EllipsoidRecord1 & Value )const;
-    KBOOL operator != ( const EllipsoidRecord1 & Value )const;
+  KBOOL operator==(const EllipsoidRecord1& Value) const;
+  KBOOL operator!=(const EllipsoidRecord1& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

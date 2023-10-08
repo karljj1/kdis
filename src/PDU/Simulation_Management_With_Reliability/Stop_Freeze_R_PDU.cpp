@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Stop_Freeze_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Stop_Freeze_R_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,137 +42,124 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_R_PDU::Stop_Freeze_R_PDU()
-{
-    m_ui8PDUType = Stop_Freeze_R_PDU_Type;
-    m_ui16PDULength = STOP_FREEZE_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Stop_Freeze_R_PDU::Stop_Freeze_R_PDU() {
+  m_ui8PDUType = Stop_Freeze_R_PDU_Type;
+  m_ui16PDULength = STOP_FREEZE_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_R_PDU::Stop_Freeze_R_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Stop_Freeze_R_PDU::Stop_Freeze_R_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_R_PDU::Stop_Freeze_R_PDU( const Header & H, KDataStream & stream )  :
-    Stop_Freeze_PDU( H )
-{
-    Decode( stream, true );
+Stop_Freeze_R_PDU::Stop_Freeze_R_PDU(const Header& H, KDataStream& stream)
+    : Stop_Freeze_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_R_PDU::Stop_Freeze_R_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, const ClockTime & RealWorldTime,
-                                      StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID, RequiredReliabilityService RRS ) :
-    Stop_Freeze_PDU( ReceivingEntity, SupplyingEntity, RealWorldTime, SFR, FB, ReqID ),
-    Reliability_Header( RRS )
-{
-    m_ui8PDUType = Stop_Freeze_R_PDU_Type;
-    m_ui16PDULength = STOP_FREEZE_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Stop_Freeze_R_PDU::Stop_Freeze_R_PDU(const EntityIdentifier& ReceivingEntity,
+                                     const EntityIdentifier& SupplyingEntity,
+                                     const ClockTime& RealWorldTime,
+                                     StopFreezeReason SFR, FrozenBehavior FB,
+                                     KUINT32 ReqID,
+                                     RequiredReliabilityService RRS)
+    : Stop_Freeze_PDU(ReceivingEntity, SupplyingEntity, RealWorldTime, SFR, FB,
+                      ReqID),
+      Reliability_Header(RRS) {
+  m_ui8PDUType = Stop_Freeze_R_PDU_Type;
+  m_ui16PDULength = STOP_FREEZE_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_R_PDU::Stop_Freeze_R_PDU( const Simulation_Management_Header & SimMgrHeader, const ClockTime & RealWorldTime,
-                                      StopFreezeReason SFR, FrozenBehavior FB, KUINT32 ReqID, RequiredReliabilityService RRS ) :
-    Stop_Freeze_PDU( SimMgrHeader, RealWorldTime, SFR, FB, ReqID ),
-    Reliability_Header( RRS )
-{
-    m_ui8PDUType = Stop_Freeze_R_PDU_Type;
-    m_ui16PDULength = STOP_FREEZE_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Stop_Freeze_R_PDU::Stop_Freeze_R_PDU(
+    const Simulation_Management_Header& SimMgrHeader,
+    const ClockTime& RealWorldTime, StopFreezeReason SFR, FrozenBehavior FB,
+    KUINT32 ReqID, RequiredReliabilityService RRS)
+    : Stop_Freeze_PDU(SimMgrHeader, RealWorldTime, SFR, FB, ReqID),
+      Reliability_Header(RRS) {
+  m_ui8PDUType = Stop_Freeze_R_PDU_Type;
+  m_ui16PDULength = STOP_FREEZE_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Stop_Freeze_R_PDU::~Stop_Freeze_R_PDU()
-{
+Stop_Freeze_R_PDU::~Stop_Freeze_R_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Stop_Freeze_R_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Stop/Freeze-R PDU-\n"
+     << Simulation_Management_Header::GetAsString() << "Real World Time:\n"
+     << IndentString(m_RealWorldTime.GetAsString(), 1)
+     << "\tReason:           " << GetEnumAsStringStopFreezeReason(m_ui8Reason)
+     << "\n\tFrozen Behavior:  "
+     << GetEnumAsStringFrozenBehavior(m_ui8FrozenBehaviour) << "\n"
+     << Reliability_Header::GetAsString()
+     << "\n\tRequest ID:       " << m_ui32RequestID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Stop_Freeze_R_PDU::GetAsString() const
-{
-    KStringStream ss;
+void Stop_Freeze_R_PDU::Decode(KDataStream& stream,
+                               bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      STOP_FREEZE_R_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    ss << Header::GetAsString()
-       << "-Stop/Freeze-R PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "Real World Time:\n"
-       << IndentString( m_RealWorldTime.GetAsString(), 1 )
-       << "\tReason:           " << GetEnumAsStringStopFreezeReason( m_ui8Reason )
-       << "\n\tFrozen Behavior:  " << GetEnumAsStringFrozenBehavior( m_ui8FrozenBehaviour )
-       << "\n" << Reliability_Header::GetAsString()
-       << "\n\tRequest ID:       " << m_ui32RequestID
-       << "\n";
+  Simulation_Management_Header::Decode(stream, ignoreHeader);
 
-    return ss.str();
+  stream >> KDIS_STREAM m_RealWorldTime >> m_ui8Reason >>
+      m_ui8FrozenBehaviour >> m_ui8ReqRelSrv >> m_ui8Padding2 >>
+      m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Stop_Freeze_R_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < STOP_FREEZE_R_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Stop_Freeze_R_PDU::Encode() const {
+  KDataStream stream;
 
-    Simulation_Management_Header::Decode( stream, ignoreHeader );
+  Stop_Freeze_R_PDU::Encode(stream);
 
-    stream >> KDIS_STREAM m_RealWorldTime
-           >> m_ui8Reason
-           >> m_ui8FrozenBehaviour
-           >> m_ui8ReqRelSrv
-           >> m_ui8Padding2
-           >> m_ui32RequestID;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Stop_Freeze_R_PDU::Encode() const
-{
-    KDataStream stream;
+void Stop_Freeze_R_PDU::Encode(KDataStream& stream) const {
+  Simulation_Management_Header::Encode(stream);
 
-    Stop_Freeze_R_PDU::Encode( stream );
-
-    return stream;
+  stream << KDIS_STREAM m_RealWorldTime << m_ui8Reason << m_ui8FrozenBehaviour
+         << m_ui8ReqRelSrv << m_ui8Padding2 << m_ui32RequestID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Stop_Freeze_R_PDU::Encode( KDataStream & stream ) const
-{
-    Simulation_Management_Header::Encode( stream );
-
-    stream << KDIS_STREAM m_RealWorldTime
-           << m_ui8Reason
-           << m_ui8FrozenBehaviour
-           << m_ui8ReqRelSrv
-           << m_ui8Padding2
-           << m_ui32RequestID;
+KBOOL Stop_Freeze_R_PDU::operator==(const Stop_Freeze_R_PDU& Value) const {
+  if (Stop_Freeze_PDU::operator!=(Value)) return false;
+  if (Reliability_Header::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Stop_Freeze_R_PDU::operator == ( const Stop_Freeze_R_PDU & Value ) const
-{
-    if( Stop_Freeze_PDU::operator    !=( Value ) ) return false;
-    if( Reliability_Header::operator !=( Value ) ) return false;
-    return true;
+KBOOL Stop_Freeze_R_PDU::operator!=(const Stop_Freeze_R_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Stop_Freeze_R_PDU::operator != ( const Stop_Freeze_R_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

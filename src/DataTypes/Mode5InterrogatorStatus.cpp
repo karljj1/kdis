@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Mode5InterrogatorStatus.h"
+#include "KDIS/DataTypes/Mode5InterrogatorStatus.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,164 +40,148 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorStatus::Mode5InterrogatorStatus() 
-{
-	m_StatusUnion.m_ui8Status = 0;
+Mode5InterrogatorStatus::Mode5InterrogatorStatus() {
+  m_StatusUnion.m_ui8Status = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorStatus::Mode5InterrogatorStatus( KDataStream & stream ) 
-{
-    Decode( stream );
+Mode5InterrogatorStatus::Mode5InterrogatorStatus(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorStatus::Mode5InterrogatorStatus( KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF, 
-                                                  KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction )
-{
-	m_StatusUnion.m_ui8Status = 0; // Set all fields to 0
-	m_StatusUnion.m_ui8IffMis = IFFMission;
-	m_StatusUnion.m_ui8MsgFrmt = MF;
-	m_StatusUnion.m_ui8OnOff = OnOffStatus;
-	m_StatusUnion.m_ui8Dmg = Damaged;
-	m_StatusUnion.m_ui8MalFnc = Malfunction;
+Mode5InterrogatorStatus::Mode5InterrogatorStatus(
+    KUINT8 IFFMission, KDIS::DATA_TYPE::ENUMS::Mode5MessageFormat MF,
+    KBOOL OnOffStatus, KBOOL Damaged, KBOOL Malfunction) {
+  m_StatusUnion.m_ui8Status = 0;  // Set all fields to 0
+  m_StatusUnion.m_ui8IffMis = IFFMission;
+  m_StatusUnion.m_ui8MsgFrmt = MF;
+  m_StatusUnion.m_ui8OnOff = OnOffStatus;
+  m_StatusUnion.m_ui8Dmg = Damaged;
+  m_StatusUnion.m_ui8MalFnc = Malfunction;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5InterrogatorStatus::~Mode5InterrogatorStatus()
-{
+Mode5InterrogatorStatus::~Mode5InterrogatorStatus() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Mode5InterrogatorStatus::SetIFFMission(KUINT8 IFFM) {
+  if (IFFM > 7) throw KException(__FUNCTION__, INVALID_DATA);
+  m_StatusUnion.m_ui8IffMis = IFFM;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::SetIFFMission( KUINT8 IFFM ) 
-{
-	if( IFFM > 7 )throw KException( __FUNCTION__, INVALID_DATA );
-	m_StatusUnion.m_ui8IffMis = IFFM;
+KUINT8 Mode5InterrogatorStatus::GetIFFMIssion() const {
+  return m_StatusUnion.m_ui8IffMis;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Mode5InterrogatorStatus::GetIFFMIssion() const
-{
-	return m_StatusUnion.m_ui8IffMis;
+void Mode5InterrogatorStatus::SetMode5MessageFormat(Mode5MessageFormat MF) {
+  m_StatusUnion.m_ui8MsgFrmt = MF;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::SetMode5MessageFormat( Mode5MessageFormat MF )
-{
-	m_StatusUnion.m_ui8MsgFrmt = MF;
+Mode5MessageFormat Mode5InterrogatorStatus::GetMode5MessageFormat() const {
+  return (Mode5MessageFormat)m_StatusUnion.m_ui8MsgFrmt;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5MessageFormat Mode5InterrogatorStatus::GetMode5MessageFormat() const
-{
-	return ( Mode5MessageFormat )m_StatusUnion.m_ui8MsgFrmt;
+void Mode5InterrogatorStatus::SetOnOffStatus(KBOOL OOS) {
+  m_StatusUnion.m_ui8OnOff = OOS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::SetOnOffStatus( KBOOL OOS )
-{
-	m_StatusUnion.m_ui8OnOff = OOS;
+KBOOL Mode5InterrogatorStatus::GetOnOffStatus() const {
+  return m_StatusUnion.m_ui8OnOff;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5InterrogatorStatus::GetOnOffStatus() const
-{
-	return m_StatusUnion.m_ui8OnOff;
+void Mode5InterrogatorStatus::SetDamaged(KBOOL D) {
+  m_StatusUnion.m_ui8Dmg = D;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::SetDamaged( KBOOL D )
-{
-	m_StatusUnion.m_ui8Dmg = D;
+KBOOL Mode5InterrogatorStatus::IsDamaged() const {
+  return m_StatusUnion.m_ui8Dmg;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5InterrogatorStatus::IsDamaged() const
-{
-	return m_StatusUnion.m_ui8Dmg;
+void Mode5InterrogatorStatus::SetMalfunction(KBOOL M) {
+  m_StatusUnion.m_ui8MalFnc = M;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::SetMalfunction( KBOOL M )
-{
-	m_StatusUnion.m_ui8MalFnc = M;
+KBOOL Mode5InterrogatorStatus::HasMalfunction() const {
+  return m_StatusUnion.m_ui8MalFnc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5InterrogatorStatus::HasMalfunction() const
-{
-	return m_StatusUnion.m_ui8MalFnc;
+KString Mode5InterrogatorStatus::GetAsString() const {
+  KStringStream ss;
+  ss << "Mode 5 Interrogator Status:"
+     << "\n\tIFF Mission:    " << (KUINT16)m_StatusUnion.m_ui8IffMis
+     << "\n\tMessage Format: "
+     << GetEnumAsStringMode5MessageFormat(m_StatusUnion.m_ui8MsgFrmt)
+     << "\n\tOn/Off Status:  " << (KBOOL)m_StatusUnion.m_ui8OnOff
+     << "\n\tDamaged:        " << (KBOOL)m_StatusUnion.m_ui8Dmg
+     << "\n\tMalfunction:    " << (KBOOL)m_StatusUnion.m_ui8MalFnc << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Mode5InterrogatorStatus::GetAsString() const
-{
-    KStringStream ss;	
-	ss << "Mode 5 Interrogator Status:"
-	   << "\n\tIFF Mission:    " << ( KUINT16 )m_StatusUnion.m_ui8IffMis
-	   << "\n\tMessage Format: " << GetEnumAsStringMode5MessageFormat( m_StatusUnion.m_ui8MsgFrmt )
-	   << "\n\tOn/Off Status:  " << ( KBOOL )m_StatusUnion.m_ui8OnOff
-	   << "\n\tDamaged:        " << ( KBOOL )m_StatusUnion.m_ui8Dmg 
-	   << "\n\tMalfunction:    " << ( KBOOL )m_StatusUnion.m_ui8MalFnc
-	   << "\n";
+void Mode5InterrogatorStatus::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < MODE_5_INTERROGATOR_STATUS_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    return ss.str();
+  stream >> m_StatusUnion.m_ui8Status;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < MODE_5_INTERROGATOR_STATUS_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-	
-	stream >> m_StatusUnion.m_ui8Status;	
+KDataStream Mode5InterrogatorStatus::Encode() const {
+  KDataStream stream;
+
+  Mode5InterrogatorStatus::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Mode5InterrogatorStatus::Encode() const
-{
-    KDataStream stream;
-
-    Mode5InterrogatorStatus::Encode( stream );
-
-    return stream;
+void Mode5InterrogatorStatus::Encode(KDataStream& stream) const {
+  stream << m_StatusUnion.m_ui8Status;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mode5InterrogatorStatus::Encode( KDataStream & stream ) const
-{
-	stream << m_StatusUnion.m_ui8Status;
+KBOOL Mode5InterrogatorStatus::operator==(
+    const Mode5InterrogatorStatus& Value) const {
+  if (m_StatusUnion.m_ui8Status != Value.m_StatusUnion.m_ui8Status)
+    return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Mode5InterrogatorStatus::operator == ( const Mode5InterrogatorStatus & Value ) const
-{
-	if( m_StatusUnion.m_ui8Status != Value.m_StatusUnion.m_ui8Status ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Mode5InterrogatorStatus::operator != ( const Mode5InterrogatorStatus & Value ) const
-{
-    return !( *this == Value );
+KBOOL Mode5InterrogatorStatus::operator!=(
+    const Mode5InterrogatorStatus& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

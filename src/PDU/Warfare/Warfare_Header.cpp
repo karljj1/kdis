@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Warfare_Header.h"
+#include "KDIS/PDU/Warfare/Warfare_Header.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,192 +42,156 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Warfare_Header::Warfare_Header()
-{
-    m_ui8ProtocolFamily = Warfare;
-    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+Warfare_Header::Warfare_Header() {
+  m_ui8ProtocolFamily = Warfare;
+  m_ui8ProtocolVersion = IEEE_1278_1_1995;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Warfare_Header::Warfare_Header( const Header & H ) :
-    Header( H )
-{
+Warfare_Header::Warfare_Header(const Header& H) : Header(H) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Warfare_Header::Warfare_Header(const EntityIdentifier& FiringEntID,
+                               const EntityIdentifier& TargetEntID,
+                               const EntityIdentifier& MunitionID,
+                               const EntityIdentifier& EventID)
+    : m_FiringEntityID(FiringEntID),
+      m_TargetEntityID(TargetEntID),
+      m_MunitionID(MunitionID),
+      m_EventID(EventID) {
+  m_ui8ProtocolFamily = Warfare;
+  m_ui8ProtocolVersion = IEEE_1278_1_1995;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Warfare_Header::Warfare_Header( const EntityIdentifier & FiringEntID, const EntityIdentifier & TargetEntID, const EntityIdentifier & MunitionID, const EntityIdentifier & EventID ) :
-    m_FiringEntityID( FiringEntID ),
-    m_TargetEntityID( TargetEntID ),
-    m_MunitionID( MunitionID ),
-    m_EventID( EventID )
-{
-    m_ui8ProtocolFamily = Warfare;
-    m_ui8ProtocolVersion = IEEE_1278_1_1995;
+Warfare_Header::~Warfare_Header() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Warfare_Header::SetFiringEntityID(const EntityIdentifier& ID) {
+  m_FiringEntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Warfare_Header::~Warfare_Header()
-{
+const EntityIdentifier& Warfare_Header::GetFiringEntityID() const {
+  return m_FiringEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Warfare_Header::SetFiringEntityID( const EntityIdentifier & ID )
-{
-    m_FiringEntityID = ID;
+EntityIdentifier& Warfare_Header::GetFiringEntityID() {
+  return m_FiringEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Warfare_Header::GetFiringEntityID() const
-{
-    return m_FiringEntityID;
+void Warfare_Header::SetTargetEntityID(const EntityIdentifier& ID) {
+  m_TargetEntityID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Warfare_Header::GetFiringEntityID()
-{
-    return m_FiringEntityID;
+const EntityIdentifier& Warfare_Header::GetTargetEntityID() const {
+  return m_TargetEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Warfare_Header::SetTargetEntityID( const EntityIdentifier & ID )
-{
-    m_TargetEntityID = ID;
+EntityIdentifier& Warfare_Header::GetTargetEntityID() {
+  return m_TargetEntityID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Warfare_Header::GetTargetEntityID() const
-{
-    return m_TargetEntityID;
+void Warfare_Header::SetMunitionID(const EntityIdentifier& ID) {
+  m_MunitionID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Warfare_Header::GetTargetEntityID()
-{
-    return m_TargetEntityID;
+const EntityIdentifier& Warfare_Header::GetMunitionID() const {
+  return m_MunitionID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Warfare_Header::SetMunitionID( const EntityIdentifier & ID )
-{
-    m_MunitionID = ID;
+EntityIdentifier& Warfare_Header::GetMunitionID() { return m_MunitionID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void Warfare_Header::SetEventID(const EntityIdentifier& ID) { m_EventID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const EntityIdentifier& Warfare_Header::GetEventID() const { return m_EventID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+EntityIdentifier& Warfare_Header::GetEventID() { return m_EventID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Warfare_Header::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Firing Entity ID:\n"
+     << IndentString(m_FiringEntityID.GetAsString(), 1) << "Target Entity ID:\n"
+     << IndentString(m_TargetEntityID.GetAsString(), 1) << "Munition ID:\n"
+     << IndentString(m_MunitionID.GetAsString(), 1) << "Event ID:\n"
+     << IndentString(m_EventID.GetAsString(), 1);
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Warfare_Header::GetMunitionID() const
-{
-    return m_MunitionID;
+void Warfare_Header::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      WARFARE_HEADER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  Header::Decode(stream, ignoreHeader);
+  stream >> KDIS_STREAM m_FiringEntityID >> KDIS_STREAM m_TargetEntityID >>
+      KDIS_STREAM m_MunitionID >> KDIS_STREAM m_EventID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Warfare_Header::GetMunitionID()
-{
-    return m_MunitionID;
+KDataStream Warfare_Header::Encode() const {
+  KDataStream stream;
+
+  Warfare_Header::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Warfare_Header::SetEventID( const EntityIdentifier & ID )
-{
-    m_EventID = ID;
+void Warfare_Header::Encode(KDataStream& stream) const {
+  Header::Encode(stream);
+  stream << KDIS_STREAM m_FiringEntityID << KDIS_STREAM m_TargetEntityID
+         << KDIS_STREAM m_MunitionID << KDIS_STREAM m_EventID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & Warfare_Header::GetEventID() const
-{
-    return m_EventID;
+KBOOL Warfare_Header::operator==(const Warfare_Header& Value) const {
+  if (Header::operator!=(Value)) return false;
+  if (m_FiringEntityID != Value.m_FiringEntityID) return false;
+  if (m_TargetEntityID != Value.m_TargetEntityID) return false;
+  if (m_MunitionID != Value.m_MunitionID) return false;
+  if (m_EventID != Value.m_EventID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & Warfare_Header::GetEventID()
-{
-    return m_EventID;
+KBOOL Warfare_Header::operator!=(const Warfare_Header& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KString Warfare_Header::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Firing Entity ID:\n"
-       << IndentString( m_FiringEntityID.GetAsString(), 1 )
-       << "Target Entity ID:\n"
-       << IndentString( m_TargetEntityID.GetAsString(), 1 )
-       << "Munition ID:\n"
-       << IndentString( m_MunitionID.GetAsString(), 1 )
-       << "Event ID:\n"
-       << IndentString( m_EventID.GetAsString(), 1 );
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Warfare_Header::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < WARFARE_HEADER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    Header::Decode( stream, ignoreHeader );
-    stream >> KDIS_STREAM m_FiringEntityID
-           >> KDIS_STREAM m_TargetEntityID
-           >> KDIS_STREAM m_MunitionID
-           >> KDIS_STREAM m_EventID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Warfare_Header::Encode() const
-{
-    KDataStream stream;
-
-    Warfare_Header::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Warfare_Header::Encode( KDataStream & stream ) const
-{
-    Header::Encode( stream );
-    stream << KDIS_STREAM m_FiringEntityID
-           << KDIS_STREAM m_TargetEntityID
-           << KDIS_STREAM m_MunitionID
-           << KDIS_STREAM m_EventID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Warfare_Header::operator == ( const Warfare_Header & Value ) const
-{
-    if( Header::operator !=( Value ) )               return false;
-    if( m_FiringEntityID != Value.m_FiringEntityID ) return false;
-    if( m_TargetEntityID != Value.m_TargetEntityID ) return false;
-    if( m_MunitionID     != Value.m_MunitionID )     return false;
-    if( m_EventID        != Value.m_EventID )        return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Warfare_Header::operator != ( const Warfare_Header & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

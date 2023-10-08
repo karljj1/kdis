@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IFF_Layer2.h"
+#include "KDIS/DataTypes/IFF_Layer2.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,197 +40,176 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer2::IFF_Layer2()     
-{
-	m_ui8LayerNumber = 2;
-	m_ui16LayerLength = IFF_LAYER2_SIZE;
+IFF_Layer2::IFF_Layer2() {
+  m_ui8LayerNumber = 2;
+  m_ui16LayerLength = IFF_LAYER2_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer2::IFF_Layer2( KDataStream & stream ) 
-{
-    Decode( stream, false );
+IFF_Layer2::IFF_Layer2(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+IFF_Layer2::IFF_Layer2(const LayerHeader& H, KDataStream& stream)
+    : LayerHeader(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer2::IFF_Layer2( const LayerHeader & H, KDataStream & stream )  :
-	LayerHeader( H )
-{
-    Decode( stream, true );
+IFF_Layer2::IFF_Layer2(
+    const BeamData& BD, const SecondaryOperationalData& SOD,
+    const vector<IFF_ATC_NAVAIDS_FundamentalParameterData>& FPD)
+    : m_BmDt(BD), m_SOD(SOD), m_vFPD(FPD) {
+  m_ui8LayerNumber = 2;
+  m_ui16LayerLength = IFF_LAYER2_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer2::IFF_Layer2( const BeamData & BD, const SecondaryOperationalData & SOD, const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD ) :
-    m_BmDt( BD ),
-    m_SOD( SOD ),
-    m_vFPD( FPD )
-{
-	m_ui8LayerNumber = 2;
-	m_ui16LayerLength = IFF_LAYER2_SIZE;
+IFF_Layer2::~IFF_Layer2() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_Layer2::SetBeamData(const BeamData& BD) { m_BmDt = BD; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const BeamData& IFF_Layer2::GetBeamData() const { return m_BmDt; }
+
+//////////////////////////////////////////////////////////////////////////
+
+BeamData& IFF_Layer2::GetBeamData() { return m_BmDt; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_Layer2::SetSecondaryOperationalData(
+    const SecondaryOperationalData& SOD) {
+  m_SOD = SOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer2::~IFF_Layer2()
-{
+const SecondaryOperationalData& IFF_Layer2::GetSecondaryOperationalData()
+    const {
+  return m_SOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer2::SetBeamData( const BeamData & BD )
-{
-    m_BmDt = BD;
+SecondaryOperationalData& IFF_Layer2::GetSecondaryOperationalData() {
+  return m_SOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const BeamData & IFF_Layer2::GetBeamData() const
-{
-    return m_BmDt;
+void IFF_Layer2::AddFundamentalParameterData(
+    const IFF_ATC_NAVAIDS_FundamentalParameterData& FPD) {
+  m_vFPD.push_back(FPD);
+  m_ui16LayerLength += IFF_ATC_NAVAIDS_FundamentalParameterData::
+      IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE;
+  m_SOD.SetNumberOfFundamentalParamSets(m_vFPD.size());
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-BeamData & IFF_Layer2::GetBeamData()
-{
-    return m_BmDt;
+void IFF_Layer2::SetFundamentalParameterData(
+    const vector<IFF_ATC_NAVAIDS_FundamentalParameterData>& FPD) {
+  m_vFPD = FPD;
+  m_ui16LayerLength =
+      IFF_LAYER2_SIZE +
+      (m_vFPD.size() * IFF_ATC_NAVAIDS_FundamentalParameterData::
+                           IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE);
+  m_SOD.SetNumberOfFundamentalParamSets(m_vFPD.size());
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer2::SetSecondaryOperationalData( const SecondaryOperationalData & SOD )
-{
-    m_SOD = SOD;
+const vector<IFF_ATC_NAVAIDS_FundamentalParameterData>&
+IFF_Layer2::GetFundamentalParameterData() const {
+  return m_vFPD;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const SecondaryOperationalData & IFF_Layer2::GetSecondaryOperationalData() const
-{
-    return m_SOD;
+KString IFF_Layer2::GetAsString() const {
+  KStringStream ss;
+
+  ss << "IFF Layer 2\n"
+     << IndentString(m_BmDt.GetAsString(), 1)
+     << IndentString(m_SOD.GetAsString(), 1);
+
+  vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citr =
+      m_vFPD.begin();
+  vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citrEnd =
+      m_vFPD.end();
+  for (; citr != citrEnd; ++citr) {
+    ss << citr->GetAsString();
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SecondaryOperationalData & IFF_Layer2::GetSecondaryOperationalData()
-{
-    return m_SOD;
+void IFF_Layer2::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
+  if (stream.GetBufferSize() < IFF_LAYER2_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  m_vFPD.clear();
+
+  if (!ignoreHeader) {
+    LayerHeader::Decode(stream);
+  }
+
+  stream >> KDIS_STREAM m_BmDt >> KDIS_STREAM m_SOD;
+
+  for (KUINT8 i = 0; i < m_SOD.GetNumberOfFundamentalParamSets(); ++i) {
+    m_vFPD.push_back(IFF_ATC_NAVAIDS_FundamentalParameterData(stream));
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer2::AddFundamentalParameterData( const IFF_ATC_NAVAIDS_FundamentalParameterData & FPD )
-{
-    m_vFPD.push_back( FPD );
-    m_ui16LayerLength += IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE;
-    m_SOD.SetNumberOfFundamentalParamSets( m_vFPD.size() );
+KDataStream IFF_Layer2::Encode() const {
+  KDataStream stream;
+
+  IFF_Layer2::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer2::SetFundamentalParameterData( const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & FPD )
-{
-    m_vFPD = FPD;
-    m_ui16LayerLength = IFF_LAYER2_SIZE + ( m_vFPD.size() * IFF_ATC_NAVAIDS_FundamentalParameterData::IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE );
-    m_SOD.SetNumberOfFundamentalParamSets( m_vFPD.size() );
+void IFF_Layer2::Encode(KDataStream& stream) const {
+  LayerHeader::Encode(stream);
+
+  stream << KDIS_STREAM m_BmDt << KDIS_STREAM m_SOD;
+
+  vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citr =
+      m_vFPD.begin();
+  vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citrEnd =
+      m_vFPD.end();
+  for (; citr != citrEnd; ++citr) {
+    citr->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<IFF_ATC_NAVAIDS_FundamentalParameterData> & IFF_Layer2::GetFundamentalParameterData() const
-{
-    return m_vFPD;
+KBOOL IFF_Layer2::operator==(const IFF_Layer2& Value) const {
+  if (LayerHeader::operator!=(Value)) return false;
+  if (m_BmDt != Value.m_BmDt) return false;
+  if (m_SOD != Value.m_SOD) return false;
+  if (m_vFPD != Value.m_vFPD) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString IFF_Layer2::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "IFF Layer 2\n"
-       << IndentString( m_BmDt.GetAsString(), 1 )
-       << IndentString( m_SOD.GetAsString(), 1 );
-
-    vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citr = m_vFPD.begin();
-    vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citrEnd = m_vFPD.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << citr->GetAsString();
-    }
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IFF_Layer2::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( stream.GetBufferSize() < IFF_LAYER2_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    m_vFPD.clear();
-
-	if( !ignoreHeader )
-	{
-		LayerHeader::Decode( stream );
-	}
-
-    stream >> KDIS_STREAM m_BmDt
-           >> KDIS_STREAM m_SOD;
-
-    for( KUINT8 i = 0; i < m_SOD.GetNumberOfFundamentalParamSets(); ++i )
-    {
-        m_vFPD.push_back( IFF_ATC_NAVAIDS_FundamentalParameterData( stream ) );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream IFF_Layer2::Encode() const
-{
-    KDataStream stream;
-
-    IFF_Layer2::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IFF_Layer2::Encode( KDataStream & stream ) const
-{
-	LayerHeader::Encode( stream );
-
-    stream << KDIS_STREAM m_BmDt
-           << KDIS_STREAM m_SOD;
-
-    vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citr = m_vFPD.begin();
-    vector<IFF_ATC_NAVAIDS_FundamentalParameterData>::const_iterator citrEnd = m_vFPD.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        citr->Encode( stream );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL IFF_Layer2::operator == ( const IFF_Layer2 & Value ) const
-{
-    if( LayerHeader::operator !=( Value ) )     return false;    
-    if( m_BmDt                != Value.m_BmDt ) return false;
-    if( m_SOD                 != Value.m_SOD )  return false;
-	if( m_vFPD                != Value.m_vFPD ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL IFF_Layer2::operator != ( const IFF_Layer2 & Value ) const
-{
-    return !( *this == Value );
+KBOOL IFF_Layer2::operator!=(const IFF_Layer2& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

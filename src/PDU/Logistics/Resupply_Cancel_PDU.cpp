@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Resupply_Cancel_PDU.h"
+#include "KDIS/PDU/Logistics/Resupply_Cancel_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,70 +42,61 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Cancel_PDU::Resupply_Cancel_PDU()
-{
-    m_ui8PDUType = Resupply_Cancel_PDU_Type;
-    m_ui16PDULength = RESUPPLY_CANCEL_PDU_SIZE;
+Resupply_Cancel_PDU::Resupply_Cancel_PDU() {
+  m_ui8PDUType = Resupply_Cancel_PDU_Type;
+  m_ui16PDULength = RESUPPLY_CANCEL_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Cancel_PDU::Resupply_Cancel_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Resupply_Cancel_PDU::Resupply_Cancel_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Cancel_PDU::Resupply_Cancel_PDU( const Header & H, KDataStream & stream )  :
-    Logistics_Header( H )
-{
-    Decode( stream, true );
+Resupply_Cancel_PDU::Resupply_Cancel_PDU(const Header& H, KDataStream& stream)
+    : Logistics_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Cancel_PDU::Resupply_Cancel_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity )
-{
-    m_ui8PDUType = Resupply_Cancel_PDU_Type;
-    m_ui16PDULength = RESUPPLY_CANCEL_PDU_SIZE;
-    m_ReceivingEntity = ReceivingEntity;
-    m_SupplyingEntity = SupplyingEntity;
+Resupply_Cancel_PDU::Resupply_Cancel_PDU(
+    const EntityIdentifier& ReceivingEntity,
+    const EntityIdentifier& SupplyingEntity) {
+  m_ui8PDUType = Resupply_Cancel_PDU_Type;
+  m_ui16PDULength = RESUPPLY_CANCEL_PDU_SIZE;
+  m_ReceivingEntity = ReceivingEntity;
+  m_SupplyingEntity = SupplyingEntity;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Resupply_Cancel_PDU::~Resupply_Cancel_PDU()
-{
+Resupply_Cancel_PDU::~Resupply_Cancel_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Resupply_Cancel_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Resupply Cancel-\n"
+     << IndentString(Logistics_Header::GetAsString(), 1);
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Resupply_Cancel_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Resupply Cancel-\n"
-       << IndentString( Logistics_Header::GetAsString(), 1 );
-
-    return ss.str();
+KBOOL Resupply_Cancel_PDU::operator==(const Resupply_Cancel_PDU& Value) const {
+  if (Logistics_Header::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Resupply_Cancel_PDU::operator == ( const Resupply_Cancel_PDU & Value ) const
-{
-    if( Logistics_Header::operator !=( Value ) ) return false;
-    return true;
+KBOOL Resupply_Cancel_PDU::operator!=(const Resupply_Cancel_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Resupply_Cancel_PDU::operator != ( const Resupply_Cancel_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

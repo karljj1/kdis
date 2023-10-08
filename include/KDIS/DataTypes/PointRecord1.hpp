@@ -38,64 +38,61 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnvironmentRecord.h"
-#include "./WorldCoordinates.h"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
+#include "KDIS/DataTypes/WorldCoordinates.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT PointRecord1 : public EnvironmentRecord
-{
-protected:
+class KDIS_EXPORT PointRecord1 : public EnvironmentRecord {
+ protected:
+  WorldCoordinates m_Location;
 
-    WorldCoordinates m_Location;
+ public:
+  static const KUINT16 POINT_RECORD_1_SIZE = 32;
 
-public:
+  PointRecord1();
 
-    static const KUINT16 POINT_RECORD_1_SIZE = 32;
+  PointRecord1(KDataStream& stream);
 
-    PointRecord1();
+  PointRecord1(KUINT8 Index, const WorldCoordinates& Location);
 
-    PointRecord1( KDataStream & stream ) ;
+  virtual ~PointRecord1();
 
-    PointRecord1( KUINT8 Index, const WorldCoordinates & Location );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord1::SetLocation
+  //              KDIS::DATA_TYPE::PointRecord1::GetLocation
+  // Description: Specifies the points location.
+  // Parameter:   const WorldCoordinates & L, void
+  //************************************
+  void SetLocation(const WorldCoordinates& L);
+  const WorldCoordinates& GetLocation() const;
+  WorldCoordinates& GetLocation();
 
-    virtual ~PointRecord1();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord1::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord1::SetLocation
-    //              KDIS::DATA_TYPE::PointRecord1::GetLocation
-    // Description: Specifies the points location.
-    // Parameter:   const WorldCoordinates & L, void
-    //************************************
-    void SetLocation( const WorldCoordinates & L );
-    const WorldCoordinates & GetLocation() const;
-    WorldCoordinates & GetLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord1::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord1::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::PointRecord1::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord1::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::PointRecord1::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const PointRecord1 & Value )const;
-    KBOOL operator != ( const PointRecord1 & Value )const;
+  KBOOL operator==(const PointRecord1& Value) const;
+  KBOOL operator!=(const PointRecord1& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

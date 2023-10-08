@@ -34,14 +34,14 @@ http://p.sf.net/kdis/UserGuide
 
     purpose:    A collection of filters that can be used on the PDU factory.
 
-                E.G If you only wanted DIS data from a specific Exercise ID then you would
-                use a ExerciseIDFilter.
+                E.G If you only wanted DIS data from a specific Exercise ID then
+you would use a ExerciseIDFilter.
 
 *********************************************************************/
 
 #pragma once
 
-#include "./../PDU/Header.h"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace UTILS {
@@ -49,31 +49,35 @@ namespace UTILS {
 //////////////////////////////////////////////////////////////////////////
 // The base filter class that all filters must derive from.             //
 //////////////////////////////////////////////////////////////////////////
-class PDU_Factory_Filter
-{
-public:
+class PDU_Factory_Filter {
+ public:
+  PDU_Factory_Filter() {}
 
-    PDU_Factory_Filter() {}
+  virtual ~PDU_Factory_Filter() {}
 
-    virtual ~PDU_Factory_Filter() {}
+  //************************************
+  // FullName: KDIS::UTILS::PDU_Factory_Filter::ApplyFilterBeforeDecodingPDUBody
+  // Description: Apply filtering on the PDU header before the body has been
+  // decoded.
+  //              We can use this to ignore certain PDU's and help with
+  //              performance by not decoding PDU's we do not care about. Return
+  //              true for the header to be accepted or false to reject it.
+  // Parameter:   const Header * H
+  //************************************
+  virtual KBOOL ApplyFilterBeforeDecodingPDUBody(const KDIS::PDU::Header *) {
+    return true;
+  }
 
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilterBeforeDecodingPDUBody
-    // Description: Apply filtering on the PDU header before the body has been decoded.
-    //              We can use this to ignore certain PDU's and help with performance by not decoding PDU's we do not care about.
-    //              Return true for the header to be accepted or false to reject it.
-    // Parameter:   const Header * H
-    //************************************
-    virtual KBOOL ApplyFilterBeforeDecodingPDUBody(const KDIS::PDU::Header *) { return true; }
-
-    //************************************
-    // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilter
-    // Description: This is our filter function, the pointer that is passed contains the full PDU data so
-    //              you can cast it to the relevant PDU if you wish to filter based on a PDU's contents.
-    //              Return true for the PDU to be accepted or false to reject it.
-    // Parameter:   const Header * H
-    //************************************
-    virtual KBOOL ApplyFilter(const KDIS::PDU::Header *) { return true; }
+  //************************************
+  // FullName:    KDIS::UTILS::PDU_Factory_Filter::ApplyFilter
+  // Description: This is our filter function, the pointer that is passed
+  // contains the full PDU data so
+  //              you can cast it to the relevant PDU if you wish to filter
+  //              based on a PDU's contents. Return true for the PDU to be
+  //              accepted or false to reject it.
+  // Parameter:   const Header * H
+  //************************************
+  virtual KBOOL ApplyFilter(const KDIS::PDU::Header *) { return true; }
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -81,36 +85,27 @@ public:
 // Filters the PDU based on Exercise ID.                                //
 //////////////////////////////////////////////////////////////////////////
 
-class FactoryFilterExerciseID : public PDU_Factory_Filter
-{
-private:
+class FactoryFilterExerciseID : public PDU_Factory_Filter {
+ private:
+  KUINT8 m_ui8ID;
 
-    KUINT8 m_ui8ID;
+ public:
+  FactoryFilterExerciseID(KUINT8 ID) : PDU_Factory_Filter(), m_ui8ID(ID){};
 
-public:
+  virtual ~FactoryFilterExerciseID() {}
 
-    FactoryFilterExerciseID( KUINT8 ID ) :
-        PDU_Factory_Filter(),
-        m_ui8ID( ID )
-    {
-    };
-
-    virtual ~FactoryFilterExerciseID() {}
-
-    //************************************
-    // FullName:    KDIS::UTILS::FactoryFilterExerciseID::ApplyFilter
-    // Description: Checks if the exercise id matches.
-    // Parameter:   const Header * H
-    //************************************
-    virtual KBOOL ApplyFilter( const KDIS::PDU::Header * H )
-    {
-        if( m_ui8ID == H->GetExerciseID() )
-        {
-            return true;
-        }
-        return false;
-    };
+  //************************************
+  // FullName:    KDIS::UTILS::FactoryFilterExerciseID::ApplyFilter
+  // Description: Checks if the exercise id matches.
+  // Parameter:   const Header * H
+  //************************************
+  virtual KBOOL ApplyFilter(const KDIS::PDU::Header *H) {
+    if (m_ui8ID == H->GetExerciseID()) {
+      return true;
+    }
+    return false;
+  };
 };
 
-} // END namespace UTILS
-} // END namespace KDIS
+}  // END namespace UTILS
+}  // END namespace KDIS

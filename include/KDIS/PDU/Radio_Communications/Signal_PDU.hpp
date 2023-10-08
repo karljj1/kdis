@@ -36,127 +36,127 @@ http://p.sf.net/kdis/UserGuide
     purpose:    The Signal PDU contains the content of a radio transmission.
                 This content may be digitized audio, binary data, or an index
                 into a database that defines the signal.
-                A Signal PDU shall be issued whenever voice or data is being transmitted.
+                A Signal PDU shall be issued whenever voice or data is being
+transmitted.
 
     size:       256 bits / 32 - min size
 *********************************************************************/
 
 #pragma once
 
-#include "./Radio_Communications_Header.h"
-#include "./../../DataTypes/EncodingScheme.h"
 #include <vector>
+
+#include "KDIS/DataTypes/EncodingScheme.hpp"
+#include "KDIS/PDU/Radio_Communications/Radio_Communications_Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Signal_PDU : public Radio_Communications_Header
-{
-protected:
+class KDIS_EXPORT Signal_PDU : public Radio_Communications_Header {
+ protected:
+  KDIS::DATA_TYPE::EncodingScheme m_EncodingScheme;
 
-    KDIS::DATA_TYPE::EncodingScheme m_EncodingScheme;
+  KUINT32 m_ui32SampleRate;
 
-    KUINT32 m_ui32SampleRate;
+  KUINT16 m_ui16DataLength;
 
-    KUINT16 m_ui16DataLength;
+  KUINT16 m_ui16Samples;
 
-    KUINT16 m_ui16Samples;
+  std::vector<KOCTET> m_vData;
 
-    std::vector<KOCTET> m_vData;
+ public:
+  static const KUINT16 SIGNAL_PDU_SIZE = 32;  // Min Size
 
-public:
+  Signal_PDU();
 
-    static const KUINT16 SIGNAL_PDU_SIZE = 32; // Min Size
+  explicit Signal_PDU(const Header& H);
 
-    Signal_PDU();
+  Signal_PDU(KDataStream& stream);
 
-    explicit Signal_PDU( const Header & H );
+  Signal_PDU(const Header& H, KDataStream& stream);
 
-    Signal_PDU( KDataStream & stream ) ;
+  Signal_PDU(const KDIS::DATA_TYPE::EntityIdentifier& ID, KUINT16 RadioID,
+             const KDIS::DATA_TYPE::EncodingScheme& ES, KUINT32 SampleRate,
+             KUINT16 Samples, const KOCTET* Data, KUINT16 DataLength);
 
-    Signal_PDU( const Header & H, KDataStream & stream ) ;
+  virtual ~Signal_PDU();
 
-    Signal_PDU( const KDIS::DATA_TYPE::EntityIdentifier & ID, KUINT16 RadioID, const KDIS::DATA_TYPE::EncodingScheme & ES,
-                KUINT32 SampleRate, KUINT16 Samples, const KOCTET * Data, KUINT16 DataLength );
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::SetEncodingScheme
+  //              KDIS::PDU::Signal_PDU::GetEncodingScheme
+  // Description: Encoding scheme used for the data.
+  // Parameter:   const EncodingScheme & ES
+  //************************************
+  void SetEncodingScheme(const KDIS::DATA_TYPE::EncodingScheme& ES);
+  const KDIS::DATA_TYPE::EncodingScheme& GetEncodingScheme() const;
+  KDIS::DATA_TYPE::EncodingScheme& GetEncodingScheme();
 
-    virtual ~Signal_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::SetSampleRate
+  //              KDIS::PDU::Signal_PDU::GetSampleRate
+  // Description: sample rate in samples per second if the encoding
+  //              class is encoded audio or the data rate in bits
+  //              per second for data transmissions.
+  //              If the Encoding Class is database index,
+  //              this field shall be zero.
+  // Parameter:   KUINT32 SR
+  //************************************
+  void SetSampleRate(KUINT32 SR);
+  KUINT32 GetSampleRate() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::SetEncodingScheme
-    //              KDIS::PDU::Signal_PDU::GetEncodingScheme
-    // Description: Encoding scheme used for the data.
-    // Parameter:   const EncodingScheme & ES
-    //************************************
-    void SetEncodingScheme( const KDIS::DATA_TYPE::EncodingScheme & ES );
-    const KDIS::DATA_TYPE::EncodingScheme & GetEncodingScheme() const;
-    KDIS::DATA_TYPE::EncodingScheme & GetEncodingScheme();
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::GetSampleRate
+  // Description: Returns data length in bits, if encoding class is
+  //              database index then the length shall be 96.
+  //************************************
+  KUINT16 GetDataLength() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::SetSampleRate
-    //              KDIS::PDU::Signal_PDU::GetSampleRate
-    // Description: sample rate in samples per second if the encoding
-    //              class is encoded audio or the data rate in bits
-    //              per second for data transmissions.
-    //              If the Encoding Class is database index,
-    //              this field shall be zero.
-    // Parameter:   KUINT32 SR
-    //************************************
-    void SetSampleRate( KUINT32 SR );
-    KUINT32 GetSampleRate() const;
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::SetSamples
+  //              KDIS::PDU::Signal_PDU::GetSamples
+  // Description: Number of samples in PDU
+  // Parameter:   KUINT16 S
+  //************************************
+  void SetSamples(KUINT16 S);
+  KUINT16 GetSamples() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::GetSampleRate
-    // Description: Returns data length in bits, if encoding class is
-    //              database index then the length shall be 96.
-    //************************************
-    KUINT16 GetDataLength() const;
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::SetData
+  //              KDIS::PDU::Signal_PDU::GetData
+  // Description: The data being sent. set function will add
+  //              padding so the PDU size is a multiple of 32 bits.
+  // Parameter:   KOCTET * D - buffer for writing/reading
+  // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be at
+  // least the size GetDataLength)
+  //************************************
+  void SetData(const KOCTET* D, KUINT16 Length);
+  void GetData(KOCTET* D, KUINT16 Length) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::SetSamples
-    //              KDIS::PDU::Signal_PDU::GetSamples
-    // Description: Number of samples in PDU
-    // Parameter:   KUINT16 S
-    //************************************
-    void SetSamples( KUINT16 S );
-    KUINT16 GetSamples() const;
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::SetData
-    //              KDIS::PDU::Signal_PDU::GetData
-    // Description: The data being sent. set function will add
-    //              padding so the PDU size is a multiple of 32 bits.
-    // Parameter:   KOCTET * D - buffer for writing/reading
-    // Parameter:   KUINT16 Length - size of data in BITS(buffer size should be at least the size GetDataLength)
-    //************************************
-    void SetData( const KOCTET * D, KUINT16 Length );
-    void GetData( KOCTET * D, KUINT16 Length ) const ;
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Signal_PDU::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Signal_PDU::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Signal_PDU & Value ) const;
-    KBOOL operator != ( const Signal_PDU & Value ) const;
+  KBOOL operator==(const Signal_PDU& Value) const;
+  KBOOL operator!=(const Signal_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
-
+}  // END namespace PDU
+}  // END namespace KDIS

@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IntercomCommunicationParameters.h"
+#include "KDIS/DataTypes/IntercomCommunicationParameters.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,276 +40,245 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IntercomCommunicationParameters::IntercomCommunicationParameters() :
-    m_ui16Length( 0 ),
-    m_ui16Type( 0 ),
-    m_pRecord( NULL ),
-    m_bMemoryManage( false )
-{
+IntercomCommunicationParameters::IntercomCommunicationParameters()
+    : m_ui16Length(0), m_ui16Type(0), m_pRecord(NULL), m_bMemoryManage(false) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IntercomCommunicationParameters::IntercomCommunicationParameters(
+    KDataStream& stream)
+    : m_pRecord(NULL) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IntercomCommunicationParameters::IntercomCommunicationParameters( KDataStream & stream ) :
-	m_pRecord( NULL )
-{
-    Decode( stream );
+IntercomCommunicationParameters::IntercomCommunicationParameters(
+    EntityDestinationRecord* EDR)
+    : m_ui16Type(EntityDestinationRecord_Type),
+      m_ui16Length(EntityDestinationRecord::ENTITY_DESTINATION_RECORD_SIZE),
+      m_pRecord(EDR),
+      m_bMemoryManage(false) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IntercomCommunicationParameters::IntercomCommunicationParameters(
+    GroupDestinationRecord* GDR)
+    : m_ui16Type(GroupDestinationRecord_Type),
+      m_ui16Length(GroupDestinationRecord::GROUP_DESTINATION_RECORD_SIZE),
+      m_pRecord(GDR),
+      m_bMemoryManage(false) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IntercomCommunicationParameters::IntercomCommunicationParameters(
+    GroupAssignmentRecord* GAR)
+    : m_ui16Type(GroupAssignmentRecord_Type),
+      m_ui16Length(GroupAssignmentRecord::GROUP_ASSIGNMENT_RECORD_SIZE),
+      m_pRecord(GAR),
+      m_bMemoryManage(false) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IntercomCommunicationParameters::IntercomCommunicationParameters(
+    const IntercomCommunicationParameters& ICP)
+    : m_ui16Type(ICP.m_ui16Type),
+      m_ui16Length(ICP.m_ui16Length),
+      m_pRecord(ICP.m_pRecord),
+      m_bMemoryManage(false) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IntercomCommunicationParameters::~IntercomCommunicationParameters() {
+  if (m_pRecord && m_bMemoryManage) delete m_pRecord;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IntercomCommunicationParameters::IntercomCommunicationParameters( EntityDestinationRecord * EDR ) :
-    m_ui16Type( EntityDestinationRecord_Type ),
-    m_ui16Length( EntityDestinationRecord::ENTITY_DESTINATION_RECORD_SIZE ),
-    m_pRecord( EDR ),
-    m_bMemoryManage( false )
-{
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IntercomCommunicationParameters::IntercomCommunicationParameters( GroupDestinationRecord * GDR ) :
-    m_ui16Type( GroupDestinationRecord_Type ),
-    m_ui16Length( GroupDestinationRecord::GROUP_DESTINATION_RECORD_SIZE ),
-    m_pRecord( GDR ),
-    m_bMemoryManage( false )
-{
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IntercomCommunicationParameters::IntercomCommunicationParameters( GroupAssignmentRecord * GAR ) :
-    m_ui16Type( GroupAssignmentRecord_Type ),
-    m_ui16Length( GroupAssignmentRecord::GROUP_ASSIGNMENT_RECORD_SIZE ),
-    m_pRecord( GAR ),
-    m_bMemoryManage( false )
-{
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IntercomCommunicationParameters::IntercomCommunicationParameters( const IntercomCommunicationParameters & ICP ) :
-    m_ui16Type( ICP.m_ui16Type ),
-    m_ui16Length( ICP.m_ui16Length ),
-    m_pRecord( ICP.m_pRecord ),
-    m_bMemoryManage( false )
-{
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IntercomCommunicationParameters::~IntercomCommunicationParameters()
-{
-    if( m_pRecord && m_bMemoryManage )delete m_pRecord;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-IntercomCommunicationParameters& IntercomCommunicationParameters::operator=( const IntercomCommunicationParameters & ICP )
-{
-    if( this != &ICP )
-    {
-        m_ui16Type = ICP.m_ui16Type;
-        m_ui16Length = ICP.m_ui16Length;
-        m_pRecord = ICP.m_pRecord;
-        m_bMemoryManage = false;
-    }
-
-    return *this;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-AdditionalIntrCommParamType IntercomCommunicationParameters::GetRecordType() const
-{
-    return ( AdditionalIntrCommParamType )m_ui16Type;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 IntercomCommunicationParameters::GetLength() const
-{
-    return m_ui16Length;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void IntercomCommunicationParameters::SetRecord( EntityDestinationRecord * EDR )
-{
-    if( !EDR )return;
-
-    if( m_pRecord && m_bMemoryManage )delete m_pRecord;
-
+IntercomCommunicationParameters& IntercomCommunicationParameters::operator=(
+    const IntercomCommunicationParameters& ICP) {
+  if (this != &ICP) {
+    m_ui16Type = ICP.m_ui16Type;
+    m_ui16Length = ICP.m_ui16Length;
+    m_pRecord = ICP.m_pRecord;
     m_bMemoryManage = false;
+  }
 
-    m_ui16Length = EntityDestinationRecord::ENTITY_DESTINATION_RECORD_SIZE;
-
-    m_ui16Type = EntityDestinationRecord_Type;
-
-    m_pRecord = EDR;
+  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IntercomCommunicationParameters::SetRecord( GroupDestinationRecord * GDR )
-{
-    if( !GDR )return;
-
-    if( m_pRecord && m_bMemoryManage )delete m_pRecord;
-
-    m_bMemoryManage = false;
-
-    m_ui16Length = GroupDestinationRecord::GROUP_DESTINATION_RECORD_SIZE;
-
-    m_ui16Type = GroupDestinationRecord_Type;
-
-    m_pRecord = GDR;
+AdditionalIntrCommParamType IntercomCommunicationParameters::GetRecordType()
+    const {
+  return (AdditionalIntrCommParamType)m_ui16Type;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IntercomCommunicationParameters::SetRecord( GroupAssignmentRecord * GAR )
-{
-    if( !GAR )return;
-
-    if( m_pRecord && m_bMemoryManage )delete m_pRecord;
-
-    m_bMemoryManage = false;
-
-    m_ui16Length = GroupAssignmentRecord::GROUP_ASSIGNMENT_RECORD_SIZE;
-
-    m_ui16Type = GroupAssignmentRecord_Type;
-
-    m_pRecord = GAR;
+KUINT16 IntercomCommunicationParameters::GetLength() const {
+  return m_ui16Length;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const DataTypeBase * IntercomCommunicationParameters::GetRecord() const
-{
-    return m_pRecord;
+void IntercomCommunicationParameters::SetRecord(EntityDestinationRecord* EDR) {
+  if (!EDR) return;
+
+  if (m_pRecord && m_bMemoryManage) delete m_pRecord;
+
+  m_bMemoryManage = false;
+
+  m_ui16Length = EntityDestinationRecord::ENTITY_DESTINATION_RECORD_SIZE;
+
+  m_ui16Type = EntityDestinationRecord_Type;
+
+  m_pRecord = EDR;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-DataTypeBase * IntercomCommunicationParameters::GetRecord()
-{
-    return m_pRecord;
+void IntercomCommunicationParameters::SetRecord(GroupDestinationRecord* GDR) {
+  if (!GDR) return;
+
+  if (m_pRecord && m_bMemoryManage) delete m_pRecord;
+
+  m_bMemoryManage = false;
+
+  m_ui16Length = GroupDestinationRecord::GROUP_DESTINATION_RECORD_SIZE;
+
+  m_ui16Type = GroupDestinationRecord_Type;
+
+  m_pRecord = GDR;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString IntercomCommunicationParameters::GetAsString() const
-{
-    KStringStream ss;
+void IntercomCommunicationParameters::SetRecord(GroupAssignmentRecord* GAR) {
+  if (!GAR) return;
 
-    ss << "Intercom Communications Parameter"
-       << "\nType:     " << GetEnumAsStringAdditionalIntrCommParamType( m_ui16Type )
-       << "\nLength:   " << m_ui16Length
-       << m_pRecord->GetAsString();
+  if (m_pRecord && m_bMemoryManage) delete m_pRecord;
 
-    return ss.str();
+  m_bMemoryManage = false;
+
+  m_ui16Length = GroupAssignmentRecord::GROUP_ASSIGNMENT_RECORD_SIZE;
+
+  m_ui16Type = GroupAssignmentRecord_Type;
+
+  m_pRecord = GAR;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IntercomCommunicationParameters::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < IntercomCommunicationParameters::INTERCOM_COMMS_PARAM_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+const DataTypeBase* IntercomCommunicationParameters::GetRecord() const {
+  return m_pRecord;
+}
 
-    stream >> m_ui16Type
-           >> m_ui16Length;
+//////////////////////////////////////////////////////////////////////////
 
-    if( m_pRecord && m_bMemoryManage )delete m_pRecord;
+DataTypeBase* IntercomCommunicationParameters::GetRecord() { return m_pRecord; }
 
-    m_bMemoryManage = true;
+//////////////////////////////////////////////////////////////////////////
 
-    switch( m_ui16Type )
-    {
+KString IntercomCommunicationParameters::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Intercom Communications Parameter"
+     << "\nType:     " << GetEnumAsStringAdditionalIntrCommParamType(m_ui16Type)
+     << "\nLength:   " << m_ui16Length << m_pRecord->GetAsString();
+
+  return ss.str();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IntercomCommunicationParameters::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() <
+      IntercomCommunicationParameters::INTERCOM_COMMS_PARAM_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui16Type >> m_ui16Length;
+
+  if (m_pRecord && m_bMemoryManage) delete m_pRecord;
+
+  m_bMemoryManage = true;
+
+  switch (m_ui16Type) {
     case EntityDestinationRecord_Type:
-        m_pRecord = new EntityDestinationRecord( stream );
-        m_ui16Length = EntityDestinationRecord::ENTITY_DESTINATION_RECORD_SIZE;
-        break;
+      m_pRecord = new EntityDestinationRecord(stream);
+      m_ui16Length = EntityDestinationRecord::ENTITY_DESTINATION_RECORD_SIZE;
+      break;
 
     case GroupDestinationRecord_Type:
-        m_pRecord = new GroupDestinationRecord( stream );
-        m_ui16Length = GroupDestinationRecord::GROUP_DESTINATION_RECORD_SIZE;
-        break;
+      m_pRecord = new GroupDestinationRecord(stream);
+      m_ui16Length = GroupDestinationRecord::GROUP_DESTINATION_RECORD_SIZE;
+      break;
 
     case GroupAssignmentRecord_Type:
-        m_pRecord = new GroupAssignmentRecord( stream );
-        m_ui16Length = GroupAssignmentRecord::GROUP_ASSIGNMENT_RECORD_SIZE;
-        break;
-    }
+      m_pRecord = new GroupAssignmentRecord(stream);
+      m_ui16Length = GroupAssignmentRecord::GROUP_ASSIGNMENT_RECORD_SIZE;
+      break;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream IntercomCommunicationParameters::Encode() const
-{
-    KDataStream stream;
+KDataStream IntercomCommunicationParameters::Encode() const {
+  KDataStream stream;
 
-    IntercomCommunicationParameters::Encode( stream );
+  IntercomCommunicationParameters::Encode(stream);
 
-    return stream;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IntercomCommunicationParameters::Encode( KDataStream & stream ) const
-{
-    stream << m_ui16Type
-           << m_ui16Length;
+void IntercomCommunicationParameters::Encode(KDataStream& stream) const {
+  stream << m_ui16Type << m_ui16Length;
 
-    if( m_pRecord )
-        m_pRecord->Encode( stream );
+  if (m_pRecord) m_pRecord->Encode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IntercomCommunicationParameters::operator == ( const IntercomCommunicationParameters & Value ) const
-{
-    if( m_ui16Type   != Value.m_ui16Type )   return false;
-    if( m_ui16Length != Value.m_ui16Length ) return false;
+KBOOL IntercomCommunicationParameters::operator==(
+    const IntercomCommunicationParameters& Value) const {
+  if (m_ui16Type != Value.m_ui16Type) return false;
+  if (m_ui16Length != Value.m_ui16Length) return false;
 
-    switch( m_ui16Type )
-    {
-        case EntityDestinationRecord_Type:
-        {
-            const EntityDestinationRecord *  pl = ( EntityDestinationRecord * )m_pRecord,
-                                          *  pr = ( EntityDestinationRecord * )Value.m_pRecord;
+  switch (m_ui16Type) {
+    case EntityDestinationRecord_Type: {
+      const EntityDestinationRecord *pl = (EntityDestinationRecord*)m_pRecord,
+                                    *pr = (EntityDestinationRecord*)
+                                              Value.m_pRecord;
 
-            if( *pl != *pr ) return false;
-        }
-        break;
+      if (*pl != *pr) return false;
+    } break;
 
-        case GroupDestinationRecord_Type:
-        {
-            const GroupDestinationRecord  *  pl = ( GroupDestinationRecord * )m_pRecord,
-                                          *  pr = ( GroupDestinationRecord * )Value.m_pRecord;
+    case GroupDestinationRecord_Type: {
+      const GroupDestinationRecord *pl = (GroupDestinationRecord*)m_pRecord,
+                                   *pr =
+                                       (GroupDestinationRecord*)Value.m_pRecord;
 
-            if( *pl != *pr ) return false;
-        }
-        break;
+      if (*pl != *pr) return false;
+    } break;
 
-        case GroupAssignmentRecord_Type:
-        {
-            const GroupAssignmentRecord *  pl = ( GroupAssignmentRecord * )m_pRecord,
-                                        *  pr = ( GroupAssignmentRecord * )Value.m_pRecord;
+    case GroupAssignmentRecord_Type: {
+      const GroupAssignmentRecord *pl = (GroupAssignmentRecord*)m_pRecord,
+                                  *pr = (GroupAssignmentRecord*)Value.m_pRecord;
 
-            if( *pl != *pr ) return false;
-        }
-        break;
-    }
+      if (*pl != *pr) return false;
+    } break;
+  }
 
-    return true;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IntercomCommunicationParameters::operator != ( const IntercomCommunicationParameters & Value ) const
-{
-    return !( *this == Value );
+KBOOL IntercomCommunicationParameters::operator!=(
+    const IntercomCommunicationParameters& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

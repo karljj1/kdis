@@ -40,123 +40,132 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IFF_ATC_NAVAIDS_FundamentalParameterData : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT IFF_ATC_NAVAIDS_FundamentalParameterData
+    : public DataTypeBase {
+ protected:
+  KFLOAT32 m_f32ERP;
 
-    KFLOAT32 m_f32ERP;
+  KFLOAT32 m_f32Freq;
 
-    KFLOAT32 m_f32Freq;
+  KFLOAT32 m_f32PgRF;
 
-    KFLOAT32 m_f32PgRF;
+  KFLOAT32 m_f32PulseWidth;
 
-    KFLOAT32 m_f32PulseWidth;
+  KUINT32 m_ui32BurstLength;
 
-    KUINT32 m_ui32BurstLength;
+  KUINT8 m_ui8AppMode;
 
-    KUINT8 m_ui8AppMode;
+  KUINT16 m_ui16Padding1;
 
-    KUINT16 m_ui16Padding1;
+  KUINT8 m_ui8Padding2;
 
-    KUINT8 m_ui8Padding2;
+ public:
+  static const KUINT16 IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE = 24;
 
-public:
+  IFF_ATC_NAVAIDS_FundamentalParameterData();
 
-    static const KUINT16 IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE = 24;
+  IFF_ATC_NAVAIDS_FundamentalParameterData(KDataStream& stream);
 
-    IFF_ATC_NAVAIDS_FundamentalParameterData();
+  IFF_ATC_NAVAIDS_FundamentalParameterData(KFLOAT32 ERP, KFLOAT32 Freq,
+                                           KFLOAT32 PgRF, KFLOAT32 PulseWidth,
+                                           KUINT32 BurstLength,
+                                           DATA_TYPE::ENUMS::SystemMode M);
 
-    IFF_ATC_NAVAIDS_FundamentalParameterData( KDataStream & stream );
+  virtual ~IFF_ATC_NAVAIDS_FundamentalParameterData();
 
-    IFF_ATC_NAVAIDS_FundamentalParameterData( KFLOAT32 ERP, KFLOAT32 Freq, KFLOAT32 PgRF, KFLOAT32 PulseWidth,
-                                              KUINT32 BurstLength, DATA_TYPE::ENUMS::SystemMode M );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetEffectiveRadiatedPower
+  //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetEffectiveRadiatedPower
+  // Description: Average peak radiated power for the emission in dBm.
+  // Parameter:   KFLOAT32 F
+  //************************************
+  void SetEffectiveRadiatedPower(KFLOAT32 ERP);
+  KFLOAT32 GetEffectiveRadiatedPower() const;
 
-    virtual ~IFF_ATC_NAVAIDS_FundamentalParameterData();
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetFrequency
+  //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetFrequency
+  // Description: In Hertz.
+  // Parameter:   KFLOAT32 F
+  //************************************
+  void SetFrequency(KFLOAT32 F);
+  KFLOAT32 GetFrequency() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetEffectiveRadiatedPower
-    //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetEffectiveRadiatedPower
-    // Description: Average peak radiated power for the emission in dBm.
-    // Parameter:   KFLOAT32 F
-    //************************************
-    void SetEffectiveRadiatedPower( KFLOAT32 ERP );
-    KFLOAT32 GetEffectiveRadiatedPower() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetPgRF
+  //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetPgRF
+  // Description: When applied to originators this field shall represent the
+  // number
+  //              of interrogations per second emitted otherwid this value shall
+  //              be zero.
+  // Parameter:   KFLOAT32 P
+  //************************************
+  void SetPgRF(KFLOAT32 P);
+  KFLOAT32 GetPgRF() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetFrequency
-    //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetFrequency
-    // Description: In Hertz.
-    // Parameter:   KFLOAT32 F
-    //************************************
-    void SetFrequency( KFLOAT32 F );
-    KFLOAT32 GetFrequency() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetPulseWidth
+  //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetPulseWidth
+  // Description: Average pulse width of the emission in microseconds.
+  // Parameter:   KFLOAT32 PW
+  //************************************
+  void SetPulseWidth(KFLOAT32 PW);
+  KFLOAT32 GetPulseWidth() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetPgRF
-    //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetPgRF
-    // Description: When applied to originators this field shall represent the number
-    //              of interrogations per second emitted otherwid this value shall be zero.
-    // Parameter:   KFLOAT32 P
-    //************************************
-    void SetPgRF( KFLOAT32 P );
-    KFLOAT32 GetPgRF() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetBurstLength
+  //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetBurstLength
+  // Description:
+  // Parameter:   KUINT32 BL
+  //************************************
+  void SetBurstLength(KUINT32 BL);
+  KUINT32 GetBurstLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetPulseWidth
-    //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetPulseWidth
-    // Description: Average pulse width of the emission in microseconds.
-    // Parameter:   KFLOAT32 PW
-    //************************************
-    void SetPulseWidth( KFLOAT32 PW );
-    KFLOAT32 GetPulseWidth() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetApplicableModes
+  //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetApplicableModes
+  // Description: Specifies the modes to which the data applies.
+  // Parameter:   SystemMode M
+  //************************************
+  void SetApplicableModes(DATA_TYPE::ENUMS::SystemMode M);
+  DATA_TYPE::ENUMS::SystemMode GetApplicableModes() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetBurstLength
-    //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetBurstLength
-    // Description:
-    // Parameter:   KUINT32 BL
-    //************************************
-    void SetBurstLength( KUINT32 BL );
-    KUINT32 GetBurstLength() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::SetApplicableModes
-    //              KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetApplicableModes
-    // Description: Specifies the modes to which the data applies.
-    // Parameter:   SystemMode M
-    //************************************
-    void SetApplicableModes( DATA_TYPE::ENUMS::SystemMode M );
-    DATA_TYPE::ENUMS::SystemMode GetApplicableModes() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName: KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const IFF_ATC_NAVAIDS_FundamentalParameterData & Value ) const;
-    KBOOL operator != ( const IFF_ATC_NAVAIDS_FundamentalParameterData & Value ) const;
+  KBOOL operator==(const IFF_ATC_NAVAIDS_FundamentalParameterData& Value) const;
+  KBOOL operator!=(const IFF_ATC_NAVAIDS_FundamentalParameterData& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

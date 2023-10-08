@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Action_Response_R_PDU.h"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Action_Response_R_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,92 +42,84 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_R_PDU::Action_Response_R_PDU()
-{
-    m_ui8PDUType = ActionResponse_R_PDU_Type;
-    m_ui16PDULength = ACTION_RESPONSE_R_PDU_SIZE;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Action_Response_R_PDU::Action_Response_R_PDU() {
+  m_ui8PDUType = ActionResponse_R_PDU_Type;
+  m_ui16PDULength = ACTION_RESPONSE_R_PDU_SIZE;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_R_PDU::Action_Response_R_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Action_Response_R_PDU::Action_Response_R_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_R_PDU::Action_Response_R_PDU( const Header & H, KDataStream & stream )  :
-    Action_Response_PDU( H )
-{
-    Decode( stream, true );
+Action_Response_R_PDU::Action_Response_R_PDU(const Header& H,
+                                             KDataStream& stream)
+    : Action_Response_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_R_PDU::Action_Response_R_PDU( const Action_Request_R_PDU & pdu, RequestStatus RS ) :
-    Action_Response_PDU( pdu, RS )
-{
-    m_ui8PDUType = ActionResponse_R_PDU_Type;
-    m_ui8ProtocolVersion = IEEE_1278_1A_1998;
-    m_ui8ProtocolFamily = SimulationManagementwithReliability;
+Action_Response_R_PDU::Action_Response_R_PDU(const Action_Request_R_PDU& pdu,
+                                             RequestStatus RS)
+    : Action_Response_PDU(pdu, RS) {
+  m_ui8PDUType = ActionResponse_R_PDU_Type;
+  m_ui8ProtocolVersion = IEEE_1278_1A_1998;
+  m_ui8ProtocolFamily = SimulationManagementwithReliability;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Action_Response_R_PDU::~Action_Response_R_PDU()
-{
+Action_Response_R_PDU::~Action_Response_R_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Action_Response_R_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Action Request-R PDU-\n"
+     << Simulation_Management_Header::GetAsString()
+     << "\tRequest ID:               " << m_ui32RequestID
+     << "\n\tRequest Status:           "
+     << GetEnumAsStringRequestStatus(m_ui32RequestStatus)
+     << "\n\tNumber Fixed Datum:       " << m_ui32NumFixedDatum
+     << "\n\tNumber Variable Datum:    " << m_ui32NumVariableDatum << "\n";
+
+  ss << "Fixed Datumn";
+  vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
+  vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+  for (; citrFixed != citrFixedEnd; ++citrFixed) {
+    ss << IndentString((*citrFixed)->GetAsString());
+  }
+
+  ss << "Variable Datumn";
+  vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
+  vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+  for (; citrVar != citrVarEnd; ++citrVar) {
+    ss << IndentString((*citrVar)->GetAsString());
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Action_Response_R_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Action Request-R PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "\tRequest ID:               "   << m_ui32RequestID
-       << "\n\tRequest Status:           " << GetEnumAsStringRequestStatus( m_ui32RequestStatus )
-       << "\n\tNumber Fixed Datum:       " << m_ui32NumFixedDatum
-       << "\n\tNumber Variable Datum:    " << m_ui32NumVariableDatum
-       << "\n";
-
-    ss << "Fixed Datumn";
-    vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
-    for( ; citrFixed != citrFixedEnd; ++citrFixed )
-    {
-        ss << IndentString( ( *citrFixed )->GetAsString() );
-    }
-
-    ss << "Variable Datumn";
-    vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
-    for( ; citrVar != citrVarEnd; ++citrVar )
-    {
-        ss << IndentString( ( *citrVar )->GetAsString() );
-    }
-
-    return ss.str();
+KBOOL Action_Response_R_PDU::operator==(
+    const Action_Response_R_PDU& Value) const {
+  if (Action_Response_PDU::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Action_Response_R_PDU::operator == ( const Action_Response_R_PDU & Value ) const
-{
-    if( Action_Response_PDU::operator !=( Value ) ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Action_Response_R_PDU::operator != ( const Action_Response_R_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL Action_Response_R_PDU::operator!=(
+    const Action_Response_R_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -32,23 +32,22 @@ http://p.sf.net/kdis/UserGuide
     created:    08/03/2013
     author:     Karl Jones
 
-    purpose:    Information associated with an entity or detonation, not otherwise accounted
-                for in a PDU.
-                Currently implemented types:
-                    ArticulatedParts
+    purpose:    Information associated with an entity or detonation, not
+otherwise accounted for in a PDU. Currently implemented types: ArticulatedParts
                     AttachedPart
                     SeparationPart
 
-                Note: See FactoryDecoder for a guide to adding support for using your own VariableParameters. 
+                Note: See FactoryDecoder for a guide to adding support for using
+your own VariableParameters.
 
-    size:       128 bits / 16 octets 
+    size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./FactoryDecoder.h"
-#include "./../Extras/KRef_Ptr.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/FactoryDecoder.hpp"
+#include "KDIS/Extras/KRef_Ptr.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -60,75 +59,75 @@ namespace DATA_TYPE {
 // pointer or one of your own then simply change it below.
 /************************************************************************/
 class VariableParameter;
-typedef KDIS::UTILS::KRef_Ptr<VariableParameter> VarPrmPtr; // Ref counter
-//typedef VariableParameter* VarPrmPtr; // Weak ref
+typedef KDIS::UTILS::KRef_Ptr<VariableParameter> VarPrmPtr;  // Ref counter
+// typedef VariableParameter* VarPrmPtr; // Weak ref
 
 using KDIS::DATA_TYPE::ENUMS::VariableParameterType;
 
-class KDIS_EXPORT VariableParameter : public DataTypeBase, public FactoryDecoderUser<VariableParameter>
-{
-protected:
+class KDIS_EXPORT VariableParameter
+    : public DataTypeBase,
+      public FactoryDecoderUser<VariableParameter> {
+ protected:
+  KUINT8 m_ui8VarParamType;
 
-    KUINT8 m_ui8VarParamType;
-   
-    KUINT8 m_Data[15];
+  KUINT8 m_Data[15];
 
-public:
+ public:
+  static const KUINT16 VARIABLE_PARAMETER_SIZE = 16;
 
-    static const KUINT16 VARIABLE_PARAMETER_SIZE = 16;    
+  VariableParameter();
 
-    VariableParameter();
+  VariableParameter(VariableParameterType VPT, KUINT8* Data, KUINT8 DataSize);
 
-    VariableParameter( VariableParameterType VPT, KUINT8 * Data, KUINT8 DataSize ) ;
+  VariableParameter(KDataStream& stream);
 
-    VariableParameter( KDataStream & stream ) ;
+  virtual ~VariableParameter();
 
-    virtual ~VariableParameter();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableParameter::SetVariableParameterType
+  //              KDIS::DATA_TYPE::VariableParameter::GetVariableParameterType
+  // Description: VP record type.
+  // Parameter:   VariableParameterType VPT
+  //************************************
+  void SetVariableParameterType(VariableParameterType VPT);
+  VariableParameterType GetVariableParameterType() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableParameter::SetVariableParameterType
-    //              KDIS::DATA_TYPE::VariableParameter::GetVariableParameterType
-    // Description: VP record type.
-    // Parameter:   VariableParameterType VPT
-    //************************************
-    void SetVariableParameterType( VariableParameterType VPT );
-    VariableParameterType GetVariableParameterType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableParameter::SetVariableParameterType
+  //              KDIS::DATA_TYPE::VariableParameter::GetVariableParameterType
+  // Description: Raw VP data. 15 byte array.
+  // Parameter:   const KUINT8 * D
+  // Parameter:   KUINT8 DataSize - Exception thrown if data size is greater
+  // than 15.
+  //************************************
+  void SetData(const KUINT8* D, KUINT8 DataSize);
+  const KUINT8* GetData() const;
+  KUINT8* GetData();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableParameter::SetVariableParameterType
-    //              KDIS::DATA_TYPE::VariableParameter::GetVariableParameterType
-    // Description: Raw VP data. 15 byte array. 
-    // Parameter:   const KUINT8 * D
-    // Parameter:   KUINT8 DataSize - Exception thrown if data size is greater than 15.
-    //************************************
-    void SetData( const KUINT8 * D, KUINT8 DataSize ) ;
-    const KUINT8 * GetData() const;
-    KUINT8 * GetData();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableParameter::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableParameter::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableParameter::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableParameter::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::VariableParameter::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::VariableParameter::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const VariableParameter & Value ) const;
-    KBOOL operator != ( const VariableParameter & Value ) const;
+  KBOOL operator==(const VariableParameter& Value) const;
+  KBOOL operator!=(const VariableParameter& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

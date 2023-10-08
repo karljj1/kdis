@@ -40,94 +40,90 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT MineFusing : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT MineFusing : public DataTypeBase {
+ protected:
+  union {
+    struct {
+      KUINT16 m_ui16Primary : 7;
+      KUINT16 m_ui16Secondary : 7;
+      KUINT16 m_ui16AHD : 1;
+      KUINT16 m_ui16Unused : 1;
+    };
 
-    union
-    {
-        struct
-        {
-            KUINT16 m_ui16Primary   : 7;
-            KUINT16 m_ui16Secondary : 7;
-            KUINT16 m_ui16AHD       : 1;
-            KUINT16 m_ui16Unused    : 1;
-        };
+    KUINT16 m_ui16Fusing;
+  } m_FuseUnion;
 
-        KUINT16 m_ui16Fusing;
-    } m_FuseUnion;
+ public:
+  static const KUINT16 MINE_FUSING_SIZE = 2;
 
-public:
+  MineFusing();
 
-    static const KUINT16 MINE_FUSING_SIZE = 2;
+  MineFusing(KDIS::DATA_TYPE::ENUMS::MineFuse Primary,
+             KDIS::DATA_TYPE::ENUMS::MineFuse Secondary,
+             KBOOL AntiHandlingDevice);
 
-    MineFusing();
+  MineFusing(KDataStream& stream);
 
-    MineFusing( KDIS::DATA_TYPE::ENUMS::MineFuse Primary, KDIS::DATA_TYPE::ENUMS::MineFuse Secondary, KBOOL AntiHandlingDevice );
+  virtual ~MineFusing();
 
-    MineFusing( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MineFusing::SetPrimaryFuse
+  //              KDIS::DATA_TYPE::MineFusing::GetPrimaryFuse
+  // Description: Identifies the type of the primary fuse.
+  // Parameter:   MineFuse F
+  //************************************
+  void SetPrimaryFuse(KDIS::DATA_TYPE::ENUMS::MineFuse F);
+  KDIS::DATA_TYPE::ENUMS::MineFuse GetPrimaryFuse() const;
 
-    virtual ~MineFusing();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MineFusing::SetSecondaryFuse
+  //              KDIS::DATA_TYPE::MineFusing::GetSecondaryFuse
+  // Description: Identifies the type of the secondary fuse.
+  // Parameter:   MineFuse F
+  //************************************
+  void SetSecondaryFuse(KDIS::DATA_TYPE::ENUMS::MineFuse F);
+  KDIS::DATA_TYPE::ENUMS::MineFuse GetSecondaryFuse() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MineFusing::SetPrimaryFuse
-    //              KDIS::DATA_TYPE::MineFusing::GetPrimaryFuse
-    // Description: Identifies the type of the primary fuse.
-    // Parameter:   MineFuse F
-    //************************************
-    void SetPrimaryFuse( KDIS::DATA_TYPE::ENUMS::MineFuse F );
-    KDIS::DATA_TYPE::ENUMS::MineFuse GetPrimaryFuse() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MineFusing::SetHasAntiHandlingDevice
+  //              KDIS::DATA_TYPE::MineFusing::GetHasAntiHandlingDevice
+  // Description: Describes the anti-handling device status of the mine
+  //              true = anti-handling device.
+  //              false = No anti-handling device.
+  // Parameter:   KBOOL AHD
+  //************************************
+  void SetHasAntiHandlingDevice(KBOOL AHD);
+  KBOOL GetHasAntiHandlingDevice() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MineFusing::SetSecondaryFuse
-    //              KDIS::DATA_TYPE::MineFusing::GetSecondaryFuse
-    // Description: Identifies the type of the secondary fuse.
-    // Parameter:   MineFuse F
-    //************************************
-    void SetSecondaryFuse( KDIS::DATA_TYPE::ENUMS::MineFuse F );
-    KDIS::DATA_TYPE::ENUMS::MineFuse GetSecondaryFuse() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MineFusing::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MineFusing::SetHasAntiHandlingDevice
-    //              KDIS::DATA_TYPE::MineFusing::GetHasAntiHandlingDevice
-    // Description: Describes the anti-handling device status of the mine
-    //              true = anti-handling device.
-    //              false = No anti-handling device.
-    // Parameter:   KBOOL AHD
-    //************************************
-    void SetHasAntiHandlingDevice( KBOOL AHD );
-    KBOOL GetHasAntiHandlingDevice() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MineFusing::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MineFusing::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MineFusing::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MineFusing::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MineFusing::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const MineFusing & Value ) const;
-    KBOOL operator != ( const MineFusing & Value ) const;
+  KBOOL operator==(const MineFusing& Value) const;
+  KBOOL operator!=(const MineFusing& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

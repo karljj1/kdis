@@ -41,37 +41,37 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Simulation_Management/Event_Report_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Event_Report_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Event_Report_R_PDU : public Event_Report_PDU
-{
-public:
+class KDIS_EXPORT Event_Report_R_PDU : public Event_Report_PDU {
+ public:
+  static const KUINT16 EVENT_REPORT_R_PDU_SIZE = 40;
 
-    static const KUINT16 EVENT_REPORT_R_PDU_SIZE = 40;
+  Event_Report_R_PDU();
 
-    Event_Report_R_PDU();
+  explicit Event_Report_R_PDU(KDataStream& stream);
 
-    Event_Report_R_PDU( KDataStream & stream ) ;
+  Event_Report_R_PDU(const Header& H, KDataStream& stream);
 
-    Event_Report_R_PDU( const Header & H, KDataStream & stream ) ;
+  Event_Report_R_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+      const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+      KDIS::DATA_TYPE::ENUMS::EventType ET);
 
-    Event_Report_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-                        KDIS::DATA_TYPE::ENUMS::EventType ET );
+  virtual ~Event_Report_R_PDU();
 
-    virtual ~Event_Report_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Event_Report_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Event_Report_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Event_Report_R_PDU & Value ) const;
-    KBOOL operator != ( const Event_Report_R_PDU & Value ) const;
+  KBOOL operator==(const Event_Report_R_PDU& Value) const;
+  KBOOL operator!=(const Event_Report_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

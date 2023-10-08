@@ -37,7 +37,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EnumDescriptor.h"
+#include "KDIS/DataTypes/Enums/EnumDescriptor.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -50,25 +50,25 @@ namespace ENUMS {
 /*  Designator PDU                                                      */
 /************************************************************************/
 
-enum DesignatorCodeName
-{
-    OtherDesignatorCodeName                                           = 0
-};
+enum DesignatorCodeName { OtherDesignatorCodeName = 0 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeDesignatorCodeName();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorDesignatorCodeName( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorDesignatorCodeName(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringDesignatorCodeName( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringDesignatorCodeName(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringDesignatorCodeName( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringDesignatorCodeName(const KString& Value,
+                                                      KINT32& ValueOut);
 
 /************************************************************************/
 /* Designator Code                                                      */
@@ -77,25 +77,25 @@ KDIS_EXPORT KBOOL GetEnumFromStringDesignatorCodeName( const KString & Value, KI
 /*  Designator PDU                                                      */
 /************************************************************************/
 
-enum DesignatorCode
-{
-    OtherDesignatorCode                                               = 0
-};
+enum DesignatorCode { OtherDesignatorCode = 0 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeDesignatorCode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorDesignatorCode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorDesignatorCode(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringDesignatorCode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringDesignatorCode(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringDesignatorCode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringDesignatorCode(const KString& Value,
+                                                  KINT32& ValueOut);
 
 // DIS 7
 #if DIS_VERSION > 6
@@ -107,30 +107,27 @@ KDIS_EXPORT KBOOL GetEnumFromStringDesignatorCode( const KString & Value, KINT32
 /*  Directed Energy Fire PDU                                            */
 /************************************************************************/
 
-enum BeamSpotShape
-{
-    OtherBeamSpotShape                                                = 0,
-    Gaussian                                                          = 1,
-    TopHat                                                            = 2
-};
+enum BeamSpotShape { OtherBeamSpotShape = 0, Gaussian = 1, TopHat = 2 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeBeamSpotShape();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorBeamSpotShape( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorBeamSpotShape(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringBeamSpotShape( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringBeamSpotShape(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringBeamSpotShape( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringBeamSpotShape(const KString& Value,
+                                                 KINT32& ValueOut);
 
 #endif
 
-} // END namespace ENUMS
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // END namespace ENUMS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

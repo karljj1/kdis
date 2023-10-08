@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Service_Request_PDU.h"
+#include "KDIS/PDU/Logistics/Service_Request_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,154 +42,139 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU() :
-    m_ui8ServiceTypeRequested( 0 )
-{
-    m_ui8PDUType = Service_Request_PDU_Type;
-    m_ui16PDULength = SERVICE_REQUEST_PDU_SIZE;
+Service_Request_PDU::Service_Request_PDU() : m_ui8ServiceTypeRequested(0) {
+  m_ui8PDUType = Service_Request_PDU_Type;
+  m_ui16PDULength = SERVICE_REQUEST_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Service_Request_PDU::Service_Request_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU( const Header & H, KDataStream & stream )  :
-    Resupply_Received_PDU( H )
-{
-    Decode( stream, true );
+Service_Request_PDU::Service_Request_PDU(const Header& H, KDataStream& stream)
+    : Resupply_Received_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::Service_Request_PDU( const EntityIdentifier & ReceivingEntity, const EntityIdentifier & SupplyingEntity, ServiceTypeRequested STR ) :
-    Resupply_Received_PDU( ReceivingEntity, SupplyingEntity ),
-    m_ui8ServiceTypeRequested( STR )
-{
-    m_ui8PDUType = Service_Request_PDU_Type;
-    m_ui16PDULength = SERVICE_REQUEST_PDU_SIZE;
+Service_Request_PDU::Service_Request_PDU(
+    const EntityIdentifier& ReceivingEntity,
+    const EntityIdentifier& SupplyingEntity, ServiceTypeRequested STR)
+    : Resupply_Received_PDU(ReceivingEntity, SupplyingEntity),
+      m_ui8ServiceTypeRequested(STR) {
+  m_ui8PDUType = Service_Request_PDU_Type;
+  m_ui16PDULength = SERVICE_REQUEST_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Service_Request_PDU::~Service_Request_PDU()
-{
+Service_Request_PDU::~Service_Request_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Service_Request_PDU::SetServiceTypeRequested(ServiceTypeRequested STR) {
+  m_ui8ServiceTypeRequested = STR;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Service_Request_PDU::SetServiceTypeRequested( ServiceTypeRequested STR )
-{
-    m_ui8ServiceTypeRequested = STR;
+ServiceTypeRequested Service_Request_PDU::GetServiceTypeRequested() const {
+  return (ServiceTypeRequested)m_ui8ServiceTypeRequested;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ServiceTypeRequested Service_Request_PDU::GetServiceTypeRequested() const
-{
-    return ( ServiceTypeRequested )m_ui8ServiceTypeRequested;
+KString Service_Request_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Service Request-\n"
+     << IndentString(Logistics_Header::GetAsString(), 1)
+     << "\tService Type:           "
+     << GetEnumAsStringServiceTypeRequested(m_ui8ServiceTypeRequested)
+     << "\tNumber Of Supply Types: " << (KUINT16)m_ui8NumSupplyTypes;
+
+  // Now add supplies
+  vector<Supplies>::const_iterator citr = m_vSupplies.begin();
+  vector<Supplies>::const_iterator citrEnd = m_vSupplies.end();
+
+  // Add supplies to the stream
+  for (; citr != citrEnd; ++citr) {
+    ss << IndentString(citr->GetAsString(), 1)
+       << "\tQuantity :	" << citr->GetQuantity();
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Service_Request_PDU::GetAsString() const
-{
-    KStringStream ss;
+void Service_Request_PDU::Decode(KDataStream& stream,
+                                 bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      SERVICE_REQUEST_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    ss << Header::GetAsString()
-       << "-Service Request-\n"
-       << IndentString( Logistics_Header::GetAsString(), 1 )
-       << "\tService Type:           " << GetEnumAsStringServiceTypeRequested( m_ui8ServiceTypeRequested )
-       << "\tNumber Of Supply Types: " << ( KUINT16 )m_ui8NumSupplyTypes;
+  Logistics_Header::Decode(stream, ignoreHeader);
 
-    // Now add supplies
-    vector<Supplies>::const_iterator citr = m_vSupplies.begin();
-    vector<Supplies>::const_iterator citrEnd = m_vSupplies.end();
+  stream >> m_ui8ServiceTypeRequested >> m_ui8NumSupplyTypes >> m_ui16Padding1;
 
-    // Add supplies to the stream
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << IndentString( citr->GetAsString(), 1 )
-           << "\tQuantity :	" << citr->GetQuantity();
-    }
+  // Now recheck the size of the packet as we now know the number of supply
+  // types.
+  if (stream.GetBufferSize() < m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE)
+    throw KException(__FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE);
 
-    return ss.str();
+  for (KUINT16 i = 0; i < m_ui8NumSupplyTypes; ++i) {
+    Supplies sup;
+    stream >> KDIS_STREAM sup;
+    m_vSupplies.push_back(sup);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Service_Request_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < SERVICE_REQUEST_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Service_Request_PDU::Encode() const {
+  KDataStream stream;
 
-    Logistics_Header::Decode( stream, ignoreHeader );
+  Service_Request_PDU::Encode(stream);
 
-    stream >> m_ui8ServiceTypeRequested
-           >> m_ui8NumSupplyTypes
-           >> m_ui16Padding1;
-
-    // Now recheck the size of the packet as we now know the number of supply types.
-    if( stream.GetBufferSize() < m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE )throw KException( __FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE );
-
-    for( KUINT16 i = 0; i < m_ui8NumSupplyTypes; ++i )
-    {
-        Supplies sup;
-        stream >> KDIS_STREAM sup;
-        m_vSupplies.push_back( sup );
-    }
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Service_Request_PDU::Encode() const
-{
-    KDataStream stream;
+void Service_Request_PDU::Encode(KDataStream& stream) const {
+  Logistics_Header::Encode(stream);
+  stream << m_ui8ServiceTypeRequested << m_ui8NumSupplyTypes << m_ui16Padding1;
 
-    Service_Request_PDU::Encode( stream );
+  vector<Supplies>::const_iterator citr = m_vSupplies.begin();
+  vector<Supplies>::const_iterator citrEnd = m_vSupplies.end();
 
-    return stream;
+  // Add supplies to the stream
+  for (; citr != citrEnd; ++citr) {
+    citr->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Service_Request_PDU::Encode( KDataStream & stream ) const
-{
-    Logistics_Header::Encode( stream );
-    stream << m_ui8ServiceTypeRequested
-           << m_ui8NumSupplyTypes
-           << m_ui16Padding1;
-
-    vector<Supplies>::const_iterator citr = m_vSupplies.begin();
-    vector<Supplies>::const_iterator citrEnd = m_vSupplies.end();
-
-    // Add supplies to the stream
-    for( ; citr != citrEnd; ++citr )
-    {
-        citr->Encode( stream );
-    }
+KBOOL Service_Request_PDU::operator==(const Service_Request_PDU& Value) const {
+  if (Logistics_Header::operator!=(Value)) return false;
+  if (m_ui8ServiceTypeRequested != Value.m_ui8ServiceTypeRequested)
+    return false;
+  if (m_ui8NumSupplyTypes != Value.m_ui8NumSupplyTypes) return false;
+  if (m_vSupplies != Value.m_vSupplies) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Service_Request_PDU::operator == ( const Service_Request_PDU & Value ) const
-{
-    if( Logistics_Header::operator  !=( Value ) )                        return false;
-    if( m_ui8ServiceTypeRequested   != Value.m_ui8ServiceTypeRequested ) return false;
-    if( m_ui8NumSupplyTypes         != Value.m_ui8NumSupplyTypes )       return false;
-    if( m_vSupplies                 != Value.m_vSupplies )               return false;
-    return true;
+KBOOL Service_Request_PDU::operator!=(const Service_Request_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Service_Request_PDU::operator != ( const Service_Request_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-

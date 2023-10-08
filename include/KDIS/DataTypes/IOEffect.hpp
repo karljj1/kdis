@@ -32,134 +32,133 @@ http://p.sf.net/kdis/UserGuide
     created:    05/12/2010
     author:     Karl Jones
 
-    purpose:    Identification of IO effects on an entity when calculated by an IO simulation.
-    size:       128 bits / 16 octets
+    purpose:    Identification of IO effects on an entity when calculated by an
+IO simulation. size:       128 bits / 16 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./StandardVariable.h"
+#include "KDIS/DataTypes/StandardVariable.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT IOEffect : public StandardVariable
-{
-protected:
+class KDIS_EXPORT IOEffect : public StandardVariable {
+ protected:
+  KUINT8 m_ui8Status;
 
-    KUINT8 m_ui8Status;
+  KUINT8 m_ui8LnkTyp;
 
-    KUINT8 m_ui8LnkTyp;
+  KUINT8 m_ui8Eff;
 
-    KUINT8 m_ui8Eff;
+  KUINT8 m_ui8EffDtyCyc;
 
-    KUINT8 m_ui8EffDtyCyc;
+  KUINT16 m_ui16EffDur;
 
-    KUINT16 m_ui16EffDur;
+  KUINT16 m_ui16Proc;
 
-    KUINT16 m_ui16Proc;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+ public:
+  static const KUINT16 IO_EFFECT_TYPE_SIZE = 16;
 
-public:
+  IOEffect(KDIS::DATA_TYPE::ENUMS::IOStatus S,
+           KDIS::DATA_TYPE::ENUMS::IOLinkType LT,
+           KDIS::DATA_TYPE::ENUMS::IOEffectType ET, KUINT8 DutyCycle,
+           KUINT16 Duration, KUINT16 Process);
 
-    static const KUINT16 IO_EFFECT_TYPE_SIZE = 16;
+  IOEffect();
 
-    IOEffect( KDIS::DATA_TYPE::ENUMS::IOStatus S, KDIS::DATA_TYPE::ENUMS::IOLinkType LT, KDIS::DATA_TYPE::ENUMS::IOEffectType ET, 
-		      KUINT8 DutyCycle, KUINT16 Duration, KUINT16 Process ) ;
+  IOEffect(KDataStream& stream);
 
-    IOEffect();
+  virtual ~IOEffect();
 
-    IOEffect( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::SetStatus
+  //              KDIS::DATA_TYPE::IOEffect::GetStatus
+  // Description: Indicates whether the IO effect has an effect on the sender,
+  //              receiver, message(s) or some combination of them.
+  // Parameter:   IOStatus S
+  //************************************
+  void SetStatus(KDIS::DATA_TYPE::ENUMS::IOStatus S);
+  KDIS::DATA_TYPE::ENUMS::IOStatus GetStatus() const;
 
-    virtual ~IOEffect();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::SetLinkType
+  //              KDIS::DATA_TYPE::IOEffect::GetLinkType
+  // Description: The IO link type as a logical or physical link or node.
+  // Parameter:   IOLinkType LT
+  //************************************
+  void SetLinkType(KDIS::DATA_TYPE::ENUMS::IOLinkType LT);
+  KDIS::DATA_TYPE::ENUMS::IOLinkType GetLinkType() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::SetStatus
-    //              KDIS::DATA_TYPE::IOEffect::GetStatus
-    // Description: Indicates whether the IO effect has an effect on the sender,
-    //              receiver, message(s) or some combination of them.
-    // Parameter:   IOStatus S
-    //************************************
-    void SetStatus( KDIS::DATA_TYPE::ENUMS::IOStatus S );
-    KDIS::DATA_TYPE::ENUMS::IOStatus GetStatus() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectType
+  //              KDIS::DATA_TYPE::IOEffect::GetEffectType
+  // Description: The IO effect associated with this IO attack.
+  // Parameter:   IOEffectType ET
+  //************************************
+  void SetEffectType(KDIS::DATA_TYPE::ENUMS::IOEffectType ET);
+  KDIS::DATA_TYPE::ENUMS::IOEffectType GetEffectType() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::SetLinkType
-    //              KDIS::DATA_TYPE::IOEffect::GetLinkType
-    // Description: The IO link type as a logical or physical link or node.
-    // Parameter:   IOLinkType LT
-    //************************************
-    void SetLinkType( KDIS::DATA_TYPE::ENUMS::IOLinkType LT );
-    KDIS::DATA_TYPE::ENUMS::IOLinkType GetLinkType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectDutyCycle
+  //              KDIS::DATA_TYPE::IOEffect::GetEffectDutyCycle
+  // Description: The IO effect duty cycle represented as a percentage in
+  //              the range of 0 - 100% in one-percent increments.
+  //              Throws OUT_OF_BOUNDS exception if value is > 100.
+  // Parameter:   KUINT8 EDC
+  //************************************
+  void SetEffectDutyCycle(KUINT8 EDC);
+  KUINT8 GetEffectDutyCycle() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectType
-    //              KDIS::DATA_TYPE::IOEffect::GetEffectType
-    // Description: The IO effect associated with this IO attack.
-    // Parameter:   IOEffectType ET
-    //************************************
-    void SetEffectType( KDIS::DATA_TYPE::ENUMS::IOEffectType ET );
-    KDIS::DATA_TYPE::ENUMS::IOEffectType GetEffectType() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectDuration
+  //              KDIS::DATA_TYPE::IOEffect::GetEffectDuration
+  // Description: Indicates the duration of the IO effect in seconds, from 1
+  //              to 65534 seconds.
+  //              It shall be set to indicate UNTIL_FURTHER_NOTICE (65535) if
+  //              the duration has no fixed amount of time.
+  //              It shall be set to zero only if the IO Effect field is set
+  //              to Terminate Effect(255).
+  // Parameter:   KUINT16 ED
+  //************************************
+  void SetEffectDuration(KUINT16 ED);
+  KUINT16 GetEffectDuration() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectDutyCycle
-    //              KDIS::DATA_TYPE::IOEffect::GetEffectDutyCycle
-    // Description: The IO effect duty cycle represented as a percentage in
-    //              the range of 0 - 100% in one-percent increments.
-    //              Throws OUT_OF_BOUNDS exception if value is > 100.
-    // Parameter:   KUINT8 EDC
-    //************************************
-    void SetEffectDutyCycle( KUINT8 EDC ) ;
-    KUINT8 GetEffectDutyCycle() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::SetProcess
+  //              KDIS::DATA_TYPE::IOEffect::GetProcess
+  // Description: The IO process being performed.
+  // Parameter:   KUINT16 P
+  //************************************
+  void SetProcess(KUINT16 P);
+  KUINT16 GetProcess() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::SetEffectDuration
-    //              KDIS::DATA_TYPE::IOEffect::GetEffectDuration
-    // Description: Indicates the duration of the IO effect in seconds, from 1
-    //              to 65534 seconds.
-    //              It shall be set to indicate UNTIL_FURTHER_NOTICE (65535) if
-    //              the duration has no fixed amount of time.
-    //              It shall be set to zero only if the IO Effect field is set
-    //              to Terminate Effect(255).
-    // Parameter:   KUINT16 ED
-    //************************************
-    void SetEffectDuration( KUINT16 ED );
-    KUINT16 GetEffectDuration() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::GetAsString
+  // Description: Returns a string representation.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::SetProcess
-    //              KDIS::DATA_TYPE::IOEffect::GetProcess
-    // Description: The IO process being performed.
-    // Parameter:   KUINT16 P
-    //************************************
-    void SetProcess( KUINT16 P );
-    KUINT16 GetProcess() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::GetAsString
-    // Description: Returns a string representation.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::IOEffect::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::IOEffect::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const IOEffect & Value ) const;
-    KBOOL operator != ( const IOEffect & Value ) const;
+  KBOOL operator==(const IOEffect& Value) const;
+  KBOOL operator!=(const IOEffect& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

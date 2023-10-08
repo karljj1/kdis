@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./IFF_Layer3Transponder.h"
+#include "KDIS/DataTypes/IFF_Layer3Transponder.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -40,153 +40,139 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder() 
-{
+IFF_Layer3Transponder::IFF_Layer3Transponder() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+IFF_Layer3Transponder::IFF_Layer3Transponder(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder( KDataStream & stream ) 
-{
-    Decode( stream, false );
+IFF_Layer3Transponder::IFF_Layer3Transponder(
+    const SimulationIdentifier& ReportingSimulation,
+    const Mode5TransponderBasicData& Data, std::vector<StdVarPtr>& Records) {
+  m_RptSim = ReportingSimulation;
+  m_BasicData = Data;
+  SetDataRecords(Records);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder( const SimulationIdentifier & ReportingSimulation, const Mode5TransponderBasicData & Data,
-                                              std::vector<StdVarPtr> & Records ) 
-{
-    m_RptSim = ReportingSimulation;
-    m_BasicData = Data;
-    SetDataRecords( Records );
+IFF_Layer3Transponder::IFF_Layer3Transponder(const LayerHeader& H,
+                                             KDataStream& stream)
+    : IFF_Layer3(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::IFF_Layer3Transponder( const LayerHeader & H, KDataStream & stream )  :
-    IFF_Layer3( H )
-{
-    Decode( stream, true );
+IFF_Layer3Transponder::~IFF_Layer3Transponder() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_Layer3Transponder::SetBasicData(const Mode5TransponderBasicData& BD) {
+  m_BasicData = BD;
+}
+
+//////////////////////////////////////////////////////////////////////////
+const Mode5TransponderBasicData& IFF_Layer3Transponder::GetBasicData() const {
+  return m_BasicData;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_Layer3Transponder::~IFF_Layer3Transponder()
-{
+Mode5TransponderBasicData& IFF_Layer3Transponder::GetBasicDatan() {
+  return m_BasicData;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Transponder::SetBasicData( const Mode5TransponderBasicData & BD )
-{
-    m_BasicData = BD;
-}
+KString IFF_Layer3Transponder::GetAsString() const {
+  KStringStream ss;
 
-//////////////////////////////////////////////////////////////////////////
-const Mode5TransponderBasicData & IFF_Layer3Transponder::GetBasicData() const
-{
-    return m_BasicData;
-}
+  ss << "IFF Layer 3 Transponder\n"
+     << LayerHeader::GetAsString()
+     << "Reporting Simulation: " << m_RptSim.GetAsString()
+     << "Basic Data: " << m_BasicData.GetAsString()
+     << "Num IFF Records: " << m_ui16NumIffRecs << "\nIFF Records:\n";
 
-//////////////////////////////////////////////////////////////////////////
+  vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citr =
+      m_vStdVarRecs.begin();
+  vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citrEnd =
+      m_vStdVarRecs.end();
+  for (; citr != citrEnd; ++citr) {
+    ss << (*citr)->GetAsString();
+  }
 
-Mode5TransponderBasicData & IFF_Layer3Transponder::GetBasicDatan()
-{
-    return m_BasicData;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString IFF_Layer3Transponder::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "IFF Layer 3 Transponder\n"
-        << LayerHeader::GetAsString()
-        << "Reporting Simulation: " << m_RptSim.GetAsString()
-        << "Basic Data: "           << m_BasicData.GetAsString() 
-        << "Num IFF Records: "      << m_ui16NumIffRecs 
-        << "\nIFF Records:\n";
-
-    vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citr = m_vStdVarRecs.begin();
-    vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citrEnd = m_vStdVarRecs.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << ( *citr )->GetAsString();
-    }	
-
-    return ss.str();
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Transponder::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( stream.GetBufferSize() < IFF_LAYER3_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void IFF_Layer3Transponder::Decode(KDataStream& stream,
+                                   bool ignoreHeader /*= true*/) {
+  if (stream.GetBufferSize() < IFF_LAYER3_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    m_vStdVarRecs.clear();
+  m_vStdVarRecs.clear();
 
-    if( !ignoreHeader )
-    {
-        LayerHeader::Decode( stream );
-    }
+  if (!ignoreHeader) {
+    LayerHeader::Decode(stream);
+  }
 
-    stream >> KDIS_STREAM m_RptSim
-           >> KDIS_STREAM m_BasicData
-           >> m_ui16Padding
-           >> m_ui16NumIffRecs;
+  stream >> KDIS_STREAM m_RptSim >> KDIS_STREAM m_BasicData >> m_ui16Padding >>
+      m_ui16NumIffRecs;
 
-    // Use the factory decode function for each standard variable
-    for( KUINT16 i = 0; i < m_ui16NumIffRecs; ++i )
-    {
-        m_vStdVarRecs.push_back( StandardVariable::FactoryDecodeStandardVariable( stream ) );
-    }
+  // Use the factory decode function for each standard variable
+  for (KUINT16 i = 0; i < m_ui16NumIffRecs; ++i) {
+    m_vStdVarRecs.push_back(
+        StandardVariable::FactoryDecodeStandardVariable(stream));
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream IFF_Layer3Transponder::Encode() const
-{
-    KDataStream stream;
+KDataStream IFF_Layer3Transponder::Encode() const {
+  KDataStream stream;
 
-    IFF_Layer3Transponder::Encode( stream );
+  IFF_Layer3Transponder::Encode(stream);
 
-    return stream;
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Transponder::Encode( KDataStream & stream ) const
-{
-    LayerHeader::Encode( stream );
+void IFF_Layer3Transponder::Encode(KDataStream& stream) const {
+  LayerHeader::Encode(stream);
 
-    stream << KDIS_STREAM m_RptSim
-           << KDIS_STREAM m_BasicData
-           << m_ui16Padding
-           << m_ui16NumIffRecs;
+  stream << KDIS_STREAM m_RptSim << KDIS_STREAM m_BasicData << m_ui16Padding
+         << m_ui16NumIffRecs;
 
-    vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citr = m_vStdVarRecs.begin();
-    vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citrEnd = m_vStdVarRecs.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        ( *citr )->Encode( stream );
-    }	
+  vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citr =
+      m_vStdVarRecs.begin();
+  vector<KDIS::DATA_TYPE::StdVarPtr>::const_iterator citrEnd =
+      m_vStdVarRecs.end();
+  for (; citr != citrEnd; ++citr) {
+    (*citr)->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_Layer3Transponder::operator == ( const IFF_Layer3Transponder & Value ) const
-{
-    if( IFF_Layer3::operator !=( Value ) )          return false;    
-    if( m_BasicData          != Value.m_BasicData ) return false; 
-    return true;
+KBOOL IFF_Layer3Transponder::operator==(
+    const IFF_Layer3Transponder& Value) const {
+  if (IFF_Layer3::operator!=(Value)) return false;
+  if (m_BasicData != Value.m_BasicData) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL IFF_Layer3Transponder::operator != ( const IFF_Layer3Transponder & Value ) const
-{
-    return !( *this == Value );
+KBOOL IFF_Layer3Transponder::operator!=(
+    const IFF_Layer3Transponder& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

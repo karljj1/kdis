@@ -39,81 +39,76 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
+#include "KDIS/DataTypes/DataTypeBase.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT MinePaintScheme : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT MinePaintScheme : public DataTypeBase {
+ protected:
+  union {
+    struct {
+      KUINT8 m_ui8Alg : 2;
+      KUINT8 m_ui8Scm : 6;
+    };
 
-    union
-    {
-        struct
-        {
-            KUINT8 m_ui8Alg : 2;
-            KUINT8 m_ui8Scm : 6;
-        };
+    KUINT8 m_ui8PntSchm;
+  } m_PntScmUnion;
 
-        KUINT8 m_ui8PntSchm;
-    } m_PntScmUnion;
+ public:
+  static const KUINT16 MINE_PAINT_SCHEME_SIZE = 1;
 
-public:
+  MinePaintScheme();
 
-    static const KUINT16 MINE_PAINT_SCHEME_SIZE = 1;
+  MinePaintScheme(KDIS::DATA_TYPE::ENUMS::MineAlgae A,
+                  KDIS::DATA_TYPE::ENUMS::PaintScheme PS);
 
-    MinePaintScheme();
+  MinePaintScheme(KDataStream& stream);
 
-    MinePaintScheme( KDIS::DATA_TYPE::ENUMS::MineAlgae A, KDIS::DATA_TYPE::ENUMS::PaintScheme PS );
+  virtual ~MinePaintScheme();
 
-    MinePaintScheme( KDataStream & stream ) ;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MinePaintScheme::SetAlgae
+  //              KDIS::DATA_TYPE::MinePaintScheme::GetAlgae
+  // Description: The algae build-up on the mine.
+  // Parameter:   MineAlgae A
+  //************************************
+  void SetAlgae(KDIS::DATA_TYPE::ENUMS::MineAlgae A);
+  KDIS::DATA_TYPE::ENUMS::MineAlgae GetAlgae() const;
 
-    virtual ~MinePaintScheme();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MinePaintScheme::SetPaintScheme
+  //              KDIS::DATA_TYPE::MinePaintScheme::GetPaintScheme
+  // Description: The paint scheme of the mine.
+  // Parameter:   PaintScheme PS
+  //************************************
+  void SetPaintScheme(KDIS::DATA_TYPE::ENUMS::PaintScheme PS);
+  KDIS::DATA_TYPE::ENUMS::PaintScheme GetPaintScheme() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MinePaintScheme::SetAlgae
-    //              KDIS::DATA_TYPE::MinePaintScheme::GetAlgae
-    // Description: The algae build-up on the mine.
-    // Parameter:   MineAlgae A
-    //************************************
-    void SetAlgae( KDIS::DATA_TYPE::ENUMS::MineAlgae A );
-    KDIS::DATA_TYPE::ENUMS::MineAlgae GetAlgae() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MinePaintScheme::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MinePaintScheme::SetPaintScheme
-    //              KDIS::DATA_TYPE::MinePaintScheme::GetPaintScheme
-    // Description: The paint scheme of the mine.
-    // Parameter:   PaintScheme PS
-    //************************************
-    void SetPaintScheme( KDIS::DATA_TYPE::ENUMS::PaintScheme PS );
-    KDIS::DATA_TYPE::ENUMS::PaintScheme GetPaintScheme() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MinePaintScheme::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MinePaintScheme::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::MinePaintScheme::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MinePaintScheme::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::MinePaintScheme::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const MinePaintScheme & Value ) const;
-    KBOOL operator != ( const MinePaintScheme & Value ) const;
+  KBOOL operator==(const MinePaintScheme& Value) const;
+  KBOOL operator!=(const MinePaintScheme& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

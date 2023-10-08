@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Bundle.h"
+#include "KDIS/PDU/Bundle.hpp"
 
 using namespace std;
 using namespace KDIS;
@@ -37,195 +37,168 @@ using namespace PDU;
 // Protected:
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::calculateLength()
-{
-    m_ui16Length = 0;
+void Bundle::calculateLength() {
+  m_ui16Length = 0;
 
-    vector<KDataStream>::const_iterator citrObj = m_vStreams.begin();
-    vector<KDataStream>::const_iterator citrObjEnd = m_vStreams.end();
-    for( ; citrObj != citrObjEnd; ++citrObj )
-    {
-        m_ui16Length += citrObj->GetBufferSize();
-    }
+  vector<KDataStream>::const_iterator citrObj = m_vStreams.begin();
+  vector<KDataStream>::const_iterator citrObjEnd = m_vStreams.end();
+  for (; citrObj != citrObjEnd; ++citrObj) {
+    m_ui16Length += citrObj->GetBufferSize();
+  }
 
-    vector<PduPtr>::const_iterator citrRef = m_vRefHeaders.begin();
-    vector<PduPtr>::const_iterator citrRefEnd = m_vRefHeaders.end();
-    for( ; citrRef != citrRefEnd; ++citrRef )
-    {
-        m_ui16Length += ( *citrRef )->GetPDULength();
-    }
+  vector<PduPtr>::const_iterator citrRef = m_vRefHeaders.begin();
+  vector<PduPtr>::const_iterator citrRefEnd = m_vRefHeaders.end();
+  for (; citrRef != citrRefEnd; ++citrRef) {
+    m_ui16Length += (*citrRef)->GetPDULength();
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Bundle::Bundle() :
-    m_ui16Length( 0 )
-{
+Bundle::Bundle() : m_ui16Length(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Bundle::~Bundle() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Bundle::AddPDU(const KDataStream& K) {
+  m_vStreams.push_back(K);
+  m_ui16Length += K.GetBufferSize();
+  if (m_ui16Length > MAX_PDU_SIZE)
+    throw KException(__FUNCTION__, PDU_TOO_LARGE);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Bundle::~Bundle()
-{
+void Bundle::AddPDU(PduPtr H) {
+  m_vRefHeaders.push_back(H);
+  m_ui16Length += H->GetPDULength();
+  if (m_ui16Length > MAX_PDU_SIZE)
+    throw KException(__FUNCTION__, PDU_TOO_LARGE);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::AddPDU( const KDataStream & K ) 
-{
-    m_vStreams.push_back( K );
-    m_ui16Length += K.GetBufferSize();
-    if( m_ui16Length > MAX_PDU_SIZE )throw KException( __FUNCTION__, PDU_TOO_LARGE );
+void Bundle::SetPDUs(const vector<KDataStream>& P) {
+  m_vStreams = P;
+  calculateLength();
+  if (m_ui16Length > MAX_PDU_SIZE)
+    throw KException(__FUNCTION__, PDU_TOO_LARGE);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::AddPDU( PduPtr H ) 
-{
-    m_vRefHeaders.push_back( H );
-    m_ui16Length += H->GetPDULength();
-    if( m_ui16Length > MAX_PDU_SIZE )throw KException( __FUNCTION__, PDU_TOO_LARGE );
+void Bundle::SetPDUs(const vector<PduPtr>& P) {
+  m_vRefHeaders = P;
+  calculateLength();
+  if (m_ui16Length > MAX_PDU_SIZE)
+    throw KException(__FUNCTION__, PDU_TOO_LARGE);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::SetPDUs( const vector<KDataStream> & P ) 
-{
-    m_vStreams = P;
-    calculateLength();
-    if( m_ui16Length > MAX_PDU_SIZE )throw KException( __FUNCTION__, PDU_TOO_LARGE );
+void Bundle::SetPDUs(const vector<KDataStream>& Streams,
+                     const vector<PduPtr>& References) {
+  m_vStreams = Streams;
+  m_vRefHeaders = References;
+  calculateLength();
+  if (m_ui16Length > MAX_PDU_SIZE)
+    throw KException(__FUNCTION__, PDU_TOO_LARGE);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::SetPDUs( const vector<PduPtr> & P ) 
-{
-    m_vRefHeaders = P;
-    calculateLength();
-    if( m_ui16Length > MAX_PDU_SIZE )throw KException( __FUNCTION__, PDU_TOO_LARGE );
+const vector<KDataStream>& Bundle::GetPDUStreams() const { return m_vStreams; }
+
+//////////////////////////////////////////////////////////////////////////
+
+const vector<PduPtr>& Bundle::GetRefPDUs() const { return m_vRefHeaders; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void Bundle::ClearPDUs() {
+  m_vStreams.clear();
+  m_vRefHeaders.clear();
+  m_ui16Length = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::SetPDUs( const vector<KDataStream> & Streams, const vector<PduPtr> & References ) 
-{
-    m_vStreams = Streams;
-    m_vRefHeaders = References;
-    calculateLength();
-    if( m_ui16Length > MAX_PDU_SIZE )throw KException( __FUNCTION__, PDU_TOO_LARGE );
+KUINT16 Bundle::GetLength() { return m_ui16Length; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Bundle::GetAsString() {
+  KStringStream ss;
+
+  ss << "***************************************************************";
+  ss << "PDU Bundle.\nTotal Length: " << m_ui16Length;
+  ss << "***************************************************************";
+
+  // We only print the PDU, no point in printing the streams.
+
+  // vector<KDataStream>::const_iterator citrObj = m_vStreams.begin();
+  // vector<KDataStream>::const_iterator citrObjEnd = m_vStreams.end();
+  // for( ; citrObj != citrObjEnd; ++citrObj )
+  //{
+  //	ss << citrObj->GetAsString();
+  // }
+
+  vector<PduPtr>::const_iterator citrRef = m_vRefHeaders.begin();
+  vector<PduPtr>::const_iterator citrRefEnd = m_vRefHeaders.end();
+  for (; citrRef != citrRefEnd; ++citrRef) {
+    ss << (*citrRef)->GetAsString();
+  }
+
+  ss << "***************************************************************";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<KDataStream> & Bundle::GetPDUStreams() const
-{
-    return m_vStreams;
+KDataStream Bundle::Encode() const {
+  KDataStream stream;
+
+  Bundle::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<PduPtr> & Bundle::GetRefPDUs() const
-{
-    return m_vRefHeaders;
+void Bundle::Encode(KDataStream& stream) const {
+  // TODO: Check for 64 bit alignment and pad
+
+  vector<KDataStream>::const_iterator citrObj = m_vStreams.begin();
+  vector<KDataStream>::const_iterator citrObjEnd = m_vStreams.end();
+  for (; citrObj != citrObjEnd; ++citrObj) {
+    stream.CopyFromBuffer(citrObj->GetBufferPtr(), citrObj->GetBufferSize());
+  }
+
+  vector<PduPtr>::const_iterator citrRef = m_vRefHeaders.begin();
+  vector<PduPtr>::const_iterator citrRefEnd = m_vRefHeaders.end();
+  for (; citrRef != citrRefEnd; ++citrRef) {
+    (*citrRef)->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Bundle::ClearPDUs()
-{
-    m_vStreams.clear();
-    m_vRefHeaders.clear();
-    m_ui16Length = 0;
+KBOOL Bundle::operator==(const Bundle& Value) const {
+  if (m_vStreams != Value.m_vStreams) return false;
+  if (m_vRefHeaders != Value.m_vRefHeaders) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 Bundle::GetLength()
-{
-    return m_ui16Length;
+KBOOL Bundle::operator!=(const Bundle& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KString Bundle::GetAsString()
-{
-    KStringStream ss;
-
-    ss << "***************************************************************";
-    ss << "PDU Bundle.\nTotal Length: " << m_ui16Length;
-    ss << "***************************************************************";
-
-    // We only print the PDU, no point in printing the streams.
-
-    //vector<KDataStream>::const_iterator citrObj = m_vStreams.begin();
-    //vector<KDataStream>::const_iterator citrObjEnd = m_vStreams.end();
-    //for( ; citrObj != citrObjEnd; ++citrObj )
-    //{
-    //	ss << citrObj->GetAsString();
-    //}
-
-    vector<PduPtr>::const_iterator citrRef = m_vRefHeaders.begin();
-    vector<PduPtr>::const_iterator citrRefEnd = m_vRefHeaders.end();
-    for( ; citrRef != citrRefEnd; ++citrRef )
-    {
-        ss << ( *citrRef )->GetAsString();
-    }
-
-    ss << "***************************************************************";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Bundle::Encode() const
-{
-    KDataStream stream;
-
-    Bundle::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Bundle::Encode( KDataStream & stream ) const
-{
-    // TODO: Check for 64 bit alignment and pad
-
-    vector<KDataStream>::const_iterator citrObj = m_vStreams.begin();
-    vector<KDataStream>::const_iterator citrObjEnd = m_vStreams.end();
-    for( ; citrObj != citrObjEnd; ++citrObj )
-    {
-        stream.CopyFromBuffer( citrObj->GetBufferPtr(), citrObj->GetBufferSize() );
-    }
-
-    vector<PduPtr>::const_iterator citrRef = m_vRefHeaders.begin();
-    vector<PduPtr>::const_iterator citrRefEnd = m_vRefHeaders.end();
-    for( ; citrRef != citrRefEnd; ++citrRef )
-    {
-        ( *citrRef )->Encode( stream );
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Bundle::operator == ( const Bundle & Value ) const
-{
-    if( m_vStreams    != Value.m_vStreams )    return false;
-    if( m_vRefHeaders != Value.m_vRefHeaders ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Bundle::operator != ( const Bundle & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

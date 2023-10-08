@@ -39,106 +39,105 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./DataTypeBase.h"
-#include "./EmitterSystem.h"
-#include "./Vector.h"
-#include "./EmitterBeam.h"
 #include <vector>
+
+#include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/DataTypes/EmitterBeam.hpp"
+#include "KDIS/DataTypes/EmitterSystem.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT EmissionSystem : public DataTypeBase
-{
-protected:
+class KDIS_EXPORT EmissionSystem : public DataTypeBase {
+ protected:
+  KUINT8 m_ui8SystemDataLength;
 
-    KUINT8 m_ui8SystemDataLength;
+  KUINT8 m_ui8NumberOfBeams;
 
-    KUINT8 m_ui8NumberOfBeams;
+  KUINT16 m_ui16Padding;
 
-    KUINT16 m_ui16Padding;
+  EmitterSystem m_EmitterSystemRecord;
 
-    EmitterSystem m_EmitterSystemRecord;
+  Vector m_Location;
 
-    Vector m_Location;
+  std::vector<EmitterBeam> m_vEmitterBeams;
 
-    std::vector<EmitterBeam> m_vEmitterBeams;
+ public:
+  static const KUINT16 EMISSION_SYSTEM_SIZE = 20;  // Min Size
 
-public:
+  EmissionSystem();
 
-    static const KUINT16 EMISSION_SYSTEM_SIZE = 20; // Min Size
+  EmissionSystem(KDataStream& stream);
 
-    EmissionSystem();
+  EmissionSystem(const EmitterSystem& ESR, const Vector& Location);
 
-    EmissionSystem( KDataStream & stream );
+  virtual ~EmissionSystem();
 
-    EmissionSystem( const EmitterSystem & ESR, const Vector & Location );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmissionSystem::GetSystemDataLength
+  // Description: Length of the emission system in 32 bit words.
+  //              E.G 1 = 32 bits / 4 octets. Calculated automatically.
+  //************************************
+  KUINT8 GetSystemDataLength() const;
 
-    virtual ~EmissionSystem();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmissionSystem::SetEmitterSystemRecord
+  //              KDIS::DATA_TYPE::EmissionSystem::GetEmitterSystemRecord
+  // Description: Contains information about a particular emitter system
+  // Parameter:   const EmitterSystem & ESR
+  //************************************
+  void SetEmitterSystemRecord(const EmitterSystem& ESR);
+  EmitterSystem GetEmitterSystemRecord() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmissionSystem::GetSystemDataLength
-    // Description: Length of the emission system in 32 bit words.
-    //              E.G 1 = 32 bits / 4 octets. Calculated automatically.
-    //************************************
-    KUINT8 GetSystemDataLength() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmissionSystem::SetLocation
+  //              KDIS::DATA_TYPE::EmissionSystem::GetLocation
+  // Description: Location of antenna beam source with respect to emitting
+  //              entity coordinate system. Represented as Entity Coordinate
+  //              Vector.
+  // Parameter:   const Vector & L
+  //************************************
+  void SetLocation(const Vector& L);
+  const Vector& GetLocation() const;
+  Vector& GetLocation();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmissionSystem::SetEmitterSystemRecord
-    //              KDIS::DATA_TYPE::EmissionSystem::GetEmitterSystemRecord
-    // Description: Contains information about a particular emitter system
-    // Parameter:   const EmitterSystem & ESR
-    //************************************
-    void SetEmitterSystemRecord( const EmitterSystem & ESR );
-    EmitterSystem GetEmitterSystemRecord() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmissionSystem::AddEmitterBeam
+  //              KDIS::DATA_TYPE::EmissionSystem::SetEmitterBeams
+  //              KDIS::DATA_TYPE::EmissionSystem::GetEmitterBeams
+  // Description: The emitter beans attached to this system.
+  // Parameter:   const EmitterBeam & EB, const vector<EmitterBeam> & Beams
+  //************************************
+  void AddEmitterBeam(const EmitterBeam& EB);
+  void SetEmitterBeams(const std::vector<EmitterBeam>& Beams);
+  const std::vector<EmitterBeam>& GetEmitterBeams() const;
+  void ClearEmitterBeams();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmissionSystem::SetLocation
-    //              KDIS::DATA_TYPE::EmissionSystem::GetLocation
-    // Description: Location of antenna beam source with respect to emitting
-    //              entity coordinate system. Represented as Entity Coordinate Vector.
-    // Parameter:   const Vector & L
-    //************************************
-    void SetLocation( const Vector & L );
-    const Vector & GetLocation() const;
-    Vector & GetLocation();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmissionSystem::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmissionSystem::AddEmitterBeam
-    //              KDIS::DATA_TYPE::EmissionSystem::SetEmitterBeams
-    //              KDIS::DATA_TYPE::EmissionSystem::GetEmitterBeams
-    // Description: The emitter beans attached to this system.
-    // Parameter:   const EmitterBeam & EB, const vector<EmitterBeam> & Beams
-    //************************************
-    void AddEmitterBeam( const EmitterBeam & EB );
-    void SetEmitterBeams( const std::vector<EmitterBeam> & Beams );
-    const std::vector<EmitterBeam> & GetEmitterBeams() const;
-    void ClearEmitterBeams();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmissionSystem::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmissionSystem::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EmissionSystem::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmissionSystem::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EmissionSystem::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const EmissionSystem & Value ) const;
-    KBOOL operator != ( const EmissionSystem & Value ) const;
+  KBOOL operator==(const EmissionSystem& Value) const;
+  KBOOL operator!=(const EmissionSystem& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

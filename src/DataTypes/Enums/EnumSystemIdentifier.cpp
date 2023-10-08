@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./EnumSystemIdentifier.h"
+#include "KDIS/DataTypes/Enums/EnumSystemIdentifier.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -37,69 +37,66 @@ using namespace ENUMS;
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor SystemTypeDescriptor[] =
-{
-    { 0 , "OtherSystemType" },
-    { 1 , "Mark_X_XII_ATCRBS_ModeS_Transponder" },
-    { 2 , "Mark_X_XII_ATCRBS_ModeS_Interrogator" },
-    { 3 , "Soviet_Transponder" },
-    { 4 , "Soviet_Interrogator" },
-    { 5 , "RRB_Transponder" },
-    #if DIS_VERSION > 6
-    { 6 , "Mark_XIIA_Interrogator" },
-    { 7 , "Mode_5_Interrogator" },
-    { 8 , "Mode_S_Interrogator" },
-    { 9 , "Mark_XIIA_Transponder" },
-    { 10 , "Mode_5_Transponder" },
-    { 11 , "Mode_S_Transponder" },
-    { 12 , "Mark_XIIA_Combined_Interrogator_Transponder_CIT" },
-    { 13 , "Mark_XII_Combined_Interrogator_Transponder_CIT" },
-    { 14 , "TCAS_ACAS_Transceiver" },
-    #endif
+const EnumDescriptor SystemTypeDescriptor[] = {
+    {0, "OtherSystemType"},
+    {1, "Mark_X_XII_ATCRBS_ModeS_Transponder"},
+    {2, "Mark_X_XII_ATCRBS_ModeS_Interrogator"},
+    {3, "Soviet_Transponder"},
+    {4, "Soviet_Interrogator"},
+    {5, "RRB_Transponder"},
+#if DIS_VERSION > 6
+    {6, "Mark_XIIA_Interrogator"},
+    {7, "Mode_5_Interrogator"},
+    {8, "Mode_S_Interrogator"},
+    {9, "Mark_XIIA_Transponder"},
+    {10, "Mode_5_Transponder"},
+    {11, "Mode_S_Transponder"},
+    {12, "Mark_XIIA_Combined_Interrogator_Transponder_CIT"},
+    {13, "Mark_XII_Combined_Interrogator_Transponder_CIT"},
+    {14, "TCAS_ACAS_Transceiver"},
+#endif
 };
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemType()
-{
-    return sizeof( SystemTypeDescriptor ) / sizeof( EnumDescriptor );
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemType() {
+  return sizeof(SystemTypeDescriptor) / sizeof(EnumDescriptor);
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemType( KUINT32 Index )
-{
-    return &SystemTypeDescriptor[Index];
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemType(
+    KUINT32 Index) {
+  return &SystemTypeDescriptor[Index];
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemType( KINT32 Value )
-{
-    return GetEnumAsString( SystemTypeDescriptor, sizeof( SystemTypeDescriptor ) / sizeof( EnumDescriptor ), Value );
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemType(KINT32 Value) {
+  return GetEnumAsString(SystemTypeDescriptor,
+                         sizeof(SystemTypeDescriptor) / sizeof(EnumDescriptor),
+                         Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemType( const KString & Value, KINT32 & ValueOut )
-{
-    return GetEnumFromString( SystemTypeDescriptor, sizeof( SystemTypeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemType(const KString& Value,
+                                                          KINT32& ValueOut) {
+  return GetEnumFromString(
+      SystemTypeDescriptor,
+      sizeof(SystemTypeDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
 #else
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemType()
-{
-    return 0;
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemType() { return 0; }
+
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemType(
+    KUINT32 Index) {
+  return NULL;
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemType( KUINT32 Index )
-{
-    return NULL;
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemType(KINT32 Value) {
+  KStringStream ss;
+  ss << Value;
+  return ss.str().c_str();
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemType( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
-}
-
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemType( const KString & Value, KINT32 & ValueOut )
-{
-    return false; // Maybe throw an exception?
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemType(const KString& Value,
+                                                          KINT32& ValueOut) {
+  return false;  // Maybe throw an exception?
 }
 
 #endif
@@ -110,67 +107,64 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemType( const KString & Value
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor SystemNameDescriptor[] =
-{
-    { 0 , "OtherSystemName" },
-    { 1 , "Mark_X" },
-    { 2 , "Mark_XII" },
-    { 3 , "ATCRBS" },
-    { 4 , "Soviet" },
-    { 5 , "Mode_S" },
-    { 6 , "Mark_X_XII_ATCRBS" },
-    { 7 , "Mark_X_XII_ATCRBS_Mode_S" },
-    { 8 , "ARI_5954" },
-    { 9 , "ARI_5983" },
-    #if DIS_VERSION > 6
-    { 10, "Generic_RRB" },
-    { 11, "Generic_Mark_XIIA" },
-    { 12, "Generic_Mode_5" },
-    #endif
+const EnumDescriptor SystemNameDescriptor[] = {
+    {0, "OtherSystemName"},
+    {1, "Mark_X"},
+    {2, "Mark_XII"},
+    {3, "ATCRBS"},
+    {4, "Soviet"},
+    {5, "Mode_S"},
+    {6, "Mark_X_XII_ATCRBS"},
+    {7, "Mark_X_XII_ATCRBS_Mode_S"},
+    {8, "ARI_5954"},
+    {9, "ARI_5983"},
+#if DIS_VERSION > 6
+    {10, "Generic_RRB"},
+    {11, "Generic_Mark_XIIA"},
+    {12, "Generic_Mode_5"},
+#endif
 };
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemName()
-{
-    return sizeof( SystemNameDescriptor ) / sizeof( EnumDescriptor );
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemName() {
+  return sizeof(SystemNameDescriptor) / sizeof(EnumDescriptor);
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemName( KUINT32 Index )
-{
-    return &SystemNameDescriptor[Index];
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemName(
+    KUINT32 Index) {
+  return &SystemNameDescriptor[Index];
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemName( KINT32 Value )
-{
-    return GetEnumAsString( SystemNameDescriptor, sizeof( SystemNameDescriptor ) / sizeof( EnumDescriptor ), Value );
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemName(KINT32 Value) {
+  return GetEnumAsString(SystemNameDescriptor,
+                         sizeof(SystemNameDescriptor) / sizeof(EnumDescriptor),
+                         Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemName( const KString & Value, KINT32 & ValueOut )
-{
-    return GetEnumFromString( SystemNameDescriptor, sizeof( SystemNameDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemName(const KString& Value,
+                                                          KINT32& ValueOut) {
+  return GetEnumFromString(
+      SystemNameDescriptor,
+      sizeof(SystemNameDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
 #else
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemName()
-{
-    return 0;
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemName() { return 0; }
+
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemName(
+    KUINT32 Index) {
+  return NULL;
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemName( KUINT32 Index )
-{
-    return NULL;
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemName(KINT32 Value) {
+  KStringStream ss;
+  ss << Value;
+  return ss.str().c_str();
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemName( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
-}
-
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemName( const KString & Value, KINT32 & ValueOut )
-{
-    return false; // Maybe throw an exception?
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemName(const KString& Value,
+                                                          KINT32& ValueOut) {
+  return false;  // Maybe throw an exception?
 }
 
 #endif
@@ -181,62 +175,55 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemName( const KString & Value
 
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
-const EnumDescriptor SystemModeDescriptor[] =
-{
-    #if DIS_VERSION < 7
-    { 0 , "OtherSystemMode" }
-    #elif DIS_VERSION > 6
-    { 0 , "No_Statement" },
-    { 1 , "Off" },
-    { 2 , "Standby" },
-    { 3 , "Normal" },
-    { 4 , "Emergency" },
-    { 5 , "Low_or_Low_Sensitivity" },
+const EnumDescriptor SystemModeDescriptor[] = {
+#if DIS_VERSION < 7
+    {0, "OtherSystemMode"}
+#elif DIS_VERSION > 6
+    {0, "No_Statement"}, {1, "Off"},       {2, "Standby"},
+    {3, "Normal"},       {4, "Emergency"}, {5, "Low_or_Low_Sensitivity"},
 #endif
 };
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemMode()
-{
-    return sizeof( SystemModeDescriptor ) / sizeof( EnumDescriptor );
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemMode() {
+  return sizeof(SystemModeDescriptor) / sizeof(EnumDescriptor);
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemMode( KUINT32 Index )
-{
-    return &SystemModeDescriptor[Index];
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemMode(
+    KUINT32 Index) {
+  return &SystemModeDescriptor[Index];
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemMode( KINT32 Value )
-{
-    return GetEnumAsString( SystemModeDescriptor, sizeof( SystemModeDescriptor ) / sizeof( EnumDescriptor ), Value );
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemMode(KINT32 Value) {
+  return GetEnumAsString(SystemModeDescriptor,
+                         sizeof(SystemModeDescriptor) / sizeof(EnumDescriptor),
+                         Value);
 }
 
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemMode( const KString & Value, KINT32 & ValueOut )
-{
-    return GetEnumFromString( SystemModeDescriptor, sizeof( SystemModeDescriptor ) / sizeof( EnumDescriptor ), Value, ValueOut );
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemMode(const KString& Value,
+                                                          KINT32& ValueOut) {
+  return GetEnumFromString(
+      SystemModeDescriptor,
+      sizeof(SystemModeDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
 #else
 
-KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemMode()
-{
-    return 0;
+KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemMode() { return 0; }
+
+const EnumDescriptor* KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemMode(
+    KUINT32 Index) {
+  return NULL;
 }
 
-const EnumDescriptor * KDIS::DATA_TYPE::ENUMS::GetEnumDescriptorSystemMode( KUINT32 Index )
-{
-    return NULL;
+KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemMode(KINT32 Value) {
+  KStringStream ss;
+  ss << Value;
+  return ss.str().c_str();
 }
 
-KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringSystemMode( KINT32 Value )
-{
-    KStringStream ss;
-    ss << Value;
-    return ss.str().c_str();
-}
-
-KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemMode( const KString & Value, KINT32 & ValueOut )
-{
-    return false; // Maybe throw an exception?
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemMode(const KString& Value,
+                                                          KINT32& ValueOut) {
+  return false;  // Maybe throw an exception?
 }
 
 #endif

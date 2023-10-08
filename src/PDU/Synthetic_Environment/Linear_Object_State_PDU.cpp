@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Linear_Object_State_PDU.h"
+#include "KDIS/PDU/Synthetic_Environment/Linear_Object_State_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,255 +42,236 @@ using namespace ENUMS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU() :
-    m_ui8NumSegment( 0 )
-{
-    m_ui8PDUType = LinearObjectState_PDU_Type;
-    m_ui16PDULength = LINEAR_OBJECT_STATE_PDU_SIZE;
+Linear_Object_State_PDU::Linear_Object_State_PDU() : m_ui8NumSegment(0) {
+  m_ui8PDUType = LinearObjectState_PDU_Type;
+  m_ui16PDULength = LINEAR_OBJECT_STATE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Linear_Object_State_PDU::Linear_Object_State_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU( const Header & H, KDataStream & stream )  :
-    Object_State_Header( H )
-{
-    Decode( stream, true );
+Linear_Object_State_PDU::Linear_Object_State_PDU(const Header& H,
+                                                 KDataStream& stream)
+    : Object_State_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID , KUINT16 UpdateNum,
-        ForceID FI, const SimulationIdentifier & ReqID, const SimulationIdentifier & RecvID,
-        const ObjectType & O ) :
-    Object_State_Header( ObjID, RefObjID, UpdateNum, FI ),
-    m_ReqID( ReqID ),
-    m_RecvID( RecvID ),
-    m_ObjTyp( O ),
-    m_ui8NumSegment( 0 )
-{
-    m_ui8PDUType = LinearObjectState_PDU_Type;
-    m_ui16PDULength = LINEAR_OBJECT_STATE_PDU_SIZE;
+Linear_Object_State_PDU::Linear_Object_State_PDU(
+    const EntityIdentifier& ObjID, const EntityIdentifier& RefObjID,
+    KUINT16 UpdateNum, ForceID FI, const SimulationIdentifier& ReqID,
+    const SimulationIdentifier& RecvID, const ObjectType& O)
+    : Object_State_Header(ObjID, RefObjID, UpdateNum, FI),
+      m_ReqID(ReqID),
+      m_RecvID(RecvID),
+      m_ObjTyp(O),
+      m_ui8NumSegment(0) {
+  m_ui8PDUType = LinearObjectState_PDU_Type;
+  m_ui16PDULength = LINEAR_OBJECT_STATE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::Linear_Object_State_PDU( const EntityIdentifier & ObjID, const EntityIdentifier & RefObjID , KUINT16 UpdateNum,
-        ForceID FI, const SimulationIdentifier & ReqID, const SimulationIdentifier & RecvID,
-        const ObjectType & O, std::vector<LinearSegmentParameter> & Segments ) :
-    Object_State_Header( ObjID, RefObjID, UpdateNum, FI ),
-    m_ReqID( ReqID ),
-    m_RecvID( RecvID ),
-    m_ObjTyp( O ),
-    m_ui8NumSegment( 0 )
-{
-    m_ui8PDUType = LinearObjectState_PDU_Type;
-    m_ui16PDULength = LINEAR_OBJECT_STATE_PDU_SIZE;
-    SetLinearSegmentParameters( Segments );
+Linear_Object_State_PDU::Linear_Object_State_PDU(
+    const EntityIdentifier& ObjID, const EntityIdentifier& RefObjID,
+    KUINT16 UpdateNum, ForceID FI, const SimulationIdentifier& ReqID,
+    const SimulationIdentifier& RecvID, const ObjectType& O,
+    std::vector<LinearSegmentParameter>& Segments)
+    : Object_State_Header(ObjID, RefObjID, UpdateNum, FI),
+      m_ReqID(ReqID),
+      m_RecvID(RecvID),
+      m_ObjTyp(O),
+      m_ui8NumSegment(0) {
+  m_ui8PDUType = LinearObjectState_PDU_Type;
+  m_ui16PDULength = LINEAR_OBJECT_STATE_PDU_SIZE;
+  SetLinearSegmentParameters(Segments);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Linear_Object_State_PDU::~Linear_Object_State_PDU()
-{
+Linear_Object_State_PDU::~Linear_Object_State_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT8 Linear_Object_State_PDU::GetNumberOfSegments() const {
+  return m_ui8NumSegment;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT8 Linear_Object_State_PDU::GetNumberOfSegments() const
-{
-    return m_ui8NumSegment;
+void Linear_Object_State_PDU::SetRequestorSimulationID(
+    const SimulationIdentifier& ID) {
+  m_ReqID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::SetRequestorSimulationID( const SimulationIdentifier & ID )
-{
-    m_ReqID = ID;
+const SimulationIdentifier& Linear_Object_State_PDU::GetRequestorSimulationID()
+    const {
+  return m_ReqID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const SimulationIdentifier & Linear_Object_State_PDU::GetRequestorSimulationID() const
-{
-    return m_ReqID;
+SimulationIdentifier& Linear_Object_State_PDU::GetRequestorSimulationID() {
+  return m_ReqID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier & Linear_Object_State_PDU::GetRequestorSimulationID()
-{
-    return m_ReqID;
+void Linear_Object_State_PDU::SetReceivingSimulationID(
+    const SimulationIdentifier& ID) {
+  m_RecvID = ID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::SetReceivingSimulationID( const SimulationIdentifier & ID )
-{
-    m_RecvID = ID;
+const SimulationIdentifier& Linear_Object_State_PDU::GetReceivingSimulationID()
+    const {
+  return m_RecvID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const SimulationIdentifier & Linear_Object_State_PDU::GetReceivingSimulationID() const
-{
-    return m_RecvID;
+SimulationIdentifier& Linear_Object_State_PDU::GetReceivingSimulationID() {
+  return m_RecvID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SimulationIdentifier & Linear_Object_State_PDU::GetReceivingSimulationID()
-{
-    return m_RecvID;
+void Linear_Object_State_PDU::SetObjectType(const ObjectType& O) {
+  m_ObjTyp = O;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::SetObjectType( const ObjectType & O )
-{
-    m_ObjTyp = O;
+const ObjectType& Linear_Object_State_PDU::GetObjectType() const {
+  return m_ObjTyp;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const ObjectType & Linear_Object_State_PDU::GetObjectType() const
-{
-    return m_ObjTyp;
+ObjectType& Linear_Object_State_PDU::GetObjectType() { return m_ObjTyp; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void Linear_Object_State_PDU::AddLinearSegmentParameter(
+    const LinearSegmentParameter& L) {
+  m_ui16PDULength += LinearSegmentParameter::LINEAR_SEGMENT_PARAMETER_SIZE;
+  m_vSegments.push_back(L);
+  ++m_ui8NumSegment;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ObjectType & Linear_Object_State_PDU::GetObjectType()
-{
-    return m_ObjTyp;
+void Linear_Object_State_PDU::SetLinearSegmentParameters(
+    const vector<LinearSegmentParameter>& L) {
+  m_ui8NumSegment = L.size();
+  m_ui16PDULength =
+      LINEAR_OBJECT_STATE_PDU_SIZE +
+      (LinearSegmentParameter::LINEAR_SEGMENT_PARAMETER_SIZE * m_ui8NumSegment);
+  m_vSegments = L;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::AddLinearSegmentParameter( const LinearSegmentParameter & L )
-{
-    m_ui16PDULength += LinearSegmentParameter::LINEAR_SEGMENT_PARAMETER_SIZE;
-    m_vSegments.push_back( L );
-    ++m_ui8NumSegment;
+const vector<LinearSegmentParameter>&
+Linear_Object_State_PDU::GetLinearSegmentParameters() const {
+  return m_vSegments;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::SetLinearSegmentParameters( const vector<LinearSegmentParameter> & L )
-{
-    m_ui8NumSegment = L.size();
-    m_ui16PDULength = LINEAR_OBJECT_STATE_PDU_SIZE + ( LinearSegmentParameter::LINEAR_SEGMENT_PARAMETER_SIZE * m_ui8NumSegment );
-    m_vSegments = L;
+KString Linear_Object_State_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Linear Object State PDU-\n"
+     << Object_State_Header::GetAsString()
+     << "Number Of Segments: " << (KUINT16)m_ui8NumSegment << "Requestor ID:\n"
+     << IndentString(m_ReqID.GetAsString(), 1) << "Receiving ID:\n"
+     << IndentString(m_RecvID.GetAsString(), 1)
+     << "Object Type:  " << m_ObjTyp.GetAsString();
+
+  vector<LinearSegmentParameter>::const_iterator citr = m_vSegments.begin();
+  std::vector<LinearSegmentParameter>::const_iterator citrEnd =
+      m_vSegments.end();
+  for (; citr != citrEnd; ++citr) {
+    ss << citr->GetAsString();
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const vector<LinearSegmentParameter> & Linear_Object_State_PDU::GetLinearSegmentParameters() const
-{
-    return m_vSegments;
+void Linear_Object_State_PDU::Decode(KDataStream& stream,
+                                     bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      LINEAR_OBJECT_STATE_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  m_vSegments.clear();
+
+  Object_State_Header::Decode(stream, ignoreHeader);
+
+  stream >> m_ui8NumSegment >> KDIS_STREAM m_ReqID >> KDIS_STREAM m_RecvID >>
+      KDIS_STREAM m_ObjTyp;
+
+  for (KUINT8 i = 0; i < m_ui8NumSegment; ++i) {
+    m_vSegments.push_back(LinearSegmentParameter(stream));
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Linear_Object_State_PDU::GetAsString() const
-{
-    KStringStream ss;
+KDataStream Linear_Object_State_PDU::Encode() const {
+  KDataStream stream;
 
-    ss << Header::GetAsString()
-       << "-Linear Object State PDU-\n"
-       << Object_State_Header::GetAsString()
-       << "Number Of Segments: " << ( KUINT16 )m_ui8NumSegment
-       << "Requestor ID:\n"  << IndentString( m_ReqID.GetAsString(), 1 )
-       << "Receiving ID:\n"  << IndentString( m_RecvID.GetAsString(), 1 )
-       << "Object Type:  "   << m_ObjTyp.GetAsString();
+  Linear_Object_State_PDU::Encode(stream);
 
-    vector<LinearSegmentParameter>::const_iterator citr = m_vSegments.begin();
-    std::vector<LinearSegmentParameter>::const_iterator citrEnd = m_vSegments.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        ss << citr->GetAsString();
-    }
-
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < LINEAR_OBJECT_STATE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+void Linear_Object_State_PDU::Encode(KDataStream& stream) const {
+  Object_State_Header::Encode(stream);
 
-    m_vSegments.clear();
+  stream << m_ui8NumSegment << KDIS_STREAM m_ReqID << KDIS_STREAM m_RecvID
+         << KDIS_STREAM m_ObjTyp;
 
-    Object_State_Header::Decode( stream, ignoreHeader );
-
-    stream >> m_ui8NumSegment
-           >> KDIS_STREAM m_ReqID
-           >> KDIS_STREAM m_RecvID
-           >> KDIS_STREAM m_ObjTyp;
-
-    for( KUINT8 i = 0; i < m_ui8NumSegment; ++i )
-    {
-        m_vSegments.push_back( LinearSegmentParameter( stream ) );
-    }
+  vector<LinearSegmentParameter>::const_iterator citr = m_vSegments.begin();
+  std::vector<LinearSegmentParameter>::const_iterator citrEnd =
+      m_vSegments.end();
+  for (; citr != citrEnd; ++citr) {
+    citr->Encode(stream);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Linear_Object_State_PDU::Encode() const
-{
-    KDataStream stream;
-
-    Linear_Object_State_PDU::Encode( stream );
-
-    return stream;
+KBOOL Linear_Object_State_PDU::operator==(
+    const Linear_Object_State_PDU& Value) const {
+  if (Object_State_Header::operator!=(Value)) return false;
+  if (m_ui8NumSegment != Value.m_ui8NumSegment) return false;
+  if (m_ReqID != Value.m_ReqID) return false;
+  if (m_RecvID != Value.m_RecvID) return false;
+  if (m_ObjTyp != Value.m_ObjTyp) return false;
+  if (m_vSegments != Value.m_vSegments) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Linear_Object_State_PDU::Encode( KDataStream & stream ) const
-{
-    Object_State_Header::Encode( stream );
-
-    stream << m_ui8NumSegment
-           << KDIS_STREAM m_ReqID
-           << KDIS_STREAM m_RecvID
-           << KDIS_STREAM m_ObjTyp;
-
-    vector<LinearSegmentParameter>::const_iterator citr = m_vSegments.begin();
-    std::vector<LinearSegmentParameter>::const_iterator citrEnd = m_vSegments.end();
-    for( ; citr != citrEnd; ++citr )
-    {
-        citr->Encode( stream );
-    }
+KBOOL Linear_Object_State_PDU::operator!=(
+    const Linear_Object_State_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-KBOOL Linear_Object_State_PDU::operator == ( const Linear_Object_State_PDU & Value ) const
-{
-    if( Object_State_Header::operator  != ( Value ) )             return false;
-    if( m_ui8NumSegment                != Value.m_ui8NumSegment ) return false;
-    if( m_ReqID                        != Value.m_ReqID )         return false;
-    if( m_RecvID                       != Value.m_RecvID )        return false;
-    if( m_ObjTyp                       != Value.m_ObjTyp )        return false;
-    if( m_vSegments                    != Value.m_vSegments )     return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Linear_Object_State_PDU::operator != ( const Linear_Object_State_PDU & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-

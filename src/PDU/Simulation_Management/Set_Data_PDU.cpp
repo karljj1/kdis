@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Set_Data_PDU.h"
+#include "KDIS/PDU/Simulation_Management/Set_Data_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,89 +42,74 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::Set_Data_PDU()
-{
-    m_ui8PDUType = Set_Data_PDU_Type;
-    m_ui16PDULength = SET_DATA_PDU_SIZE;
+Set_Data_PDU::Set_Data_PDU() {
+  m_ui8PDUType = Set_Data_PDU_Type;
+  m_ui16PDULength = SET_DATA_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::Set_Data_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Set_Data_PDU::Set_Data_PDU(KDataStream& stream) { Decode(stream, false); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Set_Data_PDU::Set_Data_PDU(const Header& H, KDataStream& stream) : Data_PDU(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::Set_Data_PDU( const Header & H, KDataStream & stream )  :
-    Data_PDU( H )
-{
-    Decode( stream, true );
+Set_Data_PDU::Set_Data_PDU(const EntityIdentifier& OriginatingEntityID,
+                           const EntityIdentifier& ReceivingEntityID,
+                           KUINT32 RequestID)
+    : Data_PDU(OriginatingEntityID, ReceivingEntityID, RequestID) {
+  m_ui8PDUType = Set_Data_PDU_Type;
+  m_ui16PDULength = SET_DATA_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::Set_Data_PDU( const EntityIdentifier & OriginatingEntityID, const EntityIdentifier & ReceivingEntityID,
-                            KUINT32 RequestID ) :
-    Data_PDU( OriginatingEntityID, ReceivingEntityID, RequestID )
-{
-    m_ui8PDUType = Set_Data_PDU_Type;
-    m_ui16PDULength = SET_DATA_PDU_SIZE;
+Set_Data_PDU::~Set_Data_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Set_Data_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Set Data PDU-\n"
+     << Simulation_Management_Header::GetAsString()
+     << "Request ID:                 " << m_ui32RequestID
+     << "\nNumber Fixed Datum:         " << m_ui32NumFixedDatum
+     << "\nNumber Variable Datum:      " << m_ui32NumVariableDatum << "\n";
+
+  ss << "Fixed Datum\n";
+  vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
+  vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
+  for (; citrFixed != citrFixedEnd; ++citrFixed) {
+    ss << IndentString((*citrFixed)->GetAsString());
+  }
+
+  ss << "Variable Datum\n";
+  vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
+  vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
+  for (; citrVar != citrVarEnd; ++citrVar) {
+    ss << IndentString((*citrVar)->GetAsString());
+  }
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Set_Data_PDU::~Set_Data_PDU()
-{
+KBOOL Set_Data_PDU::operator==(const Set_Data_PDU& Value) const {
+  if (Data_PDU::operator!=(Value)) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Set_Data_PDU::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << Header::GetAsString()
-       << "-Set Data PDU-\n"
-       << Simulation_Management_Header::GetAsString()
-       << "Request ID:                 "   << m_ui32RequestID
-       << "\nNumber Fixed Datum:         " << m_ui32NumFixedDatum
-       << "\nNumber Variable Datum:      " << m_ui32NumVariableDatum
-       << "\n";
-
-    ss << "Fixed Datum\n";
-    vector<FixDtmPtr>::const_iterator citrFixed = m_vFixedDatum.begin();
-    vector<FixDtmPtr>::const_iterator citrFixedEnd = m_vFixedDatum.end();
-    for( ; citrFixed != citrFixedEnd; ++citrFixed )
-    {
-        ss << IndentString( ( *citrFixed )->GetAsString() );
-    }
-
-    ss << "Variable Datum\n";
-    vector<VarDtmPtr>::const_iterator citrVar = m_vVariableDatum.begin();
-    vector<VarDtmPtr>::const_iterator citrVarEnd = m_vVariableDatum.end();
-    for( ; citrVar != citrVarEnd; ++citrVar )
-    {
-        ss << IndentString( ( *citrVar )->GetAsString() );
-    }
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Set_Data_PDU::operator == ( const Set_Data_PDU & Value ) const
-{
-    if( Data_PDU::operator !=( Value ) ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Set_Data_PDU::operator != ( const Set_Data_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL Set_Data_PDU::operator!=(const Set_Data_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

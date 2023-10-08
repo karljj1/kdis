@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./AggregateIdentifier.h"
+#include "KDIS/DataTypes/AggregateIdentifier.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,126 +36,110 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::AggregateIdentifier() :
-    m_ui16AggregateID( 0 )
-{
+AggregateIdentifier::AggregateIdentifier() : m_ui16AggregateID(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+AggregateIdentifier::AggregateIdentifier(KUINT16 SiteID, KUINT16 ApplicatonID,
+                                         KUINT16 AggregateID)
+    : SimulationIdentifier(SiteID, ApplicatonID),
+      m_ui16AggregateID(AggregateID) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+AggregateIdentifier::AggregateIdentifier(const SimulationIdentifier& SimID,
+                                         KUINT16 AggregateID)
+    : SimulationIdentifier(SimID), m_ui16AggregateID(AggregateID) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+AggregateIdentifier::AggregateIdentifier(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::AggregateIdentifier( KUINT16 SiteID, KUINT16 ApplicatonID, KUINT16 AggregateID ) :
-    SimulationIdentifier( SiteID, ApplicatonID ),
-    m_ui16AggregateID( AggregateID )
-{
+AggregateIdentifier::~AggregateIdentifier() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void AggregateIdentifier::SetAggregateID(KUINT16 ID) { m_ui16AggregateID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 AggregateIdentifier::GetAggregateID() const {
+  return m_ui16AggregateID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::AggregateIdentifier( const SimulationIdentifier & SimID, KUINT16 AggregateID ) :
-    SimulationIdentifier( SimID ),
-    m_ui16AggregateID( AggregateID )
-{
+KString AggregateIdentifier::GetAsString() const {
+  KStringStream ss;
+
+  ss << SimulationIdentifier::GetAsString()
+     << "Aggregate:   " << m_ui16AggregateID << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::AggregateIdentifier( KDataStream & stream ) 
-{
-    Decode( stream );
+void AggregateIdentifier::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < AGGREGATE_IDENTIFER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  SimulationIdentifier::Decode(stream);
+  stream >> m_ui16AggregateID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::~AggregateIdentifier()
-{
+KDataStream AggregateIdentifier::Encode() const {
+  KDataStream stream;
+
+  AggregateIdentifier::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateIdentifier::SetAggregateID( KUINT16 ID )
-{
-    m_ui16AggregateID = ID;
+void AggregateIdentifier::Encode(KDataStream& stream) const {
+  SimulationIdentifier::Encode(stream);
+  stream << m_ui16AggregateID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 AggregateIdentifier::GetAggregateID() const
-{
-    return m_ui16AggregateID;
+KBOOL AggregateIdentifier::operator==(const AggregateIdentifier& Value) const {
+  if (SimulationIdentifier::operator!=(Value)) return false;
+  if (m_ui16AggregateID != Value.m_ui16AggregateID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString AggregateIdentifier::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << SimulationIdentifier::GetAsString()
-       << "Aggregate:   " << m_ui16AggregateID      << "\n";
-
-    return ss.str();
+KBOOL AggregateIdentifier::operator!=(const AggregateIdentifier& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateIdentifier::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < AGGREGATE_IDENTIFER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KBOOL AggregateIdentifier::operator<(const AggregateIdentifier& Value) const {
+  // We will bit shift all 3 fields into a single KUINT64, this will generate a
+  // new unique value which we can then use for comparison. bits 0-15  = SiteID
+  // bits 16-31 = ApplicationID
+  // bits 32-47 = AggregateID
+  // bits 48-63 = 0
+  KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
 
-    SimulationIdentifier::Decode( stream );
-    stream >> m_ui16AggregateID;
-}
+  ui64ThisCmpVal = m_ui16SiteID | (KUINT64)m_ui16ApplicationID << 16 |
+                   (KUINT64)m_ui16AggregateID << 32;
+  ui64OtherCmpVal = Value.m_ui16SiteID |
+                    (KUINT64)Value.m_ui16ApplicationID << 16 |
+                    (KUINT64)Value.m_ui16AggregateID << 32;
 
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream AggregateIdentifier::Encode() const
-{
-    KDataStream stream;
-
-    AggregateIdentifier::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void AggregateIdentifier::Encode( KDataStream & stream ) const
-{
-    SimulationIdentifier::Encode( stream );
-    stream << m_ui16AggregateID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AggregateIdentifier::operator == ( const AggregateIdentifier & Value ) const
-{
-    if( SimulationIdentifier::operator !=( Value ) )   return false;
-    if( m_ui16AggregateID != Value.m_ui16AggregateID ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AggregateIdentifier::operator != ( const AggregateIdentifier & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL AggregateIdentifier::operator < ( const AggregateIdentifier & Value ) const
-{
-    // We will bit shift all 3 fields into a single KUINT64, this will generate a new unique value which we can then use for comparison.
-    // bits 0-15  = SiteID
-    // bits 16-31 = ApplicationID
-    // bits 32-47 = AggregateID
-    // bits 48-63 = 0
-    KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
-
-    ui64ThisCmpVal = m_ui16SiteID | ( KUINT64 )m_ui16ApplicationID << 16 | ( KUINT64 )m_ui16AggregateID << 32;
-    ui64OtherCmpVal = Value.m_ui16SiteID | ( KUINT64 )Value.m_ui16ApplicationID << 16 | ( KUINT64 )Value.m_ui16AggregateID << 32;
-
-    return ui64ThisCmpVal < ui64OtherCmpVal;
+  return ui64ThisCmpVal < ui64OtherCmpVal;
 }
 
 //////////////////////////////////////////////////////////////////////////

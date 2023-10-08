@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Shaft.h"
+#include "KDIS/DataTypes/Shaft.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -36,138 +36,97 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Shaft::Shaft() :
-    m_i16CurrentRPM( 0 ),
-    m_i16OrderedRPM( 0 ),
-    m_i32RPMRateOfChange( 0 )
-{
+Shaft::Shaft()
+    : m_i16CurrentRPM(0), m_i16OrderedRPM(0), m_i32RPMRateOfChange(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Shaft::Shaft(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+Shaft::Shaft(KINT16 CurrentRPM, KINT16 OrderedRPM, KINT32 RateOfChange)
+    : m_i16CurrentRPM(CurrentRPM),
+      m_i16OrderedRPM(OrderedRPM),
+      m_i32RPMRateOfChange(RateOfChange) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+Shaft::~Shaft() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Shaft::SetCurrentRPM(KINT16 RPM) { m_i16CurrentRPM = RPM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KINT16 Shaft::GetCurrentRPM() const { return m_i16CurrentRPM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void Shaft::SetOrderedRPM(KINT16 RPM) { m_i16OrderedRPM = RPM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KINT16 Shaft::GetOrderedRPM() const { return m_i16OrderedRPM; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void Shaft::SetRateOfChange(KINT32 ROC) { m_i32RPMRateOfChange = ROC; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KINT32 Shaft::GetRateOfChange() const { return m_i32RPMRateOfChange; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString Shaft::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Shaft:"
+     << "\n\tCurrent RPM:    " << m_i16CurrentRPM
+     << "\n\tOrdered RPM:    " << m_i16OrderedRPM
+     << "\n\tRate Of Change: " << m_i32RPMRateOfChange << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Shaft::Shaft( KDataStream & stream ) 
-{
-    Decode( stream );
+void Shaft::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < SHAFT_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_i16CurrentRPM >> m_i16OrderedRPM >> m_i32RPMRateOfChange;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Shaft::Shaft( KINT16 CurrentRPM, KINT16 OrderedRPM, KINT32 RateOfChange ) :
-    m_i16CurrentRPM( CurrentRPM ),
-    m_i16OrderedRPM( OrderedRPM ),
-    m_i32RPMRateOfChange( RateOfChange )
-{
+KDataStream Shaft::Encode() const {
+  KDataStream stream;
+
+  Shaft::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Shaft::~Shaft()
-{
+void Shaft::Encode(KDataStream& stream) const {
+  stream << m_i16CurrentRPM << m_i16OrderedRPM << m_i32RPMRateOfChange;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Shaft::SetCurrentRPM( KINT16 RPM )
-{
-    m_i16CurrentRPM = RPM;
+KBOOL Shaft::operator==(const Shaft& Value) const {
+  if (m_i16CurrentRPM != Value.m_i16CurrentRPM) return false;
+  if (m_i16OrderedRPM != Value.m_i16OrderedRPM) return false;
+  if (m_i32RPMRateOfChange != Value.m_i32RPMRateOfChange) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KINT16 Shaft::GetCurrentRPM() const
-{
-    return m_i16CurrentRPM;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Shaft::SetOrderedRPM( KINT16 RPM )
-{
-    m_i16OrderedRPM = RPM;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KINT16 Shaft::GetOrderedRPM() const
-{
-    return m_i16OrderedRPM;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Shaft::SetRateOfChange( KINT32 ROC )
-{
-    m_i32RPMRateOfChange = ROC;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KINT32 Shaft::GetRateOfChange() const
-{
-    return m_i32RPMRateOfChange;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString Shaft::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << "Shaft:"
-       << "\n\tCurrent RPM:    " << m_i16CurrentRPM
-       << "\n\tOrdered RPM:    " << m_i16OrderedRPM
-       << "\n\tRate Of Change: " << m_i32RPMRateOfChange
-       << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Shaft::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < SHAFT_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_i16CurrentRPM
-           >> m_i16OrderedRPM
-           >> m_i32RPMRateOfChange;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream Shaft::Encode() const
-{
-    KDataStream stream;
-
-    Shaft::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void Shaft::Encode( KDataStream & stream ) const
-{
-    stream << m_i16CurrentRPM
-           << m_i16OrderedRPM
-           << m_i32RPMRateOfChange;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Shaft::operator == ( const Shaft & Value ) const
-{
-    if( m_i16CurrentRPM      != Value.m_i16CurrentRPM )       return false;
-    if( m_i16OrderedRPM      != Value.m_i16OrderedRPM )       return false;
-    if( m_i32RPMRateOfChange != Value.m_i32RPMRateOfChange )  return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Shaft::operator != ( const Shaft & Value ) const
-{
-    return !( *this == Value );
-}
+KBOOL Shaft::operator!=(const Shaft& Value) const { return !(*this == Value); }
 
 //////////////////////////////////////////////////////////////////////////

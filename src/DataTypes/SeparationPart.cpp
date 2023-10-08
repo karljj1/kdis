@@ -28,7 +28,8 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #if DIS_VERSION > 5
-#include "./SeparationPart.h"
+
+#include "KDIS/DataTypes/SeparationPart.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,182 +42,154 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-SeparationPart::SeparationPart()  :
-    m_ui8Reason(0),
-    m_ui8PreEntIndicator(0),
-    m_ui8Padding(0),
-    m_ui16Padding(0)
-{
-    m_ui8VarParamType = SeparationPartType;
+SeparationPart::SeparationPart()
+    : m_ui8Reason(0),
+      m_ui8PreEntIndicator(0),
+      m_ui8Padding(0),
+      m_ui16Padding(0) {
+  m_ui8VarParamType = SeparationPartType;
 }
 
-KDIS::DATA_TYPE::SeparationPart::SeparationPart(ReasonForSeparation RFS, PreEntityIndicator PEI, const EntityIdentifier & PEID, const NamedLocationIdentifier & SL) :
-    m_ui8Reason(RFS),
-    m_ui8PreEntIndicator(PEI),
-    m_ui8Padding(0),
-    m_ParentEntId(PEID),
-    m_ui16Padding(0),
-    m_StationLoc(SL)
-{
-    m_ui8VarParamType = SeparationPartType;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-SeparationPart::SeparationPart( KDataStream & stream ) 
-{
-    Decode( stream );
+KDIS::DATA_TYPE::SeparationPart::SeparationPart(
+    ReasonForSeparation RFS, PreEntityIndicator PEI,
+    const EntityIdentifier& PEID, const NamedLocationIdentifier& SL)
+    : m_ui8Reason(RFS),
+      m_ui8PreEntIndicator(PEI),
+      m_ui8Padding(0),
+      m_ParentEntId(PEID),
+      m_ui16Padding(0),
+      m_StationLoc(SL) {
+  m_ui8VarParamType = SeparationPartType;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-SeparationPart::~SeparationPart()
-{
+SeparationPart::SeparationPart(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
+SeparationPart::~SeparationPart() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void SeparationPart::SetReasonForSeparation(ReasonForSeparation RFS) {
+  m_ui8Reason = RFS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SeparationPart::SetReasonForSeparation(ReasonForSeparation RFS)
-{
-    m_ui8Reason = RFS;
+ReasonForSeparation SeparationPart::GetReasonForSeparation() const {
+  return (ReasonForSeparation)m_ui8Reason;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-ReasonForSeparation SeparationPart::GetReasonForSeparation() const
-{
-    return ( ReasonForSeparation )m_ui8Reason;
+void SeparationPart::SetPreEntityIndicator(PreEntityIndicator PEI) {
+  m_ui8PreEntIndicator = PEI;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SeparationPart::SetPreEntityIndicator(PreEntityIndicator PEI)
-{
-    m_ui8PreEntIndicator = PEI;
+PreEntityIndicator SeparationPart::GetPreEntityIndicator() const {
+  return (PreEntityIndicator)m_ui8PreEntIndicator;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-PreEntityIndicator SeparationPart::GetPreEntityIndicator() const
-{
-    return (PreEntityIndicator)m_ui8PreEntIndicator;
+void SeparationPart::SetParentEntityId(const EntityIdentifier& PEID) {
+  m_ParentEntId = PEID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SeparationPart::SetParentEntityId(const EntityIdentifier & PEID)
-{
-    m_ParentEntId = PEID;
+const EntityIdentifier& SeparationPart::GetParentEntityId() const {
+  return m_ParentEntId;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const EntityIdentifier & SeparationPart::GetParentEntityId() const
-{
-    return m_ParentEntId;
+EntityIdentifier& SeparationPart::GetParentEntityId() { return m_ParentEntId; }
+
+//////////////////////////////////////////////////////////////////////////
+
+void SeparationPart::SetStationLocation(const NamedLocationIdentifier& SL) {
+  m_StationLoc = SL;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityIdentifier & SeparationPart::GetParentEntityId()
-{
-    return m_ParentEntId;
+const NamedLocationIdentifier& SeparationPart::GetStationLocation() const {
+  return m_StationLoc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SeparationPart::SetStationLocation(const NamedLocationIdentifier & SL)
-{
-    m_StationLoc = SL;
+NamedLocationIdentifier& SeparationPart::GetStationLocation() {
+  return m_StationLoc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const NamedLocationIdentifier & SeparationPart::GetStationLocation() const
-{
-    return m_StationLoc;
+KString SeparationPart::GetAsString() const {
+  KStringStream ss;
+
+  ss << "Separation Part:"
+     << "\n\tReason for Separation: "
+     << GetEnumAsStringReasonForSeparation(m_ui8Reason)
+     << "\n\tPre-Entity Indicator:  "
+     << GetEnumAsStringPreEntityIndicator(m_ui8PreEntIndicator)
+     << "\n\tParent Entity Id:      " << m_ParentEntId.GetAsString()
+     << "\n\tStation Location:      " << m_StationLoc.GetAsString();
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-NamedLocationIdentifier & SeparationPart::GetStationLocation()
-{
-    return m_StationLoc;
+void SeparationPart::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  stream >> m_ui8VarParamType >> m_ui8Reason >> m_ui8PreEntIndicator >>
+      m_ui8Padding >> KDIS_STREAM m_ParentEntId >> m_ui16Padding >>
+      KDIS_STREAM m_StationLoc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString SeparationPart::GetAsString() const
-{
-    KStringStream ss;
+KDataStream SeparationPart::Encode() const {
+  KDataStream stream;
 
-    ss << "Separation Part:"
-        << "\n\tReason for Separation: " << GetEnumAsStringReasonForSeparation( m_ui8Reason )
-        << "\n\tPre-Entity Indicator:  " << GetEnumAsStringPreEntityIndicator( m_ui8PreEntIndicator )
-        << "\n\tParent Entity Id:      " << m_ParentEntId.GetAsString()
-        << "\n\tStation Location:      " << m_StationLoc.GetAsString();
+  SeparationPart::Encode(stream);
 
-    return ss.str();
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SeparationPart::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    stream >> m_ui8VarParamType
-           >> m_ui8Reason
-           >> m_ui8PreEntIndicator
-           >> m_ui8Padding
-           >> KDIS_STREAM m_ParentEntId
-           >> m_ui16Padding
-           >> KDIS_STREAM m_StationLoc;
+void SeparationPart::Encode(KDataStream& stream) const {
+  stream << m_ui8VarParamType << m_ui8Reason << m_ui8PreEntIndicator
+         << m_ui8Padding << KDIS_STREAM m_ParentEntId << m_ui16Padding
+         << KDIS_STREAM m_StationLoc;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream SeparationPart::Encode() const
-{
-    KDataStream stream;
-
-    SeparationPart::Encode( stream );
-
-    return stream;
+KBOOL SeparationPart::operator==(const SeparationPart& Value) const {
+  if (m_ui8VarParamType != Value.m_ui8VarParamType) return false;
+  if (m_ui8Reason != Value.m_ui8Reason) return false;
+  if (m_ui8PreEntIndicator != Value.m_ui8PreEntIndicator) return false;
+  if (m_ParentEntId != Value.m_ParentEntId) return false;
+  if (m_StationLoc != Value.m_StationLoc) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void SeparationPart::Encode( KDataStream & stream ) const
-{
-    stream << m_ui8VarParamType
-           << m_ui8Reason
-           << m_ui8PreEntIndicator
-           << m_ui8Padding
-           << KDIS_STREAM m_ParentEntId
-           << m_ui16Padding
-           << KDIS_STREAM m_StationLoc;
+KBOOL SeparationPart::operator!=(const SeparationPart& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL SeparationPart::operator == ( const SeparationPart & Value ) const
-{
-    if ( m_ui8VarParamType != Value.m_ui8VarParamType)        return false;
-    if ( m_ui8Reason != Value.m_ui8Reason )                   return false;
-    if ( m_ui8PreEntIndicator != Value.m_ui8PreEntIndicator ) return false;
-    if ( m_ParentEntId != Value.m_ParentEntId )               return false;
-    if ( m_StationLoc != Value.m_StationLoc )                 return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL SeparationPart::operator != ( const SeparationPart & Value ) const
-{
-    return !( *this == Value );
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-#endif // DIS_VERSION > 5
+#endif  // DIS_VERSION > 5

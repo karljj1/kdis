@@ -38,90 +38,88 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./SphereRecord1.h"
-#include "./Vector.h"
+#include "KDIS/DataTypes/SphereRecord1.hpp"
+#include "KDIS/DataTypes/Vector.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT SphereRecord2 : public SphereRecord1
-{
-protected:
+class KDIS_EXPORT SphereRecord2 : public SphereRecord1 {
+ protected:
+  KFLOAT32 m_f32ddt;
 
-    KFLOAT32 m_f32ddt;
+  Vector m_Velocity;
 
-    Vector m_Velocity;
+  Vector m_AngularVelocity;
 
-    Vector m_AngularVelocity;
+ public:
+  static const KUINT16 SPHERE_RECORD_2_SIZE = 64;
 
-public:
+  SphereRecord2();
 
-    static const KUINT16 SPHERE_RECORD_2_SIZE = 64;
+  SphereRecord2(KDataStream& stream);
 
-    SphereRecord2();
+  SphereRecord2(KUINT8 Index, const WorldCoordinates& CentroidLocation,
+                KFLOAT32 Radius, KFLOAT32 DDT, const Vector& Velocity,
+                const Vector& AngularVelocity);
 
-    SphereRecord2( KDataStream & stream ) ;
+  virtual ~SphereRecord2();
 
-    SphereRecord2( KUINT8 Index, const WorldCoordinates & CentroidLocation, KFLOAT32 Radius,
-                   KFLOAT32 DDT, const Vector & Velocity, const Vector & AngularVelocity );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SphereRecord2::SetDOverDt
+  //              KDIS::DATA_TYPE::SphereRecord2::GetDOverDt
+  // Description: d(Radius)/dt.
+  // Parameter:   KFLOAT32 DDT, void
+  //************************************
+  void SetDOverDt(KFLOAT32 DDT);
+  KFLOAT32 GetDOverDt() const;
 
-    virtual ~SphereRecord2();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SphereRecord2::SetVelocity
+  //              KDIS::DATA_TYPE::SphereRecord2::GetVelocity
+  // Description: Specifies the velocity of the sphere.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetVelocity(const Vector& V);
+  const Vector& GetVelocity() const;
+  Vector& GetVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SphereRecord2::SetDOverDt
-    //              KDIS::DATA_TYPE::SphereRecord2::GetDOverDt
-    // Description: d(Radius)/dt.
-    // Parameter:   KFLOAT32 DDT, void
-    //************************************
-    void SetDOverDt( KFLOAT32 DDT );
-    KFLOAT32 GetDOverDt() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SphereRecord2::SetAngularVelocity
+  //              KDIS::DATA_TYPE::SphereRecord2::GetAngularVelocity
+  // Description: Specifies the angular velocity of the sphere.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetAngularVelocity(const Vector& V);
+  const Vector& GetAngularVelocity() const;
+  Vector& GetAngularVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SphereRecord2::SetVelocity
-    //              KDIS::DATA_TYPE::SphereRecord2::GetVelocity
-    // Description: Specifies the velocity of the sphere.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SphereRecord2::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SphereRecord2::SetAngularVelocity
-    //              KDIS::DATA_TYPE::SphereRecord2::GetAngularVelocity
-    // Description: Specifies the angular velocity of the sphere.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetAngularVelocity( const Vector & V );
-    const Vector & GetAngularVelocity() const;
-    Vector & GetAngularVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SphereRecord2::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SphereRecord2::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::SphereRecord2::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SphereRecord2::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::SphereRecord2::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const SphereRecord2 & Value )const;
-    KBOOL operator != ( const SphereRecord2 & Value )const;
+  KBOOL operator==(const SphereRecord2& Value) const;
+  KBOOL operator!=(const SphereRecord2& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

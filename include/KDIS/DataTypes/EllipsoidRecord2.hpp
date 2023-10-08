@@ -38,92 +38,91 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./EllipsoidRecord1.h"
+#include "KDIS/DataTypes/EllipsoidRecord1.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT EllipsoidRecord2 : public EllipsoidRecord1
-{
-protected:
+class KDIS_EXPORT EllipsoidRecord2 : public EllipsoidRecord1 {
+ protected:
+  Vector m_DDT;
 
-    Vector m_DDT;
+  Vector m_Velocity;
 
-    Vector m_Velocity;
+  Vector m_AngularVelocity;
 
-    Vector m_AngularVelocity;
+  KUINT32 m_ui32Padding;
 
-    KUINT32 m_ui32Padding;
+ public:
+  static const KUINT16 ELIPSOID_RECORD_2_SIZE = 96;
 
-public:
+  EllipsoidRecord2();
 
-    static const KUINT16 ELIPSOID_RECORD_2_SIZE = 96;
+  EllipsoidRecord2(KDataStream& stream);
 
-    EllipsoidRecord2();
+  EllipsoidRecord2(KUINT8 Index, const WorldCoordinates& CentroidLocation,
+                   const Vector& Sigma, const EulerAngles& Orientation,
+                   const Vector& DDT, const Vector& Velocity,
+                   const Vector& AngularVelocity);
 
-    EllipsoidRecord2( KDataStream & stream ) ;
+  virtual ~EllipsoidRecord2();
 
-    EllipsoidRecord2( KUINT8 Index, const WorldCoordinates & CentroidLocation, const Vector & Sigma, const EulerAngles & Orientation,
-                      const Vector & DDT, const Vector & Velocity, const Vector & AngularVelocity );
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::SetDOverDt
+  //              KDIS::DATA_TYPE::EllipsoidRecord2::GetDOverDt
+  // Description: d(Sigma)/dt.
+  // Parameter:   const Vector & S
+  //************************************
+  void SetDOverDt(const Vector& S);
+  const Vector& GetDOverDt() const;
+  Vector& GetDOverDt();
 
-    virtual ~EllipsoidRecord2();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::SetVelocity
+  //              KDIS::DATA_TYPE::EllipsoidRecord2::GetVelocity
+  // Description: Specifies the velocity of the elipsoid.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetVelocity(const Vector& V);
+  const Vector& GetVelocity() const;
+  Vector& GetVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::SetDOverDt
-    //              KDIS::DATA_TYPE::EllipsoidRecord2::GetDOverDt
-    // Description: d(Sigma)/dt.
-    // Parameter:   const Vector & S
-    //************************************
-    void SetDOverDt( const Vector & S );
-    const Vector & GetDOverDt() const;
-    Vector & GetDOverDt();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::SetAngularVelocity
+  //              KDIS::DATA_TYPE::EllipsoidRecord2::GetAngularVelocity
+  // Description: Specifies the angular velocity of the elipsoid.
+  //              Represented as a Linear Velocity Vector.
+  // Parameter:   const Vector & V, void
+  //************************************
+  void SetAngularVelocity(const Vector& V);
+  const Vector& GetAngularVelocity() const;
+  Vector& GetAngularVelocity();
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::SetVelocity
-    //              KDIS::DATA_TYPE::EllipsoidRecord2::GetVelocity
-    // Description: Specifies the velocity of the elipsoid.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetVelocity( const Vector & V );
-    const Vector & GetVelocity() const;
-    Vector & GetVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::SetAngularVelocity
-    //              KDIS::DATA_TYPE::EllipsoidRecord2::GetAngularVelocity
-    // Description: Specifies the angular velocity of the elipsoid.
-    //              Represented as a Linear Velocity Vector.
-    // Parameter:   const Vector & V, void
-    //************************************
-    void SetAngularVelocity( const Vector & V );
-    const Vector & GetAngularVelocity() const;
-    Vector & GetAngularVelocity();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::EllipsoidRecord2::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const EllipsoidRecord2 & Value )const;
-    KBOOL operator != ( const EllipsoidRecord2 & Value )const;
+  KBOOL operator==(const EllipsoidRecord2& Value) const;
+  KBOOL operator!=(const EllipsoidRecord2& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

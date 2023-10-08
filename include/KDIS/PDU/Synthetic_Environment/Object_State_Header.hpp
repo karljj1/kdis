@@ -40,106 +40,105 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-#include "./../Header.h"
-#include "./../../DataTypes/EntityIdentifier.h"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/PDU/Header.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Object_State_Header : public Header
-{
-protected:
+class KDIS_EXPORT Object_State_Header : public Header {
+ protected:
+  KDIS::DATA_TYPE::EntityIdentifier m_ObjID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_ObjID;
+  KDIS::DATA_TYPE::EntityIdentifier m_RefObjID;
 
-    KDIS::DATA_TYPE::EntityIdentifier m_RefObjID;
+  KUINT16 m_ui16UpdateNum;
 
-    KUINT16 m_ui16UpdateNum;
+  KUINT8 m_ui8ForceID;
 
-    KUINT8 m_ui8ForceID;
+ public:
+  static const KUINT16 OBJECT_STATE_HEADER_SIZE = 27;
 
-public:
+  Object_State_Header();
 
-    static const KUINT16 OBJECT_STATE_HEADER_SIZE = 27;
+  explicit Object_State_Header(const Header& H);
 
-    Object_State_Header();
+  explicit Object_State_Header(KDataStream& stream);
 
-    explicit Object_State_Header( const Header & H );
+  Object_State_Header(const Header& H, KDataStream& stream);
 
-    Object_State_Header( KDataStream & stream ) ;
+  Object_State_Header(const KDIS::DATA_TYPE::EntityIdentifier& ObjID,
+                      const KDIS::DATA_TYPE::EntityIdentifier& RefObjID,
+                      KUINT16 UpdateNum, KDIS::DATA_TYPE::ENUMS::ForceID FI);
 
-    Object_State_Header( const Header & H, KDataStream & stream ) ;
+  virtual ~Object_State_Header();
 
-    Object_State_Header( const KDIS::DATA_TYPE::EntityIdentifier & ObjID, const KDIS::DATA_TYPE::EntityIdentifier & RefObjID ,
-                         KUINT16 UpdateNum, KDIS::DATA_TYPE::ENUMS::ForceID FI );
+  //************************************
+  // FullName:    KDIS::PDU::Object_State_Header::SetObjectID
+  //              KDIS::PDU::Object_State_Header::GetObjectID
+  // Description: The unique identification of the object in the SE.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetObjectID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetObjectID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetObjectID();
 
-    virtual ~Object_State_Header();
+  //************************************
+  // FullName:    KDIS::PDU::Object_State_Header::SetReferencedObjectID
+  //              KDIS::PDU::Object_State_Header::GetReferencedObjectID
+  // Description: The unique identification of the object with which this
+  //              state object is associated with.
+  // Parameter:   const EntityIdentifier & ID
+  //************************************
+  void SetReferencedObjectID(const KDIS::DATA_TYPE::EntityIdentifier& ID);
+  const KDIS::DATA_TYPE::EntityIdentifier& GetReferencedObjectID() const;
+  KDIS::DATA_TYPE::EntityIdentifier& GetReferencedObjectID();
 
-    //************************************
-    // FullName:    KDIS::PDU::Object_State_Header::SetObjectID
-    //              KDIS::PDU::Object_State_Header::GetObjectID
-    // Description: The unique identification of the object in the SE.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetObjectID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetObjectID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetObjectID();
+  //************************************
+  // FullName:    KDIS::PDU::Object_State_Header::SetUpdateNumber
+  //              KDIS::PDU::Object_State_Header::GetUpdateNumber
+  // Description: This field shall represent the unique update number, starting
+  // with 1,
+  //              of each state transition of an individual object.
+  // Parameter:   KUINT16 U
+  //************************************
+  void SetUpdateNumber(KUINT16 U);
+  KUINT16 GetUpdateNumber() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Object_State_Header::SetReferencedObjectID
-    //              KDIS::PDU::Object_State_Header::GetReferencedObjectID
-    // Description: The unique identification of the object with which this
-    //              state object is associated with.
-    // Parameter:   const EntityIdentifier & ID
-    //************************************
-    void SetReferencedObjectID( const KDIS::DATA_TYPE::EntityIdentifier & ID );
-    const KDIS::DATA_TYPE::EntityIdentifier & GetReferencedObjectID() const;
-    KDIS::DATA_TYPE::EntityIdentifier & GetReferencedObjectID();
+  //************************************
+  // FullName:    KDIS::PDU::Object_State_Header::SetForceID
+  //              KDIS::PDU::Object_State_Header::GetForceID
+  // Description: Identifies the force that created or modified the object.
+  // Parameter:   ForceID ID
+  //************************************
+  void SetForceID(KDIS::DATA_TYPE::ENUMS::ForceID ID);
+  KDIS::DATA_TYPE::ENUMS::ForceID GetForceID() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Object_State_Header::SetUpdateNumber
-    //              KDIS::PDU::Object_State_Header::GetUpdateNumber
-    // Description: This field shall represent the unique update number, starting with 1,
-    //              of each state transition of an individual object.
-    // Parameter:   KUINT16 U
-    //************************************
-    void SetUpdateNumber( KUINT16 U );
-    KUINT16 GetUpdateNumber() const;
+  //************************************
+  // FullName:    KDIS::PDU::Object_State_Header::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Object_State_Header::SetForceID
-    //              KDIS::PDU::Object_State_Header::GetForceID
-    // Description: Identifies the force that created or modified the object.
-    // Parameter:   ForceID ID
-    //************************************
-    void SetForceID( KDIS::DATA_TYPE::ENUMS::ForceID ID );
-    KDIS::DATA_TYPE::ENUMS::ForceID GetForceID() const;
+  //************************************
+  // FullName:    KDIS::PDU::Object_State_Header::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
+  //************************************
+  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
 
-    //************************************
-    // FullName:    KDIS::PDU::Object_State_Header::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::PDU::Object_State_Header::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Object_State_Header::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
-    //************************************
-    virtual void Decode( KDataStream & stream, bool ignoreHeader = false ) ;
-
-    //************************************
-    // FullName:    KDIS::PDU::Object_State_Header::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const Object_State_Header & Value ) const;
-    KBOOL operator != ( const Object_State_Header & Value ) const;
+  KBOOL operator==(const Object_State_Header& Value) const;
+  KBOOL operator!=(const Object_State_Header& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

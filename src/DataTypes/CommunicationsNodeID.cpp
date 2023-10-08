@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./CommunicationsNodeID.h"
+#include "KDIS/DataTypes/CommunicationsNodeID.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -39,117 +39,96 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::CommunicationsNodeID() :
-    m_ui16ElementID( 0 )
-{
+CommunicationsNodeID::CommunicationsNodeID() : m_ui16ElementID(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CommunicationsNodeID::CommunicationsNodeID(KDataStream& stream) {
+  Decode(stream);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::CommunicationsNodeID( KDataStream & stream ) 
-{
-    Decode( stream );
+CommunicationsNodeID::CommunicationsNodeID(KUINT16 Site, KUINT16 App,
+                                           KUINT16 Obj, KUINT16 Element)
+    : EntityIdentifier(Site, App, Obj), m_ui16ElementID(Element) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CommunicationsNodeID::CommunicationsNodeID(const SimulationIdentifier& SimID,
+                                           KUINT16 Obj, KUINT16 Element)
+    : EntityIdentifier(SimID, Obj), m_ui16ElementID(Element) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CommunicationsNodeID::CommunicationsNodeID(const EntityIdentifier& EntID,
+                                           KUINT16 Element)
+    : EntityIdentifier(EntID), m_ui16ElementID(Element) {}
+
+//////////////////////////////////////////////////////////////////////////
+
+CommunicationsNodeID::~CommunicationsNodeID() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void CommunicationsNodeID::SetElementID(KUINT16 ID) { m_ui16ElementID = ID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KUINT16 CommunicationsNodeID::GetElementID() const { return m_ui16ElementID; }
+
+//////////////////////////////////////////////////////////////////////////
+
+KString CommunicationsNodeID::GetAsString() const {
+  KStringStream ss;
+
+  ss << EntityIdentifier::GetAsString() << "Element:     " << m_ui16ElementID
+     << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::CommunicationsNodeID( KUINT16 Site, KUINT16 App, KUINT16 Obj, KUINT16 Element ) :
-    EntityIdentifier( Site, App, Obj ),
-    m_ui16ElementID( Element )
-{
+void CommunicationsNodeID::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < COMMUNICATIONS_NODE_ID_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+
+  EntityIdentifier::Decode(stream);
+  stream >> m_ui16ElementID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::CommunicationsNodeID( const SimulationIdentifier & SimID, KUINT16 Obj, KUINT16 Element ) :
-    EntityIdentifier( SimID, Obj ),
-    m_ui16ElementID( Element )
-{
+KDataStream CommunicationsNodeID::Encode() const {
+  KDataStream stream;
+
+  CommunicationsNodeID::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::CommunicationsNodeID( const EntityIdentifier & EntID, KUINT16 Element ) :
-    EntityIdentifier( EntID ),
-    m_ui16ElementID( Element )
-{
+void CommunicationsNodeID::Encode(KDataStream& stream) const {
+  EntityIdentifier::Encode(stream);
+  stream << m_ui16ElementID;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-CommunicationsNodeID::~CommunicationsNodeID()
-{
+KBOOL CommunicationsNodeID::operator==(
+    const CommunicationsNodeID& Value) const {
+  if (EntityIdentifier::operator!=(Value)) return false;
+  if (m_ui16ElementID != Value.m_ui16ElementID) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void CommunicationsNodeID::SetElementID( KUINT16 ID )
-{
-    m_ui16ElementID = ID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KUINT16 CommunicationsNodeID::GetElementID() const
-{
-    return m_ui16ElementID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KString CommunicationsNodeID::GetAsString() const
-{
-    KStringStream ss;
-
-    ss << EntityIdentifier::GetAsString()
-       << "Element:     " << m_ui16ElementID << "\n";
-
-    return ss.str();
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void CommunicationsNodeID::Decode( KDataStream & stream ) 
-{
-    if( stream.GetBufferSize() < COMMUNICATIONS_NODE_ID_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
-
-    EntityIdentifier::Decode( stream );
-    stream >> m_ui16ElementID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream CommunicationsNodeID::Encode() const
-{
-    KDataStream stream;
-
-    CommunicationsNodeID::Encode( stream );
-
-    return stream;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-void CommunicationsNodeID::Encode( KDataStream & stream ) const
-{
-    EntityIdentifier::Encode( stream );
-    stream << m_ui16ElementID;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL CommunicationsNodeID::operator == ( const CommunicationsNodeID & Value ) const
-{
-    if( EntityIdentifier::operator !=( Value ) )   return false;
-    if( m_ui16ElementID != Value.m_ui16ElementID ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL CommunicationsNodeID::operator != ( const CommunicationsNodeID & Value ) const
-{
-    return !( *this == Value );
+KBOOL CommunicationsNodeID::operator!=(
+    const CommunicationsNodeID& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////

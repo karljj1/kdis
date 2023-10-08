@@ -33,59 +33,67 @@ http://p.sf.net/kdis/UserGuide
     created:    23:03:2009
     author:     Karl Jones
 
-    purpose:    Sent to acknowledges receipt of a Start/Resume-R PDU, Stop/Freeze-R PDU,
-                Create Entity-R PDU or Remove Entity-R PDU.
-    size:       256 bits / 32 octets
+    purpose:    Sent to acknowledges receipt of a Start/Resume-R PDU,
+Stop/Freeze-R PDU, Create Entity-R PDU or Remove Entity-R PDU. size:       256
+bits / 32 octets
 *********************************************************************/
 
 #pragma once
 
-#include "./../Simulation_Management/Acknowledge_PDU.h"
-#include "./Create_Entity_R_PDU.h"
-#include "./Remove_Entity_R_PDU.h"
-#include "./Start_Resume_R_PDU.h"
-#include "./Stop_Freeze_R_PDU.h"
-#include "./../Entity_Management/Transfer_Control_Request_PDU.h"
+#include "KDIS/PDU/Entity_Management/Transfer_Control_Request_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management/Acknowledge_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Create_Entity_R_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Remove_Entity_R_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Start_Resume_R_PDU.hpp"
+#include "KDIS/PDU/Simulation_Management_With_Reliability/Stop_Freeze_R_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Acknowledge_R_PDU : public Acknowledge_PDU
-{
-public:
+class KDIS_EXPORT Acknowledge_R_PDU : public Acknowledge_PDU {
+ public:
+  static const KUINT16 ACKNOWLEDGE_R_PDU_SIZE = 32;
 
-    static const KUINT16 ACKNOWLEDGE_R_PDU_SIZE = 32;
+  Acknowledge_R_PDU();
 
-    Acknowledge_R_PDU();
+  Acknowledge_R_PDU(KDataStream& stream);
 
-    Acknowledge_R_PDU( KDataStream & stream ) ;
+  Acknowledge_R_PDU(const Header& H, KDataStream& stream);
 
-    Acknowledge_R_PDU( const Header & H, KDataStream & stream ) ;
+  Acknowledge_R_PDU(
+      const KDIS::DATA_TYPE::EntityIdentifier& OriginatingEntityID,
+      const KDIS::DATA_TYPE::EntityIdentifier& ReceivingEntityID,
+      KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF,
+      KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID);
 
-    Acknowledge_R_PDU( const KDIS::DATA_TYPE::EntityIdentifier & OriginatingEntityID, const KDIS::DATA_TYPE::EntityIdentifier & ReceivingEntityID,
-                       KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );
+  Acknowledge_R_PDU(const Simulation_Management_Header& SimMgrHeader,
+                    KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF,
+                    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF,
+                    KUINT32 RequestID);
 
-    Acknowledge_R_PDU( const Simulation_Management_Header & SimMgrHeader, KDIS::DATA_TYPE::ENUMS::AcknowledgeFlag AF,
-                       KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF, KUINT32 RequestID );
+  // Generate a response to a specific PDU
+  Acknowledge_R_PDU(const Create_Entity_R_PDU& pdu,
+                    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  Acknowledge_R_PDU(const Remove_Entity_R_PDU& pdu,
+                    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  Acknowledge_R_PDU(const Start_Resume_R_PDU& pdu,
+                    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  Acknowledge_R_PDU(const Stop_Freeze_R_PDU& pdu,
+                    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
+  Acknowledge_R_PDU(const Transfer_Control_Request_PDU& pdu,
+                    KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF);
 
-    // Generate a response to a specific PDU
-    Acknowledge_R_PDU( const Create_Entity_R_PDU & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    Acknowledge_R_PDU( const Remove_Entity_R_PDU & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    Acknowledge_R_PDU( const Start_Resume_R_PDU  & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    Acknowledge_R_PDU( const Stop_Freeze_R_PDU   & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
-    Acknowledge_R_PDU( const Transfer_Control_Request_PDU & pdu, KDIS::DATA_TYPE::ENUMS::AcknowledgeResponseFlag ARF );
+  virtual ~Acknowledge_R_PDU();
 
-    virtual ~Acknowledge_R_PDU();
+  //************************************
+  // FullName:    KDIS::PDU::Acknowledge_R_PDU::GetAsString
+  // Description: Returns a string representation of the PDU.
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::PDU::Acknowledge_R_PDU::GetAsString
-    // Description: Returns a string representation of the PDU.
-    //************************************
-    virtual KString GetAsString() const;
-
-    KBOOL operator == ( const Acknowledge_R_PDU & Value ) const;
-    KBOOL operator != ( const Acknowledge_R_PDU & Value ) const;
+  KBOOL operator==(const Acknowledge_R_PDU& Value) const;
+  KBOOL operator!=(const Acknowledge_R_PDU& Value) const;
 };
 
-} // END namespace PDU
-} // END namespace KDIS
+}  // END namespace PDU
+}  // END namespace KDIS

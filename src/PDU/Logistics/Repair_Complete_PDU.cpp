@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "./Repair_Complete_PDU.h"
+#include "KDIS/PDU/Logistics/Repair_Complete_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,121 +42,106 @@ using namespace UTILS;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::Repair_Complete_PDU() :
-    m_ui16Repair( 0 ),
-    m_ui16Padding( 0 )
-{
-    m_ui8PDUType = Repair_Complete_PDU_Type;
-    m_ui16PDULength = REPAIR_COMPLETE_PDU_SIZE;
+Repair_Complete_PDU::Repair_Complete_PDU() : m_ui16Repair(0), m_ui16Padding(0) {
+  m_ui8PDUType = Repair_Complete_PDU_Type;
+  m_ui16PDULength = REPAIR_COMPLETE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::Repair_Complete_PDU( KDataStream & stream ) 
-{
-    Decode( stream, false );
+Repair_Complete_PDU::Repair_Complete_PDU(KDataStream& stream) {
+  Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::Repair_Complete_PDU( const Header & H, KDataStream & stream )  :
-    Logistics_Header( H )
-{
-    Decode( stream, true );
+Repair_Complete_PDU::Repair_Complete_PDU(const Header& H, KDataStream& stream)
+    : Logistics_Header(H) {
+  Decode(stream, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::Repair_Complete_PDU( const EntityIdentifier & ReceivingEntityID, const EntityIdentifier & SupplyingEntityID,
-        RepairTypePerformed RTP ) :
-    Logistics_Header( ReceivingEntityID, SupplyingEntityID ),
-    m_ui16Repair( RTP ),
-    m_ui16Padding( 0 )
-{
-    m_ui8PDUType = Repair_Complete_PDU_Type;
-    m_ui16PDULength = REPAIR_COMPLETE_PDU_SIZE;
+Repair_Complete_PDU::Repair_Complete_PDU(
+    const EntityIdentifier& ReceivingEntityID,
+    const EntityIdentifier& SupplyingEntityID, RepairTypePerformed RTP)
+    : Logistics_Header(ReceivingEntityID, SupplyingEntityID),
+      m_ui16Repair(RTP),
+      m_ui16Padding(0) {
+  m_ui8PDUType = Repair_Complete_PDU_Type;
+  m_ui16PDULength = REPAIR_COMPLETE_PDU_SIZE;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-Repair_Complete_PDU::~Repair_Complete_PDU()
-{
+Repair_Complete_PDU::~Repair_Complete_PDU() {}
+
+//////////////////////////////////////////////////////////////////////////
+
+void Repair_Complete_PDU::SetRepairTypePerformed(RepairTypePerformed RTP) {
+  m_ui16Repair = RTP;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Repair_Complete_PDU::SetRepairTypePerformed( RepairTypePerformed RTP )
-{
-    m_ui16Repair = RTP;
+RepairTypePerformed Repair_Complete_PDU::GetRepairTypePerformed() const {
+  return (RepairTypePerformed)m_ui16Repair;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-RepairTypePerformed Repair_Complete_PDU::GetRepairTypePerformed() const
-{
-    return ( RepairTypePerformed )m_ui16Repair;
+KString Repair_Complete_PDU::GetAsString() const {
+  KStringStream ss;
+
+  ss << Header::GetAsString() << "-Repair Complete PDU-\n"
+     << IndentString(Logistics_Header::GetAsString(), 1)
+     << "\tRepair Performed:      "
+     << GetEnumAsStringRepairTypePerformed(m_ui16Repair) << "\n";
+
+  return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KString Repair_Complete_PDU::GetAsString() const
-{
-    KStringStream ss;
+void Repair_Complete_PDU::Decode(KDataStream& stream,
+                                 bool ignoreHeader /*= true*/) {
+  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
+      REPAIR_COMPLETE_PDU_SIZE)
+    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
 
-    ss << Header::GetAsString()
-       << "-Repair Complete PDU-\n"
-       << IndentString( Logistics_Header::GetAsString(), 1 )
-       << "\tRepair Performed:      " << GetEnumAsStringRepairTypePerformed( m_ui16Repair )
-       << "\n";
-
-    return ss.str();
+  Logistics_Header::Decode(stream, ignoreHeader);
+  stream >> m_ui16Repair >> m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Repair_Complete_PDU::Decode( KDataStream & stream, bool ignoreHeader /*= true*/ ) 
-{
-    if( ( stream.GetBufferSize() + ( ignoreHeader ? Header::HEADER6_PDU_SIZE : 0 ) ) < REPAIR_COMPLETE_PDU_SIZE )throw KException( __FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER );
+KDataStream Repair_Complete_PDU::Encode() const {
+  KDataStream stream;
 
-    Logistics_Header::Decode( stream, ignoreHeader );
-    stream >> m_ui16Repair
-           >> m_ui16Padding;
+  Repair_Complete_PDU::Encode(stream);
+
+  return stream;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream Repair_Complete_PDU::Encode() const
-{
-    KDataStream stream;
-
-    Repair_Complete_PDU::Encode( stream );
-
-    return stream;
+void Repair_Complete_PDU::Encode(KDataStream& stream) const {
+  Logistics_Header::Encode(stream);
+  stream << m_ui16Repair << m_ui16Padding;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Repair_Complete_PDU::Encode( KDataStream & stream ) const
-{
-    Logistics_Header::Encode( stream );
-    stream << m_ui16Repair
-           << m_ui16Padding;
+KBOOL Repair_Complete_PDU::operator==(const Repair_Complete_PDU& Value) const {
+  if (Logistics_Header::operator!=(Value)) return false;
+  if (m_ui16Repair != Value.m_ui16Repair) return false;
+  return true;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KBOOL Repair_Complete_PDU::operator == ( const Repair_Complete_PDU & Value ) const
-{
-    if( Logistics_Header::operator  !=( Value ) )           return false;
-    if( m_ui16Repair                != Value.m_ui16Repair ) return false;
-    return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-KBOOL Repair_Complete_PDU::operator != ( const Repair_Complete_PDU & Value ) const
-{
-    return !( *this == Value );
+KBOOL Repair_Complete_PDU::operator!=(const Repair_Complete_PDU& Value) const {
+  return !(*this == Value);
 }
 
 //////////////////////////////////////////////////////////////////////////
