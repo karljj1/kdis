@@ -72,7 +72,7 @@ set(KDIS_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS)
 set(KDIS_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set(KDIS_HEADERS
-    ${KDIS_HEADERS_DIR}/config.hpp ${KDIS_HEADERS_DIR}/KDataStream.hpp
+    ${KDIS_HEADERS_DIR}/KConfig.hpp ${KDIS_HEADERS_DIR}/KDataStream.hpp
     ${KDIS_HEADERS_DIR}/KDefines.hpp ${KDIS_HEADERS_DIR}/KEncodersDecoders.hpp
     ${KDIS_HEADERS_DIR}/KSymbolicNames.hpp
 )
