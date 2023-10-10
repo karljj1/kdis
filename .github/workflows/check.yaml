@@ -101,6 +101,7 @@ jobs:
     build:
         name: Build
         needs: code
+        if: always() && needs.code.result == 'success'
         strategy:
             fail-fast: true
             matrix:
