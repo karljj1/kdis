@@ -33,16 +33,9 @@ jobs:
                     exit 1
                   fi
 
-    check:
-        name: Build & Test & Lint
-        strategy:
-            fail-fast: true
-            matrix:
-                # TODO(carlocorradini) Add macos-latest
-                os: [ubuntu-latest, windows-latest]
-                build: [Debug, Release]
-                dis: [5, 6, 7]
-        runs-on: ${{ matrix.os }}
+    code:
+        name: Code
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -52,11 +45,74 @@ jobs:
             - name: Setup Python
               uses: actions/setup-python@v4
 
-            - name: Install Doxygen
-              uses: ssciwr/doxygen-install@v1
-
             - name: Install cmakelang
               run: pip install cmakelang[YAML]
+
+            - name: Clang Format
+              run: |
+                  find . \
+                      -not -path './build/*' \
+                      -type f \( \
+                      -name '*.hpp' \
+                      -o -name '*.hpp.in' \
+                      -o -name '*.cpp' \
+                      \) \
+                      -print0 |
+                      xargs -0 -n1 \
+                          clang-format \
+                          -Werror \
+                          --dry-run \
+                          --style=file
+
+            # TODO(carlocorradini) Clang Tidy
+
+            - name: CMake Format
+              run: |
+                  find . \
+                      -not -path './build/*' \
+                      -not -path './cmake/CPM.cmake' \
+                      -type f \( \
+                      -name 'CMakeLists.txt' \
+                      -o -name '*.cmake' \
+                      \) \
+                      -print0 |
+                      xargs -0 -n1 \
+                          cmake-format --check
+
+            - name: CMake Lint
+              run: |
+                  find . \
+                      -not -path './build/*' \
+                      -not -path './cmake/CPM.cmake' \
+                      -type f \( \
+                      -name 'CMakeLists.txt' \
+                      -o -name '*.cmake' \
+                      \) \
+                      -print0 |
+                      xargs -0 -n1 \
+                          cmake-lint
+
+            # TODO(carlocorradini) Cppcheck
+
+            # TODO(carlocorradini) Cpplint
+
+    build:
+        name: Build
+        strategy:
+            fail-fast: true
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+                build: [Debug, Release]
+                dis: [5, 6, 7]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Install Doxygen
+              uses: ssciwr/doxygen-install@v1
 
             - name: Configure CMake
               run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE=${{ matrix.build }} -DDIS_VERSION=${{ matrix.dis }} -DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=ON -DBUILD_EXAMPLES=ON -DBUILD_TESTS=ON
@@ -67,27 +123,4 @@ jobs:
             - name: Test
               run: ctest --verbose --test-dir ./build/tests --build-config ${{ matrix.build }}
 
-            - name: Clang Format
-              uses: DoozyX/clang-format-lint-action@v0.16.2
-
-            # TODO(carlocorradini) Clang Tidy
-
-            - name: CMake Format
-              if: matrix.os != 'windows-latest'
-              run: find . -not -path './build/*' -not -path './cmake/CPM.cmake' -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \) -print0 | xargs -0 -n1 cmake-format --check
-
-            - name: CMake Format
-              if: matrix.os == 'windows-latest'
-              run: Get-ChildItem -Exclude 'build' | Get-ChildItem -Recurse -File -Include 'CMakeLists.txt', '*.cmake' -Exclude 'CPM.cmake' | Foreach { cmake-format --check $_.fullname; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
-
-            - name: CMake Lint
-              if: matrix.os != 'windows-latest'
-              run: find . -not -path './build/*' -not -path './cmake/CPM.cmake' -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \) -print0 | xargs -0 -n1 cmake-lint
-
-            - name: CMake Lint
-              if: matrix.os == 'windows-latest'
-              run: Get-ChildItem -Exclude 'build' | Get-ChildItem -Recurse -File -Include 'CMakeLists.txt', '*.cmake' -Exclude 'CPM.cmake' | Foreach { cmake-lint $_.fullname; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
-
-            # TODO(carlocorradini) Cppcheck
-            # TODO(carlocorradini) Cpplint
             # TODO(carlocorradini) Code coverage
