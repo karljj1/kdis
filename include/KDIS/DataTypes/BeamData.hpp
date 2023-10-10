@@ -73,7 +73,7 @@ class KDIS_EXPORT BeamData : public DataTypeBase {
   // Description: Beam azimuth center angle in radians. All angles shall be
   // measured in
   //              relation to the emitter coordinate system.
-  //              The azimuth center for 360� scan systems shall be 0�.
+  //              The azimuth center for 360° scan systems shall be 0°.
   // Parameter:   KFLOAT32 AC
   //************************************
   void SetAzimuthCenter(KFLOAT32 AC);

@@ -61,7 +61,7 @@ int main() {
                               // SISO-REF-010-2006. It represents a small cloud.
 
     // Convert local coordinate systems to DIS
-    // 51.5� N 3.2� W. Cardiff, Wales.
+    // 51.5° N 3.2° W. Cardiff, Wales.
     // A cloud over Wales, what a surprise!
     // Convert Degrees, Minutes, Seconds to decimal and then convert to
     // geocentric.

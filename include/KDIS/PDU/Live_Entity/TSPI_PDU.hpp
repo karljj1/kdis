@@ -34,9 +34,9 @@ http://p.sf.net/kdis/UserGuide
     author:     Karl Jones
 
     purpose:    Time Space Position Information(TSPI).
-                The TSPI PDU shall communicate information about a LE�s state
+                The TSPI PDU shall communicate information about a LE's state
 vector. This PDU includes state information that is necessary for the receiving
-                simulation applications to represent the issuing LE�s location
+                simulation applications to represent the issuing LE's location
 and movement in its own simulation.
 
     size:       200 bits / 25 octets - Min size
@@ -141,7 +141,7 @@ class KDIS_EXPORT TSPI_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::TSPI_PDU::SetEntityLocation
   //              KDIS::PDU::TSPI_PDU::GetEntityLocation
-  // Description: The entity�s physical location in the real world.
+  // Description: The entity's physical location in the real world.
   //              Each delta distance component shall represent distance in
   //              decimeters.
   // Parameter:   const RelativeWorldCoordinates & L
@@ -153,8 +153,8 @@ class KDIS_EXPORT TSPI_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::TSPI_PDU::SetEntityLinearVelocity
   //              KDIS::PDU::TSPI_PDU::GetEntityLinearVelocity
-  // Description: Optional field. Specifies an entity�s linear velocity.
-  //              The coordinate system for an entity�s linear velocity depends
+  // Description: Optional field. Specifies an entity's linear velocity.
+  //              The coordinate system for an entity's linear velocity depends
   //              on the dead reckoning algorithm used. Each vector component
   //              shall represent velocity in decimeters per second. Note:
   //              Setting this value will also cause the relevant flag to be set
@@ -168,7 +168,7 @@ class KDIS_EXPORT TSPI_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::TSPI_PDU::SetEntityLinearOrientation
   //              KDIS::PDU::TSPI_PDU::GetEntityLinearOrientation
-  // Description: Optional field. The entity�s orientation.
+  // Description: Optional field. The entity's orientation.
   //              Note: Setting this value will also cause the relevant flag to
   //              be set to true.
   // Parameter:   const LE_EulerAngles & O
@@ -229,7 +229,7 @@ class KDIS_EXPORT TSPI_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::TSPI_PDU::SetMeasuredSpeed
   //              KDIS::PDU::TSPI_PDU::GetMeasuredSpeed
-  // Description: Optional field. Specifies the entity�s own measurement of
+  // Description: Optional field. Specifies the entity's own measurement of
   // speed (e.g., air speed for aircraft).
   //              Speed in deci-meters per second.
   //              Note: The position of the binary point is not defined in the

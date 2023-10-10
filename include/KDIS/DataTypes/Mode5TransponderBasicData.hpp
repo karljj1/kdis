@@ -116,8 +116,8 @@ class KDIS_EXPORT Mode5TransponderBasicData : public DataTypeBase {
   // KDIS::DATA_TYPE::Mode5TransponderBasicData::SetMessageFormatsPresent
   //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetMessageFormatsPresentBitSet
   //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetMessageFormatsPresent
-  // Description:	When a Mode 5 transponder is in the Regeneration Mode, the
-  // included message
+  // Description:	When a Mode 5 transponder is in the Regeneration Mode,
+  // the included message
   //              formats shall be those that this Mode 5 transponder is capable
   //              of supporting and could be in a reply to a Mode 5
   //              interrogation. The Message Formats Status field of the Mode 5
@@ -146,7 +146,7 @@ class KDIS_EXPORT Mode5TransponderBasicData : public DataTypeBase {
   // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::SetNationalOrigin
   //              KDIS::DATA_TYPE::Mode5TransponderBasicData::GetNationalOrigin
   // Description: The national origin is the country that owns the platform
-  //              carrying a Mode 5 transponder. NOTE�The National Origin is
+  //              carrying a Mode 5 transponder. NOTE: The National Origin is
   //              not the same as the Country field enumerations contained in
   //              Entity Type records. For simulations that have modeled Mode 5
   //              (e.g., Mark XIIA) transponders based on the original AIMS

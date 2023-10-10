@@ -32,7 +32,7 @@ http://p.sf.net/kdis/UserGuide
     created:    02/07/2010
     author:     Karl Jones
 
-    purpose:    Location of the origin of the LE�s coordinate system.
+    purpose:    Location of the origin of the LE's coordinate system.
     size:       64 bits / 8 octets
 *********************************************************************/
 
@@ -79,7 +79,7 @@ class KDIS_EXPORT RelativeWorldCoordinates : public DataTypeBase {
   //************************************
   // FullName:    KDIS::DATA_TYPE::RelativeWorldCoordinates::SetDelta
   //              KDIS::DATA_TYPE::RelativeWorldCoordinates::GetDelta
-  // Description: The difference between LE�s X, Y and Z direction coordinate
+  // Description: The difference between LE's X, Y and Z direction coordinate
   // and the
   //              X, Y and Z direction coordinate of the reference point.
   // Parameter:   KFIXED16_3

@@ -148,7 +148,7 @@ class KDIS_EXPORT Minefield_Query_PDU : public Minefield_Header {
   // queried by the requesting
   //              simulation.
   //              If a subfield within the Requested Minefield Type filter
-  //              record (e.g., the country field) contains the value �1 (all
+  //              record (e.g., the country field) contains the value -1 (all
   //              bits set), then all subfield values shall match the filter
   //              (e.g., all countries are allowed).
   // Parameter:   const EntityType & MT

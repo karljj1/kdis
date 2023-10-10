@@ -233,7 +233,7 @@ class KDIS_EXPORT Aggregate_State_PDU : public Header {
   //************************************
   // FullName:    KDIS::PDU::Aggregate_State_PDU::SetCenterOfMassLocation
   //              KDIS::PDU::Aggregate_State_PDU::GetCenterOfMassLocation
-  // Description: Location of the aggregate�s center of mass in the simulated
+  // Description: Location of the aggregate's center of mass in the simulated
   // world. Parameter:   const WorldCoordinates & COML
   //************************************
   void SetCenterOfMassLocation(const KDIS::DATA_TYPE::WorldCoordinates& COML);
@@ -243,10 +243,10 @@ class KDIS_EXPORT Aggregate_State_PDU : public Header {
   //************************************
   // FullName:    KDIS::PDU::Aggregate_State_PDU::SetAggregateVelocity
   //              KDIS::PDU::Aggregate_State_PDU::GetAggregateVelocity
-  // Description: Specifies an aggregate�s linear velocity.
-  //              The coordinate system for an aggregate�s linear velocity
+  // Description: Specifies an aggregate's linear velocity.
+  //              The coordinate system for an aggregate's linear velocity
   //              depends on the dead reckoning algorithm used. Represented by a
-  //              Linear Velocity Vector. An aggreagte�s velocity is calculated
+  //              Linear Velocity Vector. An aggreagte's velocity is calculated
   //              by taking the average velocity of its constituent entities.
   //              The velocity of the aggregate is directed from the center of
   //              mass. See fig 39 from IEEE 1278.1A-1998.

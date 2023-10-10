@@ -68,7 +68,7 @@ class KDIS_EXPORT NamedLocationIdentifier : public DataTypeBase {
   // Description: Specifies the station name within the host at which the part
   // entity
   //              is located. If the part entity is On Station, this field shall
-  //              specify the representation of the part�s location data fields.
+  //              specify the representation of the part's location data fields.
   // Parameter:   StationName SN
   //************************************
   void SetStationName(KDIS::DATA_TYPE::ENUMS::StationName SN);

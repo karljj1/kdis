@@ -48,13 +48,13 @@ entity. Each vector component shall represent meters from the origin.
 
                 2)Linear Acceleration Vector - m/s2
                     Represented as a vector with components in either world
-coordinate system or entity�s coordinate system depending on the value in the
+coordinate system or entity's coordinate system depending on the value in the
 Dead Reckoning Algorithm field. Each vector component shall represent
 acceleration in meters per second squared.
 
                 3)Linear Velocity Vector - m/s
                     Represented as a vector with three components in either
-world coordinate system or entity�s coordinate system depending on the value in
+world coordinate system or entity's coordinate system depending on the value in
 the Dead Reckoning Algorithm field. Each vector component shall represent
 velocity in meters per second.
 

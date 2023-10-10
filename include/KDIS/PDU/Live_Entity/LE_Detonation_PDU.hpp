@@ -59,7 +59,7 @@ class KDIS_EXPORT LE_Detonation_PDU : public LE_Header {
       KUINT8
       m_ui8MunitionSiteApp : 1;    // F1 : 0 = Site Number and Application
                                    // Number data are the same as the firing
-                                   //          entity�s and are not included
+                                   //          entity's and are not included
                                    //          in the Munition ID
                                    //      1 = Site Number and Application
                                    //      Number fields are included in the
@@ -68,7 +68,7 @@ class KDIS_EXPORT LE_Detonation_PDU : public LE_Header {
                                    //      1 = Munition ID field is included
       KUINT8 m_ui8EventSiteAppId : 1;  // F3 : 0 = Site Number and Application
                                        // Number data are the same as the firing
-                                       //          entity�s and are not included
+                                       //          entity's and are not included
                                        //          in the Event ID
                                        //      1 = Site Number and Application
                                        //      Number fields are included in the

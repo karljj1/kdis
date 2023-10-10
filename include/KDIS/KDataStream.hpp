@@ -36,7 +36,8 @@ http://p.sf.net/kdis/UserGuide
                 via a network/writing to file.
 *********************************************************************/
 
-#pragma once
+#ifndef KDIS_KDATASTREAM_HPP_
+#define KDIS_KDATASTREAM_HPP_
 
 #include <vector>
 
@@ -258,3 +259,5 @@ KDataStream& KDataStream::operator>>(Type& T) {
 //////////////////////////////////////////////////////////////////////////
 
 }  // END namespace KDIS
+
+#endif  // KDIS_KDATASTREAM_HPP_

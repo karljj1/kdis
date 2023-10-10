@@ -166,7 +166,7 @@ class KDIS_EXPORT GED_BasicGroundCombatSoldier : public GED {
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_BasicGroundCombatSoldier::SetSpeed
   //              KDIS::DATA_TYPE::GED_BasicGroundCombatSoldier::GetSpeed
-  // Description: Signed magnitude value of the entity�s absolute velocity
+  // Description: Signed magnitude value of the entity's absolute velocity
   // vector.
   //              A negative value shall indicate that the entity is moving
   //              backwards. Measured in Meters Per Secound (m/s).

@@ -43,7 +43,7 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 KUINT8 Minefield_Data_PDU::calcPaddingPaintScheme() const {
-  // Padding � 8{[4 � N(2 F(8) + M F(9) + F(10) + 2)] mod4} bits unused
+  // Padding - 8{[4 - N(2 F(8) + M F(9) + F(10) + 2)] mod4} bits unused
   KUINT8 ui8NeedPadding = 2, ui8Pad = 0;
   if (m_DataFilter.IsFusing()) ui8NeedPadding += 2;
   if (m_DataFilter.IsScalarDetectionCoefficient())
@@ -425,7 +425,7 @@ void Minefield_Data_PDU::Decode(KDataStream& stream,
     MINE_DECODE_CLASS(MinePaintScheme, SetPaintSchemeValue)
 
   // Do we need to add padding?
-  // Padding � 8{[4 � N(2 F(8) + M F(9) + F(10) + 2)] mod4} bits unused
+  // Padding - 8{[4 - N(2 F(8) + M F(9) + F(10) + 2)] mod4} bits unused
   KUINT8 ui8PaddingNeeded2 = calcPaddingPaintScheme();
   KUINT8 ui8Pad = 0;
   for (KUINT8 i = 0; i < ui8PaddingNeeded2; ++i) {

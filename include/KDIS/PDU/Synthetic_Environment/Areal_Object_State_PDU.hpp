@@ -105,7 +105,7 @@ class KDIS_EXPORT Areal_Object_State_PDU : public Object_State_Header {
   //              KDIS::PDU::Areal_Object_State_PDU::SetModificationLocation
   //              KDIS::PDU::Areal_Object_State_PDU::IsModificationLocation
   // Description: Identifies whether a modification has been made to the point
-  // object�s location .
+  // object's location .
   //              Modification is represented by a single 8 bit unsigned int,
   //              where bit 0 is the location modified flag. A value of 1(true)
   //              indicates the field has been changed. All values are set to
@@ -130,7 +130,7 @@ class KDIS_EXPORT Areal_Object_State_PDU : public Object_State_Header {
   //************************************
   // FullName:    KDIS::PDU::Areal_Object_State_PDU::SetObjectAppearance
   //              KDIS::PDU::Areal_Object_State_PDU::GetObjectAppearance
-  // Description: Specifies the dynamic changes to an object�s appearance
+  // Description: Specifies the dynamic changes to an object's appearance
   // attributes. Parameter:   const ArealObjectAppearance & A
   //************************************
   void SetObjectAppearance(const KDIS::DATA_TYPE::ArealObjectAppearance& A);
@@ -169,7 +169,7 @@ class KDIS_EXPORT Areal_Object_State_PDU : public Object_State_Header {
   // FullName:    KDIS::PDU::Areal_Object_State_PDU::AddPoint
   //              KDIS::PDU::Areal_Object_State_PDU::SetPoints
   //              KDIS::PDU::Areal_Object_State_PDU::GetPoints
-  // Description: Specifies the points that make up the object�s physical
+  // Description: Specifies the points that make up the object's physical
   // location. Parameter:   const WorldCoordinates & P, const
   // vector<WorldCoordinates> & P, void
   //************************************

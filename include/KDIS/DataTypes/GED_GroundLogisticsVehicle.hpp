@@ -155,7 +155,7 @@ class KDIS_EXPORT GED_GroundLogisticsVehicle : public GED {
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::SetSpeed
   //              KDIS::DATA_TYPE::GED_GroundLogisticsVehicle::GetSpeed
-  // Description: Signed magnitude value of the entity�s absolute velocity
+  // Description: Signed magnitude value of the entity's absolute velocity
   // vector.
   //              A negative value shall indicate that the entity is moving
   //              backwards. Specified in 0.1 meter per second increments for

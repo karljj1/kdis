@@ -136,7 +136,7 @@ class KDIS_EXPORT IO_Action_PDU : public IO_Header {
   // Description: Identifies the name of the simulation model issuing this PDU.
   //              0       No statement.
   //              1-200   Reserved for future Io simulation sources.
-  //              201-255 Reserved for United States IO Simulation Sources �
+  //              201-255 Reserved for United States IO Simulation Sources -
   //                      See applicable agreement or the organizers of the
   //                      event (training, exercise, etc) in which information
   //                      operations is included.

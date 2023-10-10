@@ -36,7 +36,7 @@ http://p.sf.net/kdis/UserGuide
     purpose:    The Appearance PDU communicates information about the appearance
                 of an Live Entity. This includes state information that is
                 necessary for the receiving simulation applications to represent
-                the issuing entity�s appearance in the simulation application�s
+                the issuing entity's appearance in the simulation application's
 own simulation.
 
     size:       136 bits / 17 octets - Min size
@@ -232,7 +232,7 @@ class KDIS_EXPORT Appearance_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceVisual
   //              KDIS::PDU::Appearance_PDU::GetAppearanceVisual
-  // Description: Optional field. Specifies the dynamic changes to the entity�s
+  // Description: Optional field. Specifies the dynamic changes to the entity's
   // visual appearance attributes.
   //              Note: Setting this value will also cause the relevant flag to
   //              be set to true.
@@ -245,7 +245,7 @@ class KDIS_EXPORT Appearance_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceIR
   //              KDIS::PDU::Appearance_PDU::GetAppearanceIR
-  // Description: Optional field. Specifies the dynamic changes to the entity�s
+  // Description: Optional field. Specifies the dynamic changes to the entity's
   // infrared appearance attributes.
   //              Note: Setting this value will also cause the relevant flag to
   //              be set to true.
@@ -258,7 +258,7 @@ class KDIS_EXPORT Appearance_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceEM
   //              KDIS::PDU::Appearance_PDU::GetAppearanceEM
-  // Description: Optional field. Specifies the dynamic changes to the entity�s
+  // Description: Optional field. Specifies the dynamic changes to the entity's
   // electromagnetic appearance attributes.
   //              Note: Setting this value will also cause the relevant flags to
   //              be set to true.
@@ -271,7 +271,7 @@ class KDIS_EXPORT Appearance_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::Appearance_PDU::SetAppearanceAudio
   //              KDIS::PDU::Appearance_PDU::GetAppearanceAudio
-  // Description: Optional field. Specifies the dynamic changes to the entity�s
+  // Description: Optional field. Specifies the dynamic changes to the entity's
   // acoustic appearance attributes.
   //              Note: Setting this value will also cause the relevant flags to
   //              be set to true.

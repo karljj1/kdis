@@ -52,33 +52,33 @@ class KDIS_EXPORT LE_Fire_PDU : public LE_Header {
   union {
     struct {
       KUINT8
-          m_ui8TargetId : 1;  // F0 : 0 = Target Entity ID field is not included
-                              //      1 = Target Entity ID field is included
+      m_ui8TargetId : 1;  // F0 : 0 = Target Entity ID field is not included
+                          //      1 = Target Entity ID field is included
       KUINT8
-          m_ui8MunitionSiteApp : 1;  // F1 : 0 = Site Number and Application
-                                     // Number data are the same as the firing
-                                     //          entity�s and are not included
-                                     //          in the Munition ID
-                                     //      1 = Site Number and Application
-                                     //      Number fields are included in the
-                                     //      Munition ID
+      m_ui8MunitionSiteApp : 1;    // F1 : 0 = Site Number and Application
+                                   // Number data are the same as the firing
+                                   //          entity's and are not included
+                                   //          in the Munition ID
+                                   //      1 = Site Number and Application
+                                   //      Number fields are included in the
+                                   //      Munition ID
       KUINT8 m_ui8MunitionId : 1;  // F2 : 0 = Munition ID field is not included
                                    //      1 = Munition ID field is included
       KUINT8 m_ui8EventSiteAppId : 1;  // F3 : 0 = Site Number and Application
                                        // Number data are the same as the firing
-                                       //          entity�s and are not included
+                                       //          entity's and are not included
                                        //          in the Event ID
                                        //      1 = Site Number and Application
                                        //      Number fields are included in the
                                        //      Event ID
       KUINT8
-          m_ui8WarheadFuse : 1;  // F4 : 0 = Warhead and Fuse fields of the
-                                 // Munition Descriptor record are not
-                                 //          included (use munition default)
-                                 //      1 = Warhead and Fuse fields of the
-                                 //      Munition Descriptor record are present
+      m_ui8WarheadFuse : 1;  // F4 : 0 = Warhead and Fuse fields of the
+                             // Munition Descriptor record are not
+                             //          included (use munition default)
+                             //      1 = Warhead and Fuse fields of the
+                             //      Munition Descriptor record are present
       KUINT8
-          m_ui8QuantRate : 1;    // F5 : 0 = Quantity and Rate fields of the
+      m_ui8QuantRate : 1;        // F5 : 0 = Quantity and Rate fields of the
                                  // Munition Descriptor record are not
                                  //          included
                                  //      1 = Quantity and Rate fields of the
@@ -267,7 +267,7 @@ class KDIS_EXPORT LE_Fire_PDU : public LE_Header {
   //************************************
   // FullName:    KDIS::PDU::LE_Fire_PDU::SetRange
   //              KDIS::PDU::LE_Fire_PDU::GetRange
-  // Description: Range in meters that an entity�s fire control system has
+  // Description: Range in meters that an entity's fire control system has
   // assumed in
   //              computing the fire control solution. For systems where range
   //              is unknown or unavailable, this field shall contain the value

@@ -99,7 +99,7 @@ class KDIS_EXPORT Mode5InterrogatorBasicData : public DataTypeBase {
   //              Mode 5 interrogator is capableof supporting and could be sent
   //              in a Mode 5 interrogation as indicated by the Message Formats
   //              Status field being set to Capability (0). 2) Only the specific
-  //              message formats associated with this Mode 5 interrogator�s
+  //              message formats associated with this Mode 5 interrogator's
   //              current active interrogation as indicated by the Message
   //              Formats Status field being set to Active Interrogation (1).
   //              When a Mode 5 interrogator is in the Interactive Mode, the

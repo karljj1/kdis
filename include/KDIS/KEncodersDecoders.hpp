@@ -37,7 +37,8 @@ http://p.sf.net/kdis/UserGuide
                 appropriate data type
 *********************************************************************/
 
-#pragma once
+#ifndef KDIS_KENCODERSDECORDS_HPP_
+#define KDIS_KENCODERSDECORDS_HPP_
 
 #include "KDIS/KDefines.hpp"
 
@@ -109,3 +110,5 @@ typedef NetToDataType<KFLOAT32> NetToKFLOAT32;
 typedef NetToDataType<KFLOAT64> NetToKFLOAT64;
 
 };  // namespace KDIS
+
+#endif  // KDIS_KENCODERSDECORDS_HPP_

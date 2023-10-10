@@ -88,10 +88,10 @@ class KDIS_EXPORT IsPartOf_PDU : public Simulation_Management_Header {
   //************************************
   // FullName:    KDIS::PDU::IsPartOf_PDU::SetLocationOfPart
   //              KDIS::PDU::IsPartOf_PDU::GetLocationOfPart
-  // Description: Specifies the location of the part�s centroid in the host
-  // entity�s coordinate system.
+  // Description: Specifies the location of the part's centroid in the host
+  // entity's coordinate system.
   //              Represented by an Entity Coordinate Vector record.
-  //              The syntax of the part�s location data shall be specified by
+  //              The syntax of the part's location data shall be specified by
   //              the Station Name enumeration. When the Station Name
   //              enumeration indicates On station (Range/Bearing or RNG/BRG),
   //              the three location data fields shall represent the Range (in

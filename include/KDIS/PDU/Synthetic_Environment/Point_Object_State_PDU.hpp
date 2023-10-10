@@ -109,7 +109,7 @@ class KDIS_EXPORT Point_Object_State_PDU : public Object_State_Header {
   //              KDIS::PDU::Point_Object_State_PDU::SetModificationOrientation
   //              KDIS::PDU::Point_Object_State_PDU::IsModificationOrientation
   // Description: Identifies whether a modification has been made to the point
-  // object�s
+  // object's
   //              location or orientation. Modification is represented by a
   //              single 8 bit unsigned int, where bit 0 is the location
   //              modified flag and bit 1 is the orientation flag. A value of
@@ -159,7 +159,7 @@ class KDIS_EXPORT Point_Object_State_PDU : public Object_State_Header {
   //************************************
   // FullName:    KDIS::PDU::Point_Object_State_PDU::SetObjectAppearance
   //              KDIS::PDU::Point_Object_State_PDU::GetObjectAppearance
-  // Description: Specifies the dynamic changes to an object�s appearance
+  // Description: Specifies the dynamic changes to an object's appearance
   // attributes. Parameter:   const PointObjectAppearance & O
   //************************************
   void SetObjectAppearance(const KDIS::DATA_TYPE::PointObjectAppearance& A);

@@ -93,7 +93,7 @@ class KDIS_EXPORT Minefield_Data_PDU : public Minefield_Header {
   //************************************
   // FullName:    KDIS::PDU::Minefield_Data_PDU::calcPaddingPaintScheme
   // Description: Calculates the padding after the paint scheme.
-  //              Padding � 8{[4 � N(2 F(8) + M F(9) + F(10) + 2)]    mod4} bits
+  //              Padding - 8{[4 - N(2 F(8) + M F(9) + F(10) + 2)]    mod4} bits
   //              unused PDU lies on a 32 bit boundary.
   //************************************
   KUINT8 calcPaddingPaintScheme() const;
