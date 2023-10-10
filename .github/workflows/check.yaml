@@ -35,6 +35,8 @@ jobs:
 
     code:
         name: Code
+        needs: version
+        if: always() && (needs.version.result == 'success' || needs.version.result == 'skipped')
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -98,6 +100,8 @@ jobs:
 
     build:
         name: Build
+        needs: code
+        if: needs.code.result == 'success'
         strategy:
             fail-fast: true
             matrix:
