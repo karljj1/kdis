@@ -50,27 +50,28 @@ namespace ENUMS {
 /*  Minefield Appearance                                                */
 /************************************************************************/
 
-enum MinefieldType
-{
-    MixedAntiPersonnelAntiTank                                        = 0,
-    PureAntiPersonnel                                                 = 1,
-    PureAntiTank                                                      = 2
+enum MinefieldType {
+  MixedAntiPersonnelAntiTank = 0,
+  PureAntiPersonnel = 1,
+  PureAntiTank = 2
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeMinefieldType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorMinefieldType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorMinefieldType(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringMinefieldType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringMinefieldType(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringMinefieldType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringMinefieldType(const KString& Value,
+                                                 KINT32& ValueOut);
 
 /************************************************************************/
 /* Minefield Protocol Mode                                              */
@@ -80,26 +81,25 @@ KDIS_EXPORT KBOOL GetEnumFromStringMinefieldType( const KString & Value, KINT32 
 /*  Minefield_State_PDU                                                 */
 /************************************************************************/
 
-enum MinefieldProtocolMode
-{
-    Heartbeat                                                         = 0,
-    QPR                                                               = 1
-};
+enum MinefieldProtocolMode { Heartbeat = 0, QPR = 1 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeMinefieldProtocolMode();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorMinefieldProtocolMode( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorMinefieldProtocolMode(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringMinefieldProtocolMode( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringMinefieldProtocolMode(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringMinefieldProtocolMode( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringMinefieldProtocolMode(const KString& Value,
+                                                         KINT32& ValueOut);
 
 /************************************************************************/
 /* Sensor Type                                                          */
@@ -112,73 +112,74 @@ KDIS_EXPORT KBOOL GetEnumFromStringMinefieldProtocolMode( const KString & Value,
 /*  Minefield_Data_PDU                                                  */
 /************************************************************************/
 
-enum SensorType
-{
-    // Category 0 - Other
-    SensorTypeOther                                                   = 0,
-    // Category 1 - Optical
-    Optical_UnaidedEyeActivelySearching                               = 1,
-    Optical_UnaidedEyeNotActivelySearching                            = 17,
-    Optical_Binoculars                                                = 33,
-    Optical_ImageIntensifier                                          = 49,
-    Optical_HMMWVOccupantActivelySearching                            = 65,
-    Optical_HMMWVOccupantNotActivelySearching                         = 81,
-    Optical_TruckOccupantActivelySearching                            = 97,
-    Optical_TruckOccupantNotActivelySearching                         = 113,
-    Optical_TrackedVehicleOccupantClosedHatchActivelySearching        = 129,
-    Optical_TrackedVehicleOccupantClosedHatchNotActivelySearching     = 145,
-    Optical_TrackedVehicleOccupantOpenHatchActivelySearching          = 161,
-    Optical_TrackedVehicleOccupantOpenHatchNotActivelySearching       = 177,
-    // Category 2 - FLIR
-    FLIR_Generic3_5                                                   = 2,
-    FLIR_Generic8_12                                                  = 18,
-    FLIR_ASTAMIDS_I                                                   = 34,
-    FLIR_ASTAMIDS_II                                                  = 50,
-    FLIR_GSTAMIDS3_5                                                  = 66,
-    FLIR_GSTAMIDS8_1                                                  = 82,
-    FLIR_HSTAMIDS3_5                                                  = 98,
-    FLIR_HSTAMIDS8_1                                                  = 114,
-    FLIR_COBRA3_5                                                     = 130,
-    FLIR_COBRA8_12                                                    = 146,
-    // Category 3 - RADAR
-    RADAR_Generic                                                     = 3,
-    RADAR_GenericGPR                                                  = 19,
-    RADAR_GSTAMIDSI                                                   = 35,
-    RADAR_GSTAMIDSII                                                  = 51,
-    RADAR_HSTAMIDSI                                                   = 67,
-    RADAR_HSTAMIDSII                                                  = 83,
-    // Category 4 - Magnetic
-    Magnetic_Generic                                                  = 4,
-    Magnetic_AN_PSS_11                                                = 20,
-    Magnetic_AN_PSS_12                                                = 36,
-    Magnetic_GSTAMIDS                                                 = 52,
-    // Category 5 - Laser
-    Laser_Generic                                                     = 5,
-    Laser_ASTAMIDS                                                    = 21,
-    // Category 6 - SONAR
-    SONAR_Generic                                                     = 6,
-    // Category 7 - Physical
-    Physical_GenericProbe                                             = 7,
-    Physical_ProbeMetalContent                                        = 23,
-    Physical_ProbeNoMetalContent                                      = 39,
-    // Category 8 - Multispectral
-    Multispectral_Generic                                             = 8
+enum SensorType {
+  // Category 0 - Other
+  SensorTypeOther = 0,
+  // Category 1 - Optical
+  Optical_UnaidedEyeActivelySearching = 1,
+  Optical_UnaidedEyeNotActivelySearching = 17,
+  Optical_Binoculars = 33,
+  Optical_ImageIntensifier = 49,
+  Optical_HMMWVOccupantActivelySearching = 65,
+  Optical_HMMWVOccupantNotActivelySearching = 81,
+  Optical_TruckOccupantActivelySearching = 97,
+  Optical_TruckOccupantNotActivelySearching = 113,
+  Optical_TrackedVehicleOccupantClosedHatchActivelySearching = 129,
+  Optical_TrackedVehicleOccupantClosedHatchNotActivelySearching = 145,
+  Optical_TrackedVehicleOccupantOpenHatchActivelySearching = 161,
+  Optical_TrackedVehicleOccupantOpenHatchNotActivelySearching = 177,
+  // Category 2 - FLIR
+  FLIR_Generic3_5 = 2,
+  FLIR_Generic8_12 = 18,
+  FLIR_ASTAMIDS_I = 34,
+  FLIR_ASTAMIDS_II = 50,
+  FLIR_GSTAMIDS3_5 = 66,
+  FLIR_GSTAMIDS8_1 = 82,
+  FLIR_HSTAMIDS3_5 = 98,
+  FLIR_HSTAMIDS8_1 = 114,
+  FLIR_COBRA3_5 = 130,
+  FLIR_COBRA8_12 = 146,
+  // Category 3 - RADAR
+  RADAR_Generic = 3,
+  RADAR_GenericGPR = 19,
+  RADAR_GSTAMIDSI = 35,
+  RADAR_GSTAMIDSII = 51,
+  RADAR_HSTAMIDSI = 67,
+  RADAR_HSTAMIDSII = 83,
+  // Category 4 - Magnetic
+  Magnetic_Generic = 4,
+  Magnetic_AN_PSS_11 = 20,
+  Magnetic_AN_PSS_12 = 36,
+  Magnetic_GSTAMIDS = 52,
+  // Category 5 - Laser
+  Laser_Generic = 5,
+  Laser_ASTAMIDS = 21,
+  // Category 6 - SONAR
+  SONAR_Generic = 6,
+  // Category 7 - Physical
+  Physical_GenericProbe = 7,
+  Physical_ProbeMetalContent = 23,
+  Physical_ProbeNoMetalContent = 39,
+  // Category 8 - Multispectral
+  Multispectral_Generic = 8
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeSensorType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorSensorType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorSensorType(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringSensorType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringSensorType(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringSensorType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringSensorType(const KString& Value,
+                                              KINT32& ValueOut);
 
 /************************************************************************/
 /* MineFuse                                                             */
@@ -187,31 +188,32 @@ KDIS_EXPORT KBOOL GetEnumFromStringSensorType( const KString & Value, KINT32 & V
 /*  MineFusing                                                          */
 /************************************************************************/
 
-enum MineFuse
-{
-    NoMineFuse                                                        = 0,
-    OtherMineFuse                                                     = 1,
-    PressureFuse                                                      = 2,
-    MagneticFuse                                                      = 3,
-    TiltRodFuse                                                       = 4,
-    CommandFuse                                                       = 5,
-    TripWireFuse                                                      = 6
+enum MineFuse {
+  NoMineFuse = 0,
+  OtherMineFuse = 1,
+  PressureFuse = 2,
+  MagneticFuse = 3,
+  TiltRodFuse = 4,
+  CommandFuse = 5,
+  TripWireFuse = 6
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeMineFuse();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorMineFuse( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorMineFuse(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringMineFuse( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringMineFuse(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringMineFuse( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringMineFuse(const KString& Value,
+                                            KINT32& ValueOut);
 
 /************************************************************************/
 /* MineAlgae                                                            */
@@ -220,28 +222,29 @@ KDIS_EXPORT KBOOL GetEnumFromStringMineFuse( const KString & Value, KINT32 & Val
 /*  MinePaintScheme                                                     */
 /************************************************************************/
 
-enum MineAlgae
-{
-    AlgaeNone                                                         = 0,
-    AlgaeLight                                                        = 1,
-    AlgaeModerate                                                     = 2,
-    AlgaeHeavy                                                        = 3
+enum MineAlgae {
+  AlgaeNone = 0,
+  AlgaeLight = 1,
+  AlgaeModerate = 2,
+  AlgaeHeavy = 3
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeMineAlgae();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorMineAlgae( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorMineAlgae(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringMineAlgae( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringMineAlgae(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringMineAlgae( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringMineAlgae(const KString& Value,
+                                             KINT32& ValueOut);
 
 /************************************************************************/
 /* PaintScheme                                                          */
@@ -250,44 +253,45 @@ KDIS_EXPORT KBOOL GetEnumFromStringMineAlgae( const KString & Value, KINT32 & Va
 /*  MinePaintScheme                                                     */
 /************************************************************************/
 
-enum PaintScheme
-{
-    OtherPaintScheme                                                  = 0,
-    StandardPaintScheme                                               = 1,
-    CamouflageDesert                                                  = 2,
-    CamouflageJungle                                                  = 3,
-    CamouflageSnow                                                    = 4,
-    CamouflageGravel                                                  = 5,
-    CamouflagePavement                                                = 6,
-    CamouflageSand                                                    = 7,
-    NaturalWood                                                       = 8,
-    ClearPaintScheme                                                  = 9,
-    Red                                                               = 10,
-    Blue                                                              = 11,
-    Green                                                             = 12,
-    Olive                                                             = 13,
-    White                                                             = 14,
-    Tan                                                               = 15,
-    Black                                                             = 16,
-    Yellow                                                            = 17,
-    Brown                                                             = 18
+enum PaintScheme {
+  OtherPaintScheme = 0,
+  StandardPaintScheme = 1,
+  CamouflageDesert = 2,
+  CamouflageJungle = 3,
+  CamouflageSnow = 4,
+  CamouflageGravel = 5,
+  CamouflagePavement = 6,
+  CamouflageSand = 7,
+  NaturalWood = 8,
+  ClearPaintScheme = 9,
+  Red = 10,
+  Blue = 11,
+  Green = 12,
+  Olive = 13,
+  White = 14,
+  Tan = 15,
+  Black = 16,
+  Yellow = 17,
+  Brown = 18
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizePaintScheme();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorPaintScheme( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorPaintScheme(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringPaintScheme( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringPaintScheme(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringPaintScheme( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringPaintScheme(const KString& Value,
+                                               KINT32& ValueOut);
 
-} // END namespace ENUMS
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // END namespace ENUMS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

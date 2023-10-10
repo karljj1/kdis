@@ -92,7 +92,7 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
   KUINT8 m_ui8VecDim;
 
   KUINT16
-      m_ui16Padding1;  // 24 bits unused for alignment of Grid Axis Descriptor
+  m_ui16Padding1;  // 24 bits unused for alignment of Grid Axis Descriptor
   KUINT8 m_ui8Padding1;
 
   std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> m_vpGridAxisDesc;

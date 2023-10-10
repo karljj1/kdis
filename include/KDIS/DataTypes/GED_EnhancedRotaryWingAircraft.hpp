@@ -44,114 +44,126 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace DATA_TYPE {
 
-class KDIS_EXPORT GED_EnhancedRotaryWingAircraft : public GED_BasicRotorWingAircraft
-{
-protected:
+class KDIS_EXPORT GED_EnhancedRotaryWingAircraft
+    : public GED_BasicRotorWingAircraft {
+ protected:
+  KUINT8 m_ui8SupFuelStatus;
 
-    KUINT8 m_ui8SupFuelStatus;
+  KUINT8 m_ui8AirMaintStatus;
 
-    KUINT8 m_ui8AirMaintStatus;
+  KUINT8 m_ui8PriAmmun;
 
-    KUINT8 m_ui8PriAmmun;
+  KUINT8 m_ui8SecAmmun;
 
-    KUINT8 m_ui8SecAmmun;
+ public:
+  static const KUINT16 GED_ENHANCED_ROTARY_WING_AIRCRAFT_SIZE = 28;
 
-public:
+  GED_EnhancedRotaryWingAircraft();
 
-    static const KUINT16 GED_ENHANCED_ROTARY_WING_AIRCRAFT_SIZE = 28;
+  GED_EnhancedRotaryWingAircraft(KDataStream& stream);
 
-    GED_EnhancedRotaryWingAircraft();
+  GED_EnhancedRotaryWingAircraft(
+      KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset,
+      const EntityAppearance& EA, KINT8 Psi, KINT8 Theta, KINT8 Phi,
+      KUINT8 FuelStatus, KINT8 HorizontalDeviation, KINT8 VerticalDeviation,
+      KINT8 Speed, KINT8 TurretAzimuth, KINT8 GunElevation,
+      KINT8 TurretSlewRate, KINT8 GunElevationRate, KUINT8 SupFuelStatus,
+      KUINT8 AirMaintenanceStatus, KUINT8 PrimaryAmmunition,
+      KUINT8 SecondaryAmmunition);
 
-    GED_EnhancedRotaryWingAircraft( KDataStream & stream );
+  GED_EnhancedRotaryWingAircraft(const GED_BasicRotorWingAircraft& BRWA,
+                                 KUINT8 SupFuelStatus,
+                                 KUINT8 AirMaintenanceStatus,
+                                 KUINT8 PrimaryAmmunition,
+                                 KUINT8 SecondaryAmmunition);
 
-    GED_EnhancedRotaryWingAircraft( KUINT16 ID, KINT16 XOffset, KINT16 YOffset, KINT16 ZOffset, const EntityAppearance & EA, KINT8 Psi,
-                                    KINT8 Theta, KINT8 Phi, KUINT8 FuelStatus, KINT8 HorizontalDeviation, KINT8 VerticalDeviation,
-                                    KINT8 Speed, KINT8 TurretAzimuth, KINT8 GunElevation, KINT8 TurretSlewRate, KINT8 GunElevationRate,
-                                    KUINT8 SupFuelStatus, KUINT8 AirMaintenanceStatus, KUINT8 PrimaryAmmunition, KUINT8 SecondaryAmmunition );
+  virtual ~GED_EnhancedRotaryWingAircraft();
 
-    GED_EnhancedRotaryWingAircraft( const GED_BasicRotorWingAircraft & BRWA, KUINT8 SupFuelStatus, KUINT8 AirMaintenanceStatus, KUINT8 PrimaryAmmunition,
-                                    KUINT8 SecondaryAmmunition );
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetGroupedEntityCategory
+  // Description: Identifies the derived GED class.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory
+  GetGroupedEntityCategory() const;
 
-    virtual ~GED_EnhancedRotaryWingAircraft();
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetLength
+  // Description: Returns size of the GED in octets.
+  //              Not part of the DIS PDU.
+  //************************************
+  virtual KUINT8 GetLength() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetGroupedEntityCategory
-    // Description: Identifies the derived GED class.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetSupplementalFuelStatus
+  //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetSupplementalFuelStatus
+  // Description: Represents the amount of supplemental fuel remaining.
+  //              Specified in natural units.
+  // Parameter:   KUINT8  F
+  //************************************
+  void SetSupplementalFuelStatus(KUINT8 F);
+  KUINT8 GetSupplementalFuelStatus() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetLength
-    // Description: Returns size of the GED in octets.
-    //              Not part of the DIS PDU.
-    //************************************
-    virtual KUINT8 GetLength() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetAirMaintenanceStatus
+  //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetAirMaintenanceStatus
+  // Description: Time spent since last maintenance in hours.
+  // Parameter:   KUINT8  A
+  //************************************
+  void SetAirMaintenanceStatus(KUINT8 A);
+  KUINT8 GetAirMaintenanceStatus() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetSupplementalFuelStatus
-    //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetSupplementalFuelStatus
-    // Description: Represents the amount of supplemental fuel remaining.
-    //              Specified in natural units.
-    // Parameter:   KUINT8  F
-    //************************************
-    void SetSupplementalFuelStatus( KUINT8 F );
-    KUINT8 GetSupplementalFuelStatus() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetPrimaryAmmunition
+  //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetPrimaryAmmunition
+  // Description: Amount of primary ammunition remaining.
+  //              Specified in natural ammunition units for the primary weapon
+  //              system.
+  // Parameter:   KUINT8  P
+  //************************************
+  void SetPrimaryAmmunition(KUINT8 P);
+  KUINT8 GetPrimaryAmmunition() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetAirMaintenanceStatus
-    //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetAirMaintenanceStatus
-    // Description: Time spent since last maintenance in hours.
-    // Parameter:   KUINT8  A
-    //************************************
-    void SetAirMaintenanceStatus( KUINT8 A );
-    KUINT8 GetAirMaintenanceStatus() const;
+  //************************************
+  // FullName:
+  // KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetSecondaryAmmunition
+  //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetSecondaryAmmunition
+  // Description: Amount of secondary ammunition remaining.
+  //              Specified in natural ammunition units for the secondary weapon
+  //              system.
+  // Parameter:   KUINT8  S
+  //************************************
+  void SetSecondaryAmmunition(KUINT8 S);
+  KUINT8 GetSecondaryAmmunition() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetPrimaryAmmunition
-    //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetPrimaryAmmunition
-    // Description: Amount of primary ammunition remaining.
-    //              Specified in natural ammunition units for the primary weapon system.
-    // Parameter:   KUINT8  P
-    //************************************
-    void SetPrimaryAmmunition( KUINT8 P );
-    KUINT8 GetPrimaryAmmunition() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetAsString
+  // Description: Returns a string representation
+  //************************************
+  virtual KString GetAsString() const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::SetSecondaryAmmunition
-    //              KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetSecondaryAmmunition
-    // Description: Amount of secondary ammunition remaining.
-    //              Specified in natural ammunition units for the secondary weapon system.
-    // Parameter:   KUINT8  S
-    //************************************
-    void SetSecondaryAmmunition( KUINT8 S );
-    KUINT8 GetSecondaryAmmunition() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::GetAsString
-    // Description: Returns a string representation
-    //************************************
-    virtual KString GetAsString() const;
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::Decode
-    // Description: Convert From Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual void Decode( KDataStream & stream ) ;
-
-    //************************************
-    // FullName:    KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft::Encode
-    // Description: Convert To Network Data.
-    // Parameter:   KDataStream & stream
-    //************************************
-    virtual KDataStream Encode() const;
-    virtual void Encode( KDataStream & stream ) const;
-
-    KBOOL operator == ( const GED_EnhancedRotaryWingAircraft & Value ) const;
-    KBOOL operator != ( const GED_EnhancedRotaryWingAircraft & Value ) const;
+  KBOOL operator==(const GED_EnhancedRotaryWingAircraft& Value) const;
+  KBOOL operator!=(const GED_EnhancedRotaryWingAircraft& Value) const;
 };
 
-} // END namespace DATA_TYPES
-} // END namespace KDIS
-
+}  // namespace DATA_TYPE
+}  // END namespace KDIS

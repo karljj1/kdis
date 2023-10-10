@@ -91,7 +91,7 @@ EmitterBeam::EmitterBeam(KUINT8 BeamID, KUINT16 BeamParamIndex,
                          KUINT32 JammingModeSequence)
     :
 #elif DIS_VERSION > 6
-                          const BeamStatus& BS, const JammingTechnique& JT)
+                         const BeamStatus& BS, const JammingTechnique& JT)
     :
 #endif
       DataTypeBase(),

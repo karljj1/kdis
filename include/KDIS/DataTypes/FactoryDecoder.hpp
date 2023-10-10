@@ -170,9 +170,8 @@ class FactoryDecoderUser {
 // Init static map variable.
 template <class DecoderBaseTyp>
 std::map<KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > >
-    FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders =
-        std::map<KINT32,
-                 KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > >();
+    FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders = std::map<
+        KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > >();
 
 }  // namespace DATA_TYPE
 }  // END namespace KDIS

@@ -101,7 +101,7 @@ class KDIS_EXPORT EmitterBeam : public DataTypeBase {
 #if DIS_VERSION < 7
               KUINT32 JammingModeSequence);
 #elif DIS_VERSION > 6
-               const BeamStatus &BS, const JammingTechnique &JT);
+              const BeamStatus& BS, const JammingTechnique& JT);
 #endif
 
   virtual ~EmitterBeam();
@@ -193,7 +193,7 @@ class KDIS_EXPORT EmitterBeam : public DataTypeBase {
   // Description: Beam State information.
   // Parameter:   BeamStatus BS, void
   //************************************
-  void SetBeamStatus(const BeamStatus &BS);
+  void SetBeamStatus(const BeamStatus& BS);
   BeamStatus GetBeamStatus() const;
 
   //************************************

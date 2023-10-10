@@ -61,26 +61,25 @@ namespace ENUMS {
 /*  Record-R PDU                                                        */
 /************************************************************************/
 
-enum RequiredReliabilityService
-{
-    Acknowledged                                                      = 0,
-    Unacknowledged                                                    = 1
-};
+enum RequiredReliabilityService { Acknowledged = 0, Unacknowledged = 1 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeRequiredReliabilityService();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorRequiredReliabilityService( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorRequiredReliabilityService(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringRequiredReliabilityService( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringRequiredReliabilityService(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringRequiredReliabilityService( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringRequiredReliabilityService(
+    const KString& Value, KINT32& ValueOut);
 
 /************************************************************************/
 /* Reason                                                               */
@@ -90,33 +89,35 @@ KDIS_EXPORT KBOOL GetEnumFromStringRequiredReliabilityService( const KString & V
 /*  Stop Freeze-R PDU                                                   */
 /************************************************************************/
 
-enum StopFreezeReason
-{
-    OtherStopFreezeReason                                             = 0,
-    Recess                                                            = 1,
-    Termination                                                       = 2,
-    SystemFailure                                                     = 3,
-    SecurityViolation                                                 = 4,
-    EntityReconstitution                                              = 5,
-    StopForReset                                                      = 6,
-    StopForRestart                                                    = 7,
-    AbortTrainingReturnToTacticalOperations                           = 8
+enum StopFreezeReason {
+  OtherStopFreezeReason = 0,
+  Recess = 1,
+  Termination = 2,
+  SystemFailure = 3,
+  SecurityViolation = 4,
+  EntityReconstitution = 5,
+  StopForReset = 6,
+  StopForRestart = 7,
+  AbortTrainingReturnToTacticalOperations = 8
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeStopFreezeReason();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorStopFreezeReason( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorStopFreezeReason(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringStopFreezeReason( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringStopFreezeReason(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringStopFreezeReason( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringStopFreezeReason(const KString& Value,
+                                                    KINT32& ValueOut);
 
 /************************************************************************/
 /* FrozenBehavior                                                       */
@@ -131,27 +132,25 @@ KDIS_EXPORT KBOOL GetEnumFromStringStopFreezeReason( const KString & Value, KINT
 // PDU dictionary ( SISO website ) contains enumeration values. For now I will
 // Use enumerations until I have had a chance to further investigate.
 
-enum FrozenBehavior
-{
-    SimClock                                                          = 0,
-    TransmitPDU                                                       = 1,
-    ReceivePDU                                                        = 2
-};
+enum FrozenBehavior { SimClock = 0, TransmitPDU = 1, ReceivePDU = 2 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeFrozenBehavior();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorFrozenBehavior( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorFrozenBehavior(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringFrozenBehavior( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringFrozenBehavior(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringFrozenBehavior( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringFrozenBehavior(const KString& Value,
+                                                  KINT32& ValueOut);
 
 /************************************************************************/
 /* Acknowledge Flag                                                     */
@@ -161,29 +160,31 @@ KDIS_EXPORT KBOOL GetEnumFromStringFrozenBehavior( const KString & Value, KINT32
 /*  Acknowledge-R PDU                                                   */
 /************************************************************************/
 
-enum AcknowledgeFlag
-{
-    CreateEntityPDU                                                   = 1,
-    RemoveEntityPDU                                                   = 2,
-    Start_ResumePDU                                                   = 3,
-    Stop_FreezePDU                                                    = 4,
-    TransferControlRequest                                            = 5
+enum AcknowledgeFlag {
+  CreateEntityPDU = 1,
+  RemoveEntityPDU = 2,
+  Start_ResumePDU = 3,
+  Stop_FreezePDU = 4,
+  TransferControlRequest = 5
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeAcknowledgeFlag();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorAcknowledgeFlag( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorAcknowledgeFlag(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringAcknowledgeFlag( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringAcknowledgeFlag(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringAcknowledgeFlag( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringAcknowledgeFlag(const KString& Value,
+                                                   KINT32& ValueOut);
 
 /************************************************************************/
 /* Acknowledge Response Flag                                            */
@@ -193,27 +194,29 @@ KDIS_EXPORT KBOOL GetEnumFromStringAcknowledgeFlag( const KString & Value, KINT3
 /*  Acknowledge-R PDU                                                   */
 /************************************************************************/
 
-enum AcknowledgeResponseFlag
-{
-    OtherAcknowledgeResponseFlag                                      = 0,
-    AbleToComply                                                      = 1,
-    UnableToComply                                                    = 2
+enum AcknowledgeResponseFlag {
+  OtherAcknowledgeResponseFlag = 0,
+  AbleToComply = 1,
+  UnableToComply = 2
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeAcknowledgeResponseFlag();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorAcknowledgeResponseFlag( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorAcknowledgeResponseFlag(
+    KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringAcknowledgeResponseFlag( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringAcknowledgeResponseFlag(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringAcknowledgeResponseFlag( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringAcknowledgeResponseFlag(const KString& Value,
+                                                           KINT32& ValueOut);
 
 /************************************************************************/
 /* Action ID                                                            */
@@ -223,73 +226,74 @@ KDIS_EXPORT KBOOL GetEnumFromStringAcknowledgeResponseFlag( const KString & Valu
 /*  Action Request-R PDU                                                */
 /************************************************************************/
 
-enum ActionID
-{
-    OtherActionID                                                     = 0,
-    LocalStorageOfTheRequestedInformation                             = 1,
-    InformSMofEvent_RanOutOfAmmunition                                = 2,
-    InformSMofEvent_KilledInaAction                                   = 3,
-    InformSMofEvent_Damage                                            = 4,
-    InformSMofEvent_MobilityDisabled                                  = 5,
-    InformSMofEvent_FireDisabled                                      = 6,
-    InformSMofEvent_RanOutOfFuel                                      = 7,
-    RecallCheckPointData                                              = 8,
-    RecallInitialParameters                                           = 9,
-    InitiateTether_Lead                                               = 10,
-    InitiateTether_Follow                                             = 11,
-    Unthether                                                         = 12,
-    InitiateServiceStationResupply                                    = 13,
-    InitiatetailGateResupply                                          = 14,
-    InitiaTehitchLead                                                 = 15,
-    InitiaTehitchFollow                                               = 16,
-    Unhitch                                                           = 17,
-    Mount                                                             = 18,
-    Dismount                                                          = 19,
-    StartDRC_DailyReadinessCheck                                      = 20,
-    StopDRC                                                           = 21,
-    DataQuery                                                         = 22,
-    StatusRequest                                                     = 23,
-    SendObjectStateData                                               = 24,
-    Reconstitute                                                      = 25,
-    LockSiteConfiguration                                             = 26,
-    UnlockSiteConfiguration                                           = 27,
-    UpdateSiteConfiguration                                           = 28,
-    QuerySiteConfiguration                                            = 29,
-    TetheringInformation                                              = 30,
-    MountIntent                                                       = 31,
-    AcceptSubscription                                                = 33,
-    UnSubscribe                                                       = 34,
-    TeleportEntity                                                    = 35,
-    Changeaggregatestate                                              = 36,
-    RequestStartPDU                                                   = 37,
-    WakeUpGetReadyForInitialization                                   = 38,
-    InitializeInternalparameters                                      = 39,
-    SendPlanData                                                      = 40,
-    SynchronizeInternalClocks                                         = 41,
-    Run                                                               = 42,
-    SaveInternalParameters                                            = 43,
-    SimulatemalFunction                                               = 44,
-    JoinExercise                                                      = 45,
-    ResignExercise                                                    = 46,
-    TimeAdvance                                                       = 47,
-    TACCSFLOSRequest_Type1                                            = 100,
-    TACCSFLOSRequest_Type2                                            = 101
+enum ActionID {
+  OtherActionID = 0,
+  LocalStorageOfTheRequestedInformation = 1,
+  InformSMofEvent_RanOutOfAmmunition = 2,
+  InformSMofEvent_KilledInaAction = 3,
+  InformSMofEvent_Damage = 4,
+  InformSMofEvent_MobilityDisabled = 5,
+  InformSMofEvent_FireDisabled = 6,
+  InformSMofEvent_RanOutOfFuel = 7,
+  RecallCheckPointData = 8,
+  RecallInitialParameters = 9,
+  InitiateTether_Lead = 10,
+  InitiateTether_Follow = 11,
+  Unthether = 12,
+  InitiateServiceStationResupply = 13,
+  InitiatetailGateResupply = 14,
+  InitiaTehitchLead = 15,
+  InitiaTehitchFollow = 16,
+  Unhitch = 17,
+  Mount = 18,
+  Dismount = 19,
+  StartDRC_DailyReadinessCheck = 20,
+  StopDRC = 21,
+  DataQuery = 22,
+  StatusRequest = 23,
+  SendObjectStateData = 24,
+  Reconstitute = 25,
+  LockSiteConfiguration = 26,
+  UnlockSiteConfiguration = 27,
+  UpdateSiteConfiguration = 28,
+  QuerySiteConfiguration = 29,
+  TetheringInformation = 30,
+  MountIntent = 31,
+  AcceptSubscription = 33,
+  UnSubscribe = 34,
+  TeleportEntity = 35,
+  Changeaggregatestate = 36,
+  RequestStartPDU = 37,
+  WakeUpGetReadyForInitialization = 38,
+  InitializeInternalparameters = 39,
+  SendPlanData = 40,
+  SynchronizeInternalClocks = 41,
+  Run = 42,
+  SaveInternalParameters = 43,
+  SimulatemalFunction = 44,
+  JoinExercise = 45,
+  ResignExercise = 46,
+  TimeAdvance = 47,
+  TACCSFLOSRequest_Type1 = 100,
+  TACCSFLOSRequest_Type2 = 101
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeActionID();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorActionID( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorActionID(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringActionID( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringActionID(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringActionID( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringActionID(const KString& Value,
+                                            KINT32& ValueOut);
 
 /************************************************************************/
 /* Request Status                                                       */
@@ -299,38 +303,39 @@ KDIS_EXPORT KBOOL GetEnumFromStringActionID( const KString & Value, KINT32 & Val
 /*  Action Response-R PDU                                               */
 /************************************************************************/
 
-enum RequestStatus
-{
-    OtherRequestStatus                                                = 0,
-    Pending                                                           = 1,
-    Executing                                                         = 2,
-    PartiallyComplete                                                 = 3,
-    Complete                                                          = 4,
-    RequestRejected                                                   = 5,
-    ReTransmitRequestNow                                              = 6,
-    ReTransmitRequestLater                                            = 7,
-    InvalidTimeParameters                                             = 8,
-    SimulationTimeExceeded                                            = 9,
-    RequestDone                                                       = 10,
-    TACCSFLOSReply_Type1                                              = 100,
-    TACCSFLOSReply_Type2                                              = 101,
-    JoinExerciseRequestRejected                                       = 201
+enum RequestStatus {
+  OtherRequestStatus = 0,
+  Pending = 1,
+  Executing = 2,
+  PartiallyComplete = 3,
+  Complete = 4,
+  RequestRejected = 5,
+  ReTransmitRequestNow = 6,
+  ReTransmitRequestLater = 7,
+  InvalidTimeParameters = 8,
+  SimulationTimeExceeded = 9,
+  RequestDone = 10,
+  TACCSFLOSReply_Type1 = 100,
+  TACCSFLOSReply_Type2 = 101,
+  JoinExerciseRequestRejected = 201
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeRequestStatus();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorRequestStatus( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorRequestStatus(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringRequestStatus( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringRequestStatus(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringRequestStatus( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringRequestStatus(const KString& Value,
+                                                 KINT32& ValueOut);
 
 /************************************************************************/
 /* Event Type                                                           */
@@ -342,42 +347,43 @@ KDIS_EXPORT KBOOL GetEnumFromStringRequestStatus( const KString & Value, KINT32 
 /*  Record Query-R PDU                                                  */
 /************************************************************************/
 
-enum EventType
-{
-    OtherEvent                                                        = 0,
-    IndirectFireOrCASFire                                             = 10,
-    MinefieldEntry                                                    = 11,
-    MinefieldDetonation                                               = 12,
-    VehicleMasterPowerOn                                              = 13,
-    VehicleMasterPowerOff                                             = 14,
-    AggregateStateChangeRequested                                     = 15,
-    PreventCollisionDetonation                                        = 16,
-    OwnershipReport                                                   = 17,
-    RanOutOfAmmunition                                                = 2,
-    KilledInAction                                                    = 3,
-    Damage                                                            = 4,
-    MobilityDisabled                                                  = 5,
-    FireDisabled                                                      = 6,
-    RanOutOfFuel                                                      = 7,
-    EntityInitialization                                              = 8,
-    RequestForIndirectFireOrCASMission                                = 9,
+enum EventType {
+  OtherEvent = 0,
+  IndirectFireOrCASFire = 10,
+  MinefieldEntry = 11,
+  MinefieldDetonation = 12,
+  VehicleMasterPowerOn = 13,
+  VehicleMasterPowerOff = 14,
+  AggregateStateChangeRequested = 15,
+  PreventCollisionDetonation = 16,
+  OwnershipReport = 17,
+  RanOutOfAmmunition = 2,
+  KilledInAction = 3,
+  Damage = 4,
+  MobilityDisabled = 5,
+  FireDisabled = 6,
+  RanOutOfFuel = 7,
+  EntityInitialization = 8,
+  RequestForIndirectFireOrCASMission = 9,
 };
 
 // Returns number of values in the EnumDescriptor for this enum.
-// This can be used to iterate through all possible enum values by using GetEnumDescriptor<enum>.
-// If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will be returned.
+// This can be used to iterate through all possible enum values by using
+// GetEnumDescriptor<enum>. If KDIS_USE_ENUM_DESCRIPTORS is not set then 0 will
+// be returned.
 KDIS_EXPORT KUINT32 GetEnumSizeEventType();
 
 // Returns the EnumDescriptor value for the specified index.
 // Use GetEnumSize<enum> to get the array size.
 // If KDIS_USE_ENUM_DESCRIPTORS is not set then NULL will be returned.
-KDIS_EXPORT const EnumDescriptor * GetEnumDescriptorEventType( KUINT32 Index );
+KDIS_EXPORT const EnumDescriptor* GetEnumDescriptorEventType(KUINT32 Index);
 
-KDIS_EXPORT KString GetEnumAsStringEventType( KINT32 Value );
+KDIS_EXPORT KString GetEnumAsStringEventType(KINT32 Value);
 
 // Returns true if a value was found.
-KDIS_EXPORT KBOOL GetEnumFromStringEventType( const KString & Value, KINT32 & ValueOut );
+KDIS_EXPORT KBOOL GetEnumFromStringEventType(const KString& Value,
+                                             KINT32& ValueOut);
 
-} // END namespace ENUMS
-} // END namespace DATA_TYPES
-} // END namespace KDIS
+}  // END namespace ENUMS
+}  // namespace DATA_TYPE
+}  // END namespace KDIS
