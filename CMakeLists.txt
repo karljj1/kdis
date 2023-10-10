@@ -61,7 +61,7 @@ include(GNUInstallDirs)
 # Configuration file
 #
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/config.hpp"
+  ${CMAKE_CURRENT_SOURCE_DIR}/KConfig.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KConfig.hpp
   @ONLY
 )
 
@@ -888,25 +888,34 @@ list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
 #
 # Library
 #
-add_library(${CMAKE_PROJECT_NAME} ${KDIS_HEADERS} ${KDIS_SOURCES})
+add_library(${CMAKE_PROJECT_NAME} ${KDIS_SOURCES})
 add_library(${CMAKE_PROJECT_NAME}::${CMAKE_PROJECT_NAME} ALIAS ${CMAKE_PROJECT_NAME})
+# Export header
+include(GenerateExportHeader)
+generate_export_header(
+  ${CMAKE_PROJECT_NAME} EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KExport.hpp
+  INCLUDE_GUARD_NAME KDIS_KEXPORT_HPP_
+)
+list(APPEND KDIS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KExport.hpp)
+# Include directories
 target_include_directories(
   ${CMAKE_PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
+# Compile definitions
 target_compile_definitions(
   ${CMAKE_PROJECT_NAME} PRIVATE DIS_VERSION=${DIS_VERSION}
                                 $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
-# TODO RT library in UNIX (NOT APPLE)
-
-# TODO target_compile_options( ${CMAKE_PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
-# $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
+# Properties
 set_target_properties(
   ${CMAKE_PROJECT_NAME} PROPERTIES VERSION ${CMAKE_PROJECT_VERSION} DEBUG_POSTFIX "d"
 )
+# TODO Compile options target_compile_options( ${CMAKE_PROJECT_NAME} PRIVATE
+# $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic
+# -Werror> )
 
 #
 # Install

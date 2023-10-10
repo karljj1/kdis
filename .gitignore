@@ -528,4 +528,5 @@ fabric.properties
 #
 # KDIS
 #
-/include/KDIS/config.hpp
+/include/KDIS/KConfig.hpp
+/include/KDIS/KExport.hpp

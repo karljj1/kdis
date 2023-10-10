@@ -1,5 +1,5 @@
-#ifndef KDIS_CONFIG_HPP_
-#define KDIS_CONFIG_HPP_
+#ifndef KDIS_KCONFIG_HPP_
+#define KDIS_KCONFIG_HPP_
 
 /**
  * @brief Project name.
@@ -28,4 +28,4 @@
 #define KDIS_VERSION_PATCH (@PROJECT_VERSION_PATCH@)
 // clang-format on
 
-#endif  // KDIS_CONFIG_HPP_
+#endif  // KDIS_KCONFIG_HPP_

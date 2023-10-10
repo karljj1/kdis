@@ -5,8 +5,8 @@
         ".clang-format-ignore": "ignore",
         ".clang-tidy": "yaml",
         ".cmake-format": "yaml",
-        "config.hpp.in": "cpp",
         "cppcheck.cppcheck": "xml",
-        "CPPLINT.cfg": "properties"
+        "CPPLINT.cfg": "properties",
+        "KConfig.hpp.in": "cpp",
     }
 }

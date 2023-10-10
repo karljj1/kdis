@@ -44,6 +44,7 @@ http://p.sf.net/kdis/UserGuide
 #include <sstream>
 #include <string>
 
+#include "KDIS/KExport.hpp"
 #include "KDIS/KSymbolicNames.hpp"
 
 #define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS
@@ -63,28 +64,6 @@ http://p.sf.net/kdis/UserGuide
 
 // Safe to ignore this error as we are only exporting STL objects
 #pragma warning(disable : 4251)
-#endif
-
-/************************************************************************/
-/*  Export Options                                                      */
-/************************************************************************/
-
-// Windows DLL
-#if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
-    defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
-// Windows
-#if defined(EXPORT_KDIS) && defined(IMPORT_KDIS)
-#error EXPORT_KDIS and IMPORT_KDIS cannot be defined at the same time
-#elif defined(EXPORT_KDIS)
-#define KDIS_EXPORT __declspec(dllexport)  // Export
-#elif defined(IMPORT_KDIS)
-#define KDIS_EXPORT __declspec(dllimport)  // Import
-#else
-#error EXPORT_KDIS or IMPORT_KDIS must be defined
-#endif
-#else
-// Non Windows
-#define KDIS_EXPORT
 #endif
 
 // DIS version
