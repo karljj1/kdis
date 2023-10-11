@@ -115,7 +115,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDesignatorCode(
 
 // Implementation of string values for BeamSpotShape
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor BeamSpotShapeDescriptor[] = {
     {0, "OtherBeamSpotShape"}, {1, "Gaussian"}, {2, "TopHat"}};
@@ -134,7 +134,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape(
       ValueOut);
 }
 
-#else
+  #else
 
 KString KDIS::DATA_TYPE::ENUMS::GetEnumAsStringBeamSpotShape(KINT32 Value) {
   KStringStream ss;
@@ -147,6 +147,6 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamSpotShape(
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 #endif

@@ -44,7 +44,7 @@ are not MunitionDescriptors) updated:    22/04/2013 author:     Karl Jones
 #include "KDIS/PDU/Warfare/Warfare_Header.hpp"
 
 #if DIS_VERSION > 6
-#include "KDIS/DataTypes/ExpendableDescriptor.hpp"
+  #include "KDIS/DataTypes/ExpendableDescriptor.hpp"
 #endif
 
 namespace KDIS {

@@ -146,7 +146,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTCAS(const KString& Value,
 
 // Implementation of string values for Mode5MessageFormat
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor Mode5MessageFormatDescriptor[] = {
     {0, "Capability"}, {1, "ActiveInterrogation"}};
@@ -175,7 +175,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat(
       ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMode5MessageFormat() { return 0; }
 
@@ -196,13 +196,13 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5MessageFormat(
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for Mode5Reply
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor Mode5ReplyDescriptor[] = {{0, "No Response"},
                                                {1, "Valid Reply"},
@@ -231,7 +231,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply(const KString& Value,
       sizeof(Mode5ReplyDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeMode5Reply() { return 0; }
 
@@ -251,13 +251,13 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringMode5Reply(const KString& Value,
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for AntennaSelection
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor AntennaSelectionDescriptor[] = {
     {0, "No Statement"}, {1, "Top"}, {2, "Bottom"}, {3, "Diversity"}};
@@ -285,7 +285,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection(
       ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAntennaSelection() { return 0; }
 
@@ -305,13 +305,13 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAntennaSelection(
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for PlatformType
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor PlatformTypeDescriptor[] = {
     {0, "Ground"},
@@ -340,7 +340,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType(
       sizeof(PlatformTypeDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePlatformType() { return 0; }
 
@@ -360,13 +360,13 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPlatformType(
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for NavigationSource
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor NavigationSourceDescriptor[] = {
     {0, "No Statement"},
@@ -398,7 +398,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource(
       ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeNavigationSource() { return 0; }
 
@@ -418,6 +418,6 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringNavigationSource(
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 #endif  // Endif DIS Version > 6

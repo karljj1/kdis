@@ -50,53 +50,12 @@ jobs:
             - name: Install cmakelang
               run: pip install cmakelang[YAML]
 
-            - name: Clang Format
+            - name: Check
               run: |
-                  find . \
-                      -not -path './build/*' \
-                      -type f \( \
-                      -name '*.hpp' \
-                      -o -name '*.hpp.in' \
-                      -o -name '*.cpp' \
-                      \) \
-                      -print0 |
-                      xargs -0 -n1 \
-                          clang-format \
-                          -Werror \
-                          --dry-run \
-                          --style=file
+                  chmod u+x ./scripts/check.sh
 
-            # TODO(carlocorradini) Clang Tidy
-
-            - name: CMake Format
-              run: |
-                  find . \
-                      -not -path './build/*' \
-                      -not -path './cmake/CPM.cmake' \
-                      -type f \( \
-                      -name 'CMakeLists.txt' \
-                      -o -name '*.cmake' \
-                      \) \
-                      -print0 |
-                      xargs -0 -n1 \
-                          cmake-format --check
-
-            - name: CMake Lint
-              run: |
-                  find . \
-                      -not -path './build/*' \
-                      -not -path './cmake/CPM.cmake' \
-                      -type f \( \
-                      -name 'CMakeLists.txt' \
-                      -o -name '*.cmake' \
-                      \) \
-                      -print0 |
-                      xargs -0 -n1 \
-                          cmake-lint
-
-            # TODO(carlocorradini) Cppcheck
-
-            # TODO(carlocorradini) Cpplint
+                  ./scripts/check.sh \
+                      --log-level debug
 
     build:
         name: Build

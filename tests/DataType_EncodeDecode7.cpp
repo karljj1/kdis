@@ -1,26 +1,26 @@
 #if DIS_VERSION >= 7
 
-#include <gtest/gtest.h>
+  #include <gtest/gtest.h>
 
-#include <KDIS/DataTypes/AttributeRecordSet.hpp>
-#include <KDIS/DataTypes/CommunicationsNodeID.hpp>
-#include <KDIS/DataTypes/DEAreaAimpoint.hpp>
-#include <KDIS/DataTypes/EnhancedMode1Code.hpp>
-#include <KDIS/DataTypes/ExplosionDescriptor.hpp>
-#include <KDIS/DataTypes/IFF_Layer3.hpp>
-#include <KDIS/DataTypes/IFF_Layer3Interrogator.hpp>
-#include <KDIS/DataTypes/IFF_Layer3Transponder.hpp>
-#include <KDIS/DataTypes/IOCommunicationsNode.hpp>
-#include <KDIS/DataTypes/IOEffect.hpp>
-#include <KDIS/DataTypes/Mode5InterrogatorBasicData.hpp>
-#include <KDIS/DataTypes/Mode5InterrogatorStatus.hpp>
-#include <KDIS/DataTypes/Mode5TransponderBasicData.hpp>
-#include <KDIS/DataTypes/Mode5TransponderStatus.hpp>
-#include <KDIS/DataTypes/Mode5TransponderSupplementalData.hpp>
-#include <KDIS/DataTypes/ModeXCodeRecord.hpp>
-#include <KDIS/DataTypes/StandardVariable.hpp>
-#include <KDIS/KDefines.hpp>
-#include <iostream>
+  #include <KDIS/DataTypes/AttributeRecordSet.hpp>
+  #include <KDIS/DataTypes/CommunicationsNodeID.hpp>
+  #include <KDIS/DataTypes/DEAreaAimpoint.hpp>
+  #include <KDIS/DataTypes/EnhancedMode1Code.hpp>
+  #include <KDIS/DataTypes/ExplosionDescriptor.hpp>
+  #include <KDIS/DataTypes/IFF_Layer3.hpp>
+  #include <KDIS/DataTypes/IFF_Layer3Interrogator.hpp>
+  #include <KDIS/DataTypes/IFF_Layer3Transponder.hpp>
+  #include <KDIS/DataTypes/IOCommunicationsNode.hpp>
+  #include <KDIS/DataTypes/IOEffect.hpp>
+  #include <KDIS/DataTypes/Mode5InterrogatorBasicData.hpp>
+  #include <KDIS/DataTypes/Mode5InterrogatorStatus.hpp>
+  #include <KDIS/DataTypes/Mode5TransponderBasicData.hpp>
+  #include <KDIS/DataTypes/Mode5TransponderStatus.hpp>
+  #include <KDIS/DataTypes/Mode5TransponderSupplementalData.hpp>
+  #include <KDIS/DataTypes/ModeXCodeRecord.hpp>
+  #include <KDIS/DataTypes/StandardVariable.hpp>
+  #include <KDIS/KDefines.hpp>
+  #include <iostream>
 
 TEST(DataType_EncodeDecode7, AttributeRecordSet) {
   KDIS::DATA_TYPE::AttributeRecordSet dtIn;

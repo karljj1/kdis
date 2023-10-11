@@ -1,87 +1,87 @@
 #if DIS_VERSION >= 6
 
-#include <gtest/gtest.h>
+  #include <gtest/gtest.h>
 
-#include <KDIS/DataTypes/APA.hpp>
-#include <KDIS/DataTypes/AcousticEmitterSystem.hpp>
-#include <KDIS/DataTypes/AggregateIdentifier.hpp>
-#include <KDIS/DataTypes/AggregateMarking.hpp>
-#include <KDIS/DataTypes/AggregateType.hpp>
-#include <KDIS/DataTypes/ArealObjectAppearance.hpp>
-#include <KDIS/DataTypes/BeamData.hpp>
-#include <KDIS/DataTypes/BoundingSphereRecord.hpp>
-#include <KDIS/DataTypes/COMBICState.hpp>
-#include <KDIS/DataTypes/CommunicationsChannelType.hpp>
-#include <KDIS/DataTypes/ConeRecord1.hpp>
-#include <KDIS/DataTypes/ConeRecord2.hpp>
-#include <KDIS/DataTypes/EllipsoidRecord1.hpp>
-#include <KDIS/DataTypes/EllipsoidRecord2.hpp>
-#include <KDIS/DataTypes/EntityDestinationRecord.hpp>
-#include <KDIS/DataTypes/EnvironmentType.hpp>
-#include <KDIS/DataTypes/FlareState.hpp>
-#include <KDIS/DataTypes/FundamentalOperationalData.hpp>
-#include <KDIS/DataTypes/GED_BasicFixedWingAircraft.hpp>
-#include <KDIS/DataTypes/GED_BasicGroundCombatSoldier.hpp>
-#include <KDIS/DataTypes/GED_BasicGroundCombatVehicle.hpp>
-#include <KDIS/DataTypes/GED_BasicRotorWingAircraft.hpp>
-#include <KDIS/DataTypes/GED_EnhancedFixedWingAircraft.hpp>
-#include <KDIS/DataTypes/GED_EnhancedGroundCombatSoldier.hpp>
-#include <KDIS/DataTypes/GED_EnhancedGroundCombatVehicle.hpp>
-#include <KDIS/DataTypes/GED_EnhancedRotaryWingAircraft.hpp>
-#include <KDIS/DataTypes/GED_GroundLogisticsVehicle.hpp>
-#include <KDIS/DataTypes/GaussianPlumeRecord.hpp>
-#include <KDIS/DataTypes/GaussianPuffRecord.hpp>
-#include <KDIS/DataTypes/GridAxisIrregular.hpp>
-#include <KDIS/DataTypes/GridAxisRegular.hpp>
-#include <KDIS/DataTypes/GridDataType0.hpp>
-#include <KDIS/DataTypes/GridDataType1.hpp>
-#include <KDIS/DataTypes/GridDataType2.hpp>
-#include <KDIS/DataTypes/GroupAssignmentRecord.hpp>
-#include <KDIS/DataTypes/GroupDestinationRecord.hpp>
-#include <KDIS/DataTypes/IFF_ATC_NAVAIDS_FundamentalParameterData.hpp>
-#include <KDIS/DataTypes/IFF_Layer2.hpp>
-#include <KDIS/DataTypes/IntercomCommunicationParameters.hpp>
-#include <KDIS/DataTypes/LE_DeadReckoningParameter.hpp>
-#include <KDIS/DataTypes/LE_EntityIdentifier.hpp>
-#include <KDIS/DataTypes/LE_EulerAngles.hpp>
-#include <KDIS/DataTypes/LayerHeader.hpp>
-#include <KDIS/DataTypes/LineRecord1.hpp>
-#include <KDIS/DataTypes/LineRecord2.hpp>
-#include <KDIS/DataTypes/LinearObjectAppearance.hpp>
-#include <KDIS/DataTypes/LinearSegmentParameter.hpp>
-#include <KDIS/DataTypes/MineFusing.hpp>
-#include <KDIS/DataTypes/MinePaintScheme.hpp>
-#include <KDIS/DataTypes/MinefieldAppearance.hpp>
-#include <KDIS/DataTypes/MinefieldDataFilter.hpp>
-#include <KDIS/DataTypes/NamedLocationIdentifier.hpp>
-#include <KDIS/DataTypes/ObjectAppearance.hpp>
-#include <KDIS/DataTypes/ObjectType.hpp>
-#include <KDIS/DataTypes/OrientationError.hpp>
-#include <KDIS/DataTypes/PerimeterPointCoordinate.hpp>
-#include <KDIS/DataTypes/PointObjectAppearance.hpp>
-#include <KDIS/DataTypes/PointRecord1.hpp>
-#include <KDIS/DataTypes/PointRecord2.hpp>
-#include <KDIS/DataTypes/PositionError.hpp>
-#include <KDIS/DataTypes/PropulsionSystem.hpp>
-#include <KDIS/DataTypes/RecordSet.hpp>
-#include <KDIS/DataTypes/RectangularVolumeRecord1.hpp>
-#include <KDIS/DataTypes/RectangularVolumeRecord2.hpp>
-#include <KDIS/DataTypes/RectangularVolumeRecord3.hpp>
-#include <KDIS/DataTypes/RelationshipRecord.hpp>
-#include <KDIS/DataTypes/RelativeWorldCoordinates.hpp>
-#include <KDIS/DataTypes/SecondaryOperationalData.hpp>
-#include <KDIS/DataTypes/Shaft.hpp>
-#include <KDIS/DataTypes/SilentAggregateSystem.hpp>
-#include <KDIS/DataTypes/SilentEntitySystem.hpp>
-#include <KDIS/DataTypes/SphereRecord1.hpp>
-#include <KDIS/DataTypes/SphereRecord2.hpp>
-#include <KDIS/DataTypes/SystemIdentifier.hpp>
-#include <KDIS/DataTypes/UnderwaterAcousticEmitterBeam.hpp>
-#include <KDIS/DataTypes/UnderwaterAcousticEmitterSystem.hpp>
-#include <KDIS/DataTypes/UnderwaterAcousticFundamentalParameterData.hpp>
-#include <KDIS/DataTypes/VectoringNozzleSystem.hpp>
-#include <KDIS/KDefines.hpp>
-#include <iostream>
+  #include <KDIS/DataTypes/APA.hpp>
+  #include <KDIS/DataTypes/AcousticEmitterSystem.hpp>
+  #include <KDIS/DataTypes/AggregateIdentifier.hpp>
+  #include <KDIS/DataTypes/AggregateMarking.hpp>
+  #include <KDIS/DataTypes/AggregateType.hpp>
+  #include <KDIS/DataTypes/ArealObjectAppearance.hpp>
+  #include <KDIS/DataTypes/BeamData.hpp>
+  #include <KDIS/DataTypes/BoundingSphereRecord.hpp>
+  #include <KDIS/DataTypes/COMBICState.hpp>
+  #include <KDIS/DataTypes/CommunicationsChannelType.hpp>
+  #include <KDIS/DataTypes/ConeRecord1.hpp>
+  #include <KDIS/DataTypes/ConeRecord2.hpp>
+  #include <KDIS/DataTypes/EllipsoidRecord1.hpp>
+  #include <KDIS/DataTypes/EllipsoidRecord2.hpp>
+  #include <KDIS/DataTypes/EntityDestinationRecord.hpp>
+  #include <KDIS/DataTypes/EnvironmentType.hpp>
+  #include <KDIS/DataTypes/FlareState.hpp>
+  #include <KDIS/DataTypes/FundamentalOperationalData.hpp>
+  #include <KDIS/DataTypes/GED_BasicFixedWingAircraft.hpp>
+  #include <KDIS/DataTypes/GED_BasicGroundCombatSoldier.hpp>
+  #include <KDIS/DataTypes/GED_BasicGroundCombatVehicle.hpp>
+  #include <KDIS/DataTypes/GED_BasicRotorWingAircraft.hpp>
+  #include <KDIS/DataTypes/GED_EnhancedFixedWingAircraft.hpp>
+  #include <KDIS/DataTypes/GED_EnhancedGroundCombatSoldier.hpp>
+  #include <KDIS/DataTypes/GED_EnhancedGroundCombatVehicle.hpp>
+  #include <KDIS/DataTypes/GED_EnhancedRotaryWingAircraft.hpp>
+  #include <KDIS/DataTypes/GED_GroundLogisticsVehicle.hpp>
+  #include <KDIS/DataTypes/GaussianPlumeRecord.hpp>
+  #include <KDIS/DataTypes/GaussianPuffRecord.hpp>
+  #include <KDIS/DataTypes/GridAxisIrregular.hpp>
+  #include <KDIS/DataTypes/GridAxisRegular.hpp>
+  #include <KDIS/DataTypes/GridDataType0.hpp>
+  #include <KDIS/DataTypes/GridDataType1.hpp>
+  #include <KDIS/DataTypes/GridDataType2.hpp>
+  #include <KDIS/DataTypes/GroupAssignmentRecord.hpp>
+  #include <KDIS/DataTypes/GroupDestinationRecord.hpp>
+  #include <KDIS/DataTypes/IFF_ATC_NAVAIDS_FundamentalParameterData.hpp>
+  #include <KDIS/DataTypes/IFF_Layer2.hpp>
+  #include <KDIS/DataTypes/IntercomCommunicationParameters.hpp>
+  #include <KDIS/DataTypes/LE_DeadReckoningParameter.hpp>
+  #include <KDIS/DataTypes/LE_EntityIdentifier.hpp>
+  #include <KDIS/DataTypes/LE_EulerAngles.hpp>
+  #include <KDIS/DataTypes/LayerHeader.hpp>
+  #include <KDIS/DataTypes/LineRecord1.hpp>
+  #include <KDIS/DataTypes/LineRecord2.hpp>
+  #include <KDIS/DataTypes/LinearObjectAppearance.hpp>
+  #include <KDIS/DataTypes/LinearSegmentParameter.hpp>
+  #include <KDIS/DataTypes/MineFusing.hpp>
+  #include <KDIS/DataTypes/MinePaintScheme.hpp>
+  #include <KDIS/DataTypes/MinefieldAppearance.hpp>
+  #include <KDIS/DataTypes/MinefieldDataFilter.hpp>
+  #include <KDIS/DataTypes/NamedLocationIdentifier.hpp>
+  #include <KDIS/DataTypes/ObjectAppearance.hpp>
+  #include <KDIS/DataTypes/ObjectType.hpp>
+  #include <KDIS/DataTypes/OrientationError.hpp>
+  #include <KDIS/DataTypes/PerimeterPointCoordinate.hpp>
+  #include <KDIS/DataTypes/PointObjectAppearance.hpp>
+  #include <KDIS/DataTypes/PointRecord1.hpp>
+  #include <KDIS/DataTypes/PointRecord2.hpp>
+  #include <KDIS/DataTypes/PositionError.hpp>
+  #include <KDIS/DataTypes/PropulsionSystem.hpp>
+  #include <KDIS/DataTypes/RecordSet.hpp>
+  #include <KDIS/DataTypes/RectangularVolumeRecord1.hpp>
+  #include <KDIS/DataTypes/RectangularVolumeRecord2.hpp>
+  #include <KDIS/DataTypes/RectangularVolumeRecord3.hpp>
+  #include <KDIS/DataTypes/RelationshipRecord.hpp>
+  #include <KDIS/DataTypes/RelativeWorldCoordinates.hpp>
+  #include <KDIS/DataTypes/SecondaryOperationalData.hpp>
+  #include <KDIS/DataTypes/Shaft.hpp>
+  #include <KDIS/DataTypes/SilentAggregateSystem.hpp>
+  #include <KDIS/DataTypes/SilentEntitySystem.hpp>
+  #include <KDIS/DataTypes/SphereRecord1.hpp>
+  #include <KDIS/DataTypes/SphereRecord2.hpp>
+  #include <KDIS/DataTypes/SystemIdentifier.hpp>
+  #include <KDIS/DataTypes/UnderwaterAcousticEmitterBeam.hpp>
+  #include <KDIS/DataTypes/UnderwaterAcousticEmitterSystem.hpp>
+  #include <KDIS/DataTypes/UnderwaterAcousticFundamentalParameterData.hpp>
+  #include <KDIS/DataTypes/VectoringNozzleSystem.hpp>
+  #include <KDIS/KDefines.hpp>
+  #include <iostream>
 
 TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
   KDIS::DATA_TYPE::AcousticEmitterSystem dtIn;

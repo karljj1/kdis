@@ -43,7 +43,7 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/KDefines.hpp"
 
 #ifndef KDIS_PI
-#define KDIS_PI 3.14159265358979323846
+  #define KDIS_PI 3.14159265358979323846
 #endif
 
 namespace KDIS {

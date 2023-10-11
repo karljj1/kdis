@@ -1,5 +1,10 @@
 {
     "editor.formatOnSave": true,
+    "cmake.configureSettings": {
+        "BUILD_DOCS": true,
+        "BUILD_EXAMPLES": true,
+        "BUILD_TESTS": true
+    },
     "files.associations": {
         ".clang-format": "yaml",
         ".clang-format-ignore": "ignore",
@@ -7,6 +12,7 @@
         ".cmake-format": "yaml",
         "cppcheck.cppcheck": "xml",
         "CPPLINT.cfg": "properties",
+        "Doxyfile.in": "doxyfile",
         "KConfig.hpp.in": "cpp",
     }
 }

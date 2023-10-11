@@ -34,18 +34,18 @@ http://p.sf.net/kdis/UserGuide
 
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
 
-#include <ws2tcpip.h>
+  #include <ws2tcpip.h>
 
-#define ERROR_CODE WSAGetLastError()
+  #define ERROR_CODE WSAGetLastError()
 
 #else
 
-#include <sys/time.h>
-#include <unistd.h>
+  #include <sys/time.h>
+  #include <unistd.h>
 
-#define INVALID_SOCKET -1
-#define SOCKET_ERROR -1
-#define ERROR_CODE errno
+  #define INVALID_SOCKET -1
+  #define SOCKET_ERROR -1
+  #define ERROR_CODE errno
 
 #endif
 

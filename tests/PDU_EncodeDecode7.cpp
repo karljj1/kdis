@@ -1,12 +1,12 @@
 #if DIS_VERSION >= 7
 
-#include <gtest/gtest.h>
+  #include <gtest/gtest.h>
 
-#include <KDIS/KDefines.hpp>
-#include <KDIS/PDU/Entity_Info_Interaction/Attribute_PDU.hpp>
-#include <KDIS/PDU/Information_Operations/IO_Action_PDU.hpp>
-#include <KDIS/PDU/Information_Operations/IO_Report_PDU.hpp>
-#include <iostream>
+  #include <KDIS/KDefines.hpp>
+  #include <KDIS/PDU/Entity_Info_Interaction/Attribute_PDU.hpp>
+  #include <KDIS/PDU/Information_Operations/IO_Action_PDU.hpp>
+  #include <KDIS/PDU/Information_Operations/IO_Report_PDU.hpp>
+  #include <iostream>
 
 //
 // Entity Info Interaction

@@ -55,20 +55,20 @@ http://p.sf.net/kdis/UserGuide
 // #define KDIS_USE_ENUM_DESCRIPTORS
 
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
-// Disable this warning, it simply warns us about any functions that have a
-// throw qualifier.
-#pragma warning(disable : 4290)
+  // Disable this warning, it simply warns us about any functions that have a
+  // throw qualifier.
+  #pragma warning(disable : 4290)
 
-// Warning about conversion from size_t
-#pragma warning(disable : 4267)
+  // Warning about conversion from size_t
+  #pragma warning(disable : 4267)
 
-// Safe to ignore this error as we are only exporting STL objects
-#pragma warning(disable : 4251)
+  // Safe to ignore this error as we are only exporting STL objects
+  #pragma warning(disable : 4251)
 #endif
 
 // DIS version
 #ifndef DIS_VERSION
-#error DIS_VERSION must be defined. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
+  #error DIS_VERSION must be defined. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
 #endif
 
 /************************************************************************/

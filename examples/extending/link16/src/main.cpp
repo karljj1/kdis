@@ -34,9 +34,9 @@ http://p.sf.net/kdis/UserGuide
 
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
 
-// Building a DLL for windows example, you will may need to make changes for
-// other OS.
-#include <Windows.h>
+  // Building a DLL for windows example, you will may need to make changes for
+  // other OS.
+  #include <Windows.h>
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call,
                       LPVOID lpReserved) {

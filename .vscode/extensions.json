@@ -5,6 +5,7 @@
         "EditorConfig.EditorConfig",
         "GitHub.vscode-github-actions",
         "Gruntfuggly.todo-tree",
+        "matepek.vscode-catch2-test-adapter",
         "ms-vscode.cpptools-extension-pack",
         "ms-vscode.hexeditor",
         "QiuMingGe.cpp-check-lint",

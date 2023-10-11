@@ -1481,7 +1481,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringHighDensityTrackJam(
 
 // Implementation of string values for BeamState
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor BeamStateDescriptor[] = {{0, "Active"},
                                               {1, "Deactivated"}};
@@ -1508,7 +1508,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamState(const KString& Value,
                            Value, ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeBeamState() { return 0; }
 
@@ -1528,7 +1528,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringBeamState(const KString& Value,
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 #endif
 

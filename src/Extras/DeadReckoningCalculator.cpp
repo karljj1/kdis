@@ -33,11 +33,11 @@ http://p.sf.net/kdis/UserGuide
 #include <limits>
 
 #ifndef KDIS_PI
-#define KDIS_PI 3.14159265358979323846
+  #define KDIS_PI 3.14159265358979323846
 #endif
 
 #ifndef KDIS_PI_2
-#define KDIS_PI_2 1.57079632679489661923
+  #define KDIS_PI_2 1.57079632679489661923
 #endif
 
 //////////////////////////////////////////////////////////////////////////

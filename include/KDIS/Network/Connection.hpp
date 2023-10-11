@@ -41,20 +41,20 @@ http://p.sf.net/kdis/UserGuide
 
 #if defined(WIN32) | defined(_WIN32) | defined(WIN64) | defined(_WIN64)
 
-// Windows Headers //
-#pragma comment(lib, "WS2_32")
-#include <WinSock2.h>
+  // Windows Headers //
+  #pragma comment(lib, "WS2_32")
+  #include <WinSock2.h>
 
 #else
 
-// Linux Headers //
-#include <arpa/inet.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/types.h>
+  // Linux Headers //
+  #include <arpa/inet.h>
+  #include <errno.h>
+  #include <fcntl.h>
+  #include <netdb.h>
+  #include <netinet/in.h>
+  #include <sys/socket.h>
+  #include <sys/types.h>
 
 #endif
 

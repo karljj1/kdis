@@ -31,9 +31,9 @@ http://p.sf.net/kdis/UserGuide
 
 #include <iomanip>
 #if defined(WIN32) || defined(WIN64)
-#include <windows.h>
+  #include <windows.h>
 #else
-#include <time.h>
+  #include <time.h>
 #endif
 
 using namespace KDIS;

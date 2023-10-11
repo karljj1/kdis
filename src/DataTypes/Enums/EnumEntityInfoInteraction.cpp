@@ -535,9 +535,9 @@ const EnumDescriptor VariableParameterTypeDescriptor[] = {
     {0, "ArticulatedPartType"},
     {1, "AttachedPartType"},
 
-#if DIS_VERSION > 6
+  #if DIS_VERSION > 6
     {3, "SeparationPartType"},
-#endif
+  #endif
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeVariableParameterType() {
@@ -1743,7 +1743,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringForceID(const KString& Value,
 // Implementation of string values for ActionCode
 
 #if DIS_VERSION > 6
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor ActionCodeDescriptor[] = {
     {1, "PDUExtendingAnotherPDU"},
@@ -1772,7 +1772,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionCode(const KString& Value,
       sizeof(ActionCodeDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeActionCode() { return 0; }
 
@@ -1792,7 +1792,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringActionCode(const KString& Value,
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 #endif  // DIS 7
 
 //////////////////////////////////////////////////////////////////////////
@@ -2301,7 +2301,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringCoverShroudStatus(
 
 // Implementation of string values for Reason For Separation
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor ReasonForSeparationDescriptor[] = {
     {0, "NoStatementReasonForSeparation"},
@@ -2332,7 +2332,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringReasonForSeparation(
       ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeReasonForSeparation() { return 0; }
 
@@ -2353,13 +2353,13 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringReasonForSeparation(
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for Pre Entity Indicator
 
-#ifdef KDIS_USE_ENUM_DESCRIPTORS
+  #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor PreEntityIndicatorDescriptor[] = {
     {0, "NoStatementPreEntityIndicator"},
@@ -2391,7 +2391,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPreEntityIndicator(
       ValueOut);
 }
 
-#else
+  #else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePreEntityIndicator() { return 0; }
 
@@ -2412,5 +2412,5 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringPreEntityIndicator(
   return false;  // Maybe throw an exception?
 }
 
-#endif
+  #endif
 #endif  // DIS_VERSION > 5

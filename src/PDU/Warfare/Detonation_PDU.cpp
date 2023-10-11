@@ -33,8 +33,8 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/DataTypes/AttachedPart.hpp"
 
 #if DIS_VERSION > 6
-#include "KDIS/DataTypes/ExpendableDescriptor.hpp"
-#include "KDIS/DataTypes/ExplosionDescriptor.hpp"
+  #include "KDIS/DataTypes/ExpendableDescriptor.hpp"
+  #include "KDIS/DataTypes/ExplosionDescriptor.hpp"
 #endif
 
 //////////////////////////////////////////////////////////////////////////

@@ -36,9 +36,9 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/KDefines.hpp"
 
 #if DIS_VERSION > 6
-#include "KDIS/PDU/Header7.hpp"
+  #include "KDIS/PDU/Header7.hpp"
 #else
-#include "KDIS/PDU/Header6.hpp"
+  #include "KDIS/PDU/Header6.hpp"
 #endif
 
 namespace KDIS {

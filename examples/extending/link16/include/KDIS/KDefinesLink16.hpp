@@ -42,19 +42,19 @@ http://p.sf.net/kdis/UserGuide
 /************************************************************************/
 
 #ifdef EXPORT_KDIS_LINK16
-#ifdef IMPORT_KDIS_LINK16
-#pragma error("IMPORT_KDIS_LINK16 & EXPORT_KDIS_LINK16 Can Not Be Both Defined")
-#endif
+  #ifdef IMPORT_KDIS_LINK16
+    #error IMPORT_KDIS_LINK16 & EXPORT_KDIS_LINK16 Can Not Be Both Defined
+  #endif
 #endif
 
 #if defined(WIN32) || defined(WIN64)
-#if defined EXPORT_KDIS_LINK16
-#define KDIS_EXPORT_LINK16 __declspec(dllexport)
-#elif defined IMPORT_KDIS_LINK16
-#define KDIS_EXPORT_LINK16 __declspec(dllimport)
+  #if defined EXPORT_KDIS_LINK16
+    #define KDIS_EXPORT_LINK16 __declspec(dllexport)
+  #elif defined IMPORT_KDIS_LINK16
+    #define KDIS_EXPORT_LINK16 __declspec(dllimport)
+  #else
+    #define KDIS_EXPORT_LINK16
+  #endif
 #else
-#define KDIS_EXPORT_LINK16
-#endif
-#else
-#define KDIS_EXPORT_LINK16
+  #define KDIS_EXPORT_LINK16
 #endif
