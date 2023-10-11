@@ -247,6 +247,7 @@ clang_format() {
     INFO "Clang Format"
     find "$ROOTDIR" \
         -not -path "$ROOTDIR/build/*" \
+        -not -path "$ROOTDIR/include/KDIS/KExport.hpp" \
         -type f \( -name '*.hpp' -o -name '*.hpp.in' -o -name '*.cpp' \) \
         -print0 \
         | xargs -0 -n 1 \

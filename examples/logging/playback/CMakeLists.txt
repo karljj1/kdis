@@ -12,7 +12,7 @@ set(KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOUR
 #
 add_executable(
   ${PROJECT_NAME}_examples_logging_playback ${KDIS_EXAMPLES_LOGGING_PLAYBACK_HEADERS}
-                                                  ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES}
+                                            ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES}
 )
 target_link_libraries(${PROJECT_NAME}_examples_logging_playback PRIVATE KDIS::KDIS)
 target_compile_definitions(

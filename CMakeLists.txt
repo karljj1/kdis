@@ -15,10 +15,10 @@ project(
 # Settings
 #
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+set(CMAKE_CXX_EXTENSIONS FALSE)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 #
 # Options
@@ -34,12 +34,12 @@ set(DIS_VERSION
 option(
   KDIS_USE_ENUM_DESCRIPTORS
   "Enumeration descriptors. Allow enum values to be turned into their text labels. This increase the memory footprint of the library"
-  ON
+  TRUE
 )
-option(KDIS_BUILD_DOCS "Build documentation" OFF)
-option(KDIS_BUILD_EXAMPLES "Build examples" OFF)
-option(KDIS_BUILD_TESTS "Build tests" OFF)
-option(BUILD_SHARED_LIBS "Build shared library" ON)
+option(KDIS_BUILD_DOCS "Build documentation" FALSE)
+option(KDIS_BUILD_EXAMPLES "Build examples" FALSE)
+option(KDIS_BUILD_TESTS "Build tests" FALSE)
+option(BUILD_SHARED_LIBS "Build shared library" TRUE)
 
 #
 # Checks
@@ -63,14 +63,14 @@ include(CMakePackageConfigHelpers)
 # Configuration file
 #
 configure_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/KConfig.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KConfig.hpp
-  @ONLY
+  ${CMAKE_CURRENT_SOURCE_DIR}/KConfig.hpp.in
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KConfig.hpp @ONLY
 )
 
 #
 # Headers & Sources
 #
-set(KDIS_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS)
+set(KDIS_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME})
 set(KDIS_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set(KDIS_HEADERS
@@ -894,10 +894,10 @@ add_library(${PROJECT_NAME} ${KDIS_SOURCES})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 # Export header
 generate_export_header(
-  ${PROJECT_NAME} EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KExport.hpp
-  INCLUDE_GUARD_NAME KDIS_KEXPORT_HPP_
+  ${PROJECT_NAME} EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KExport.hpp
+  INCLUDE_GUARD_NAME ${PROJECT_NAME}_KEXPORT_HPP_
 )
-list(APPEND KDIS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KExport.hpp)
+list(APPEND KDIS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KExport.hpp)
 # Include directories
 target_include_directories(
   ${PROJECT_NAME}

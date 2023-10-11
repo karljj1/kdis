@@ -7,7 +7,6 @@
     },
     "files.associations": {
         ".clang-format": "yaml",
-        ".clang-format-ignore": "ignore",
         ".clang-tidy": "yaml",
         ".cmake-format": "yaml",
         "*.cmake.in": "cmake",

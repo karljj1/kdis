@@ -31,11 +31,11 @@ See [CONTRIBUTING](./CONTRIBUTING.md) guidelines
 | **Name**                    | **Description**                                                                                                                                      | **Type** | **Default** |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
 | `DIS_VERSION`               | `DIS` version: <br/> <ul><li>`5`<br/>_IEEE 1278.1-1995_</li><li>`6`<br/>_IEEE 1278.1A-1998_</li><li>`7`<br/>_IEEE 1278.1x-2012_</li></ul>            | `STRING` | `7`         |
-| `KDIS_USE_ENUM_DESCRIPTORS` | Enumeration descriptors. <br/> Allow `enum` values to be turned into their text labels. <br/> :warning: Increase the memory footprint of the library | `BOOL`   | `ON`        |
-| `KDIS_BUILD_DOCS`           | Build documentation                                                                                                                                  | `BOOL`   | `OFF`       |
-| `KDIS_BUILD_EXAMPLES`       | Build examples                                                                                                                                       | `BOOL`   | `OFF`       |
-| `KDIS_BUILD_TESTS`          | Build tests                                                                                                                                          | `BOOL`   | `OFF`       |
-| `BUILD_SHARED_LIBS`         | Build shared library                                                                                                                                 | `BOOL`   | `ON`        |
+| `KDIS_USE_ENUM_DESCRIPTORS` | Enumeration descriptors. <br/> Allow `enum` values to be turned into their text labels. <br/> :warning: Increase the memory footprint of the library | `BOOL`   | `TRUE`      |
+| `KDIS_BUILD_DOCS`           | Build documentation                                                                                                                                  | `BOOL`   | `FALSE`     |
+| `KDIS_BUILD_EXAMPLES`       | Build examples                                                                                                                                       | `BOOL`   | `FALSE`     |
+| `KDIS_BUILD_TESTS`          | Build tests                                                                                                                                          | `BOOL`   | `FALSE`     |
+| `BUILD_SHARED_LIBS`         | Build shared library                                                                                                                                 | `BOOL`   | `TRUE`      |
 
 ### Build
 
@@ -50,11 +50,11 @@ See [CONTRIBUTING](./CONTRIBUTING.md) guidelines
         -B ./build \
         -DCMAKE_BUILD_TYPE:STRING=Release \
         -DDIS_VERSION:STRING=7 \
-        -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=ON \
-        -DBUILD_SHARED_LIBS:BOOL=ON \
-        -DBUILD_DOCS:BOOL=OFF \
-        -DBUILD_EXAMPLES:BOOL=OFF \
-        -DBUILD_TESTS:BOOL=OFF
+        -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=TRUE \
+        -DBUILD_SHARED_LIBS:BOOL=TRUE \
+        -DBUILD_DOCS:BOOL=FALSE \
+        -DBUILD_EXAMPLES:BOOL=FALSE \
+        -DBUILD_TESTS:BOOL=FALSE
     ```
 
 1. Build project

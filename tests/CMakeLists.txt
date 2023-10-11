@@ -24,8 +24,8 @@ CPMAddPackage(
   NAME googletest
   GITHUB_REPOSITORY google/googletest
   GIT_TAG v1.12.0
-  EXCLUDE_FROM_ALL ON
-  SYSTEM ON
+  EXCLUDE_FROM_ALL TRUE
+  SYSTEM TRUE
   OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON"
 )
 include(GoogleTest)
@@ -37,9 +37,8 @@ enable_testing()
 add_executable(${PROJECT_NAME}_tests ${KDIS_TESTS_SOURCES})
 target_link_libraries(${PROJECT_NAME}_tests PRIVATE GTest::gtest_main KDIS::KDIS)
 target_compile_definitions(
-  ${PROJECT_NAME}_tests
-  PRIVATE DIS_VERSION=${DIS_VERSION}
-          $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
+  ${PROJECT_NAME}_tests PRIVATE DIS_VERSION=${DIS_VERSION}
+                                $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
 # TODO target_compile_options(${PROJECT_NAME}_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
 # $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
