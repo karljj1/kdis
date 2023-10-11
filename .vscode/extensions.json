@@ -1,5 +1,6 @@
 {
     "recommendations": [
+        "bierner.markdown-emoji",
         "cheshirekow.cmake-format",
         "cschlosser.doxdocgen",
         "EditorConfig.EditorConfig",
