@@ -79,7 +79,7 @@ jobs:
               uses: ssciwr/doxygen-install@v1
 
             - name: Configure CMake
-              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_DOCS:BOOL=ON -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTS:BOOL=ON
+              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DBUILD_SHARED_LIBS:BOOL=OFF -DKDIS_BUILD_DOCS:BOOL=ON -DKDIS_BUILD_EXAMPLES:BOOL=ON -DKDIS_BUILD_TESTS:BOOL=ON
 
             - name: Build
               run: cmake --build ./build --config ${{ matrix.build }}

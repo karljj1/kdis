@@ -11,18 +11,18 @@ set(KDIS_EXAMPLES_PDU_BUNDLE_SOURCES ${KDIS_EXAMPLES_PDU_BUNDLE_SOURCES_DIR}/mai
 # Executable
 #
 add_executable(
-  ${CMAKE_PROJECT_NAME}_examples_pdu_bundle ${KDIS_EXAMPLES_PDU_BUNDLE_HEADERS}
-                                            ${KDIS_EXAMPLES_PDU_BUNDLE_SOURCES}
+  ${PROJECT_NAME}_examples_pdu_bundle ${KDIS_EXAMPLES_PDU_BUNDLE_HEADERS}
+                                      ${KDIS_EXAMPLES_PDU_BUNDLE_SOURCES}
 )
 target_include_directories(
-  ${CMAKE_PROJECT_NAME}_examples_pdu_bundle PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${PROJECT_NAME}_examples_pdu_bundle PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_link_libraries(${CMAKE_PROJECT_NAME}_examples_pdu_bundle PRIVATE KDIS::KDIS)
+target_link_libraries(${PROJECT_NAME}_examples_pdu_bundle PRIVATE KDIS::KDIS)
 target_compile_definitions(
-  ${CMAKE_PROJECT_NAME}_examples_pdu_bundle
+  ${PROJECT_NAME}_examples_pdu_bundle
   PRIVATE DIS_VERSION=${DIS_VERSION}
           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
-# TODO target_compile_options( ${CMAKE_PROJECT_NAME}_examples_pdu_bundle PRIVATE
+# TODO target_compile_options( ${PROJECT_NAME}_examples_pdu_bundle PRIVATE
 # $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic
 # -Werror> )

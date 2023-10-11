@@ -11,15 +11,15 @@ set(KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOUR
 # Executable
 #
 add_executable(
-  ${CMAKE_PROJECT_NAME}_examples_logging_playback ${KDIS_EXAMPLES_LOGGING_PLAYBACK_HEADERS}
+  ${PROJECT_NAME}_examples_logging_playback ${KDIS_EXAMPLES_LOGGING_PLAYBACK_HEADERS}
                                                   ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES}
 )
-target_link_libraries(${CMAKE_PROJECT_NAME}_examples_logging_playback PRIVATE KDIS::KDIS)
+target_link_libraries(${PROJECT_NAME}_examples_logging_playback PRIVATE KDIS::KDIS)
 target_compile_definitions(
-  ${CMAKE_PROJECT_NAME}_examples_logging_playback
+  ${PROJECT_NAME}_examples_logging_playback
   PRIVATE DIS_VERSION=${DIS_VERSION}
           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
-# TODO target_compile_options( ${CMAKE_PROJECT_NAME}_examples_logging_playback PRIVATE
+# TODO target_compile_options( ${PROJECT_NAME}_examples_logging_playback PRIVATE
 # $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic
 # -Werror> )

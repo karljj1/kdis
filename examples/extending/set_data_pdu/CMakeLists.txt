@@ -13,15 +13,15 @@ set(KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES
 # Executable
 #
 add_executable(
-  ${CMAKE_PROJECT_NAME}_examples_extending_set_data_pdu
-  ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_HEADERS} ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES}
+  ${PROJECT_NAME}_examples_extending_set_data_pdu ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_HEADERS}
+                                                  ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES}
 )
-target_link_libraries(${CMAKE_PROJECT_NAME}_examples_extending_set_data_pdu PRIVATE KDIS::KDIS)
+target_link_libraries(${PROJECT_NAME}_examples_extending_set_data_pdu PRIVATE KDIS::KDIS)
 target_compile_definitions(
-  ${CMAKE_PROJECT_NAME}_examples_extending_set_data_pdu
+  ${PROJECT_NAME}_examples_extending_set_data_pdu
   PRIVATE DIS_VERSION=${DIS_VERSION}
           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
-# TODO target_compile_options( ${CMAKE_PROJECT_NAME}_examples_extending_set_data_pdu PRIVATE
+# TODO target_compile_options( ${PROJECT_NAME}_examples_extending_set_data_pdu PRIVATE
 # $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic
 # -Werror> )

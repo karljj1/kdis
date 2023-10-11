@@ -36,10 +36,10 @@ option(
   "Enumeration descriptors. Allow enum values to be turned into their text labels. This increase the memory footprint of the library"
   ON
 )
+option(KDIS_BUILD_DOCS "Build documentation" OFF)
+option(KDIS_BUILD_EXAMPLES "Build examples" OFF)
+option(KDIS_BUILD_TESTS "Build tests" OFF)
 option(BUILD_SHARED_LIBS "Build shared library" ON)
-option(BUILD_DOCS "Build documentation" OFF)
-option(BUILD_EXAMPLES "Build examples" OFF)
-option(BUILD_TESTS "Build tests" OFF)
 
 #
 # Checks
@@ -56,6 +56,8 @@ endif()
 #
 include(CPM)
 include(GNUInstallDirs)
+include(GenerateExportHeader)
+include(CMakePackageConfigHelpers)
 
 #
 # Configuration file
@@ -888,59 +890,73 @@ list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
 #
 # Library
 #
-add_library(${CMAKE_PROJECT_NAME} ${KDIS_SOURCES})
-add_library(${CMAKE_PROJECT_NAME}::${CMAKE_PROJECT_NAME} ALIAS ${CMAKE_PROJECT_NAME})
+add_library(${PROJECT_NAME} ${KDIS_SOURCES})
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 # Export header
-include(GenerateExportHeader)
 generate_export_header(
-  ${CMAKE_PROJECT_NAME} EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KExport.hpp
+  ${PROJECT_NAME} EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KExport.hpp
   INCLUDE_GUARD_NAME KDIS_KEXPORT_HPP_
 )
 list(APPEND KDIS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/KDIS/KExport.hpp)
 # Include directories
 target_include_directories(
-  ${CMAKE_PROJECT_NAME}
+  ${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 # Compile definitions
 target_compile_definitions(
-  ${CMAKE_PROJECT_NAME} PRIVATE DIS_VERSION=${DIS_VERSION}
-                                $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
+  ${PROJECT_NAME} PRIVATE DIS_VERSION=${DIS_VERSION}
+                          $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
 # Properties
-set_target_properties(
-  ${CMAKE_PROJECT_NAME} PROPERTIES VERSION ${CMAKE_PROJECT_VERSION} DEBUG_POSTFIX "d"
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} DEBUG_POSTFIX "d")
+# TODO Compile options target_compile_options( ${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4
+# /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
+
+#
+# Configuration
+#
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
-# TODO Compile options target_compile_options( ${CMAKE_PROJECT_NAME} PRIVATE
-# $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic
-# -Werror> )
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
 
 #
 # Install
 #
-install(FILES ${KDIS_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/KDIS)
+install(FILES ${KDIS_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
 install(
-  TARGETS KDIS
-  EXPORT KDISTargets
+  TARGETS ${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}Targets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 install(
-  EXPORT KDISTargets
-  NAMESPACE KDIS::
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/KDIS
+  EXPORT ${PROJECT_NAME}Targets
+  NAMESPACE ${PROJECT_NAME}::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 #
 # CPack
 #
 set(CPACK_GENERATOR DEB RPM TXZ TGZ)
-set(CPACK_PACKAGE_VERSION ${CMAKE_PROJECT_VERSION})
-set(CPACK_PACKAGE_NAME KDIS)
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${CMAKE_PROJECT_DESCRIPTION})
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
 set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.${CMAKE_SYSTEM_PROCESSOR}"
 )
@@ -951,20 +967,20 @@ include(CPack)
 #
 # Documentation
 #
-if(${BUILD_DOCS})
+if(${KDIS_BUILD_DOCS})
   add_subdirectory(docs)
 endif()
 
 #
 # Examples
 #
-if(${BUILD_EXAMPLES})
+if(${KDIS_BUILD_EXAMPLES})
   add_subdirectory(examples)
 endif()
 
 #
 # Tests
 #
-if(${BUILD_TESTS})
+if(${KDIS_BUILD_TESTS})
   add_subdirectory(tests)
 endif()

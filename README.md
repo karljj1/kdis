@@ -32,10 +32,10 @@ See [CONTRIBUTING](./CONTRIBUTING.md) guidelines
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
 | `DIS_VERSION`               | `DIS` version: <br/> <ul><li>`5`<br/>_IEEE 1278.1-1995_</li><li>`6`<br/>_IEEE 1278.1A-1998_</li><li>`7`<br/>_IEEE 1278.1x-2012_</li></ul>            | `STRING` | `7`         |
 | `KDIS_USE_ENUM_DESCRIPTORS` | Enumeration descriptors. <br/> Allow `enum` values to be turned into their text labels. <br/> :warning: Increase the memory footprint of the library | `BOOL`   | `ON`        |
+| `KDIS_BUILD_DOCS`           | Build documentation                                                                                                                                  | `BOOL`   | `OFF`       |
+| `KDIS_BUILD_EXAMPLES`       | Build examples                                                                                                                                       | `BOOL`   | `OFF`       |
+| `KDIS_BUILD_TESTS`          | Build tests                                                                                                                                          | `BOOL`   | `OFF`       |
 | `BUILD_SHARED_LIBS`         | Build shared library                                                                                                                                 | `BOOL`   | `ON`        |
-| `BUILD_DOCS`                | Build documentation                                                                                                                                  | `BOOL`   | `OFF`       |
-| `BUILD_EXAMPLES`            | Build examples                                                                                                                                       | `BOOL`   | `OFF`       |
-| `BUILD_TESTS`               | Build tests                                                                                                                                          | `BOOL`   | `OFF`       |
 
 ### Build
 
@@ -71,7 +71,7 @@ See [CONTRIBUTING](./CONTRIBUTING.md) guidelines
 ## Documentation
 
 > [!IMPORTANT]
-> `BUILD_DOCS:BOOL=TRUE` required
+> `KDIS_BUILD_DOCS:BOOL=TRUE` required
 
 File `index.html` available under [`build/docs/html`](./build/docs/html) directory
 
@@ -80,7 +80,7 @@ More information can be found in [`docs/README.md`](./docs/README.md)
 ## Examples
 
 > [!IMPORTANT]
-> `BUILD_EXAMPLES:BOOL=TRUE` required
+> `KDIS_BUILD_EXAMPLES:BOOL=TRUE` required
 
 More information can be found in [`examples/README.md`](./examples/README.md)
 
@@ -91,7 +91,7 @@ More information can be found in [`scripts/README.md`](./scripts/README.md)
 ## Tests
 
 > [!IMPORTANT]
-> `BUILD_TESTS:BOOL=TRUE` required
+> `KDIS_BUILD_TESTS:BOOL=TRUE` required
 
 > [!NOTE]
 > Change value of `--build-config` to match value of `CMAKE_BUILD_TYPE`

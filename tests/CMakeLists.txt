@@ -34,13 +34,13 @@ include(GoogleTest)
 # Test
 #
 enable_testing()
-add_executable(${CMAKE_PROJECT_NAME}_tests ${KDIS_TESTS_SOURCES})
-target_link_libraries(${CMAKE_PROJECT_NAME}_tests PRIVATE GTest::gtest_main KDIS::KDIS)
+add_executable(${PROJECT_NAME}_tests ${KDIS_TESTS_SOURCES})
+target_link_libraries(${PROJECT_NAME}_tests PRIVATE GTest::gtest_main KDIS::KDIS)
 target_compile_definitions(
-  ${CMAKE_PROJECT_NAME}_tests
+  ${PROJECT_NAME}_tests
   PRIVATE DIS_VERSION=${DIS_VERSION}
           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
-# TODO target_compile_options(${CMAKE_PROJECT_NAME}_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
+# TODO target_compile_options(${PROJECT_NAME}_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
 # $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
-gtest_discover_tests(${CMAKE_PROJECT_NAME}_tests)
+gtest_discover_tests(${PROJECT_NAME}_tests)

@@ -26,27 +26,26 @@ list(
 #
 # Library
 #
-add_library(${CMAKE_PROJECT_NAME}_examples_extending_link16 ${KDIS_HEADERS} ${KDIS_SOURCES})
+add_library(${PROJECT_NAME}_examples_extending_link16 ${KDIS_HEADERS} ${KDIS_SOURCES})
 add_library(
-  ${CMAKE_PROJECT_NAME}_examples_extending_link16::${CMAKE_PROJECT_NAME}_examples_extending_link16
-  ALIAS ${CMAKE_PROJECT_NAME}_examples_extending_link16
+  ${PROJECT_NAME}_examples_extending_link16::${PROJECT_NAME}_examples_extending_link16 ALIAS
+  ${PROJECT_NAME}_examples_extending_link16
 )
 target_include_directories(
-  ${CMAKE_PROJECT_NAME}_examples_extending_link16
+  ${PROJECT_NAME}_examples_extending_link16
   PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}
 )
 target_compile_definitions(
-  ${CMAKE_PROJECT_NAME}_examples_extending_link16
+  ${PROJECT_NAME}_examples_extending_link16
   PRIVATE DIS_VERSION=${DIS_VERSION}
           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
 # TODO RT library in UNIX (NOT APPLE) TODO target_compile_options(
-# ${CMAKE_PROJECT_NAME}_examples_extending_link16 PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
+# ${PROJECT_NAME}_examples_extending_link16 PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
 # $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
 set_target_properties(
-  ${CMAKE_PROJECT_NAME}_examples_extending_link16 PROPERTIES VERSION ${CMAKE_PROJECT_VERSION}
-                                                             DEBUG_POSTFIX "d"
+  ${PROJECT_NAME}_examples_extending_link16 PROPERTIES VERSION ${PROJECT_VERSION} DEBUG_POSTFIX "d"
 )
