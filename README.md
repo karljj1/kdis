@@ -15,16 +15,16 @@ See [CONTRIBUTING](./CONTRIBUTING.md) guidelines
 
 ### Requirements
 
-| **Name**       | **Homepage**                                   |    **Required**    | **Notes**                                                                                                       |
-| -------------- | ---------------------------------------------- | :----------------: | --------------------------------------------------------------------------------------------------------------- |
-| `CXX Compiler` |                                                | :heavy_check_mark: | [`GCC`](https://gcc.gnu.org) \| [Clang](https://clang.llvm.org) \| [`MSVC`](https://visualstudio.microsoft.com) |
-| `CMake`        | <https://cmake.org>                            | :heavy_check_mark: | _Version `>= 3.14`_                                                                                             |
+| **Name**       | **Homepage**                                   |    **Required**    | **Notes**                                                                                                         |
+| -------------- | ---------------------------------------------- | :----------------: | ----------------------------------------------------------------------------------------------------------------- |
+| `CXX Compiler` |                                                | :heavy_check_mark: | [`GCC`](https://gcc.gnu.org) \| [`Clang`](https://clang.llvm.org) \| [`MSVC`](https://visualstudio.microsoft.com) |
+| `CMake`        | <https://cmake.org>                            | :heavy_check_mark: | _Version `>= 3.14`_                                                                                               |
 | `Clang Format` | <https://clang.llvm.org/docs/ClangFormat.html> |        :x:         |
 | `Clang Tidy`   | <https://clang.llvm.org/extra/clang-tidy>      |        :x:         |
 | `Cppcheck`     | <https://github.com/danmar/cppcheck>           |        :x:         |
-| `Cpplint`      | <https://github.com/cpplint/cpplint>           |        :x:         | `pip install cpplint`                                                                                           |
-| `cmake lang`   | <https://github.com/cheshirekow/cmake_format>  |        :x:         | `pip install cmakelang[YAML]`                                                                                   |
-| `Doxygen`      | <https://www.doxygen.nl>                       |        :x:         | Documentation                                                                                                   |
+| `Cpplint`      | <https://github.com/cpplint/cpplint>           |        :x:         | `pip install cpplint`                                                                                             |
+| `cmake lang`   | <https://github.com/cheshirekow/cmake_format>  |        :x:         | `pip install cmakelang[YAML]`                                                                                     |
+| `Doxygen`      | <https://www.doxygen.nl>                       |        :x:         | Documentation                                                                                                     |
 
 ### Build Options
 
