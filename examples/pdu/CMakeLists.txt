@@ -1,0 +1,7 @@
+add_subdirectory(bundle)
+add_subdirectory(entity_state_pdu)
+add_subdirectory(pdu_factory_1)
+add_subdirectory(pdu_factory_2)
+if(${DIS_VERSION} GREATER_EQUAL 6)
+  add_subdirectory(environmental_process_pdu)
+endif()

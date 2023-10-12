@@ -1,0 +1,18 @@
+{
+    "editor.formatOnSave": true,
+    "cmake.configureSettings": {
+        "KDIS_BUILD_DOCS": true,
+        "KDIS_BUILD_EXAMPLES": true,
+        "KDIS_BUILD_TESTS": true
+    },
+    "files.associations": {
+        ".clang-format": "yaml",
+        ".clang-tidy": "yaml",
+        ".cmake-format": "yaml",
+        "*.cmake.in": "cmake",
+        "cppcheck.cppcheck": "xml",
+        "CPPLINT.cfg": "properties",
+        "Doxyfile.in": "doxyfile",
+        "KConfig.hpp.in": "cpp",
+    }
+}
