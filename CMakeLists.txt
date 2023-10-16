@@ -54,10 +54,12 @@ endif()
 #
 # Includes
 #
-include(CPM)
 include(GNUInstallDirs)
 include(GenerateExportHeader)
 include(CMakePackageConfigHelpers)
+if(${KDIS_BUILD_TESTS})
+  include(CPM)
+endif()
 
 #
 # Configuration file
