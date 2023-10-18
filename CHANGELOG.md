@@ -9,11 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+-   `PDU` can be cloned via the `KDIS::PDU::clone(pdu)` function
+-   Clone example, named `clone`, demonstrating how a `PDU` can be cloned
+-   `CMake` option `KDIS_BUILD_DOCS` (default `FALSE`) to specify whether or not to build documentation
+
+### Changed
+
+-   Extension of header files changed from `.h` to `.hpp`
+-   `C++` minimum supported standard is [`C++11`](https://en.cppreference.com/w/cpp/11)
+-   `CMake` minimum supported version is `3.14`
+-   `KDIS` library can be linked to a target more easily: `target_link_libraries(executable PRIVATE KDIS::KDIS)`
+-   Renamed `CMake` option from `BUILD_EXAMPLES` to `KDIS_BUILD_EXAMPLES`
+-   Renamed `CMake` option from `BUILD_TESTS` to `KDIS_BUILD_TESTS`
+-   `KDIS_Change_Log.htm` file has been replaced with [`CHANGELOG.md`](./CHANGELOG.md) and is based on the format [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
+-   Overall code and repository structure have been reworked to improve maintainability
+
 ### Deprecated
 
 ### Removed
 
+-   `CMake` option `BUILD_EXAMPLES_TO_LINK_TO_LIB`. To determine whether to build a `static` or `shared` _library_, use the official [`BUILD_SHARED_LIBS`](https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html) flag option
+-   `CMake` option `EXAMPLES_USE_STATIC_OR_SHARED_LIB`. To determine whether to build a `static` or `shared` _library_, use the official [`BUILD_SHARED_LIBS`](https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html) flag option
+-   `CMake` option `USE_SOLUTION_FOLDERS `
+-   `KDIS_Change_Log.htm` file
+
 ### Fixed
+
+### Security
 
 ## 2.10.0 - 2023-10-12
 
@@ -49,10 +71,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   `CulturalFeatureAppearance` incorrectly supports Engine Smoke bit. Modified the struct to eliminate bit-6 tracking
 -   `Connection` functions to be `virtual` allowing further derivation
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 
 -   `EllipsoidRecord2::Decode` should not have included `EllipsoidRecord1::Decode`
@@ -84,8 +102,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   `Layer2` and `Layer3` incorrectly double decoding the header due to constructors not ignoring the header even when one is provided
 -   Enum functions not being exported to `dll` ([#94](https://sourceforge.net/p/kdis/bugs/94))
 -   Incorrect enums for Beam Function ([#103](https://sourceforge.net/p/kdis/bugs/103))
-
-### Security
 
 ## 2.9.0 - 2016-01-21
 
