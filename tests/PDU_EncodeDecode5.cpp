@@ -51,13 +51,13 @@ class EncodeDecodeTest5 : public ::testing::Test {
   }
 };
 
-typedef ::testing::Types < KDIS::PDU::Designator_PDU,
-    KDIS::PDU::Electromagnetic_Emission_PDU, KDIS::PDU::Collision_PDU,
-    KDIS::PDU::Entity_State_PDU, KDIS::PDU::Repair_Complete_PDU,
-    KDIS::PDU::Repair_Response_PDU, KDIS::PDU::Resupply_Cancel_PDU,
-    KDIS::PDU::Resupply_Offer_PDU, KDIS::PDU::Resupply_Received_PDU,
-    KDIS::PDU::Service_Request_PDU, KDIS::PDU::Receiver_PDU,
-    KDIS::PDU::Signal_PDU, KDIS::PDU::Transmitter_PDU,
+typedef ::testing::Types<
+    KDIS::PDU::Designator_PDU, KDIS::PDU::Electromagnetic_Emission_PDU,
+    KDIS::PDU::Collision_PDU, KDIS::PDU::Entity_State_PDU,
+    KDIS::PDU::Repair_Complete_PDU, KDIS::PDU::Repair_Response_PDU,
+    KDIS::PDU::Resupply_Cancel_PDU, KDIS::PDU::Resupply_Offer_PDU,
+    KDIS::PDU::Resupply_Received_PDU, KDIS::PDU::Service_Request_PDU,
+    KDIS::PDU::Receiver_PDU, KDIS::PDU::Signal_PDU, KDIS::PDU::Transmitter_PDU,
     KDIS::PDU::Acknowledge_PDU, KDIS::PDU::Action_Request_PDU,
     KDIS::PDU::Action_Response_PDU, KDIS::PDU::Comment_PDU,
     KDIS::PDU::Create_Entity_PDU, KDIS::PDU::Data_PDU,

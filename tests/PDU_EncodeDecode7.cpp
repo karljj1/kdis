@@ -30,9 +30,8 @@ class EncodeDecodeTest7 : public ::testing::Test {
   }
 };
 
-typedef ::testing::Types<
-    KDIS::PDU::Attribute_PDU, KDIS::PDU::IO_Action_PDU,
-    KDIS::PDU::IO_Report_PDU>
+typedef ::testing::Types<KDIS::PDU::Attribute_PDU, KDIS::PDU::IO_Action_PDU,
+                         KDIS::PDU::IO_Report_PDU>
     PduTestTypes7;
 
 TYPED_TEST_SUITE(EncodeDecodeTest7, PduTestTypes7);
