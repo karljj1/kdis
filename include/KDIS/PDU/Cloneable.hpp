@@ -27,52 +27,52 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-/********************************************************************
-    class:      Action_Response_R_PDU
-    DIS:        (5) 1278.1 - 1995
-    created:    28:03:2009
-    author:     Karl Jones
-
-    purpose:    Communicates a response to a Action Request PDU
-    size:       320 bits/ 40 octets - not including variable param sizes
-*********************************************************************/
+//
+// Inspired by
+// https://github.com/CppCodeReviewers/Covariant-Return-Types-and-Smart-Pointers
+//
 
 #pragma once
 
-#include "KDIS/PDU/Simulation_Management/Action_Response_PDU.hpp"
-#include "KDIS/PDU/Simulation_Management_With_Reliability/Action_Request_R_PDU.hpp"
+#include <memory>
+#include <type_traits>
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Action_Response_R_PDU : public Action_Response_PDU {
- protected:
-  Action_Response_R_PDU* clone() const override;
+/**
+ * @brief Clone PDU.
+ *
+ * Creates and returns an exact copy of the PDU.
+ *
+ * @tparam T Cloneable PDU type.
+ * @param pdu Cloneable PDU.
+ * @return std::unique_ptr<T> Cloned PDU.
+ */
+template <typename T>
+std::unique_ptr<T> clone(const T& pdu) {
+  using base_class = typename T::base_class;
+  static_assert(std::is_base_of<base_class, T>::value,
+                "T class must be derived from T::base_class");
+  auto pdu_ptr = static_cast<const base_class&>(pdu).clone();
+  return std::unique_ptr<T>(static_cast<T*>(pdu_ptr));
+}
 
+template <typename T>
+class Cloneable {
  public:
-  static const KUINT16 ACTION_RESPONSE_R_PDU_SIZE = 40;
+  using base_class = T;
 
-  Action_Response_R_PDU();
+  virtual ~Cloneable() = default;
 
-  explicit Action_Response_R_PDU(KDataStream& stream);
+ protected:
+  virtual T* clone() const = 0;
 
-  Action_Response_R_PDU(const Header& H, KDataStream& stream);
-
-  // Generate a response from a PDU.
-  Action_Response_R_PDU(const Action_Request_R_PDU& pdu,
-                        KDIS::DATA_TYPE::ENUMS::RequestStatus RS);
-
-  virtual ~Action_Response_R_PDU();
-
-  //************************************
-  // FullName:    KDIS::PDU::Action_Response_R_PDU::GetAsString
-  // Description: Returns a string representation of the PDU.
-  //************************************
-  virtual KString GetAsString() const;
-
-  KBOOL operator==(const Action_Response_R_PDU& Value) const;
-  KBOOL operator!=(const Action_Response_R_PDU& Value) const;
+  template <typename TT>
+  friend std::unique_ptr<TT> KDIS::PDU::clone(const TT& cls);
 };
 
-}  // END namespace PDU
-}  // END namespace KDIS
+class CloneablePDU : public Cloneable<CloneablePDU> {};
+
+}  // namespace PDU
+}  // namespace KDIS

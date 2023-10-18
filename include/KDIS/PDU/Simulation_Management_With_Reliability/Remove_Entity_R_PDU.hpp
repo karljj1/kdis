@@ -45,6 +45,9 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Remove_Entity_R_PDU : public Create_Entity_R_PDU {
+ protected:
+  Remove_Entity_R_PDU* clone() const override;
+
  public:
   static const KUINT16 REMOVE_ENTITY_R_PDU_SIZE = 32;
 

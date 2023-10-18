@@ -50,6 +50,8 @@ class KDIS_EXPORT Repair_Complete_PDU : public Logistics_Header {
 
   KUINT16 m_ui16Padding;
 
+  Repair_Complete_PDU* clone() const override;
+
  public:
   static const KUINT16 REPAIR_COMPLETE_PDU_SIZE = 28;
 

@@ -1,10 +1,7 @@
 #
-# Headers & Sources
+# Sources
 #
-set(KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-set(KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_HEADERS)
 set(KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES
     ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES_DIR}/main.cpp
 )
@@ -13,8 +10,7 @@ set(KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES
 # Executable
 #
 add_executable(
-  ${PROJECT_NAME}_examples_extending_set_data_pdu ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_HEADERS}
-                                                  ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES}
+  ${PROJECT_NAME}_examples_extending_set_data_pdu ${KDIS_EXAMPLES_EXTENDING_SET_DATA_PDU_SOURCES}
 )
 target_link_libraries(${PROJECT_NAME}_examples_extending_set_data_pdu PRIVATE KDIS::KDIS)
 target_compile_definitions(

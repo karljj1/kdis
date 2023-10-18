@@ -97,17 +97,19 @@ class KDIS_EXPORT Appearance_PDU : public LE_Header {
 
   KDIS::DATA_TYPE::EntityAppearance m_AudApp;
 
+  Appearance_PDU* clone() const override;
+
  public:
   static const KUINT16 APPEARANCE_PDU_SIZE =
       17;  // Min size, not including optional fields
 
   Appearance_PDU();
 
-  Appearance_PDU(KDataStream& stream);
+  explicit Appearance_PDU(KDataStream& stream);
 
   Appearance_PDU(const Header& H, KDataStream& stream);
 
-  Appearance_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
+  explicit Appearance_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
 
   virtual ~Appearance_PDU();
 

@@ -91,7 +91,9 @@ class KDIS_EXPORT Aggregate_State_PDU : public Header {
   std::vector<KDIS::DATA_TYPE::EntityIdentifier> m_vEI;
 
   KBOOL m_bNeedsPadding;
+
   KUINT16 m_ui16Padding1;
+
   KUINT16 m_ui16NumberOfPaddingOctets;
 
   std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> m_vSASL;
@@ -121,6 +123,8 @@ class KDIS_EXPORT Aggregate_State_PDU : public Header {
   // Description: Returns true if padding is needed.
   //************************************
   bool needsPadding() const;
+
+  Aggregate_State_PDU* clone() const override;
 
  public:
   static const KUINT16 AGGREGATE_STATE_PDU_SIZE = 136;  // Min size

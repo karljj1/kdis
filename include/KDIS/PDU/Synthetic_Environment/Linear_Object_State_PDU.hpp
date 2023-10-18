@@ -64,6 +64,8 @@ class KDIS_EXPORT Linear_Object_State_PDU : public Object_State_Header {
 
   std::vector<KDIS::DATA_TYPE::LinearSegmentParameter> m_vSegments;
 
+  Linear_Object_State_PDU* clone() const override;
+
  public:
   static const KUINT16 LINEAR_OBJECT_STATE_PDU_SIZE = 40;
 

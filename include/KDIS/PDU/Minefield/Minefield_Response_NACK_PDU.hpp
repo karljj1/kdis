@@ -59,12 +59,14 @@ class KDIS_EXPORT Minefield_Response_NACK_PDU : public Minefield_Header {
 
   std::vector<KUINT8> m_vSeqNums;
 
+  Minefield_Response_NACK_PDU* clone() const override;
+
  public:
   static const KUINT16 MINEFIELD_RESPONSE_NACK_SIZE = 26;  // Min size
 
   Minefield_Response_NACK_PDU();
 
-  Minefield_Response_NACK_PDU(KDataStream& stream);
+  explicit Minefield_Response_NACK_PDU(KDataStream& stream);
 
   Minefield_Response_NACK_PDU(const Header& H, KDataStream& stream);
 

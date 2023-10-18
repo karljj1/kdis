@@ -47,6 +47,9 @@ namespace PDU {
 
 class KDIS_EXPORT Start_Resume_R_PDU : public Start_Resume_PDU,
                                        public Reliability_Header {
+ protected:
+  Start_Resume_R_PDU* clone() const override;
+
  public:
   static const KUINT16 START_RESUME_R_PDU_SIZE = 48;
 

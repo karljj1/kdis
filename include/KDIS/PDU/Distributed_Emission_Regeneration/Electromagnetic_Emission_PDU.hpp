@@ -64,12 +64,14 @@ class KDIS_EXPORT Electromagnetic_Emission_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::EmissionSystem> m_vEmissionSystem;
 
+  Electromagnetic_Emission_PDU* clone() const override;
+
  public:
   static const KUINT16 ELECTROMAGNETIC_EMISSION_PDU_SIZE = 28;  // Min Size
 
   Electromagnetic_Emission_PDU();
 
-  Electromagnetic_Emission_PDU(KDataStream& stream);
+  explicit Electromagnetic_Emission_PDU(KDataStream& stream);
 
   Electromagnetic_Emission_PDU(const Header& H, KDataStream& stream);
 

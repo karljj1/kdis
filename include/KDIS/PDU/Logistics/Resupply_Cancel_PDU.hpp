@@ -46,6 +46,9 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Resupply_Cancel_PDU : public Logistics_Header {
+ protected:
+  Resupply_Cancel_PDU* clone() const override;
+
  public:
   static const KUINT16 RESUPPLY_CANCEL_PDU_SIZE = 24;
 

@@ -1,3 +1,4 @@
+add_subdirectory(clone)
 add_subdirectory(extending)
 add_subdirectory(logging)
 add_subdirectory(network)

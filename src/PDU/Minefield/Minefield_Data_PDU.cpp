@@ -66,6 +66,10 @@ KUINT8 Minefield_Data_PDU::calcPaddingVertices() const {
   return ui8NeedPadding % 4;
 }
 
+Minefield_Data_PDU* Minefield_Data_PDU::clone() const {
+  return new Minefield_Data_PDU(*this);
+}
+
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
@@ -394,22 +398,31 @@ void Minefield_Data_PDU::Decode(KDataStream& stream,
   }
 
   // The following are all dependent on the data filter( except ID ):
-  if (m_DataFilter.IsGroundBurialDepthOffset())
+  if (m_DataFilter.IsGroundBurialDepthOffset()) {
     MINE_DECODE_NATIVE(KFLOAT32, SetGroundBurialDepthOffsetValue)
-  if (m_DataFilter.IsWaterBurialDepthOffset())
+  }
+  if (m_DataFilter.IsWaterBurialDepthOffset()) {
     MINE_DECODE_NATIVE(KFLOAT32, SetWaterBurialDepthOffsetValue)
-  if (m_DataFilter.IsSnowBurialDepthOffset())
+  }
+  if (m_DataFilter.IsSnowBurialDepthOffset()) {
     MINE_DECODE_NATIVE(KFLOAT32, SetSnowBurialDepthOffsetValue)
-  if (m_DataFilter.IsMineOrientation())
+  }
+  if (m_DataFilter.IsMineOrientation()) {
     MINE_DECODE_CLASS(EulerAngles, SetMineOrientationValue)
-  if (m_DataFilter.IsThermalContrast())
+  }
+  if (m_DataFilter.IsThermalContrast()) {
     MINE_DECODE_NATIVE(KFLOAT32, SetThermalContrastValue)
-  if (m_DataFilter.IsReflectance())
+  }
+  if (m_DataFilter.IsReflectance()) {
     MINE_DECODE_NATIVE(KFLOAT32, SetReflectanceValue)
-  if (m_DataFilter.IsMineEmplacementAge())
+  }
+  if (m_DataFilter.IsMineEmplacementAge()) {
     MINE_DECODE_CLASS(ClockTime, SetMineEmplacementAgeValue)
+  }
   MINE_DECODE_NATIVE(KUINT16, SetID)
-  if (m_DataFilter.IsFusing()) MINE_DECODE_CLASS(MineFusing, SetFusingValue)
+  if (m_DataFilter.IsFusing()) {
+    MINE_DECODE_CLASS(MineFusing, SetFusingValue)
+  }
 
   if (m_DataFilter.IsScalarDetectionCoefficient()) {
     for (i = 0; i < m_ui8NumMines; ++i) {
@@ -559,21 +572,31 @@ void Minefield_Data_PDU::Encode(KDataStream& stream) const {
   MINE_ENCODE_CLASS(GetLocation)
 
   // The following are all dependent on the data filter( except ID ):
-  if (m_DataFilter.IsGroundBurialDepthOffset())
+  if (m_DataFilter.IsGroundBurialDepthOffset()) {
     MINE_ENCODE_NATIVE(GetGroundBurialDepthOffsetValue)
-  if (m_DataFilter.IsWaterBurialDepthOffset())
+  }
+  if (m_DataFilter.IsWaterBurialDepthOffset()) {
     MINE_ENCODE_NATIVE(GetWaterBurialDepthOffsetValue)
-  if (m_DataFilter.IsSnowBurialDepthOffset())
+  }
+  if (m_DataFilter.IsSnowBurialDepthOffset()) {
     MINE_ENCODE_NATIVE(GetSnowBurialDepthOffsetValue)
-  if (m_DataFilter.IsMineOrientation())
+  }
+  if (m_DataFilter.IsMineOrientation()) {
     MINE_ENCODE_CLASS(GetMineOrientationValue)
-  if (m_DataFilter.IsThermalContrast())
+  }
+  if (m_DataFilter.IsThermalContrast()) {
     MINE_ENCODE_NATIVE(GetThermalContrastValue)
-  if (m_DataFilter.IsReflectance()) MINE_ENCODE_NATIVE(GetReflectanceValue)
-  if (m_DataFilter.IsMineEmplacementAge())
+  }
+  if (m_DataFilter.IsReflectance()) {
+    MINE_ENCODE_NATIVE(GetReflectanceValue)
+  }
+  if (m_DataFilter.IsMineEmplacementAge()) {
     MINE_ENCODE_CLASS(GetMineEmplacementAgeValue)
+  }
   MINE_ENCODE_NATIVE(GetID)
-  if (m_DataFilter.IsFusing()) MINE_ENCODE_CLASS(GetFusingValue)
+  if (m_DataFilter.IsFusing()) {
+    MINE_ENCODE_CLASS(GetFusingValue)
+  }
 
   if (m_DataFilter.IsScalarDetectionCoefficient()) {
     citrMnEnd = m_vMines.end();
@@ -599,7 +622,9 @@ void Minefield_Data_PDU::Encode(KDataStream& stream) const {
     }
   }
 
-  if (m_DataFilter.IsPaintScheme()) MINE_ENCODE_CLASS(GetPaintSchemeValue)
+  if (m_DataFilter.IsPaintScheme()) {
+    MINE_ENCODE_CLASS(GetPaintSchemeValue)
+  }
 
   // Do we need to add padding?
   for (KUINT8 i = 0; i < ui8PaddingNeeded2; ++i) {

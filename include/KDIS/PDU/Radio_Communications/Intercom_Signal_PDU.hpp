@@ -48,10 +48,12 @@ namespace PDU {
 
 class KDIS_EXPORT Intercom_Signal_PDU : public Signal_PDU {
  protected:
+  Intercom_Signal_PDU* clone() const override;
+
  public:
   Intercom_Signal_PDU();
 
-  Intercom_Signal_PDU(KDataStream& stream);
+  explicit Intercom_Signal_PDU(KDataStream& stream);
 
   Intercom_Signal_PDU(const Header& H, KDataStream& stream);
 

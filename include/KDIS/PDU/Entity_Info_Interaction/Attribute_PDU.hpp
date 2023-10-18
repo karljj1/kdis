@@ -43,6 +43,8 @@ the standard. Size:       256 bits / 32 octets
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/AttributeRecordSet.hpp"
 #include "KDIS/DataTypes/SimulationIdentifier.hpp"
 #include "KDIS/PDU/Header.hpp"
@@ -72,12 +74,14 @@ class KDIS_EXPORT Attribute_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::AttributeRecordSet> m_vAttributeRecordSets;
 
+  Attribute_PDU* clone() const override;
+
  public:
   static const KUINT16 ATTRIBUTE_PDU_SIZE = 32;  // Min size
 
   Attribute_PDU();
 
-  Attribute_PDU(KDataStream& stream);
+  explicit Attribute_PDU(KDataStream& stream);
 
   Attribute_PDU(const Header& H, KDataStream& stream);
 

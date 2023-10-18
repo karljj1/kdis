@@ -61,6 +61,10 @@ bool Aggregate_State_PDU::needsPadding() const {
   return m_ui16NumberOfPaddingOctets > 0;
 }
 
+Aggregate_State_PDU* Aggregate_State_PDU::clone() const {
+  return new Aggregate_State_PDU(*this);
+}
+
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////

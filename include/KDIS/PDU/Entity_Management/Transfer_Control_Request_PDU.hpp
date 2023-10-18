@@ -44,6 +44,8 @@ applications.
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/RecordSet.hpp"
 #include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
 
@@ -71,12 +73,14 @@ class KDIS_EXPORT Transfer_Control_Request_PDU
 
   std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
 
+  Transfer_Control_Request_PDU* clone() const override;
+
  public:
   static const KUINT16 TRANSFER_CONTROL_REQUEST_PDU_SIZE = 40;  // Min size
 
   Transfer_Control_Request_PDU();
 
-  Transfer_Control_Request_PDU(KDataStream& stream);
+  explicit Transfer_Control_Request_PDU(KDataStream& stream);
 
   Transfer_Control_Request_PDU(const Header& H, KDataStream& stream);
 

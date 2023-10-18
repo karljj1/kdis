@@ -47,6 +47,9 @@ namespace PDU {
 
 class KDIS_EXPORT Stop_Freeze_R_PDU : public Stop_Freeze_PDU,
                                       public Reliability_Header {
+ protected:
+  Stop_Freeze_R_PDU* clone() const override;
+
  public:
   static const KUINT16 STOP_FREEZE_R_PDU_SIZE = 40;
 

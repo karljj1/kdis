@@ -48,6 +48,8 @@ standard variables
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/IOCommunicationsNode.hpp"
 #include "KDIS/DataTypes/IOEffect.hpp"
 #include "KDIS/PDU/Information_Operations/IO_Header.hpp"
@@ -81,12 +83,14 @@ class KDIS_EXPORT IO_Action_PDU : public IO_Header {
 
   std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
 
+  IO_Action_PDU* clone() const override;
+
  public:
   static const KUINT16 IO_ACTION_PDU_SIZE = 56;
 
   IO_Action_PDU();
 
-  IO_Action_PDU(KDataStream& stream);
+  explicit IO_Action_PDU(KDataStream& stream);
 
   IO_Action_PDU(const Header& H, KDataStream& stream);
 

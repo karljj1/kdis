@@ -46,6 +46,8 @@ damage information communicated in the Entity State and other PDUs.
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/EntityIdentifier.hpp"
 #include "KDIS/DataTypes/StandardVariable.hpp"
 #include "KDIS/PDU/Header.hpp"
@@ -63,12 +65,14 @@ class KDIS_EXPORT Entity_Damage_Status_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDdRec;
 
+  Entity_Damage_Status_PDU* clone() const override;
+
  public:
   static const KUINT16 ENTITY_DAMAGE_STATE_PDU = 24;  // Min size
 
   Entity_Damage_Status_PDU();
 
-  Entity_Damage_Status_PDU(KDataStream& stream);
+  explicit Entity_Damage_Status_PDU(KDataStream& stream);
 
   Entity_Damage_Status_PDU(const Header& H, KDataStream& stream);
 

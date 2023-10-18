@@ -124,6 +124,8 @@ class KDIS_EXPORT Header7 : public Header6 {
  protected:
   std::bitset<8> m_PDUStatus;
 
+  Header7* clone() const override;
+
  public:
   Header7();
 

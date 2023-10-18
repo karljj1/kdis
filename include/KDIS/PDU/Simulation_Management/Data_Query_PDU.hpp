@@ -39,6 +39,8 @@ Query PDU size:       320 bits/ 40 octets - not including variable param sizes
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/PDU/Simulation_Management/Data_PDU.hpp"
 
 namespace KDIS {
@@ -58,6 +60,8 @@ class KDIS_EXPORT Data_Query_PDU : public Simulation_Management_Header {
 
   std::vector<KUINT32> m_vVariableDatum;
 
+  Data_Query_PDU* clone() const override;
+
  public:
   static const KUINT16 DATA_QUERY_PDU_SIZE = 40;
 
@@ -65,7 +69,7 @@ class KDIS_EXPORT Data_Query_PDU : public Simulation_Management_Header {
 
   explicit Data_Query_PDU(const Header& H);
 
-  Data_Query_PDU(KDataStream& stream);
+  explicit Data_Query_PDU(KDataStream& stream);
 
   Data_Query_PDU(const Header& H, KDataStream& stream);
 

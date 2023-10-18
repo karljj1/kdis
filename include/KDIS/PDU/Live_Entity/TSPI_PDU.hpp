@@ -44,6 +44,8 @@ and movement in its own simulation.
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/LE_DeadReckoningParameter.hpp"
 #include "KDIS/DataTypes/LE_EulerAngles.hpp"
 #include "KDIS/DataTypes/LE_Vector.hpp"
@@ -89,17 +91,19 @@ class KDIS_EXPORT TSPI_PDU : public LE_Header {
 
   std::vector<KOCTET> m_vSSD;
 
+  TSPI_PDU* clone() const override;
+
  public:
   static const KUINT16 TSPI_PDU_SIZE =
       25;  // Min size, not including optional fields
 
   TSPI_PDU();
 
-  TSPI_PDU(KDataStream& stream);
+  explicit TSPI_PDU(KDataStream& stream);
 
   TSPI_PDU(const Header& H, KDataStream& stream);
 
-  TSPI_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
+  explicit TSPI_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
 
   virtual ~TSPI_PDU();
 

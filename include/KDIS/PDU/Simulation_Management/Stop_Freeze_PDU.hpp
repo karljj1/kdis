@@ -57,6 +57,8 @@ class KDIS_EXPORT Stop_Freeze_PDU : public Simulation_Management_Header {
 
   KUINT32 m_ui32RequestID;
 
+  Stop_Freeze_PDU* clone() const override;
+
  public:
   static const KUINT16 STOP_FREEZE_PDU_SIZE = 40;
 
@@ -64,7 +66,7 @@ class KDIS_EXPORT Stop_Freeze_PDU : public Simulation_Management_Header {
 
   explicit Stop_Freeze_PDU(const Header& H);
 
-  Stop_Freeze_PDU(KDataStream& stream);
+  explicit Stop_Freeze_PDU(KDataStream& stream);
 
   Stop_Freeze_PDU(const Header& H, KDataStream& stream);
 

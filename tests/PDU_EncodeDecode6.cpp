@@ -83,7 +83,7 @@ typedef ::testing::Types<
     KDIS::PDU::Linear_Object_State_PDU, KDIS::PDU::Point_Object_State_PDU>
     PduTestTypes6;
 
-TYPED_TEST_CASE(EncodeDecodeTest, PduTestTypes6);
+TYPED_TEST_SUITE(EncodeDecodeTest, PduTestTypes6);
 
 TYPED_TEST(EncodeDecodeTest, PDU_EncodeDecode6) { this->TestEncodeDecode(); }
 

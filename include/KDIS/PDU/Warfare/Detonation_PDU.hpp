@@ -38,6 +38,8 @@ are not MunitionDescriptors) updated:    22/04/2013 author:     Karl Jones
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/MunitionDescriptor.hpp"
 #include "KDIS/DataTypes/VariableParameter.hpp"
 #include "KDIS/DataTypes/Vector.hpp"
@@ -65,12 +67,14 @@ class KDIS_EXPORT Detonation_PDU : public Warfare_Header {
 
   std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
+  Detonation_PDU* clone() const override;
+
  public:
   static const KUINT16 DETONATION_PDU_SIZE = 104;
 
   Detonation_PDU();
 
-  Detonation_PDU(KDataStream& stream);
+  explicit Detonation_PDU(KDataStream& stream);
 
   Detonation_PDU(const Header& H, KDataStream& stream);
 
@@ -177,8 +181,7 @@ class KDIS_EXPORT Detonation_PDU : public Warfare_Header {
   //              KDIS::PDU::Detonation_PDU::GetVariableParameters
   //              KDIS::PDU::Detonation_PDU::ClearVariableParameters
   // Description: Information associated with an entity or detonation, not
-  // otherwise accounted
-  //	            for in a PDU such as Articulated and Attached Parts.
+  // otherwise accounted for in a PDU such as Articulated and Attached Parts.
   //              See VariableParameter for supported/implemented types.
   // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
   //************************************

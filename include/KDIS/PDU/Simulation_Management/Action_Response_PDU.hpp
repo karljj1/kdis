@@ -49,6 +49,8 @@ class KDIS_EXPORT Action_Response_PDU : public Data_PDU {
  protected:
   KUINT32 m_ui32RequestStatus;
 
+  Action_Response_PDU* clone() const override;
+
  public:
   static const KUINT16 ACTION_RESPONSE_PDU_SIZE = 40;
 
@@ -56,7 +58,7 @@ class KDIS_EXPORT Action_Response_PDU : public Data_PDU {
 
   explicit Action_Response_PDU(const Header& H);
 
-  Action_Response_PDU(KDataStream& stream);
+  explicit Action_Response_PDU(KDataStream& stream);
 
   Action_Response_PDU(const Header& H, KDataStream& stream);
 

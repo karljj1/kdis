@@ -39,6 +39,12 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Fire_PDU* Fire_PDU::clone() const { return new Fire_PDU(*this); }
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -206,20 +212,18 @@ void Fire_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   stream >> m_ui32FireMissionIndex >> KDIS_STREAM m_Location;
 
 #if DIS_VERSION < 7
-
   if (!m_pDescriptor.GetPtr()) {
     m_pDescriptor = DescPtr(new MunitionDescriptor());
   }
-
 #else
-
-  // If the protocol version is not 7 then treat it as a MunitionDesc
   if (m_ui8ProtocolVersion < 7) {
+    // DIS 5 or DIS 6
+    // Treat as MunitionDescriptor
     if (!m_pDescriptor.GetPtr()) {
       m_pDescriptor = DescPtr(new MunitionDescriptor());
     }
-  } else  // DIS 7
-  {
+  } else {
+    // DIS 7
     if (Header7::GetPDUStatusFTI() == MunitionFTI) {
       // Create a descriptor if the desc is null or the incorrect type
       if (!m_pDescriptor.GetPtr() ||

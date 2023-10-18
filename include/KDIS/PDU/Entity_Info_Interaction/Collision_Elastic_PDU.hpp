@@ -87,12 +87,14 @@ class KDIS_EXPORT Collision_Elastic_PDU : public Header {
 
   KFLOAT32 m_f32COR;
 
+  Collision_Elastic_PDU* clone() const override;
+
  public:
   static const KUINT16 COLLISION_ELASTIC_PDU_SIZE = 100;
 
   Collision_Elastic_PDU();
 
-  Collision_Elastic_PDU(KDataStream& stream);
+  explicit Collision_Elastic_PDU(KDataStream& stream);
 
   Collision_Elastic_PDU(const Header& H, KDataStream& stream);
 

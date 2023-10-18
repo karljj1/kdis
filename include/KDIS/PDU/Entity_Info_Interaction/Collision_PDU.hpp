@@ -68,12 +68,14 @@ class KDIS_EXPORT Collision_PDU : public Header {
 
   KDIS::DATA_TYPE::Vector m_Location;
 
+  Collision_PDU* clone() const override;
+
  public:
   static const KUINT16 COLLISION_PDU_SIZE = 60;
 
   Collision_PDU();
 
-  Collision_PDU(KDataStream& stream);
+  explicit Collision_PDU(KDataStream& stream);
 
   Collision_PDU(const Header& H, KDataStream& stream);
 

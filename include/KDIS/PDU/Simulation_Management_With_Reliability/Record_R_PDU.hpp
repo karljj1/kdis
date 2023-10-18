@@ -51,6 +51,8 @@ class KDIS_EXPORT Record_R_PDU : public Set_Record_R_PDU {
 
   KUINT32 m_ui32SrlNm;
 
+  Record_R_PDU* clone() const override;
+
  public:
   static const KUINT16 RECORD_R_PDU_SIZE = 40;
 

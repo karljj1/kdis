@@ -117,17 +117,19 @@ class KDIS_EXPORT LE_Fire_PDU : public LE_Header {
   //************************************
   void checkFlagsAndPDULength();
 
+  LE_Fire_PDU* clone() const override;
+
  public:
   static const KUINT16 LE_FIRE_PDU_SIZE =
       35;  // Min size, not including optional fields
 
   LE_Fire_PDU();
 
-  LE_Fire_PDU(KDataStream& stream);
+  explicit LE_Fire_PDU(KDataStream& stream);
 
   LE_Fire_PDU(const Header& H, KDataStream& stream);
 
-  LE_Fire_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
+  explicit LE_Fire_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
 
   virtual ~LE_Fire_PDU();
 

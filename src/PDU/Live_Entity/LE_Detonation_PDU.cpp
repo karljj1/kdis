@@ -97,6 +97,10 @@ void LE_Detonation_PDU::checkFlagsAndPDULength() {
 #endif
 }
 
+LE_Detonation_PDU* LE_Detonation_PDU::clone() const {
+  return new LE_Detonation_PDU(*this);
+}
+
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
@@ -667,8 +671,7 @@ void LE_Detonation_PDU::Decode(KDataStream& stream,
 
   // F6: Is the location in world coordinates?
   if (!m_DetonationFlag1Union
-           .m_ui8LocationTyp)  // false means location is in world coords
-  {
+           .m_ui8LocationTyp) {  // Location is in world coords
     stream >> KDIS_STREAM m_LocWrldCoord;
   }
 
@@ -700,9 +703,8 @@ void LE_Detonation_PDU::Decode(KDataStream& stream,
   }
 
   // F6: Is the location in entity coordinates?
-  if (m_DetonationFlag1Union
-          .m_ui8LocationTyp)  // true means location is in entity coords
-  {
+  if (m_DetonationFlag1Union.m_ui8LocationTyp) {
+    // Location is in entity coords
     stream >> KDIS_STREAM m_LocEntCoord;
   }
 
@@ -767,9 +769,8 @@ void LE_Detonation_PDU::Encode(KDataStream& stream) const {
   }
 
   // F6: Is the location in world coordinates?
-  if (!m_DetonationFlag1Union
-           .m_ui8LocationTyp)  // false means location is in world coords
-  {
+  if (!m_DetonationFlag1Union.m_ui8LocationTyp) {
+    // Location is in world coords
     stream << KDIS_STREAM m_LocWrldCoord;
   }
 
@@ -794,9 +795,8 @@ void LE_Detonation_PDU::Encode(KDataStream& stream) const {
   }
 
   // Is the location in entity coordinates?
-  if (m_DetonationFlag1Union
-          .m_ui8LocationTyp)  // true means location is in entity coords
-  {
+  if (m_DetonationFlag1Union.m_ui8LocationTyp) {
+    // Location is in entity coords
     stream << KDIS_STREAM m_LocEntCoord;
   }
 

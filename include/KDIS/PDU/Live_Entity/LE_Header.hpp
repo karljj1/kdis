@@ -50,6 +50,8 @@ class KDIS_EXPORT LE_Header : public Header {
  protected:
   KDIS::DATA_TYPE::LE_EntityIdentifier m_EntID;
 
+  LE_Header* clone() const override;
+
  public:
   static const KUINT16 LE_HEADER_SIZE = 16;
 
@@ -57,7 +59,7 @@ class KDIS_EXPORT LE_Header : public Header {
 
   explicit LE_Header(const Header& H);
 
-  LE_Header(KDataStream& stream);
+  explicit LE_Header(KDataStream& stream);
 
   LE_Header(const Header& H, KDataStream& stream);
 

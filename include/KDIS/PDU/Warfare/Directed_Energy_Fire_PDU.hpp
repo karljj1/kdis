@@ -48,6 +48,8 @@ Area Aimpoint record to describe characteristics and effects.
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/ClockTime.hpp"
 #include "KDIS/DataTypes/EntityIdentifier.hpp"
 #include "KDIS/DataTypes/EntityType.hpp"
@@ -94,19 +96,23 @@ class KDIS_EXPORT Directed_Energy_Fire_PDU : public Header {
   KUINT8 m_ui8PulseShp;
 
   KUINT8 m_ui8Padding1;
+
   KUINT32 m_ui32Padding2;
+
   KUINT16 m_ui16Padding3;
 
   KUINT16 m_ui16NumDERecs;
 
   std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vDeRec;
 
+  Directed_Energy_Fire_PDU* clone() const override;
+
  public:
   static const KUINT16 DIRECTED_ENERGY_PDU_SIZE = 88;  // Min size
 
   Directed_Energy_Fire_PDU();
 
-  Directed_Energy_Fire_PDU(KDataStream& stream);
+  explicit Directed_Energy_Fire_PDU(KDataStream& stream);
 
   Directed_Energy_Fire_PDU(const Header& H, KDataStream& stream);
 

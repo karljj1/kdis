@@ -48,6 +48,8 @@ class KDIS_EXPORT Create_Entity_PDU : public Simulation_Management_Header {
  protected:
   KUINT32 m_ui32RequestID;
 
+  Create_Entity_PDU* clone() const override;
+
  public:
   static const KUINT16 CREATE_ENTITY_PDU_SIZE = 28;
 

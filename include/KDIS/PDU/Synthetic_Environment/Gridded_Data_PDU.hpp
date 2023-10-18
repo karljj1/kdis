@@ -93,18 +93,21 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
 
   KUINT16
   m_ui16Padding1;  // 24 bits unused for alignment of Grid Axis Descriptor
+
   KUINT8 m_ui8Padding1;
 
   std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> m_vpGridAxisDesc;
 
   std::vector<KDIS::DATA_TYPE::GridDataPtr> m_vGridData;
 
+  Gridded_Data_PDU* clone() const override;
+
  public:
-  static const KUINT16 GRIDDED_DATA_PDU_SIZE = 64;  // Min size
+  static const KUINT16 GRIDDED_DATA_PDU_SIZE = 64;  // Minimum size
 
   Gridded_Data_PDU();
 
-  Gridded_Data_PDU(KDataStream& stream);
+  explicit Gridded_Data_PDU(KDataStream& stream);
 
   Gridded_Data_PDU(const Header& H, KDataStream& stream);
 

@@ -1,6 +1,7 @@
 {
     "editor.formatOnSave": true,
     "cmake.configureSettings": {
+        "BUILD_SHARED_LIBS": false,
         "KDIS_BUILD_DOCS": true,
         "KDIS_BUILD_EXAMPLES": true,
         "KDIS_BUILD_TESTS": true

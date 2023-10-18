@@ -1,18 +1,14 @@
 #
-# Headers & Sources
+# Sources
 #
-set(KDIS_EXAMPLES_PDU_PDU_FACTORY_2_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(KDIS_EXAMPLES_PDU_PDU_FACTORY_2_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-set(KDIS_EXAMPLES_PDU_PDU_FACTORY_2_HEADERS)
 set(KDIS_EXAMPLES_PDU_PDU_FACTORY_2_SOURCES ${KDIS_EXAMPLES_PDU_PDU_FACTORY_2_SOURCES_DIR}/main.cpp)
 
 #
 # Executable
 #
 add_executable(
-  ${PROJECT_NAME}_examples_pdu_pdu_factory_2 ${KDIS_EXAMPLES_PDU_PDU_FACTORY_2_HEADERS}
-                                             ${KDIS_EXAMPLES_PDU_PDU_FACTORY_2_SOURCES}
+  ${PROJECT_NAME}_examples_pdu_pdu_factory_2 ${KDIS_EXAMPLES_PDU_PDU_FACTORY_2_SOURCES}
 )
 target_link_libraries(${PROJECT_NAME}_examples_pdu_pdu_factory_2 PRIVATE KDIS::KDIS)
 target_compile_definitions(

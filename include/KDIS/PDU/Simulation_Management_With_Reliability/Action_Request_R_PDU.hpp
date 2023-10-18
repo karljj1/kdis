@@ -48,12 +48,15 @@ namespace PDU {
 
 class KDIS_EXPORT Action_Request_R_PDU : public Action_Request_PDU,
                                          public Reliability_Header {
+ protected:
+  Action_Request_R_PDU* clone() const override;
+
  public:
   static const KUINT16 ACTION_REQUEST_R_PDU_SIZE = 44;
 
   Action_Request_R_PDU();
 
-  Action_Request_R_PDU(KDataStream& stream);
+  explicit Action_Request_R_PDU(KDataStream& stream);
 
   Action_Request_R_PDU(const Header& H, KDataStream& stream);
 

@@ -61,6 +61,8 @@ class KDIS_EXPORT Set_Record_R_PDU : public Simulation_Management_Header,
 
   std::vector<KDIS::DATA_TYPE::RecordSet> m_vRecs;
 
+  Set_Record_R_PDU* clone() const override;
+
  public:
   static const KUINT16 SET_RECORD_R_PDU_SIZE = 40;
 

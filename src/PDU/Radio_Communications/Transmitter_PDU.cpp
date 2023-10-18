@@ -39,6 +39,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Transmitter_PDU* Transmitter_PDU::clone() const {
+  return new Transmitter_PDU(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -367,8 +375,8 @@ KString Transmitter_PDU::GetAsString() const {
      << "\n"
      << "Variable Params.......NOT IMPLEMENTED\n";
 
-  // TODO: Interpretation of the variable params is not provided at the moment.
-  // Karl
+  // TODO(karljj1) Interpretation of the variable params is not provided at the
+  // moment
 
   return ss.str();
 }

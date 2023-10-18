@@ -39,6 +39,8 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/PDU/Simulation_Management/Comment_PDU.hpp"
 
 namespace KDIS {
@@ -50,6 +52,8 @@ class KDIS_EXPORT Data_PDU : public Comment_PDU {
 
   KUINT32 m_ui32Padding;
 
+  Data_PDU* clone() const override;
+
  public:
   static const KUINT16 DATA_PDU_SIZE = 40;
 
@@ -57,7 +61,7 @@ class KDIS_EXPORT Data_PDU : public Comment_PDU {
 
   explicit Data_PDU(const Header& H);
 
-  Data_PDU(KDataStream& stream);
+  explicit Data_PDU(KDataStream& stream);
 
   Data_PDU(const Header& H, KDataStream& stream);
 

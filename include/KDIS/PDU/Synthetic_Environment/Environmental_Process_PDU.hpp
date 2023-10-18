@@ -94,6 +94,8 @@ class KDIS_EXPORT Environmental_Process_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::EnvironmentRecordPtr> m_vEnvRecords;
 
+  Environmental_Process_PDU* clone() const override;
+
  public:
   static const KUINT16 ENVIROMENTAL_PROCESS_PDU_SIZE = 32;  // Min size
 

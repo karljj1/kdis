@@ -1,19 +1,13 @@
 #
-# Headers & Sources
+# Sources
 #
-set(KDIS_EXAMPLES_LOGGING_PLAYBACK_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-set(KDIS_EXAMPLES_LOGGING_PLAYBACK_HEADERS)
 set(KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES_DIR}/main.cpp)
 
 #
 # Executable
 #
-add_executable(
-  ${PROJECT_NAME}_examples_logging_playback ${KDIS_EXAMPLES_LOGGING_PLAYBACK_HEADERS}
-                                            ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES}
-)
+add_executable(${PROJECT_NAME}_examples_logging_playback ${KDIS_EXAMPLES_LOGGING_PLAYBACK_SOURCES})
 target_link_libraries(${PROJECT_NAME}_examples_logging_playback PRIVATE KDIS::KDIS)
 target_compile_definitions(
   ${PROJECT_NAME}_examples_logging_playback

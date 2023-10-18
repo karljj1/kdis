@@ -47,12 +47,15 @@ namespace PDU {
 
 class KDIS_EXPORT Data_Query_R_PDU : public Data_Query_PDU,
                                      public Reliability_Header {
+ protected:
+  Data_Query_R_PDU* clone() const override;
+
  public:
   static const KUINT16 DATA_QUERY_R_PDU_SIZE = 44;
 
   Data_Query_R_PDU();
 
-  Data_Query_R_PDU(KDataStream& stream);
+  explicit Data_Query_R_PDU(KDataStream& stream);
 
   Data_Query_R_PDU(const Header& H, KDataStream& stream);
 

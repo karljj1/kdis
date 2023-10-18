@@ -36,6 +36,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Logistics_Header* Logistics_Header::clone() const {
+  return new Logistics_Header(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -102,7 +110,7 @@ EntityIdentifier& Logistics_Header::GetSupplyingEntity() {
 KString Logistics_Header::GetAsString() const {
   KStringStream ss;
 
-  ss << "Receiving Entity ID:	"
+  ss << "Receiving Entity ID:   "
      << IndentString(m_ReceivingEntity.GetAsString(), 1)
      << "\tSupplying Entity ID:	"
      << IndentString(m_SupplyingEntity.GetAsString(), 1);

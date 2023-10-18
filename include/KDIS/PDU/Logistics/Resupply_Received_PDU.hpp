@@ -40,6 +40,8 @@ supplies ) )
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/Supplies.hpp"
 #include "KDIS/PDU/Logistics/Logistics_Header.hpp"
 
@@ -56,6 +58,8 @@ class KDIS_EXPORT Resupply_Received_PDU : public Logistics_Header {
 
   std::vector<KDIS::DATA_TYPE::Supplies> m_vSupplies;
 
+  Resupply_Received_PDU* clone() const override;
+
  public:
   static const KUINT16 RESUPPLY_RECEIVED_PDU_SIZE =
       28;  // Does not include supply size
@@ -64,7 +68,7 @@ class KDIS_EXPORT Resupply_Received_PDU : public Logistics_Header {
 
   explicit Resupply_Received_PDU(const Header& H);
 
-  Resupply_Received_PDU(KDataStream& stream);
+  explicit Resupply_Received_PDU(KDataStream& stream);
 
   Resupply_Received_PDU(const Header& H, KDataStream& stream);
 

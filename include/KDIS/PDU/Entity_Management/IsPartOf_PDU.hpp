@@ -59,12 +59,14 @@ class KDIS_EXPORT IsPartOf_PDU : public Simulation_Management_Header {
 
   KDIS::DATA_TYPE::EntityType m_PrtTyp;
 
+  IsPartOf_PDU* clone() const override;
+
  public:
   static const KUINT16 IS_PART_OF_PDU_SIZE = 52;
 
   IsPartOf_PDU();
 
-  IsPartOf_PDU(KDataStream& stream);
+  explicit IsPartOf_PDU(KDataStream& stream);
 
   IsPartOf_PDU(const Header& H, KDataStream& stream);
 

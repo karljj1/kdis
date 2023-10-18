@@ -51,6 +51,8 @@ class KDIS_EXPORT Simulation_Management_Header : public Header {
 
   KDIS::DATA_TYPE::EntityIdentifier m_ReceivingEntityID;
 
+  Simulation_Management_Header* clone() const override;
+
  public:
   static const KUINT16 SIMULATION_MANAGEMENT_HEADER_SIZE = 24;
 

@@ -41,6 +41,8 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/EntityIdentifier.hpp"
 #include "KDIS/DataTypes/GED.hpp"
 #include "KDIS/DataTypes/GED_BasicFixedWingAircraft.hpp"
@@ -89,12 +91,14 @@ class KDIS_EXPORT IsGroupOf_PDU : public Header {
 
   KDIS::DATA_TYPE::GEDList m_vpGED;
 
+  IsGroupOf_PDU* clone() const override;
+
  public:
   static const KUINT16 IS_GROUP_OF_PDU_SIZE = 40;  // Min size
 
   IsGroupOf_PDU();
 
-  IsGroupOf_PDU(KDataStream& stream);
+  explicit IsGroupOf_PDU(KDataStream& stream);
 
   IsGroupOf_PDU(const Header& H, KDataStream& stream);
 

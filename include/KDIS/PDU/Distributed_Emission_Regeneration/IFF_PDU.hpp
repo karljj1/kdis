@@ -66,18 +66,15 @@ transponder and interrogator data link messages.
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/EntityIdentifier.hpp"
 #include "KDIS/DataTypes/FundamentalOperationalData.hpp"
+#include "KDIS/DataTypes/IFF_Layer2.hpp"
+#include "KDIS/DataTypes/LayerHeader.hpp"
 #include "KDIS/DataTypes/SystemIdentifier.hpp"
 #include "KDIS/DataTypes/Vector.hpp"
 #include "KDIS/PDU/Header.hpp"
-
-// Layers
-#include <vector>
-
-#include "KDIS/DataTypes/IFF_Layer2.hpp"
-#include "KDIS/DataTypes/LayerHeader.hpp"
-
 #if DIS_VERSION > 6
   #include "KDIS/DataTypes/IFF_Layer3Interrogator.hpp"
   #include "KDIS/DataTypes/IFF_Layer3Transponder.hpp"
@@ -104,6 +101,8 @@ class KDIS_EXPORT IFF_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::LyrHdrPtr> m_vLayers;
 
+  IFF_PDU* clone() const override;
+
  public:
   static const KUINT16 IFF_PDU_SIZE = 60;
 
@@ -111,7 +110,7 @@ class KDIS_EXPORT IFF_PDU : public Header {
 
   explicit IFF_PDU(const Header& H);
 
-  IFF_PDU(KDataStream& stream);
+  explicit IFF_PDU(KDataStream& stream);
 
   IFF_PDU(const Header& H, KDataStream& stream);
 
