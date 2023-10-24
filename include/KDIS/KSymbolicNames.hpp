@@ -174,7 +174,10 @@ http://p.sf.net/kdis/UserGuide
 #define MUNITION_NOT_TRACKED NO_SITE, NO_APPLIC, NO_ENTITY
 #define TARGET_IN_TJ_FIELD_DFLT 10
 
-// Deprecated Symbolic Values
+//
+// Deprecated
+//
+
 #define HRT_BEAT_MOVE_TIMER 2
 #define HRT_BEAT_MPLIER 2.4f
 #define HRT_BEAT_TIMER 5

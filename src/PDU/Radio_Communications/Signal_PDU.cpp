@@ -161,7 +161,7 @@ void Signal_PDU::SetData(const KOCTET* D, KUINT16 Length) {
 
 void Signal_PDU::GetData(KOCTET* D, KUINT16 Length) const {
   if (Length < m_ui16DataLength)
-    throw KException(__FUNCTION__, BUFFER_TOO_SMALL);
+    throw KException(ErrorCode::BUFFER_TOO_SMALL, __FUNCTION__);
 
   // Only return the data, not any padding that may have been added.
   KUINT16 uiDataSz = (m_ui16DataLength + 7) / 8;
@@ -194,7 +194,7 @@ KString Signal_PDU::GetAsString() const {
 void Signal_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       SIGNAL_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Radio_Communications_Header::Decode(stream, ignoreHeader);
 
@@ -204,7 +204,7 @@ void Signal_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   KUINT16 dl = ceil(m_ui16DataLength / 8);
   dl += (dl % 4 == 0 ? 0 : (4 - dl % 4));  // Add padding
   if (dl > stream.GetBufferSize()) {
-    throw(KException(INVALID_DATA));
+    throw(KException(ErrorCode::INVALID_DATA, __FUNCTION__));
   }
   for (KUINT16 i = 0; i < dl; ++i) {
     KOCTET o;

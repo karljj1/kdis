@@ -217,7 +217,7 @@ KString FundamentalParameterData::GetAsString() const {
 
 void FundamentalParameterData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < FUNDAMENTAL_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f32Freq >> m_f32FreqRange >> m_f32EffectiveRadiatedPower >>
       m_f32PulseRepetitionFreq >> m_f32PulseWidth >> m_f32BeamAzimuthCenter >>

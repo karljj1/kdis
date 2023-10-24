@@ -159,7 +159,7 @@ KString EntityDestinationRecord::GetAsString() const {
 
 void EntityDestinationRecord::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ENTITY_DESTINATION_RECORD_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> KDIS_STREAM m_Entity >> m_ui16DstCommsDvcID >> m_ui8DstLineID >>
       m_ui8DstPriority >> m_ui8LnStCmd >> m_uiPadding1;

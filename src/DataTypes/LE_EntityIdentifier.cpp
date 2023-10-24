@@ -101,7 +101,7 @@ KString LE_EntityIdentifier::GetAsString() const {
 
 void LE_EntityIdentifier::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < LE_ENTITY_IDENTIFER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8SiteID >> m_ui8ApplicationID >> m_ui16EntityID;
 }

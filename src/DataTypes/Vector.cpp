@@ -122,7 +122,7 @@ KString Vector::GetAsString() const {
 
 void Vector::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < VECTOR_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f32X >> m_f32Y >> m_f32Z;
 }
@@ -237,7 +237,7 @@ KFLOAT32& Vector::operator[](KUINT16 i) {
     case 2:
       return m_f32Z;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 
@@ -252,7 +252,7 @@ const KFLOAT32& Vector::operator[](KUINT16 i) const {
     case 2:
       return m_f32Z;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 

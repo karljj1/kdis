@@ -118,7 +118,7 @@ KString SphereRecord2::GetAsString() const {
 
 void SphereRecord2::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < SPHERE_RECORD_2_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
       KDIS_STREAM m_CentLocation >> m_f32Rad >> m_f32ddt >>

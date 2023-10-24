@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/DataTypes/ObjectAppearance.hpp"
 
+#include "KDIS/util/format.hpp"
+
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
@@ -51,8 +53,10 @@ ObjectAppearance::ObjectAppearance(KUINT8 PerCent, ObjectDamage OD,
                                    KBOOL Predist, KBOOL State, KBOOL Smoking,
                                    KBOOL Flaming) {
   if (PerCent > 100)
-    throw KException(__FUNCTION__, INVALID_DATA,
-                     "PerCent Acceptable values are 0-100.");
+    throw KException(ErrorCode::INVALID_DATA,
+                     KDIS::UTIL::format("%s | %u is not a valid percentage "
+                                        "value. Valid values are from 0 to 100",
+                                        __FUNCTION__, PerCent));
 
   m_GeneralAppearanceUnion.m_ui16PcComp = PerCent;
   m_GeneralAppearanceUnion.m_ui16Dmg = OD;
@@ -82,8 +86,10 @@ KUINT16 ObjectAppearance::GetGeneralAppearance() const {
 
 void ObjectAppearance::SetPercentageComplete(KUINT8 P) {
   if (P > 100)
-    throw KException(__FUNCTION__, INVALID_DATA,
-                     "Acceptable values are 0-100.");
+    throw KException(ErrorCode::INVALID_DATA,
+                     KDIS::UTIL::format("%s | %u is not a valid percentage "
+                                        "value. Valid values are from 0 to 100",
+                                        __FUNCTION__, P));
 
   m_GeneralAppearanceUnion.m_ui16PcComp = P;
 }
@@ -179,7 +185,7 @@ KString ObjectAppearance::GetAsString() const {
 
 void ObjectAppearance::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < OBJECT_APPEARANCE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   // Do not swap endian.
   stream >> m_GeneralAppearanceUnion.m_ui8GeneralAppearance[1] >>

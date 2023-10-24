@@ -130,7 +130,7 @@ KString ConeRecord2::GetAsString() const {
 
 void ConeRecord2::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < CONE_RECORD_2_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
       KDIS_STREAM m_Loc >> KDIS_STREAM m_Ori >> KDIS_STREAM m_Velocity >>

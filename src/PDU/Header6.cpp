@@ -32,6 +32,8 @@ http://p.sf.net/kdis/UserGuide
 #include <iomanip>
 #include <limits>
 
+#include "KDIS/util/format.hpp"
+
 using namespace KDIS;
 using namespace PDU;
 using namespace DATA_TYPE;
@@ -159,16 +161,20 @@ void Header6::Decode(KDataStream& stream, bool ignoreHeader /*= false*/) {
   if (!ignoreHeader) {
     if (stream.GetBufferSize() < HEADER6_PDU_SIZE) {
       const KUINT16 bufferSize = stream.GetBufferSize();
-      KStringStream ss;
-      ss << "Received " << stream.GetBufferSize() << " bytes. Expected minimum "
-         << HEADER6_PDU_SIZE << " bytes.\nData: ";
+
+      std::stringstream data;
       for (KUINT16 i = 0; i < bufferSize; i++) {
-        ss << std::setfill('0')
-           << std::setw(std::numeric_limits<KUOCTET>::digits / 4) << std::hex
-           << static_cast<KUINT32>(stream.GetBuffer()[i]) << " ";
+        data << std::setfill('0')
+             << std::setw(std::numeric_limits<KUOCTET>::digits / 4) << std::hex
+             << static_cast<KUINT32>(stream.GetBuffer()[i]) << " ";
       }
-      ss << "\n";
-      throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER, ss.str());
+
+      throw KException(
+          ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER,
+          KDIS::UTIL::format(
+              "%s | Received %u bytes. Expected minimum %u bytes\nData: %s\n",
+              __FUNCTION__, stream.GetBufferSize(), HEADER6_PDU_SIZE,
+              data.str()));
     }
 
     stream >> m_ui8ProtocolVersion >> m_ui8ExerciseID >> m_ui8PDUType >>

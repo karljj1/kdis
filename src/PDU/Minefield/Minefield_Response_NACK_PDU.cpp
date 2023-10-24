@@ -192,7 +192,7 @@ void Minefield_Response_NACK_PDU::Decode(KDataStream& stream,
                                          bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       MINEFIELD_RESPONSE_NACK_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vSeqNums.clear();
 

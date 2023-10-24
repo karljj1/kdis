@@ -82,7 +82,7 @@ KString Supplies::GetAsString() const {
 
 void Supplies::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < SUPPLIES_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   EntityType::Decode(stream);
   stream >> m_f32Quantity;

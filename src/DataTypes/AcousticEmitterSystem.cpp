@@ -110,7 +110,7 @@ KString AcousticEmitterSystem::GetAsString() const {
 
 void AcousticEmitterSystem::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ACOUSTIC_EMITTER_SYSTEM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16EmitterName >> m_ui8Function >> m_ui8EmitterIDNumber;
 }

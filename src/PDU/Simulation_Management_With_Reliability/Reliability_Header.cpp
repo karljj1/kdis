@@ -87,7 +87,7 @@ KString Reliability_Header::GetAsString() const {
 
 void Reliability_Header::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < RELIABILITY_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8ReqRelSrv >> m_ui16Padding1 >> m_ui8Padding;
 }

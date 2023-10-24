@@ -190,7 +190,7 @@ KString FundamentalOperationalData::GetAsString() const {
 
 void FundamentalOperationalData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < FUNDAMENTAL_OPERATIONAL_DATA_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8SystemStatus >> m_ui8AltParam4 >> m_ui8InfoLayers >>
       m_ui8Modifier >> m_ui16Param1 >> m_ui16Param2 >> m_ui16Param3 >>

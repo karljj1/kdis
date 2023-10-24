@@ -322,7 +322,7 @@ void Collision_Elastic_PDU::Decode(KDataStream& stream,
                                    bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       COLLISION_ELASTIC_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Header::Decode(stream, ignoreHeader);
   stream >> KDIS_STREAM m_IssuingEntityID >> KDIS_STREAM m_CollidingEntityID >>

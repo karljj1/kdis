@@ -125,7 +125,7 @@ void Service_Request_PDU::Decode(KDataStream& stream,
                                  bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       SERVICE_REQUEST_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Logistics_Header::Decode(stream, ignoreHeader);
 
@@ -134,7 +134,7 @@ void Service_Request_PDU::Decode(KDataStream& stream,
   // Now recheck the size of the packet as we now know the number of supply
   // types.
   if (stream.GetBufferSize() < m_ui8NumSupplyTypes * Supplies::SUPPLIES_SIZE)
-    throw KException(__FUNCTION__, RESUPPLY_RECEIVED_PDU_SIZE);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   for (KUINT16 i = 0; i < m_ui8NumSupplyTypes; ++i) {
     Supplies sup;

@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/DataTypes/PointObjectAppearance.hpp"
 
+#include "KDIS/util/format.hpp"
+
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
@@ -68,8 +70,10 @@ Breach2bit PointObjectAppearance::GetBreach() const {
 
 void PointObjectAppearance::SetOpacity(KUINT8 O) {
   if (O > 100)
-    throw KException(__FUNCTION__, INVALID_DATA,
-                     "Acceptable values are 0-100.");
+    throw KException(ErrorCode::INVALID_DATA,
+                     KDIS::UTIL::format("%s | %u is not a valid opacity value. "
+                                        "Valid values are from 0 to 100",
+                                        __FUNCTION__, O));
 
   m_SpecificAppearanceUnion.m_AirBurstGroundBurst.m_ui32Opacity = O;
 }
@@ -168,7 +172,7 @@ KString PointObjectAppearance::GetAsString() const {
 
 void PointObjectAppearance::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < POINT_OBJECT_APPEARANCE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_SpecificAppearanceUnion.m_ui32SpecificAppearance >>
       m_GeneralAppearanceUnion.m_ui16GeneralAppearance;

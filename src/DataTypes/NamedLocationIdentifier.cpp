@@ -96,7 +96,7 @@ KString NamedLocationIdentifier::GetAsString() const {
 
 void NamedLocationIdentifier::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < NAMED_LOCATION_ID_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16StnName >> m_ui16StnNum;
 }

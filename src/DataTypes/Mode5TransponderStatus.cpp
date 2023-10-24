@@ -238,7 +238,7 @@ KString Mode5TransponderStatus::GetAsString() const {
 
 void Mode5TransponderStatus::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < MODE_5_TRANSPONDER_STATUS_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_StatusUnion.m_ui16Status;
 }

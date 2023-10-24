@@ -304,7 +304,7 @@ void Transmitter_PDU::SetModulationParameters(const KOCTET* MP, KUINT8 Length) {
 
 void Transmitter_PDU::GetModulationParameters(KOCTET* MP, KUINT8 Length) const {
   if (Length < m_ui8LengthOfModulationParam)
-    throw KException(__FUNCTION__, BUFFER_TOO_SMALL);
+    throw KException(ErrorCode::BUFFER_TOO_SMALL, __FUNCTION__);
 
   vector<KOCTET>::const_iterator citr = m_vModulationParams.begin();
   vector<KOCTET>::const_iterator citrEnd = m_vModulationParams.end();
@@ -343,7 +343,7 @@ void Transmitter_PDU::SetAntennaPattern(const KOCTET* AP, KUINT16 Length) {
 
 void Transmitter_PDU::GetAntennaPattern(KOCTET* AP, KUINT16 Length) const {
   if (Length < m_ui16AntennaPatternLength)
-    throw KException(__FUNCTION__, BUFFER_TOO_SMALL);
+    throw KException(ErrorCode::BUFFER_TOO_SMALL, __FUNCTION__);
 
   vector<KOCTET>::const_iterator citr = m_vAntennaPattern.begin();
   vector<KOCTET>::const_iterator citrEnd = m_vAntennaPattern.end();
@@ -387,7 +387,7 @@ void Transmitter_PDU::Decode(KDataStream& stream,
                              bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       TRANSMITTER_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Radio_Communications_Header::Decode(stream, ignoreHeader);
 

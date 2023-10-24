@@ -211,7 +211,7 @@ void Acknowledge_PDU::Decode(KDataStream& stream,
                              bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       ACKNOWLEDGE_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Simulation_Management_Header::Decode(stream, ignoreHeader);
   stream >> m_ui16AcknowledgeFlag >> m_ui16ResponseFlag >> m_ui32RequestID;

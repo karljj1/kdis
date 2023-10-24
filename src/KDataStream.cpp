@@ -39,10 +39,10 @@ using namespace std;
 
 KDataStream::KDataStream(Endian Network_Endian /*= Big_Endian*/)
     : m_NetEndian(Network_Endian), m_ui16CurrentWritePos(0) {
-  if (IsMachineBigEndian() == true) {
-    m_MachineEndian = Big_Endian;
+  if (IsMachineBigEndian()) {
+    m_MachineEndian = Endian::BIG;
   } else {
-    m_MachineEndian = Little_Endian;
+    m_MachineEndian = Endian::LITTLE;
   }
 }
 
@@ -56,10 +56,10 @@ KDataStream::KDataStream(const KOCTET* SerialData, KUINT16 DataSize,
     m_vBuffer.push_back(SerialData[i]);
   }
 
-  if (IsMachineBigEndian() == true) {
-    m_MachineEndian = Big_Endian;
+  if (IsMachineBigEndian()) {
+    m_MachineEndian = Endian::BIG;
   } else {
-    m_MachineEndian = Little_Endian;
+    m_MachineEndian = Endian::LITTLE;
   }
 }
 
@@ -83,8 +83,8 @@ KUINT16 KDataStream::GetBufferSize() const {
   //  Example:  (unsigned short)(8 - 16) = 65528, but (int)(8 - 16) = -8
   // Non-breaking fix:  // Throw instead of erroneously returning large +#
   if ((KINT16)(m_vBuffer.size() - m_ui16CurrentWritePos) < 0) {
-    throw KException(
-        BUFFER_TOO_SMALL);  // an alternate fix would be to return zero (0)
+    throw KException(ErrorCode::BUFFER_TOO_SMALL);  // an alternate fix would be
+                                                    // to return zero (0)
   }
   return (m_vBuffer.size() - m_ui16CurrentWritePos);
 }
@@ -94,7 +94,7 @@ KUINT16 KDataStream::GetBufferSize() const {
 KUINT16 KDataStream::CopyIntoBuffer(KOCTET* Buffer, KUINT16 BufferSize,
                                     KUINT16 WritePos /*= 0*/) const {
   if ((KINT16)(BufferSize - WritePos) < (KUINT16)m_vBuffer.size()) {
-    throw KException(BUFFER_TOO_SMALL);
+    throw KException(ErrorCode::BUFFER_TOO_SMALL);
   }
 
   vector<KUOCTET>::const_iterator citr = m_vBuffer.begin();
@@ -137,7 +137,7 @@ void KDataStream::ResetWritePosition() { m_ui16CurrentWritePos = 0; }
 
 void KDataStream::SetCurrentWritePosition(KUINT16 WP) {
   if (WP > m_vBuffer.size()) {
-    throw KException(INVALID_DATA);
+    throw KException(ErrorCode::INVALID_DATA);
   }  // James Wing -- Oct 2016 -- disallow advancing write position beyond end
      // of buffer in spite of defective PDU size indicator telling us to --
      // never trust the data.
@@ -199,7 +199,7 @@ void KDataStream::Write(KOCTET V) { m_vBuffer.push_back(V); }
 
 void KDataStream::Read(KUOCTET& V) {
   if (m_ui16CurrentWritePos >= m_vBuffer.size()) {
-    throw KException(INVALID_DATA);
+    throw KException(ErrorCode::INVALID_DATA);
   }  // James Wing Nov 2016
   V = m_vBuffer[m_ui16CurrentWritePos++];
 }
@@ -208,7 +208,7 @@ void KDataStream::Read(KUOCTET& V) {
 
 void KDataStream::Read(KOCTET& V) {
   if (m_ui16CurrentWritePos >= m_vBuffer.size()) {
-    throw KException(INVALID_DATA);
+    throw KException(ErrorCode::INVALID_DATA);
   }  // James Wing Nov 2016
   V = m_vBuffer[m_ui16CurrentWritePos++];
 }

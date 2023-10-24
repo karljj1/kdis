@@ -78,7 +78,7 @@ KString GridData::GetAsString() const {
 
 void GridData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GRID_DATA_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16SmpTyp >> m_ui16DtRep;
 }

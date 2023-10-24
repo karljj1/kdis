@@ -92,7 +92,7 @@ KString CommunicationsNodeID::GetAsString() const {
 
 void CommunicationsNodeID::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < COMMUNICATIONS_NODE_ID_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   EntityIdentifier::Decode(stream);
   stream >> m_ui16ElementID;

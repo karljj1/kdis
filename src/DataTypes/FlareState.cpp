@@ -135,7 +135,7 @@ KString FlareState::GetAsString() const {
 
 void FlareState::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < FLARE_STATE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
       m_ui32TSC >> KDIS_STREAM m_Src >> m_ui32NumInt >> m_ui32NumSrcs >>

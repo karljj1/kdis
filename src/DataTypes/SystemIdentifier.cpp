@@ -211,7 +211,7 @@ KString SystemIdentifier::GetAsString() const {
 
 void SystemIdentifier::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < SYSTEM_IDENTIFER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16SystemType >> m_ui16SystemName >> m_ui8SystemMode >>
       m_ui8ChangeOptions;

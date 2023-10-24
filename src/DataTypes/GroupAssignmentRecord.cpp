@@ -103,7 +103,7 @@ KUINT32 GroupAssignmentRecord::GetGroupBitField() const {
 
 void GroupAssignmentRecord::SetGroupBitField(KUINT8 Group,
                                              KBOOL InGroup /*= true*/) {
-  if (Group > 31) throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+  if (Group > 31) throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
   bitset<32> bits(
       (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
@@ -114,7 +114,7 @@ void GroupAssignmentRecord::SetGroupBitField(KUINT8 Group,
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL GroupAssignmentRecord::IsGroupBitSet(KUINT8 Group) const {
-  if (Group > 31) throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+  if (Group > 31) throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
   const bitset<32> bits(
       (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
@@ -164,7 +164,7 @@ KString GroupAssignmentRecord::GetAsString() const {
 
 void GroupAssignmentRecord::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GROUP_ASSIGNMENT_RECORD_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32GrpBtField >> KDIS_STREAM m_Entity >> m_ui16DstCommsDvcID >>
       m_ui8DstLineID >> m_ui16Padding1 >> m_ui8Padding2;

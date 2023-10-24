@@ -172,7 +172,7 @@ KString IFF_ATC_NAVAIDS_FundamentalParameterData::GetAsString() const {
 
 void IFF_ATC_NAVAIDS_FundamentalParameterData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < IFF_ATC_NAVAIDS_FUNDAMENTAL_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f32ERP >> m_f32Freq >> m_f32PgRF >> m_f32PulseWidth >>
       m_ui32BurstLength >> m_ui8AppMode >> m_ui16Padding1 >> m_ui8Padding2;

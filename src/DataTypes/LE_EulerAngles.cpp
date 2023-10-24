@@ -122,7 +122,7 @@ KString LE_EulerAngles::GetAsString() const {
 
 void LE_EulerAngles::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < LE_EULER_ANGLES_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> KDIS_STREAM m_Psi >> KDIS_STREAM m_Theta >> KDIS_STREAM m_Phi;
 }
@@ -228,7 +228,7 @@ KFIXED8_3& LE_EulerAngles::operator[](KUINT16 i) {
     case 2:
       return m_Phi;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 
@@ -243,7 +243,7 @@ const KFIXED8_3& LE_EulerAngles::operator[](KUINT16 i) const {
     case 2:
       return m_Phi;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 

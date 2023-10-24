@@ -52,8 +52,9 @@ int main() {
 }
 
 static void print(const std::string &label, const KDIS::PDU::Header &pdu) {
-  std::cout << "----------------------------------------" << std::endl
+  std::cout << std::endl
+            << "----------------------------------------" << std::endl
             << label << ":" << std::endl
             << "----------------------------------------" << std::endl
-            << pdu.GetAsString() << std::endl;
+            << pdu.GetAsString();
 }

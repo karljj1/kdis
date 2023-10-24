@@ -120,7 +120,7 @@ KString BeamData::GetAsString() const {
 
 void BeamData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < BEAM_DATA_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f32AziCtr >> m_f32AziSwp >> m_f32EleCtr >> m_f32EleSwp >>
       m_f32SwpSyn;

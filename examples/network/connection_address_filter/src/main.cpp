@@ -50,19 +50,6 @@ using namespace PDU;
 using namespace NETWORK;
 
 int main() {
-  Designator_PDU a;
-  a.SetExerciseID(12);
-  const auto aa = KDIS::PDU::clone(a);
-  a.SetExerciseID(100);
-  std::cout << "A: " << std::to_string(a.GetExerciseID())
-            << "AA: " << std::to_string(aa->GetExerciseID()) << std::endl;
-  Header b;
-  b.SetExerciseID(22);
-  const auto bb = KDIS::PDU::clone(b);
-  b.SetExerciseID(200);
-  std::cout << "B: " << std::to_string(b.GetExerciseID())
-            << "BB: " << std::to_string(bb->GetExerciseID()) << std::endl;
-
   try {
     // Note this multi cast address will probably be different for your network
     // however port 3000 is the assigned number by IANA(Internet Assigned

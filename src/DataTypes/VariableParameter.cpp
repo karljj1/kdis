@@ -79,7 +79,8 @@ VariableParameterType VariableParameter::GetVariableParameterType() const {
 //////////////////////////////////////////////////////////////////////////
 
 void VariableParameter::SetData(const KUINT8* D, KUINT8 DataSize) {
-  if (DataSize > 15) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
+  if (DataSize > 15)
+    throw KException(ErrorCode::DATA_TYPE_TOO_LARGE, __FUNCTION__);
 
   // Set
   memcpy(m_Data, D, DataSize);
@@ -113,7 +114,7 @@ KString VariableParameter::GetAsString() const {
 
 void VariableParameter::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < VARIABLE_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8VarParamType;
 

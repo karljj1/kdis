@@ -182,7 +182,7 @@ KFLOAT64 IsGroupOf_PDU::GetGroupReferencePointLongitude() const {
 
 void IsGroupOf_PDU::AddGED(const GEDItem& GED) {
   if (m_ui8GrpdEntCat != GED->GetGroupedEntityCategory())
-    throw KException(__FUNCTION__, INVALID_DATA);
+    throw KException(ErrorCode::INVALID_DATA, __FUNCTION__);
 
   m_vpGED.push_back(GED);
   ++m_ui8NumOfGroupedEnts;
@@ -201,7 +201,7 @@ void IsGroupOf_PDU::SetGED(const GEDList& GED) {
 
   while (i < GED.size()) {
     if (GED[i]->GetGroupedEntityCategory() != gec)
-      throw KException(__FUNCTION__, INVALID_DATA);
+      throw KException(ErrorCode::INVALID_DATA, __FUNCTION__);
     ++i;
   }
 
@@ -256,7 +256,7 @@ KString IsGroupOf_PDU::GetAsString() const {
 void IsGroupOf_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       IS_GROUP_OF_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vpGED.clear();
 

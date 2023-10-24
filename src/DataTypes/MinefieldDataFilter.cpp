@@ -226,7 +226,7 @@ KString MinefieldDataFilter::GetAsString() const {
 
 void MinefieldDataFilter::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < MINEFIELD_DATA_FILTER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_FilterUnion.m_ui32Filter;
 }

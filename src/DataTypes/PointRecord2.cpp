@@ -86,7 +86,7 @@ KString PointRecord2::GetAsString() const {
 
 void PointRecord2::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < POINT_RECORD_2_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   PointRecord1::Decode(stream);
   stream >> KDIS_STREAM m_Vel >> m_ui32Padding;

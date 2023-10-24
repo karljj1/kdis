@@ -81,7 +81,7 @@ KString EntityIdentifier::GetAsString() const {
 
 void EntityIdentifier::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < EntityIdentifier::ENTITY_IDENTIFER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   SimulationIdentifier::Decode(stream);
   stream >> m_ui16EntityID;

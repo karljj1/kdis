@@ -187,7 +187,7 @@ KString GridAxisRegular::GetAsString() const {
 
 void GridAxisRegular::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GRID_AXIS_REGULAR)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f64DomainInitialXi >> m_f64DomainFinalXi >>
       m_ui16DomainPointsXi >> m_ui8InterleafFactor >> m_ui8AxisType >>

@@ -202,7 +202,7 @@ KString GridAxisIrregular::GetAsString() const {
 
 void GridAxisIrregular::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GRID_AXIS_IRREGULAR)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vXiValues.clear();
   m_vui16Padding.clear();

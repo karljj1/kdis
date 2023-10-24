@@ -120,7 +120,7 @@ KString EllipsoidRecord1::GetAsString() const {
 
 void EllipsoidRecord1::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ELIPSOID_RECORD_1_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
       KDIS_STREAM m_CentLocation >> KDIS_STREAM m_Sigma >> KDIS_STREAM m_Ori;

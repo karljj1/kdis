@@ -213,7 +213,7 @@ KString COMBICState::GetAsString() const {
 
 void COMBICState::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < COMBIC_STATE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
       m_ui32TSC >> KDIS_STREAM m_MunSrc >> m_ui32NumSrcs >>

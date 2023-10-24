@@ -107,7 +107,7 @@ KString ObjectType::GetAsString() const {
 
 void ObjectType::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < OBJECT_TYPE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8Domain >> m_ui8EntityKind >> m_ui8Category >> m_ui8SubCategory;
 }

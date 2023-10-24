@@ -127,7 +127,7 @@ KString LE_DeadReckoningParameter::GetAsString() const {
 
 void LE_DeadReckoningParameter::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < LE_DEAD_RECKONING_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8DeadRecknoningAlgorithm >> KDIS_STREAM m_LinearAcceleration >>
       KDIS_STREAM m_AngularVelocity;

@@ -104,7 +104,7 @@ KString BoundingSphereRecord::GetAsString() const {
 
 void BoundingSphereRecord::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < BOUNDING_SPHERE_RECORD_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
       KDIS_STREAM m_CentLocation >> m_f32Rad >> m_ui32Padding;
