@@ -68,6 +68,7 @@ jobs:
                 os: [ubuntu-latest, windows-latest]
                 build: [Debug, Release]
                 dis: [5, 6, 7]
+                enum: [TRUE, FALSE]
         runs-on: ${{ matrix.os }}
         steps:
             - name: Checkout
@@ -79,7 +80,7 @@ jobs:
               uses: ssciwr/doxygen-install@v1
 
             - name: Configure CMake
-              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DBUILD_SHARED_LIBS:BOOL=FALSE -DKDIS_BUILD_DOCS:BOOL=TRUE -DKDIS_BUILD_EXAMPLES:BOOL=TRUE -DKDIS_BUILD_TESTS:BOOL=TRUE
+              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=${{ matrix.enum }} -DBUILD_SHARED_LIBS:BOOL=FALSE -DKDIS_BUILD_DOCS:BOOL=TRUE -DKDIS_BUILD_EXAMPLES:BOOL=TRUE -DKDIS_BUILD_TESTS:BOOL=TRUE
 
             - name: Build
               run: cmake --build ./build --config ${{ matrix.build }}

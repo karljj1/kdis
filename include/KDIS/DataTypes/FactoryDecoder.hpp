@@ -115,7 +115,7 @@ class FactoryDecoder {
 template <class DecoderBaseTyp>
 class FactoryDecoderUser {
  public:
-  typedef KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > FacDecPtr;
+  typedef KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp>> FacDecPtr;
 
  protected:
   static std::map<KINT32, FacDecPtr> m_mDecoders;
@@ -171,10 +171,8 @@ class FactoryDecoderUser {
 
 // Init static map variable.
 template <class DecoderBaseTyp>
-std::map<KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > >
-    FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders =
-        std::map<KINT32,
-                 KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > >();
+std::map<KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp>>>
+    FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders;
 
 }  // namespace DATA_TYPE
 }  // END namespace KDIS

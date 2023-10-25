@@ -74,11 +74,6 @@ http://p.sf.net/kdis/UserGuide
   #error Invalid DIS_VERSION. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
 #endif
 
-// Enum descriptors
-#ifndef KDIS_USE_ENUM_DESCRIPTORS
-  #error KDIS_USE_ENUM_DESCRIPTORS must be defined. Allow enum values to be turned into their text labels. This increase the memory footprint of the library
-#endif
-
 //
 // Type definitions
 //
