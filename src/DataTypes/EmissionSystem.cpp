@@ -159,7 +159,7 @@ KString EmissionSystem::GetAsString() const {
 
 void EmissionSystem::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < EMISSION_SYSTEM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8SystemDataLength >> m_ui8NumberOfBeams >> m_ui16Padding >>
       KDIS_STREAM m_EmitterSystemRecord >> KDIS_STREAM m_Location;

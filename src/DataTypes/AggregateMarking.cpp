@@ -78,9 +78,10 @@ EntityMarkingCharacterSet AggregateMarking::GetAggregateMarkingCharacterSet()
 
 //////////////////////////////////////////////////////////////////////////
 
-void AggregateMarking::SetAggregateMarkingString(const KINT8* M,
+void AggregateMarking::SetAggregateMarkingString(const KCHAR8* M,
                                                  KUINT16 StringSize) {
-  if (StringSize > 31) throw KException(__FUNCTION__, STRING_PDU_SIZE_TOO_BIG);
+  if (StringSize > 31)
+    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
 
   strncpy(m_sAggregateMarkingString, M, StringSize);
 
@@ -110,7 +111,7 @@ KString AggregateMarking::GetAsString() const {
 
 void AggregateMarking::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < AGGREGATE_MARKING_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8AggregateMarkingCharacterSet;
 

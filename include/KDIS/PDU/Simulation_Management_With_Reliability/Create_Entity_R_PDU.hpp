@@ -47,6 +47,9 @@ namespace PDU {
 
 class KDIS_EXPORT Create_Entity_R_PDU : public Create_Entity_PDU,
                                         public Reliability_Header {
+ protected:
+  Create_Entity_R_PDU* clone() const override;
+
  public:
   static const KUINT16 CREATE_ENTITY_R_PDU_SIZE = 32;
 
@@ -54,7 +57,7 @@ class KDIS_EXPORT Create_Entity_R_PDU : public Create_Entity_PDU,
 
   explicit Create_Entity_R_PDU(const Header& H);
 
-  Create_Entity_R_PDU(KDataStream& stream);
+  explicit Create_Entity_R_PDU(KDataStream& stream);
 
   Create_Entity_R_PDU(const Header& H, KDataStream& stream);
 

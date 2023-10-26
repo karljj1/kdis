@@ -152,7 +152,8 @@ FixedDatum::FixedDatum(DatumID ID, Type Value) {
 
 template <class Type>
 Type FixedDatum::GetDatumValue() const {
-  if (sizeof(Type) > 4) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
+  if (sizeof(Type) > 4)
+    throw KException(ErrorCode::DATA_TYPE_TOO_LARGE, __FUNCTION__);
 
   NetToDataType<Type> NetValue(m_cDatumValue, false);
 
@@ -169,7 +170,8 @@ Type FixedDatum::GetDatumValue() const {
 
 template <class Type>
 void FixedDatum::SetDatumValue(Type val) {
-  if (sizeof(Type) > 4) throw KException(__FUNCTION__, DATA_TYPE_TOO_LARGE);
+  if (sizeof(Type) > 4)
+    throw KException(ErrorCode::DATA_TYPE_TOO_LARGE, __FUNCTION__);
 
   // Reset datum value.
   memset(m_cDatumValue, 0x00, 4);

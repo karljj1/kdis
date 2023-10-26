@@ -29,13 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
-//
-// Determine which header we should use for all PDU.
-//
-
-#include "KDIS/KDefines.hpp"
-
-#if DIS_VERSION > 6
+#if DIS_VERSION >= 7
   #include "KDIS/PDU/Header7.hpp"
 #else
   #include "KDIS/PDU/Header6.hpp"
@@ -44,7 +38,7 @@ http://p.sf.net/kdis/UserGuide
 namespace KDIS {
 namespace PDU {
 
-#if DIS_VERSION > 6
+#if DIS_VERSION >= 7
 typedef Header7 Header;
 #else
 typedef Header6 Header;

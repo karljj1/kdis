@@ -110,7 +110,7 @@ KString MineFusing::GetAsString() const {
 
 void MineFusing::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < MINE_FUSING_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_FuseUnion.m_ui16Fusing;
 }

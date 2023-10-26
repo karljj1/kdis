@@ -102,7 +102,7 @@ KString SecondaryOperationalData::GetAsString() const {
 
 void SecondaryOperationalData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < SECONDARY_OPERATIONAL_DATA_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8Param1 >> m_ui8Param2 >> m_ui16NumFundParamSets;
 }

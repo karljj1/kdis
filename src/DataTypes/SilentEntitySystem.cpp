@@ -84,7 +84,7 @@ EntityType& SilentEntitySystem::GetEntityType() { return m_EntTyp; }
 
 void SilentEntitySystem::AddEntityAppearance(const EntityAppearance& EA) {
   if (m_vEA.size() >= m_ui16NumEnts)
-    throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+    throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
   m_vEA.push_back(EA);
   m_ui16NumOfAppearanceRecords = m_vEA.size();
@@ -94,7 +94,8 @@ void SilentEntitySystem::AddEntityAppearance(const EntityAppearance& EA) {
 
 void SilentEntitySystem::SetEntityAppearanceList(
     const vector<EntityAppearance>& EA) {
-  if (EA.size() >= m_ui16NumEnts) throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+  if (EA.size() >= m_ui16NumEnts)
+    throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
   m_vEA = EA;
   m_ui16NumOfAppearanceRecords = m_vEA.size();
@@ -139,7 +140,7 @@ KString SilentEntitySystem::GetAsString() const {
 
 void SilentEntitySystem::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < SILENT_ENTITY_SYSTEM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vEA.clear();
 

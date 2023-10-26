@@ -50,7 +50,8 @@ EntityMarking::EntityMarking(KDataStream& stream) { Decode(stream); }
 EntityMarking::EntityMarking(EntityMarkingCharacterSet MarkingCharSet,
                              const KCHAR8* MarkingText, KUINT16 TextSize)
     : m_ui8EntityMarkingCharacterSet(MarkingCharSet) {
-  if (TextSize > 11) throw KException(__FUNCTION__, STRING_PDU_SIZE_TOO_BIG);
+  if (TextSize > 11)
+    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
 
   memset(m_sEntityMarkingString, 0x00, sizeof(m_sEntityMarkingString));
   SetEntityMarkingString(MarkingText, TextSize);
@@ -62,7 +63,7 @@ EntityMarking::EntityMarking(const EntityMarkingCharacterSet MarkingCharSet,
                              const KString& MarkingText)
     : m_ui8EntityMarkingCharacterSet(MarkingCharSet) {
   if (MarkingText.size() > 11)
-    throw KException(__FUNCTION__, STRING_PDU_SIZE_TOO_BIG);
+    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
 
   memset(m_sEntityMarkingString, 0x00, sizeof(m_sEntityMarkingString));
   SetEntityMarkingString(MarkingText);
@@ -87,9 +88,10 @@ EntityMarkingCharacterSet EntityMarking::GetEntityMarkingCharacterSet() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityMarking::SetEntityMarkingString(const KINT8* EMS,
+void EntityMarking::SetEntityMarkingString(const KCHAR8* EMS,
                                            KUINT16 StringSize) {
-  if (StringSize > 11) throw KException(__FUNCTION__, STRING_PDU_SIZE_TOO_BIG);
+  if (StringSize > 11)
+    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
 
   memcpy(m_sEntityMarkingString, EMS, StringSize);
   m_sEntityMarkingString[StringSize] = 0x0;  // Null terminate the string.
@@ -98,7 +100,8 @@ void EntityMarking::SetEntityMarkingString(const KINT8* EMS,
 //////////////////////////////////////////////////////////////////////////
 
 void EntityMarking::SetEntityMarkingString(const KString& EMS) {
-  if (EMS.size() > 11) throw KException(__FUNCTION__, STRING_PDU_SIZE_TOO_BIG);
+  if (EMS.size() > 11)
+    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
 
   memcpy(m_sEntityMarkingString, EMS.c_str(), EMS.size());
   m_sEntityMarkingString[EMS.size()] = 0x0;  // Null terminate the string.
@@ -127,7 +130,7 @@ KString EntityMarking::GetAsString() const {
 
 void EntityMarking::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ENTITY_MARKING_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8EntityMarkingCharacterSet;
 

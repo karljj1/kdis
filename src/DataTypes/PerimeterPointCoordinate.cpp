@@ -83,7 +83,7 @@ KString PerimeterPointCoordinate::GetAsString() const {
 
 void PerimeterPointCoordinate::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < PERIMETER_POINT_COORDINATE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f32X >> m_f32Y;
 }
@@ -129,7 +129,7 @@ KFLOAT32& PerimeterPointCoordinate::operator[](KUINT16 i) {
     case 1:
       return m_f32Y;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 
@@ -142,7 +142,7 @@ const KFLOAT32& PerimeterPointCoordinate::operator[](KUINT16 i) const {
     case 1:
       return m_f32Y;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 

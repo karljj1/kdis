@@ -54,12 +54,14 @@ class KDIS_EXPORT Repair_Response_PDU : public Logistics_Header {
 
   KUINT16 m_ui16Padding;
 
+  Repair_Response_PDU* clone() const override;
+
  public:
   static const KUINT16 REPAIR_RESPONSE_PDU_SIZE = 28;
 
   Repair_Response_PDU();
 
-  Repair_Response_PDU(KDataStream& stream);
+  explicit Repair_Response_PDU(KDataStream& stream);
 
   Repair_Response_PDU(const Header& H, KDataStream& stream);
 

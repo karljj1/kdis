@@ -39,22 +39,18 @@ http://p.sf.net/kdis/UserGuide
 #define KDIS_KDEFINES_HPP_
 
 #include <cstdint>
-#include <cstring>
+#include <cstring>  // TODO(carlocorradini) Remove
 #include <exception>
 #include <sstream>
 #include <string>
 
 #include "KDIS/KExport.hpp"
 #include "KDIS/KSymbolicNames.hpp"
+#include "KDIS/util/format.hpp"
 
-#define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS
-
-// Comment out the following line to enable Enum descriptors or declare
-// KDIS_USE_ENUM_DESCRIPTORS in your project pre-processor definitions (-D
-// KDIS_USE_ENUM_DESCRIPTORS).
-// #define KDIS_USE_ENUM_DESCRIPTORS
-
-#if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+// TODO(carlocorradini) Remove
+#if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
+    defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
   // Disable this warning, it simply warns us about any functions that have a
   // throw qualifier.
   #pragma warning(disable : 4290)
@@ -66,28 +62,46 @@ http://p.sf.net/kdis/UserGuide
   #pragma warning(disable : 4251)
 #endif
 
+//
+// Checks
+//
+
 // DIS version
 #ifndef DIS_VERSION
   #error DIS_VERSION must be defined. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
 #endif
+#if DIS_VERSION != 5 && DIS_VERSION != 6 && DIS_VERSION != 7
+  #error Invalid DIS_VERSION. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
+#endif
 
-/************************************************************************/
-/* Type Definitions                                                     */
-/************************************************************************/
+//
+// Type definitions
+//
+
+/**
+ * @brief Maximum PDU size in bytes.
+ */
+#define MAX_PDU_SIZE MAX_PDU_SIZE_OCTETS
 
 namespace KDIS {
 
-typedef unsigned char KUINT8;
-typedef char KINT8;
-typedef uint16_t KUINT16;
-typedef int16_t KINT16;
-typedef uint32_t KUINT32;
-typedef int32_t KINT32;
-typedef uint64_t KUINT64;
-typedef int64_t KINT64;
+typedef bool KBOOL;
+
+typedef std::int8_t KINT8;
+typedef std::uint8_t KUINT8;
+
+typedef std::int16_t KINT16;
+typedef std::uint16_t KUINT16;
+
+typedef std::int32_t KINT32;
+typedef std::uint32_t KUINT32;
+
+typedef std::int64_t KINT64;
+typedef std::uint64_t KUINT64;
 
 typedef char KOCTET;
 typedef unsigned char KUOCTET;
+
 typedef char KCHAR8;
 typedef unsigned char KUCHAR8;
 
@@ -97,97 +111,154 @@ typedef double KFLOAT64;
 typedef std::string KString;
 typedef std::stringstream KStringStream;
 
-typedef bool KBOOL;
+//
+// Errors & Exceptions
+//
 
-/************************************************************************/
-/* Error Code Definitions                                               */
-/************************************************************************/
-
-enum ErrorCodes {
-  NO_ERRORS = 0,
-  BUFFER_TOO_SMALL = 1,
-  NOT_ENOUGH_DATA_IN_BUFFER = 2,
-  STRING_PDU_SIZE_TOO_BIG = 3,
-  DATA_TYPE_TOO_LARGE = 4,
-  WRONG_PDU_TYPE_IN_HEADER = 5,
-  FILE_NOT_OPEN = 6,
-  OUT_OF_BOUNDS = 7,
-  INVALID_DATA = 8,
-  UNSUPPORTED_DATATYPE = 9,
-  INVALID_OPERATION = 10,
-  PDU_TOO_LARGE = 11,
-  CONNECTION_SOCKET_ERROR = 12
+/**
+ * @brief Error code.
+ * An enumeration of all error codes.
+ */
+enum class ErrorCode : std::uint8_t {
+  /**
+   * @brief No errors.
+   */
+  NO_ERRORS,
+  /**
+   * @brief Buffer is too small.
+   */
+  BUFFER_TOO_SMALL,
+  /**
+   * @brief Buffer does not contains enough information to decode.
+   */
+  NOT_ENOUGH_DATA_IN_BUFFER,
+  /**
+   * @brief String size too big.
+   */
+  STRING_PDU_SIZE_TOO_BIG,
+  /**
+   * @brief Data type is too large.
+   */
+  DATA_TYPE_TOO_LARGE,
+  /**
+   * @brief Incorrect PDU type specified in header.
+   */
+  WRONG_PDU_TYPE_IN_HEADER,
+  /**
+   * @brief Could not open file for reading/writing.
+   */
+  FILE_NOT_OPEN,
+  /**
+   * @brief Parameter is out of bounds/range of acceptable values.
+   */
+  OUT_OF_BOUNDS,
+  /**
+   * @brief Invalid data.
+   */
+  INVALID_DATA,
+  /**
+   * @brief Unsupported data type. Unable to decode.
+   */
+  UNSUPPORTED_DATATYPE,
+  /**
+   * @brief Invalid operation.
+   */
+  INVALID_OPERATION,
+  /**
+   * @brief PDU is too large. PDU must not exceeds 8192 bytes.
+   */
+  PDU_TOO_LARGE,
+  /**
+   * @brief Socket error.
+   */
+  CONNECTION_SOCKET_ERROR
 };
 
-/************************************************************************/
-/* Error Code As String                                                 */
-/************************************************************************/
-
-static KString GetErrorText(KUINT16 ErrorCode) {
-  switch (ErrorCode) {
-    case NO_ERRORS:
-      return "No Errors";
-    case BUFFER_TOO_SMALL:
-      return "Buffer Is Too Small";
-    case NOT_ENOUGH_DATA_IN_BUFFER:
-      return "Buffer Does Not Contain Enough Information To Decode";
-    case STRING_PDU_SIZE_TOO_BIG:
-      return "String Size Too Big";
-    case DATA_TYPE_TOO_LARGE:
-      return "Data Type Is Too Large";
-    case WRONG_PDU_TYPE_IN_HEADER:
-      return "Incorrect PDU Type Specified In Header";
-    case FILE_NOT_OPEN:
-      return "Could Not Open File For Reading/Writing";
-    case OUT_OF_BOUNDS:
-      return "Parameter Is Out Of Bounds/Range Of Acceptable Values";
-    case INVALID_DATA:
-      return "Invalid Data";
-    case UNSUPPORTED_DATATYPE:
-      return "Unsupported Data Type, Can Not Decode";
-    case INVALID_OPERATION:
-      return "Invalid Operation";
-    case PDU_TOO_LARGE:
-      return "PDU Is Too Large. PDU Must Not Exceed 8192 Bytes";
-    case CONNECTION_SOCKET_ERROR:
+/**
+ * @brief Converts the error code to text.
+ *
+ * @param errorCode Error code.
+ * @return Error code as text.
+ */
+static const char* errorCodeText(ErrorCode errorCode) {
+  switch (errorCode) {
+    case ErrorCode::NO_ERRORS:
+      return "No errors";
+    case ErrorCode::BUFFER_TOO_SMALL:
+      return "Buffer is too small";
+    case ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER:
+      return "Buffer does not contains enough information to decode";
+    case ErrorCode::STRING_PDU_SIZE_TOO_BIG:
+      return "String size too big";
+    case ErrorCode::DATA_TYPE_TOO_LARGE:
+      return "Data type is too large";
+    case ErrorCode::WRONG_PDU_TYPE_IN_HEADER:
+      return "Incorrect PDU type specified in header";
+    case ErrorCode::FILE_NOT_OPEN:
+      return "Could not open file for reading/writing";
+    case ErrorCode::OUT_OF_BOUNDS:
+      return "Parameter is out of bounds/range of acceptable values";
+    case ErrorCode::INVALID_DATA:
+      return "Invalid data";
+    case ErrorCode::UNSUPPORTED_DATATYPE:
+      return "Unsupported data type. Unable to decode";
+    case ErrorCode::INVALID_OPERATION:
+      return "Invalid operation";
+    case ErrorCode::PDU_TOO_LARGE:
+      return "PDU is too large. PDU must not exceeds 8192 bytes";
+    case ErrorCode::CONNECTION_SOCKET_ERROR:
       return "Socket error";
     default:
-      return "Unknown KDIS Error";
+      return "Unknown error";
   }
 }
 
-/************************************************************************/
-/* Exception                                                            */
-/************************************************************************/
+//
+// Exception
+//
 
-class KException : public std::exception {
+/**
+ * @brief KDIS exception.
+ */
+class KException : public std::runtime_error {
  public:
-  KUINT16 m_ui16ErrorCode;
-  KString m_sErrorText;
+  /**
+   * @brief Error code.
+   */
+  const ErrorCode errorCode;
 
-  explicit KException(KUINT16 EC)
-      : m_ui16ErrorCode(EC), m_sErrorText(GetErrorText(EC)) {}
+  explicit KException(const ErrorCode errorCode)
+      : std::runtime_error(errorCodeText(errorCode)), errorCode(errorCode) {}
 
-  KException(KString Text, KUINT16 EC)
-      : m_ui16ErrorCode(EC), m_sErrorText(Text + ": " + GetErrorText(EC)) {}
+  KException(const ErrorCode errorCode, const std::string& message)
+      : std::runtime_error(
+            KDIS::UTIL::format("%s: %s", errorCodeText(errorCode), message)),
+        errorCode(errorCode) {}
 
-  template <class T>
-  KException(KString Text, KUINT16 EC, T AdditonalInfo) : m_ui16ErrorCode(EC) {
-    KStringStream ss;
-    ss << Text << ": " << GetErrorText(EC) << m_sErrorText << AdditonalInfo;
-    m_sErrorText = ss.str();
-  }
-
-  virtual ~KException() throw() {}
-
-  virtual const KCHAR8* what() const throw() { return m_sErrorText.c_str(); }
+  virtual ~KException() = default;
 };
 
-/************************************************************************/
-/* Endian                                                               */
-/************************************************************************/
+//
+// Endian
+//
 
-enum Endian { Little_Endian = 0, Big_Endian = 1 };
+/**
+ * @brief Endianness.
+ */
+enum class Endian : std::uint8_t {
+  /**
+   * @brief Little Endian (LE).
+   * Least significant byte at the smallest address.
+   * Most significant byte at the largest address.
+   */
+  LITTLE,
+  /**
+   * @brief Big Endian (BE).
+   * Least significant byte at the largest address.
+   * Most significant byte at the smallest address.
+   */
+  BIG
+};
 
 }  // namespace KDIS
 

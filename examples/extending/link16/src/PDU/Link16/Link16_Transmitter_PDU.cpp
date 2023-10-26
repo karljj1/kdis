@@ -214,7 +214,7 @@ KString Link16_Transmitter_PDU::GetAsString() const {
 void Link16_Transmitter_PDU::Decode(KDataStream& stream,
                                     bool ignoreHeader /*= true*/) {
   if (stream.GetBufferSize() < LINK16_TRANSMITTER_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vAntennaPattern.clear();
 

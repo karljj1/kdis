@@ -75,12 +75,14 @@ class KDIS_EXPORT Designator_PDU : public Header {
 
   KDIS::DATA_TYPE::Vector m_EntityLinearAcceleration;
 
+  Designator_PDU* clone() const override;
+
  public:
   static const KUINT16 DESIGNATOR_PDU_SIZE = 88;
 
   Designator_PDU();
 
-  Designator_PDU(KDataStream& stream);
+  explicit Designator_PDU(KDataStream& stream);
 
   Designator_PDU(const Header& H, KDataStream& stream);
 

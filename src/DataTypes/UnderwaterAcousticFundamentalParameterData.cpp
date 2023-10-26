@@ -175,7 +175,7 @@ KString UnderwaterAcousticFundamentalParameterData::GetAsString() const {
 void UnderwaterAcousticFundamentalParameterData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() <
       UNDERWATER_ACOUSTIC_FUNDAMENTAL_PARAMETER_SIZE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16AEPI >> m_ui16ScanPattern >> m_f32BeamCenterAzimuth >>
       m_f32AzimuthalBeamWidth >> m_f32BeamCenterDE >> m_f32DEBeamwidth;

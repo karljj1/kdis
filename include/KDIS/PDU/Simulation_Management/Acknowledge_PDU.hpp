@@ -56,6 +56,8 @@ class KDIS_EXPORT Acknowledge_PDU : public Simulation_Management_Header {
 
   KUINT32 m_ui32RequestID;
 
+  Acknowledge_PDU* clone() const override;
+
  public:
   static const KUINT16 ACKNOWLEDGE_PDU_SIZE = 32;
 
@@ -63,7 +65,7 @@ class KDIS_EXPORT Acknowledge_PDU : public Simulation_Management_Header {
 
   explicit Acknowledge_PDU(const Header& H);
 
-  Acknowledge_PDU(KDataStream& stream);
+  explicit Acknowledge_PDU(KDataStream& stream);
 
   Acknowledge_PDU(const Header& H, KDataStream& stream);
 

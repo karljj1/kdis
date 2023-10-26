@@ -33,24 +33,20 @@ http://p.sf.net/kdis/UserGuide
 #include <ostream>
 
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
-
   #include <ws2tcpip.h>
 
   #define ERROR_CODE WSAGetLastError()
-
 #else
-
   #include <sys/time.h>
   #include <unistd.h>
 
   #define INVALID_SOCKET -1
   #define SOCKET_ERROR -1
   #define ERROR_CODE errno
-
 #endif
 
 #define THROW_ERROR \
-  throw KException(getErrorText(ERROR_CODE), CONNECTION_SOCKET_ERROR)
+  throw KException(ErrorCode::CONNECTION_SOCKET_ERROR, getErrorText(ERROR_CODE))
 #define SEND_SOCK 0
 #define RECEIVE_SOCK 1
 
@@ -380,7 +376,7 @@ Connection::~Connection() {
 
 Connection::Connection(const Connection& other) {
   // Disallow copy constructor.
-  throw KException(__FUNCTION__, INVALID_OPERATION);
+  throw KException(ErrorCode::INVALID_OPERATION, __FUNCTION__);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -388,7 +384,7 @@ Connection::Connection(const Connection& other) {
 Connection& Connection::operator=(const Connection& other) {
   if (this != &other) {
     // Disallow copy assignment.
-    throw KException(__FUNCTION__, INVALID_OPERATION);
+    throw KException(ErrorCode::INVALID_OPERATION, __FUNCTION__);
   }
   return *this;
 }

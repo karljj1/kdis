@@ -43,9 +43,9 @@ target_compile_definitions(
   PRIVATE DIS_VERSION=${DIS_VERSION}
           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
-# TODO RT library in UNIX (NOT APPLE) TODO target_compile_options(
-# ${PROJECT_NAME}_examples_extending_link16 PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>
-# $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
+# TODO target_compile_options( ${PROJECT_NAME}_examples_extending_link16 PRIVATE
+# $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic
+# -Werror> )
 set_target_properties(
   ${PROJECT_NAME}_examples_extending_link16 PROPERTIES VERSION ${PROJECT_VERSION} DEBUG_POSTFIX "d"
 )

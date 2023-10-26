@@ -49,6 +49,8 @@ class KDIS_EXPORT Service_Request_PDU : public Resupply_Received_PDU {
  protected:
   KUINT8 m_ui8ServiceTypeRequested;
 
+  Service_Request_PDU* clone() const override;
+
  public:
   // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
   static const KUINT16 SERVICE_REQUEST_PDU_SIZE =
@@ -56,7 +58,7 @@ class KDIS_EXPORT Service_Request_PDU : public Resupply_Received_PDU {
 
   Service_Request_PDU();
 
-  Service_Request_PDU(KDataStream& stream);
+  explicit Service_Request_PDU(KDataStream& stream);
 
   Service_Request_PDU(const Header& H, KDataStream& stream);
 

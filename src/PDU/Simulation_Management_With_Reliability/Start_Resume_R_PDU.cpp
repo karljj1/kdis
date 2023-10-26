@@ -39,6 +39,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Start_Resume_R_PDU* Start_Resume_R_PDU::clone() const {
+  return new Start_Resume_R_PDU(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -117,7 +125,7 @@ void Start_Resume_R_PDU::Decode(KDataStream& stream,
                                 bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       START_RESUME_R_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Simulation_Management_Header::Decode(stream, ignoreHeader);
 

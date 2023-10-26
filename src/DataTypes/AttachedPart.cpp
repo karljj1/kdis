@@ -161,7 +161,8 @@ KString AttachedPart::GetAsString() const {
 
 void AttachedPart::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KDIS::KException(KDIS::ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER,
+                           __FUNCTION__);
 
   stream >> m_ui8VarParamType >> m_ui8DetachedIndicator >>
       m_ui16PartAttachedToID >> m_ui32APPT >> KDIS_STREAM m_AttachedPartType;

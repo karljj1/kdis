@@ -15,6 +15,7 @@ set(KDIS_TESTS_SOURCES
     ${KDIS_TESTS_DIR}/PDU_ProtocolFamily5.cpp
     ${KDIS_TESTS_DIR}/PDU_ProtocolFamily6.cpp
     ${KDIS_TESTS_DIR}/PDU_ProtocolFamily7.cpp
+    ${KDIS_TESTS_DIR}/PDU_Clone6.cpp
 )
 
 #

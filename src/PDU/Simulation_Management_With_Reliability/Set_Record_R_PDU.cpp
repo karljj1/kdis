@@ -39,6 +39,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Set_Record_R_PDU* Set_Record_R_PDU::clone() const {
+  return new Set_Record_R_PDU(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -176,7 +184,7 @@ void Set_Record_R_PDU::Decode(KDataStream& stream,
                               bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       SET_RECORD_R_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vRecs.clear();
 

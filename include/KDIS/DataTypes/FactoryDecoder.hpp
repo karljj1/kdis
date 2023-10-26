@@ -80,6 +80,7 @@ you.
 
 #include "KDIS/Extras/KRef_Ptr.hpp"
 #include "KDIS/KDataStream.hpp"
+#include "KDIS/util/format.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -87,9 +88,9 @@ namespace DATA_TYPE {
 template <class DecoderBaseTyp>
 class FactoryDecoder {
  public:
-  FactoryDecoder(){};
+  FactoryDecoder() {}
 
-  virtual ~FactoryDecoder(){};
+  virtual ~FactoryDecoder() {}
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::FactoryDecoder::FactoryDecode
@@ -114,7 +115,7 @@ class FactoryDecoder {
 template <class DecoderBaseTyp>
 class FactoryDecoderUser {
  public:
-  typedef KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > FacDecPtr;
+  typedef KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp>> FacDecPtr;
 
  protected:
   static std::map<KINT32, FacDecPtr> m_mDecoders;
@@ -131,9 +132,10 @@ class FactoryDecoderUser {
   //************************************
   static void RegisterFactoryDecoder(KINT32 EnumVal, FacDecPtr Decoder) {
     if (m_mDecoders.find(EnumVal) != m_mDecoders.end()) {
-      KStringStream ss;
-      ss << "A decoder already exists for this enum: " << EnumVal;
-      throw KException(__FUNCTION__, INVALID_OPERATION, ss.str());
+      throw KException(
+          ErrorCode::INVALID_OPERATION,
+          KDIS::UTIL::format("%s | A decoder for enum %d already exists",
+                             __FUNCTION__, EnumVal));
     }
 
     // Register the new decoder.
@@ -169,9 +171,8 @@ class FactoryDecoderUser {
 
 // Init static map variable.
 template <class DecoderBaseTyp>
-std::map<KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > >
-    FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders = std::map<
-        KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp> > >();
+std::map<KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp>>>
+    FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders;
 
 }  // namespace DATA_TYPE
 }  // END namespace KDIS

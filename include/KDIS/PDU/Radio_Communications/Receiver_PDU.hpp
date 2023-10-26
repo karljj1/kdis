@@ -61,12 +61,14 @@ class KDIS_EXPORT Receiver_PDU : public Radio_Communications_Header {
 
   KUINT16 m_ui16TransmitterRadioID;
 
+  Receiver_PDU* clone() const override;
+
  public:
   static const KUINT16 RECEIVER_PDU_SIZE = 36;
 
   Receiver_PDU();
 
-  Receiver_PDU(KDataStream& stream);
+  explicit Receiver_PDU(KDataStream& stream);
 
   Receiver_PDU(const Header& H, KDataStream& stream);
 

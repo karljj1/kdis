@@ -29,8 +29,11 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/DataTypes/StandardVariable.hpp"
 
+#include <type_traits>
+
 #include "KDIS/DataTypes/IOCommunicationsNode.hpp"
 #include "KDIS/DataTypes/IOEffect.hpp"
+#include "KDIS/util/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -79,7 +82,7 @@ KString StandardVariable::GetAsString() const {
 
 StdVarPtr StandardVariable::FactoryDecodeStandardVariable(KDataStream& stream) {
   if (stream.GetBufferSize() < STANDARD_VARIABLE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   // We want to peek at the next data and then roll back for a full decode.
   KUINT16 savePos = stream.GetCurrentWritePosition();
@@ -124,17 +127,20 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(KDataStream& stream) {
 
   // We could not decode the StandardVariable child class. We will treat this as
   // an error.
-  KStringStream ss;
-  ss << "Unsupported StandardVariable type("
-     << recordHeader.GetStandardVariableType() << ").";
-  throw KException(__FUNCTION__, UNSUPPORTED_DATATYPE, ss.str());
+  throw KException(
+      ErrorCode::UNSUPPORTED_DATATYPE,
+      KDIS::UTIL::format(
+          "%s | %u is an unsupported standard variable type", __FUNCTION__,
+          static_cast<std::underlying_type<
+              KDIS::DATA_TYPE::ENUMS::StandardVariableType>::type>(
+              recordHeader.GetStandardVariableType())));
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void StandardVariable::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < STANDARD_VARIABLE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32Type >> m_ui16Length;
 }

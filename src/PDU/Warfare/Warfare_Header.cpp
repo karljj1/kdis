@@ -39,6 +39,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Warfare_Header* Warfare_Header::clone() const {
+  return new Warfare_Header(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -152,7 +160,7 @@ KString Warfare_Header::GetAsString() const {
 void Warfare_Header::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       WARFARE_HEADER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Header::Decode(stream, ignoreHeader);
   stream >> KDIS_STREAM m_FiringEntityID >> KDIS_STREAM m_TargetEntityID >>

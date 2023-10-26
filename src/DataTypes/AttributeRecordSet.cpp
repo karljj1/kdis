@@ -145,7 +145,7 @@ KString AttributeRecordSet::GetAsString() const {
 
 void AttributeRecordSet::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ATTRIBUTE_RECORD_SET_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vAttrRec.clear();
 

@@ -42,7 +42,7 @@
   #include <iostream>
 
 template <typename T>
-class EncodeDecodeTest : public ::testing::Test {
+class EncodeDecodeTest6 : public ::testing::Test {
  public:
   void TestEncodeDecode() {
     T pduIn;
@@ -83,11 +83,11 @@ typedef ::testing::Types<
     KDIS::PDU::Linear_Object_State_PDU, KDIS::PDU::Point_Object_State_PDU>
     PduTestTypes6;
 
-TYPED_TEST_CASE(EncodeDecodeTest, PduTestTypes6);
+TYPED_TEST_SUITE(EncodeDecodeTest6, PduTestTypes6);
 
-TYPED_TEST(EncodeDecodeTest, PDU_EncodeDecode6) { this->TestEncodeDecode(); }
+TYPED_TEST(EncodeDecodeTest6, PDU_EncodeDecode6) { this->TestEncodeDecode(); }
 
-TYPED_TEST(EncodeDecodeTest, PDU_EncodeDecode6_IgnoreHeader) {
+TYPED_TEST(EncodeDecodeTest6, PDU_EncodeDecode6_IgnoreHeader) {
   this->TestEncodeDecodeIgnoreHeader();
 }
 

@@ -127,7 +127,7 @@ KString JammingTechnique::GetAsString() const {
 
 void JammingTechnique::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < JAMMING_TECHNIQUE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8Kind >> m_ui8Category >> m_ui8Subcategory >> m_ui8Specific;
 }

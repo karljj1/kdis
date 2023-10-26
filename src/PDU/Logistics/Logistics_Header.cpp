@@ -36,6 +36,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Logistics_Header* Logistics_Header::clone() const {
+  return new Logistics_Header(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -102,7 +110,7 @@ EntityIdentifier& Logistics_Header::GetSupplyingEntity() {
 KString Logistics_Header::GetAsString() const {
   KStringStream ss;
 
-  ss << "Receiving Entity ID:	"
+  ss << "Receiving Entity ID:   "
      << IndentString(m_ReceivingEntity.GetAsString(), 1)
      << "\tSupplying Entity ID:	"
      << IndentString(m_SupplyingEntity.GetAsString(), 1);
@@ -116,7 +124,7 @@ void Logistics_Header::Decode(KDataStream& stream,
                               bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       LOGISTICS_HEADER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Header::Decode(stream, ignoreHeader);
 

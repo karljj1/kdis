@@ -38,6 +38,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Simulation_Management_Header* Simulation_Management_Header::clone() const {
+  return new Simulation_Management_Header(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -157,7 +165,7 @@ void Simulation_Management_Header::Decode(KDataStream& stream,
                                           bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       SIMULATION_MANAGEMENT_HEADER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Header::Decode(stream, ignoreHeader);
 

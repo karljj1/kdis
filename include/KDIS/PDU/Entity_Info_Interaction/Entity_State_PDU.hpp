@@ -87,13 +87,15 @@ class KDIS_EXPORT Entity_State_PDU : public Header {
 
   KDIS::UTILS::DeadReckoningCalculator* m_pDrCalc;
 
+  Entity_State_PDU* clone() const override;
+
  public:
   // Min Size not including variable parameters field
   static const KUINT16 ENTITY_STATE_PDU_SIZE = 144;
 
   Entity_State_PDU();
 
-  Entity_State_PDU(KDataStream& stream);
+  explicit Entity_State_PDU(KDataStream& stream);
 
   Entity_State_PDU(const Header& H, KDataStream& stream);
 
@@ -306,8 +308,7 @@ class KDIS_EXPORT Entity_State_PDU : public Header {
   //              KDIS::PDU::Entity_State_PDU::GetVariableParameters
   //              KDIS::PDU::Entity_State_PDU::ClearVariableParameters
   // Description: Information associated with an entity or detonation, not
-  // otherwise accounted
-  //	            for in a PDU such as Articulated and Attached Parts.
+  // otherwise accounted for in a PDU such as Articulated and Attached Parts.
   //              See VariableParameter for supported/implemented types.
   // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
   //************************************

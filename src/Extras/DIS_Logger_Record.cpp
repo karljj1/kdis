@@ -38,7 +38,8 @@ using namespace UTILS;
 //////////////////////////////////////////////////////////////////////////
 
 void DIS_Logger_Record::writeToFile(const KString& S) {
-  if (m_File.is_open() == false) throw KException(__FUNCTION__, FILE_NOT_OPEN);
+  if (m_File.is_open() == false)
+    throw KException(ErrorCode::FILE_NOT_OPEN, __FUNCTION__);
 
   m_File << S << endl;
 }

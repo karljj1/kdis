@@ -32,6 +32,7 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/DataTypes/ArticulatedPart.hpp"
 #include "KDIS/DataTypes/AttachedPart.hpp"
 #include "KDIS/Extras/DeadReckoningCalculator.hpp"
+#include "KDIS/util/format.hpp"
 
 #if DIS_VERSION > 5
   #include "KDIS/DataTypes/SeparationPart.hpp"
@@ -45,6 +46,14 @@ using namespace PDU;
 using namespace DATA_TYPE;
 using namespace ENUMS;
 using namespace UTILS;
+
+//////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Entity_State_PDU* Entity_State_PDU::clone() const {
+  return new Entity_State_PDU(*this);
+}
 
 //////////////////////////////////////////////////////////////////////////
 // public:
@@ -296,8 +305,10 @@ void Entity_State_PDU::InitDeadReckoning() {
 
 void Entity_State_PDU::ApplyDeadReckoning(KFLOAT64 totalTimeSinceDrReset) {
   if (!m_pDrCalc)
-    throw KException(__FUNCTION__, INVALID_OPERATION,
-                     "You must call InitDeadReckoning() first.");
+    throw KException(ErrorCode::INVALID_OPERATION,
+                     KDIS::UTIL::format(
+                         "%s | Function InitDeadReckoning must be called first",
+                         __FUNCTION__));
   m_pDrCalc->RunAlgorithm(totalTimeSinceDrReset, m_EntityLocation,
                           m_EntityOrientation);
 }
@@ -432,7 +443,7 @@ void Entity_State_PDU::Decode(KDataStream& stream,
                               bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       ENTITY_STATE_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vVariableParameters.clear();
 
@@ -447,7 +458,7 @@ void Entity_State_PDU::Decode(KDataStream& stream,
 
   for (KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i) {
     if (stream.GetBufferSize() < 1)
-      throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+      throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
     // Save the current write position so we can peek.
     KUINT16 pos = stream.GetCurrentWritePosition();
     KUINT8 paramTyp;

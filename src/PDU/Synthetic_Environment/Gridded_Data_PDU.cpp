@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/PDU/Synthetic_Environment/Gridded_Data_PDU.hpp"
 
+#include "KDIS/util/format.hpp"
+
 //////////////////////////////////////////////////////////////////////////
 
 using namespace std;
@@ -37,6 +39,14 @@ using namespace PDU;
 using namespace DATA_TYPE;
 using namespace ENUMS;
 using namespace UTILS;
+
+//////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Gridded_Data_PDU* Gridded_Data_PDU::clone() const {
+  return new Gridded_Data_PDU(*this);
+}
 
 //////////////////////////////////////////////////////////////////////////
 // public:
@@ -141,8 +151,10 @@ KUINT16 Gridded_Data_PDU::GetPDUNumber() const { return m_ui16PDUNum; }
 
 void Gridded_Data_PDU::SetPDUNumberAndTotal(KUINT16 Num, KUINT16 Total) {
   if (Num > Total)
-    throw KException(__FUNCTION__, INVALID_DATA,
-                     "PDU Number can not be greater than PDU Total");
+    throw KException(
+        ErrorCode::INVALID_DATA,
+        KDIS::UTIL::format("%s | PDU number cannot be greater than PDU total",
+                           __FUNCTION__));
   m_ui16PDUNum = Num;
   m_ui16PDUTotal = Total;
 }
@@ -350,7 +362,7 @@ void Gridded_Data_PDU::Decode(KDataStream& stream,
                               bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       GRIDDED_DATA_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vpGridAxisDesc.clear();
   m_vGridData.clear();
@@ -404,8 +416,10 @@ void Gridded_Data_PDU::Decode(KDataStream& stream,
         m_vGridData.push_back(new GridDataType2(SmpTyp, DtRep, stream));
         break;
       default:
-        throw KException(__FUNCTION__, UNSUPPORTED_DATATYPE,
-                         "Unknown Grid Data Representation");
+        throw KException(
+            ErrorCode::UNSUPPORTED_DATATYPE,
+            KDIS::UTIL::format("%s | Unknown grid data representation",
+                               __FUNCTION__));
     }
   }
 }

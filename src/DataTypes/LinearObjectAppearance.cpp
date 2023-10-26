@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/DataTypes/LinearObjectAppearance.hpp"
 
+#include "KDIS/util/format.hpp"
+
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
@@ -109,8 +111,10 @@ bitset<8> LinearObjectAppearance::GetBreachLocationAsBitset() {
 
 void LinearObjectAppearance::SetOpacity(KUINT8 O) {
   if (O > 100)
-    throw KException(__FUNCTION__, INVALID_DATA,
-                     "Acceptable values are 0-100.");
+    throw KException(ErrorCode::INVALID_DATA,
+                     KDIS::UTIL::format("%s | %u is not a valid opacity value. "
+                                        "Valid values are from 0 to 100",
+                                        __FUNCTION__, O));
 
   m_SpecificAppearanceUnion.m_ExhaustSmoke.m_ui32Opacity = O;
 }
@@ -173,7 +177,7 @@ KString LinearObjectAppearance::GetAsString() const {
 
 void LinearObjectAppearance::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < LINEAR_OBJECT_APPEARANCE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   // Note: The order of the bytes is switched in the linear appearance to fix an
   // alignment issue in the 1998 standard.

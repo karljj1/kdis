@@ -69,12 +69,14 @@ class KDIS_EXPORT SEES_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::VectoringNozzleSystem> m_vVecNozzleSys;
 
+  SEES_PDU* clone() const override;
+
  public:
   static const KUINT16 SEES_PDU_SIZE = 28;  // Min size
 
   SEES_PDU();
 
-  SEES_PDU(KDataStream& stream);
+  explicit SEES_PDU(KDataStream& stream);
 
   SEES_PDU(const Header& H, KDataStream& stream);
 

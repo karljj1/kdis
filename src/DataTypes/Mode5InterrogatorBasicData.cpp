@@ -155,7 +155,7 @@ KString Mode5InterrogatorBasicData::GetAsString() const {
 
 void Mode5InterrogatorBasicData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < MODE_5_INTERROGATOR_BASIC_DATA_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> KDIS_STREAM m_Status >> m_ui8Padding >> m_ui16Padding1 >>
       m_ui32MsgFormats >> KDIS_STREAM m_InterrogatedID >> m_ui16Padding2;

@@ -45,6 +45,9 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Set_Data_R_PDU : public Data_R_PDU {
+ protected:
+  Set_Data_R_PDU* clone() const override;
+
  public:
   static const KUINT16 SET_DATA_R_PDU_SIZE = 40;
 

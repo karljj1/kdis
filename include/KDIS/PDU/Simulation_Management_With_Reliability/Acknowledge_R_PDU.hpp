@@ -51,12 +51,15 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Acknowledge_R_PDU : public Acknowledge_PDU {
+ protected:
+  Acknowledge_R_PDU* clone() const override;
+
  public:
   static const KUINT16 ACKNOWLEDGE_R_PDU_SIZE = 32;
 
   Acknowledge_R_PDU();
 
-  Acknowledge_R_PDU(KDataStream& stream);
+  explicit Acknowledge_R_PDU(KDataStream& stream);
 
   Acknowledge_R_PDU(const Header& H, KDataStream& stream);
 

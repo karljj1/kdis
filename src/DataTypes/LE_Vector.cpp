@@ -115,7 +115,7 @@ KString LE_Vector<Type>::GetAsString() const {
 template <class Type>
 void LE_Vector<Type>::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < LE_VECTOR_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> KDIS_STREAM m_X >> KDIS_STREAM m_Y >> KDIS_STREAM m_Z;
 }
@@ -231,7 +231,7 @@ Type& LE_Vector<Type>::operator[](KUINT16 i) {
     case 2:
       return m_Z;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 
@@ -247,7 +247,7 @@ const Type& LE_Vector<Type>::operator[](KUINT16 i) const {
     case 2:
       return m_Z;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 

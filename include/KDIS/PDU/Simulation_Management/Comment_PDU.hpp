@@ -40,10 +40,11 @@ data stream by using a comment PDU. For use as comment, test message, error etc.
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/FixedDatum.hpp"
 #include "KDIS/DataTypes/VariableDatum.hpp"
 #include "KDIS/PDU/Simulation_Management/Simulation_Management_Header.hpp"
-
 namespace KDIS {
 namespace PDU {
 
@@ -64,6 +65,8 @@ class KDIS_EXPORT Comment_PDU : public Simulation_Management_Header {
 
   std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVariableDatum;
 
+  Comment_PDU* clone() const override;
+
  public:
   static const KUINT16 COMMENT_PDU_SIZE = 32;  // Min size
 
@@ -71,7 +74,7 @@ class KDIS_EXPORT Comment_PDU : public Simulation_Management_Header {
 
   explicit Comment_PDU(const Header& H);
 
-  Comment_PDU(KDataStream& stream);
+  explicit Comment_PDU(KDataStream& stream);
 
   Comment_PDU(const Header& H, KDataStream& stream);
 

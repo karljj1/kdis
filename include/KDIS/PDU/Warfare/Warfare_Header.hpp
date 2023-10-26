@@ -55,6 +55,8 @@ class KDIS_EXPORT Warfare_Header : public Header {
 
   KDIS::DATA_TYPE::EntityIdentifier m_EventID;
 
+  Warfare_Header* clone() const override;
+
  public:
   static const KUINT16 WARFARE_HEADER_SIZE = 36;
 

@@ -155,7 +155,7 @@ KString EntityCapabilities::GetAsString() const {
 
 void EntityCapabilities::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ENTITY_CAPABILITIES_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16Data;
 }

@@ -38,6 +38,12 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+IsPartOf_PDU* IsPartOf_PDU::clone() const { return new IsPartOf_PDU(*this); }
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -157,7 +163,7 @@ KString IsPartOf_PDU::GetAsString() const {
 void IsPartOf_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       IS_PART_OF_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Simulation_Management_Header::Decode(stream, ignoreHeader);
 

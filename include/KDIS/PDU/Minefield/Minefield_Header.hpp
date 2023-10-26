@@ -50,6 +50,8 @@ class KDIS_EXPORT Minefield_Header : public Header {
  protected:
   KDIS::DATA_TYPE::EntityIdentifier m_MinefieldID;
 
+  Minefield_Header* clone() const override;
+
  public:
   static const KUINT16 MINEFIELD_HEADER_SIZE = 18;
 
@@ -57,7 +59,7 @@ class KDIS_EXPORT Minefield_Header : public Header {
 
   explicit Minefield_Header(const Header& H);
 
-  Minefield_Header(KDataStream& stream);
+  explicit Minefield_Header(KDataStream& stream);
 
   Minefield_Header(const Header& H, KDataStream& stream);
 

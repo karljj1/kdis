@@ -70,7 +70,9 @@ class KDIS_EXPORT Minefield_Query_PDU : public Minefield_Header {
   std::vector<KDIS::DATA_TYPE::PerimeterPointCoordinate> m_vPoints;
 
   std::vector<KUINT16> m_vui16SensorTypes;
+
   KBOOL m_bNeedsPadding;
+
   KUINT16 m_ui16Padding1;
 
   //************************************
@@ -79,12 +81,14 @@ class KDIS_EXPORT Minefield_Query_PDU : public Minefield_Header {
   //************************************
   void calcPadding();
 
+  Minefield_Query_PDU* clone() const override;
+
  public:
   static const KUINT16 MINEFIELD_QUERY_PDU_SIZE = 40;  // Min size
 
   Minefield_Query_PDU();
 
-  Minefield_Query_PDU(KDataStream& stream);
+  explicit Minefield_Query_PDU(KDataStream& stream);
 
   Minefield_Query_PDU(const Header& H, KDataStream& stream);
 

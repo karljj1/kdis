@@ -77,12 +77,14 @@ class KDIS_EXPORT Underwater_Acoustic_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem> m_vUAES;
 
+  Underwater_Acoustic_PDU* clone() const override;
+
  public:
   static const KUINT16 UNDERWATER_ACOUSTIC_PDU_SIZE = 32;  // Min Size
 
   Underwater_Acoustic_PDU();
 
-  Underwater_Acoustic_PDU(KDataStream& stream);
+  explicit Underwater_Acoustic_PDU(KDataStream& stream);
 
   Underwater_Acoustic_PDU(const Header& H, KDataStream& stream);
 

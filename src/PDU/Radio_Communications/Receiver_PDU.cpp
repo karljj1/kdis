@@ -39,6 +39,12 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Receiver_PDU* Receiver_PDU::clone() const { return new Receiver_PDU(*this); }
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -153,7 +159,7 @@ KString Receiver_PDU::GetAsString() const {
 void Receiver_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       RECEIVER_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Radio_Communications_Header::Decode(stream, ignoreHeader);
 

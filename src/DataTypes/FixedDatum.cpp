@@ -58,7 +58,8 @@ DatumID FixedDatum::GetDatumID() const { return (DatumID)m_ui32DatumID; }
 //////////////////////////////////////////////////////////////////////////
 
 void FixedDatum::GetDatumValue(KOCTET* Buffer, KUINT16 BufferSize) const {
-  if (BufferSize < 4) throw KException(__FUNCTION__, BUFFER_TOO_SMALL);
+  if (BufferSize < 4)
+    throw KException(ErrorCode::BUFFER_TOO_SMALL, __FUNCTION__);
   memcpy(Buffer, m_cDatumValue, 4);
 }
 
@@ -82,7 +83,7 @@ KString FixedDatum::GetAsString() const {
 
 void FixedDatum::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < FixedDatum::FIXED_DATUM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32DatumID;
 

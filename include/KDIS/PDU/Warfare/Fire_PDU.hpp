@@ -62,12 +62,14 @@ class KDIS_EXPORT Fire_PDU : public Warfare_Header {
 
   KFLOAT32 m_f32Range;
 
+  Fire_PDU* clone() const override;
+
  public:
   static const KUINT16 FIRE_PDU_SIZE = 96;
 
   Fire_PDU();
 
-  Fire_PDU(KDataStream& stream);
+  explicit Fire_PDU(KDataStream& stream);
 
   Fire_PDU(const Header& H, KDataStream& stream);
 

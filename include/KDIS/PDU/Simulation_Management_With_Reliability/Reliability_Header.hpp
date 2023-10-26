@@ -60,9 +60,10 @@ class KDIS_EXPORT Reliability_Header {
 
   Reliability_Header();
 
-  Reliability_Header(KDataStream& stream);
+  explicit Reliability_Header(KDataStream& stream);
 
-  Reliability_Header(KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
+  explicit Reliability_Header(
+      KDIS::DATA_TYPE::ENUMS::RequiredReliabilityService RRS);
 
   virtual ~Reliability_Header();
 

@@ -86,12 +86,14 @@ class KDIS_EXPORT Intercom_Control_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::IntercomCommunicationParameters> m_vICP;
 
+  Intercom_Control_PDU* clone() const override;
+
  public:
   static const KUINT16 INTERCOM_CONTROL_PDU_SIZE = 40;  // Min Size
 
   Intercom_Control_PDU();
 
-  Intercom_Control_PDU(KDataStream& stream);
+  explicit Intercom_Control_PDU(KDataStream& stream);
 
   Intercom_Control_PDU(const Header& H, KDataStream& stream);
 

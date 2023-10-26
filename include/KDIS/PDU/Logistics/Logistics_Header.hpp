@@ -51,6 +51,8 @@ class KDIS_EXPORT Logistics_Header : public Header {
 
   KDIS::DATA_TYPE::EntityIdentifier m_SupplyingEntity;
 
+  Logistics_Header* clone() const override;
+
  public:
   static const KUINT16 LOGISTICS_HEADER_SIZE = 24;
 

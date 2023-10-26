@@ -104,12 +104,14 @@ class KDIS_EXPORT Minefield_Data_PDU : public Minefield_Header {
   //************************************
   KUINT8 calcPaddingVertices() const;
 
+  Minefield_Data_PDU* clone() const override;
+
  public:
   static const KUINT16 MINEFIELD_DATA_PDU_SIZE = 44;  // Min size
 
   Minefield_Data_PDU();
 
-  Minefield_Data_PDU(KDataStream& stream);
+  explicit Minefield_Data_PDU(KDataStream& stream);
 
   Minefield_Data_PDU(const Header& H, KDataStream& stream);
 

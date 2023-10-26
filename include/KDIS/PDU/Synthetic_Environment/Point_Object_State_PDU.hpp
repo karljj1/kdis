@@ -80,6 +80,8 @@ class KDIS_EXPORT Point_Object_State_PDU : public Object_State_Header {
 
   KUINT32 m_ui32Padding1;
 
+  Point_Object_State_PDU* clone() const override;
+
  public:
   static const KUINT16 POINT_OBJECT_STATE_PDU_SIZE = 88;
 

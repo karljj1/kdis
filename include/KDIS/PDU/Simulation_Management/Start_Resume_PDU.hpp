@@ -53,6 +53,8 @@ class KDIS_EXPORT Start_Resume_PDU : public Simulation_Management_Header {
 
   KUINT32 m_ui32RequestID;
 
+  Start_Resume_PDU* clone() const override;
+
  public:
   static const KUINT16 START_RESUME_PDU_SIZE = 44;
 
@@ -60,7 +62,7 @@ class KDIS_EXPORT Start_Resume_PDU : public Simulation_Management_Header {
 
   explicit Start_Resume_PDU(const Header& H);
 
-  Start_Resume_PDU(KDataStream& stream);
+  explicit Start_Resume_PDU(KDataStream& stream);
 
   Start_Resume_PDU(const Header& H, KDataStream& stream);
 

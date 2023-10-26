@@ -52,6 +52,8 @@ class KDIS_EXPORT Action_Request_PDU : public Data_PDU {
  protected:
   KUINT32 m_ui32ActionID;
 
+  Action_Request_PDU* clone() const override;
+
  public:
   static const KUINT16 ACTION_REQUEST_PDU_SIZE = 40;
 
@@ -59,7 +61,7 @@ class KDIS_EXPORT Action_Request_PDU : public Data_PDU {
 
   explicit Action_Request_PDU(const Header& H);
 
-  Action_Request_PDU(KDataStream& stream);
+  explicit Action_Request_PDU(KDataStream& stream);
 
   Action_Request_PDU(const Header& H, KDataStream& stream);
 

@@ -51,6 +51,8 @@ class KDIS_EXPORT Radio_Communications_Header : public Header {
 
   KUINT16 m_ui16RadioID;
 
+  Radio_Communications_Header* clone() const override;
+
  public:
   static const KUINT16 RADIO_COMMUNICATIONS_HEADER_SIZE = 20;
 
@@ -58,7 +60,7 @@ class KDIS_EXPORT Radio_Communications_Header : public Header {
 
   explicit Radio_Communications_Header(const Header& H);
 
-  Radio_Communications_Header(KDataStream& stream);
+  explicit Radio_Communications_Header(KDataStream& stream);
 
   Radio_Communications_Header(const Header& H, KDataStream& stream);
 

@@ -55,16 +55,19 @@ class KDIS_EXPORT Articulated_Parts_PDU : public LE_Header {
 
   std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
+  Articulated_Parts_PDU* clone() const override;
+
  public:
   static const KUINT16 ARTICULATED_PARTS_PDU_SIZE = 17;  // Min size
 
   Articulated_Parts_PDU();
 
-  Articulated_Parts_PDU(KDataStream& stream);
+  explicit Articulated_Parts_PDU(KDataStream& stream);
 
   Articulated_Parts_PDU(const Header& H, KDataStream& stream);
 
-  Articulated_Parts_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
+  explicit Articulated_Parts_PDU(
+      const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
 
   virtual ~Articulated_Parts_PDU();
 
@@ -80,8 +83,7 @@ class KDIS_EXPORT Articulated_Parts_PDU : public LE_Header {
   //              KDIS::PDU::Articulated_Parts_PDU::GetVariableParameters
   //              KDIS::PDU::Articulated_Parts_PDU::ClearVariableParameters
   // Description: Information associated with an entity or detonation, not
-  // otherwise accounted
-  //	            for in a PDU such as Articulated and Attached Parts.
+  // otherwise accounted for in a PDU such as Articulated and Attached Parts.
   //              See VariableParameter for supported/implemented types.
   // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
   //************************************

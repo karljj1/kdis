@@ -202,7 +202,7 @@ KString GaussianPuffRecord::GetAsString() const {
 
 void GaussianPuffRecord::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GAUSSIAN_PUFF_RECORD_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding >>
       KDIS_STREAM m_PuffLocation >> KDIS_STREAM m_OrigLocation >>

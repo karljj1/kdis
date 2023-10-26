@@ -89,7 +89,7 @@ KString SimulationIdentifier::GetAsString() const {
 
 void SimulationIdentifier::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < SIMULATION_IDENTIFIER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16SiteID >> m_ui16ApplicationID;
 }

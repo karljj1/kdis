@@ -148,7 +148,7 @@ KString SeparationPart::GetAsString() const {
 
 void SeparationPart::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < VariableParameter::VARIABLE_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8VarParamType >> m_ui8Reason >> m_ui8PreEntIndicator >>
       m_ui8Padding >> KDIS_STREAM m_ParentEntId >> m_ui16Padding >>

@@ -39,6 +39,12 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+IO_Report_PDU* IO_Report_PDU::clone() const { return new IO_Report_PDU(*this); }
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -213,7 +219,7 @@ KString IO_Report_PDU::GetAsString() const {
 void IO_Report_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       IO_REPORT_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vStdVarRecs.clear();
 

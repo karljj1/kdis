@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp"
 
+#include "KDIS/util/format.hpp"
+
 //////////////////////////////////////////////////////////////////////////
 
 using namespace std;
@@ -37,6 +39,12 @@ using namespace PDU;
 using namespace DATA_TYPE;
 using namespace ENUMS;
 using namespace UTILS;
+
+//////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+IFF_PDU* IFF_PDU::clone() const { return new IFF_PDU(*this); }
 
 //////////////////////////////////////////////////////////////////////////
 // public:
@@ -256,7 +264,7 @@ KString IFF_PDU::GetAsString() const {
 void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       IFF_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Header::Decode(stream, ignoreHeader);
 
@@ -303,15 +311,17 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
         // case 5: layer = new IFF_Layer5( hdr, stream ); break;
 
       default:
-        throw KException(__FUNCTION__, UNSUPPORTED_DATATYPE,
-                         static_cast<KUINT16>(hdr.GetLayerNumber()));
+        throw KException(
+            ErrorCode::UNSUPPORTED_DATATYPE,
+            KDIS::UTIL::format("%s | %u", __FUNCTION__, hdr.GetLayerNumber()));
     }
 
     if (layer) {
       m_vLayers.push_back(layer);
       remainingData -= layer->GetLayerLength();
     } else {
-      throw KException(__FUNCTION__, INVALID_OPERATION, "Layer is null");
+      throw KException(ErrorCode::INVALID_OPERATION,
+                       KDIS::UTIL::format("%s | Layer is nul", __FUNCTION__));
     }
   }
 }

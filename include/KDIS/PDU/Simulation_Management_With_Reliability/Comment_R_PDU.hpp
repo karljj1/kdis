@@ -46,6 +46,9 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Comment_R_PDU : public Comment_PDU {
+ protected:
+  Comment_R_PDU* clone() const override;
+
  public:
   static const KUINT16 COMMENT_R_PDU_SIZE = 32;  // Min size
 

@@ -59,6 +59,8 @@ class KDIS_EXPORT IO_Header : public Header {
  protected:
   KDIS::DATA_TYPE::EntityIdentifier m_OriginatingEntityID;
 
+  IO_Header* clone() const override;
+
  public:
   static const KUINT16 IO_HEADER_SIZE = 18;
 
@@ -66,11 +68,11 @@ class KDIS_EXPORT IO_Header : public Header {
 
   explicit IO_Header(const Header& H);
 
-  IO_Header(KDataStream& stream);
+  explicit IO_Header(KDataStream& stream);
 
   IO_Header(const Header& H, KDataStream& stream);
 
-  IO_Header(const KDIS::DATA_TYPE::EntityIdentifier& OrigID);
+  explicit IO_Header(const KDIS::DATA_TYPE::EntityIdentifier& OrigID);
 
   virtual ~IO_Header();
 

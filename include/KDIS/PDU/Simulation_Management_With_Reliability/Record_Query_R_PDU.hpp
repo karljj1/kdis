@@ -61,12 +61,14 @@ class KDIS_EXPORT Record_Query_R_PDU : public Simulation_Management_Header,
 
   std::vector<KUINT32> m_vui32RecID;
 
+  Record_Query_R_PDU* clone() const override;
+
  public:
   static const KUINT16 RECORD_QUERY_R_PDU_SIZE = 40;
 
   Record_Query_R_PDU();
 
-  Record_Query_R_PDU(KDataStream& stream);
+  explicit Record_Query_R_PDU(KDataStream& stream);
 
   Record_Query_R_PDU(const Header& H, KDataStream& stream);
 

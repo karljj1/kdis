@@ -88,6 +88,8 @@ class KDIS_EXPORT Transmitter_PDU : public Radio_Communications_Header {
 
   std::vector<KOCTET> m_vAntennaPattern;
 
+  Transmitter_PDU* clone() const override;
+
  public:
   static const KUINT16 TRANSMITTER_PDU_SIZE = 104;  // Min Size
 
@@ -95,7 +97,7 @@ class KDIS_EXPORT Transmitter_PDU : public Radio_Communications_Header {
 
   explicit Transmitter_PDU(const Header& H);
 
-  Transmitter_PDU(KDataStream& stream);
+  explicit Transmitter_PDU(KDataStream& stream);
 
   Transmitter_PDU(const Header& H, KDataStream& stream);
 

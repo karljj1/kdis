@@ -100,7 +100,7 @@ KString TrackJamTargetIdentifier::GetAsString() const {
 
 void TrackJamTargetIdentifier::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < TRACK_JAM_TARGET_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16SiteID >> m_ui16ApplicationID >> m_ui16EntityID >>
       m_ui8EmitterID >> m_ui8BeamID;

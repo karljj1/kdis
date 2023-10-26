@@ -47,6 +47,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Detonation_PDU* Detonation_PDU::clone() const {
+  return new Detonation_PDU(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -287,7 +295,7 @@ KString Detonation_PDU::GetAsString() const {
 void Detonation_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       DETONATION_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vVariableParameters.clear();
 
@@ -339,7 +347,7 @@ void Detonation_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   for (KUINT8 i = 0; i < m_ui8NumOfVariableParams; ++i) {
     // Need to ensure this next byte we read actually exists
     if (stream.GetBufferSize() < 1)
-      throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+      throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
     // Save the current write position so we can peek.
     KUINT16 pos = stream.GetCurrentWritePosition();
     KUINT8 paramTyp;

@@ -303,7 +303,7 @@ KString EmitterBeam::GetAsString() const {
 
 void EmitterBeam::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < EMITTER_BEAM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8BeamDataLength >> m_ui8EmitterBeamIDNumber >>
       m_ui16BeamParamIndex >> KDIS_STREAM m_FundamentalParameterData >>

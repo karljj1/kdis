@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/DataTypes/Mine.hpp"
 
+#include "KDIS/util/format.hpp"
+
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
@@ -42,7 +44,9 @@ using namespace UTILS;
 map<KUINT16, vector<Vector> >::iterator Mine::getWire(KUINT16 Index) {
   map<KUINT16, vector<Vector> >::iterator itr = m_mvVertices.find(Index);
   if (itr == m_mvVertices.end())
-    throw KException(__FUNCTION__, OUT_OF_BOUNDS, "Invalid Wire Index.");
+    throw KException(
+        ErrorCode::OUT_OF_BOUNDS,
+        KDIS::UTIL::format("%s | Invalid wire index %u", __FUNCTION__, Index));
   return itr;
 }
 

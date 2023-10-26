@@ -84,7 +84,7 @@ KString DEAreaAimpoint::GetAsString() const {
 
 void DEAreaAimpoint::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < STANDARD_VARIABLE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   // stream >> m_ui32Type
   //        >> m_ui16Length;

@@ -121,7 +121,7 @@ KString UnderwaterAcousticEmitterBeam::GetAsString() const {
 
 void UnderwaterAcousticEmitterBeam::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < UNDERWATER_ACOUSTIC_EMITTER_BEAM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8BeamDataLength >> m_ui8BeamIDNumber >> m_ui16Padding1 >>
       KDIS_STREAM m_UAFPD;

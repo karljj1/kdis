@@ -131,7 +131,7 @@ KString DeadReckoningParameter::GetAsString() const {
 
 void DeadReckoningParameter::Decode(KDataStream &stream) {
   if (stream.GetBufferSize() < DEAD_RECKONING_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8DeadRecknoningAlgorithm;
 

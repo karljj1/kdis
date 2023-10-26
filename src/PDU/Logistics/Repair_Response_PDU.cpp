@@ -39,6 +39,14 @@ using namespace ENUMS;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Repair_Response_PDU* Repair_Response_PDU::clone() const {
+  return new Repair_Response_PDU(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
 
@@ -109,7 +117,7 @@ void Repair_Response_PDU::Decode(KDataStream& stream,
                                  bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       REPAIR_RESPONSE_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Logistics_Header::Decode(stream, ignoreHeader);
   stream >> m_ui8RepairResult >> m_ui8Padding >> m_ui16Padding;

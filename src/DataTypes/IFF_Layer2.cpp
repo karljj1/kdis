@@ -155,7 +155,7 @@ KString IFF_Layer2::GetAsString() const {
 
 void IFF_Layer2::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   if (stream.GetBufferSize() < IFF_LAYER2_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vFPD.clear();
 

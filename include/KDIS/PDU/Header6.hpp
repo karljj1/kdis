@@ -48,14 +48,14 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/KDataStream.hpp"
 #include "KDIS/KDefines.hpp"
 #include "KDIS/KEncodersDecoders.hpp"
+#include "KDIS/PDU/Cloneable.hpp"
 
 namespace KDIS {
 namespace PDU {
 
-class KDIS_EXPORT Header6 {
+class KDIS_EXPORT Header6 : public CloneablePDU {
  protected:
   KUINT8 m_ui8ProtocolVersion;
-
   KUINT8 m_ui8ExerciseID;
 
   KUINT8 m_ui8PDUType;
@@ -72,12 +72,14 @@ class KDIS_EXPORT Header6 {
 
   KUINT8 m_ui8Padding2;
 
+  Header6* clone() const override;
+
  public:
   static const KUINT16 HEADER6_PDU_SIZE = 12;
 
   Header6();
 
-  Header6(KDataStream& stream);
+  explicit Header6(KDataStream& stream);
 
   Header6(KDIS::DATA_TYPE::ENUMS::ProtocolVersion PV, KUINT8 ExerciseID,
           KDIS::DATA_TYPE::ENUMS::PDUType PT,
@@ -177,16 +179,16 @@ class KDIS_EXPORT Header6 {
   friend KDataStream& operator>>(KDataStream& stream, Header6* H) {
     H->Decode(stream);
     return stream;
-  };
+  }
 
   friend KDataStream& operator<<(KDataStream& stream, Header6* H) {
     H->Encode(stream);
     return stream;
-  };
+  }
 
   KBOOL operator==(const Header6& Value) const;
   KBOOL operator!=(const Header6& Value) const;
-};
+};  // namespace PDU
 
-}  // END namespace PDU
+}  // namespace PDU
 }  // END namespace KDIS

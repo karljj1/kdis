@@ -73,13 +73,15 @@ class KDIS_EXPORT Entity_State_Update_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
+  Entity_State_Update_PDU* clone() const override;
+
  public:
   // Min Size not including variable variable parameters field
   static const KUINT16 ENTITY_STATE_UPDATE_PDU_SIZE = 72;
 
   Entity_State_Update_PDU();
 
-  Entity_State_Update_PDU(KDataStream& stream);
+  explicit Entity_State_Update_PDU(KDataStream& stream);
 
   Entity_State_Update_PDU(const Header& H, KDataStream& stream);
 
@@ -153,8 +155,7 @@ class KDIS_EXPORT Entity_State_Update_PDU : public Header {
   //              KDIS::PDU::Entity_State_Update_PDU::GetVariableParameters
   //              KDIS::PDU::Entity_State_Update_PDU::ClearVariableParameters
   // Description: Information associated with an entity or detonation, not
-  // otherwise accounted
-  //	            for in a PDU such as Articulated and Attached Parts.
+  // otherwise accounted for in a PDU such as Articulated and Attached Parts.
   //              See VariableParameter for supported/implemented types.
   // Parameter:   VarPrmPtr VP, vector<VarPrmPtr> & VP
   //************************************

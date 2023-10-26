@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/DataTypes/Mode5TransponderBasicData.hpp"
 
+#include "KDIS/util/format.hpp"
+
 //////////////////////////////////////////////////////////////////////////
 
 using namespace std;
@@ -195,7 +197,11 @@ NavigationSource Mode5TransponderBasicData::GetNavigationSource() const {
 
 void Mode5TransponderBasicData::SetFigureOfMerit(KUINT8 FOM) {
   if (FOM > 31)
-    throw KException(__FUNCTION__, INVALID_DATA, "Value must be between 0-31.");
+    throw KException(
+        ErrorCode::INVALID_DATA,
+        KDIS::UTIL::format("%s | %u is not a valid figure of merit value. "
+                           "Valid values are from 0 to 31",
+                           __FUNCTION__, FOM));
   m_ui8FigMerit = FOM;
 }
 
@@ -226,7 +232,7 @@ KString Mode5TransponderBasicData::GetAsString() const {
 
 void Mode5TransponderBasicData::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < MODE_5_TRANSPONDER_BASIC_DATA_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> KDIS_STREAM m_Status >> m_ui16PIN >> m_ui32MsgFormats >>
       KDIS_STREAM m_EM1Code >> m_ui16NationalOrigin >>

@@ -44,6 +44,8 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/DataTypes/IOCommunicationsNode.hpp"
 #include "KDIS/DataTypes/IOEffect.hpp"
 #include "KDIS/PDU/Information_Operations/IO_Header.hpp"
@@ -69,12 +71,14 @@ class KDIS_EXPORT IO_Report_PDU : public IO_Header {
 
   std::vector<KDIS::DATA_TYPE::StdVarPtr> m_vStdVarRecs;
 
+  IO_Report_PDU* clone() const override;
+
  public:
   static const KUINT16 IO_REPORT_PDU_SIZE = 40;
 
   IO_Report_PDU();
 
-  IO_Report_PDU(KDataStream& stream);
+  explicit IO_Report_PDU(KDataStream& stream);
 
   IO_Report_PDU(const Header& H, KDataStream& stream);
 

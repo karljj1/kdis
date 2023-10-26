@@ -61,6 +61,10 @@ bool Aggregate_State_PDU::needsPadding() const {
   return m_ui16NumberOfPaddingOctets > 0;
 }
 
+Aggregate_State_PDU* Aggregate_State_PDU::clone() const {
+  return new Aggregate_State_PDU(*this);
+}
+
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
@@ -587,7 +591,7 @@ void Aggregate_State_PDU::Decode(KDataStream& stream,
 
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       AGGREGATE_STATE_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Header::Decode(stream, ignoreHeader);
 

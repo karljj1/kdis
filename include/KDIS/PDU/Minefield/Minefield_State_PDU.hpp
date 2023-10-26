@@ -90,12 +90,14 @@ class KDIS_EXPORT Minefield_State_PDU : public Minefield_Header {
 
   std::vector<KDIS::DATA_TYPE::EntityType> m_vMineTypes;
 
+  Minefield_State_PDU* clone() const override;
+
  public:
   static const KUINT16 MINEFIELD_STATE_PDU_SIZE = 72;  // Min size
 
   Minefield_State_PDU();
 
-  Minefield_State_PDU(KDataStream& stream);
+  explicit Minefield_State_PDU(KDataStream& stream);
 
   Minefield_State_PDU(const Header& H, KDataStream& stream);
 

@@ -92,7 +92,7 @@ KString ArealObjectAppearance::GetAsString() const {
 void ArealObjectAppearance::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() <
       ArealObjectAppearance::AREAL_OBJECT_APPEARANCE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_SpecificAppearanceUnion.m_ui32SpecificAppearance >>
       m_GeneralAppearanceUnion.m_ui16GeneralAppearance;

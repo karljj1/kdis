@@ -46,6 +46,9 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Action_Response_R_PDU : public Action_Response_PDU {
+ protected:
+  Action_Response_R_PDU* clone() const override;
+
  public:
   static const KUINT16 ACTION_RESPONSE_R_PDU_SIZE = 40;
 

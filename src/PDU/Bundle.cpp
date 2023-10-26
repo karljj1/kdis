@@ -69,7 +69,7 @@ void Bundle::AddPDU(const KDataStream& K) {
   m_vStreams.push_back(K);
   m_ui16Length += K.GetBufferSize();
   if (m_ui16Length > MAX_PDU_SIZE)
-    throw KException(__FUNCTION__, PDU_TOO_LARGE);
+    throw KException(ErrorCode::PDU_TOO_LARGE, __FUNCTION__);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,7 @@ void Bundle::AddPDU(PduPtr H) {
   m_vRefHeaders.push_back(H);
   m_ui16Length += H->GetPDULength();
   if (m_ui16Length > MAX_PDU_SIZE)
-    throw KException(__FUNCTION__, PDU_TOO_LARGE);
+    throw KException(ErrorCode::PDU_TOO_LARGE, __FUNCTION__);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ void Bundle::SetPDUs(const vector<KDataStream>& P) {
   m_vStreams = P;
   calculateLength();
   if (m_ui16Length > MAX_PDU_SIZE)
-    throw KException(__FUNCTION__, PDU_TOO_LARGE);
+    throw KException(ErrorCode::PDU_TOO_LARGE, __FUNCTION__);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ void Bundle::SetPDUs(const vector<PduPtr>& P) {
   m_vRefHeaders = P;
   calculateLength();
   if (m_ui16Length > MAX_PDU_SIZE)
-    throw KException(__FUNCTION__, PDU_TOO_LARGE);
+    throw KException(ErrorCode::PDU_TOO_LARGE, __FUNCTION__);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ void Bundle::SetPDUs(const vector<KDataStream>& Streams,
   m_vRefHeaders = References;
   calculateLength();
   if (m_ui16Length > MAX_PDU_SIZE)
-    throw KException(__FUNCTION__, PDU_TOO_LARGE);
+    throw KException(ErrorCode::PDU_TOO_LARGE, __FUNCTION__);
 }
 
 //////////////////////////////////////////////////////////////////////////

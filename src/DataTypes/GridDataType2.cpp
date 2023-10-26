@@ -136,7 +136,7 @@ KString GridDataType2::GetAsString() const {
 
 void GridDataType2::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GRID_DATA_TYPE2_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vf32Values.clear();
 

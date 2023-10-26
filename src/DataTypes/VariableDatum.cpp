@@ -120,7 +120,7 @@ void VariableDatum::GetDatumValueCopyIntoBuffer(KOCTET* Buffer,
   KUINT32 sizeInOctets = ceil(m_ui32DatumLength / 8.0);
 
   if (BufferSize < sizeInOctets)
-    throw KException(__FUNCTION__, BUFFER_TOO_SMALL);
+    throw KException(ErrorCode::BUFFER_TOO_SMALL, __FUNCTION__);
 
   // Copy the data into the buffer, octet by octet
   vector<DatumEntry>::const_iterator citr = m_v8DatumValue.begin();
@@ -230,7 +230,7 @@ KString VariableDatum::GetAsString() const {
 
 void VariableDatum::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < VARIABLE_DATUM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_v8DatumValue.clear();
 

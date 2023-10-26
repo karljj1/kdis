@@ -93,7 +93,7 @@ KString OrientationError::GetAsString() const {
 
 void OrientationError::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ORIENTATION_ERROR_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> KDIS_STREAM m_AziErr >> KDIS_STREAM m_ElvErr >>
       KDIS_STREAM m_RotErr;

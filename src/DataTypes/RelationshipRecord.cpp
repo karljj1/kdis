@@ -90,7 +90,7 @@ KString RelationshipRecord::GetAsString() const {
 
 void RelationshipRecord::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < RELATIONSHIP_RECORD_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16Nature >> m_ui16Pos;
 }

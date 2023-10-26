@@ -40,6 +40,8 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/PDU/Simulation_Management/Comment_PDU.hpp"
 
 namespace KDIS {
@@ -51,6 +53,8 @@ class KDIS_EXPORT Event_Report_PDU : public Comment_PDU {
 
   KUINT32 m_ui32Padding;
 
+  Event_Report_PDU* clone() const override;
+
  public:
   static const KUINT16 EVENT_REPORT_PDU_SIZE = 40;
 
@@ -58,7 +62,7 @@ class KDIS_EXPORT Event_Report_PDU : public Comment_PDU {
 
   explicit Event_Report_PDU(const Header& H);
 
-  Event_Report_PDU(KDataStream& stream);
+  explicit Event_Report_PDU(KDataStream& stream);
 
   Event_Report_PDU(const Header& H, KDataStream& stream);
 

@@ -56,6 +56,8 @@ class KDIS_EXPORT Object_State_Header : public Header {
 
   KUINT8 m_ui8ForceID;
 
+  Object_State_Header* clone() const override;
+
  public:
   static const KUINT16 OBJECT_STATE_HEADER_SIZE = 27;
 

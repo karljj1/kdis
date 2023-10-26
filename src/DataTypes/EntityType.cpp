@@ -32,6 +32,8 @@ http://p.sf.net/kdis/UserGuide
 #include <cstdlib>
 #include <vector>
 
+#include "KDIS/util/format.hpp"
+
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
@@ -165,8 +167,11 @@ void EntityType::ReadFromTokenisedString(const KString& String,
 
   // We need 7 values in total, if not we have a problem.
   if (vValues.size() != 7) {
-    throw KException(__FUNCTION__, INVALID_DATA,
-                     "Token String Must Contain 7 Integer Values Only.");
+    throw KException(
+        ErrorCode::INVALID_DATA,
+        KDIS::UTIL::format(
+            "%s | Token string must contains 7 integer values only",
+            __FUNCTION__));
   }
 
   // Set the new type.
@@ -207,7 +212,7 @@ KString EntityType::GetAsString() const {
 
 void EntityType::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ENTITY_TYPE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8EntityKind >> m_ui8Domain >> m_ui16Country >> m_ui8Category >>
       m_ui8SubCategory >> m_ui8Specific >> m_ui8Extra;

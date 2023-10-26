@@ -133,6 +133,8 @@ class KDIS_EXPORT LE_Detonation_PDU : public LE_Header {
 
   KUINT8 m_ui8DetonationResult;
 
+  LE_Detonation_PDU* clone() const override;
+
   //************************************
   // FullName:    KDIS::PDU::LE_Detonation_PDU::checkFlagsAndPDULength
   // Description: Checks the site and application values to see if we need to
@@ -150,11 +152,11 @@ class KDIS_EXPORT LE_Detonation_PDU : public LE_Header {
 
   LE_Detonation_PDU();
 
-  LE_Detonation_PDU(KDataStream& stream);
+  explicit LE_Detonation_PDU(KDataStream& stream);
 
   LE_Detonation_PDU(const Header& H, KDataStream& stream);
 
-  LE_Detonation_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
+  explicit LE_Detonation_PDU(const KDIS::DATA_TYPE::LE_EntityIdentifier& ID);
 
   virtual ~LE_Detonation_PDU();
 

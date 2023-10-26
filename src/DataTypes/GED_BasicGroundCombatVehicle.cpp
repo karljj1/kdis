@@ -314,7 +314,7 @@ KString GED_BasicGroundCombatVehicle::GetAsString() const {
 
 void GED_BasicGroundCombatVehicle::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GED_BASIC_GROUND_COMBAT_VEHICLE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16EntityID >> m_i16Offsets[0] >> m_i16Offsets[1] >>
       m_i16Offsets[2] >> KDIS_STREAM m_EA >> m_i8Ori[0] >> m_i8Ori[1] >>

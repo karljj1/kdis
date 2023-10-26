@@ -161,7 +161,7 @@ KString EnvironmentType::GetAsString() const {
 
 void EnvironmentType::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < ENVIROMENT_TYPE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8EntityKind >> m_ui8Domain >> m_ui16Class >> m_ui8Category >>
       m_ui8SubCategory >> m_ui8Specific >> m_ui8Extra;

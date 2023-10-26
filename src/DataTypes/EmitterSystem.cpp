@@ -98,7 +98,7 @@ KString EmitterSystem::GetAsString() const {
 
 void EmitterSystem::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < EMITTER_SYSTEM_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16EmitterName >> m_ui8Function >> m_ui8EmitterIDNumber;
 }

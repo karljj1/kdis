@@ -97,6 +97,10 @@ void LE_Detonation_PDU::checkFlagsAndPDULength() {
 #endif
 }
 
+LE_Detonation_PDU* LE_Detonation_PDU::clone() const {
+  return new LE_Detonation_PDU(*this);
+}
+
 //////////////////////////////////////////////////////////////////////////
 // public:
 //////////////////////////////////////////////////////////////////////////
@@ -608,7 +612,7 @@ void LE_Detonation_PDU::Decode(KDataStream& stream,
                                bool ignoreHeader /*= true*/) {
   if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
       LE_DETONATION_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   LE_Header::Decode(stream, ignoreHeader);
 
@@ -667,8 +671,7 @@ void LE_Detonation_PDU::Decode(KDataStream& stream,
 
   // F6: Is the location in world coordinates?
   if (!m_DetonationFlag1Union
-           .m_ui8LocationTyp)  // false means location is in world coords
-  {
+           .m_ui8LocationTyp) {  // Location is in world coords
     stream >> KDIS_STREAM m_LocWrldCoord;
   }
 
@@ -700,9 +703,8 @@ void LE_Detonation_PDU::Decode(KDataStream& stream,
   }
 
   // F6: Is the location in entity coordinates?
-  if (m_DetonationFlag1Union
-          .m_ui8LocationTyp)  // true means location is in entity coords
-  {
+  if (m_DetonationFlag1Union.m_ui8LocationTyp) {
+    // Location is in entity coords
     stream >> KDIS_STREAM m_LocEntCoord;
   }
 
@@ -767,9 +769,8 @@ void LE_Detonation_PDU::Encode(KDataStream& stream) const {
   }
 
   // F6: Is the location in world coordinates?
-  if (!m_DetonationFlag1Union
-           .m_ui8LocationTyp)  // false means location is in world coords
-  {
+  if (!m_DetonationFlag1Union.m_ui8LocationTyp) {
+    // Location is in world coords
     stream << KDIS_STREAM m_LocWrldCoord;
   }
 
@@ -794,9 +795,8 @@ void LE_Detonation_PDU::Encode(KDataStream& stream) const {
   }
 
   // Is the location in entity coordinates?
-  if (m_DetonationFlag1Union
-          .m_ui8LocationTyp)  // true means location is in entity coords
-  {
+  if (m_DetonationFlag1Union.m_ui8LocationTyp) {
+    // Location is in entity coords
     stream << KDIS_STREAM m_LocEntCoord;
   }
 

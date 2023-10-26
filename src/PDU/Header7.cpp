@@ -35,7 +35,13 @@ using namespace DATA_TYPE;
 using namespace ENUMS;
 
 //////////////////////////////////////////////////////////////////////////
-// Public:
+// protected:
+//////////////////////////////////////////////////////////////////////////
+
+Header7* Header7::clone() const { return new Header7(*this); }
+
+//////////////////////////////////////////////////////////////////////////
+// public:
 //////////////////////////////////////////////////////////////////////////
 
 Header7::Header7() {}
@@ -362,7 +368,7 @@ KString Header7::GetAsString() const {
 void Header7::Decode(KDataStream& stream, bool ignoreHeader /*= false*/) {
   if (!ignoreHeader) {
     if (stream.GetBufferSize() < HEADER6_PDU_SIZE)
-      throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+      throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
     KUINT8 pduStatus = 0;
 

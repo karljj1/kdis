@@ -120,7 +120,7 @@ KString WorldCoordinates::GetAsString() const {
 
 void WorldCoordinates::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < WORLD_COORDINATES_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f64X >> m_f64Y >> m_f64Z;
 }
@@ -257,7 +257,7 @@ KFLOAT64& WorldCoordinates::operator[](KUINT16 i) {
     case 2:
       return m_f64Z;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 
@@ -272,7 +272,7 @@ const KFLOAT64& WorldCoordinates::operator[](KUINT16 i) const {
     case 2:
       return m_f64Z;
     default:
-      throw KException(__FUNCTION__, OUT_OF_BOUNDS);
+      throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
   }
 }
 

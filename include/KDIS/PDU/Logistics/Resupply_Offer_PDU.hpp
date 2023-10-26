@@ -46,6 +46,9 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Resupply_Offer_PDU : public Resupply_Received_PDU {
+ protected:
+  Resupply_Offer_PDU* clone() const override;
+
  public:
   // Min Size the PDU can be, size can be more depending on NumSupplyTypes field
   static const KUINT16 RESUPPLY_OFFER_PDU_SIZE =
@@ -53,7 +56,7 @@ class KDIS_EXPORT Resupply_Offer_PDU : public Resupply_Received_PDU {
 
   Resupply_Offer_PDU();
 
-  Resupply_Offer_PDU(KDataStream& stream);
+  explicit Resupply_Offer_PDU(KDataStream& stream);
 
   Resupply_Offer_PDU(const Header& H, KDataStream& stream);
 

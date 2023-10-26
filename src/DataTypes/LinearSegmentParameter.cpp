@@ -230,7 +230,7 @@ KString LinearSegmentParameter::GetAsString() const {
 
 void LinearSegmentParameter::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < LINEAR_SEGMENT_PARAMETER_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8SegNum >> m_ModificationUnion.m_ui8Modifications >>
       KDIS_STREAM m_ObjApr >> KDIS_STREAM m_Loc >> KDIS_STREAM m_Ori >>

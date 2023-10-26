@@ -47,6 +47,9 @@ namespace KDIS {
 namespace PDU {
 
 class KDIS_EXPORT Event_Report_R_PDU : public Event_Report_PDU {
+ protected:
+  Event_Report_R_PDU* clone() const override;
+
  public:
   static const KUINT16 EVENT_REPORT_R_PDU_SIZE = 40;
 

@@ -75,12 +75,14 @@ class KDIS_EXPORT Areal_Object_State_PDU : public Object_State_Header {
 
   std::vector<KDIS::DATA_TYPE::WorldCoordinates> m_vPoints;
 
+  Areal_Object_State_PDU* clone() const override;
+
  public:
   static const KUINT16 AREAL_OBJECT_STATE_PDU_SIZE = 48;
 
   Areal_Object_State_PDU();
 
-  Areal_Object_State_PDU(KDataStream& stream);
+  explicit Areal_Object_State_PDU(KDataStream& stream);
 
   Areal_Object_State_PDU(const Header& H, KDataStream& stream);
 

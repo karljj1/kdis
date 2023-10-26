@@ -109,7 +109,7 @@ KString LineRecord2::GetAsString() const {
 
 void LineRecord2::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < LINE_RECORD_2_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   LineRecord1::Decode(stream);
 

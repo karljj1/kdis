@@ -29,6 +29,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/DataTypes/IOEffect.hpp"
 
+#include "KDIS/util/format.hpp"
+
 //////////////////////////////////////////////////////////////////////////
 
 using namespace KDIS;
@@ -105,8 +107,11 @@ IOEffectType IOEffect::GetEffectType() const { return (IOEffectType)m_ui8Eff; }
 
 void IOEffect::SetEffectDutyCycle(KUINT8 EDC) {
   if (EDC > 100)
-    throw KException(__FUNCTION__, OUT_OF_BOUNDS,
-                     "Invalid Effect Duty Cycle value. Must be between 0-100.");
+    throw KException(
+        ErrorCode::INVALID_DATA,
+        KDIS::UTIL::format("%s | %u is not a valid effect duty cycle value. "
+                           "Valid values are from 0 to 100",
+                           __FUNCTION__, EDC));
 
   m_ui8EffDtyCyc = EDC;
 }
@@ -151,7 +156,7 @@ KString IOEffect::GetAsString() const {
 
 void IOEffect::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < IO_EFFECT_TYPE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   StandardVariable::Decode(stream);
 

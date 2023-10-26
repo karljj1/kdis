@@ -110,7 +110,7 @@ KString RelativeWorldCoordinates::GetAsString() const {
 
 void RelativeWorldCoordinates::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < RELATVE_WORLD_COORDINATES_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16RefPnt >> KDIS_STREAM m_DelX >> KDIS_STREAM m_DelY >>
       KDIS_STREAM m_DelZ;

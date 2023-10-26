@@ -251,7 +251,7 @@ KString Link16_Signal_PDU::GetAsString() const {
 void Link16_Signal_PDU::Decode(KDataStream& stream,
                                bool ignoreHeader /*= true*/) {
   if (stream.GetBufferSize() < LINK16_SIGNAL_PDU_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   Radio_Communications_Header::Decode(stream, ignoreHeader);
 

@@ -42,6 +42,7 @@ the filter in action.
 #include "KDIS/Extras/PDU_Factory.hpp"
 #include "KDIS/Network/Connection.hpp"
 #include "KDIS/Network/ConnectionAddressFilter.hpp"
+#include "KDIS/PDU/Distributed_Emission_Regeneration/Designator_PDU.hpp"
 
 using namespace std;
 using namespace KDIS;

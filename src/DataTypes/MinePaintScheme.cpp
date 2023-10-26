@@ -94,7 +94,7 @@ KString MinePaintScheme::GetAsString() const {
 
 void MinePaintScheme::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < MINE_PAINT_SCHEME_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_PntScmUnion.m_ui8PntSchm;
 }

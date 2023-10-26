@@ -64,6 +64,8 @@ class KDIS_EXPORT Signal_PDU : public Radio_Communications_Header {
 
   std::vector<KOCTET> m_vData;
 
+  Signal_PDU* clone() const override;
+
  public:
   static const KUINT16 SIGNAL_PDU_SIZE = 32;  // Min Size
 
@@ -71,7 +73,7 @@ class KDIS_EXPORT Signal_PDU : public Radio_Communications_Header {
 
   explicit Signal_PDU(const Header& H);
 
-  Signal_PDU(KDataStream& stream);
+  explicit Signal_PDU(KDataStream& stream);
 
   Signal_PDU(const Header& H, KDataStream& stream);
 

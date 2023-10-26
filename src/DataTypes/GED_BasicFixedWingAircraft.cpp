@@ -310,7 +310,7 @@ KString GED_BasicFixedWingAircraft::GetAsString() const {
 
 void GED_BasicFixedWingAircraft::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < GED_BASIC_FIXED_WING_AIRCRAFT_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui16EntityID >> m_i16Offsets[0] >> m_i16Offsets[1] >>
       m_i16Offsets[2] >> KDIS_STREAM m_EA >> m_i8Ori[0] >> m_i8Ori[1] >>

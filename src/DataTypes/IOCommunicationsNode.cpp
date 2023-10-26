@@ -114,7 +114,7 @@ KString IOCommunicationsNode::GetAsString() const {
 
 void IOCommunicationsNode::Decode(KDataStream& stream) {
   if (stream.GetBufferSize() < STANDARD_VARIABLE_SIZE)
-    throw KException(__FUNCTION__, NOT_ENOUGH_DATA_IN_BUFFER);
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   StandardVariable::Decode(stream);
 
