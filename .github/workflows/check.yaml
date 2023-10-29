@@ -68,7 +68,7 @@ jobs:
                 os: [ubuntu-latest, windows-latest]
                 build: [Debug, Release]
                 dis: [5, 6, 7]
-                enum: [TRUE, FALSE]
+                enum: ['TRUE', 'FALSE']
         runs-on: ${{ matrix.os }}
         steps:
             - name: Checkout
