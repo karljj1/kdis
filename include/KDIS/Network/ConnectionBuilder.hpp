@@ -5,7 +5,12 @@
     defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
   #include <winsock2.h>
 
+  #include <cstdint>
+
   #pragma comment(lib, "Ws2_32.lib")
+
+typedef std::uint16_t in_port_t;
+typedef ADDRESS_FAMILY sa_family_t;
 #else
   #include <netinet/in.h>
   #include <sys/socket.h>
