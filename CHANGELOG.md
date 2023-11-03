@@ -11,7 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `PDU` can be cloned via the `KDIS::PDU::clone(pdu)` function
 - Clone example, named `clone`, demonstrating how a `PDU` can be cloned
-- `KDIS::UTIL::format` utility function to simulate [`std::format`](https://en.cppreference.com/w/cpp/utility/format/format) (_C++20_): _Format arguments according to the format string, and return the result as a string_
+- `KDIS::NETWORK::AddressFamily` class enum for address families (`IPv4`, `IPv6` and `UNKNOWN`)
+- `KDIS::NETWORK::IPAddress` class for IPv4 and IPv6 addresses
+- IPaddress example, named `ip_address`, demonstrating how to use `KDIS::NETWORK::IPAddress` class
+- `KDIS::NETWORK::NetInterface` class for network interface
+- Network interface example, named `net_interface`, demonstrating how to use `KDIS::NETWORK::NetInterface` class
+- `KDIS::UTIL::Endian` class for endian (`BIG` and `LITTLE`)
+- `KDIS::UTIL::Error` class for (system) error
+- `KDIS::UTIL::format` function to simulate [`std::format`](https://en.cppreference.com/w/cpp/utility/format/format) (_C++20_): _Format arguments according to the format string, and return the result as a string_
+- `KDIS::UTIL::unreachable` function to simulate [`std::unreachable`](https://en.cppreference.com/w/cpp/utility/unreachable) (_C++23_): _Invokes undefined behavior. An implementation may use this to optimize impossible code branches away (typically, in optimized builds) or to trap them to prevent further execution (typically, in debug builds)_
 - `CMake` option `KDIS_BUILD_DOCS` (default `FALSE`) to specify whether or not to build documentation
 
 ### Changed
@@ -19,8 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Extension of header files changed from `.h` to `.hpp`
 - `C++` minimum supported standard is [`C++11`](https://en.cppreference.com/w/cpp/11)
 - `CMake` minimum supported version is `3.14`
-- Enum `KDIS::ErrorCodes` is a `class enum` and has been renamed to `KDIS::ErrorCode`
-- Enum `KDIS::Endian` is a `class enum`. Renamed value `Little_Endian` to `LITTLE`, and value `Big_Endian` to `BIG`
+- Enum `KDIS::ErrorCodes` is a `class enum`, has been renamed to `KDIS::ErrorCode`, and has additional values
+- Enum `KDIS::Endian` is a `class enum` moved in `KDIS::UTIL::Endian` class, and has been renamed to `KDIS::UTIL::Endian::Endianness`. Renamed value `Little_Endian` to `LITTLE`, and value `Big_Endian` to `BIG`
 - `KDIS::KException` two parameters' constructor has been inverted to accepts error code and message instead of message and error code
 - `KException` inherits from `std::runtime_error` instead of `std::exception`.
 - `KDIS` library can be linked to a target more easily: `target_link_libraries(executable PRIVATE KDIS::KDIS)`

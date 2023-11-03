@@ -171,7 +171,19 @@ enum class ErrorCode : std::uint8_t {
   /**
    * @brief Socket error.
    */
-  CONNECTION_SOCKET_ERROR
+  CONNECTION_SOCKET_ERROR,
+  /**
+   * @brief Not found error.
+   */
+  NOT_FOUND,
+  /**
+   * @brief System error.
+   */
+  SYSTEM,
+  /**
+   * @brief Unknown error.
+   */
+  UNKOWN
 };
 
 /**
@@ -208,6 +220,11 @@ static const char* errorCodeText(ErrorCode errorCode) {
       return "PDU is too large. PDU must not exceeds 8192 bytes";
     case ErrorCode::CONNECTION_SOCKET_ERROR:
       return "Socket error";
+    case ErrorCode::NOT_FOUND:
+      return "Not found error";
+    case ErrorCode::SYSTEM:
+      return "System error";
+    case ErrorCode::UNKOWN:
     default:
       return "Unknown error";
   }
@@ -231,33 +248,11 @@ class KException : public std::runtime_error {
       : std::runtime_error(errorCodeText(errorCode)), errorCode(errorCode) {}
 
   KException(const ErrorCode errorCode, const std::string& message)
-      : std::runtime_error(
-            KDIS::UTIL::format("%s: %s", errorCodeText(errorCode), message)),
+      : std::runtime_error(KDIS::UTIL::format(
+            "%s: %s", errorCodeText(errorCode), message.c_str())),
         errorCode(errorCode) {}
 
   virtual ~KException() = default;
-};
-
-//
-// Endian
-//
-
-/**
- * @brief Endianness.
- */
-enum class Endian : std::uint8_t {
-  /**
-   * @brief Little Endian (LE).
-   * Least significant byte at the smallest address.
-   * Most significant byte at the largest address.
-   */
-  LITTLE,
-  /**
-   * @brief Big Endian (BE).
-   * Least significant byte at the largest address.
-   * Most significant byte at the smallest address.
-   */
-  BIG
 };
 
 }  // namespace KDIS

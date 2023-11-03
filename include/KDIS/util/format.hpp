@@ -1,3 +1,6 @@
+// Inspired by
+// https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf
+
 #ifndef KDIS_UTIL_FORMAT_HPP_
 #define KDIS_UTIL_FORMAT_HPP_
 

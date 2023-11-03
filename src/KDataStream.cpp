@@ -37,29 +37,23 @@ using namespace std;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream::KDataStream(Endian Network_Endian /*= Big_Endian*/)
-    : m_NetEndian(Network_Endian), m_ui16CurrentWritePos(0) {
-  if (IsMachineBigEndian()) {
-    m_MachineEndian = Endian::BIG;
-  } else {
-    m_MachineEndian = Endian::LITTLE;
-  }
-}
+KDataStream::KDataStream(
+    KDIS::UTIL::Endian::Endianness Network_Endian /*= Big_Endian*/)
+    : m_NetEndian(Network_Endian),
+      m_ui16CurrentWritePos(0),
+      m_MachineEndian(KDIS::UTIL::Endian::endian()) {}
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream::KDataStream(const KOCTET* SerialData, KUINT16 DataSize,
-                         Endian Network_Endian /*= Big_Endian */)
-    : m_NetEndian(Network_Endian), m_ui16CurrentWritePos(0) {
+KDataStream::KDataStream(
+    const KOCTET* SerialData, KUINT16 DataSize,
+    KDIS::UTIL::Endian::Endianness Network_Endian /*= Big_Endian */)
+    : m_NetEndian(Network_Endian),
+      m_ui16CurrentWritePos(0),
+      m_MachineEndian(KDIS::UTIL::Endian::endian()) {
   // Copy Data into vector
   for (KUINT16 i = 0; i < DataSize; ++i) {
     m_vBuffer.push_back(SerialData[i]);
-  }
-
-  if (IsMachineBigEndian()) {
-    m_MachineEndian = Endian::BIG;
-  } else {
-    m_MachineEndian = Endian::LITTLE;
   }
 }
 
@@ -69,11 +63,15 @@ KDataStream::~KDataStream() {}
 
 //////////////////////////////////////////////////////////////////////////
 
-Endian KDataStream::GetMachineEndian() const { return m_MachineEndian; }
+KDIS::UTIL::Endian::Endianness KDataStream::GetMachineEndian() const {
+  return m_MachineEndian;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
-Endian KDataStream::GetNetWorkEndian() const { return m_NetEndian; }
+KDIS::UTIL::Endian::Endianness KDataStream::GetNetWorkEndian() const {
+  return m_NetEndian;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -111,8 +109,9 @@ KUINT16 KDataStream::CopyIntoBuffer(KOCTET* Buffer, KUINT16 BufferSize,
 
 //////////////////////////////////////////////////////////////////////////
 
-void KDataStream::CopyFromBuffer(const KOCTET* SerialData, KUINT16 DataSize,
-                                 Endian NetworkEndian /*= Big_Endian*/) {
+void KDataStream::CopyFromBuffer(
+    const KOCTET* SerialData, KUINT16 DataSize,
+    KDIS::UTIL::Endian::Endianness NetworkEndian /*= Big_Endian*/) {
   // Copy Data into vector
   for (KUINT16 i = 0; i < DataSize; ++i) {
     m_vBuffer.push_back(SerialData[i]);
