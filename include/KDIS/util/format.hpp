@@ -11,6 +11,19 @@
 namespace KDIS {
 namespace UTIL {
 
+/**
+ * @brief Format args according to the format string fmt, and return the result
+ * as a string.
+ * Mimics
+ *
+ * [`std::format`](https://en.cppreference.com/w/cpp/utility/format/format) from
+ * C++20.
+ *
+ * @tparam Args Types of `args`.
+ * @param fmt Format string.
+ * @param args Arguments to be formatted.
+ * @return A string holding the formatted result.
+ */
 template <typename... Args>
 std::string format(const std::string& fmt, Args... args) {
   const auto string_size =

@@ -6,6 +6,9 @@
 namespace KDIS {
 namespace UTIL {
 
+/**
+ * @brief Endian.
+ */
 class KDIS_EXPORT Endian {
  public:
   /**
@@ -26,11 +29,26 @@ class KDIS_EXPORT Endian {
     BIG
   };
 
+  /**
+   * @brief Returns the endianness.
+   *
+   * @return Endianness.
+   */
   static Endianness endian();
 
-  static bool isBigEndian();
-
+  /**
+   * @brief Check if Little Endian (LE).
+   *
+   * @return True if Little Endian (LE), false otherwise.
+   */
   static bool isLittleEndian();
+
+  /**
+   * @brief Check if Big Endian (BE).
+   *
+   * @return True if Big Endian (BE), false otherwise.
+   */
+  static bool isBigEndian();
 };
 
 }  // namespace UTIL

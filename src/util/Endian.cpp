@@ -9,9 +9,9 @@ Endian::Endianness Endian::endian() {
   return (numPtr[0] == 1) ? Endianness::LITTLE : Endianness::BIG;
 }
 
-bool Endian::isBigEndian() { return Endian::endian() == Endianness::BIG; }
-
 bool Endian::isLittleEndian() { return Endian::endian() == Endianness::LITTLE; }
+
+bool Endian::isBigEndian() { return Endian::endian() == Endianness::BIG; }
 
 }  // namespace UTIL
 }  // namespace KDIS

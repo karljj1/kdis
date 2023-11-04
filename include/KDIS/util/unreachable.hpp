@@ -9,6 +9,10 @@ namespace UTIL {
  * An implementation may use this to optimize impossible code branches away
  * (typically, in optimized builds) or to trap them to prevent further execution
  * (typically, in debug builds).
+ *
+ * Mimics
+ * [`std::unreachable`](https://en.cppreference.com/w/cpp/utility/unreachable)
+ * from C++23.
  */
 [[noreturn]] inline void unreachable() {
 #ifdef __GNUC__

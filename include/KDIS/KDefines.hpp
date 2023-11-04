@@ -237,7 +237,7 @@ static const char* errorCodeText(ErrorCode errorCode) {
 /**
  * @brief KDIS exception.
  */
-class KException : public std::runtime_error {
+class KDIS_EXPORT KException : public std::runtime_error {
  public:
   /**
    * @brief Error code.
