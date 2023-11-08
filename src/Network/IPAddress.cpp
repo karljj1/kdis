@@ -4,7 +4,10 @@
 
 #if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
     defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
+  #include <winsock2.h>
   #include <ws2tcpip.h>
+
+  #pragma comment(lib, "Ws2_32.lib")
 #else
   #include <arpa/inet.h>
 #endif
@@ -57,13 +60,13 @@ IPAddress::IPAddress(const SOCKET_ADDRESS& address) {
   switch (family) {
     case AF_INET: {
       const auto& sin =
-          reinterpret_cast<const sockaddr_in&>(address.lpSockaddr);
+          reinterpret_cast<const sockaddr_in&>(*address.lpSockaddr);
       initIPv4(sin.sin_addr);
       break;
     }
     case AF_INET6: {
       const auto& sin6 =
-          reinterpret_cast<const sockaddr_in6&>(address.lpSockaddr);
+          reinterpret_cast<const sockaddr_in6&>(*address.lpSockaddr);
       initIPv6(sin6.sin6_addr, sin6.sin6_scope_id);
       break;
     }
@@ -155,13 +158,18 @@ std::string IPAddress::toString() const {
       const auto& sin = reinterpret_cast<const sockaddr_in&>(address);
       char buffer[INET_ADDRSTRLEN];
       inet_ntop(AF_INET, &sin.sin_addr, buffer, INET_ADDRSTRLEN);
-      return std::string(buffer);
+      const auto addressString = std::string(buffer);
+      return addressString;
     }
     case AddressFamily::IPv6: {
       const auto& sin6 = reinterpret_cast<const sockaddr_in6&>(address);
       char buffer[INET6_ADDRSTRLEN];
       inet_ntop(AF_INET6, &sin6.sin6_addr, buffer, INET6_ADDRSTRLEN);
-      return std::string(buffer);
+      auto addressString = std::string(buffer);
+      if (scope() > 0) {
+        addressString.append("%").append(std::to_string(scope()));
+      }
+      return addressString;
     }
     default:
       KDIS::UTIL::unreachable();

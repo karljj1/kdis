@@ -3,7 +3,9 @@
 
 #if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
     defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
-  #include "windef.h"
+  #define WIN32_LEAN_AND_MEAN
+  #include <windows.h>
+  #undef WIN32_LEAN_AND_MEAN
 #endif
 
 #include "KDIS/KDefines.hpp"

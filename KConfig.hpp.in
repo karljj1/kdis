@@ -31,7 +31,7 @@
 /**
  * @brief Default receive address.
  */
-#define KDIS_CONNECTION_DEFAULT_RECV_ADDRESS "127.0.0.1"
+#define KDIS_CONNECTION_DEFAULT_RECV_ADDRESS "0.0.0.0"
 
 /**
  * @brief Default receive port.

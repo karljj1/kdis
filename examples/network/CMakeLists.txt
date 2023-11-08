@@ -1,3 +1,4 @@
 add_subdirectory(connection_address_filter)
+add_subdirectory(connection_builder)
 add_subdirectory(ip_address)
 add_subdirectory(net_interface)

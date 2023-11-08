@@ -171,7 +171,10 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
   OSVERSIONINFO osvi;
   ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+  #pragma warning(push)
+  #pragma warning(disable : 4996)
   GetVersionEx(&osvi);
+  #pragma warning(pop)
 
   std::map<std::size_t, NetInterface> map;
   DWORD status = 0;
@@ -195,7 +198,7 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
         GAA_FLAG_SKIP_ANYCAST | GAA_FLAG_SKIP_MULTICAST |
             GAA_FLAG_SKIP_DNS_SERVER | GAA_FLAG_INCLUDE_PREFIX |
             GAA_FLAG_INCLUDE_ALL_INTERFACES,
-        0, netInterfaces, &bufferLength);
+        nullptr, netInterfaces, &bufferLength);
 
     // Check
     switch (status) {
@@ -227,6 +230,10 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
   // Iterate
   for (PIP_ADAPTER_ADDRESSES netInterface = netInterfaces;
        netInterface != nullptr; netInterface = netInterface->Next) {
+    if (netInterface->FirstUnicastAddress == nullptr) {
+      continue;
+    }
+
     std::size_t index = 0;
 
   #if defined(_WIN32_WCE)
@@ -271,15 +278,17 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
       continue;
     }
 
-    const bool ip = (netInterface->FirstUnicastAddress != 0);
-    const bool up = (netInterface->OperStatus == IfOperStatusUp);
+    const bool up = netInterface->OperStatus == IfOperStatusUp;
 
-    if (!ip || (upOnly && !up)) {
+    if (upOnly && !up) {
       continue;
     }
 
+  #pragma warning(push)
+  #pragma warning(disable : 4244)
     std::wstring nameWs(netInterface->FriendlyName);
     const std::string name(nameWs.begin(), nameWs.end());
+  #pragma warning(pop)
 
     bool running = false;
   #if (_WIN32_WINNT >= 0x0600)  // Vista and newer
@@ -309,13 +318,13 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
     }
 
     std::vector<IPAddress> addresses;
-    for (PIP_ADAPTER_UNICAST_ADDRESS pAddress =
+    for (PIP_ADAPTER_UNICAST_ADDRESS address =
              netInterface->FirstUnicastAddress;
-         pAddress != nullptr; pAddress = pAddress->Next) {
-      switch (pAddress->Address.lpSockaddr->sa_family) {
+         address != nullptr; address = address->Next) {
+      switch (address->Address.lpSockaddr->sa_family) {
         case AF_INET:
         case AF_INET6: {
-          addresses.emplace_back(pAddress->Address);
+          addresses.emplace_back(address->Address);
           break;
         }
         default: {
@@ -324,12 +333,12 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
         }
       }
     }
+    // Maintain order
+    std::reverse(addresses.begin(), addresses.end());
 
     // Add
-    map.emplace(
-        index, NetInterface(index, name,
-                            const_cast<const std::vector<IPAddress>>(addresses),
-                            up, running, multicast, loopback));
+    map.emplace(index, NetInterface(index, name, addresses, up, running,
+                                    multicast, loopback));
   }
 
   if (netInterfaces != nullptr) {
@@ -355,7 +364,9 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
   // Iterate
   for (ifaddrs *netInterface = netInterfaces; netInterface != nullptr;
        netInterface = netInterface->ifa_next) {
-    if (netInterface->ifa_addr == nullptr) continue;
+    if (netInterface->ifa_addr == nullptr) {
+      continue;
+    }
 
     switch (netInterface->ifa_addr->sa_family) {
       case AF_INET:
@@ -380,9 +391,10 @@ std::map<std::size_t, NetInterface> NetInterface::map(const bool upOnly) {
           map.emplace(index, NetInterface(index, name, addresses, up, running,
                                           multicast, loopback));
         } else {
-          // Non first insertion, maintain order
+          // Non first insertion
           addresses.insert(addresses.end(), it->second.addresses().rbegin(),
                            it->second.addresses().rend());
+          // Maintain order
           std::reverse(addresses.begin(), addresses.end());
           it->second = NetInterface(index, name, addresses, up, running,
                                     multicast, loopback);

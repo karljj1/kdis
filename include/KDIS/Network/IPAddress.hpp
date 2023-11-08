@@ -23,7 +23,7 @@ class KDIS_EXPORT IPAddress {
  public:
   IPAddress() = delete;
 
-  IPAddress(const std::string &address, const std::uint32_t scope = 0);
+  explicit IPAddress(const std::string &address, const std::uint32_t scope = 0);
 
   explicit IPAddress(const sockaddr &address);
 

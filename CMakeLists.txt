@@ -86,8 +86,14 @@ set(KDIS_SOURCES ${KDIS_SOURCES_DIR}/KDataStream.cpp)
 set(KDIS_UTIL_HEADERS_DIR ${KDIS_HEADERS_DIR}/util)
 set(KDIS_UTIL_SOURCES_DIR ${KDIS_SOURCES_DIR}/util)
 
-list(APPEND KDIS_HEADERS ${KDIS_UTIL_HEADERS_DIR}/Endian.hpp ${KDIS_UTIL_HEADERS_DIR}/Error.hpp
-     ${KDIS_UTIL_HEADERS_DIR}/format.hpp ${KDIS_UTIL_HEADERS_DIR}/unreachable.hpp
+list(
+  APPEND
+  KDIS_HEADERS
+  ${KDIS_UTIL_HEADERS_DIR}/Endian.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/Error.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/format.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/optional.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/unreachable.hpp
 )
 list(APPEND KDIS_SOURCES ${KDIS_UTIL_SOURCES_DIR}/Endian.cpp ${KDIS_UTIL_SOURCES_DIR}/Error.cpp)
 
@@ -898,13 +904,19 @@ list(
   ${KDIS_NETWORK_HEADERS_DIR}/AddressFamily.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/Connection.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/ConnectionAddressFilter.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/ConnectionBuilder.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/ConnectionSubscriber.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/IPAddress.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/NetInterface.hpp
 )
-list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
-     ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
-     ${KDIS_NETWORK_SOURCES_DIR}/IPAddress.cpp ${KDIS_NETWORK_SOURCES_DIR}/NetInterface.cpp
+list(
+  APPEND
+  KDIS_SOURCES
+  ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/ConnectionBuilder.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/IPAddress.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/NetInterface.cpp
 )
 
 #

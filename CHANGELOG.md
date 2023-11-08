@@ -16,10 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - IPaddress example, named `ip_address`, demonstrating how to use `KDIS::NETWORK::IPAddress` class
 - `KDIS::NETWORK::NetInterface` class for network interface
 - Network interface example, named `net_interface`, demonstrating how to use `KDIS::NETWORK::NetInterface` class
+- `KDIS::NETWORK::ConnectionBuilder` class for building `KDIS::NET::Connection`
+- Connection builder example, named `connection_builder`, demonstrating how to use `KDIS::NETWORK::ConnectionBuilder` class
 - `KDIS::UTIL::Endian` class for endian (`BIG` and `LITTLE`)
 - `KDIS::UTIL::Error` class for (system) error
 - `KDIS::UTIL::format` function to simulate [`std::format`](https://en.cppreference.com/w/cpp/utility/format/format) (_C++20_): _Format arguments according to the format string, and return the result as a string_
 - `KDIS::UTIL::unreachable` function to simulate [`std::unreachable`](https://en.cppreference.com/w/cpp/utility/unreachable) (_C++23_): _Invokes undefined behavior. An implementation may use this to optimize impossible code branches away (typically, in optimized builds) or to trap them to prevent further execution (typically, in debug builds)_
+- `KDIS::UTIL::optional` class, based on [`tl::optional`](https://github.com/TartanLlama/optional), to simulate [`std::optional`](https://en.cppreference.com/w/cpp/utility/optional) (_C++17_): _Class template std::optional manages an optional contained value, i.e. a value that may or may not be present_
 - `CMake` option `KDIS_BUILD_DOCS` (default `FALSE`) to specify whether or not to build documentation
 
 ### Changed
