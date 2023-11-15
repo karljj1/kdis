@@ -79,13 +79,27 @@ jobs:
             - name: Install Doxygen
               uses: ssciwr/doxygen-install@v1
 
+            - name: Install LCOV
+              uses: hrishikesh-kadam/setup-lcov@v1
+
             - name: Configure CMake
-              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=${{ matrix.enum }} -DBUILD_SHARED_LIBS:BOOL=FALSE -DKDIS_BUILD_DOCS:BOOL=TRUE -DKDIS_BUILD_EXAMPLES:BOOL=TRUE -DKDIS_BUILD_TESTS:BOOL=TRUE
+              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=${{ matrix.enum }} -DBUILD_SHARED_LIBS:BOOL=FALSE -DKDIS_BUILD_DOCS:BOOL=TRUE -DKDIS_BUILD_EXAMPLES:BOOL=TRUE -DKDIS_BUILD_TESTS:BOOL=TRUE -DKDIS_BUILD_TESTS_COVERAGE:BOOL=TRUE
 
             - name: Build
               run: cmake --build ./build --config ${{ matrix.build }}
 
+            - name: Docs
+              run: cmake --build ./build --config ${{ matrix.build }} --target kdis_docs
+
             - name: Test
               run: ctest --verbose --test-dir ./build/tests --build-config ${{ matrix.build }}
 
-            # TODO(carlocorradini) Code coverage
+            - name: Coverage
+              if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug'
+              run: cmake --build ./build --config ${{ matrix.build }} --target kdis_coverage
+
+            - name: Upload coverage
+              if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug'
+              uses: codecov/codecov-action@v3
+              with:
+                  files: ./build/kdis_coverage.info

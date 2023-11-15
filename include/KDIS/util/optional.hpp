@@ -2108,7 +2108,7 @@ class optional<T &> {
 
   /// Returns the stored value if there is one, otherwise returns `u`
   template <class U>
-  constexpr T value_or(U &&u) const & noexcept {
+  constexpr T value_or(U &&u) const &noexcept {
     static_assert(std::is_copy_constructible<T>::value &&
                       std::is_convertible<U &&, T>::value,
                   "T must be copy constructible and convertible from U");
@@ -2117,7 +2117,7 @@ class optional<T &> {
 
   /// \group value_or
   template <class U>
-  KDIS_UTIL_OPTIONAL_11_CONSTEXPR T value_or(U &&u) && noexcept {
+  KDIS_UTIL_OPTIONAL_11_CONSTEXPR T value_or(U &&u) &&noexcept {
     static_assert(std::is_move_constructible<T>::value &&
                       std::is_convertible<U &&, T>::value,
                   "T must be move constructible and convertible from U");
