@@ -80,7 +80,14 @@ jobs:
               uses: ssciwr/doxygen-install@v1
 
             - name: Install LCOV
+              if: matrix.os != 'windows-latest'
               uses: hrishikesh-kadam/setup-lcov@v1
+
+            - name: Install OpenCppCoverage
+              if: matrix.os == 'windows-latest'
+              run: |
+                  choco install OpenCppCoverage -y
+                  echo "C:\Program Files\OpenCppCoverage" >> $env:GITHUB_PATH
 
             - name: Configure CMake
               run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=${{ matrix.enum }} -DBUILD_SHARED_LIBS:BOOL=FALSE -DKDIS_BUILD_DOCS:BOOL=TRUE -DKDIS_BUILD_EXAMPLES:BOOL=TRUE -DKDIS_BUILD_TESTS:BOOL=TRUE -DKDIS_BUILD_TESTS_COVERAGE:BOOL=TRUE
@@ -98,8 +105,20 @@ jobs:
               if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug' && matrix.dis == 7 && matrix.enum == 'TRUE'
               run: cmake --build ./build --config ${{ matrix.build }} --target KDIS_coverage
 
+            - name: Coverage
+              if: matrix.os == 'windows-latest' && matrix.build == 'Debug' && matrix.dis == 7 && matrix.enum == 'TRUE'
+              run: OpenCppCoverage --quiet --export_type cobertura:KDIS_coverage.xml --cover_children --sources "$pwd\include" --sources "$pwd\src" -- ctest --verbose --test-dir ./build/tests --build-config ${{ matrix.build }}
+
             - name: Upload coverage
+              # TODO(carlocorradini) Add macos-latest
               if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug' && matrix.dis == 7 && matrix.enum == 'TRUE'
               uses: codecov/codecov-action@v3
               with:
                   files: ./build/KDIS_coverage.info
+
+            - name: Upload coverage
+              if: matrix.os == 'windows-latest' && matrix.build == 'Debug' && matrix.dis == 7 && matrix.enum == 'TRUE'
+              uses: codecov/codecov-action@v3
+              with:
+                  files: ./KDIS_coverage.xml
+                  functionalities: fix
