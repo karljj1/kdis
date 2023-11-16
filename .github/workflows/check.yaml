@@ -89,17 +89,17 @@ jobs:
               run: cmake --build ./build --config ${{ matrix.build }}
 
             - name: Docs
-              run: cmake --build ./build --config ${{ matrix.build }} --target kdis_docs
+              run: cmake --build ./build --config ${{ matrix.build }} --target KDIS_docs
 
             - name: Test
               run: ctest --verbose --test-dir ./build/tests --build-config ${{ matrix.build }}
 
             - name: Coverage
               if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug'
-              run: cmake --build ./build --config ${{ matrix.build }} --target kdis_coverage
+              run: cmake --build ./build --config ${{ matrix.build }} --target KDIS_coverage
 
             - name: Upload coverage
               if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug'
               uses: codecov/codecov-action@v3
               with:
-                  files: ./build/kdis_coverage.info
+                  files: ./build/KDIS_coverage.info

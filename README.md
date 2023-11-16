@@ -83,7 +83,7 @@ More information can be found in [`docs/README.md`](./docs/README.md)
 ```sh
 cmake \
     --build ./build \
-    --target kdis_docs
+    --target KDIS_docs
 ```
 
 ## Examples
@@ -121,7 +121,7 @@ File `index.html` available under [`build/kdis_coverage`](./build/kdis_coverage)
 cmake \
     --build ./build \
     --config Debug \
-    --target kdis_coverage
+    --target KDIS_coverage
 ```
 
 ## Scripts
