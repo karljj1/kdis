@@ -99,7 +99,7 @@ jobs:
               run: cmake --build ./build --config ${{ matrix.build }} --target KDIS_coverage
 
             - name: Upload coverage
-              if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug'
+              if: matrix.os == 'ubuntu-latest' && matrix.build == 'Debug' && matrix.dis == 7 && matrix.enum == 'TRUE'
               uses: codecov/codecov-action@v3
               with:
                   files: ./build/KDIS_coverage.info
