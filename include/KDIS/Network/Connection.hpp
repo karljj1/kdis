@@ -62,6 +62,9 @@ namespace KDIS {
 namespace NETWORK {
 
 class KDIS_EXPORT Connection {
+ public:
+  friend class ConnectionBuilder;
+
  protected:
   KINT32 m_iSocket[2];  // 1 for sending & 1 for receiving.
 

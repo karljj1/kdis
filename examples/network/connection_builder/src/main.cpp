@@ -13,6 +13,7 @@ int main() {
                 KDIS::NETWORK::IPAddress("127.0.0.1")))
             .setRecvAddress(KDIS::NETWORK::IPAddress("0.0.0.0"))
             .setRecvPort(6000)
+            .setRecvTimeout({.tv_sec = 10, .tv_usec = 500000})
             .setSendInterface(KDIS::NETWORK::NetInterface::forAddress(
                 KDIS::NETWORK::IPAddress("127.0.0.1")))
             .setSendAddress(KDIS::NETWORK::IPAddress("127.0.0.1"))
@@ -74,11 +75,24 @@ static void print(const KDIS::NETWORK::ConnectionBuilder &builder) {
     std::cout << "\tPORT:" << std::endl;
     std::cout << "\t\t" << port << std::endl;
   };
+  const auto &printTimeout =
+      [](const KDIS::UTIL::optional<struct timeval> &timeout) {
+        if (!timeout.has_value()) return;
+        std::cout << "\tTIMEOUT:" << std::endl;
+        std::cout << "\t\tSECONDS: " << timeout->tv_sec << std::endl;
+        std::cout << "\t\tMICROSECONDS: " << timeout->tv_usec << std::endl;
+      };
+  const auto &printFactory = [](const KDIS::UTILS::PDU_Factory &factory) {
+    std::cout << "\tFACTORY:" << std::endl;
+    std::cout << "\t\t" << &factory << std::endl;
+  };
 
   std::cout << "RECV:" << std::endl;
   printNetInterface(builder.getRecvInterface());
   printAddress(builder.getRecvAddress());
   printPort(builder.getRecvPort());
+  printTimeout(builder.getRecvTimeout());
+  printFactory(builder.getRecvFactory());
   std::cout << "SEND:" << std::endl;
   printNetInterface(builder.getSendInterface());
   printAddress(builder.getSendAddress());

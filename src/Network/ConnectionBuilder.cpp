@@ -9,6 +9,8 @@ ConnectionBuilder::ConnectionBuilder()
     : recvInterface(KDIS::UTIL::nullopt),
       recvAddress(IPAddress(KDIS_CONNECTION_DEFAULT_RECV_ADDRESS)),
       recvPort(KDIS_CONNECTION_DEFAULT_RECV_PORT),
+      recvTimeout(KDIS::UTIL::nullopt),
+      recvFactory(),
       sendInterface(KDIS::UTIL::nullopt),
       sendAddress(IPAddress(KDIS_CONNECTION_DEFAULT_SEND_ADDRESS)),
       sendPort(KDIS_CONNECTION_DEFAULT_SEND_PORT) {}
@@ -40,6 +42,27 @@ ConnectionBuilder& ConnectionBuilder::setRecvPort(const std::uint16_t port) {
   return *this;
 }
 
+const KDIS::UTIL::optional<struct timeval>& ConnectionBuilder::getRecvTimeout()
+    const {
+  return recvTimeout;
+}
+
+ConnectionBuilder& ConnectionBuilder::setRecvTimeout(
+    const struct timeval& timeout) {
+  this->recvTimeout = timeout;
+  return *this;
+}
+
+const KDIS::UTILS::PDU_Factory& ConnectionBuilder::getRecvFactory() const {
+  return recvFactory;
+}
+
+ConnectionBuilder& ConnectionBuilder::setRecvFactory(
+    const KDIS::UTILS::PDU_Factory& factory) {
+  this->recvFactory = factory;
+  return *this;
+}
+
 const KDIS::UTIL::optional<NetInterface>& ConnectionBuilder::getSendInterface()
     const {
   return sendInterface;
@@ -65,6 +88,23 @@ std::uint16_t ConnectionBuilder::getSendPort() const { return sendPort; }
 ConnectionBuilder& ConnectionBuilder::setSendPort(const std::uint16_t port) {
   this->sendPort = port;
   return *this;
+}
+
+Connection ConnectionBuilder::build() {
+  auto connection = Connection(
+      recvAddress.toString(), recvPort, recvAddress.isMulticast(),
+      recvTimeout.has_value() &&
+          (recvTimeout->tv_sec > 0 || recvTimeout->tv_usec > 0),
+      &recvFactory, false, false,
+      recvInterface.map_or(
+          [](NetInterface netInterface) {
+            return netInterface.firstAddress(AddressFamily::IPv4).toString();
+          },
+          std::string("")));
+  if (recvTimeout.has_value()) {
+    connection.SetBlockingTimeOut(recvTimeout->tv_sec, recvTimeout->tv_usec);
+  }
+  return connection;
 }
 
 }  // namespace NETWORK

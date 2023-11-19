@@ -3,7 +3,9 @@
 
 #include <memory>
 
+#include "KDIS/Extras/PDU_Factory.hpp"
 #include "KDIS/KDefines.hpp"
+#include "KDIS/Network/Connection.hpp"
 #include "KDIS/Network/IPAddress.hpp"
 #include "KDIS/Network/NetInterface.hpp"
 #include "KDIS/util/optional.hpp"
@@ -27,6 +29,14 @@ class KDIS_EXPORT ConnectionBuilder {
 
   ConnectionBuilder& setRecvPort(const std::uint16_t port);
 
+  const KDIS::UTIL::optional<struct timeval>& getRecvTimeout() const;
+
+  ConnectionBuilder& setRecvTimeout(const struct timeval& timeout);
+
+  const KDIS::UTILS::PDU_Factory& getRecvFactory() const;
+
+  ConnectionBuilder& setRecvFactory(const KDIS::UTILS::PDU_Factory& factory);
+
   const KDIS::UTIL::optional<NetInterface>& getSendInterface() const;
 
   ConnectionBuilder& setSendInterface(const NetInterface& netInterface);
@@ -39,10 +49,14 @@ class KDIS_EXPORT ConnectionBuilder {
 
   ConnectionBuilder& setSendPort(const std::uint16_t port);
 
+  Connection build();
+
  private:
   KDIS::UTIL::optional<NetInterface> recvInterface;
   IPAddress recvAddress;
   std::uint16_t recvPort;
+  KDIS::UTIL::optional<struct timeval> recvTimeout;
+  KDIS::UTILS::PDU_Factory recvFactory;
 
   KDIS::UTIL::optional<NetInterface> sendInterface;
   IPAddress sendAddress;
