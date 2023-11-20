@@ -36,14 +36,14 @@ See [CONTRIBUTING](./CONTRIBUTING.md) guidelines
 | `KDIS_BUILD_DOCS`           | Build documentation                                                                                                                                  | `BOOL`   | `FALSE`     | [`Doxygen`](https://www.doxygen.nl) is required                                                                       |
 | `KDIS_BUILD_EXAMPLES`       | Build examples                                                                                                                                       | `BOOL`   | `FALSE`     |
 | `KDIS_BUILD_TESTS`          | Build tests                                                                                                                                          | `BOOL`   | `FALSE`     | `CMake` version `>= 3.24`                                                                                             |
-| `KDIS_BUILD_TESTS_COVERAGE` | Build tests coverage                                                                                                                                 | `BOOL`   | `FALSE`     | Build option `ERKIR_BUILD_TESTS` must be `TRUE`. [`LCOV`](https://github.com/linux-test-project/lcov) is required     |
+| `KDIS_BUILD_TESTS_COVERAGE` | Build tests coverage                                                                                                                                 | `BOOL`   | `FALSE`     | Build option `KDIS_BUILD_TESTS` must be `TRUE`. [`LCOV`](https://github.com/linux-test-project/lcov) is required      |
 | `BUILD_SHARED_LIBS`         | Build shared library                                                                                                                                 | `BOOL`   | `TRUE`      | See [`CMake` documentation](https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html) for more information |
 
 ### Build
 
 1. Generate project
 
-    > [!NOTE]
+    > [!TIP]
     > Change build options' values as needed
 
     ```sh
