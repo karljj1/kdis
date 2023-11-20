@@ -62,9 +62,6 @@ namespace KDIS {
 namespace NETWORK {
 
 class KDIS_EXPORT Connection {
- public:
-  friend class ConnectionBuilder;
-
  protected:
   KINT32 m_iSocket[2];  // 1 for sending & 1 for receiving.
 
@@ -133,14 +130,14 @@ class KDIS_EXPORT Connection {
   // Description: Copy constructor for the Connection class.
   // Parameter:   const Connection& other
   //************************************
-  Connection(const Connection& other);
+  Connection(const Connection& other) = delete;
 
   //************************************
   // FullName:    KDIS::NETWORK::Connection::Connection copy assignment operator
   // Description: Copy assignment operator for the Connection class.
   // Parameter:   const Connection& other
   //************************************
-  Connection& operator=(const Connection& other);
+  Connection& operator=(const Connection& other) = delete;
 
  public:
   //************************************

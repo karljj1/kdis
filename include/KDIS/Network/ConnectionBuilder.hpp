@@ -17,6 +17,10 @@ class KDIS_EXPORT ConnectionBuilder {
  public:
   ConnectionBuilder();
 
+  bool getRecv() const;
+
+  ConnectionBuilder& setRecv(const bool recv);
+
   const KDIS::UTIL::optional<NetInterface>& getRecvInterface() const;
 
   ConnectionBuilder& setRecvInterface(const NetInterface& netInterface);
@@ -37,6 +41,10 @@ class KDIS_EXPORT ConnectionBuilder {
 
   ConnectionBuilder& setRecvFactory(const KDIS::UTILS::PDU_Factory& factory);
 
+  bool getSend() const;
+
+  ConnectionBuilder& setSend(const bool send);
+
   const KDIS::UTIL::optional<NetInterface>& getSendInterface() const;
 
   ConnectionBuilder& setSendInterface(const NetInterface& netInterface);
@@ -49,15 +57,17 @@ class KDIS_EXPORT ConnectionBuilder {
 
   ConnectionBuilder& setSendPort(const std::uint16_t port);
 
-  Connection build();
+  std::unique_ptr<Connection> build();
 
  private:
+  bool recv;
   KDIS::UTIL::optional<NetInterface> recvInterface;
   IPAddress recvAddress;
   std::uint16_t recvPort;
   KDIS::UTIL::optional<struct timeval> recvTimeout;
   KDIS::UTILS::PDU_Factory recvFactory;
 
+  bool send;
   KDIS::UTIL::optional<NetInterface> sendInterface;
   IPAddress sendAddress;
   std::uint16_t sendPort;

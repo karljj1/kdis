@@ -8,21 +8,31 @@ int main() {
   print(KDIS::NETWORK::ConnectionBuilder());
 
   std::cout << "-------------------- CUSTOM --------------------" << std::endl;
-  print(KDIS::NETWORK::ConnectionBuilder()
-            .setRecvInterface(KDIS::NETWORK::NetInterface::forAddress(
-                KDIS::NETWORK::IPAddress("127.0.0.1")))
-            .setRecvAddress(KDIS::NETWORK::IPAddress("0.0.0.0"))
-            .setRecvPort(6000)
-            .setRecvTimeout({.tv_sec = 10, .tv_usec = 500000})
-            .setSendInterface(KDIS::NETWORK::NetInterface::forAddress(
-                KDIS::NETWORK::IPAddress("127.0.0.1")))
-            .setSendAddress(KDIS::NETWORK::IPAddress("127.0.0.1"))
-            .setSendPort(9000));
+  auto builder = KDIS::NETWORK::ConnectionBuilder()
+                     .setRecv(true)
+                     .setRecvInterface(KDIS::NETWORK::NetInterface::forAddress(
+                         KDIS::NETWORK::IPAddress("127.0.0.1")))
+                     .setRecvAddress(KDIS::NETWORK::IPAddress("0.0.0.0"))
+                     .setRecvPort(6000)
+                     .setRecvTimeout({10, 500000})
+                     .setSend(true)
+                     .setSendInterface(KDIS::NETWORK::NetInterface::forAddress(
+                         KDIS::NETWORK::IPAddress("127.0.0.1")))
+                     .setSendAddress(KDIS::NETWORK::IPAddress("127.0.0.1"))
+                     .setSendPort(9000);
+  print(builder);
+
+  std::cout << "-------------------- BUILD --------------------" << std::endl;
+  const auto connection = builder.build();
+  // TODO(carlocorradini)
 
   return EXIT_SUCCESS;
 }
 
 static void print(const KDIS::NETWORK::ConnectionBuilder &builder) {
+  const auto &printEnabled = [](const bool enabled) {
+    std::cout << std::boolalpha << "\tENABLED: " << enabled << std::endl;
+  };
   const auto &printNetInterface =
       [](const KDIS::UTIL::optional<KDIS::NETWORK::NetInterface>
              &netInterface) {
@@ -88,12 +98,14 @@ static void print(const KDIS::NETWORK::ConnectionBuilder &builder) {
   };
 
   std::cout << "RECV:" << std::endl;
+  printEnabled(builder.getRecv());
   printNetInterface(builder.getRecvInterface());
   printAddress(builder.getRecvAddress());
   printPort(builder.getRecvPort());
   printTimeout(builder.getRecvTimeout());
   printFactory(builder.getRecvFactory());
   std::cout << "SEND:" << std::endl;
+  printEnabled(builder.getSend());
   printNetInterface(builder.getSendInterface());
   printAddress(builder.getSendAddress());
   printPort(builder.getSendPort());

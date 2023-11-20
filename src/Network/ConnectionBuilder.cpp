@@ -15,6 +15,13 @@ ConnectionBuilder::ConnectionBuilder()
       sendAddress(IPAddress(KDIS_CONNECTION_DEFAULT_SEND_ADDRESS)),
       sendPort(KDIS_CONNECTION_DEFAULT_SEND_PORT) {}
 
+bool ConnectionBuilder::getRecv() const { return recv; }
+
+ConnectionBuilder& ConnectionBuilder::setRecv(const bool recv) {
+  this->recv = recv;
+  return *this;
+}
+
 const KDIS::UTIL::optional<NetInterface>& ConnectionBuilder::getRecvInterface()
     const {
   return recvInterface;
@@ -63,6 +70,13 @@ ConnectionBuilder& ConnectionBuilder::setRecvFactory(
   return *this;
 }
 
+bool ConnectionBuilder::getSend() const { return send; }
+
+ConnectionBuilder& ConnectionBuilder::setSend(const bool send) {
+  this->send = send;
+  return *this;
+}
+
 const KDIS::UTIL::optional<NetInterface>& ConnectionBuilder::getSendInterface()
     const {
   return sendInterface;
@@ -90,8 +104,9 @@ ConnectionBuilder& ConnectionBuilder::setSendPort(const std::uint16_t port) {
   return *this;
 }
 
-Connection ConnectionBuilder::build() {
-  auto connection = Connection(
+std::unique_ptr<Connection> ConnectionBuilder::build() {
+  // FIXME(carlocorradini)
+  auto connection = std::unique_ptr<Connection>(new Connection(
       recvAddress.toString(), recvPort, recvAddress.isMulticast(),
       recvTimeout.has_value() &&
           (recvTimeout->tv_sec > 0 || recvTimeout->tv_usec > 0),
@@ -100,11 +115,12 @@ Connection ConnectionBuilder::build() {
           [](NetInterface netInterface) {
             return netInterface.firstAddress(AddressFamily::IPv4).toString();
           },
-          std::string("")));
+          std::string(""))));
   if (recvTimeout.has_value()) {
-    connection.SetBlockingTimeOut(recvTimeout->tv_sec, recvTimeout->tv_usec);
+    connection->SetBlockingTimeOut(recvTimeout->tv_sec, recvTimeout->tv_usec);
   }
-  return connection;
+
+  return std::move(connection);
 }
 
 }  // namespace NETWORK
