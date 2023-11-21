@@ -6,11 +6,13 @@ namespace KDIS {
 namespace NETWORK {
 
 ConnectionBuilder::ConnectionBuilder()
-    : recvInterface(KDIS::UTIL::nullopt),
+    : recv(true),
+      recvInterface(KDIS::UTIL::nullopt),
       recvAddress(IPAddress(KDIS_CONNECTION_DEFAULT_RECV_ADDRESS)),
       recvPort(KDIS_CONNECTION_DEFAULT_RECV_PORT),
       recvTimeout(KDIS::UTIL::nullopt),
       recvFactory(),
+      send(true),
       sendInterface(KDIS::UTIL::nullopt),
       sendAddress(IPAddress(KDIS_CONNECTION_DEFAULT_SEND_ADDRESS)),
       sendPort(KDIS_CONNECTION_DEFAULT_SEND_PORT) {}

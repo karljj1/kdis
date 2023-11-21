@@ -159,5 +159,5 @@ typedef ::testing::Types<
     KDIS::PDU::Warfare_Header>
     PduTestTypes;
 
-TYPED_TEST_CASE(CloneTest, PduTestTypes);
+TYPED_TEST_SUITE(CloneTest, PduTestTypes);
 TYPED_TEST(CloneTest, PDUClone) { this->Test(); }
