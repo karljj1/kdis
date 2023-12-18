@@ -34,7 +34,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Initialize CodeQL
-              uses: github/codeql-action/init@v2
+              uses: github/codeql-action/init@v3
               with:
                   languages: ${{ matrix.language }}
                   config: |
@@ -46,4 +46,4 @@ jobs:
 
             - name: Perform CodeQL Analysis
               continue-on-error: true # FIXME(carlocorradini) Remove
-              uses: github/codeql-action/analyze@v2
+              uses: github/codeql-action/analyze@v3
