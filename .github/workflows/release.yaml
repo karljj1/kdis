@@ -27,11 +27,9 @@ jobs:
 
             - name: Determine if version is prerelease
               id: prerelease
-              env:
-                  KDIS_REF_NAME: ${{ github.ref_name }}
               run: |
                   _prerelease=
-                  if printf "%s\n" "$KDIS_REF_NAME" | grep -q -P '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$'; then
+                  if printf "%s\n" "${{ github.event.workflow_run.head_branch }}" | grep -q -P '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$'; then
                     _prerelease=false
                   else
                     _prerelease=true

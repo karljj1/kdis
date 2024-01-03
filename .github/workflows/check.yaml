@@ -26,10 +26,8 @@ jobs:
                   fetch-depth: 0
 
             - name: Check Git tag format
-              env:
-                  KDIS_REF_NAME: ${{ github.ref_name }}
               run: |
-                  _tag="$KDIS_REF_NAME"
+                  _tag="${{ github.ref_name }}"
                   if ! printf "%s\n" "$_tag" | grep -q -P '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-(alpha|beta|rc)\.(0|[1-9][0-9]*))?$'; then
                     printf '[ERROR]: Git tag (%s) wrong format\n' "$_tag"
                     exit 1
@@ -82,20 +80,12 @@ jobs:
               uses: ssciwr/doxygen-install@v1
 
             - name: Configure CMake
-              env:
-                  KDIS_BUILD_TYPE: ${{ matrix.build }}
-                  KDIS_DIS_VERSION: ${{ matrix.dis }}
-                  KDIS_USE_ENUM_DESCRIPTORS: ${{ matrix.enum }}
-              run: cmake -S . -B ./build "-DCMAKE_BUILD_TYPE:STRING=$KDIS_BUILD_TYPE" "-DDIS_VERSION:STRING=$KDIS_DIS_VERSION" "-DKDIS_USE_ENUM_DESCRIPTORS:BOOL=$KDIS_USE_ENUM_DESCRIPTORS" -DBUILD_SHARED_LIBS:BOOL=FALSE -DKDIS_BUILD_DOCS:BOOL=TRUE -DKDIS_BUILD_EXAMPLES:BOOL=TRUE -DKDIS_BUILD_TESTS:BOOL=TRUE
+              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=${{ matrix.enum }} -DBUILD_SHARED_LIBS:BOOL=FALSE -DKDIS_BUILD_DOCS:BOOL=TRUE -DKDIS_BUILD_EXAMPLES:BOOL=TRUE -DKDIS_BUILD_TESTS:BOOL=TRUE
 
             - name: Build
-              env:
-                  KDIS_BUILD_TYPE: ${{ matrix.build }}
-              run: cmake --build ./build --config "$KDIS_BUILD_TYPE"
+              run: cmake --build ./build --config ${{ matrix.build }}
 
             - name: Test
-              env:
-                  KDIS_BUILD_TYPE: ${{ matrix.build }}
-              run: ctest --verbose --test-dir ./build/tests --build-config "$KDIS_BUILD_TYPE"
+              run: ctest --verbose --test-dir ./build/tests --build-config ${{ matrix.build }}
 
             # TODO(carlocorradini) Code coverage
