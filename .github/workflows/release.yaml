@@ -10,25 +10,28 @@ on:
             - master
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
+    group: ${{ github.workflow }}
     cancel-in-progress: true
 
 jobs:
     release:
-        name: Release package on NPM
+        name: Release
         runs-on: ubuntu-latest
-        if: github.event.workflow_run.conclusion == 'success' && startsWith(github.ref_name, 'v')
+        if: github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_branch, 'refs/tags/v')
         steps:
             - name: Checkout
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
+                  ref: ${{ github.event.workflow_run.head_branch }}
 
             - name: Determine if version is prerelease
               id: prerelease
+              env:
+                  KDIS_REF_NAME: ${{ github.ref_name }}
               run: |
                   _prerelease=
-                  if printf "%s\n" "${{ github.ref_name }}" | grep -q -P '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$'; then
+                  if printf "%s\n" "$KDIS_REF_NAME" | grep -q -P '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$'; then
                     _prerelease=false
                   else
                     _prerelease=true
