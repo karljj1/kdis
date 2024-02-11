@@ -936,7 +936,7 @@ list(
   ${KDIS_NETWORK_HEADERS_DIR}/AddressFamily.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/Connection.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/ConnectionAddressFilter.hpp
-  ${KDIS_NETWORK_HEADERS_DIR}/ConnectionBuilder.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/ConnectionOptions.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/ConnectionSubscriber.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/IPAddress.hpp
   ${KDIS_NETWORK_HEADERS_DIR}/NetInterface.hpp
@@ -946,7 +946,7 @@ list(
   KDIS_SOURCES
   ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
   ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
-  ${KDIS_NETWORK_SOURCES_DIR}/ConnectionBuilder.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/ConnectionOptions.cpp
   ${KDIS_NETWORK_SOURCES_DIR}/IPAddress.cpp
   ${KDIS_NETWORK_SOURCES_DIR}/NetInterface.cpp
 )

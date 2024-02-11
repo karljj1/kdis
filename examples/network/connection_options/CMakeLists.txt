@@ -10,15 +10,15 @@ set(KDIS_EXAMPLES_NETWORK_CONNECTION_BUILDER_SOURCES
 # Executable
 #
 add_executable(
-  ${PROJECT_NAME}_examples_network_connection_builder
+  ${PROJECT_NAME}_examples_network_connection_options
   ${KDIS_EXAMPLES_NETWORK_CONNECTION_BUILDER_SOURCES}
 )
-target_link_libraries(${PROJECT_NAME}_examples_network_connection_builder PRIVATE KDIS::KDIS)
+target_link_libraries(${PROJECT_NAME}_examples_network_connection_options PRIVATE KDIS::KDIS)
 target_compile_definitions(
-  ${PROJECT_NAME}_examples_network_connection_builder
+  ${PROJECT_NAME}_examples_network_connection_options
   PRIVATE DIS_VERSION=${DIS_VERSION}
           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
-# TODO target_compile_options( ${PROJECT_NAME}_examples_network_connection_builder PRIVATE
+# TODO target_compile_options( ${PROJECT_NAME}_examples_network_connection_options PRIVATE
 # $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic
 # -Werror> )

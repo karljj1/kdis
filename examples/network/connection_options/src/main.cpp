@@ -1,35 +1,33 @@
-#include <KDIS/Network/ConnectionBuilder.hpp>
+#include <KDIS/Network/ConnectionOptions.hpp>
 #include <iostream>
 
-static void print(const KDIS::NETWORK::ConnectionBuilder &builder);
+static void print(const KDIS::NETWORK::ConnectionOptions &options);
 
 int main() {
   std::cout << "-------------------- DEFAULT --------------------" << std::endl;
-  print(KDIS::NETWORK::ConnectionBuilder());
+  print(KDIS::NETWORK::ConnectionOptions());
 
   std::cout << "-------------------- CUSTOM --------------------" << std::endl;
-  auto builder = KDIS::NETWORK::ConnectionBuilder()
-                     .setRecv(true)
-                     .setRecvInterface(KDIS::NETWORK::NetInterface::forAddress(
-                         KDIS::NETWORK::IPAddress("127.0.0.1")))
-                     .setRecvAddress(KDIS::NETWORK::IPAddress("0.0.0.0"))
-                     .setRecvPort(6000)
-                     .setRecvTimeout({10, 500000})
-                     .setSend(true)
-                     .setSendInterface(KDIS::NETWORK::NetInterface::forAddress(
-                         KDIS::NETWORK::IPAddress("127.0.0.1")))
-                     .setSendAddress(KDIS::NETWORK::IPAddress("127.0.0.1"))
-                     .setSendPort(9000);
-  print(builder);
-
-  std::cout << "-------------------- BUILD --------------------" << std::endl;
-  const auto connection = builder.build();
-  // TODO(carlocorradini)
+  KDIS::NETWORK::ConnectionOptions options;
+  options.recv()
+      .setEnabled(true)
+      .setNetInterface(KDIS::NETWORK::NetInterface::forAddress(
+          KDIS::NETWORK::IPAddress("127.0.0.1")))
+      .setAddress(KDIS::NETWORK::IPAddress("0.0.0.0"))
+      .setPort(6000)
+      .setTimeout(timeval{10, 500000});
+  options.send()
+      .setEnabled(true)
+      .setNetInterface(KDIS::NETWORK::NetInterface::forAddress(
+          KDIS::NETWORK::IPAddress("127.0.0.1")))
+      .setAddress(KDIS::NETWORK::IPAddress("127.0.0.1"))
+      .setPort(9000);
+  print(options);
 
   return EXIT_SUCCESS;
 }
 
-static void print(const KDIS::NETWORK::ConnectionBuilder &builder) {
+static void print(const KDIS::NETWORK::ConnectionOptions &options) {
   const auto &printEnabled = [](const bool enabled) {
     std::cout << std::boolalpha << "\tENABLED: " << enabled << std::endl;
   };
@@ -98,15 +96,15 @@ static void print(const KDIS::NETWORK::ConnectionBuilder &builder) {
   };
 
   std::cout << "RECV:" << std::endl;
-  printEnabled(builder.getRecv());
-  printNetInterface(builder.getRecvInterface());
-  printAddress(builder.getRecvAddress());
-  printPort(builder.getRecvPort());
-  printTimeout(builder.getRecvTimeout());
-  printFactory(builder.getRecvFactory());
+  printEnabled(options.recv().enabled());
+  printNetInterface(options.recv().netInterface());
+  printAddress(options.recv().address());
+  printPort(options.recv().port());
+  printTimeout(options.recv().timeout());
+  printFactory(options.recv().factory());
   std::cout << "SEND:" << std::endl;
-  printEnabled(builder.getSend());
-  printNetInterface(builder.getSendInterface());
-  printAddress(builder.getSendAddress());
-  printPort(builder.getSendPort());
+  printEnabled(options.send().enabled());
+  printNetInterface(options.send().netInterface());
+  printAddress(options.send().address());
+  printPort(options.send().port());
 }
