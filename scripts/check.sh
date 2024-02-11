@@ -223,6 +223,7 @@ cmake_format() {
     find "$ROOTDIR" \
         -not -path "$ROOTDIR/build/*" \
         -not -path "$ROOTDIR/cmake/CPM.cmake" \
+        -not -path "$ROOTDIR/cmake/CodeCoverage.cmake" \
         -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' -o -name '*.cmake.in' \) \
         -print0 \
         | xargs -0 -n 1 \
@@ -236,6 +237,7 @@ cmake_lint() {
     find "$ROOTDIR" \
         -not -path "$ROOTDIR/build/*" \
         -not -path "$ROOTDIR/cmake/CPM.cmake" \
+        -not -path "$ROOTDIR/cmake/CodeCoverage.cmake" \
         -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' -o -name '*.cmake.in' \) \
         -print0 \
         | xargs -0 -n 1 \

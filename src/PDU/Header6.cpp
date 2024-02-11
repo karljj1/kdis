@@ -174,7 +174,7 @@ void Header6::Decode(KDataStream& stream, bool ignoreHeader /*= false*/) {
           KDIS::UTIL::format(
               "%s | Received %u bytes. Expected minimum %u bytes\nData: %s\n",
               __FUNCTION__, stream.GetBufferSize(), HEADER6_PDU_SIZE,
-              data.str()));
+              data.str().c_str()));
     }
 
     stream >> m_ui8ProtocolVersion >> m_ui8ExerciseID >> m_ui8PDUType >>

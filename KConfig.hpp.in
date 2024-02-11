@@ -28,4 +28,24 @@
 #define KDIS_VERSION_PATCH (@PROJECT_VERSION_PATCH@)
 // clang-format on
 
+/**
+ * @brief Default receive address.
+ */
+#define KDIS_CONNECTION_DEFAULT_RECV_ADDRESS "0.0.0.0"
+
+/**
+ * @brief Default receive port.
+ */
+#define KDIS_CONNECTION_DEFAULT_RECV_PORT (3000)
+
+/**
+ * @brief Default send address.
+ */
+#define KDIS_CONNECTION_DEFAULT_SEND_ADDRESS "127.0.0.1"
+
+/**
+ * @brief Default send port.
+ */
+#define KDIS_CONNECTION_DEFAULT_SEND_PORT (3000)
+
 #endif  // KDIS_KCONFIG_HPP_

@@ -31,6 +31,8 @@ http://p.sf.net/kdis/UserGuide
 
 #include <math.h>
 
+#include "KDIS/util/Endian.hpp"
+
 //////////////////////////////////////////////////////////////////////////
 
 using namespace std;
@@ -160,7 +162,7 @@ KString VariableDatum::GetDatumValueAsKString() const {
 //////////////////////////////////////////////////////////////////////////
 
 vector<KUINT64> VariableDatum::GetDatumValueAsKUINT64() const {
-  KBOOL bSwapBytes = !IsMachineBigEndian();
+  KBOOL bSwapBytes = KDIS::UTIL::Endian::isLittleEndian();
 
   vector<DatumEntry>::const_iterator citr = m_v8DatumValue.begin();
   vector<DatumEntry>::const_iterator citrEnd = m_v8DatumValue.end();
@@ -184,7 +186,7 @@ vector<KUINT64> VariableDatum::GetDatumValueAsKUINT64() const {
 //////////////////////////////////////////////////////////////////////////
 
 vector<KFLOAT64> VariableDatum::GetDatumValueAsKFLOAT64() const {
-  KBOOL bSwapBytes = !IsMachineBigEndian();
+  KBOOL bSwapBytes = KDIS::UTIL::Endian::isLittleEndian();
 
   vector<DatumEntry>::const_iterator citr = m_v8DatumValue.begin();
   vector<DatumEntry>::const_iterator citrEnd = m_v8DatumValue.end();

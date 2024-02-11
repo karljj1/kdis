@@ -17,12 +17,12 @@ project(
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_EXTENSIONS FALSE)
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 #
 # Options
 #
+include(CMakeDependentOption)
 # cmake-lint: disable=C0301
 set(DIS_VERSION
     7
@@ -36,10 +36,13 @@ option(
   "Enumeration descriptors. Allow enum values to be turned into their text labels. This increase the memory footprint of the library"
   TRUE
 )
+option(BUILD_SHARED_LIBS "Build shared library" TRUE)
 option(KDIS_BUILD_DOCS "Build documentation" FALSE)
 option(KDIS_BUILD_EXAMPLES "Build examples" FALSE)
 option(KDIS_BUILD_TESTS "Build tests" FALSE)
-option(BUILD_SHARED_LIBS "Build shared library" TRUE)
+cmake_dependent_option(
+  KDIR_BUILD_TESTS_COVERAGE "Build tests coverage" FALSE "KDIS_BUILD_TESTS" TRUE
+)
 
 #
 # Checks
@@ -50,6 +53,30 @@ if(NOT ${DIS_VERSION} EQUAL 5
 )
   message(FATAL_ERROR "Invalid DIS version ${DIS_VERSION}")
 endif()
+if(${KDIS_BUILD_TESTS_COVERAGE})
+  # Compiler (GNU, Clang and Flang)
+  get_property(LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
+  foreach(lang ${LANGUAGES})
+    # FIXME(carlocorradini) See https://github.com/bilke/cmake-modules/issues/84
+    #
+    # if(NOT "${CMAKE_${lang}_COMPILER_ID}" MATCHES "GNU|(Apple)?[Cc]lang|(LLVM)?[Ff]lang")
+    if(NOT "${CMAKE_${lang}_COMPILER_ID}" MATCHES "GNU")
+      message(WARNING "Tests coverage disabled because compiler ${lang} does not support it")
+      set(KDIS_BUILD_TESTS_COVERAGE
+          FALSE
+          CACHE BOOL "Build tests coverage" FORCE
+      )
+      break()
+    endif()
+  endforeach()
+endif()
+
+#
+# Debug postfix
+#
+if(NOT DEFINED CMAKE_DEBUG_POSTFIX)
+  set(CMAKE_DEBUG_POSTFIX d)
+endif()
 
 #
 # Includes
@@ -59,6 +86,11 @@ include(GenerateExportHeader)
 include(CMakePackageConfigHelpers)
 if(${KDIS_BUILD_TESTS})
   include(CPM)
+  if(${KDIS_BUILD_TESTS_COVERAGE})
+    # Enable C language
+    enable_language(C)
+    include(CodeCoverage)
+  endif()
 endif()
 
 #
@@ -86,8 +118,16 @@ set(KDIS_SOURCES ${KDIS_SOURCES_DIR}/KDataStream.cpp)
 set(KDIS_UTIL_HEADERS_DIR ${KDIS_HEADERS_DIR}/util)
 set(KDIS_UTIL_SOURCES_DIR ${KDIS_SOURCES_DIR}/util)
 
-list(APPEND KDIS_HEADERS ${KDIS_UTIL_HEADERS_DIR}/format.hpp)
-list(APPEND KDIS_SOURCES)
+list(
+  APPEND
+  KDIS_HEADERS
+  ${KDIS_UTIL_HEADERS_DIR}/Endian.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/Error.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/format.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/optional.hpp
+  ${KDIS_UTIL_HEADERS_DIR}/unreachable.hpp
+)
+list(APPEND KDIS_SOURCES ${KDIS_UTIL_SOURCES_DIR}/Endian.cpp ${KDIS_UTIL_SOURCES_DIR}/Error.cpp)
 
 # DataTypes
 set(KDIS_DATATYPES_HEADERS_DIR ${KDIS_HEADERS_DIR}/DataTypes)
@@ -890,12 +930,25 @@ list(APPEND KDIS_SOURCES ${KDIS_EXTRAS_SOURCES_DIR}/DeadReckoningCalculator.cpp
 set(KDIS_NETWORK_HEADERS_DIR ${KDIS_HEADERS_DIR}/Network)
 set(KDIS_NETWORK_SOURCES_DIR ${KDIS_SOURCES_DIR}/Network)
 
-list(APPEND KDIS_HEADERS ${KDIS_NETWORK_HEADERS_DIR}/Connection.hpp
-     ${KDIS_NETWORK_HEADERS_DIR}/ConnectionAddressFilter.hpp
-     ${KDIS_NETWORK_HEADERS_DIR}/ConnectionSubscriber.hpp
+list(
+  APPEND
+  KDIS_HEADERS
+  ${KDIS_NETWORK_HEADERS_DIR}/AddressFamily.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/Connection.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/ConnectionAddressFilter.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/ConnectionOptions.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/ConnectionSubscriber.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/IPAddress.hpp
+  ${KDIS_NETWORK_HEADERS_DIR}/NetInterface.hpp
 )
-list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
-     ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
+list(
+  APPEND
+  KDIS_SOURCES
+  ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/ConnectionOptions.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/IPAddress.cpp
+  ${KDIS_NETWORK_SOURCES_DIR}/NetInterface.cpp
 )
 
 #
@@ -908,7 +961,7 @@ generate_export_header(
   ${PROJECT_NAME} EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KExport.hpp
   INCLUDE_GUARD_NAME ${PROJECT_NAME}_KEXPORT_HPP_
 )
-list(APPEND KDIS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KExport.hpp)
+list(APPEND KDIS_HEADERS ${KDIS_HEADERS_DIR}/KExport.hpp)
 # Include directories
 target_include_directories(
   ${PROJECT_NAME}
@@ -922,7 +975,9 @@ target_compile_definitions(
                           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
 # Properties
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} DEBUG_POSTFIX "d")
+set_target_properties(
+  ${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX}
+)
 # TODO Compile options target_compile_options( ${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4
 # /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
 
@@ -943,11 +998,7 @@ write_basic_package_version_file(
 #
 # Install
 #
-install(FILES ${KDIS_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-              ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-)
+# Directories
 install(
   TARGETS ${PROJECT_NAME}
   EXPORT ${PROJECT_NAME}Targets
@@ -955,10 +1006,21 @@ install(
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
+# Headers
+install(FILES ${KDIS_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
+# Help
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.md TYPE DOC)
+# Export
 install(
   EXPORT ${PROJECT_NAME}Targets
+  FILE ${PROJECT_NAME}Targets.cmake
   NAMESPACE ${PROJECT_NAME}::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+# Package
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 #
@@ -972,7 +1034,9 @@ set(CPACK_PACKAGE_FILE_NAME
     "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.${CMAKE_SYSTEM_PROCESSOR}"
 )
 set(CPACK_PACKAGE_RPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/_CPack_Packages/Linux/RPM")
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Karl Jones <Karljj1@yahoo.com>")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER
+    "Karl Jones <Karljj1@yahoo.com>, Carlo Corradini <carlo.corradini98@gmail.com>"
+)
 include(CPack)
 
 #
@@ -993,5 +1057,9 @@ endif()
 # Tests
 #
 if(${KDIS_BUILD_TESTS})
+  # Coverage
+  if(${KDIS_BUILD_TESTS_COVERAGE})
+    append_coverage_compiler_flags_to_target(${PROJECT_NAME})
+  endif()
   add_subdirectory(tests)
 endif()

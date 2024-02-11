@@ -374,23 +374,6 @@ Connection::~Connection() {
 
 //////////////////////////////////////////////////////////////////////////
 
-Connection::Connection(const Connection& other) {
-  // Disallow copy constructor.
-  throw KException(ErrorCode::INVALID_OPERATION, __FUNCTION__);
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Connection& Connection::operator=(const Connection& other) {
-  if (this != &other) {
-    // Disallow copy assignment.
-    throw KException(ErrorCode::INVALID_OPERATION, __FUNCTION__);
-  }
-  return *this;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 // Set the local interface to use for sending DIS packets,
 //   otherwise the kernel chooses first interface with path to destination,
 //   which is ambiguous in the case of multicast and some broadcast endpoints.

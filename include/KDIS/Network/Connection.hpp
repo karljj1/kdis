@@ -130,14 +130,14 @@ class KDIS_EXPORT Connection {
   // Description: Copy constructor for the Connection class.
   // Parameter:   const Connection& other
   //************************************
-  Connection(const Connection& other);
+  Connection(const Connection& other) = delete;
 
   //************************************
   // FullName:    KDIS::NETWORK::Connection::Connection copy assignment operator
   // Description: Copy assignment operator for the Connection class.
   // Parameter:   const Connection& other
   //************************************
-  Connection& operator=(const Connection& other);
+  Connection& operator=(const Connection& other) = delete;
 
  public:
   //************************************
