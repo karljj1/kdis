@@ -943,7 +943,12 @@ write_basic_package_version_file(
 #
 # Install
 #
-install(FILES ${KDIS_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
+foreach(file ${KDIS_HEADERS})
+  get_filename_component(dir ${file} DIRECTORY)
+  string(REPLACE ${KDIS_HEADERS_DIR} "" rel_dir ${dir})
+  install(FILES ${file} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${rel_dir})
+endforeach()
+
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
