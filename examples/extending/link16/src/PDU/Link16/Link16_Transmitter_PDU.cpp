@@ -163,7 +163,7 @@ Link16_Transmitter_PDU::GetTransmittingTerminalSecondaryMode() const {
 //////////////////////////////////////////////////////////////////////////
 
 SynchronizationState Link16_Transmitter_PDU::GetSynchronizationState() const {
-  return (SynchronizationState)m_ui8SyncState;
+  return static_cast<SynchronizationState>(m_ui8SyncState);
 }
 
 //////////////////////////////////////////////////////////////////////////

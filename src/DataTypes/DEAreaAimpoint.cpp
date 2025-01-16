@@ -41,7 +41,7 @@ using namespace ENUMS;
 
 DEAreaAimpoint::DEAreaAimpoint()
     : m_ui16Padding(0), m_ui16BAPRC(0), m_ui16DETEDRC(0) {
-  m_ui32Type = DEAreaAimpointRecord;
+  m_ui32Type = static_cast<KUINT32>(StandardVariableType::DEAreaAimpointRecord);
 }
 
 //////////////////////////////////////////////////////////////////////////
