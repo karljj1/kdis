@@ -178,8 +178,7 @@ FundamentalOperationalData::GetFundamentalOperationalData_RRB() {
 KString FundamentalOperationalData::GetAsString() const {
   KStringStream ss;
 
-  ss << "FundamentalOperationalData:"
-     << "\tNOT IMPLEMENTED YET\n";
+  ss << "FundamentalOperationalData:" << "\tNOT IMPLEMENTED YET\n";
 
   // TODO: Get string for a specific system type.
 

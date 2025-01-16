@@ -119,8 +119,9 @@ void GridDataType2::ClearValues() {
 KString GridDataType2::GetAsString() const {
   KStringStream ss;
 
-  ss << GridData::GetAsString() << "GridDataType2:"
-     << "\n\tNumber Of Values: " << m_ui16NumValues << "\n\tValues: ";
+  ss << GridData::GetAsString()
+     << "GridDataType2:" << "\n\tNumber Of Values: " << m_ui16NumValues
+     << "\n\tValues: ";
 
   vector<KFLOAT32>::const_iterator citr = m_vf32Values.begin();
   vector<KFLOAT32>::const_iterator citrEnd = m_vf32Values.end();

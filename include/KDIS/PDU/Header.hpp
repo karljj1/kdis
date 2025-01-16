@@ -30,9 +30,9 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #if DIS_VERSION >= 7
-  #include "KDIS/PDU/Header7.hpp"
+#include "KDIS/PDU/Header7.hpp"
 #else
-  #include "KDIS/PDU/Header6.hpp"
+#include "KDIS/PDU/Header6.hpp"
 #endif
 
 namespace KDIS {

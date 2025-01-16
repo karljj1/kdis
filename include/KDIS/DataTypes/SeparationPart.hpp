@@ -44,11 +44,11 @@ separation of a component of a smart weapon.
 *********************************************************************/
 
 #if DIS_VERSION > 5
-  #pragma once
+#pragma once
 
-  #include "KDIS/DataTypes/EntityIdentifier.hpp"
-  #include "KDIS/DataTypes/NamedLocationIdentifier.hpp"
-  #include "KDIS/DataTypes/VariableParameter.hpp"
+#include "KDIS/DataTypes/EntityIdentifier.hpp"
+#include "KDIS/DataTypes/NamedLocationIdentifier.hpp"
+#include "KDIS/DataTypes/VariableParameter.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {

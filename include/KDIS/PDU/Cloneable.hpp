@@ -37,6 +37,8 @@ http://p.sf.net/kdis/UserGuide
 #include <memory>
 #include <type_traits>
 
+#include "KDIS/KDefines.hpp"
+
 namespace KDIS {
 namespace PDU {
 
@@ -59,7 +61,7 @@ std::unique_ptr<T> clone(const T& pdu) {
 }
 
 template <typename T>
-class Cloneable {
+class KDIS_EXPORT Cloneable {
  public:
   using base_class = T;
 
@@ -72,7 +74,7 @@ class Cloneable {
   friend std::unique_ptr<TT> KDIS::PDU::clone(const TT& cls);
 };
 
-class CloneablePDU : public Cloneable<CloneablePDU> {};
+class KDIS_EXPORT CloneablePDU : public Cloneable<CloneablePDU> {};
 
 }  // namespace PDU
 }  // namespace KDIS

@@ -78,8 +78,8 @@ RelationshipPosition RelationshipRecord::GetPosition() const {
 KString RelationshipRecord::GetAsString() const {
   KStringStream ss;
 
-  ss << "Relationship Record:"
-     << "\n\tNature:   " << GetEnumAsStringRelationshipNature(m_ui16Nature)
+  ss << "Relationship Record:" << "\n\tNature:   "
+     << GetEnumAsStringRelationshipNature(m_ui16Nature)
      << "\n\tPosition: " << GetEnumAsStringRelationshipPosition(m_ui16Pos)
      << "\n";
 

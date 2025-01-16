@@ -108,8 +108,8 @@ KUINT8 Mode5TransponderSupplementalData::GetIFFMission() const {
 
 KString Mode5TransponderSupplementalData::GetAsString() const {
   KStringStream ss;
-  ss << "Mode 5 Transponder Supplemental Data:"
-     << "\n\tSquitter: " << (KBOOL)m_SupplementalDataUnion.m_ui8SquitterStatus
+  ss << "Mode 5 Transponder Supplemental Data:" << "\n\tSquitter: "
+     << (KBOOL)m_SupplementalDataUnion.m_ui8SquitterStatus
      << "\n\tLevel 2 Squiter: "
      << (KBOOL)m_SupplementalDataUnion.m_ui8Lvl2SquitterStatus
      << "\n\tIFF Mission: " << m_SupplementalDataUnion.m_ui8IFFMission << "\n";

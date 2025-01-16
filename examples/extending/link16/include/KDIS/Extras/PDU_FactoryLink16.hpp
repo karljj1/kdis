@@ -40,12 +40,12 @@ http://p.sf.net/kdis/UserGuide
 #include <memory>
 
 #include "KDIS/Extras/PDU_Factory.hpp"
-#include "KDIS/KDefinesLink16.hpp"
+#include "KDIS/KExport.hpp"
 
 namespace KDIS {
 namespace UTILS {
 
-class KDIS_EXPORT_LINK16 PDU_FactoryLink16 : public PDU_Factory {
+class KDIS_EXPORT PDU_FactoryLink16 : public PDU_Factory {
  public:
   PDU_FactoryLink16();
 

@@ -106,8 +106,7 @@ KFLOAT32 BeamData::GetBeamSweepSync() const { return m_f32SwpSyn; }
 KString BeamData::GetAsString() const {
   KStringStream ss;
 
-  ss << "BeamData:"
-     << "\n\tAzimuth Center:    " << m_f32AziCtr
+  ss << "BeamData:" << "\n\tAzimuth Center:    " << m_f32AziCtr
      << "\n\tAzimuth Sweep:     " << m_f32AziSwp
      << "\n\tElevation Center:  " << m_f32EleCtr
      << "\n\tElevation Sweep:   " << m_f32EleSwp

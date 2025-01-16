@@ -35,7 +35,7 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/util/format.hpp"
 
 #if DIS_VERSION > 5
-  #include "KDIS/DataTypes/SeparationPart.hpp"
+#include "KDIS/DataTypes/SeparationPart.hpp"
 #endif
 
 //////////////////////////////////////////////////////////////////////////

@@ -160,8 +160,7 @@ KBOOL SubSurfacePlatformAppearance::IsEntityStateActive() const {
 KString SubSurfacePlatformAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Sub Surface Platform Appearance:"
-     << "\n\tPaint Scheme:           "
+  ss << "Sub Surface Platform Appearance:" << "\n\tPaint Scheme:           "
      << GetEnumAsStringPaintScheme(m_PaintScheme)
      << "\n\tMobility Kill:          " << m_MobilityKill
      << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)

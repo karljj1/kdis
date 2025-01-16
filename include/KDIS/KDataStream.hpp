@@ -44,24 +44,27 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/Extras/KUtils.hpp"
 #include "KDIS/KDefines.hpp"
 #include "KDIS/KEncodersDecoders.hpp"
+#include "KDIS/util/Endian.hpp"
 
 namespace KDIS {
 
 class KDIS_EXPORT KDataStream {
  private:
-  Endian m_MachineEndian;
+  KDIS::UTIL::Endian::Endianness m_MachineEndian;
 
-  Endian m_NetEndian;
+  KDIS::UTIL::Endian::Endianness m_NetEndian;
 
   std::vector<KUOCTET> m_vBuffer;
   KUINT16 m_ui16CurrentWritePos;
 
  public:
   // All DIS data is sent in Big Endian format
-  explicit KDataStream(Endian NetworkEndian = Endian::BIG);
+  explicit KDataStream(KDIS::UTIL::Endian::Endianness NetworkEndian =
+                           KDIS::UTIL::Endian::Endianness::BIG);
 
   KDataStream(const KOCTET* SerialData, KUINT16 DataSize,
-              Endian NetworkEndian = Endian::BIG);
+              KDIS::UTIL::Endian::Endianness NetworkEndian =
+                  KDIS::UTIL::Endian::Endianness::BIG);
 
   ~KDataStream();
 
@@ -69,14 +72,14 @@ class KDIS_EXPORT KDataStream {
   // FullName:    KDIS::KDataStream::GetMachineEndian
   // Description: Returns the machine endian. Calculated automatically.
   //************************************
-  Endian GetMachineEndian() const;
+  KDIS::UTIL::Endian::Endianness GetMachineEndian() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetNetWorkEndian
   // Description: Returns the network endian, set by user in
   //              constructor, Big_Endian by default.
   //************************************
-  Endian GetNetWorkEndian() const;
+  KDIS::UTIL::Endian::Endianness GetNetWorkEndian() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetBufferSize
@@ -104,7 +107,8 @@ class KDIS_EXPORT KDataStream {
   // Parameter:   Endian NetworkEndian = Big_Endian
   //************************************
   void CopyFromBuffer(const KOCTET* SerialData, KUINT16 DataSize,
-                      Endian NetworkEndian = Endian::BIG);
+                      KDIS::UTIL::Endian::Endianness NetworkEndian =
+                          KDIS::UTIL::Endian::Endianness::BIG);
 
   //************************************
   // FullName:    KDIS::KDataStream::GetBufferPtr

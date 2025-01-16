@@ -126,8 +126,7 @@ KUINT16 AttributeRecordSet::GetRecordLength() const {
 KString AttributeRecordSet::GetAsString() const {
   KStringStream ss;
 
-  ss << "AttributeRecordSet:"
-     << "\n\tEntity ID:\n"
+  ss << "AttributeRecordSet:" << "\n\tEntity ID:\n"
      << IndentString(m_EntityID.GetAsString(), 2)
      << "\n\tNumber Of Attribute Records: " << m_ui16NumAttrRecs
      << "\n\tRecords:\n";

@@ -213,8 +213,7 @@ KBOOL Mode5TransponderStatus::IsMalfunctioning() const {
 KString Mode5TransponderStatus::GetAsString() const {
   KStringStream ss;
 
-  ss << "Mode 5 Transponder Status:"
-     << "\n\tReply:                   "
+  ss << "Mode 5 Transponder Status:" << "\n\tReply:                   "
      << GetEnumAsStringMode5Reply(m_StatusUnion.m_ui16Reply)
      << "\n\tLine Test:               " << (KBOOL)m_StatusUnion.m_ui16LineTst
      << "\n\tAntenna Selection:       "

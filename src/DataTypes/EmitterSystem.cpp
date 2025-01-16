@@ -86,8 +86,8 @@ KUINT8 EmitterSystem::GetEmitterID() const { return m_ui8EmitterIDNumber; }
 KString EmitterSystem::GetAsString() const {
   KStringStream ss;
 
-  ss << "Emitter System:"
-     << "\n\tName:     " << GetEnumAsStringEmitterName(m_ui16EmitterName)
+  ss << "Emitter System:" << "\n\tName:     "
+     << GetEnumAsStringEmitterName(m_ui16EmitterName)
      << "\n\tFunction: " << GetEnumAsStringEmitterFunction(m_ui8Function)
      << "\n\tID:       " << (KUINT16)m_ui8EmitterIDNumber << "\n";
 

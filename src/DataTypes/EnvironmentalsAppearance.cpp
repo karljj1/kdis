@@ -84,8 +84,8 @@ KBOOL EnvironmentalsAppearance::IsEntityMaskedCloaked() const {
 KString EnvironmentalsAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Environmental Appearance:"
-     << "\n\tDensity:        " << GetEnumAsStringEntityDensity(m_Density)
+  ss << "Environmental Appearance:" << "\n\tDensity:        "
+     << GetEnumAsStringEntityDensity(m_Density)
      << "\n\tFrozen Status:  " << m_FrozenStatus
      << "\n\tState:          " << m_State
      << "\n\tMasked/Cloaked: " << m_MaskedCloaked << "\n";

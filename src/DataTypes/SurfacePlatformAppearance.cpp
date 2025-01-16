@@ -184,8 +184,7 @@ KBOOL SurfacePlatformAppearance::IsEntityInteriorLightsOn() const {
 KString SurfacePlatformAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Surface Platform Appearance:"
-     << "\n\tPaint Scheme:           "
+  ss << "Surface Platform Appearance:" << "\n\tPaint Scheme:           "
      << GetEnumAsStringPaintScheme(m_PaintScheme)
      << "\n\tMobility Kill:          " << m_MobilityKill
      << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)

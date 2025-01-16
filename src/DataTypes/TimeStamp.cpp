@@ -31,9 +31,9 @@ http://p.sf.net/kdis/UserGuide
 
 #include <iomanip>
 #if defined(WIN32) || defined(WIN64)
-  #include <windows.h>
+#include <windows.h>
 #else
-  #include <time.h>
+#include <time.h>
 #endif
 
 using namespace KDIS;
@@ -153,8 +153,7 @@ KString TimeStamp::GetAsString() const {
   ss << std::setfill('0') << std::setw(2) << minutes << ":" << std::setfill('0')
      << std::setw(2) << seconds << " ("
      << GetEnumAsStringTimeStampType(m_TimeStampUnion.m_ui32TimeStampType)
-     << ") "
-     << "\n";
+     << ") " << "\n";
 
   return ss.str();
 }

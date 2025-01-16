@@ -91,8 +91,8 @@ KBOOL NonHumanLifeFormAppearance::IsEntityStateActive() const {
 KString NonHumanLifeFormAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Non-Human Lifeform Appearance:"
-     << "\n\tDamage:               " << GetEnumAsStringEntityDamage(m_Damage)
+  ss << "Non-Human Lifeform Appearance:" << "\n\tDamage:               "
+     << GetEnumAsStringEntityDamage(m_Damage)
      << "\n\tFrozen Status:        " << m_FrozenStatus
      << "\n\tMounted/Hoisted:      " << m_MountedHoisted
      << "\n\tState:                " << m_State << "\n";

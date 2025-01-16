@@ -217,8 +217,7 @@ KBOOL SensorEmitterAppearance::IsEntityInteriorLightsOn() const {
 KString SensorEmitterAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Land Platform Appearance:"
-     << "\n\tPaint Scheme:           "
+  ss << "Land Platform Appearance:" << "\n\tPaint Scheme:           "
      << GetEnumAsStringPaintScheme(m_PaintScheme)
      << "\n\tMobility Kill:          " << m_MobilityKill
      << "\n\tMission Kill:           " << m_Mission

@@ -45,8 +45,8 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/DataTypes/TrackJamTargetIdentifier.hpp"
 
 #if DIS_VERSION > 6
-  #include "KDIS/DataTypes/BeamStatus.hpp"
-  #include "KDIS/DataTypes/JammingTechnique.hpp"
+#include "KDIS/DataTypes/BeamStatus.hpp"
+#include "KDIS/DataTypes/JammingTechnique.hpp"
 #endif
 
 namespace KDIS {

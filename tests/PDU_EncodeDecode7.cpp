@@ -1,12 +1,10 @@
-#if DIS_VERSION >= 7
+#include <gtest/gtest.h>
 
-  #include <gtest/gtest.h>
-
-  #include <KDIS/KDefines.hpp>
-  #include <KDIS/PDU/Entity_Info_Interaction/Attribute_PDU.hpp>
-  #include <KDIS/PDU/Information_Operations/IO_Action_PDU.hpp>
-  #include <KDIS/PDU/Information_Operations/IO_Report_PDU.hpp>
-  #include <iostream>
+#include <KDIS/KDefines.hpp>
+#include <KDIS/PDU/Entity_Info_Interaction/Attribute_PDU.hpp>
+#include <KDIS/PDU/Information_Operations/IO_Action_PDU.hpp>
+#include <KDIS/PDU/Information_Operations/IO_Report_PDU.hpp>
+#include <iostream>
 
 template <typename T>
 class EncodeDecodeTest7 : public ::testing::Test {
@@ -41,5 +39,3 @@ TYPED_TEST(EncodeDecodeTest7, PDU_PduTestTypes7) { this->TestEncodeDecode(); }
 TYPED_TEST(EncodeDecodeTest7, PDU_PduTestTypes5_IgnoreHeader) {
   this->TestEncodeDecodeIgnoreHeader();
 }
-
-#endif

@@ -57,8 +57,7 @@ KBOOL RadioAppearance::IsEntityFrozen() const { return m_FrozenStatus; }
 KString RadioAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Radio:"
-     << "\n\tFrozen Status:  " << m_FrozenStatus
+  ss << "Radio:" << "\n\tFrozen Status:  " << m_FrozenStatus
      << "\n\tState:          " << m_State << "\n";
 
   return ss.str();

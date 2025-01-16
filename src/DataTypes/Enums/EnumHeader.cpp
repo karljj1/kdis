@@ -354,7 +354,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringTimeStampType(
 // Implementation of string values for LVCIndicator
 
 #if DIS_VERSION > 6
-  #ifdef KDIS_USE_ENUM_DESCRIPTORS
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor LVCIndicatorDescriptor[] = {{0, "No Statement LVC"},
                                                  {1, "Live LVC"},
@@ -383,7 +383,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLVCIndicator(
       sizeof(LVCIndicatorDescriptor) / sizeof(EnumDescriptor), Value, ValueOut);
 }
 
-  #else
+#else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeLVCIndicator() { return 0; }
 
@@ -403,5 +403,5 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringLVCIndicator(
   return false;  // Maybe throw an exception?
 }
 
-  #endif
+#endif
 #endif

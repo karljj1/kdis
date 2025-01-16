@@ -98,12 +98,11 @@ KINT16 APA::GetValue() const { return m_i16Value; }
 KString APA::GetAsString() const {
   KStringStream ss;
 
-  ss << "APA:"
-     << "\n\tParam Index:  "
+  ss << "APA:" << "\n\tParam Index:  "
      << GetEnumAsStringAdditionalPassiveParameterIndex(m_ApaUnion.m_ui16APPI)
      << "\n\tStatus:       ( " << m_ApaUnion.m_ui16Status1 << " , "
-     << m_ApaUnion.m_ui16Status2 << " )"
-     << "\n\tValue:        " << m_i16Value << "\n";
+     << m_ApaUnion.m_ui16Status2 << " )" << "\n\tValue:        " << m_i16Value
+     << "\n";
 
   return ss.str();
 }

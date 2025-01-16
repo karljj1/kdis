@@ -72,8 +72,8 @@ KString FixedDatum::GetAsString() const {
 
   // TODO: maybe determine what the data type should be when printing out, this
   // could be a lot of work.
-  ss << "Fixed Datum:"
-     << "\n\tID:          " << GetEnumAsStringDatumID(m_ui32DatumID)
+  ss << "Fixed Datum:" << "\n\tID:          "
+     << GetEnumAsStringDatumID(m_ui32DatumID)
      << "\n\tValue(UI32): " << NetToSys.m_Value << "\n";
 
   return ss.str();

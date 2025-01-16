@@ -52,14 +52,14 @@ Link16StandardizedFormat_JTIDS_MIDS_TADILJ
 #pragma once
 
 #include "KDIS/DataTypes/Enums/EnumLink16.hpp"
-#include "KDIS/KDefinesLink16.hpp"
+#include "KDIS/KExport.hpp"
 #include "KDIS/PDU/Radio_Communications/Signal_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 namespace LINK16 {
 
-class KDIS_EXPORT_LINK16 Link16_Signal_PDU : public Signal_PDU {
+class KDIS_EXPORT Link16_Signal_PDU : public Signal_PDU {
  protected:
   KUINT16 m_ui16NPG;
 

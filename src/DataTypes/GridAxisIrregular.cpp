@@ -175,8 +175,8 @@ KUINT16 GridAxisIrregular::GetLength() {
 KString GridAxisIrregular::GetAsString() const {
   KStringStream ss;
 
-  ss << "Grid Axis Irregular:"
-     << "\n\tDomain Initial Xi:    " << m_f64DomainInitialXi
+  ss << "Grid Axis Irregular:" << "\n\tDomain Initial Xi:    "
+     << m_f64DomainInitialXi
      << "\n\tDomain Final Xi:      " << m_f64DomainFinalXi
      << "\n\tDomain Points Xi:     " << m_ui16DomainPointsXi
      << "\n\tInterleaf Factor:     " << (KUINT16)m_ui8InterleafFactor

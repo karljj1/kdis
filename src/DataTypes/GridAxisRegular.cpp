@@ -171,8 +171,8 @@ KUINT16 GridAxisRegular::GetLength() { return GRID_AXIS_REGULAR; }
 KString GridAxisRegular::GetAsString() const {
   KStringStream ss;
 
-  ss << "Grid Axis Regular:"
-     << "\n\tDomain Initial Xi:   " << m_f64DomainInitialXi
+  ss << "Grid Axis Regular:" << "\n\tDomain Initial Xi:   "
+     << m_f64DomainInitialXi
      << "\n\tDomain Final Xi:     " << m_f64DomainFinalXi
      << "\n\tDomain Points Xi:    " << m_ui16DomainPointsXi
      << "\n\tInterleaf Factor:    " << (KUINT16)m_ui8InterleafFactor

@@ -114,8 +114,7 @@ KBOOL MinefieldAppearance::IsStateActive() const {
 KString MinefieldAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "MinefieldAppearance:"
-     << "\n\tMinefield Type:           "
+  ss << "MinefieldAppearance:" << "\n\tMinefield Type:           "
      << GetEnumAsStringMinefieldType(m_ui16BitUnion.m_ui16Type)
      << "\n\tActive Status(0 = true):  " << m_ui16BitUnion.m_ui16ActiveStatus
      << "\n\tActive Lane(0 = true):    " << m_ui16BitUnion.m_ui16Lane

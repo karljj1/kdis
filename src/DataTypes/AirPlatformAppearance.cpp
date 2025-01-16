@@ -349,8 +349,7 @@ KBOOL AirPlatformAppearance::IsWeightOnWheels() const {
 KString AirPlatformAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Air Platform Appearance:"
-     << "\n\tPaint Scheme:           "
+  ss << "Air Platform Appearance:" << "\n\tPaint Scheme:           "
      << GetEnumAsStringPaintScheme(m_PaintScheme)
      << "\n\tMobility Kill:          " << m_MobilityKill
      << "\n\tNVG Mode:               " << GetEnumAsStringNVGMode(m_NVGMode)

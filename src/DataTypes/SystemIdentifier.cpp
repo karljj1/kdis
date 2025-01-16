@@ -192,8 +192,8 @@ KBOOL SystemIdentifier::GetTestMode() const { return m_ui8TestMode; }
 KString SystemIdentifier::GetAsString() const {
   KStringStream ss;
 
-  ss << "System Identifier:"
-     << "\n\tType:           " << GetEnumAsStringSystemType(m_ui16SystemType)
+  ss << "System Identifier:" << "\n\tType:           "
+     << GetEnumAsStringSystemType(m_ui16SystemType)
      << "\n\tName:           " << GetEnumAsStringSystemName(m_ui16SystemName)
      << "\n\tMode:           " << GetEnumAsStringSystemMode(m_ui8SystemMode)
      << "\n\tChange/Options: " << (KBOOL)m_ui8ChangeIndicator << "\n";

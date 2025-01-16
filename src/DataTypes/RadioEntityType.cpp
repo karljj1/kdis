@@ -142,8 +142,7 @@ KString RadioEntityType::GetAsString() const {
   ss << (KUINT16)m_ui8EntityKind << " , " << (KUINT16)m_ui8Domain << " , "
      << (KUINT16)m_ui16Country << " , " << (KUINT16)m_ui8Category << " , "
      << (KUINT16)m_ui8NomenclatureVersion << " , "
-     << (KUINT16)m_ui16Nomenclature << " , "
-     << "\n";
+     << (KUINT16)m_ui16Nomenclature << " , " << "\n";
 
   return ss.str();
 }

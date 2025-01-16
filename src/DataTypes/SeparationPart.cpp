@@ -29,7 +29,7 @@ http://p.sf.net/kdis/UserGuide
 
 #if DIS_VERSION > 5
 
-  #include "KDIS/DataTypes/SeparationPart.hpp"
+#include "KDIS/DataTypes/SeparationPart.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -133,8 +133,7 @@ NamedLocationIdentifier& SeparationPart::GetStationLocation() {
 KString SeparationPart::GetAsString() const {
   KStringStream ss;
 
-  ss << "Separation Part:"
-     << "\n\tReason for Separation: "
+  ss << "Separation Part:" << "\n\tReason for Separation: "
      << GetEnumAsStringReasonForSeparation(m_ui8Reason)
      << "\n\tPre-Entity Indicator:  "
      << GetEnumAsStringPreEntityIndicator(m_ui8PreEntIndicator)

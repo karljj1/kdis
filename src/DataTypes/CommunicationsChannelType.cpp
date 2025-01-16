@@ -81,8 +81,7 @@ ChannelClass CommunicationsChannelType::GetClass() const {
 KString CommunicationsChannelType::GetAsString() const {
   KStringStream ss;
 
-  ss << "Communications Channel Type:"
-     << "\n\tType  : " << (KUINT16)m_ui8Type
+  ss << "Communications Channel Type:" << "\n\tType  : " << (KUINT16)m_ui8Type
      << "\n\tClass : " << (KUINT16)m_ui8Class << "\n";
 
   return ss.str();

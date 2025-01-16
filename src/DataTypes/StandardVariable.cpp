@@ -71,8 +71,8 @@ KUINT16 StandardVariable::GetRecordLength() const { return m_ui16Length; }
 KString StandardVariable::GetAsString() const {
   KStringStream ss;
 
-  ss << "Standard Variable:"
-     << "\n\tType:    " << GetEnumAsStringStandardVariableType(m_ui32Type)
+  ss << "Standard Variable:" << "\n\tType:    "
+     << GetEnumAsStringStandardVariableType(m_ui32Type)
      << "\n\tLength:  " << m_ui16Length << "\n";
 
   return ss.str();

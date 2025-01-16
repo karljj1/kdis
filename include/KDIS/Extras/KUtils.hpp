@@ -36,7 +36,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #ifndef _USE_MATH_DEFINES
-  #define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
 #endif
 #include <cmath>
 
@@ -80,22 +80,6 @@ static inline KString IndentString(const KString& S, KUINT16 Tabs = 1,
 
   return NewS.str();
 }
-
-/************************************************************************/
-/* Determine the endian of the machine at run time                      */
-/************************************************************************/
-
-static inline KBOOL IsMachineBigEndian() {
-  static KUINT16 ui = 0x01;
-
-  static NetToKUINT16 conv(ui, false);
-
-  if (conv.m_Octs[0] == 0x01) {
-    return false;
-  } else {
-    return true;
-  }
-};
 
 }  // END namespace UTILS
 }  // END namespace KDIS

@@ -304,7 +304,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFuseType(const KString& Value,
 
 // Implementation of string values for FireType
 
-  #ifdef KDIS_USE_ENUM_DESCRIPTORS
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor FireTypeDescriptor[] = {{0, "Munition"},
                                              {1, "Expendable"}};
@@ -331,7 +331,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFireType(const KString& Value,
                            Value, ValueOut);
 }
 
-  #else
+#else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeFireType() { return 0; }
 
@@ -351,13 +351,13 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringFireType(const KString& Value,
   return false;  // Maybe throw an exception?
 }
 
-  #endif
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for DetonationType
 
-  #ifdef KDIS_USE_ENUM_DESCRIPTORS
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor DetonationTypeDescriptor[] = {
     {0, "Munition"}, {1, "Expendable"}, {2, "Non-Munition Explosion"}};
@@ -385,7 +385,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType(
       ValueOut);
 }
 
-  #else
+#else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeDetonationType() { return 0; }
 
@@ -405,13 +405,13 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringDetonationType(
   return false;  // Maybe throw an exception?
 }
 
-  #endif
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 
 // Implementation of string values for ExplosiveMaterial
 
-  #ifdef KDIS_USE_ENUM_DESCRIPTORS
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor ExplosiveMaterialDescriptor[] = {
     {0, "GeneralExplosiveMaterial"},
@@ -488,7 +488,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringExplosiveMaterial(
       ValueOut);
 }
 
-  #else
+#else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeExplosiveMaterial() { return 0; }
 
@@ -508,5 +508,5 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringExplosiveMaterial(
   return false;  // Maybe throw an exception?
 }
 
-  #endif
+#endif
 #endif

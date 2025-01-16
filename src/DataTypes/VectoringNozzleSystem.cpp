@@ -86,8 +86,8 @@ KFLOAT32 VectoringNozzleSystem::GetVerticalDeflectionAngle() const {
 KString VectoringNozzleSystem::GetAsString() const {
   KStringStream ss;
 
-  ss << "Vectoring Nozzle System:"
-     << "\n\tHorizontal Deflection Angle: " << m_f32HDeflAngle
+  ss << "Vectoring Nozzle System:" << "\n\tHorizontal Deflection Angle: "
+     << m_f32HDeflAngle
      << "\n\tVertical Deflection Angle:   " << m_f32VDeflAngle << "\n";
 
   return ss.str();

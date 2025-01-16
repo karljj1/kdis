@@ -97,7 +97,7 @@ class KDIS_EXPORT Mine
   // Not Used. It is not possible to use this method of decoding/encoding as the
   // values are not all stored sequentially in the Minefield Data PDU. The PDU
   // must do all the encoding/decoding.
-  virtual void Decode(KDataStream& stream){};
+  virtual void Decode(KDataStream& stream) {};
   virtual KDataStream Encode() const { return KDataStream(); };
   virtual void Encode(KDataStream& stream) const {};
 

@@ -85,8 +85,8 @@ KUINT16 NamedLocationIdentifier::GetStationNumber() const {
 KString NamedLocationIdentifier::GetAsString() const {
   KStringStream ss;
 
-  ss << "Named Location Identifier:"
-     << "\n\tName:   " << GetEnumAsStringStationName(m_ui16StnName)
+  ss << "Named Location Identifier:" << "\n\tName:   "
+     << GetEnumAsStringStationName(m_ui16StnName)
      << "\n\tNumber: " << m_ui16StnNum << "\n";
 
   return ss.str();

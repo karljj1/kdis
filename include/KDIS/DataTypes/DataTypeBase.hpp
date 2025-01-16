@@ -83,7 +83,7 @@ class KDIS_EXPORT DataTypeBase {
     return stream;
   };
 
-    // For streaming a data type into a KDataStream,
+  // For streaming a data type into a KDataStream,
 #define KDIS_STREAM (DataTypeBase*)&
 };
 

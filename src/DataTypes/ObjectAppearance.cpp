@@ -166,8 +166,8 @@ KString ObjectAppearance::GetAsString() const {
   KStringStream ss;
 
   ss << "Object Appearance:\n"
-     << "\tGeneral Appearance:"
-     << "\tPercent Complete:  " << m_GeneralAppearanceUnion.m_ui16PcComp << "\n"
+     << "\tGeneral Appearance:" << "\tPercent Complete:  "
+     << m_GeneralAppearanceUnion.m_ui16PcComp << "\n"
      << "\tDamage:            "
      << GetEnumAsStringObjectDamage(m_GeneralAppearanceUnion.m_ui16Dmg) << "\n"
      << "\tPredistributed:    " << m_GeneralAppearanceUnion.m_ui16Predistributed

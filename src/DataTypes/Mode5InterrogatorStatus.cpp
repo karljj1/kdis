@@ -132,9 +132,8 @@ KBOOL Mode5InterrogatorStatus::HasMalfunction() const {
 
 KString Mode5InterrogatorStatus::GetAsString() const {
   KStringStream ss;
-  ss << "Mode 5 Interrogator Status:"
-     << "\n\tIFF Mission:    " << (KUINT16)m_StatusUnion.m_ui8IffMis
-     << "\n\tMessage Format: "
+  ss << "Mode 5 Interrogator Status:" << "\n\tIFF Mission:    "
+     << (KUINT16)m_StatusUnion.m_ui8IffMis << "\n\tMessage Format: "
      << GetEnumAsStringMode5MessageFormat(m_StatusUnion.m_ui8MsgFrmt)
      << "\n\tOn/Off Status:  " << (KBOOL)m_StatusUnion.m_ui8OnOff
      << "\n\tDamaged:        " << (KBOOL)m_StatusUnion.m_ui8Dmg

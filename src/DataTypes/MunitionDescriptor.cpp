@@ -101,8 +101,7 @@ KUINT16 MunitionDescriptor::GetRate() const { return m_ui16Rate; }
 KString MunitionDescriptor::GetAsString() const {
   KStringStream ss;
 
-  ss << "Descriptor:"
-     << "\n\tType:     " << m_Type.GetAsString()
+  ss << "Descriptor:" << "\n\tType:     " << m_Type.GetAsString()
      << "\tWarhead:  " << GetEnumAsStringWarheadType(m_ui16Warhead)
      << "\n\tFuse:     " << GetEnumAsStringFuseType(m_ui16Fuse)
      << "\n\tQuantity: " << m_ui16Quantity << "\n\tRate:     " << m_ui16Rate

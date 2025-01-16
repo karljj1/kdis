@@ -1433,7 +1433,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAdditionalIntrCommParamType(
 
 // Implementation of string values for AttachedIndicator
 
-  #ifdef KDIS_USE_ENUM_DESCRIPTORS
+#ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor AttachedIndicatorDescriptor[] = {
     {0, "NoStatementAttachedIndicator"},
@@ -1463,7 +1463,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedIndicator(
       ValueOut);
 }
 
-  #else
+#else
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeAttachedIndicator() { return 0; }
 
@@ -1483,7 +1483,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringAttachedIndicator(
   return false;  // Maybe throw an exception?
 }
 
-  #endif  // DIS 7
+#endif  // DIS 7
 
 #endif
 
