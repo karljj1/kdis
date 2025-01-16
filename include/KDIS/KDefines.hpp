@@ -51,15 +51,15 @@ http://p.sf.net/kdis/UserGuide
 // TODO(carlocorradini) Remove
 #if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
     defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
-  // Disable this warning, it simply warns us about any functions that have a
-  // throw qualifier.
-  #pragma warning(disable : 4290)
+// Disable this warning, it simply warns us about any functions that have a
+// throw qualifier.
+#pragma warning(disable : 4290)
 
-  // Warning about conversion from size_t
-  #pragma warning(disable : 4267)
+// Warning about conversion from size_t
+#pragma warning(disable : 4267)
 
-  // Safe to ignore this error as we are only exporting STL objects
-  #pragma warning(disable : 4251)
+// Safe to ignore this error as we are only exporting STL objects
+#pragma warning(disable : 4251)
 #endif
 
 //
@@ -68,10 +68,10 @@ http://p.sf.net/kdis/UserGuide
 
 // DIS version
 #ifndef DIS_VERSION
-  #error DIS_VERSION must be defined. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
+#error DIS_VERSION must be defined. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
 #endif
 #if DIS_VERSION != 5 && DIS_VERSION != 6 && DIS_VERSION != 7
-  #error Invalid DIS_VERSION. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
+#error Invalid DIS_VERSION. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)
 #endif
 
 //
@@ -231,33 +231,11 @@ class KException : public std::runtime_error {
       : std::runtime_error(errorCodeText(errorCode)), errorCode(errorCode) {}
 
   KException(const ErrorCode errorCode, const std::string& message)
-      : std::runtime_error(
-            KDIS::UTIL::format("%s: %s", errorCodeText(errorCode), message)),
+      : std::runtime_error(KDIS::UTIL::format(
+            "%s: %s", errorCodeText(errorCode), message.c_str())),
         errorCode(errorCode) {}
 
   virtual ~KException() = default;
-};
-
-//
-// Endian
-//
-
-/**
- * @brief Endianness.
- */
-enum class Endian : std::uint8_t {
-  /**
-   * @brief Little Endian (LE).
-   * Least significant byte at the smallest address.
-   * Most significant byte at the largest address.
-   */
-  LITTLE,
-  /**
-   * @brief Big Endian (BE).
-   * Least significant byte at the largest address.
-   * Most significant byte at the smallest address.
-   */
-  BIG
 };
 
 }  // namespace KDIS

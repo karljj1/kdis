@@ -1,19 +1,16 @@
 {
     "editor.formatOnSave": true,
-    "cmake.configureSettings": {
-        "BUILD_SHARED_LIBS": false,
-        "KDIS_BUILD_DOCS": true,
-        "KDIS_BUILD_EXAMPLES": true,
-        "KDIS_BUILD_TESTS": true
-    },
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.autoAddFileAssociations": false,
     "files.associations": {
         ".clang-format": "yaml",
         ".clang-tidy": "yaml",
         ".cmake-format": "yaml",
-        "*.cmake.in": "cmake",
-        "cppcheck.cppcheck": "xml",
-        "CPPLINT.cfg": "properties",
         "Doxyfile.in": "doxyfile",
-        "KConfig.hpp.in": "cpp",
+        "*.cmake.in": "cmake",
+        "*.hpp.in": "cpp"
+    },
+    "[markdown]": {
+        "editor.wordWrap": "off"
     }
 }

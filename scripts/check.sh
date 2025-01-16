@@ -223,6 +223,7 @@ cmake_format() {
     find "$ROOTDIR" \
         -not -path "$ROOTDIR/build/*" \
         -not -path "$ROOTDIR/cmake/CPM.cmake" \
+        -not -path "$ROOTDIR/cmake/CodeCoverage.cmake" \
         -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' -o -name '*.cmake.in' \) \
         -print0 \
         | xargs -0 -n 1 \
@@ -236,6 +237,7 @@ cmake_lint() {
     find "$ROOTDIR" \
         -not -path "$ROOTDIR/build/*" \
         -not -path "$ROOTDIR/cmake/CPM.cmake" \
+        -not -path "$ROOTDIR/cmake/CodeCoverage.cmake" \
         -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' -o -name '*.cmake.in' \) \
         -print0 \
         | xargs -0 -n 1 \
@@ -247,7 +249,6 @@ clang_format() {
     INFO "Clang Format"
     find "$ROOTDIR" \
         -not -path "$ROOTDIR/build/*" \
-        -not -path "$ROOTDIR/include/KDIS/KExport.hpp" \
         -type f \( -name '*.hpp' -o -name '*.hpp.in' -o -name '*.cpp' \) \
         -print0 \
         | xargs -0 -n 1 \
@@ -260,20 +261,14 @@ clang_format() {
 # Clang Tidy
 clang_tidy() {
     INFO "Clang Tidy"
-    # TODO(carlocorradini)
+    find "$ROOTDIR" \
+        -not -path "$ROOTDIR/build/*" \
+        -type f \( -name '*.hpp' -o -name '*.hpp.in' -o -name '*.cpp' \) \
+        -print0 \
+        | xargs -0 -n 1 \
+            clang-tidy
 }
 
-# CppLint
-cpplint() {
-    INFO "CppLint"
-    # TODO(carlocorradini)
-}
-
-# CppCheck
-cppcheck() {
-    INFO "CppCheck"
-    # TODO(carlocorradini)
-}
 
 # ================
 # CONFIGURATION
@@ -296,6 +291,4 @@ ROOTDIR="$(readlink -f "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/..")"
     cmake_lint
     clang_format
     clang_tidy
-    cpplint
-    cppcheck
 }

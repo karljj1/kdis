@@ -74,14 +74,14 @@ know the modulation params data format
 #pragma once
 
 #include "KDIS/DataTypes/Enums/EnumLink16.hpp"
-#include "KDIS/KDefinesLink16.hpp"
+#include "KDIS/KExport.hpp"
 #include "KDIS/PDU/Radio_Communications/Transmitter_PDU.hpp"
 
 namespace KDIS {
 namespace PDU {
 namespace LINK16 {
 
-class KDIS_EXPORT_LINK16 Link16_Transmitter_PDU : public Transmitter_PDU {
+class KDIS_EXPORT Link16_Transmitter_PDU : public Transmitter_PDU {
  protected:
   KUINT8 m_ui8TSAM;
 

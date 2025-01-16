@@ -45,12 +45,12 @@ support for using your own FixedDatum.
 #include "KDIS/DataTypes/DataTypeBase.hpp"
 #include "KDIS/DataTypes/FactoryDecoder.hpp"
 #include "KDIS/Extras/KRef_Ptr.hpp"
+#include "KDIS/util/Endian.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
 using KDIS::DATA_TYPE::ENUMS::DatumID;
-using KDIS::UTILS::IsMachineBigEndian;
 
 /************************************************************************/
 // Define the type of pointer we are using for FixedDatum Records,
@@ -158,7 +158,7 @@ Type FixedDatum::GetDatumValue() const {
   NetToDataType<Type> NetValue(m_cDatumValue, false);
 
   // Do we need to convert the data back to machine endian?
-  if (IsMachineBigEndian() == false) {
+  if (KDIS::UTIL::Endian::isLittleEndian()) {
     // Need to convert
     NetValue.SwapBytes();
   }
@@ -182,7 +182,7 @@ void FixedDatum::SetDatumValue(Type val) {
   // as when we encode/decode we have no way to know what the data type is or
   // how many octets long it is. We only convert to machine endian when the data
   // is requested.
-  if (IsMachineBigEndian() == false) {
+  if (KDIS::UTIL::Endian::isLittleEndian()) {
     // Need to convert
     NetValue.SwapBytes();
   }

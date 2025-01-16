@@ -15,70 +15,115 @@ project(
 # Settings
 #
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
-set(CMAKE_CXX_EXTENSIONS FALSE)
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+if(NOT DEFINED CMAKE_DEBUG_POSTFIX)
+  set(CMAKE_DEBUG_POSTFIX d)
+endif()
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+# Define PROJECT_IS_TOP_LEVEL if not available
+if(CMAKE_VERSION VERSION_LESS "3.21")
+  string(COMPARE EQUAL "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}" PROJECT_IS_TOP_LEVEL)
+endif()
 
 #
 # Options
 #
+include(CMakeDependentOption)
 # cmake-lint: disable=C0301
 set(DIS_VERSION
     7
     CACHE
       STRING
-      "DIS version. Possible values are 5 (IEEE 1278.1-1995), 6 (IEEE 1278.1A-1998), or 7 (IEEE 1278.1x-2012)"
+      "DIS version. Possible values are '5' (IEEE 1278.1-1995), '6' (IEEE 1278.1A-1998), or '7' (IEEE 1278.1x-2012)"
 )
 # cmake-lint: disable=C0301
 option(
   KDIS_USE_ENUM_DESCRIPTORS
   "Enumeration descriptors. Allow enum values to be turned into their text labels. This increase the memory footprint of the library"
-  TRUE
+  ON
 )
-option(KDIS_BUILD_DOCS "Build documentation" FALSE)
-option(KDIS_BUILD_EXAMPLES "Build examples" FALSE)
-option(KDIS_BUILD_TESTS "Build tests" FALSE)
-option(BUILD_SHARED_LIBS "Build shared library" TRUE)
+option(KDIS_BUILD_INSTALL "Build install" ${PROJECT_IS_TOP_LEVEL})
+option(KDIS_BUILD_DOCS "Build documentation" ${PROJECT_IS_TOP_LEVEL})
+option(KDIS_BUILD_EXAMPLES "Build examples" ${PROJECT_IS_TOP_LEVEL})
+option(KDIS_BUILD_TESTS "Build tests" ${PROJECT_IS_TOP_LEVEL})
+cmake_dependent_option(
+  KDIS_BUILD_TESTS_COVERAGE "Build tests coverage" ${PROJECT_IS_TOP_LEVEL} "KDIS_BUILD_TESTS" OFF
+)
+option(BUILD_SHARED_LIBS "Build shared library" ON)
 
 #
 # Checks
 #
-if(NOT ${DIS_VERSION} EQUAL 5
-   AND NOT ${DIS_VERSION} EQUAL 6
-   AND NOT ${DIS_VERSION} EQUAL 7
+if(NOT DIS_VERSION EQUAL 5
+   AND NOT DIS_VERSION EQUAL 6
+   AND NOT DIS_VERSION EQUAL 7
 )
-  message(FATAL_ERROR "Invalid DIS version ${DIS_VERSION}")
+  message(FATAL_ERROR "Invalid DIS version '${DIS_VERSION}'")
+endif()
+if(KDIS_BUILD_TESTS_COVERAGE)
+  # Compiler (GNU, Clang and Flang)
+  get_property(LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
+  foreach(lang ${LANGUAGES})
+    # FIXME See https://github.com/bilke/cmake-modules/issues/84
+    if(NOT "${CMAKE_${lang}_COMPILER_ID}" MATCHES "GNU")
+      message(
+        WARNING
+          "Tests coverage disabled because compiler '${CMAKE_${lang}_COMPILER_ID}' does not support it"
+      )
+      set(KDIS_BUILD_TESTS_COVERAGE
+          OFF
+          CACHE BOOL "Build tests coverage" FORCE
+      )
+      break()
+    endif()
+  endforeach()
 endif()
 
 #
 # Includes
 #
-include(GNUInstallDirs)
 include(GenerateExportHeader)
-include(CMakePackageConfigHelpers)
-if(${KDIS_BUILD_TESTS})
+if(KDIS_BUILD_INSTALL)
+  include(GNUInstallDirs)
+  include(CMakePackageConfigHelpers)
+endif()
+if(KDIS_BUILD_TESTS)
   include(CPM)
+  if(KDIS_BUILD_TESTS_COVERAGE)
+    enable_language(C)
+    include(CodeCoverage)
+  endif()
 endif()
 
 #
-# Configuration file
+# Dependencies
 #
-configure_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/KConfig.hpp.in
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KConfig.hpp @ONLY
-)
+if(KDIS_BUILD_DOCS)
+  # Doxygen
+  find_package(Doxygen REQUIRED)
+endif()
+if(KDIS_BUILD_TESTS)
+  # GoogleTest
+  CPMAddPackage(
+    NAME GoogleTest
+    GITHUB_REPOSITORY google/googletest
+    GIT_TAG v1.12.0
+    EXCLUDE_FROM_ALL ON
+    SYSTEM ON
+    OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON"
+  )
+endif()
 
 #
 # Headers & Sources
 #
 set(KDIS_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME})
+set(KDIS_HEADERS_DIR_BINARY ${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME})
 set(KDIS_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-set(KDIS_HEADERS
-    ${KDIS_HEADERS_DIR}/KConfig.hpp ${KDIS_HEADERS_DIR}/KDataStream.hpp
-    ${KDIS_HEADERS_DIR}/KDefines.hpp ${KDIS_HEADERS_DIR}/KEncodersDecoders.hpp
-    ${KDIS_HEADERS_DIR}/KSymbolicNames.hpp
+set(KDIS_HEADERS ${KDIS_HEADERS_DIR}/KDataStream.hpp ${KDIS_HEADERS_DIR}/KDefines.hpp
+                 ${KDIS_HEADERS_DIR}/KEncodersDecoders.hpp ${KDIS_HEADERS_DIR}/KSymbolicNames.hpp
 )
 set(KDIS_SOURCES ${KDIS_SOURCES_DIR}/KDataStream.cpp)
 
@@ -86,8 +131,8 @@ set(KDIS_SOURCES ${KDIS_SOURCES_DIR}/KDataStream.cpp)
 set(KDIS_UTIL_HEADERS_DIR ${KDIS_HEADERS_DIR}/util)
 set(KDIS_UTIL_SOURCES_DIR ${KDIS_SOURCES_DIR}/util)
 
-list(APPEND KDIS_HEADERS ${KDIS_UTIL_HEADERS_DIR}/format.hpp)
-list(APPEND KDIS_SOURCES)
+list(APPEND KDIS_HEADERS ${KDIS_UTIL_HEADERS_DIR}/Endian.hpp ${KDIS_UTIL_HEADERS_DIR}/format.hpp)
+list(APPEND KDIS_SOURCES ${KDIS_UTIL_SOURCES_DIR}/Endian.cpp)
 
 # DataTypes
 set(KDIS_DATATYPES_HEADERS_DIR ${KDIS_HEADERS_DIR}/DataTypes)
@@ -899,16 +944,24 @@ list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
 )
 
 #
+# Configuration file
+#
+set(KDIS_HEADER_CONFIG_FILE ${KDIS_HEADERS_DIR_BINARY}/KConfig.hpp)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/KConfig.hpp.in ${KDIS_HEADER_CONFIG_FILE} @ONLY)
+list(APPEND KDIS_HEADERS ${KDIS_HEADER_CONFIG_FILE})
+
+#
 # Library
 #
-add_library(${PROJECT_NAME} ${KDIS_SOURCES})
+add_library(${PROJECT_NAME} ${KDIS_HEADERS} ${KDIS_SOURCES})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 # Export header
+set(KDIS_HEADER_EXPORT_FILE ${KDIS_HEADERS_DIR_BINARY}/KExport.hpp)
 generate_export_header(
-  ${PROJECT_NAME} EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KExport.hpp
-  INCLUDE_GUARD_NAME ${PROJECT_NAME}_KEXPORT_HPP_
+  ${PROJECT_NAME} EXPORT_FILE_NAME ${KDIS_HEADER_EXPORT_FILE} INCLUDE_GUARD_NAME
+  ${PROJECT_NAME}_KEXPORT_HPP_
 )
-list(APPEND KDIS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/KExport.hpp)
+list(APPEND KDIS_HEADERS ${KDIS_HEADER_EXPORT_FILE})
 # Include directories
 target_include_directories(
   ${PROJECT_NAME}
@@ -922,81 +975,101 @@ target_compile_definitions(
                           $<$<BOOL:${KDIS_USE_ENUM_DESCRIPTORS}>:KDIS_USE_ENUM_DESCRIPTORS>
 )
 # Properties
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} DEBUG_POSTFIX "d")
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 # TODO Compile options target_compile_options( ${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/W4
 # /WX> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Werror> )
 
 #
-# Configuration
-#
-configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
-  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-)
-write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-  VERSION ${PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion
-)
-
-#
 # Install
 #
-foreach(file ${KDIS_HEADERS})
-  get_filename_component(dir ${file} DIRECTORY)
-  string(REPLACE ${KDIS_HEADERS_DIR} "" rel_dir ${dir})
-  install(FILES ${file} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${rel_dir})
-endforeach()
+if(KDIS_BUILD_INSTALL)
+  # Headers
+  foreach(file ${KDIS_HEADERS})
+    get_filename_component(file ${file} ABSOLUTE)
+    get_filename_component(dir ${file} DIRECTORY)
+    if(dir STREQUAL ${KDIS_HEADERS_DIR_BINARY})
+      set(headers_dir ${KDIS_HEADERS_DIR_BINARY})
+    else()
+      set(headers_dir ${KDIS_HEADERS_DIR})
+    endif()
+    string(REPLACE ${headers_dir} "" rel_dir ${dir})
+    install(FILES ${file} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${rel_dir})
+  endforeach()
+  # Configuration
+  configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  )
+  write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+  )
+  # Package
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+                ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+          DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  )
+  install(
+    EXPORT ${PROJECT_NAME}Targets
+    FILE ${PROJECT_NAME}Targets.cmake
+    NAMESPACE ${PROJECT_NAME}::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  )
+  install(
+    TARGETS ${PROJECT_NAME}
+    EXPORT ${PROJECT_NAME}Targets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  )
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-              ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-)
-install(
-  TARGETS ${PROJECT_NAME}
-  EXPORT ${PROJECT_NAME}Targets
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
-install(
-  EXPORT ${PROJECT_NAME}Targets
-  NAMESPACE ${PROJECT_NAME}::
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-)
-
-#
-# CPack
-#
-set(CPACK_GENERATOR DEB RPM TXZ TGZ)
-set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
-set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
-set(CPACK_PACKAGE_FILE_NAME
-    "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.${CMAKE_SYSTEM_PROCESSOR}"
-)
-set(CPACK_PACKAGE_RPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/_CPack_Packages/Linux/RPM")
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Karl Jones <Karljj1@yahoo.com>")
-include(CPack)
-
-#
-# Documentation
-#
-if(${KDIS_BUILD_DOCS})
-  add_subdirectory(docs)
+  #
+  # CPack
+  #
+  set(CPACK_GENERATOR DEB RPM TXZ TGZ)
+  set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+  set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
+  set(CPACK_PACKAGE_FILE_NAME
+      "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.${CMAKE_SYSTEM_PROCESSOR}"
+  )
+  set(CPACK_PACKAGE_RPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/_CPack_Packages/Linux/RPM")
+  set(CPACK_DEBIAN_PACKAGE_MAINTAINER
+      "Karl Jones <Karljj1@yahoo.com>, Carlo Corradini <carlo.corradini98@gmail.com>"
+  )
+  include(CPack)
 endif()
 
 #
 # Examples
 #
-if(${KDIS_BUILD_EXAMPLES})
+if(KDIS_BUILD_EXAMPLES)
   add_subdirectory(examples)
+endif()
+
+#
+# Documentation
+#
+if(KDIS_BUILD_DOCS)
+  set(DOXYGEN_IN "${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in")
+  set(DOXYGEN_OUT "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
+
+  configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+
+  add_custom_target(
+    ${PROJECT_NAME}_docs
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating API documentation with Doxygen"
+    VERBATIM
+  )
 endif()
 
 #
 # Tests
 #
-if(${KDIS_BUILD_TESTS})
+if(KDIS_BUILD_TESTS)
   add_subdirectory(tests)
 endif()
