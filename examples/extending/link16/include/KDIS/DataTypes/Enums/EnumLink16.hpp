@@ -53,7 +53,7 @@ namespace LINK16 {
  */
 /************************************************************************/
 
-enum TimeSlotAllocationMode {
+enum class TimeSlotAllocationMode {
   TSA0 = 0,
   TSA1 = 1,
   TSA2 = 2,
@@ -78,7 +78,7 @@ KBOOL GetEnumFromStringTimeSlotAllocationMode(const KString& Value,
  */
 /************************************************************************/
 
-enum TransmittingTerminalPrimaryMode { NTR = 1, JTIDS_Unit_Participant = 2 };
+enum class TransmittingTerminalPrimaryMode { NTR = 1, JTIDS_Unit_Participant = 2 };
 
 KString GetEnumAsStringTransmittingTerminalPrimaryMode(KINT32 Value);
 
@@ -96,7 +96,7 @@ KBOOL GetEnumFromStringTransmittingTerminalPrimaryMode(const KString& Value,
  */
 /************************************************************************/
 
-enum TransmittingTerminalSecondaryMode {
+enum class TransmittingTerminalSecondaryMode {
   NoTransmittingTerminalSecondaryMode = 0,
   NetPositionReference = 1,
   PrimaryNavigationController = 2,
@@ -118,7 +118,7 @@ KBOOL GetEnumFromStringTransmittingTerminalSecondaryMode(const KString& Value,
  */
 /************************************************************************/
 
-enum SynchronizationState {
+enum class SynchronizationState {
   CoarseSynchronization = 0,
   FineSynchronization = 1
 };
@@ -138,7 +138,7 @@ KBOOL GetEnumFromStringSynchronizationState(const KString& Value,
  */
 /************************************************************************/
 
-enum Link16MessageType {
+enum class Link16MessageType {
   JTIDS_Header_Messages = 0,
   RTT_A_B = 1,
   RTT_Reply = 2,
