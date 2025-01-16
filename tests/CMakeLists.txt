@@ -4,21 +4,26 @@ enable_testing()
 # Sources
 #
 set(KDIS_TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(KDIS_TESTS_SOURCES
-    ${KDIS_TESTS_DIR}/ConversionTests.cpp
-    ${KDIS_TESTS_DIR}/DataType_EncodeDecode5.cpp
-    ${KDIS_TESTS_DIR}/DataType_EncodeDecode6.cpp
-    ${KDIS_TESTS_DIR}/DataType_EncodeDecode7.cpp
-    ${KDIS_TESTS_DIR}/PDU_EncodeDecode5.cpp
-    ${KDIS_TESTS_DIR}/PDU_EncodeDecode6.cpp
-    ${KDIS_TESTS_DIR}/PDU_EncodeDecode7.cpp
-    ${KDIS_TESTS_DIR}/PDU_Factory.cpp
-    ${KDIS_TESTS_DIR}/PDU_FactoryDecoder5.cpp
-    ${KDIS_TESTS_DIR}/PDU_ProtocolFamily5.cpp
-    ${KDIS_TESTS_DIR}/PDU_ProtocolFamily6.cpp
-    ${KDIS_TESTS_DIR}/PDU_ProtocolFamily7.cpp
-    ${KDIS_TESTS_DIR}/PDU_Clone.cpp
+set(KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/ConversionTests.cpp ${KDIS_TESTS_DIR}/PDU_Factory.cpp
+                       ${KDIS_TESTS_DIR}/PDU_Clone.cpp
 )
+# DIS 5
+list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/DataType_EncodeDecode5.cpp
+     ${KDIS_TESTS_DIR}/PDU_EncodeDecode5.cpp ${KDIS_TESTS_DIR}/PDU_FactoryDecoder5.cpp
+     ${KDIS_TESTS_DIR}/PDU_ProtocolFamily5.cpp
+)
+# DIS 6
+if(DIS_VERSION GREATER_EQUAL 6)
+  list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/DataType_EncodeDecode6.cpp
+       ${KDIS_TESTS_DIR}/PDU_EncodeDecode6.cpp ${KDIS_TESTS_DIR}/PDU_ProtocolFamily6.cpp
+  )
+endif()
+# DIS 7
+if(DIS_VERSION GREATER_EQUAL 7)
+  list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/DataType_EncodeDecode7.cpp
+       ${KDIS_TESTS_DIR}/PDU_EncodeDecode7.cpp ${KDIS_TESTS_DIR}/PDU_ProtocolFamily7.cpp
+  )
+endif()
 
 #
 # Test
@@ -69,7 +74,7 @@ if(KDIS_BUILD_TESTS_COVERAGE)
     ${PROJECT_NAME}_tests
     DEPENDENCIES
     ${PROJECT_NAME}_tests
-    KDIS::KDIS
+    ${PROJECT_NAME}::${PROJECT_NAME}
     LCOV_ARGS
     "--no-external"
     EXCLUDE

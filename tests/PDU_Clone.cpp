@@ -67,6 +67,7 @@
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Event_Report_R_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Record_Query_R_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Record_R_PDU.hpp>
+// FIXME
 // #include
 // <KDIS/PDU/Simulation_Management_With_Reliability/Reliability_Header.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Remove_Entity_R_PDU.hpp>
