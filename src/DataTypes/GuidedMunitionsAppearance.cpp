@@ -160,8 +160,8 @@ KBOOL GuidedMunitionsAppearance::IsMaskedCloaked() const {
 KString GuidedMunitionsAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Guided Munitions Appearance:"
-     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)
+  ss << "Guided Munitions Appearance:" << "\n\tDamage:                 "
+     << GetEnumAsStringEntityDamage(m_Damage)
      << "\n\tSmoke:                  " << GetEnumAsStringEntitySmoke(m_Smoke)
      << "\n\tTrailing Effect:        "
      << GetEnumAsStringEntityTrailingEffect(m_TrailingEffect)

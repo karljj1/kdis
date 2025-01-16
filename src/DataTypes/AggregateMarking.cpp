@@ -99,8 +99,7 @@ KString AggregateMarking::GetAggregateMarkingString() const {
 KString AggregateMarking::GetAsString() const {
   KStringStream ss;
 
-  ss << "Aggregate Marking:"
-     << "\n\tMaring Char Set:      "
+  ss << "Aggregate Marking:" << "\n\tMaring Char Set:      "
      << (KUINT16)m_ui8AggregateMarkingCharacterSet
      << "\n\tMarking String:       " << GetAggregateMarkingString() << "\n";
 

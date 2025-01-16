@@ -146,8 +146,7 @@ EntityType& AttachedPart::GetAttachedPartType() { return m_AttachedPartType; }
 KString AttachedPart::GetAsString() const {
   KStringStream ss;
 
-  ss << "Attached Part:"
-     << "\n\tDetached:             "
+  ss << "Attached Part:" << "\n\tDetached:             "
      << (m_ui8DetachedIndicator == 0 ? "False" : "True")
      << "\n\tPart Attached To ID:  " << m_ui16PartAttachedToID
      << "\n\tParameter Type:       "

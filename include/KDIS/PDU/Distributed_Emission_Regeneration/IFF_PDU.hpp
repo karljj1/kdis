@@ -76,8 +76,8 @@ transponder and interrogator data link messages.
 #include "KDIS/DataTypes/Vector.hpp"
 #include "KDIS/PDU/Header.hpp"
 #if DIS_VERSION > 6
-  #include "KDIS/DataTypes/IFF_Layer3Interrogator.hpp"
-  #include "KDIS/DataTypes/IFF_Layer3Transponder.hpp"
+#include "KDIS/DataTypes/IFF_Layer3Interrogator.hpp"
+#include "KDIS/DataTypes/IFF_Layer3Transponder.hpp"
 #endif
 
 namespace KDIS {

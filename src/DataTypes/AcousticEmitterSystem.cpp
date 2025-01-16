@@ -98,8 +98,8 @@ KUINT8 AcousticEmitterSystem::GetEmitterID() const {
 KString AcousticEmitterSystem::GetAsString() const {
   KStringStream ss;
 
-  ss << "Acoustic Emitter System:"
-     << "\n\tName:     " << GetEnumAsStringAcousticSystemName(m_ui16EmitterName)
+  ss << "Acoustic Emitter System:" << "\n\tName:     "
+     << GetEnumAsStringAcousticSystemName(m_ui16EmitterName)
      << "\n\tFunction: " << GetEnumAsStringAcousticSystemFunction(m_ui8Function)
      << "\n\tID:       " << (KUINT16)m_ui8EmitterIDNumber << "\n";
 

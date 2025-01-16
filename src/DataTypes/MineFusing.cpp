@@ -96,8 +96,7 @@ KBOOL MineFusing::GetHasAntiHandlingDevice() const {
 KString MineFusing::GetAsString() const {
   KStringStream ss;
 
-  ss << "MineFusing:"
-     << "\n\tPrimary Fuse:            "
+  ss << "MineFusing:" << "\n\tPrimary Fuse:            "
      << GetEnumAsStringMineFuse(m_FuseUnion.m_ui16Primary)
      << "\n\tSecondary Fuse:          "
      << GetEnumAsStringMineFuse(m_FuseUnion.m_ui16Secondary)

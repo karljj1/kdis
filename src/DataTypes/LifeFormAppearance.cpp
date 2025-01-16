@@ -229,8 +229,7 @@ KBOOL LifeFormAppearance::IsConcealedMovement() const {
 KString LifeFormAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Lifeform Appearance:"
-     << "\n\tPaint Scheme:         "
+  ss << "Lifeform Appearance:" << "\n\tPaint Scheme:         "
      << GetEnumAsStringEntityPaintScheme(m_PaintScheme)
      << "\n\tDamage:               " << GetEnumAsStringEntityDamage(m_Damage)
      << "\n\tCompliance:           "

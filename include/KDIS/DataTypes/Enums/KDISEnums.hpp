@@ -53,5 +53,5 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/DataTypes/Enums/EnumSystemIdentifier.hpp"
 
 #if DIS_VERSION > 6
-  #include "KDIS/DataTypes/Enums/EnumInformationOperations.hpp"
+#include "KDIS/DataTypes/Enums/EnumInformationOperations.hpp"
 #endif

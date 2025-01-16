@@ -97,8 +97,7 @@ KFIXED16_3 RelativeWorldCoordinates::GetDeltaZ() const { return m_DelZ; }
 KString RelativeWorldCoordinates::GetAsString() const {
   KStringStream ss;
 
-  ss << "Relative World Coordinates"
-     << "\n\tReference Point: " << m_ui16RefPnt
+  ss << "Relative World Coordinates" << "\n\tReference Point: " << m_ui16RefPnt
      << ", Delta-X: " << m_DelX.GetAsFloat32()
      << ", Delta-Y: " << m_DelY.GetAsFloat32()
      << ", Delta-Z: " << m_DelZ.GetAsFloat32() << "\n";

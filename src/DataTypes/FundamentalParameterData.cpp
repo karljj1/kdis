@@ -198,9 +198,8 @@ KFLOAT32 FundamentalParameterData::GetBeamSweepSync() const {
 KString FundamentalParameterData::GetAsString() const {
   KStringStream ss;
 
-  ss << "Fundamental Parameter Data:"
-     << "\n\tFrequency:                  " << m_f32Freq
-     << "\n\tFrequency Range:            " << m_f32FreqRange
+  ss << "Fundamental Parameter Data:" << "\n\tFrequency:                  "
+     << m_f32Freq << "\n\tFrequency Range:            " << m_f32FreqRange
      << "\n\tEffective Radiated Power:   " << m_f32EffectiveRadiatedPower
      << "\n\tPulse Repetition Frequency: " << m_f32PulseRepetitionFreq
      << "\n\tPulse Width:                " << m_f32PulseWidth

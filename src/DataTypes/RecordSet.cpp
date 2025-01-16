@@ -128,8 +128,7 @@ void RecordSet::ClearRecordValues() {
 KString RecordSet::GetAsString() const {
   KStringStream ss;
 
-  ss << "Record Set"
-     << "\n\tID:            " << m_ui32RecID
+  ss << "Record Set" << "\n\tID:            " << m_ui32RecID
      << "\n\tSerial Number: " << m_ui32RecSetSerialNum
      << "\n\tLength:        " << m_ui16RecLen
      << "\n\tCount:         " << m_ui16RecCnt << "\n";

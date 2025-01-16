@@ -99,8 +99,7 @@ KUINT16 CryptoSystem::GetKey() const { return m_ui16CryptoKey; }
 KString CryptoSystem::GetAsString() const {
   KStringStream ss;
 
-  ss << "Crypto System:"
-     << "\n\tEquipment:   "
+  ss << "Crypto System:" << "\n\tEquipment:   "
      << GetEnumAsStringCryptoSystemType(m_ui16CryptoSystemType)
      << "\n\tMode:        "
      << GetEnumAsStringEncryptionMode(m_ui16EncryptionMode)

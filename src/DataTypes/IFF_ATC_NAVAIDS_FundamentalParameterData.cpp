@@ -156,9 +156,8 @@ SystemMode IFF_ATC_NAVAIDS_FundamentalParameterData::GetApplicableModes()
 KString IFF_ATC_NAVAIDS_FundamentalParameterData::GetAsString() const {
   KStringStream ss;
 
-  ss << "IFF/ATC/NAVAID Fundamental Parameter Data:"
-     << "\n\tERP:              " << m_f32ERP
-     << "\n\tFrequency:        " << m_f32Freq
+  ss << "IFF/ATC/NAVAID Fundamental Parameter Data:" << "\n\tERP:              "
+     << m_f32ERP << "\n\tFrequency:        " << m_f32Freq
      << "\n\tPgRF:             " << m_f32PgRF
      << "\n\tPulse Width:      " << m_f32PulseWidth
      << "\n\tBurst Length:     " << m_ui32BurstLength

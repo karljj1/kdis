@@ -206,8 +206,8 @@ KBOOL MinefieldDataFilter::IsPaintScheme() const {
 KString MinefieldDataFilter::GetAsString() const {
   KStringStream ss;
 
-  ss << "Minefield Data Filter:"
-     << "\n\tGround Offset: " << m_FilterUnion.m_ui32GroundOffset
+  ss << "Minefield Data Filter:" << "\n\tGround Offset: "
+     << m_FilterUnion.m_ui32GroundOffset
      << "\n\tWater Offset: " << m_FilterUnion.m_ui32WaterOffset
      << "\n\tSnow Offset: " << m_FilterUnion.m_ui32SnowOffset
      << "\n\tMine Orientation: " << m_FilterUnion.m_ui32MineOri

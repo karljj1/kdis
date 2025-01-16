@@ -148,8 +148,8 @@ KBOOL CulturalFeatureAppearance::IsEntityMaskedCloaked() const {
 KString CulturalFeatureAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Cultural Feature Appearance:"
-     << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)
+  ss << "Cultural Feature Appearance:" << "\n\tDamage:                 "
+     << GetEnumAsStringEntityDamage(m_Damage)
      << "\n\tSmoke Emanating:        " << m_Smoke
      << "\n\tFlaming Effect:         " << m_FlamingEffectField
      << "\n\tFrozen Status:          " << m_FrozenStatus

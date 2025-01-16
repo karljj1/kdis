@@ -211,6 +211,7 @@ parse_args() {
 # Verify system
 verify_system() {
     assert_cmd clang-format
+    assert_cmd clang-tidy
     assert_cmd cmake-format
     assert_cmd cmake-lint
 

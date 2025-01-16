@@ -177,8 +177,7 @@ KString ModulationType::GetAsString() const {
   KStringStream ss;
 
   ss << "Modulation:\n"
-     << "\tSpread Spectrum:"
-     << "\n\t\tFrequency Hop:    " << m_ui16FreqHop
+     << "\tSpread Spectrum:" << "\n\t\tFrequency Hop:    " << m_ui16FreqHop
      << "\n\t\tPsudo Noise:      " << m_ui16PseudoNoise
      << "\n\t\tTime Hop:         " << m_ui16TimeHop
      << "\n\tMajor Modulation Type:  "

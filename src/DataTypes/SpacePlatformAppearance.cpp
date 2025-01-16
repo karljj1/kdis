@@ -128,8 +128,7 @@ KBOOL SpacePlatformAppearance::IsEntityStateActive() const { return !m_State; }
 KString SpacePlatformAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Space Platform Appearance:"
-     << "\n\tPaint Scheme:           "
+  ss << "Space Platform Appearance:" << "\n\tPaint Scheme:           "
      << GetEnumAsStringPaintScheme(m_PaintScheme)
      << "\n\tMobility Kill:          " << m_MobilityKill
      << "\n\tDamage:                 " << GetEnumAsStringEntityDamage(m_Damage)

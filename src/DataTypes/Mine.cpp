@@ -340,9 +340,8 @@ KUINT16 Mine::GetLength() const {
 KString Mine::GetAsString() const {
   KStringStream ss;
 
-  ss << "Mine:"
-     << "\n\tLocation: " << m_Loc.GetAsString() << "\n\tID: " << m_ui16ID
-     << "\n";
+  ss << "Mine:" << "\n\tLocation: " << m_Loc.GetAsString()
+     << "\n\tID: " << m_ui16ID << "\n";
 
   if (IsGroundBurialDepthOffset()) {
     ss << "\tGround Burial Offset: " << m_f32GrndOffset << "\n";

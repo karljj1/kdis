@@ -143,8 +143,9 @@ KUINT16 GridDataType0::GetSize() const {
 KString GridDataType0::GetAsString() const {
   KStringStream ss;
 
-  ss << GridData::GetAsString() << "GridDataType0:"
-     << "\n\tNumber Of Bytes: " << m_ui16NumBytes << "\n\tData: ";
+  ss << GridData::GetAsString()
+     << "GridDataType0:" << "\n\tNumber Of Bytes: " << m_ui16NumBytes
+     << "\n\tData: ";
 
   vector<KUINT8>::const_iterator citr = m_vui8DataVals.begin();
   vector<KUINT8>::const_iterator citrEnd = m_vui8DataVals.end();

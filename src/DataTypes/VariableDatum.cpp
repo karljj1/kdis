@@ -220,8 +220,8 @@ KString VariableDatum::GetAsString() const {
   KStringStream ss;
 
   // For now we return the datum value as a string.
-  ss << "Variable Datum:"
-     << "\n\tID:          " << GetEnumAsStringDatumID(m_ui32DatumID)
+  ss << "Variable Datum:" << "\n\tID:          "
+     << GetEnumAsStringDatumID(m_ui32DatumID)
      << "\n\tLength:      " << m_ui32DatumLength
      << "\n\tValue(S):    " << GetDatumValueAsKString() << "\n";
 

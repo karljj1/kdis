@@ -77,6 +77,8 @@ if(KDIS_BUILD_TESTS_COVERAGE)
     ${PROJECT_NAME}::${PROJECT_NAME}
     LCOV_ARGS
     "--no-external"
+    "--ignore-errors"
+    "mismatch,mismatch"
     EXCLUDE
     "build/*"
     "examples/*"

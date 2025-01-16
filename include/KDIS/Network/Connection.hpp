@@ -41,16 +41,16 @@ http://p.sf.net/kdis/UserGuide
 
 #if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
     defined(__WIN32__) || defined(__WIN64__) || defined(__NT__)
-  #pragma comment(lib, "WS2_32")
-  #include <WinSock2.h>
+#pragma comment(lib, "WS2_32")
+#include <WinSock2.h>
 #else
-  #include <arpa/inet.h>
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <netdb.h>
-  #include <netinet/in.h>
-  #include <sys/socket.h>
-  #include <sys/types.h>
+#include <arpa/inet.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 #endif
 
 #include <vector>

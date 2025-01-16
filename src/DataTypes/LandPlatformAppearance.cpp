@@ -312,8 +312,7 @@ KBOOL LandPlatformAppearance::IsEntityMaskedCloaked() const {
 KString LandPlatformAppearance::GetAsString() const {
   KStringStream ss;
 
-  ss << "Land Platform Appearance:"
-     << "\n\tPaint Scheme:           "
+  ss << "Land Platform Appearance:" << "\n\tPaint Scheme:           "
      << GetEnumAsStringPaintScheme(m_PaintScheme)
      << "\n\tMobility Kill:          " << m_MobilityKill
      << "\n\tFire Power Kill:        " << m_FirePower

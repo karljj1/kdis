@@ -89,8 +89,7 @@ KFLOAT32 ExplosionDescriptor::GetExplosiveForce() const {
 KString ExplosionDescriptor::GetAsString() const {
   KStringStream ss;
 
-  ss << "Descriptor:"
-     << "\n\tType:     " << m_Type.GetAsString()
+  ss << "Descriptor:" << "\n\tType:     " << m_Type.GetAsString()
      << "\tMaterial: " << GetEnumAsStringExplosiveMaterial(m_ui16ExplMat)
      << "\n\tForce:    " << m_f32ExplForce << "\n";
 

@@ -116,8 +116,7 @@ TDLType EncodingScheme::GetTDLType() const { return (TDLType)m_ui16TDLType; }
 KString EncodingScheme::GetAsString() const {
   KStringStream ss;
 
-  ss << "Encoding Scheme:"
-     << "\n\tClass:    "
+  ss << "Encoding Scheme:" << "\n\tClass:    "
      << GetEnumAsStringEncodingClass(m_EncodingSchemeUnion.m_ui16Class)
      << "\n\tType:     " << m_EncodingSchemeUnion.m_ui16Type
      << "\n\tTDL:      " << GetEnumAsStringTDLType(m_ui16TDLType) << "\n";

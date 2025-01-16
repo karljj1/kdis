@@ -87,8 +87,7 @@ KString ClockTime::GetAsString() const {
      << "\n"
      << "Time Past Hour:   " << std::setfill('0') << std::setw(2) << minutes
      << ":" << std::setfill('0') << std::setw(2) << seconds << " ("
-     << GetEnumAsStringTimeStampType(m_ui32TimePastHour & 1) << ") "
-     << "\n";
+     << GetEnumAsStringTimeStampType(m_ui32TimePastHour & 1) << ") " << "\n";
 
   return ss.str();
 }

@@ -83,8 +83,7 @@ KINT32 Shaft::GetRateOfChange() const { return m_i32RPMRateOfChange; }
 KString Shaft::GetAsString() const {
   KStringStream ss;
 
-  ss << "Shaft:"
-     << "\n\tCurrent RPM:    " << m_i16CurrentRPM
+  ss << "Shaft:" << "\n\tCurrent RPM:    " << m_i16CurrentRPM
      << "\n\tOrdered RPM:    " << m_i16OrderedRPM
      << "\n\tRate Of Change: " << m_i32RPMRateOfChange << "\n";
 

@@ -118,8 +118,7 @@ KString EntityMarking::GetEntityMarkingString() const {
 KString EntityMarking::GetAsString() const {
   KStringStream ss;
 
-  ss << "Entity Marking:"
-     << "\n\tMaring Char Set:      "
+  ss << "Entity Marking:" << "\n\tMaring Char Set:      "
      << GetEnumAsStringEntityMarkingCharacterSet(m_ui8EntityMarkingCharacterSet)
      << "\n\tMarking String:       " << GetEntityMarkingString() << "\n";
 

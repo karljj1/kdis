@@ -154,8 +154,8 @@ KFLOAT32 ArticulatedPart::GetValue() const { return m_f32ParamValue; }
 KString ArticulatedPart::GetAsString() const {
   KStringStream ss;
 
-  ss << "Articulation Parameters:"
-     << "\n\tParameter Change:     " << (KUINT16)m_ui8ParmeterChange
+  ss << "Articulation Parameters:" << "\n\tParameter Change:     "
+     << (KUINT16)m_ui8ParmeterChange
      << "\n\tAttachement ID:       " << m_ui16AttachementID
      << "\n\tType Metric:          "
      << GetEnumAsStringArticulatedPartsMetric(GetTypeVariantMetric())

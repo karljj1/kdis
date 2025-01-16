@@ -44,7 +44,7 @@ const EnumDescriptor SystemTypeDescriptor[] = {
     {3, "Soviet_Transponder"},
     {4, "Soviet_Interrogator"},
     {5, "RRB_Transponder"},
-  #if DIS_VERSION > 6
+#if DIS_VERSION > 6
     {6, "Mark_XIIA_Interrogator"},
     {7, "Mode_5_Interrogator"},
     {8, "Mode_S_Interrogator"},
@@ -54,7 +54,7 @@ const EnumDescriptor SystemTypeDescriptor[] = {
     {12, "Mark_XIIA_Combined_Interrogator_Transponder_CIT"},
     {13, "Mark_XII_Combined_Interrogator_Transponder_CIT"},
     {14, "TCAS_ACAS_Transceiver"},
-  #endif
+#endif
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemType() {
@@ -118,11 +118,11 @@ const EnumDescriptor SystemNameDescriptor[] = {
     {7, "Mark_X_XII_ATCRBS_Mode_S"},
     {8, "ARI_5954"},
     {9, "ARI_5983"},
-  #if DIS_VERSION > 6
+#if DIS_VERSION > 6
     {10, "Generic_RRB"},
     {11, "Generic_Mark_XIIA"},
     {12, "Generic_Mode_5"},
-  #endif
+#endif
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemName() {
@@ -176,12 +176,12 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromStringSystemName(const KString& Value,
 #ifdef KDIS_USE_ENUM_DESCRIPTORS
 
 const EnumDescriptor SystemModeDescriptor[] = {
-  #if DIS_VERSION < 7
+#if DIS_VERSION < 7
     {0, "OtherSystemMode"}
-  #elif DIS_VERSION > 6
+#elif DIS_VERSION > 6
     {0, "No_Statement"}, {1, "Off"},       {2, "Standby"},
     {3, "Normal"},       {4, "Emergency"}, {5, "Low_or_Low_Sensitivity"},
-  #endif
+#endif
 };
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeSystemMode() {

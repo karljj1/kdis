@@ -92,8 +92,7 @@ KFLOAT32 PropulsionSystem::GetEngineRPM() const { return m_f32EngineRPM; }
 KString PropulsionSystem::GetAsString() const {
   KStringStream ss;
 
-  ss << "Propulsion System:"
-     << "\n\tPower Setting:  " << m_f32PowerSetting
+  ss << "Propulsion System:" << "\n\tPower Setting:  " << m_f32PowerSetting
      << "\n\tEngine RPM:     " << m_f32EngineRPM << "\n";
 
   return ss.str();

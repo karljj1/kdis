@@ -103,8 +103,7 @@ KString VariableParameter::GetAsString() const {
   KStringStream ss;
 
   // For now we return the datum value as a string.
-  ss << "Variable Parameter:"
-     << "\n\tType:          "
+  ss << "Variable Parameter:" << "\n\tType:          "
      << GetEnumAsStringVariableParameterType(m_ui8VarParamType) << "\n";
 
   return ss.str();

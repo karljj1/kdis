@@ -154,8 +154,8 @@ void GridDataType1::ClearValues() {
 KString GridDataType1::GetAsString() const {
   KStringStream ss;
 
-  ss << GridData::GetAsString() << "GridDataType1:"
-     << "\n\tField Scale:      " << m_f32FieldScale
+  ss << GridData::GetAsString()
+     << "GridDataType1:" << "\n\tField Scale:      " << m_f32FieldScale
      << "\n\tField Offset:     " << m_f32FieldOffset
      << "\n\tNumber Of Values: " << m_ui16NumValues << "\n\tValues: ";
 

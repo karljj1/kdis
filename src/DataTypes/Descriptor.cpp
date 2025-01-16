@@ -71,8 +71,7 @@ EntityType& Descriptor::GetType() { return m_Type; }
 KString Descriptor::GetAsString() const {
   KStringStream ss;
 
-  ss << "Descriptor:"
-     << "\n\tType: " << m_Type.GetAsString() << "\n";
+  ss << "Descriptor:" << "\n\tType: " << m_Type.GetAsString() << "\n";
 
   return ss.str();
 }
