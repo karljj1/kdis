@@ -75,10 +75,19 @@ if(KDIS_BUILD_TESTS_COVERAGE)
     DEPENDENCIES
     ${PROJECT_NAME}_tests
     ${PROJECT_NAME}::${PROJECT_NAME}
+    # TODO Check
     LCOV_ARGS
     "--no-external"
     "--ignore-errors"
     "mismatch,mismatch"
+    "--ignore-errors"
+    "negative,negative"
+    "--ignore-errors"
+    "unused,unused"
+    "--ignore-errors"
+    "empty,empty"
+    "--ignore-errors"
+    "version,version"
     EXCLUDE
     "build/*"
     "examples/*"
