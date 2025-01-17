@@ -85,7 +85,8 @@ you.
 namespace KDIS {
 namespace DATA_TYPE {
 
-template <class DecoderBaseTyp>
+template <class DecoderBaseTyp,
+          typename EnumValTyp = KINT32>
 class FactoryDecoder {
  public:
   FactoryDecoder() {}
@@ -97,10 +98,10 @@ class FactoryDecoder {
   // Description: This is where you decode the stream into your custom class,
   //              the enum value is also passed back so you can perform decoding
   //              of multiple types within a single FactoryDecoder.
-  // Parameter:   KINT32 EnumVal
+  // Parameter:   EnumValTyp EnumVal
   // Parameter:   KDataStream & stream
   //************************************
-  virtual DecoderBaseTyp* FactoryDecode(KINT32 EnumVal,
+  virtual DecoderBaseTyp* FactoryDecode(EnumValTyp EnumVal,
                                         KDataStream& stream) = 0;
 };
 
@@ -112,13 +113,15 @@ class FactoryDecoder {
     purpose:    This class adds support for custom decoding.
 *********************************************************************/
 
-template <class DecoderBaseTyp>
+template <class DecoderBaseTyp,
+          typename EnumValTyp = KINT32>
 class FactoryDecoderUser {
  public:
-  typedef KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp>> FacDecPtr;
+  typedef KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp,
+                                               EnumValTyp>> FacDecPtr;
 
  protected:
-  static std::map<KINT32, FacDecPtr> m_mDecoders;
+  static std::map<EnumValTyp, FacDecPtr> m_mDecoders;
 
  public:
   //************************************
@@ -127,10 +130,10 @@ class FactoryDecoderUser {
   //              EnumVal is the relevant enum value representing the new class.
   //              E.G DatumID enum for VariableDatum.
   //              Exception thrown if a decoder already exists for this enum.
-  // Parameter:   KINT32 EnumVal
+  // Parameter:   EnumValTyp EnumVal
   // Parameter:   FacDecPtr Decoder
   //************************************
-  static void RegisterFactoryDecoder(KINT32 EnumVal, FacDecPtr Decoder) {
+  static void RegisterFactoryDecoder(EnumValTyp EnumVal, FacDecPtr Decoder) {
     if (m_mDecoders.find(EnumVal) != m_mDecoders.end()) {
       throw KException(
           ErrorCode::INVALID_OPERATION,
@@ -147,12 +150,12 @@ class FactoryDecoderUser {
   // Description: Attempts to find a decoder for the enum, returns NULL if none
   // are found.
   //              Note: An exception may be thrown by a decoder.
-  // Parameter:   KINT32 EnumVal
+  // Parameter:   EnumValTyp EnumVal
   // Parameter:   KDataStream & stream
   //************************************
-  static DecoderBaseTyp* FactoryDecode(KINT32 EnumVal, KDataStream& stream) {
+  static DecoderBaseTyp* FactoryDecode(EnumValTyp EnumVal, KDataStream& stream) {
     // Try to find a decoder
-    typename std::map<KINT32, FacDecPtr>::iterator itr =
+    typename std::map<EnumValTyp, FacDecPtr>::iterator itr =
         m_mDecoders.find(EnumVal);
     if (itr != m_mDecoders.end()) {
       return itr->second->FactoryDecode(EnumVal, stream);
@@ -170,9 +173,11 @@ class FactoryDecoderUser {
 };
 
 // Init static map variable.
-template <class DecoderBaseTyp>
-std::map<KINT32, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp>>>
-    FactoryDecoderUser<DecoderBaseTyp>::m_mDecoders;
+template <class DecoderBaseTyp,
+          typename EnumValTyp>
+std::map<EnumValTyp, KDIS::UTILS::KRef_Ptr<FactoryDecoder<DecoderBaseTyp,
+                                                          EnumValTyp>>>
+    FactoryDecoderUser<DecoderBaseTyp, EnumValTyp>::m_mDecoders;
 
 }  // namespace DATA_TYPE
 }  // END namespace KDIS

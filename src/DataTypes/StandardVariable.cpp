@@ -59,7 +59,7 @@ StandardVariable::~StandardVariable() {}
 //////////////////////////////////////////////////////////////////////////
 
 StandardVariableType StandardVariable::GetStandardVariableType() const {
-  return (StandardVariableType)m_ui32Type;
+  return static_cast<StandardVariableType>(m_ui32Type);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(KDataStream& stream) {
 
   // First check for a custom decoder.
   StandardVariable* p =
-      FactoryDecode(static_cast<KUINT32>(  // TBD - FactoryDecode takes a KINT32
+      FactoryDecode(static_cast<KUINT32>(
                         recordHeader.GetStandardVariableType()), stream);
 
   if (p) {

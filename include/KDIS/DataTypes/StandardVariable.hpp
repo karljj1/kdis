@@ -63,7 +63,7 @@ typedef KDIS::UTILS::KRef_Ptr<StandardVariable> StdVarPtr;  // Ref counter
 
 class KDIS_EXPORT StandardVariable
     : public DataTypeBase,
-      public FactoryDecoderUser<StandardVariable> {
+      public FactoryDecoderUser<StandardVariable, KUINT32> {
  protected:
   KUINT32 m_ui32Type;
 
