@@ -52,6 +52,17 @@ cmake_dependent_option(
 )
 option(BUILD_SHARED_LIBS "Build shared library" ON)
 
+option(ENABLE_CCACHE "Enable ccache for faster recompilation" ON)
+find_program(CCACHE_FOUND ccache)
+
+if(CCACHE_FOUND AND ENABLE_CCACHE)
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_FOUND}")
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_FOUND}")
+  message(STATUS "Using ccache for faster recompilation")
+else()
+  message(STATUS "ccache not used for compilation")
+endif()
+
 #
 # Checks
 #
