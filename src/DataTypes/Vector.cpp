@@ -27,9 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/Vector.hpp"
-
 #include <math.h>
+
+#include "KDIS/DataTypes/Vector.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,20 +38,12 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Vector::Vector() : m_f32X(0), m_f32Y(0), m_f32Z(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 Vector::Vector(KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z)
     : m_f32X(X), m_f32Y(Y), m_f32Z(Z) {}
 
 //////////////////////////////////////////////////////////////////////////
 
 Vector::Vector(KDataStream& stream) { Decode(stream); }
-
-//////////////////////////////////////////////////////////////////////////
-
-Vector::~Vector() {}
 
 //////////////////////////////////////////////////////////////////////////
 
