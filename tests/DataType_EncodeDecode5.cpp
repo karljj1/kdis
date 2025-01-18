@@ -258,6 +258,9 @@ TEST(DataType_EncodeDecode5, Vector) {
 
 TEST(DataType_EncodeDecode5, WorldCoordinates) {
   KDIS::DATA_TYPE::WorldCoordinates dtIn;
+  EXPECT_EQ(0, dtIn.GetX());
+  EXPECT_EQ(0, dtIn.GetY());
+  EXPECT_EQ(0, dtIn.GetZ());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::WorldCoordinates dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
