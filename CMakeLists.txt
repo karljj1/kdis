@@ -53,13 +53,14 @@ cmake_dependent_option(
 option(BUILD_SHARED_LIBS "Build shared library" ON)
 
 option(ENABLE_CCACHE "Enable ccache for faster recompilation" ON)
-find_program(CCACHE_FOUND ccache)
-
-if(CCACHE_FOUND AND ENABLE_CCACHE)
-  set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
-  message(STATUS "Using ccache for faster recompilation")
-else()
-  message(STATUS "ccache not used for compilation")
+if(ENABLE_CCACHE)
+  find_program(CCACHE_EXECUTABLE ccache)
+  if(CCACHE_EXECUTABLE)
+    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_EXECUTABLE})
+    message(VERBOSE "Using ccache for faster recompilation")
+  else()
+    message(WARNING "ccache requested, but couldn't find ccache executable")
+  endif()
 endif()
 
 #
