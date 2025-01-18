@@ -45,16 +45,16 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT AcousticEmitterSystem : public DataTypeBase {
  protected:
-  KUINT16 m_ui16EmitterName;
+  KUINT16 m_ui16EmitterName {0};
 
-  KUINT8 m_ui8Function;
+  KUINT8 m_ui8Function {0};
 
-  KUINT8 m_ui8EmitterIDNumber;
+  KUINT8 m_ui8EmitterIDNumber {0};
 
  public:
   static const KUINT16 ACOUSTIC_EMITTER_SYSTEM_SIZE = 4;
 
-  AcousticEmitterSystem();
+  AcousticEmitterSystem() = default;
 
   explicit AcousticEmitterSystem(KDataStream& stream);
 
@@ -62,7 +62,7 @@ class KDIS_EXPORT AcousticEmitterSystem : public DataTypeBase {
                         KDIS::DATA_TYPE::ENUMS::AcousticSystemFunction ASF,
                         KUINT8 ID);
 
-  virtual ~AcousticEmitterSystem();
+  virtual ~AcousticEmitterSystem() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::AcousticEmitterSystem::SetName

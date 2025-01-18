@@ -5,6 +5,7 @@
 #include <KDIS/DataTypes/AggregateIdentifier.hpp>
 #include <KDIS/DataTypes/AggregateMarking.hpp>
 #include <KDIS/DataTypes/AggregateType.hpp>
+#include <KDIS/DataTypes/AirPlatformAppearance.hpp>
 #include <KDIS/DataTypes/ArealObjectAppearance.hpp>
 #include <KDIS/DataTypes/BeamData.hpp>
 #include <KDIS/DataTypes/BoundingSphereRecord.hpp>
@@ -83,6 +84,9 @@
 
 TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
   KDIS::DATA_TYPE::AcousticEmitterSystem dtIn;
+  EXPECT_EQ(0, dtIn.GetName());
+  EXPECT_EQ(0, dtIn.GetFunction());
+  EXPECT_EQ(0, dtIn.GetEmitterID());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AcousticEmitterSystem dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -91,6 +95,7 @@ TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
 
 TEST(DataType_EncodeDecode6, AggregateIdentifier) {
   KDIS::DATA_TYPE::AggregateIdentifier dtIn;
+  EXPECT_EQ(0, dtIn.GetAggregateID());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AggregateIdentifier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -99,6 +104,8 @@ TEST(DataType_EncodeDecode6, AggregateIdentifier) {
 
 TEST(DataType_EncodeDecode6, AggregateMarking) {
   KDIS::DATA_TYPE::AggregateMarking dtIn;
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ASCII,
+            dtIn.GetAggregateMarkingCharacterSet());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AggregateMarking dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -107,14 +114,59 @@ TEST(DataType_EncodeDecode6, AggregateMarking) {
 
 TEST(DataType_EncodeDecode6, AggregateType) {
   KDIS::DATA_TYPE::AggregateType dtIn;
+  EXPECT_EQ(0, dtIn.GetEntityKind());
+  EXPECT_EQ(0, dtIn.GetDomain());
+  EXPECT_EQ(0, dtIn.GetCountry());
+  EXPECT_EQ(0, dtIn.GetCategory());
+  EXPECT_EQ(0, dtIn.GetSubCategory());
+  EXPECT_EQ(0, dtIn.GetSpecific());
+  EXPECT_EQ(0, dtIn.GetExtra());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AggregateType dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+TEST(DataType_EncodeDecode6, AirPlatformAppearance) {
+  KDIS::DATA_TYPE::AirPlatformAppearance dtIn;
+  // AirPlatformAppearance has no encode/decode
+  EXPECT_EQ(0, dtIn.GetEntityPaintScheme());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.DoesEntityMobilityKill());
+  EXPECT_EQ(0, dtIn.GetNVGMode());
+  EXPECT_EQ(0, dtIn.GetEntityDamage());
+  EXPECT_EQ(0, dtIn.GetEntitySmoke());
+  EXPECT_EQ(0, dtIn.GetEntityTrailingEffect());
+  EXPECT_EQ(0, dtIn.GetEntityCanopyState());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityLandingLightsOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityNavigationLightsOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityAntiCollisionLightsOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityFlaming());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsAfterburnerOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0),
+            dtIn.IsEntityLowerAntiCollisionLightOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0),
+            dtIn.IsEntityUpperAntiCollisionLightOn());
+  EXPECT_EQ(0, dtIn.GetAntiCollisionLightDayNight());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsBlinking());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityFrozen());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityPowerPlantOn());
+
+  // EntityStateActive methods have an internal not operator
+  EXPECT_NE(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityStateActive());
+
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityFormationLightsOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsLandingGearExtended());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsCargoDoorsOpened());
+  EXPECT_EQ(0, dtIn.GetNavigationPositionBrightness());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntitySpotLightsOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsEntityInteriorLightsOn());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsReverseThrustEngaged());
+  EXPECT_EQ(static_cast<KDIS::KBOOL>(0), dtIn.IsWeightOnWheels());
+}
+
 TEST(DataType_EncodeDecode6, APA) {
   KDIS::DATA_TYPE::APA dtIn;
+  EXPECT_EQ(0, dtIn.GetValue());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::APA dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);

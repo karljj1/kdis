@@ -51,22 +51,22 @@ class KDIS_EXPORT APA : public DataTypeBase {
       KUINT16 m_ui16Status2 : 1;
       KUINT16 m_ui16Status1 : 1;
     };
-    KUINT16 m_ui16ParamIndex;
+    KUINT16 m_ui16ParamIndex {0};
   } m_ApaUnion;
 
-  KINT16 m_i16Value;
+  KINT16 m_i16Value {0};
 
  public:
   static const KUINT16 APA_SIZE = 4;
 
-  APA();
+  APA() = default;
 
   APA(KDataStream& stream);
 
   APA(KDIS::DATA_TYPE::ENUMS::AdditionalPassiveParameterIndex APPI, KBOOL Val1,
       KBOOL Val2, KINT16 Value);
 
-  virtual ~APA();
+  virtual ~APA() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::APA::SetAPPI

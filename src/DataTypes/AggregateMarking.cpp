@@ -39,9 +39,8 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateMarking::AggregateMarking()
-    : m_ui8AggregateMarkingCharacterSet(ASCII) {
-  memset(m_sAggregateMarkingString, 0x00, 32);
+AggregateMarking::AggregateMarking() {
+  memset(m_sAggregateMarkingString, 0x00, sizeof(m_sAggregateMarkingString));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -52,15 +51,11 @@ AggregateMarking::AggregateMarking(KDataStream& stream) { Decode(stream); }
 
 AggregateMarking::AggregateMarking(EntityMarkingCharacterSet MarkingCharSet,
                                    const KCHAR8* MarkingText,
-                                   KUINT16 TextSize) {
-  memset(m_sAggregateMarkingString, 0x00, 32);
+                                   KUINT16 TextSize)
+    : AggregateMarking() {
   SetAggregateMarkingCharacterSet(MarkingCharSet);
   SetAggregateMarkingString(MarkingText, TextSize);
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-AggregateMarking::~AggregateMarking() {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -73,7 +68,8 @@ void AggregateMarking::SetAggregateMarkingCharacterSet(
 
 EntityMarkingCharacterSet AggregateMarking::GetAggregateMarkingCharacterSet()
     const {
-  return (EntityMarkingCharacterSet)m_ui8AggregateMarkingCharacterSet;
+  return static_cast<EntityMarkingCharacterSet>(
+             m_ui8AggregateMarkingCharacterSet);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -100,7 +96,7 @@ KString AggregateMarking::GetAsString() const {
   KStringStream ss;
 
   ss << "Aggregate Marking:" << "\n\tMaring Char Set:      "
-     << (KUINT16)m_ui8AggregateMarkingCharacterSet
+     << static_cast<KUINT16>(m_ui8AggregateMarkingCharacterSet)
      << "\n\tMarking String:       " << GetAggregateMarkingString() << "\n";
 
   return ss.str();

@@ -46,7 +46,7 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT AggregateMarking : public DataTypeBase {
  protected:
-  KUINT8 m_ui8AggregateMarkingCharacterSet;
+  KUINT8 m_ui8AggregateMarkingCharacterSet {ENUMS::ASCII};
 
   KCHAR8 m_sAggregateMarkingString[32];  // Extra octet for terminator, not
                                          // included in size
@@ -62,7 +62,7 @@ class KDIS_EXPORT AggregateMarking : public DataTypeBase {
       const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet,
       const KCHAR8* MarkingText, KUINT16 TextSize);
 
-  virtual ~AggregateMarking();
+  virtual ~AggregateMarking() = default;
 
   //************************************
   // FullName:
