@@ -52,19 +52,6 @@ cmake_dependent_option(
 )
 option(BUILD_SHARED_LIBS "Build shared library" ON)
 
-option(ENABLE_CCACHE "Enable ccache for faster recompilation" ON)
-if(ENABLE_CCACHE)
-  find_program(CCACHE_EXECUTABLE ccache)
-  if(CCACHE_EXECUTABLE)
-    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_EXECUTABLE})
-    if(CMAKE_VERSION VERSION_GREATER_EQUAL 15)  # VERBOSE added in CMake 3.15
-      message(VERBOSE "Using ccache for faster recompilation")
-    endif()
-  else()
-    message(WARNING "ccache requested, but couldn't find ccache executable")
-  endif()
-endif()
-
 #
 # Checks
 #
