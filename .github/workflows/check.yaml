@@ -103,6 +103,7 @@ jobs:
               with:
                   fail_ci_if_error: true
                   files: ./build/KDIS_coverage.info
+                  token: ${{ secrets.CODECOV_TOKEN }}
 
             - name: Docs
               run: cmake --build ./build --config ${{ matrix.build }} --target KDIS_docs
