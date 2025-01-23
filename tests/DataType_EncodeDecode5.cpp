@@ -31,6 +31,7 @@
 #include <KDIS/DataTypes/Vector.hpp>
 #include <KDIS/DataTypes/WorldCoordinates.hpp>
 #include <iostream>
+#include <vector>
 
 TEST(DataType_EncodeDecode5, AntennaLocation) {
   KDIS::DATA_TYPE::AntennaLocation dtIn;
@@ -234,6 +235,11 @@ TEST(DataType_EncodeDecode5, TrackJamTargetIdentifier) {
 
 TEST(DataType_EncodeDecode5, VariableDatum) {
   KDIS::DATA_TYPE::VariableDatum dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::DatumID
+                did {KDIS::DATA_TYPE::ENUMS::UnitNumberID};
+  EXPECT_NO_THROW(dtIn.SetDatumID(did));
+  EXPECT_EQ(did, dtIn.GetDatumID());
+  EXPECT_EQ(0, dtIn.GetDatumLength());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::VariableDatum dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -242,6 +248,19 @@ TEST(DataType_EncodeDecode5, VariableDatum) {
 
 TEST(DataType_EncodeDecode5, VariableParameter) {
   KDIS::DATA_TYPE::VariableParameter dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::VariableParameterType
+                vpt {KDIS::DATA_TYPE::ENUMS::AttachedPartType};
+  EXPECT_NO_THROW(dtIn.SetVariableParameterType(vpt));
+  EXPECT_EQ(vpt, dtIn.GetVariableParameterType());
+  std::vector<KDIS::KUINT8> vec2big(16);
+  std::vector<KDIS::KUINT8> vecgood(15, 42);
+  EXPECT_THROW(dtIn.SetData(vec2big.data(), vec2big.size()), KDIS::KException);
+  EXPECT_THROW(dtIn.SetData(nullptr, 15), KDIS::KException);
+  EXPECT_NO_THROW(dtIn.SetData(vecgood.data(), vecgood.size()));
+  KDIS::KUINT8* arrout = dtIn.GetData();
+  for (int i = 0; i < vecgood.size(); ++i) {
+    EXPECT_EQ(vecgood[i], arrout[i]) << "Arrays differ at index " << i;
+  }
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::VariableParameter dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
