@@ -667,6 +667,10 @@ TEST(DataType_EncodeDecode6, SphereRecord2) {
 
 TEST(DataType_EncodeDecode6, SystemIdentifier) {
   KDIS::DATA_TYPE::SystemIdentifier dtIn;
+  EXPECT_EQ(0, dtIn.GetSystemType());
+  EXPECT_EQ(0, dtIn.GetSystemName());
+  EXPECT_EQ(0, dtIn.GetSystemMode());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::SystemIdentifier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -675,6 +679,7 @@ TEST(DataType_EncodeDecode6, SystemIdentifier) {
 
 TEST(DataType_EncodeDecode6, UnderwaterAcousticEmitterBeam) {
   KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::UnderwaterAcousticEmitterBeam dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -683,6 +688,7 @@ TEST(DataType_EncodeDecode6, UnderwaterAcousticEmitterBeam) {
 
 TEST(DataType_EncodeDecode6, UnderwaterAcousticEmitterSystem) {
   KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::UnderwaterAcousticEmitterSystem dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -691,6 +697,8 @@ TEST(DataType_EncodeDecode6, UnderwaterAcousticEmitterSystem) {
 
 TEST(DataType_EncodeDecode6, UnderwaterAcousticFundamentalParameterData) {
   KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData dtIn;
+  EXPECT_EQ(0, dtIn.GetActiveEmissionParameterIndex());
+  EXPECT_EQ(0, dtIn.GetScanPattern());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);

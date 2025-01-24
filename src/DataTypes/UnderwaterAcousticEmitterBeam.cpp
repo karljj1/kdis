@@ -110,9 +110,10 @@ KString UnderwaterAcousticEmitterBeam::GetAsString() const {
   KStringStream ss;
 
   ss << "Underwater Acoustic Emitter Beam:"
-     << "\n\tBeam Data Length:              " << (KUINT16)m_ui8BeamDataLength
+     << "\n\tBeam Data Length:              "
+     << static_cast<KUINT16>(m_ui8BeamDataLength)
      << "\n\tBeam ID Number:		          "
-     << (KUINT16)m_ui8BeamIDNumber << m_UAFPD.GetAsString();
+     << static_cast<KUINT16>(m_ui8BeamIDNumber) << m_UAFPD.GetAsString();
 
   return ss.str();
 }

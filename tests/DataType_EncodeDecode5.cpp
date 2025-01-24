@@ -24,6 +24,7 @@
 #include <KDIS/DataTypes/RadioEntityType.hpp>
 #include <KDIS/DataTypes/SimulationIdentifier.hpp>
 #include <KDIS/DataTypes/Supplies.hpp>
+#include <KDIS/DataTypes/SurfacePlatformAppearance.hpp>
 #include <KDIS/DataTypes/TimeStamp.hpp>
 #include <KDIS/DataTypes/TrackJamTargetIdentifier.hpp>
 #include <KDIS/DataTypes/VariableDatum.hpp>
@@ -217,6 +218,28 @@ TEST(DataType_EncodeDecode5, Supplies) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+TEST(DataType_EncodeDecode5, SurfacePlatformAppearance) {
+  KDIS::DATA_TYPE::SurfacePlatformAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityPaintScheme
+                eps {KDIS::DATA_TYPE::ENUMS::Camouflage};
+  EXPECT_NO_THROW(dtIn.SetEntityPaintScheme(eps));
+  EXPECT_EQ(eps, dtIn.GetEntityPaintScheme());
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityDamage
+                ed {KDIS::DATA_TYPE::ENUMS::SlightDamage};
+  EXPECT_NO_THROW(dtIn.SetEntityDamage(ed));
+  EXPECT_EQ(ed, dtIn.GetEntityDamage());
+  constexpr KDIS::DATA_TYPE::ENUMS::EntitySmoke
+                es {KDIS::DATA_TYPE::ENUMS::SmokePlume};
+  EXPECT_NO_THROW(dtIn.SetEntitySmoke(es));
+  EXPECT_EQ(es, dtIn.GetEntitySmoke());
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect
+                ete {KDIS::DATA_TYPE::ENUMS::Medium};
+  EXPECT_NO_THROW(dtIn.SetEntityTrailingEffect(ete));
+  EXPECT_EQ(ete, dtIn.GetEntityTrailingEffect());
+  EXPECT_TRUE(dtIn == dtIn);
+  // SurfacePlatformAppearance has no Encode/Decode feature
+}
+
 TEST(DataType_EncodeDecode5, TimeStamp) {
   KDIS::DATA_TYPE::TimeStamp dtIn;
   KDIS::KDataStream stream = dtIn.Encode();
@@ -227,6 +250,7 @@ TEST(DataType_EncodeDecode5, TimeStamp) {
 
 TEST(DataType_EncodeDecode5, TrackJamTargetIdentifier) {
   KDIS::DATA_TYPE::TrackJamTargetIdentifier dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::TrackJamTargetIdentifier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
