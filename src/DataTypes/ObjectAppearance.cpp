@@ -109,7 +109,7 @@ void ObjectAppearance::SetDamage(ObjectDamage OD) {
 //////////////////////////////////////////////////////////////////////////
 
 ObjectDamage ObjectAppearance::GetDamage() const {
-  return (ObjectDamage)m_GeneralAppearanceUnion.m_ui16Dmg;
+  return static_cast<ObjectDamage>(m_GeneralAppearanceUnion.m_ui16Dmg);
 }
 
 //////////////////////////////////////////////////////////////////////////

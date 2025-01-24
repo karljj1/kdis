@@ -70,7 +70,7 @@ void MinefieldAppearance::SetMinefieldType(MinefieldType T) {
 //////////////////////////////////////////////////////////////////////////
 
 MinefieldType MinefieldAppearance::GetMinefieldType() const {
-  return (MinefieldType)m_ui16BitUnion.m_ui16Type;
+  return static_cast<MinefieldType>(m_ui16BitUnion.m_ui16Type);
 }
 
 //////////////////////////////////////////////////////////////////////////

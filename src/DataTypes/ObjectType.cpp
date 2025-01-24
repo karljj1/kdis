@@ -66,7 +66,9 @@ void ObjectType::SetDomain(EntityDomain UI) { m_ui8Domain = UI; }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDomain ObjectType::GetDomain() const { return (EntityDomain)m_ui8Domain; }
+EntityDomain ObjectType::GetDomain() const {
+  return static_cast<EntityDomain>(m_ui8Domain);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -153,13 +155,14 @@ KBOOL ObjectType::operator<(const ObjectType& Value) const {
 
   KUINT32 ui32ThisCmpVal = 0, ui32OtherCmpVal = 0;
 
-  ui32ThisCmpVal = (KUINT32)m_ui8SubCategory << 24 |
-                   (KUINT32)m_ui8EntityKind << 16 |
-                   (KUINT32)m_ui8Category << 8 | (KUINT32)m_ui8SubCategory;
-  ui32OtherCmpVal = (KUINT32)Value.m_ui8SubCategory << 24 |
-                    (KUINT32)Value.m_ui8EntityKind << 16 |
-                    (KUINT32)Value.m_ui8Category << 8 |
-                    (KUINT32)Value.m_ui8SubCategory;
+  ui32ThisCmpVal = static_cast<KUINT32>(m_ui8SubCategory) << 24 |
+                   static_cast<KUINT32>(m_ui8EntityKind) << 16 |
+                   static_cast<KUINT32>(m_ui8Category) << 8 |
+                   static_cast<KUINT32>(m_ui8SubCategory);
+  ui32OtherCmpVal = static_cast<KUINT32>(Value.m_ui8SubCategory) << 24 |
+                    static_cast<KUINT32>(Value.m_ui8EntityKind) << 16 |
+                    static_cast<KUINT32>(Value.m_ui8Category) << 8 |
+                    static_cast<KUINT32>(Value.m_ui8SubCategory);
 
   return ui32ThisCmpVal < ui32OtherCmpVal;
 }

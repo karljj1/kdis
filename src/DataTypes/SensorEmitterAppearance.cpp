@@ -44,7 +44,7 @@ void SensorEmitterAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityPaintScheme SensorEmitterAppearance::GetEntityPaintScheme() const {
-  return (EntityPaintScheme)m_PaintScheme;
+  return static_cast<EntityPaintScheme>(m_PaintScheme);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ void SensorEmitterAppearance::SetEntityDamage(EntityDamage ED) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityDamage SensorEmitterAppearance::GetEntityDamage() const {
-  return (EntityDamage)m_Damage;
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ void SensorEmitterAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
 //////////////////////////////////////////////////////////////////////////
 
 EntitySmoke SensorEmitterAppearance::GetEntitySmoke() const {
-  return (EntitySmoke)m_Smoke;
+  return static_cast<EntitySmoke>(m_Smoke);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ void SensorEmitterAppearance::SetEntityTrailingEffect(
 //////////////////////////////////////////////////////////////////////////
 
 EntityTrailingEffect SensorEmitterAppearance::GetEntityTrailingEffect() const {
-  return (EntityTrailingEffect)m_TrailingEffect;
+  return static_cast<EntityTrailingEffect>(m_TrailingEffect);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -139,7 +139,7 @@ void SensorEmitterAppearance::SetEntityCamouflage(EntityCamouflage EC) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityCamouflage SensorEmitterAppearance::GetEntityCamouflage() const {
-  return (EntityCamouflage)m_Camouflage;
+  return static_cast<EntityCamouflage>(m_Camouflage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -248,8 +248,8 @@ KBOOL SensorEmitterAppearance::operator==(
   // Lets do a single comparison instead of checking every field.
   // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-  KUINT32 a = *(KUINT32*)this;
-  KUINT32 b = *(KUINT32*)&Value;
+  KUINT32 a = *reinterpret_cast<const KUINT32*>(this);
+  KUINT32 b = *reinterpret_cast<const KUINT32*>(&Value);
 
   if (a != b) return false;
   return true;

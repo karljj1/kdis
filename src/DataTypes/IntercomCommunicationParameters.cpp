@@ -111,7 +111,7 @@ IntercomCommunicationParameters& IntercomCommunicationParameters::operator=(
 
 AdditionalIntrCommParamType IntercomCommunicationParameters::GetRecordType()
     const {
-  return (AdditionalIntrCommParamType)m_ui16Type;
+  return static_cast<AdditionalIntrCommParamType>(m_ui16Type);
 }
 
 //////////////////////////////////////////////////////////////////////////

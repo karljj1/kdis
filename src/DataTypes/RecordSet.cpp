@@ -68,7 +68,9 @@ void RecordSet::SetRecordID(RecordID ID) { m_ui32RecID = ID; }
 
 //////////////////////////////////////////////////////////////////////////
 
-RecordID RecordSet::GetRecordID() const { return (RecordID)m_ui32RecID; }
+RecordID RecordSet::GetRecordID() const {
+  return static_cast<RecordID>(m_ui32RecID);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

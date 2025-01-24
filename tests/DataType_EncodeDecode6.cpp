@@ -68,6 +68,7 @@
 #include <KDIS/DataTypes/RelationshipRecord.hpp>
 #include <KDIS/DataTypes/RelativeWorldCoordinates.hpp>
 #include <KDIS/DataTypes/SecondaryOperationalData.hpp>
+#include <KDIS/DataTypes/SeparationPart.hpp>
 #include <KDIS/DataTypes/Shaft.hpp>
 #include <KDIS/DataTypes/SilentAggregateSystem.hpp>
 #include <KDIS/DataTypes/SilentEntitySystem.hpp>
@@ -79,6 +80,7 @@
 #include <KDIS/DataTypes/UnderwaterAcousticFundamentalParameterData.hpp>
 #include <KDIS/DataTypes/VectoringNozzleSystem.hpp>
 #include <KDIS/KDefines.hpp>
+#include <bitset>
 #include <iostream>
 
 TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
@@ -363,6 +365,20 @@ TEST(DataType_EncodeDecode6, GroupAssignmentRecord) {
 
 TEST(DataType_EncodeDecode6, GroupDestinationRecord) {
   KDIS::DATA_TYPE::GroupDestinationRecord dtIn;
+  for (KDIS::KUINT8 ii = 0; ii < 32; ++ii) {
+    EXPECT_NO_THROW(dtIn.SetGroupBitField(ii, false));
+  }
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(0));
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(13));
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(31));
+  EXPECT_THROW(dtIn.IsGroupBitSet(32), KDIS::KException);
+  EXPECT_THROW(dtIn.SetGroupBitField(32, true), KDIS::KException);
+  for (KDIS::KUINT8 ii = 0; ii < 32; ++ii) {
+    EXPECT_NO_THROW(dtIn.SetGroupBitField(ii, true));
+  }
+  EXPECT_TRUE(dtIn.IsGroupBitSet(0));
+  EXPECT_TRUE(dtIn.IsGroupBitSet(22));
+  EXPECT_TRUE(dtIn.IsGroupBitSet(31));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GroupDestinationRecord dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -371,6 +387,7 @@ TEST(DataType_EncodeDecode6, GroupDestinationRecord) {
 
 TEST(DataType_EncodeDecode6, IFF_ATC_NAVAIDS_FundamentalParameterData) {
   KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData dtIn;
+  EXPECT_EQ(0, dtIn.GetApplicableModes());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::IFF_ATC_NAVAIDS_FundamentalParameterData dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -387,6 +404,7 @@ TEST(DataType_EncodeDecode6, IFF_Layer2) {
 
 TEST(DataType_EncodeDecode6, IntercomCommunicationParameters) {
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtIn;
+  EXPECT_EQ(0, dtIn.GetRecordType());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -395,6 +413,7 @@ TEST(DataType_EncodeDecode6, IntercomCommunicationParameters) {
 
 TEST(DataType_EncodeDecode6, LayerHeader) {
   KDIS::DATA_TYPE::LayerHeader dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::LayerHeader dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -403,6 +422,7 @@ TEST(DataType_EncodeDecode6, LayerHeader) {
 
 TEST(DataType_EncodeDecode6, LE_DeadReckoningParameter) {
   KDIS::DATA_TYPE::LE_DeadReckoningParameter dtIn;
+  EXPECT_EQ(0, dtIn.GetDeadReckoningAlgorithm());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::LE_DeadReckoningParameter dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -411,6 +431,8 @@ TEST(DataType_EncodeDecode6, LE_DeadReckoningParameter) {
 
 TEST(DataType_EncodeDecode6, LE_EntityIdentifier) {
   KDIS::DATA_TYPE::LE_EntityIdentifier dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
+  EXPECT_TRUE(!(dtIn < dtIn));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::LE_EntityIdentifier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -427,6 +449,23 @@ TEST(DataType_EncodeDecode6, LE_EulerAngles) {
 
 TEST(DataType_EncodeDecode6, LinearObjectAppearance) {
   KDIS::DATA_TYPE::LinearObjectAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::Breach2bit b2b{
+      KDIS::DATA_TYPE::ENUMS::Breached2bit};
+  EXPECT_NO_THROW(dtIn.SetBreach(b2b));
+  EXPECT_EQ(b2b, dtIn.GetBreach());
+  constexpr std::bitset<8> bs8{0xFB};
+  EXPECT_NO_THROW(dtIn.SetBreachLocation(bs8));
+  EXPECT_EQ(bs8, dtIn.GetBreachLocationAsBitset());
+  EXPECT_NO_THROW(dtIn.SetAttached(false));
+  EXPECT_EQ(false, dtIn.IsAttached());
+  constexpr KDIS::DATA_TYPE::ENUMS::Chemical ch{
+      KDIS::DATA_TYPE::ENUMS::Hydrochloric};
+  EXPECT_NO_THROW(dtIn.SetChemical(ch));
+  EXPECT_EQ(ch, dtIn.GetChemical());
+  constexpr KDIS::DATA_TYPE::ENUMS::VisibleSide vs{
+      KDIS::DATA_TYPE::ENUMS::LeftSideVisible};
+  EXPECT_NO_THROW(dtIn.SetVisibleSide(vs));
+  EXPECT_EQ(vs, dtIn.GetVisibleSide());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::LinearObjectAppearance dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -435,6 +474,7 @@ TEST(DataType_EncodeDecode6, LinearObjectAppearance) {
 
 TEST(DataType_EncodeDecode6, LinearSegmentParameter) {
   KDIS::DATA_TYPE::LinearSegmentParameter dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::LinearSegmentParameter dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -459,6 +499,10 @@ TEST(DataType_EncodeDecode6, LineRecord2) {
 
 TEST(DataType_EncodeDecode6, MinefieldAppearance) {
   KDIS::DATA_TYPE::MinefieldAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::MinefieldType mt{
+      KDIS::DATA_TYPE::ENUMS::MixedAntiPersonnelAntiTank};
+  EXPECT_NO_THROW(dtIn.SetMinefieldType(mt));
+  EXPECT_EQ(mt, dtIn.GetMinefieldType());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::MinefieldAppearance dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -475,6 +519,14 @@ TEST(DataType_EncodeDecode6, MinefieldDataFilter) {
 
 TEST(DataType_EncodeDecode6, MineFusing) {
   KDIS::DATA_TYPE::MineFusing dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf{
+      KDIS::DATA_TYPE::ENUMS::NoMineFuse};
+  EXPECT_NO_THROW(dtIn.SetPrimaryFuse(mf));
+  EXPECT_EQ(mf, dtIn.GetPrimaryFuse());
+  constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf2{
+      KDIS::DATA_TYPE::ENUMS::OtherMineFuse};
+  EXPECT_NO_THROW(dtIn.SetSecondaryFuse(mf2));
+  EXPECT_EQ(mf2, dtIn.GetSecondaryFuse());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::MineFusing dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -483,6 +535,14 @@ TEST(DataType_EncodeDecode6, MineFusing) {
 
 TEST(DataType_EncodeDecode6, MinePaintScheme) {
   KDIS::DATA_TYPE::MinePaintScheme dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::MineAlgae ma{
+      KDIS::DATA_TYPE::ENUMS::AlgaeNone};
+  EXPECT_NO_THROW(dtIn.SetAlgae(ma));
+  EXPECT_EQ(ma, dtIn.GetAlgae());
+  constexpr KDIS::DATA_TYPE::ENUMS::PaintScheme ps{
+      KDIS::DATA_TYPE::ENUMS::OtherPaintScheme};
+  EXPECT_NO_THROW(dtIn.SetPaintScheme(ps));
+  EXPECT_EQ(ps, dtIn.GetPaintScheme());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::MinePaintScheme dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -491,6 +551,7 @@ TEST(DataType_EncodeDecode6, MinePaintScheme) {
 
 TEST(DataType_EncodeDecode6, NamedLocationIdentifier) {
   KDIS::DATA_TYPE::NamedLocationIdentifier dtIn;
+  EXPECT_EQ(0, dtIn.GetStationName());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::NamedLocationIdentifier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -499,6 +560,10 @@ TEST(DataType_EncodeDecode6, NamedLocationIdentifier) {
 
 TEST(DataType_EncodeDecode6, ObjectAppearance) {
   KDIS::DATA_TYPE::ObjectAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage od{
+      KDIS::DATA_TYPE::ENUMS::NoObjectDamage};
+  EXPECT_NO_THROW(dtIn.SetDamage(od));
+  EXPECT_EQ(od, dtIn.GetDamage());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::ObjectAppearance dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -507,6 +572,8 @@ TEST(DataType_EncodeDecode6, ObjectAppearance) {
 
 TEST(DataType_EncodeDecode6, ObjectType) {
   KDIS::DATA_TYPE::ObjectType dtIn;
+  EXPECT_EQ(0, dtIn.GetDomain());
+  EXPECT_TRUE(!(dtIn < dtIn));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::ObjectType dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -531,6 +598,14 @@ TEST(DataType_EncodeDecode6, PerimeterPointCoordinate) {
 
 TEST(DataType_EncodeDecode6, PointObjectAppearance) {
   KDIS::DATA_TYPE::PointObjectAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::Breach2bit b2b{
+      KDIS::DATA_TYPE::ENUMS::NoBreaching2bit};
+  EXPECT_NO_THROW(dtIn.SetBreach(b2b));
+  EXPECT_EQ(b2b, dtIn.GetBreach());
+  constexpr KDIS::DATA_TYPE::ENUMS::Chemical ch{
+      KDIS::DATA_TYPE::ENUMS::OtherChemical};
+  EXPECT_NO_THROW(dtIn.SetChemical(ch));
+  EXPECT_EQ(ch, dtIn.GetChemical());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::PointObjectAppearance dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -571,6 +646,7 @@ TEST(DataType_EncodeDecode6, PropulsionSystem) {
 
 TEST(DataType_EncodeDecode6, RecordSet) {
   KDIS::DATA_TYPE::RecordSet dtIn;
+  EXPECT_EQ(0, dtIn.GetRecordID());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::RecordSet dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -603,6 +679,8 @@ TEST(DataType_EncodeDecode6, RectangularVolumeRecord3) {
 
 TEST(DataType_EncodeDecode6, RelationshipRecord) {
   KDIS::DATA_TYPE::RelationshipRecord dtIn;
+  EXPECT_EQ(0, dtIn.GetNature());
+  EXPECT_EQ(0, dtIn.GetPosition());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::RelationshipRecord dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -619,8 +697,19 @@ TEST(DataType_EncodeDecode6, RelativeWorldCoordinates) {
 
 TEST(DataType_EncodeDecode6, SecondaryOperationalData) {
   KDIS::DATA_TYPE::SecondaryOperationalData dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::SecondaryOperationalData dtOut(stream);
+  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+TEST(DataType_EncodeDecode6, SeparationPart) {
+  KDIS::DATA_TYPE::SeparationPart dtIn;
+  EXPECT_EQ(0, dtIn.GetReasonForSeparation());
+  EXPECT_EQ(0, dtIn.GetPreEntityIndicator());
+  KDIS::KDataStream stream = dtIn.Encode();
+  KDIS::DATA_TYPE::SeparationPart dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
 }

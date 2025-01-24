@@ -57,7 +57,7 @@ void ModeXCodeRecord::SetStatus(KBOOL S) { m_CodeUnion.m_ui16OnOff = S; }
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL ModeXCodeRecord::GetStatus() const {
-  return (KBOOL)m_CodeUnion.m_ui16OnOff;
+  return static_cast<KBOOL>(m_CodeUnion.m_ui16OnOff);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ void ModeXCodeRecord::SetDamaged(KBOOL D) { m_CodeUnion.m_ui16Dmg = D; }
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL ModeXCodeRecord::IsDamaged() const {
-  return (KBOOL)m_CodeUnion.m_ui16Dmg;
+  return static_cast<KBOOL>(m_CodeUnion.m_ui16Dmg);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ void ModeXCodeRecord::SetMalfunctioning(KBOOL M) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL ModeXCodeRecord::IsMalfunctioning() const {
-  return (KBOOL)m_CodeUnion.m_ui16MalFnc;
+  return static_cast<KBOOL>(m_CodeUnion.m_ui16MalFnc);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -87,9 +87,12 @@ KBOOL ModeXCodeRecord::IsMalfunctioning() const {
 KString ModeXCodeRecord::GetAsString() const {
   KStringStream ss;
 
-  ss << "On/Off Status:       " << (KBOOL)m_CodeUnion.m_ui16OnOff << "\n"
-     << "Damage Status:       " << (KBOOL)m_CodeUnion.m_ui16Dmg << "\n"
-     << "Malfunction Status:  " << (KBOOL)m_CodeUnion.m_ui16MalFnc << "\n";
+  ss << "On/Off Status:       " << static_cast<KBOOL>(m_CodeUnion.m_ui16OnOff)
+     << "\n"
+     << "Damage Status:       " << static_cast<KBOOL>(m_CodeUnion.m_ui16Dmg)
+     << "\n"
+     << "Malfunction Status:  " << static_cast<KBOOL>(m_CodeUnion.m_ui16MalFnc)
+     << "\n";
 
   return ss.str();
 }

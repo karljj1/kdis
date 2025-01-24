@@ -209,12 +209,12 @@ KString LinearSegmentParameter::GetAsString() const {
   KStringStream ss;
 
   ss << "LinearSegmentParameter:\n"
-     << "\tSegment Number:  " << (KUINT16)m_ui8SegNum << "\n"
+     << "\tSegment Number:  " << static_cast<KUINT16>(m_ui8SegNum) << "\n"
      << "\tModification:\n"
-     << "\t\tLocation:      " << (KUINT16)m_ModificationUnion.m_ui8LocBit
-     << "\n"
-     << "\t\tOrientation:   " << (KUINT16)m_ModificationUnion.m_ui8OriBit
-     << "\n"
+     << "\t\tLocation:      "
+     << static_cast<KUINT16>(m_ModificationUnion.m_ui8LocBit) << "\n"
+     << "\t\tOrientation:   "
+     << static_cast<KUINT16>(m_ModificationUnion.m_ui8OriBit) << "\n"
      << IndentString(m_ObjApr.GetAsString(), 1)
      << "\tLocation:        " << m_Loc.GetAsString()
      << "\tOrientation:     " << m_Ori.GetAsString()

@@ -85,7 +85,9 @@ void IOEffect::SetStatus(IOStatus S) { m_ui8Status = S; }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOStatus IOEffect::GetStatus() const { return (IOStatus)m_ui8Status; }
+IOStatus IOEffect::GetStatus() const {
+  return static_cast<IOStatus>(m_ui8Status);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -93,7 +95,9 @@ void IOEffect::SetLinkType(IOLinkType LT) { m_ui8LnkTyp = LT; }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOLinkType IOEffect::GetLinkType() const { return (IOLinkType)m_ui8LnkTyp; }
+IOLinkType IOEffect::GetLinkType() const {
+  return static_cast<IOLinkType>(m_ui8LnkTyp);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -101,7 +105,9 @@ void IOEffect::SetEffectType(IOEffectType ET) { m_ui8Eff = ET; }
 
 //////////////////////////////////////////////////////////////////////////
 
-IOEffectType IOEffect::GetEffectType() const { return (IOEffectType)m_ui8Eff; }
+IOEffectType IOEffect::GetEffectType() const {
+  return static_cast<IOEffectType>(m_ui8Eff);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

@@ -94,13 +94,13 @@ struct KDIS_EXPORT LifeFormAppearance {
   KDIS::DATA_TYPE::ENUMS::EntityDamage GetEntityDamage() const;
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityEntityCompliance
-  //              KDIS::DATA_TYPE::LifeFormAppearance::GetEntityEntityCompliance
+  // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntityCompliance
+  //              KDIS::DATA_TYPE::LifeFormAppearance::GetEntityCompliance
   // Description: Describes compliance of life form.
   // Parameter:   EntityCompliance EC
   //************************************
-  void SetEntityEntityCompliance(KDIS::DATA_TYPE::ENUMS::EntityCompliance EC);
-  KDIS::DATA_TYPE::ENUMS::EntityCompliance GetEntityEntityCompliance() const;
+  void SetEntityCompliance(KDIS::DATA_TYPE::ENUMS::EntityCompliance EC);
+  KDIS::DATA_TYPE::ENUMS::EntityCompliance GetEntityCompliance() const;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::LifeFormAppearance::SetEntitySignalSmokeInUse
