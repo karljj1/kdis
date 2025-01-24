@@ -68,7 +68,6 @@ jobs:
                 os: [ubuntu-latest, windows-latest, macos-latest]
                 build: [Debug, Release]
                 dis: [5, 6, 7]
-                enum: ["ON", "OFF"]
                 shared: ["ON", "OFF"]
         runs-on: ${{ matrix.os }}
         steps:
@@ -85,7 +84,7 @@ jobs:
               uses: hrishikesh-kadam/setup-lcov@v1
 
             - name: Configure CMake
-              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=${{ matrix.enum }} -DBUILD_SHARED_LIBS:BOOL=${{ matrix.shared }} -DKDIS_BUILD_DOCS:BOOL=ON -DKDIS_BUILD_EXAMPLES:BOOL=ON -DKDIS_BUILD_TESTS:BOOL=ON -DKDIS_BUILD_TESTS_COVERAGE:BOOL=ON
+              run: cmake -S . -B ./build -DCMAKE_BUILD_TYPE:STRING=${{ matrix.build }} -DDIS_VERSION:STRING=${{ matrix.dis }} -DBUILD_SHARED_LIBS:BOOL=${{ matrix.shared }} -DKDIS_USE_ENUM_DESCRIPTORS:BOOL=ON -DKDIS_BUILD_DOCS:BOOL=ON -DKDIS_BUILD_EXAMPLES:BOOL=ON -DKDIS_BUILD_TESTS:BOOL=ON -DKDIS_BUILD_TESTS_COVERAGE:BOOL=ON
 
             - name: Build
               run: cmake --build ./build --config ${{ matrix.build }}
@@ -103,6 +102,7 @@ jobs:
               with:
                   fail_ci_if_error: true
                   files: ./build/KDIS_coverage.info
+                  token: ${{ secrets.CODECOV_TOKEN }}
 
             - name: Docs
               run: cmake --build ./build --config ${{ matrix.build }} --target KDIS_docs
