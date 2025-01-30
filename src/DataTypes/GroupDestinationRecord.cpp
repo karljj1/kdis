@@ -80,10 +80,9 @@ void GroupDestinationRecord::SetGroupBitField(KUINT8 Group,
                                               KBOOL InGroup /*= true*/) {
   if (Group > 31) throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
-  bitset<32> bits(
-      (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
-                                  // visual studio 2010 fix
+  std::bitset<32> bits(m_ui32GrpBtField);
   InGroup ? bits.set(Group) : bits.reset(Group);
+  m_ui32GrpBtField = static_cast<KUINT32>(bits.to_ulong());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,9 +90,7 @@ void GroupDestinationRecord::SetGroupBitField(KUINT8 Group,
 KBOOL GroupDestinationRecord::IsGroupBitSet(KUINT8 Group) const {
   if (Group > 31) throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
-  const bitset<32> bits(
-      (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
-                                  // visual studio 2010 fix
+  const std::bitset<32> bits(m_ui32GrpBtField);
   return bits.test(Group);
 }
 
