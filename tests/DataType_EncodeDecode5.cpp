@@ -19,6 +19,7 @@
 #include <KDIS/DataTypes/EulerAngles.hpp>
 #include <KDIS/DataTypes/FixedDatum.hpp>
 #include <KDIS/DataTypes/FundamentalParameterData.hpp>
+#include <KDIS/DataTypes/LifeFormAppearance.hpp>
 #include <KDIS/DataTypes/LinearObjectAppearance.hpp>
 #include <KDIS/DataTypes/ModulationType.hpp>
 #include <KDIS/DataTypes/MunitionDescriptor.hpp>
@@ -176,6 +177,15 @@ TEST(DataType_EncodeDecode5, FundamentalParameterData) {
   KDIS::DATA_TYPE::FundamentalParameterData dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+TEST(DataType_EncodeDecode5, LifeFormAppearance) {
+  KDIS::DATA_TYPE::LifeFormAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityCompliance ec{
+      KDIS::DATA_TYPE::ENUMS::Detained};
+  EXPECT_NO_THROW(dtIn.SetEntityCompliance(ec));
+  EXPECT_EQ(ec, dtIn.GetEntityCompliance());
+  // LifeFormAppearance has no Encode/Decode feature
 }
 
 TEST(DataType_EncodeDecode5, LinearObjectAppearance) {

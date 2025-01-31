@@ -363,6 +363,20 @@ TEST(DataType_EncodeDecode6, GroupAssignmentRecord) {
 
 TEST(DataType_EncodeDecode6, GroupDestinationRecord) {
   KDIS::DATA_TYPE::GroupDestinationRecord dtIn;
+  for (KDIS::KUINT8 ii = 0; ii < 32; ++ii) {
+    EXPECT_NO_THROW(dtIn.SetGroupBitField(ii, false));
+  }
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(0));
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(13));
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(31));
+  EXPECT_THROW(dtIn.IsGroupBitSet(32), KDIS::KException);
+  EXPECT_THROW(dtIn.SetGroupBitField(32, true), KDIS::KException);
+  for (KDIS::KUINT8 ii = 0; ii < 32; ++ii) {
+    EXPECT_NO_THROW(dtIn.SetGroupBitField(ii, true));
+  }
+  EXPECT_TRUE(dtIn.IsGroupBitSet(0));
+  EXPECT_TRUE(dtIn.IsGroupBitSet(22));
+  EXPECT_TRUE(dtIn.IsGroupBitSet(31));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GroupDestinationRecord dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);

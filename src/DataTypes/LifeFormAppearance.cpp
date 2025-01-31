@@ -59,13 +59,13 @@ EntityDamage LifeFormAppearance::GetEntityDamage() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void LifeFormAppearance::SetEntityEntityCompliance(EntityCompliance EC) {
+void LifeFormAppearance::SetEntityCompliance(EntityCompliance EC) {
   m_Compliance = EC;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityCompliance LifeFormAppearance::GetEntityEntityCompliance() const {
+EntityCompliance LifeFormAppearance::GetEntityCompliance() const {
   return (EntityCompliance)m_Compliance;
 }
 
