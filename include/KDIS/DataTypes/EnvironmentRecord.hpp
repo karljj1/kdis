@@ -74,6 +74,8 @@ class KDIS_EXPORT EnvironmentRecord
 
   EnvironmentRecord();
 
+  EnvironmentRecord(KDataStream& stream);
+
   virtual ~EnvironmentRecord();
 
   //************************************
@@ -104,6 +106,21 @@ class KDIS_EXPORT EnvironmentRecord
   // Description: Returns a string representation
   //************************************
   virtual KString GetAsString() const;
+
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::Decode
+  // Description: Convert From Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual void Decode(KDataStream& stream);
+
+  //************************************
+  // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::Encode
+  // Description: Convert To Network Data.
+  // Parameter:   KDataStream & stream
+  //************************************
+  virtual KDataStream Encode() const;
+  virtual void Encode(KDataStream& stream) const;
 
   //************************************
   // FullName:

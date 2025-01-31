@@ -15,9 +15,12 @@
 #include <KDIS/DataTypes/EllipsoidRecord1.hpp>
 #include <KDIS/DataTypes/EllipsoidRecord2.hpp>
 #include <KDIS/DataTypes/EntityDestinationRecord.hpp>
+#include <KDIS/DataTypes/EnvironmentRecord.hpp>
 #include <KDIS/DataTypes/EnvironmentType.hpp>
 #include <KDIS/DataTypes/FlareState.hpp>
 #include <KDIS/DataTypes/FundamentalOperationalData.hpp>
+#include <KDIS/DataTypes/FundamentalOperationalData_MarkXInterrogator.hpp>
+#include <KDIS/DataTypes/FundamentalOperationalData_MarkXTransponder.hpp>
 #include <KDIS/DataTypes/GED_BasicFixedWingAircraft.hpp>
 #include <KDIS/DataTypes/GED_BasicGroundCombatSoldier.hpp>
 #include <KDIS/DataTypes/GED_BasicGroundCombatVehicle.hpp>
@@ -204,8 +207,22 @@ TEST(DataType_EncodeDecode6, EntityDestinationRecord) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+TEST(DataType_EncodeDecode6, EnvironmentRecord) {
+  KDIS::DATA_TYPE::EnvironmentRecord dtIn;
+  EXPECT_EQ(0, dtIn.GetEnvironmentRecordType());
+  EXPECT_NO_THROW(dtIn.GetAsString());
+  KDIS::KDataStream stream = dtIn.Encode();
+  KDIS::DATA_TYPE::EnvironmentRecord dtOut(stream);
+  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_EQ(0, stream.GetBufferSize());
+}
+
 TEST(DataType_EncodeDecode6, EnvironmentType) {
   KDIS::DATA_TYPE::EnvironmentType dtIn;
+  EXPECT_EQ(0, dtIn.GetDomain());
+  EXPECT_EQ(0, dtIn.GetSubCategory());
+  EXPECT_NO_THROW(dtIn.GetAsString());
+  EXPECT_TRUE(!(dtIn < dtIn));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EnvironmentType dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -228,6 +245,26 @@ TEST(DataType_EncodeDecode6, FundamentalOperationalData) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+TEST(DataType_EncodeDecode6, FundamentalOperationalData_MarkXInterrogator) {
+  KDIS::DATA_TYPE::FundamentalOperationalData_MarkXInterrogator dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::AlternateParameter4 ap4{
+      KDIS::DATA_TYPE::ENUMS::Valid};
+  EXPECT_NO_THROW(dtIn.SetAlternateParameter4(ap4));
+  EXPECT_EQ(ap4, dtIn.GetAlternateParameter4());
+  constexpr KDIS::DATA_TYPE::ENUMS::TCAS tcas{KDIS::DATA_TYPE::ENUMS::TCAS_I};
+  EXPECT_NO_THROW(dtIn.SetTCASVersion(tcas));
+  EXPECT_EQ(tcas, dtIn.GetTCASVersion());
+}
+
+TEST(DataType_EncodeDecode6, FundamentalOperationalData_MarkXTransponder) {
+  KDIS::DATA_TYPE::FundamentalOperationalData_MarkXTransponder dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::AlternateParameter4 ap4{
+      KDIS::DATA_TYPE::ENUMS::OtherAlternateParameter4};
+  EXPECT_NO_THROW(dtIn.SetAlternateParameter4(ap4));
+  EXPECT_EQ(ap4, dtIn.GetAlternateParameter4());
+  // FundamentalOperationalData_MarkXTransponder has no Encode/Decode feature
+}
+
 TEST(DataType_EncodeDecode6, GaussianPlumeRecord) {
   KDIS::DATA_TYPE::GaussianPlumeRecord dtIn;
   KDIS::KDataStream stream = dtIn.Encode();
@@ -246,6 +283,7 @@ TEST(DataType_EncodeDecode6, GaussianPuffRecord) {
 
 TEST(DataType_EncodeDecode6, GED_BasicFixedWingAircraft) {
   KDIS::DATA_TYPE::GED_BasicFixedWingAircraft dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_BasicFixedWingAircraft dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -254,6 +292,7 @@ TEST(DataType_EncodeDecode6, GED_BasicFixedWingAircraft) {
 
 TEST(DataType_EncodeDecode6, GED_BasicGroundCombatSoldier) {
   KDIS::DATA_TYPE::GED_BasicGroundCombatSoldier dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_BasicGroundCombatSoldier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -262,6 +301,7 @@ TEST(DataType_EncodeDecode6, GED_BasicGroundCombatSoldier) {
 
 TEST(DataType_EncodeDecode6, GED_BasicGroundCombatVehicle) {
   KDIS::DATA_TYPE::GED_BasicGroundCombatVehicle dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_BasicGroundCombatVehicle dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -270,6 +310,7 @@ TEST(DataType_EncodeDecode6, GED_BasicGroundCombatVehicle) {
 
 TEST(DataType_EncodeDecode6, GED_BasicRotorWingAircraft) {
   KDIS::DATA_TYPE::GED_BasicRotorWingAircraft dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_BasicRotorWingAircraft dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -278,6 +319,7 @@ TEST(DataType_EncodeDecode6, GED_BasicRotorWingAircraft) {
 
 TEST(DataType_EncodeDecode6, GED_EnhancedFixedWingAircraft) {
   KDIS::DATA_TYPE::GED_EnhancedFixedWingAircraft dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_EnhancedFixedWingAircraft dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -286,6 +328,8 @@ TEST(DataType_EncodeDecode6, GED_EnhancedFixedWingAircraft) {
 
 TEST(DataType_EncodeDecode6, GED_EnhancedGroundCombatSoldier) {
   KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier dtIn;
+  EXPECT_EQ(0, dtIn.GetRestStatus());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -294,6 +338,7 @@ TEST(DataType_EncodeDecode6, GED_EnhancedGroundCombatSoldier) {
 
 TEST(DataType_EncodeDecode6, GED_EnhancedGroundCombatVehicle) {
   KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_EnhancedGroundCombatVehicle dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -302,6 +347,7 @@ TEST(DataType_EncodeDecode6, GED_EnhancedGroundCombatVehicle) {
 
 TEST(DataType_EncodeDecode6, GED_EnhancedRotaryWingAircraft) {
   KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_EnhancedRotaryWingAircraft dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -310,6 +356,7 @@ TEST(DataType_EncodeDecode6, GED_EnhancedRotaryWingAircraft) {
 
 TEST(DataType_EncodeDecode6, GED_GroundLogisticsVehicle) {
   KDIS::DATA_TYPE::GED_GroundLogisticsVehicle dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GED_GroundLogisticsVehicle dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -318,6 +365,7 @@ TEST(DataType_EncodeDecode6, GED_GroundLogisticsVehicle) {
 
 TEST(DataType_EncodeDecode6, GridAxisIrregular) {
   KDIS::DATA_TYPE::GridAxisIrregular dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GridAxisIrregular dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -326,6 +374,7 @@ TEST(DataType_EncodeDecode6, GridAxisIrregular) {
 
 TEST(DataType_EncodeDecode6, GridAxisRegular) {
   KDIS::DATA_TYPE::GridAxisRegular dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GridAxisRegular dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -334,6 +383,7 @@ TEST(DataType_EncodeDecode6, GridAxisRegular) {
 
 TEST(DataType_EncodeDecode6, GridDataType0) {
   KDIS::DATA_TYPE::GridDataType0 dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GridDataType0 dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -358,6 +408,21 @@ TEST(DataType_EncodeDecode6, GridDataType2) {
 
 TEST(DataType_EncodeDecode6, GroupAssignmentRecord) {
   KDIS::DATA_TYPE::GroupAssignmentRecord dtIn;
+  for (KDIS::KUINT8 ii = 0; ii < 32; ++ii) {
+    EXPECT_NO_THROW(dtIn.SetGroupBitField(ii, false));
+  }
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(0));
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(9));
+  EXPECT_EQ(false, dtIn.IsGroupBitSet(31));
+  EXPECT_THROW(dtIn.IsGroupBitSet(32), KDIS::KException);
+  EXPECT_THROW(dtIn.SetGroupBitField(32, true), KDIS::KException);
+  for (KDIS::KUINT8 ii = 0; ii < 32; ++ii) {
+    EXPECT_NO_THROW(dtIn.SetGroupBitField(ii, true));
+  }
+  EXPECT_TRUE(dtIn.IsGroupBitSet(0));
+  EXPECT_TRUE(dtIn.IsGroupBitSet(19));
+  EXPECT_TRUE(dtIn.IsGroupBitSet(31));
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GroupAssignmentRecord dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -380,6 +445,8 @@ TEST(DataType_EncodeDecode6, GroupDestinationRecord) {
   EXPECT_TRUE(dtIn.IsGroupBitSet(0));
   EXPECT_TRUE(dtIn.IsGroupBitSet(22));
   EXPECT_TRUE(dtIn.IsGroupBitSet(31));
+  EXPECT_EQ(0, dtIn.GetLineStateCommand());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GroupDestinationRecord dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -405,6 +472,7 @@ TEST(DataType_EncodeDecode6, IFF_Layer2) {
 
 TEST(DataType_EncodeDecode6, IntercomCommunicationParameters) {
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtIn;
+  EXPECT_TRUE(dtIn == dtIn);
   EXPECT_EQ(0, dtIn.GetRecordType());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtOut(stream);

@@ -248,25 +248,20 @@ KBOOL IntercomCommunicationParameters::operator==(
 
   switch (m_ui16Type) {
     case EntityDestinationRecord_Type: {
-      const EntityDestinationRecord *pl = (EntityDestinationRecord*)m_pRecord,
-                                    *pr = (EntityDestinationRecord*)
-                                              Value.m_pRecord;
-
+      const auto pl = static_cast<EntityDestinationRecord*>(m_pRecord);
+      const auto pr = static_cast<EntityDestinationRecord*>(Value.m_pRecord);
       if (*pl != *pr) return false;
     } break;
 
     case GroupDestinationRecord_Type: {
-      const GroupDestinationRecord *pl = (GroupDestinationRecord*)m_pRecord,
-                                   *pr =
-                                       (GroupDestinationRecord*)Value.m_pRecord;
-
+      const auto pl = static_cast<GroupDestinationRecord*>(m_pRecord);
+      const auto pr = static_cast<GroupDestinationRecord*>(Value.m_pRecord);
       if (*pl != *pr) return false;
     } break;
 
     case GroupAssignmentRecord_Type: {
-      const GroupAssignmentRecord *pl = (GroupAssignmentRecord*)m_pRecord,
-                                  *pr = (GroupAssignmentRecord*)Value.m_pRecord;
-
+      const auto pl = static_cast<GroupAssignmentRecord*>(m_pRecord);
+      const auto pr = static_cast<GroupAssignmentRecord*>(Value.m_pRecord);
       if (*pl != *pr) return false;
     } break;
   }

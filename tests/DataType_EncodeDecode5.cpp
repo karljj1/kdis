@@ -17,6 +17,7 @@
 #include <KDIS/DataTypes/EntityMarking.hpp>
 #include <KDIS/DataTypes/EntityType.hpp>
 #include <KDIS/DataTypes/EulerAngles.hpp>
+#include <KDIS/DataTypes/ExpendableAppearance.hpp>
 #include <KDIS/DataTypes/FixedDatum.hpp>
 #include <KDIS/DataTypes/FundamentalParameterData.hpp>
 #include <KDIS/DataTypes/GuidedMunitionsAppearance.hpp>
@@ -172,8 +173,15 @@ TEST(DataType_EncodeDecode5, EulerAngles) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+TEST(DataType_EncodeDecode5, ExpendableAppearance) {
+  KDIS::DATA_TYPE::ExpendableAppearance dtIn;
+  EXPECT_TRUE(dtIn == dtIn);
+  // ExpendableAppearance has no Encode/Decode feature
+}
+
 TEST(DataType_EncodeDecode5, FixedDatum) {
   KDIS::DATA_TYPE::FixedDatum dtIn;
+  EXPECT_EQ(0, dtIn.GetDatumID());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::FixedDatum dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);

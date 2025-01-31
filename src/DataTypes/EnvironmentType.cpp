@@ -97,7 +97,7 @@ void EnvironmentType::SetDomain(EntityDomain UI) { m_ui8Domain = UI; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityDomain EnvironmentType::GetDomain() const {
-  return (EntityDomain)m_ui8Domain;
+  return static_cast<EntityDomain>(m_ui8Domain);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -125,7 +125,7 @@ void EnvironmentType::SetSubCategory(EnvironmentSubcategory UI) {
 //////////////////////////////////////////////////////////////////////////
 
 EnvironmentSubcategory EnvironmentType::GetSubCategory() const {
-  return (EnvironmentSubcategory)m_ui8SubCategory;
+  return static_cast<EnvironmentSubcategory>(m_ui8SubCategory);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -149,10 +149,9 @@ KUINT8 EnvironmentType::GetExtra() const { return m_ui8Extra; }
 KString EnvironmentType::GetAsString() const {
   KStringStream ss;
 
-  ss << (KUINT16)m_ui8EntityKind << " , " << (KUINT16)m_ui8Domain << " , "
-     << (KUINT16)m_ui16Class << " , " << (KUINT16)m_ui8Category << " , "
-     << (KUINT16)m_ui8SubCategory << " , " << (KUINT16)m_ui8Specific << " , "
-     << (KUINT16)m_ui8Extra << "\n";
+  ss << m_ui8EntityKind << " , " << m_ui8Domain << " , " << m_ui16Class << " , "
+     << m_ui8Category << " , " << m_ui8SubCategory << " , " << m_ui8Specific
+     << " , " << m_ui8Extra << "\n";
 
   return ss.str();
 }
@@ -214,16 +213,21 @@ KBOOL EnvironmentType::operator<(const EnvironmentType& Value) const {
   // bits 0-7   = Extra
   KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
 
-  ui64ThisCmpVal = (KUINT64)m_ui8EntityKind << 56 | (KUINT64)m_ui8Domain << 48 |
-                   (KUINT64)m_ui16Class << 32 | (KUINT64)m_ui8Category << 24 |
-                   (KUINT64)m_ui8SubCategory << 16 |
-                   (KUINT64)m_ui8Specific << 8 | (KUINT64)m_ui8Extra;
+  ui64ThisCmpVal = static_cast<KUINT64>(m_ui8EntityKind) << 56 |
+                   static_cast<KUINT64>(m_ui8Domain) << 48 |
+                   static_cast<KUINT64>(m_ui16Class) << 32 |
+                   static_cast<KUINT64>(m_ui8Category) << 24 |
+                   static_cast<KUINT64>(m_ui8SubCategory) << 16 |
+                   static_cast<KUINT64>(m_ui8Specific) << 8 |
+                   static_cast<KUINT64>(m_ui8Extra);
 
-  ui64OtherCmpVal =
-      (KUINT64)Value.m_ui8EntityKind << 56 | (KUINT64)Value.m_ui8Domain << 48 |
-      (KUINT64)Value.m_ui16Class << 32 | (KUINT64)Value.m_ui8Category << 24 |
-      (KUINT64)Value.m_ui8SubCategory << 16 |
-      (KUINT64)Value.m_ui8Specific << 8 | (KUINT64)Value.m_ui8Extra;
+  ui64OtherCmpVal = static_cast<KUINT64>(Value.m_ui8EntityKind) << 56 |
+                    static_cast<KUINT64>(Value.m_ui8Domain) << 48 |
+                    static_cast<KUINT64>(Value.m_ui16Class) << 32 |
+                    static_cast<KUINT64>(Value.m_ui8Category) << 24 |
+                    static_cast<KUINT64>(Value.m_ui8SubCategory) << 16 |
+                    static_cast<KUINT64>(Value.m_ui8Specific) << 8 |
+                    static_cast<KUINT64>(Value.m_ui8Extra);
 
   return ui64ThisCmpVal < ui64OtherCmpVal;
 }

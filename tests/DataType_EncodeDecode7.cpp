@@ -56,6 +56,7 @@ TEST(DataType_EncodeDecode7, EnhancedMode1Code) {
 
 TEST(DataType_EncodeDecode7, ExplosionDescriptor) {
   KDIS::DATA_TYPE::ExplosionDescriptor dtIn;
+  EXPECT_EQ(0, dtIn.GetExplosiveMaterial());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::ExplosionDescriptor dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);

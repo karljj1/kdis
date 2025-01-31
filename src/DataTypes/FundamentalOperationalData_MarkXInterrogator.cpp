@@ -176,7 +176,7 @@ void FundamentalOperationalData_MarkXInterrogator::SetAlternateParameter4(
 
 AlternateParameter4
 FundamentalOperationalData_MarkXInterrogator::GetAlternateParameter4() const {
-  return (AlternateParameter4)m_ui8AltParam4;
+  return static_cast<AlternateParameter4>(m_ui8AltParam4);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -512,7 +512,7 @@ void FundamentalOperationalData_MarkXInterrogator::SetModeSMalfunction(
 //////////////////////////////////////////////////////////////////////////
 
 TCAS FundamentalOperationalData_MarkXInterrogator::GetTCASVersion() const {
-  return (TCAS)m_ui16ModeSTCAS;
+  return static_cast<TCAS>(m_ui16ModeSTCAS);
 }
 
 //////////////////////////////////////////////////////////////////////////

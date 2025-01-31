@@ -176,7 +176,7 @@ void FundamentalOperationalData_MarkXTransponder::SetAlternateParameter4(
 
 AlternateParameter4
 FundamentalOperationalData_MarkXTransponder::GetAlternateParameter4() const {
-  return (AlternateParameter4)m_ui8AltParam4;
+  return static_cast<AlternateParameter4>(m_ui8AltParam4);
 }
 
 //////////////////////////////////////////////////////////////////////////
