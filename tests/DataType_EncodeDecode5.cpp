@@ -22,7 +22,6 @@
 #include <KDIS/DataTypes/GuidedMunitionsAppearance.hpp>
 #include <KDIS/DataTypes/LandPlatformAppearance.hpp>
 #include <KDIS/DataTypes/LifeFormAppearance.hpp>
-#include <KDIS/DataTypes/Mine.hpp>
 #include <KDIS/DataTypes/ModulationType.hpp>
 #include <KDIS/DataTypes/MunitionDescriptor.hpp>
 #include <KDIS/DataTypes/NonHumanLifeFormAppearance.hpp>
@@ -268,12 +267,6 @@ TEST(DataType_EncodeDecode5, LifeFormAppearance) {
   EXPECT_EQ(ecam, dtIn.GetEntityCamouflage());
   EXPECT_TRUE(dtIn == dtIn);
   // LifeFormAppearance has no Encode/Decode feature
-}
-
-TEST(DataType_EncodeDecode5, Mine) {
-  KDIS::DATA_TYPE::Mine dtIn;
-  EXPECT_NO_THROW(dtIn.GetAsString());
-  // Mine has no Encode/Decode feature
 }
 
 TEST(DataType_EncodeDecode5, ModulationType) {

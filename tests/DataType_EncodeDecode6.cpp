@@ -47,6 +47,7 @@
 #include <KDIS/DataTypes/LineRecord2.hpp>
 #include <KDIS/DataTypes/LinearObjectAppearance.hpp>
 #include <KDIS/DataTypes/LinearSegmentParameter.hpp>
+#include <KDIS/DataTypes/Mine.hpp>
 #include <KDIS/DataTypes/MineFusing.hpp>
 #include <KDIS/DataTypes/MinePaintScheme.hpp>
 #include <KDIS/DataTypes/MinefieldAppearance.hpp>
@@ -495,6 +496,12 @@ TEST(DataType_EncodeDecode6, LineRecord2) {
   KDIS::DATA_TYPE::LineRecord2 dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+TEST(DataType_EncodeDecode5, Mine) {
+  KDIS::DATA_TYPE::Mine dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
+  // Mine has no Encode/Decode feature
 }
 
 TEST(DataType_EncodeDecode6, MinefieldAppearance) {
