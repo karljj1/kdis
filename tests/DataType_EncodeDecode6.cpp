@@ -441,6 +441,9 @@ TEST(DataType_EncodeDecode6, LE_EulerAngles) {
 
 TEST(DataType_EncodeDecode6, LinearObjectAppearance) {
   KDIS::DATA_TYPE::LinearObjectAppearance dtIn;
+  constexpr std::bitset<8> bs{0x4F};
+  EXPECT_NO_THROW(dtIn.SetBreachLocation(bs));
+  EXPECT_EQ(bs, dtIn.GetBreachLocationAsBitset());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::LinearObjectAppearance dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);

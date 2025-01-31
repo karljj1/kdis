@@ -20,7 +20,6 @@
 #include <KDIS/DataTypes/FixedDatum.hpp>
 #include <KDIS/DataTypes/FundamentalParameterData.hpp>
 #include <KDIS/DataTypes/LifeFormAppearance.hpp>
-#include <KDIS/DataTypes/LinearObjectAppearance.hpp>
 #include <KDIS/DataTypes/ModulationType.hpp>
 #include <KDIS/DataTypes/MunitionDescriptor.hpp>
 #include <KDIS/DataTypes/RadioEntityType.hpp>
@@ -186,17 +185,6 @@ TEST(DataType_EncodeDecode5, LifeFormAppearance) {
   EXPECT_NO_THROW(dtIn.SetEntityCompliance(ec));
   EXPECT_EQ(ec, dtIn.GetEntityCompliance());
   // LifeFormAppearance has no Encode/Decode feature
-}
-
-TEST(DataType_EncodeDecode5, LinearObjectAppearance) {
-  KDIS::DATA_TYPE::LinearObjectAppearance dtIn;
-  constexpr std::bitset<8> bs{0x4F};
-  EXPECT_NO_THROW(dtIn.SetBreachLocation(bs));
-  EXPECT_EQ(bs, dtIn.GetBreachLocationAsBitset());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::LinearObjectAppearance dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
-  EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode5, ModulationType) {
