@@ -31,6 +31,7 @@
 #include <KDIS/DataTypes/VariableParameter.hpp>
 #include <KDIS/DataTypes/Vector.hpp>
 #include <KDIS/DataTypes/WorldCoordinates.hpp>
+#include <bitset>
 #include <iostream>
 
 TEST(DataType_EncodeDecode5, AntennaLocation) {

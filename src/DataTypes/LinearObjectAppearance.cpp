@@ -28,7 +28,6 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/LinearObjectAppearance.hpp"
-
 #include "KDIS/util/format.hpp"
 
 using namespace KDIS;
@@ -83,7 +82,7 @@ KUINT8 LinearObjectAppearance::GetBreachLength() const {
 
 void LinearObjectAppearance::SetBreachLocation(const bitset<8>& L) {
   KUINT32 i = L.to_ulong();
-  m_SpecificAppearanceUnion.m_TankDitchConcertinaWire.m_ui32BreachLength =
+  m_SpecificAppearanceUnion.m_TankDitchConcertinaWire.m_ui32BreachLoc =
       (KUINT8)i;
 }
 
@@ -102,9 +101,8 @@ KUINT8 LinearObjectAppearance::GetBreachLocation() const {
 ////////////////////////////////////////////////////////////////////////////
 
 bitset<8> LinearObjectAppearance::GetBreachLocationAsBitset() {
-  return bitset<8>((KINT32)m_SpecificAppearanceUnion.m_TankDitchConcertinaWire
-                       .m_ui32BreachLoc);  // We need to cast to a signed int,
-                                           // this is a visual studio 2010 fix
+  return bitset<8>(
+      m_SpecificAppearanceUnion.m_TankDitchConcertinaWire.m_ui32BreachLoc);
 }
 
 ////////////////////////////////////////////////////////////////////////////
