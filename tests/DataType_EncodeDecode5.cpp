@@ -40,6 +40,7 @@
 #include <KDIS/DataTypes/VariableParameter.hpp>
 #include <KDIS/DataTypes/Vector.hpp>
 #include <KDIS/DataTypes/WorldCoordinates.hpp>
+#include <bitset>
 #include <iostream>
 #include <vector>
 
