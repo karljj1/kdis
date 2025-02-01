@@ -37,6 +37,37 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
+AirPlatformAppearance::AirPlatformAppearance()
+    : m_PaintScheme(0),
+      m_MobilityKill(0),
+      m_NVGMode(0),
+      m_Damage(0),
+      m_Smoke(0),
+      m_TrailingEffect(0),
+      m_CanopyState(0),
+      m_LandingLights(0),
+      m_NavLights(0),
+      m_AntiColLights(0),
+      m_FlamingEffectField(0),
+      m_Afterburner(0),
+      m_LowerAntiCollisionLight(0),
+      m_UpperAntiCollisionLight(0),
+      m_AntiCollisionLightDayNight(0),
+      m_IsBlinking(0),
+      m_FrozenStatus(0),
+      m_PowerPlantStatus(0),
+      m_State(0),
+      m_FormationLights(0),
+      m_LandingGearExtended(0),
+      m_CargoDoorsOpened(0),
+      m_NavigationPositionBrightness(0),
+      m_SpotLights(0),
+      m_InteriorLights(0),
+      m_ReverseThrustEngaged(0),
+      m_WeightOnWheels(0) {}
+
+//////////////////////////////////////////////////////////////////////////
+
 void AirPlatformAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
   m_PaintScheme = EPS;
 }
@@ -44,7 +75,7 @@ void AirPlatformAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityPaintScheme AirPlatformAppearance::GetEntityPaintScheme() const {
-  return (EntityPaintScheme)m_PaintScheme;
+  return static_cast<EntityPaintScheme>(m_PaintScheme);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -76,7 +107,7 @@ void AirPlatformAppearance::SetEntityDamage(EntityDamage ED) { m_Damage = ED; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityDamage AirPlatformAppearance::GetEntityDamage() const {
-  return (EntityDamage)m_Damage;
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -86,7 +117,7 @@ void AirPlatformAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
 //////////////////////////////////////////////////////////////////////////
 
 EntitySmoke AirPlatformAppearance::GetEntitySmoke() const {
-  return (EntitySmoke)m_Smoke;
+  return static_cast<EntitySmoke>(m_Smoke);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -98,7 +129,7 @@ void AirPlatformAppearance::SetEntityTrailingEffect(EntityTrailingEffect ETE) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityTrailingEffect AirPlatformAppearance::GetEntityTrailingEffect() const {
-  return (EntityTrailingEffect)m_TrailingEffect;
+  return static_cast<EntityTrailingEffect>(m_TrailingEffect);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -110,7 +141,7 @@ void AirPlatformAppearance::SetEntityCanopyState(EntityHatchState ECS) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityHatchState AirPlatformAppearance::GetEntityCanopyState() const {
-  return (EntityHatchState)m_CanopyState;
+  return static_cast<EntityHatchState>(m_CanopyState);
 }
 
 //////////////////////////////////////////////////////////////////////////

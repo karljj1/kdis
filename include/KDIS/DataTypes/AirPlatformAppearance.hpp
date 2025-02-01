@@ -82,6 +82,10 @@ struct KDIS_EXPORT AirPlatformAppearance {
   KUINT32 m_WeightOnWheels : 1;                // 31
 
  public:
+  AirPlatformAppearance();
+
+  ~AirPlatformAppearance() = default;
+
   //************************************
   // FullName:    KDIS::DATA_TYPE::AirPlatformAppearance::SetEntityPaintScheme
   //              KDIS::DATA_TYPE::AirPlatformAppearance::GetEntityPaintScheme

@@ -45,24 +45,24 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT AggregateType : public DataTypeBase {
  protected:
-  KUINT8 m_ui8Kind;
+  KUINT8 m_ui8Kind {0};
 
-  KUINT8 m_ui8Domain;
+  KUINT8 m_ui8Domain {0};
 
-  KUINT16 m_ui16Country;
+  KUINT16 m_ui16Country {0};
 
-  KUINT8 m_ui8Category;
+  KUINT8 m_ui8Category {0};
 
-  KUINT8 m_ui8SubCategory;
+  KUINT8 m_ui8SubCategory {0};
 
-  KUINT8 m_ui8Specific;
+  KUINT8 m_ui8Specific {0};
 
-  KUINT8 m_ui8Extra;
+  KUINT8 m_ui8Extra {0};
 
  public:
   static const KUINT16 AGGREGATE_TYPE_SIZE = 8;
 
-  AggregateType();
+  AggregateType() = default;
 
   AggregateType(KDIS::DATA_TYPE::ENUMS::AggregateKind Kind, KUINT8 Domain,
                 KDIS::DATA_TYPE::ENUMS::Country Country, KUINT8 Categoy,
@@ -73,7 +73,7 @@ class KDIS_EXPORT AggregateType : public DataTypeBase {
 
   AggregateType(KDataStream& stream);
 
-  virtual ~AggregateType();
+  virtual ~AggregateType() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::AggregateType::SetEntityKind

@@ -37,17 +37,6 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateType::AggregateType()
-    : m_ui8Kind(0),
-      m_ui8Domain(0),
-      m_ui16Country(0),
-      m_ui8Category(0),
-      m_ui8SubCategory(0),
-      m_ui8Specific(0),
-      m_ui8Extra(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 AggregateType::AggregateType(AggregateKind Kind, KUINT8 Domain, Country Country,
                              KUINT8 Categoy, KUINT8 SubCategory,
                              KUINT8 Specific, KUINT8 Extra)
@@ -78,16 +67,12 @@ AggregateType::AggregateType(KDataStream& stream) { Decode(stream); }
 
 //////////////////////////////////////////////////////////////////////////
 
-AggregateType::~AggregateType() {}
-
-//////////////////////////////////////////////////////////////////////////
-
 void AggregateType::SetEntityKind(AggregateKind AK) { m_ui8Kind = AK; }
 
 //////////////////////////////////////////////////////////////////////////
 
 AggregateKind AggregateType::GetEntityKind() const {
-  return (AggregateKind)m_ui8Kind;
+  return static_cast<AggregateKind>(m_ui8Kind);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -97,7 +82,7 @@ void AggregateType::SetDomain(EntityDomain UI) { m_ui8Domain = UI; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityDomain AggregateType::GetDomain() const {
-  return (EntityDomain)m_ui8Domain;
+  return static_cast<EntityDomain>(m_ui8Domain);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -106,7 +91,9 @@ void AggregateType::SetCountry(Country UI) { m_ui16Country = UI; }
 
 //////////////////////////////////////////////////////////////////////////
 
-Country AggregateType::GetCountry() const { return (Country)m_ui16Country; }
+Country AggregateType::GetCountry() const {
+  return static_cast<Country>(m_ui16Country);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -145,10 +132,13 @@ KUINT8 AggregateType::GetExtra() const { return m_ui8Extra; }
 KString AggregateType::GetAsString() const {
   KStringStream ss;
 
-  ss << (KUINT16)m_ui8Kind << " , " << (KUINT16)m_ui8Domain << " , "
-     << (KUINT16)m_ui16Country << " , " << (KUINT16)m_ui8Category << " , "
-     << (KUINT16)m_ui8SubCategory << " , " << (KUINT16)m_ui8Specific << " , "
-     << (KUINT16)m_ui8Extra << "\n";
+  ss << static_cast<KUINT16>(m_ui8Kind) << " , "
+     << static_cast<KUINT16>(m_ui8Domain) << " , "
+     << static_cast<KUINT16>(m_ui16Country) << " , "
+     << static_cast<KUINT16>(m_ui8Category) << " , "
+     << static_cast<KUINT16>(m_ui8SubCategory) << " , "
+     << static_cast<KUINT16>(m_ui8Specific) << " , "
+     << static_cast<KUINT16>(m_ui8Extra) << "\n";
 
   return ss.str();
 }
@@ -212,16 +202,22 @@ KBOOL AggregateType::operator<(const AggregateType& Value) const {
   // bits 0-7   = Extra
   KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
 
-  ui64ThisCmpVal = (KUINT64)m_ui8Kind << 56 | (KUINT64)m_ui8Domain << 48 |
-                   (KUINT64)m_ui16Country << 32 | (KUINT64)m_ui8Category << 24 |
-                   (KUINT64)m_ui8SubCategory << 16 |
-                   (KUINT64)m_ui8Specific << 8 | (KUINT64)m_ui8Extra;
+  ui64ThisCmpVal = static_cast<KUINT64>(m_ui8Kind) << 56 |
+                   static_cast<KUINT64>(m_ui8Domain) << 48 |
+                   static_cast<KUINT64>(m_ui16Country) << 32 |
+                   static_cast<KUINT64>(m_ui8Category) << 24 |
+                   static_cast<KUINT64>(m_ui8SubCategory) << 16 |
+                   static_cast<KUINT64>(m_ui8Specific) << 8 |
+                   static_cast<KUINT64>(m_ui8Extra);
 
   ui64OtherCmpVal =
-      (KUINT64)Value.m_ui8Kind << 56 | (KUINT64)Value.m_ui8Domain << 48 |
-      (KUINT64)Value.m_ui16Country << 32 | (KUINT64)Value.m_ui8Category << 24 |
-      (KUINT64)Value.m_ui8SubCategory << 16 |
-      (KUINT64)Value.m_ui8Specific << 8 | (KUINT64)Value.m_ui8Extra;
+      static_cast<KUINT64>(Value.m_ui8Kind) << 56 |
+      static_cast<KUINT64>(Value.m_ui8Domain) << 48 |
+      static_cast<KUINT64>(Value.m_ui16Country) << 32 |
+      static_cast<KUINT64>(Value.m_ui8Category) << 24 |
+      static_cast<KUINT64>(Value.m_ui8SubCategory) << 16 |
+      static_cast<KUINT64>(Value.m_ui8Specific) << 8 |
+      static_cast<KUINT64>(Value.m_ui8Extra);
 
   return ui64ThisCmpVal < ui64OtherCmpVal;
 }

@@ -56,14 +56,14 @@ class KDIS_EXPORT AntennaLocation : public DataTypeBase {
  public:
   static const KUINT16 ANTENNA_LOCATION_SIZE = 36;
 
-  AntennaLocation();
+  AntennaLocation() = default;
 
   AntennaLocation(KDataStream& stream);
 
   AntennaLocation(const WorldCoordinates& Location,
                   const Vector& RelativeLocation);
 
-  virtual ~AntennaLocation();
+  virtual ~AntennaLocation() = default;
 
   //************************************
   // FullName:    KDIS::DataTypes::AntennaLocation::SetAntennaLocation

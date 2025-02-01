@@ -40,6 +40,12 @@ TEST(DataType_EncodeDecode5, AntennaLocation) {
   KDIS::DATA_TYPE::AntennaLocation dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+
+  const KDIS::DATA_TYPE::WorldCoordinates wc;
+  const KDIS::DATA_TYPE::Vector vc;
+  KDIS::DATA_TYPE::AntennaLocation AL2(wc, vc);
+  EXPECT_EQ(wc, AL2.GetAntennaLocation());
+  EXPECT_EQ(vc, AL2.GetRelativeAntennaLocation());
 }
 
 TEST(DataType_EncodeDecode5, ArticulatedPart) {
@@ -261,6 +267,9 @@ TEST(DataType_EncodeDecode5, VariableParameter) {
 
 TEST(DataType_EncodeDecode5, Vector) {
   KDIS::DATA_TYPE::Vector dtIn;
+  EXPECT_EQ(0, dtIn.GetX());
+  EXPECT_EQ(0, dtIn.GetY());
+  EXPECT_EQ(0, dtIn.GetZ());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::Vector dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -269,6 +278,9 @@ TEST(DataType_EncodeDecode5, Vector) {
 
 TEST(DataType_EncodeDecode5, WorldCoordinates) {
   KDIS::DATA_TYPE::WorldCoordinates dtIn;
+  EXPECT_EQ(0, dtIn.GetX());
+  EXPECT_EQ(0, dtIn.GetY());
+  EXPECT_EQ(0, dtIn.GetZ());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::WorldCoordinates dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
