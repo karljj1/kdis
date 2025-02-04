@@ -86,6 +86,7 @@
 #include <KDIS/KDefines.hpp>
 #include <bitset>
 #include <iostream>
+#include <vector>
 
 TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
   KDIS::DATA_TYPE::AcousticEmitterSystem dtIn;
@@ -208,15 +209,16 @@ TEST(DataType_EncodeDecode6, EntityDestinationRecord) {
 }
 
 TEST(DataType_EncodeDecode6, EnvironmentRecord) {
-  KDIS::DATA_TYPE::EnvironmentRecord dtIn;
-  EXPECT_EQ(0, dtIn.GetEnvironmentRecordType());
-  EXPECT_NO_THROW(dtIn.GetAsString());
+  KDIS::DATA_TYPE::EnvironmentRecord dtInOne;
+  EXPECT_EQ(0, dtInOne.GetEnvironmentRecordType());
+  EXPECT_NO_THROW(dtInOne.GetAsString());
   KDIS::KDataStream streamOne;
-  EXPECT_THROW(dtIn.Decode(streamOne), KDIS::KException);  // too short
-  EXPECT_NO_THROW(dtIn.Encode(streamOne));
-  KDIS::KDataStream streamTwo = dtIn.Encode();
-  KDIS::DATA_TYPE::EnvironmentRecord dtOut(streamTwo);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_THROW(dtInOne.Decode(streamOne), KDIS::KException);  // too short
+  EXPECT_NO_THROW(dtInOne.Encode(streamOne));
+  KDIS::DATA_TYPE::EnvironmentRecord dtInTwo;
+  KDIS::KDataStream streamTwo = dtInTwo.Encode();
+  KDIS::DATA_TYPE::EnvironmentRecord dtOutTwo(streamTwo);
+  EXPECT_EQ(dtInTwo, dtOutTwo);
   EXPECT_EQ(0, streamTwo.GetBufferSize());
 }
 
@@ -482,10 +484,9 @@ TEST(DataType_EncodeDecode6, IntercomCommunicationParameters) {
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtInGdr(&gdr);
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtInGar(&gar);
   EXPECT_TRUE(dtInEdr == dtInEdr);
-  EXPECT_TRUE(!(dtInGdr == dtInGar));
-  EXPECT_TRUE(!(dtInGar == dtInGdr));
+  EXPECT_TRUE(dtInGdr == dtInGdr);
+  EXPECT_TRUE(dtInGar == dtInGar);
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtIn;
-  EXPECT_TRUE(dtIn == dtIn);
   EXPECT_EQ(0, dtIn.GetRecordType());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtOut(stream);
@@ -582,6 +583,19 @@ TEST(DataType_EncodeDecode6, LineRecord2) {
 TEST(DataType_EncodeDecode5, Mine) {
   KDIS::DATA_TYPE::Mine dtIn;
   EXPECT_NO_THROW(dtIn.AddScalarDetectionCoefficientValue(17));
+  EXPECT_NO_THROW(dtIn.SetGroundBurialDepthOffset(true));
+  EXPECT_NO_THROW(dtIn.SetWaterBurialDepthOffset(true));
+  EXPECT_NO_THROW(dtIn.SetSnowBurialDepthOffset(true));
+  EXPECT_NO_THROW(dtIn.SetMineOrientation(true));
+  EXPECT_NO_THROW(dtIn.SetThermalContrast(true));
+  EXPECT_NO_THROW(dtIn.SetReflectance(true));
+  EXPECT_NO_THROW(dtIn.SetMineEmplacementAge(true));
+  EXPECT_NO_THROW(dtIn.SetFusing(true));
+  EXPECT_NO_THROW(dtIn.AddScalarDetectionCoefficientValue(9));
+  EXPECT_NO_THROW(dtIn.SetPaintScheme(true));
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(dtIn.AddTripDetonationWire(vtx));
   EXPECT_NO_THROW(dtIn.GetAsString());
   // Mine has no Encode/Decode feature
 }
