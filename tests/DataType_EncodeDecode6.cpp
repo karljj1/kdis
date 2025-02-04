@@ -211,10 +211,13 @@ TEST(DataType_EncodeDecode6, EnvironmentRecord) {
   KDIS::DATA_TYPE::EnvironmentRecord dtIn;
   EXPECT_EQ(0, dtIn.GetEnvironmentRecordType());
   EXPECT_NO_THROW(dtIn.GetAsString());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::EnvironmentRecord dtOut(stream);
+  KDIS::KDataStream streamOne;
+  EXPECT_THROW(dtIn.Decode(streamOne), KDIS::KException);  // too short
+  EXPECT_NO_THROW(dtIn.Encode(streamOne));
+  KDIS::KDataStream streamTwo = dtIn.Encode();
+  KDIS::DATA_TYPE::EnvironmentRecord dtOut(streamTwo);
   EXPECT_EQ(dtIn, dtOut);
-  EXPECT_EQ(0, stream.GetBufferSize());
+  EXPECT_EQ(0, streamTwo.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode6, EnvironmentType) {
@@ -383,6 +386,7 @@ TEST(DataType_EncodeDecode6, GridAxisRegular) {
 
 TEST(DataType_EncodeDecode6, GridDataType0) {
   KDIS::DATA_TYPE::GridDataType0 dtIn;
+  EXPECT_NO_THROW(dtIn.AddDataValue(42));
   EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::GridDataType0 dtOut(stream);
@@ -471,6 +475,15 @@ TEST(DataType_EncodeDecode6, IFF_Layer2) {
 }
 
 TEST(DataType_EncodeDecode6, IntercomCommunicationParameters) {
+  KDIS::DATA_TYPE::EntityDestinationRecord edr;
+  KDIS::DATA_TYPE::GroupDestinationRecord gdr;
+  KDIS::DATA_TYPE::GroupAssignmentRecord gar;
+  KDIS::DATA_TYPE::IntercomCommunicationParameters dtInEdr(&edr);
+  KDIS::DATA_TYPE::IntercomCommunicationParameters dtInGdr(&gdr);
+  KDIS::DATA_TYPE::IntercomCommunicationParameters dtInGar(&gar);
+  EXPECT_TRUE(dtInEdr == dtInEdr);
+  EXPECT_TRUE(!(dtInGdr == dtInGar));
+  EXPECT_TRUE(!(dtInGar == dtInGdr));
   KDIS::DATA_TYPE::IntercomCommunicationParameters dtIn;
   EXPECT_TRUE(dtIn == dtIn);
   EXPECT_EQ(0, dtIn.GetRecordType());
@@ -568,6 +581,7 @@ TEST(DataType_EncodeDecode6, LineRecord2) {
 
 TEST(DataType_EncodeDecode5, Mine) {
   KDIS::DATA_TYPE::Mine dtIn;
+  EXPECT_NO_THROW(dtIn.AddScalarDetectionCoefficientValue(17));
   EXPECT_NO_THROW(dtIn.GetAsString());
   // Mine has no Encode/Decode feature
 }
@@ -834,6 +848,8 @@ TEST(DataType_EncodeDecode6, SystemIdentifier) {
   EXPECT_EQ(0, dtIn.GetSystemType());
   EXPECT_EQ(0, dtIn.GetSystemName());
   EXPECT_EQ(0, dtIn.GetSystemMode());
+  EXPECT_NO_THROW(dtIn.SetSystemType(
+      KDIS::DATA_TYPE::ENUMS::Mark_X_XII_ATCRBS_ModeS_Transponder));
   EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::SystemIdentifier dtOut(stream);

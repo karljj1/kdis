@@ -209,6 +209,7 @@ TEST(DataType_EncodeDecode7, ModeXCodeRecord) {
   EXPECT_EQ(false, dtIn.IsDamaged());
   EXPECT_NO_THROW(dtIn.SetMalfunctioning(true));
   EXPECT_EQ(true, dtIn.IsMalfunctioning());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::ModeXCodeRecord dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
