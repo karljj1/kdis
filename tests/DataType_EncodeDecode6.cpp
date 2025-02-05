@@ -90,6 +90,9 @@
 
 TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
   KDIS::DATA_TYPE::AcousticEmitterSystem dtIn;
+  EXPECT_EQ(0, dtIn.GetName());
+  EXPECT_EQ(0, dtIn.GetFunction());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AcousticEmitterSystem dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -98,6 +101,7 @@ TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
 
 TEST(DataType_EncodeDecode6, AggregateIdentifier) {
   KDIS::DATA_TYPE::AggregateIdentifier dtIn;
+  EXPECT_TRUE(!(dtIn < dtIn));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AggregateIdentifier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -106,6 +110,9 @@ TEST(DataType_EncodeDecode6, AggregateIdentifier) {
 
 TEST(DataType_EncodeDecode6, AggregateMarking) {
   KDIS::DATA_TYPE::AggregateMarking dtIn;
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ASCII,
+            dtIn.GetAggregateMarkingCharacterSet());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AggregateMarking dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -114,6 +121,11 @@ TEST(DataType_EncodeDecode6, AggregateMarking) {
 
 TEST(DataType_EncodeDecode6, AggregateType) {
   KDIS::DATA_TYPE::AggregateType dtIn;
+  EXPECT_EQ(0, dtIn.GetEntityKind());
+  EXPECT_EQ(0, dtIn.GetDomain());
+  EXPECT_EQ(0, dtIn.GetCountry());
+  EXPECT_NO_THROW(dtIn.GetAsString());
+  EXPECT_TRUE(!(dtIn < dtIn));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AggregateType dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -130,6 +142,10 @@ TEST(DataType_EncodeDecode6, APA) {
 
 TEST(DataType_EncodeDecode6, ArealObjectAppearance) {
   KDIS::DATA_TYPE::ArealObjectAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::Breach2bit b2b{
+      KDIS::DATA_TYPE::ENUMS::Cleared2bit};
+  EXPECT_NO_THROW(dtIn.SetBreach(b2b));
+  EXPECT_EQ(b2b, dtIn.GetBreach());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::ArealObjectAppearance dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -162,6 +178,9 @@ TEST(DataType_EncodeDecode6, COMBICState) {
 
 TEST(DataType_EncodeDecode6, CommunicationsChannelType) {
   KDIS::DATA_TYPE::CommunicationsChannelType dtIn;
+  EXPECT_EQ(0, dtIn.GetType());
+  EXPECT_EQ(0, dtIn.GetClass());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::CommunicationsChannelType dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -202,6 +221,8 @@ TEST(DataType_EncodeDecode6, EllipsoidRecord2) {
 
 TEST(DataType_EncodeDecode6, EntityDestinationRecord) {
   KDIS::DATA_TYPE::EntityDestinationRecord dtIn;
+  EXPECT_EQ(0, dtIn.GetLineStateCommand());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EntityDestinationRecord dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);

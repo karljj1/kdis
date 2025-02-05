@@ -83,7 +83,7 @@ void EntityMarking::SetEntityMarkingCharacterSet(
 //////////////////////////////////////////////////////////////////////////
 
 EntityMarkingCharacterSet EntityMarking::GetEntityMarkingCharacterSet() const {
-  return (EntityMarkingCharacterSet)m_ui8EntityMarkingCharacterSet;
+  return static_cast<EntityMarkingCharacterSet>(m_ui8EntityMarkingCharacterSet);
 }
 
 //////////////////////////////////////////////////////////////////////////

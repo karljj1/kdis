@@ -1,10 +1,12 @@
 #include <gtest/gtest.h>
 
+#include <KDIS/DataTypes/AirPlatformAppearance.hpp>
 #include <KDIS/DataTypes/AntennaLocation.hpp>
 #include <KDIS/DataTypes/ArticulatedPart.hpp>
 #include <KDIS/DataTypes/AttachedPart.hpp>
 #include <KDIS/DataTypes/ClockTime.hpp>
 #include <KDIS/DataTypes/CryptoSystem.hpp>
+#include <KDIS/DataTypes/CulturalFeatureAppearance.hpp>
 #include <KDIS/DataTypes/DeadReckoningParameter.hpp>
 #include <KDIS/DataTypes/Descriptor.hpp>
 #include <KDIS/DataTypes/EmissionSystem.hpp>
@@ -46,6 +48,32 @@
 #include <iostream>
 #include <vector>
 
+TEST(DataType_EncodeDecode5, AirPlatformAppearance) {
+  KDIS::DATA_TYPE::AirPlatformAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityPaintScheme eps{
+      KDIS::DATA_TYPE::ENUMS::Camouflage};
+  EXPECT_NO_THROW(dtIn.SetEntityPaintScheme(eps));
+  EXPECT_EQ(eps, dtIn.GetEntityPaintScheme());
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityDamage ed{
+      KDIS::DATA_TYPE::ENUMS::NoDamage};
+  EXPECT_NO_THROW(dtIn.SetEntityDamage(ed));
+  EXPECT_EQ(ed, dtIn.GetEntityDamage());
+  constexpr KDIS::DATA_TYPE::ENUMS::EntitySmoke es{
+      KDIS::DATA_TYPE::ENUMS::NotSmoking};
+  EXPECT_NO_THROW(dtIn.SetEntitySmoke(es));
+  EXPECT_EQ(es, dtIn.GetEntitySmoke());
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityTrailingEffect ete{
+      KDIS::DATA_TYPE::ENUMS::Medium};
+  EXPECT_NO_THROW(dtIn.SetEntityTrailingEffect(ete));
+  EXPECT_EQ(ete, dtIn.GetEntityTrailingEffect());
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityHatchState ehs{
+      KDIS::DATA_TYPE::ENUMS::PrimaryHatchIsClosed};
+  EXPECT_NO_THROW(dtIn.SetEntityCanopyState(ehs));
+  EXPECT_EQ(ehs, dtIn.GetEntityCanopyState());
+  EXPECT_TRUE(dtIn == dtIn);
+  // AirPlatformAppearance has no Encode/Decode feature
+}
+
 TEST(DataType_EncodeDecode5, AntennaLocation) {
   KDIS::DATA_TYPE::AntennaLocation dtIn;
   KDIS::KDataStream stream = dtIn.Encode();
@@ -56,6 +84,9 @@ TEST(DataType_EncodeDecode5, AntennaLocation) {
 
 TEST(DataType_EncodeDecode5, ArticulatedPart) {
   KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  EXPECT_EQ(0, dtIn.GetTypeVariantClass());
+  EXPECT_EQ(0, dtIn.GetTypeVariantMetric());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::ArticulatedPart dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -64,6 +95,7 @@ TEST(DataType_EncodeDecode5, ArticulatedPart) {
 
 TEST(DataType_EncodeDecode5, AttachedPart) {
   KDIS::DATA_TYPE::AttachedPart dtIn;
+  EXPECT_EQ(0, dtIn.GetAttachedPartParameterType());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::AttachedPart dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -80,10 +112,22 @@ TEST(DataType_EncodeDecode5, ClockTime) {
 
 TEST(DataType_EncodeDecode5, CryptoSystem) {
   KDIS::DATA_TYPE::CryptoSystem dtIn;
+  EXPECT_EQ(0, dtIn.GetCryptoSystemType());
+  EXPECT_EQ(0, dtIn.GetEncryptionMode());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::CryptoSystem dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+TEST(DataType_EncodeDecode5, CulturalFeatureAppearance) {
+  KDIS::DATA_TYPE::CulturalFeatureAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityDamage ed{
+      KDIS::DATA_TYPE::ENUMS::ModerateDamage};
+  EXPECT_NO_THROW(dtIn.SetEntityDamage(ed));
+  EXPECT_EQ(ed, dtIn.GetEntityDamage());
+  EXPECT_TRUE(dtIn == dtIn);
+  // CulturalFeatureAppearance has no Encode/Decode feature
 }
 
 TEST(DataType_EncodeDecode5, DeadReckoningParameter) {
@@ -96,6 +140,7 @@ TEST(DataType_EncodeDecode5, DeadReckoningParameter) {
 
 TEST(DataType_EncodeDecode5, EmissionSystem) {
   KDIS::DATA_TYPE::EmissionSystem dtIn;
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EmissionSystem dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -104,6 +149,9 @@ TEST(DataType_EncodeDecode5, EmissionSystem) {
 
 TEST(DataType_EncodeDecode5, EmitterBeam) {
   KDIS::DATA_TYPE::EmitterBeam dtIn;
+  EXPECT_EQ(0, dtIn.GetEmitterBeamFunction());
+  EXPECT_EQ(0, dtIn.GetHighDensityTrackJam());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EmitterBeam dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -112,6 +160,9 @@ TEST(DataType_EncodeDecode5, EmitterBeam) {
 
 TEST(DataType_EncodeDecode5, EmitterSystem) {
   KDIS::DATA_TYPE::EmitterSystem dtIn;
+  EXPECT_EQ(0, dtIn.GetEmitterName());
+  EXPECT_EQ(0, dtIn.GetFunction());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EmitterSystem dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -120,6 +171,15 @@ TEST(DataType_EncodeDecode5, EmitterSystem) {
 
 TEST(DataType_EncodeDecode5, EncodingScheme) {
   KDIS::DATA_TYPE::EncodingScheme dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::EncodingClass ec{
+      KDIS::DATA_TYPE::ENUMS::EncodedAudio};
+  EXPECT_NO_THROW(dtIn.SetEncodingClass(ec));
+  EXPECT_EQ(ec, dtIn.GetEncodingClass());
+  constexpr KDIS::DATA_TYPE::ENUMS::EncodingType eta{
+      KDIS::DATA_TYPE::ENUMS::_8_bit_mu_law};
+  EXPECT_NO_THROW(dtIn.SetEncodingTypeAudio(eta));
+  EXPECT_EQ(eta, dtIn.GetEncodingTypeAudio());
+  EXPECT_EQ(0, dtIn.GetTDLType());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EncodingScheme dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -144,6 +204,7 @@ TEST(DataType_EncodeDecode5, EntityCapabilities) {
 
 TEST(DataType_EncodeDecode5, EntityIdentifier) {
   KDIS::DATA_TYPE::EntityIdentifier dtIn;
+  EXPECT_TRUE(!(dtIn < dtIn));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EntityIdentifier dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -152,6 +213,7 @@ TEST(DataType_EncodeDecode5, EntityIdentifier) {
 
 TEST(DataType_EncodeDecode5, EntityMarking) {
   KDIS::DATA_TYPE::EntityMarking dtIn;
+  EXPECT_EQ(0, dtIn.GetEntityMarkingCharacterSet());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EntityMarking dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
