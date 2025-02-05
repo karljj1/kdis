@@ -27,7 +27,7 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include <cstdlib>
+#include <string>
 #include <vector>
 
 #include "KDIS/DataTypes/EntityType.hpp"
@@ -150,22 +150,18 @@ KUINT8 EntityType::GetExtra() const { return m_ui8Extra; }
 //////////////////////////////////////////////////////////////////////////
 
 void EntityType::ReadFromTokenisedString(const KString& String,
-                                         const KString& Seperator /*= ","*/) {
+                                         KCHAR8 Separator /*= ','*/) {
   // Copy the string, we don't want to change the string we have been passed.
   KString sCopy = String;
 
   vector<KUINT16> vValues;
 
-  KCHAR8* token = strtok((KCHAR8*)sCopy.c_str(), Seperator.c_str());
-
-  while (token != NULL) {
-    KINT16 i = atoi(token);
+  KStringStream ss(String);
+  KString token;
+  while (std::getline(ss, token, Separator)) {
+    KINT16 i = std::stoi(token);
     if (i < 0) i = 0;  // If the value is less than 0 then we need to make it 0.
-
     vValues.push_back(i);
-
-    // Get next token:
-    token = strtok(NULL, Seperator.c_str());
   }
 
   // We need 7 values in total, if not we have a problem.
@@ -189,15 +185,14 @@ void EntityType::ReadFromTokenisedString(const KString& String,
 
 //////////////////////////////////////////////////////////////////////////
 
-KString EntityType::CreateTokenisedString(
-    const KString& Seperator /*= ","*/) const {
+KString EntityType::CreateTokenisedString(KCHAR8 Separator /*= ','*/) const {
   KStringStream ss;
 
-  ss << static_cast<KUINT16>(m_ui8EntityKind) << Seperator
-     << static_cast<KUINT16>(m_ui8Domain) << Seperator << m_ui16Country
-     << Seperator << static_cast<KUINT16>(m_ui8Category) << Seperator
-     << static_cast<KUINT16>(m_ui8SubCategory) << Seperator
-     << static_cast<KUINT16>(m_ui8Specific) << Seperator
+  ss << static_cast<KUINT16>(m_ui8EntityKind) << Separator
+     << static_cast<KUINT16>(m_ui8Domain) << Separator << m_ui16Country
+     << Separator << static_cast<KUINT16>(m_ui8Category) << Separator
+     << static_cast<KUINT16>(m_ui8SubCategory) << Separator
+     << static_cast<KUINT16>(m_ui8Specific) << Separator
      << static_cast<KUINT16>(m_ui8Extra);
 
   return ss.str();
