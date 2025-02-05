@@ -16,6 +16,7 @@
 #include <KDIS/DataTypes/EntityIdentifier.hpp>
 #include <KDIS/DataTypes/EntityMarking.hpp>
 #include <KDIS/DataTypes/EntityType.hpp>
+#include <KDIS/DataTypes/EnvironmentalsAppearance.hpp>
 #include <KDIS/DataTypes/EulerAngles.hpp>
 #include <KDIS/DataTypes/ExpendableAppearance.hpp>
 #include <KDIS/DataTypes/FixedDatum.hpp>
@@ -159,10 +160,35 @@ TEST(DataType_EncodeDecode5, EntityMarking) {
 
 TEST(DataType_EncodeDecode5, EntityType) {
   KDIS::DATA_TYPE::EntityType dtIn;
+  EXPECT_EQ(0, dtIn.GetEntityKind());
+  EXPECT_EQ(0, dtIn.GetDomain());
+  EXPECT_EQ(0, dtIn.GetCountry());
+  KDIS::KString kstr;
+  EXPECT_NO_THROW(kstr = dtIn.CreateTokenisedString());
+  EXPECT_NO_THROW(dtIn.ReadFromTokenisedString(kstr));
+  kstr = "";
+  EXPECT_THROW(dtIn.ReadFromTokenisedString(kstr), KDIS::KException);
+  kstr = "1,2,3,4,5,6";
+  EXPECT_THROW(dtIn.ReadFromTokenisedString(kstr), KDIS::KException);
+  kstr = "1,2,3,4,5,6,7,8";
+  EXPECT_THROW(dtIn.ReadFromTokenisedString(kstr), KDIS::KException);
+  kstr = "-1,2,-3,0,-5,6,-7";
+  EXPECT_NO_THROW(dtIn.ReadFromTokenisedString(kstr));
+  EXPECT_TRUE(!(dtIn < dtIn));
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EntityType dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+TEST(DataType_EncodeDecode5, EnvironmentalsAppearance) {
+  KDIS::DATA_TYPE::EnvironmentalsAppearance dtIn;
+  constexpr KDIS::DATA_TYPE::ENUMS::EntityDensity ed{
+      KDIS::DATA_TYPE::ENUMS::Clear};
+  EXPECT_NO_THROW(dtIn.SetEntityDensity(ed));
+  EXPECT_EQ(ed, dtIn.GetEntityDensity());
+  EXPECT_TRUE(dtIn == dtIn);
+  // EnvironmentalAppearance has no Encode/Decode feature
 }
 
 TEST(DataType_EncodeDecode5, EulerAngles) {
