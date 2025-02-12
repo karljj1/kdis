@@ -35,6 +35,9 @@
 //
 TEST(PDU_FactoryDecoder5, Designator_PDU) {
   KDIS::PDU::Designator_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetDesignatorCodeName());
+  EXPECT_EQ(0, pduIn.GetDesignatorCode());
+  EXPECT_EQ(0, pduIn.GetDeadReckoningAlgorithm());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -44,6 +47,8 @@ TEST(PDU_FactoryDecoder5, Designator_PDU) {
 
 TEST(PDU_FactoryDecoder5, Electromagnetic_Emission_PDU) {
   KDIS::PDU::Electromagnetic_Emission_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetStateUpdateIndicator());
+  EXPECT_NO_THROW(pduIn.GetAsString());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -57,6 +62,7 @@ TEST(PDU_FactoryDecoder5, Electromagnetic_Emission_PDU) {
 //
 TEST(PDU_FactoryDecoder5, Collision_PDU) {
   KDIS::PDU::Collision_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetCollisionType());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -66,6 +72,8 @@ TEST(PDU_FactoryDecoder5, Collision_PDU) {
 
 TEST(PDU_FactoryDecoder5, Entity_State_PDU) {
   KDIS::PDU::Entity_State_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetForceID());
+  EXPECT_NO_THROW(pduIn.GetAsString());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);

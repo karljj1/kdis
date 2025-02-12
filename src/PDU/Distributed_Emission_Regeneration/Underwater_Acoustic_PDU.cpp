@@ -130,7 +130,7 @@ void Underwater_Acoustic_PDU::SetStateUpdateIndicator(
 //////////////////////////////////////////////////////////////////////////
 
 StateUpdateIndicator Underwater_Acoustic_PDU::GetStateUpdateIndicator() const {
-  return (StateUpdateIndicator)m_ui8StateUpdateIndicator;
+  return static_cast<StateUpdateIndicator>(m_ui8StateUpdateIndicator);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ void Underwater_Acoustic_PDU::SetPassiveParameterIndex(
 
 PassiveParameterIndex Underwater_Acoustic_PDU::GetPassiveParameterIndex()
     const {
-  return (PassiveParameterIndex)m_ui16PassiveParamIndex;
+  return static_cast<PassiveParameterIndex>(m_ui16PassiveParamIndex);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -158,7 +158,7 @@ void Underwater_Acoustic_PDU::SetPropulsionPlantConfiguration(
 
 PropulsionPlantConfiguration
 Underwater_Acoustic_PDU::GetPropulsionPlantConfiguration() const {
-  return (PropulsionPlantConfiguration)m_ui8PropPlantConfig;
+  return static_cast<PropulsionPlantConfiguration>(m_ui8PropPlantConfig);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -287,9 +287,9 @@ KString Underwater_Acoustic_PDU::GetAsString() const {
      << "Prop Plant Config:       "
      << GetEnumAsStringPropulsionPlantConfiguration(m_ui8PropPlantConfig)
      << "\n"
-     << "Number Of Shafts:        " << (KUINT16)m_ui8NumShafts << "\n"
-     << "Number Of APA:           " << (KUINT16)m_ui8NumAPA << "\n"
-     << "Number Of UAES:          " << (KUINT16)m_ui8NumEmitterSys << "\n";
+     << "Number Of Shafts:        " << m_ui8NumShafts << "\n"
+     << "Number Of APA:           " << m_ui8NumAPA << "\n"
+     << "Number Of UAES:          " << m_ui8NumEmitterSys << "\n";
 
   vector<Shaft>::const_iterator citrShafts = m_vShafts.begin();
   vector<Shaft>::const_iterator citrShaftsEnd = m_vShafts.end();

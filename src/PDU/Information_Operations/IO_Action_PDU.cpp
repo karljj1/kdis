@@ -132,7 +132,7 @@ void IO_Action_PDU::SetWarfareType(WarfareType WT) { m_ui16WrTyp = WT; }
 //////////////////////////////////////////////////////////////////////////
 
 WarfareType IO_Action_PDU::GetWarfareType() const {
-  return (WarfareType)m_ui16WrTyp;
+  return static_cast<WarfareType>(m_ui16WrTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -150,7 +150,7 @@ void IO_Action_PDU::SetActionType(ActionType AT) { m_ui16ActTyp = AT; }
 //////////////////////////////////////////////////////////////////////////
 
 ActionType IO_Action_PDU::GetActionType() const {
-  return (ActionType)m_ui16ActTyp;
+  return static_cast<ActionType>(m_ui16ActTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -160,7 +160,7 @@ void IO_Action_PDU::SetActionPhase(ActionPhase AP) { m_ui16ActPhs = AP; }
 //////////////////////////////////////////////////////////////////////////
 
 ActionPhase IO_Action_PDU::GetActionPhase() const {
-  return (ActionPhase)m_ui16ActPhs;
+  return static_cast<ActionPhase>(m_ui16ActPhs);
 }
 
 //////////////////////////////////////////////////////////////////////////
