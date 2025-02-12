@@ -15,6 +15,10 @@
 #include <KDIS/PDU/Live_Entity/LE_Detonation_PDU.hpp>
 #include <KDIS/PDU/Live_Entity/LE_Fire_PDU.hpp>
 #include <KDIS/PDU/Live_Entity/TSPI_PDU.hpp>
+#include <KDIS/PDU/Minefield/Minefield_Data_PDU.hpp>
+#include <KDIS/PDU/Minefield/Minefield_Query_PDU.hpp>
+#include <KDIS/PDU/Minefield/Minefield_Response_NACK_PDU.hpp>
+#include <KDIS/PDU/Minefield/Minefield_State_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Acknowledge_R_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Action_Request_R_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Action_Response_R_PDU.hpp>
@@ -87,7 +91,7 @@ TEST(PDU_ProtocolFamily6, Entity_State_Update_PDU) {
 //
 // Entity Management
 //
-TEST(PDU_ProtocolFamily5, Aggregate_State_PDU) {
+TEST(PDU_ProtocolFamily6, Aggregate_State_PDU) {
   KDIS::PDU::Aggregate_State_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::EntityManagement,
             pdu.GetProtocolFamily());
@@ -96,7 +100,7 @@ TEST(PDU_ProtocolFamily5, Aggregate_State_PDU) {
   EXPECT_EQ(0, pdu.GetFormation());
 }
 
-TEST(PDU_ProtocolFamily5, IsGroupOf_PDU) {
+TEST(PDU_ProtocolFamily6, IsGroupOf_PDU) {
   KDIS::PDU::IsGroupOf_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::EntityManagement,
             pdu.GetProtocolFamily());
@@ -104,13 +108,13 @@ TEST(PDU_ProtocolFamily5, IsGroupOf_PDU) {
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
-TEST(PDU_ProtocolFamily5, IsPartOf_PDU) {
+TEST(PDU_ProtocolFamily6, IsPartOf_PDU) {
   KDIS::PDU::IsPartOf_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::EntityManagement,
             pdu.GetProtocolFamily());
 }
 
-TEST(PDU_ProtocolFamily5, Transfer_Control_Request_PDU) {
+TEST(PDU_ProtocolFamily6, Transfer_Control_Request_PDU) {
   KDIS::PDU::Transfer_Control_Request_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::EntityManagement,
             pdu.GetProtocolFamily());
@@ -121,7 +125,7 @@ TEST(PDU_ProtocolFamily5, Transfer_Control_Request_PDU) {
 //
 // Live Entity
 //
-TEST(PDU_ProtocolFamily5, Appearance_PDU) {
+TEST(PDU_ProtocolFamily6, Appearance_PDU) {
   KDIS::PDU::Appearance_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::LiveEntity,
             pdu.GetProtocolFamily());
@@ -152,14 +156,14 @@ TEST(PDU_ProtocolFamily5, Appearance_PDU) {
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
-TEST(PDU_ProtocolFamily5, Articulated_Parts_PDU) {
+TEST(PDU_ProtocolFamily6, Articulated_Parts_PDU) {
   KDIS::PDU::Articulated_Parts_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::LiveEntity,
             pdu.GetProtocolFamily());
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
-TEST(PDU_ProtocolFamily5, LE_Detonation_PDU) {
+TEST(PDU_ProtocolFamily6, LE_Detonation_PDU) {
   KDIS::PDU::LE_Detonation_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::LiveEntity,
             pdu.GetProtocolFamily());
@@ -187,16 +191,77 @@ TEST(PDU_ProtocolFamily5, LE_Detonation_PDU) {
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
-TEST(PDU_ProtocolFamily5, LE_Fire_PDU) {
+TEST(PDU_ProtocolFamily6, LE_Fire_PDU) {
   KDIS::PDU::LE_Fire_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::LiveEntity,
             pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.SetTargetEntityIDFlag(true));
+  EXPECT_TRUE(pdu.GetTargetEntityIDFlag());
+  EXPECT_NO_THROW(pdu.SetMunitionEntityIDFlag(false));
+  EXPECT_TRUE(!pdu.GetMunitionEntityIDFlag());
+  EXPECT_NO_THROW(pdu.SetMunitionEntityIDSiteAppIncludedFlag(true));
+  EXPECT_TRUE(pdu.GetMunitionEntityIDSiteAppIncludedFlag());
+  EXPECT_NO_THROW(pdu.SetEventIDSiteAppIncludedFlag(false));
+  EXPECT_TRUE(!pdu.GetEventIDSiteAppIncludedFlag());
+  EXPECT_NO_THROW(pdu.SetWarheadFuseFlag(true));
+  EXPECT_TRUE(pdu.GetWarheadFuseFlag());
+  EXPECT_NO_THROW(pdu.SetQuantityRateFlag(false));
+  EXPECT_TRUE(!pdu.GetQuantityRateFlag());
+  EXPECT_NO_THROW(pdu.SetLocationFlag(true));
+  EXPECT_TRUE(pdu.GetLocationFlag());
+  EXPECT_NO_THROW(pdu.GetAsString());
 }
 
-TEST(PDU_ProtocolFamily5, TSPI_PDU) {
+TEST(PDU_ProtocolFamily6, TSPI_PDU) {
   KDIS::PDU::TSPI_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::LiveEntity,
             pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.SetEntityLinearVelocityFlag(true));
+  EXPECT_TRUE(pdu.GetEntityLinearVelocityFlag());
+  EXPECT_NO_THROW(pdu.SetEntityOrientationFlag(false));
+  EXPECT_TRUE(!pdu.GetEntityOrientationFlag());
+  EXPECT_NO_THROW(pdu.SetPositionErrorFlag(true));
+  EXPECT_TRUE(pdu.GetPositionErrorFlag());
+  EXPECT_NO_THROW(pdu.SetOrientationErrorFlag(false));
+  EXPECT_TRUE(!pdu.GetOrientationErrorFlag());
+  EXPECT_NO_THROW(pdu.SetDeadReckoningParameterFlag(true));
+  EXPECT_TRUE(pdu.GetDeadReckoningParameterFlag());
+  EXPECT_NO_THROW(pdu.SetMeasuredSpeedFlag(false));
+  EXPECT_TRUE(!pdu.GetMeasuredSpeedFlag());
+  EXPECT_NO_THROW(pdu.SetSystemSpecificDataFlag(true));
+  EXPECT_TRUE(pdu.GetSystemSpecificDataFlag());
+  EXPECT_NO_THROW(pdu.GetAsString());
+}
+
+TEST(PDU_ProtocolFamily6, Minefield_Data_PDU) {
+  KDIS::PDU::Minefield_Data_PDU pdu;
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
+            pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.GetAsString());
+}
+
+TEST(PDU_ProtocolFamily6, Minefield_Query_PDU) {
+  KDIS::PDU::Minefield_Query_PDU pdu;
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
+            pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.GetAsString());
+}
+
+TEST(PDU_ProtocolFamily6, Minefield_Response_NACK_PDU) {
+  KDIS::PDU::Minefield_Response_NACK_PDU pdu;
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
+            pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.GetAsString());
+}
+
+TEST(PDU_ProtocolFamily6, Minefield_State_PDU) {
+  KDIS::PDU::Minefield_State_PDU pdu;
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
+            pdu.GetProtocolFamily());
+  constexpr KDIS::DATA_TYPE::ENUMS::MinefieldProtocolMode mpm{
+      KDIS::DATA_TYPE::ENUMS::Heartbeat};
+  EXPECT_NO_THROW(pdu.SetMinefieldProtocolMode(mpm));
+  EXPECT_EQ(mpm, pdu.GetMinefieldProtocolMode());
 }
 
 //

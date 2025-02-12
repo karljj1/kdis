@@ -86,6 +86,7 @@ TEST(PDU_FactoryDecoder5, Entity_State_PDU) {
 //
 TEST(PDU_FactoryDecoder5, Repair_Complete_PDU) {
   KDIS::PDU::Repair_Complete_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetRepairTypePerformed());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -96,6 +97,7 @@ TEST(PDU_FactoryDecoder5, Repair_Complete_PDU) {
 
 TEST(PDU_FactoryDecoder5, Repair_Response_PDU) {
   KDIS::PDU::Repair_Response_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetRepairResult());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -116,6 +118,7 @@ TEST(PDU_FactoryDecoder5, Resupply_Cancel_PDU) {
 
 TEST(PDU_FactoryDecoder5, Resupply_Offer_PDU) {
   KDIS::PDU::Resupply_Offer_PDU pduIn;
+  EXPECT_NO_THROW(pduIn.GetAsString());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -125,6 +128,7 @@ TEST(PDU_FactoryDecoder5, Resupply_Offer_PDU) {
 
 TEST(PDU_FactoryDecoder5, Resupply_Received_PDU) {
   KDIS::PDU::Resupply_Received_PDU pduIn;
+  EXPECT_NO_THROW(pduIn.GetAsString());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -135,6 +139,8 @@ TEST(PDU_FactoryDecoder5, Resupply_Received_PDU) {
 
 TEST(PDU_FactoryDecoder5, Service_Request_PDU) {
   KDIS::PDU::Service_Request_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetServiceTypeRequested());
+  EXPECT_NO_THROW(pduIn.GetAsString());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);

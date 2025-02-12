@@ -173,8 +173,8 @@ KString Minefield_Response_NACK_PDU::GetAsString() const {
   ss << Header::GetAsString() << "-Minefield Response NACK PDU-\n"
      << Minefield_Header::GetAsString()
      << "Requesting Entity ID.: " << m_ReqID.GetAsString()
-     << "Request ID: " << (KUINT16)m_ui8ReqID << "\n"
-     << "Number Missing PDU's: " << (KUINT16)m_ui8NumMisPdus << "\n"
+     << "Request ID: " << m_ui8ReqID << "\n"
+     << "Number Missing PDU's: " << m_ui8NumMisPdus << "\n"
      << "Missing PDU Sequence Numbers:\n";
 
   vector<KUINT8>::const_iterator citr = m_vSeqNums.begin();
