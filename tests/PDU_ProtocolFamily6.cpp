@@ -206,6 +206,9 @@ TEST(PDU_ProtocolFamily6, LE_Fire_PDU) {
   EXPECT_TRUE(!pdu.GetEventIDSiteAppIncludedFlag());
   EXPECT_NO_THROW(pdu.SetWarheadFuseFlag(true));
   EXPECT_TRUE(pdu.GetWarheadFuseFlag());
+  KDIS::KDataStream stream;
+  EXPECT_NO_THROW(pdu.Encode(stream));
+  EXPECT_NO_THROW(pdu.Decode(stream));
   EXPECT_NO_THROW(pdu.SetQuantityRateFlag(false));
   EXPECT_TRUE(!pdu.GetQuantityRateFlag());
   EXPECT_NO_THROW(pdu.SetLocationFlag(true));
