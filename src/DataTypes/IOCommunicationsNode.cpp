@@ -41,7 +41,8 @@ using namespace ENUMS;
 
 IOCommunicationsNode::IOCommunicationsNode()
     : m_ui8CommNodeTyp(0), m_ui8Padding(0) {
-  m_ui32Type = IOCommunicationsNodeRecord;
+  m_ui32Type = static_cast<KUINT32>(
+                   StandardVariableType::IOCommunicationsNodeRecord);
   m_ui16Length = IO_COMMUNICATIONS_NODE_SIZE;
 }
 
@@ -55,8 +56,9 @@ IOCommunicationsNode::IOCommunicationsNode(KDataStream& stream) {
 
 IOCommunicationsNode::IOCommunicationsNode(IOCommunicationsNodeType T,
                                            const CommunicationsNodeID& ID)
-    : m_ui8CommNodeTyp(T), m_ui8Padding(0), m_CommID(ID) {
-  m_ui32Type = IOCommunicationsNodeRecord;
+    : m_ui8CommNodeTyp(static_cast<KUINT8>(T)), m_ui8Padding(0), m_CommID(ID) {
+  m_ui32Type = static_cast<KUINT32>(
+                   StandardVariableType::IOCommunicationsNodeRecord);
   m_ui16Length = IO_COMMUNICATIONS_NODE_SIZE;
 }
 
@@ -68,7 +70,7 @@ IOCommunicationsNode::~IOCommunicationsNode() {}
 
 void IOCommunicationsNode::SetIOCommunicationsNodeType(
     IOCommunicationsNodeType T) {
-  m_ui8CommNodeTyp = T;
+  m_ui8CommNodeTyp = static_cast<KUINT8>(T);
 }
 
 //////////////////////////////////////////////////////////////////////////

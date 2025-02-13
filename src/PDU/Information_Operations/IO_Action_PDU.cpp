@@ -82,10 +82,10 @@ IO_Action_PDU::IO_Action_PDU(const EntityIdentifier& OrigID,
     : IO_Header(OrigID),
       m_RecEntityID(RecvID),
       m_ui32ReqId(ReqID),
-      m_ui16WrTyp(WT),
+      m_ui16WrTyp(static_cast<KUINT16>(WT)),
       m_ui16SimSrc(SimSrc),
-      m_ui16ActTyp(AT),
-      m_ui16ActPhs(AP),
+      m_ui16ActTyp(static_cast<KUINT16>(AT)),
+      m_ui16ActPhs(static_cast<KUINT16>(AP)),
       m_ui32Padding(0),
       m_AtkEntityID(AtkID),
       m_TgtEntityID(TgtID),
@@ -127,7 +127,9 @@ KUINT32 IO_Action_PDU::GetRequestID() const { return m_ui32ReqId; }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Action_PDU::SetWarfareType(WarfareType WT) { m_ui16WrTyp = WT; }
+void IO_Action_PDU::SetWarfareType(WarfareType WT) {
+  m_ui16WrTyp = static_cast<KUINT16>(WT);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -145,7 +147,9 @@ KUINT16 IO_Action_PDU::GetSimulationSource() const { return m_ui16SimSrc; }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Action_PDU::SetActionType(ActionType AT) { m_ui16ActTyp = AT; }
+void IO_Action_PDU::SetActionType(ActionType AT) {
+  m_ui16ActTyp = static_cast<KUINT16>(AT);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -155,7 +159,9 @@ ActionType IO_Action_PDU::GetActionType() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Action_PDU::SetActionPhase(ActionPhase AP) { m_ui16ActPhs = AP; }
+void IO_Action_PDU::SetActionPhase(ActionPhase AP) {
+  m_ui16ActPhs = static_cast<KUINT16>(AP);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

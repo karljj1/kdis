@@ -50,7 +50,7 @@ namespace ENUMS {
 /*  IO_Action_PDU                                                       */
 /************************************************************************/
 
-enum WarfareType {
+enum class WarfareType : KUINT16 {
   NoWarfareTypeStatement = 0,
   ElectronicWarfare_CW = 1,
   ComputerNetworkOperations_CNO = 2,
@@ -84,7 +84,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringWarfareType(const KString& Value,
 /*  IO_Action_PDU                                                       */
 /************************************************************************/
 
-enum ActionType {
+enum class ActionType : KUINT16 {
   NoActionTypeStatement = 0,
   IOAttackProfileData_Parametrics = 1,
   IOAttackComputerEffects = 2
@@ -114,7 +114,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringActionType(const KString& Value,
 /*  IO_Action_PDU                                                       */
 /************************************************************************/
 
-enum ActionPhase {
+enum class ActionPhase : KUINT16 {
   NoActionPhaseStatement = 0,
   StartAttackProfile = 1,
   EndAttackProfile = 2,
@@ -148,7 +148,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringActionPhase(const KString& Value,
 /*  StandardVariable                                                    */
 /************************************************************************/
 
-enum StandardVariableType {
+enum class StandardVariableType : KUINT32 {
   // Directed Energy Types
   DEPrecisionAimpointRecord = 4000,
   DEAreaAimpointRecord = 4001,
@@ -182,7 +182,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringStandardVariableType(const KString& Value,
 /*  IOCommunicationsNodeType                                            */
 /************************************************************************/
 
-enum IOCommunicationsNodeType {
+enum class IOCommunicationsNodeType : KUINT8 {
   NoStatementCommunicationsNodeType = 0,
   SenderNodeID = 1,
   ReceiverNodeID = 2,
@@ -215,7 +215,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringIOCommunicationsNodeType(
 /*  IOEffect                                                            */
 /************************************************************************/
 
-enum IOStatus {
+enum class IOStatus : KUINT8 {
   NoStatementIOStatus = 0,
   EffectOnSender = 1,
   EffectOnReceiver = 2,
@@ -250,7 +250,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringIOStatus(const KString& Value,
 /*  IOEffect                                                            */
 /************************************************************************/
 
-enum IOLinkType {
+enum class IOLinkType : KUINT8 {
   NoStatementIOLinkType = 0,
   LogicalLink = 1,
   PhysicalNode = 2,
@@ -281,7 +281,7 @@ KDIS_EXPORT KBOOL GetEnumFromStringIOLinkType(const KString& Value,
 /*  IOEffect                                                            */
 /************************************************************************/
 
-enum IOEffectType {
+enum class IOEffectType : KUINT8 {
   NoStatementIOEffectType = 0,
   Denial = 1,
   Degraded = 2,
@@ -314,7 +314,11 @@ KDIS_EXPORT KBOOL GetEnumFromStringIOEffectType(const KString& Value,
 /*  IO_Report_PDU                                                       */
 /************************************************************************/
 
-enum IOReportType { InitialReport = 1, UpdateReport = 2, FinalReport = 3 };
+enum class IOReportType : KUINT8 {
+  InitialReport = 1,
+  UpdateReport = 2,
+  FinalReport = 3
+};
 
 // Returns number of values in the EnumDescriptor for this enum.
 // This can be used to iterate through all possible enum values by using
