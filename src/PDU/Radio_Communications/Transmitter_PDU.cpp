@@ -155,7 +155,7 @@ void Transmitter_PDU::SetTransmitState(TransmitState TS) {
 //////////////////////////////////////////////////////////////////////////
 
 TransmitState Transmitter_PDU::GetTransmitState() const {
-  return (TransmitState)m_ui8TransmitterState;
+  return static_cast<TransmitState>(m_ui8TransmitterState);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -167,7 +167,7 @@ void Transmitter_PDU::SetInputSource(RadioInputSource IS) {
 //////////////////////////////////////////////////////////////////////////
 
 RadioInputSource Transmitter_PDU::GetInputSource() const {
-  return (RadioInputSource)m_ui8InputSource;
+  return static_cast<RadioInputSource>(m_ui8InputSource);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -197,7 +197,7 @@ void Transmitter_PDU::SetAntennaPatternType(AntennaPatternType APT) {
 //////////////////////////////////////////////////////////////////////////
 
 AntennaPatternType Transmitter_PDU::GetAntennaPatternType() const {
-  return (AntennaPatternType)m_ui16AntennaPatternType;
+  return static_cast<AntennaPatternType>(m_ui16AntennaPatternType);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -371,8 +371,7 @@ KString Transmitter_PDU::GetAsString() const {
      << "Transmit Frequency BW:      " << m_f32TransmitFreqBW << "\n"
      << "Power(decibel-milliwatts):  " << m_f32Power << "\n"
      << m_ModulationType.GetAsString() << m_CryptoSystem.GetAsString()
-     << "Length Of Modulation Param: " << (KUINT16)m_ui8LengthOfModulationParam
-     << "\n"
+     << "Length Of Modulation Param: " << m_ui8LengthOfModulationParam << "\n"
      << "Variable Params.......NOT IMPLEMENTED\n";
 
   // TODO(karljj1) Interpretation of the variable params is not provided at the

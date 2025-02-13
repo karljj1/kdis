@@ -154,6 +154,7 @@ TEST(PDU_FactoryDecoder5, Service_Request_PDU) {
 //
 TEST(PDU_FactoryDecoder5, Receiver_PDU) {
   KDIS::PDU::Receiver_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetReceiverState());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -172,6 +173,10 @@ TEST(PDU_FactoryDecoder5, Signal_PDU) {
 
 TEST(PDU_FactoryDecoder5, Transmitter_PDU) {
   KDIS::PDU::Transmitter_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetTransmitState());
+  EXPECT_EQ(0, pduIn.GetInputSource());
+  EXPECT_EQ(0, pduIn.GetAntennaPatternType());
+  EXPECT_NO_THROW(pduIn.GetAsString());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -184,6 +189,8 @@ TEST(PDU_FactoryDecoder5, Transmitter_PDU) {
 //
 TEST(PDU_FactoryDecoder5, Acknowledge_PDU) {
   KDIS::PDU::Acknowledge_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetAcknowledgeFlag());
+  EXPECT_EQ(0, pduIn.GetAcknowledgeResponseFlag());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -193,6 +200,7 @@ TEST(PDU_FactoryDecoder5, Acknowledge_PDU) {
 
 TEST(PDU_FactoryDecoder5, Action_Request_PDU) {
   KDIS::PDU::Action_Request_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetActionID());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -202,6 +210,7 @@ TEST(PDU_FactoryDecoder5, Action_Request_PDU) {
 
 TEST(PDU_FactoryDecoder5, Action_Response_PDU) {
   KDIS::PDU::Action_Response_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetRequestStatus());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -248,6 +257,7 @@ TEST(PDU_FactoryDecoder5, Data_Query_PDU) {
 
 TEST(PDU_FactoryDecoder5, Event_Report_PDU) {
   KDIS::PDU::Event_Report_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetEventType());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
@@ -284,6 +294,8 @@ TEST(PDU_FactoryDecoder5, Start_Resume_PDU) {
 
 TEST(PDU_FactoryDecoder5, Stop_Freeze_PDU) {
   KDIS::PDU::Stop_Freeze_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetReason());
+  EXPECT_EQ(0, pduIn.GetFrozenBehavior());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);

@@ -96,7 +96,7 @@ void Action_Request_PDU::SetActionID(ActionID ID) { m_ui32ActionID = ID; }
 //////////////////////////////////////////////////////////////////////////
 
 ActionID Action_Request_PDU::GetActionID() const {
-  return (ActionID)m_ui32ActionID;
+  return static_cast<ActionID>(m_ui32ActionID);
 }
 
 //////////////////////////////////////////////////////////////////////////

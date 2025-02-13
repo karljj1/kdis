@@ -19,6 +19,7 @@
 #include <KDIS/PDU/Minefield/Minefield_Query_PDU.hpp>
 #include <KDIS/PDU/Minefield/Minefield_Response_NACK_PDU.hpp>
 #include <KDIS/PDU/Minefield/Minefield_State_PDU.hpp>
+#include <KDIS/PDU/Radio_Communications/Intercom_Control_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Acknowledge_R_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Action_Request_R_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Action_Response_R_PDU.hpp>
@@ -262,6 +263,16 @@ TEST(PDU_ProtocolFamily6, Minefield_State_PDU) {
       KDIS::DATA_TYPE::ENUMS::Heartbeat};
   EXPECT_NO_THROW(pdu.SetMinefieldProtocolMode(mpm));
   EXPECT_EQ(mpm, pdu.GetMinefieldProtocolMode());
+}
+
+TEST(PDU_ProtocolFamily6, Intercom_Control_PDU) {
+  KDIS::PDU::Intercom_Control_PDU pdu;
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Radio_Communications,
+            pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetControlType());
+  EXPECT_EQ(0, pdu.GetTransmitLineState());
+  EXPECT_EQ(0, pdu.GetLineStateCommand());
+  EXPECT_NO_THROW(pdu.GetAsString());
 }
 
 //
