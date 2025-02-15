@@ -90,8 +90,8 @@ KUINT16 LE_EntityIdentifier::GetEntityID() const { return m_ui16EntityID; }
 KString LE_EntityIdentifier::GetAsString() const {
   KStringStream ss;
 
-  ss << "Site:        " << (KUINT16)m_ui8SiteID << "\n"
-     << "Application: " << (KUINT16)m_ui8ApplicationID << "\n"
+  ss << "Site:        " << static_cast<KUINT16>(m_ui8SiteID) << "\n"
+     << "Application: " << static_cast<KUINT16>(m_ui8ApplicationID) << "\n"
      << "Object:      " << m_ui16EntityID << "\n";
 
   return ss.str();
@@ -146,10 +146,11 @@ KBOOL LE_EntityIdentifier::operator<(const LE_EntityIdentifier& Value) const {
   // bits 16-31 = EntityID
   KUINT32 ui32ThisCmpVal = 0, ui32OtherCmpVal = 0;
 
-  ui32ThisCmpVal = m_ui8SiteID | (KUINT32)m_ui8ApplicationID << 8 |
-                   (KUINT32)m_ui16EntityID << 16;
-  ui32OtherCmpVal = Value.m_ui8SiteID | (KUINT32)Value.m_ui8ApplicationID << 8 |
-                    (KUINT32)Value.m_ui16EntityID << 16;
+  ui32ThisCmpVal = m_ui8SiteID | static_cast<KUINT32>(m_ui8ApplicationID) << 8 |
+                   static_cast<KUINT32>(m_ui16EntityID) << 16;
+  ui32OtherCmpVal = Value.m_ui8SiteID |
+                    static_cast<KUINT32>(Value.m_ui8ApplicationID) << 8 |
+                    static_cast<KUINT32>(Value.m_ui16EntityID) << 16;
 
   return ui32ThisCmpVal < ui32OtherCmpVal;
 }

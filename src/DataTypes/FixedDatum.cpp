@@ -53,7 +53,9 @@ void FixedDatum::SetDatumID(DatumID ID) { m_ui32DatumID = ID; }
 
 //////////////////////////////////////////////////////////////////////////
 
-DatumID FixedDatum::GetDatumID() const { return (DatumID)m_ui32DatumID; }
+DatumID FixedDatum::GetDatumID() const {
+  return static_cast<DatumID>(m_ui32DatumID);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

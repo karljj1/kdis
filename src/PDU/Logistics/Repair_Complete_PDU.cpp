@@ -93,7 +93,7 @@ void Repair_Complete_PDU::SetRepairTypePerformed(RepairTypePerformed RTP) {
 //////////////////////////////////////////////////////////////////////////
 
 RepairTypePerformed Repair_Complete_PDU::GetRepairTypePerformed() const {
-  return (RepairTypePerformed)m_ui16Repair;
+  return static_cast<RepairTypePerformed>(m_ui16Repair);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -62,8 +62,8 @@ void PointObjectAppearance::SetBreach(Breach2bit B) {
 //////////////////////////////////////////////////////////////////////////
 
 Breach2bit PointObjectAppearance::GetBreach() const {
-  return (Breach2bit)
-      m_SpecificAppearanceUnion.m_LogCribAbatisVehicleDefiladeInf.m_ui32Breach;
+  return static_cast<Breach2bit>(
+      m_SpecificAppearanceUnion.m_LogCribAbatisVehicleDefiladeInf.m_ui32Breach);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -129,8 +129,8 @@ void PointObjectAppearance::SetChemical(Chemical C) {
 //////////////////////////////////////////////////////////////////////////
 
 Chemical PointObjectAppearance::GetChemical() const {
-  return (Chemical)
-      m_SpecificAppearanceUnion.m_AirBurstGroundBurst.m_ui32Chemical;
+  return static_cast<Chemical>(
+      m_SpecificAppearanceUnion.m_AirBurstGroundBurst.m_ui32Chemical);
 }
 
 //////////////////////////////////////////////////////////////////////////

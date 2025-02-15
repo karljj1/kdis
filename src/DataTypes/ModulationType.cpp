@@ -105,7 +105,7 @@ KBOOL ModulationType::GetTimeHop() const { return m_ui16TimeHop; }
 //////////////////////////////////////////////////////////////////////////
 
 RadioMajorModulation ModulationType::GetMajorModulation() const {
-  return (RadioMajorModulation)m_ui16MajorModulationType;
+  return static_cast<RadioMajorModulation>(m_ui16MajorModulationType);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -168,7 +168,7 @@ void ModulationType::SetSystem(ModulationSystem S) { m_ui16System = S; }
 //////////////////////////////////////////////////////////////////////////
 
 ModulationSystem ModulationType::GetSystem() const {
-  return (ModulationSystem)m_ui16System;
+  return static_cast<ModulationSystem>(m_ui16System);
 }
 
 //////////////////////////////////////////////////////////////////////////

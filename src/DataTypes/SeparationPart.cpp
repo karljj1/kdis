@@ -79,7 +79,7 @@ void SeparationPart::SetReasonForSeparation(ReasonForSeparation RFS) {
 //////////////////////////////////////////////////////////////////////////
 
 ReasonForSeparation SeparationPart::GetReasonForSeparation() const {
-  return (ReasonForSeparation)m_ui8Reason;
+  return static_cast<ReasonForSeparation>(m_ui8Reason);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ void SeparationPart::SetPreEntityIndicator(PreEntityIndicator PEI) {
 //////////////////////////////////////////////////////////////////////////
 
 PreEntityIndicator SeparationPart::GetPreEntityIndicator() const {
-  return (PreEntityIndicator)m_ui8PreEntIndicator;
+  return static_cast<PreEntityIndicator>(m_ui8PreEntIndicator);
 }
 
 //////////////////////////////////////////////////////////////////////////

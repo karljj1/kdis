@@ -16,6 +16,10 @@ TEST(PDU_ProtocolFamily7, Attribute_PDU) {
   EXPECT_EQ(
       KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Entity_Information_Interaction,
       pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetExtendedPDUType());
+  EXPECT_EQ(0, pdu.GetExtendedProtocolVersion());
+  EXPECT_EQ(0, pdu.GetMasterAttributeRecordType());
+  EXPECT_EQ(0, pdu.GetActionCode());
 }
 
 //
@@ -25,12 +29,16 @@ TEST(PDU_ProtocolFamily7, IO_Action_PDU) {
   KDIS::PDU::IO_Action_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Information_Operations,
             pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetWarfareType());
+  EXPECT_EQ(0, pdu.GetActionType());
+  EXPECT_EQ(0, pdu.GetActionPhase());
 }
 
 TEST(PDU_ProtocolFamily7, IO_Report_PDU) {
   KDIS::PDU::IO_Report_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Information_Operations,
             pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetReportType());
 }
 
 //

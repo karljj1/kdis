@@ -116,7 +116,7 @@ void AttachedPart::SetAttachedPartParameterType(KUINT32 APPT) {
 //////////////////////////////////////////////////////////////////////////
 
 AttachedPartParameterType AttachedPart::GetAttachedPartParameterType() const {
-  return (AttachedPartParameterType)m_ui32APPT;
+  return static_cast<AttachedPartParameterType>(m_ui32APPT);
 }
 
 //////////////////////////////////////////////////////////////////////////

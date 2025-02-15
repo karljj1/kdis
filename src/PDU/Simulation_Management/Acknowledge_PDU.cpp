@@ -167,7 +167,7 @@ void Acknowledge_PDU::SetAcknowledgeFlag(AcknowledgeFlag AF) {
 //////////////////////////////////////////////////////////////////////////
 
 AcknowledgeFlag Acknowledge_PDU::GetAcknowledgeFlag() const {
-  return (AcknowledgeFlag)m_ui16AcknowledgeFlag;
+  return static_cast<AcknowledgeFlag>(m_ui16AcknowledgeFlag);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ void Acknowledge_PDU::SetAcknowledgeResponseFlag(AcknowledgeResponseFlag ARF) {
 //////////////////////////////////////////////////////////////////////////
 
 AcknowledgeResponseFlag Acknowledge_PDU::GetAcknowledgeResponseFlag() const {
-  return (AcknowledgeResponseFlag)m_ui16ResponseFlag;
+  return static_cast<AcknowledgeResponseFlag>(m_ui16ResponseFlag);
 }
 
 //////////////////////////////////////////////////////////////////////////

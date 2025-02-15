@@ -65,7 +65,7 @@ void NamedLocationIdentifier::SetStationName(StationName SN) {
 //////////////////////////////////////////////////////////////////////////
 
 StationName NamedLocationIdentifier::GetStationName() const {
-  return (StationName)m_ui16StnName;
+  return static_cast<StationName>(m_ui16StnName);
 }
 
 //////////////////////////////////////////////////////////////////////////

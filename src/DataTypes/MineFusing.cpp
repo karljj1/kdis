@@ -64,7 +64,7 @@ void MineFusing::SetPrimaryFuse(MineFuse F) { m_FuseUnion.m_ui16Primary = F; }
 //////////////////////////////////////////////////////////////////////////
 
 MineFuse MineFusing::GetPrimaryFuse() const {
-  return (MineFuse)m_FuseUnion.m_ui16Primary;
+  return static_cast<MineFuse>(m_FuseUnion.m_ui16Primary);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ void MineFusing::SetSecondaryFuse(MineFuse F) {
 //////////////////////////////////////////////////////////////////////////
 
 MineFuse MineFusing::GetSecondaryFuse() const {
-  return (MineFuse)m_FuseUnion.m_ui16Secondary;
+  return static_cast<MineFuse>(m_FuseUnion.m_ui16Secondary);
 }
 
 //////////////////////////////////////////////////////////////////////////

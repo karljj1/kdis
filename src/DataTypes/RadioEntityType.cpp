@@ -85,7 +85,7 @@ void RadioEntityType::SetEntityKind(EntityKind UI) { m_ui8EntityKind = UI; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityKind RadioEntityType::GetEntityKind() const {
-  return (EntityKind)m_ui8EntityKind;
+  return static_cast<EntityKind>(m_ui8EntityKind);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ void RadioEntityType::SetDomain(EntityDomain UI) { m_ui8Domain = UI; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityDomain RadioEntityType::GetDomain() const {
-  return (EntityDomain)m_ui8Domain;
+  return static_cast<EntityDomain>(m_ui8Domain);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -104,7 +104,9 @@ void RadioEntityType::SetCountry(Country UI) { m_ui16Country = UI; }
 
 //////////////////////////////////////////////////////////////////////////
 
-Country RadioEntityType::GetCountry() const { return (Country)m_ui16Country; }
+Country RadioEntityType::GetCountry() const {
+  return static_cast<Country>(m_ui16Country);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -139,10 +141,12 @@ KUINT16 RadioEntityType::GetNomenclature() const { return m_ui16Nomenclature; }
 KString RadioEntityType::GetAsString() const {
   KStringStream ss;
 
-  ss << (KUINT16)m_ui8EntityKind << " , " << (KUINT16)m_ui8Domain << " , "
-     << (KUINT16)m_ui16Country << " , " << (KUINT16)m_ui8Category << " , "
-     << (KUINT16)m_ui8NomenclatureVersion << " , "
-     << (KUINT16)m_ui16Nomenclature << " , " << "\n";
+  ss << static_cast<KUINT16>(m_ui8EntityKind) << " , "
+     << static_cast<KUINT16>(m_ui8Domain) << " , "
+     << static_cast<KUINT16>(m_ui16Country) << " , "
+     << static_cast<KUINT16>(m_ui8Category) << " , "
+     << static_cast<KUINT16>(m_ui8NomenclatureVersion) << " , "
+     << static_cast<KUINT16>(m_ui16Nomenclature) << " , " << "\n";
 
   return ss.str();
 }

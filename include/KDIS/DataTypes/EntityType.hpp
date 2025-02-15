@@ -146,11 +146,10 @@ class KDIS_EXPORT EntityType : public DataTypeBase {
   //              values are not found. Note: Any values less than 0 will be
   //              changed to 0.
   // Parameter:   const KString & String
-  // Parameter:   KString & Seperator = ","
+  // Parameter:   KCHAR8 Separator = ','
   //************************************
-  void ReadFromTokenisedString(const KString& String,
-                               const KString& Seperator = ",");
-  KString CreateTokenisedString(const KString& Seperator = ",") const;
+  void ReadFromTokenisedString(const KString& String, KCHAR8 Separator = ',');
+  KString CreateTokenisedString(KCHAR8 Separator = ',') const;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityType::GetAsString

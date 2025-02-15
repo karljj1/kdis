@@ -90,7 +90,7 @@ void Intercom_Control_PDU::SetControlType(ControlType CT) { m_ui8CtrlTyp = CT; }
 //////////////////////////////////////////////////////////////////////////
 
 ControlType Intercom_Control_PDU::GetControlType() const {
-  return (ControlType)m_ui8CtrlTyp;
+  return static_cast<ControlType>(m_ui8CtrlTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -171,7 +171,7 @@ void Intercom_Control_PDU::SetTransmitLineState(TransmitLineState TLS) {
 //////////////////////////////////////////////////////////////////////////
 
 TransmitLineState Intercom_Control_PDU::GetTransmitLineState() const {
-  return (TransmitLineState)m_ui8TransmitLineState;
+  return static_cast<TransmitLineState>(m_ui8TransmitLineState);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -183,7 +183,7 @@ void Intercom_Control_PDU::SetLineStateCommand(LineStateCommand LSC) {
 //////////////////////////////////////////////////////////////////////////
 
 LineStateCommand Intercom_Control_PDU::GetLineStateCommand() const {
-  return (LineStateCommand)m_ui8Command;
+  return static_cast<LineStateCommand>(m_ui8Command);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -281,9 +281,8 @@ KString Intercom_Control_PDU::GetAsString() const {
      << m_CommChannelType.GetAsString() << "Source Entity:\n"
      << IndentString(m_SrcEnt.GetAsString(), 1)
      << "Source Communications Device ID:  " << m_ui16SrcCommDevID << "\n"
-     << "Source Line ID:                   " << (KUINT16)m_ui8SrcLineID << "\n"
-     << "Transmit Priority:                " << (KUINT16)m_ui8TransmitPriority
-     << "\n"
+     << "Source Line ID:                   " << m_ui8SrcLineID << "\n"
+     << "Transmit Priority:                " << m_ui8TransmitPriority << "\n"
      << "Transmit Line State:              "
      << GetEnumAsStringTransmitLineState(m_ui8TransmitLineState) << "\n"
      << "Command:                          "

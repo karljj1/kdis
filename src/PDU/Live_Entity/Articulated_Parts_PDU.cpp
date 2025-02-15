@@ -27,10 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/PDU/Live_Entity/Articulated_Parts_PDU.hpp"
-
 #include "KDIS/DataTypes/ArticulatedPart.hpp"
 #include "KDIS/DataTypes/AttachedPart.hpp"
+#include "KDIS/PDU/Live_Entity/Articulated_Parts_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -129,8 +128,7 @@ KString Articulated_Parts_PDU::GetAsString() const {
   KStringStream ss;
 
   ss << LE_Header::GetAsString() << "-Articulated Parts PDU-\n"
-     << "Number Of Variable Params: " << (KUINT16)m_ui8NumOfVariableParams
-     << "\n";
+     << "Number Of Variable Params: " << m_ui8NumOfVariableParams << "\n";
 
   // Variable params
   vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();

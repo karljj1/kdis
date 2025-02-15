@@ -160,12 +160,22 @@ TEST(PDU_ProtocolFamily5, Data_PDU) {
   KDIS::PDU::Data_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Simulation_Management,
             pdu.GetProtocolFamily());
+  KDIS::DATA_TYPE::FixDtmPtr fdp = new KDIS::DATA_TYPE::FixedDatum;
+  EXPECT_NO_THROW(pdu.AddFixedDatum(fdp));
+  KDIS::DATA_TYPE::VarDtmPtr vdp = new KDIS::DATA_TYPE::VariableDatum;
+  EXPECT_NO_THROW(pdu.AddVariableDatum(vdp));
+  KDIS::KDataStream stream;
+  EXPECT_NO_THROW(pdu.Encode(stream));
 }
 
 TEST(PDU_ProtocolFamily5, Data_Query_PDU) {
   KDIS::PDU::Data_Query_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Simulation_Management,
             pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.AddFixedDatum(17));
+  EXPECT_NO_THROW(pdu.AddVariableDatum(44));
+  KDIS::KDataStream stream;
+  EXPECT_NO_THROW(pdu.Encode(stream));
 }
 
 TEST(PDU_ProtocolFamily5, Event_Report_PDU) {

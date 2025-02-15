@@ -115,7 +115,7 @@ void GED_EnhancedGroundCombatSoldier::SetRestStatus(RestStatus R) {
 //////////////////////////////////////////////////////////////////////////
 
 RestStatus GED_EnhancedGroundCombatSoldier::GetRestStatus() const {
-  return (RestStatus)m_ui8RestStatus;
+  return static_cast<RestStatus>(m_ui8RestStatus);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -150,11 +150,11 @@ KString GED_EnhancedGroundCombatSoldier::GetAsString() const {
   ss << GED_BasicGroundCombatSoldier::GetAsString();
 
   ss << "GED Enhanced Ground Combat Vehicle\n"
-     << "\tWater Status:         " << (KUINT16)m_ui8WaterStatus << " ounce/s\n"
+     << "\tWater Status:         " << m_ui8WaterStatus << " ounce/s\n"
      << "\tRest Status:          " << GetEnumAsStringRestStatus(m_ui8RestStatus)
      << "\n"
-     << "\tPrimary Ammunition:   " << (KUINT16)m_ui8PriAmmun << "\n"
-     << "\tSecondary Ammunition: " << (KUINT16)m_ui8SecAmmun << "\n";
+     << "\tPrimary Ammunition:   " << m_ui8PriAmmun << "\n"
+     << "\tSecondary Ammunition: " << m_ui8SecAmmun << "\n";
 
   return ss.str();
 }

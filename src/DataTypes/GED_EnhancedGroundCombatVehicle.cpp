@@ -151,12 +151,10 @@ KString GED_EnhancedGroundCombatVehicle::GetAsString() const {
   ss << GED_BasicGroundCombatVehicle::GetAsString();
 
   ss << "GED Enhanced Ground Combat Vehicle\n"
-     << "\tFuel Status:               " << (KUINT16)m_ui8FuelStatus
-     << "0 Litres\n"
-     << "\tGround Maintenance Status: " << (KUINT16)m_ui8GrndMaintStatus
-     << "0 km\n"
-     << "\tPrimary Ammunition:        " << (KUINT16)m_ui8PriAmmun << "\n"
-     << "\tSecondary Ammunition:      " << (KUINT16)m_ui8SecAmmun << "\n";
+     << "\tFuel Status:               " << m_ui8FuelStatus << "0 Litres\n"
+     << "\tGround Maintenance Status: " << m_ui8GrndMaintStatus << "0 km\n"
+     << "\tPrimary Ammunition:        " << m_ui8PriAmmun << "\n"
+     << "\tSecondary Ammunition:      " << m_ui8SecAmmun << "\n";
 
   return ss.str();
 }

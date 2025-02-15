@@ -119,7 +119,7 @@ void GroupDestinationRecord::SetLineStateCommand(LineStateCommand LSC) {
 //////////////////////////////////////////////////////////////////////////
 
 LineStateCommand GroupDestinationRecord::GetLineStateCommand() const {
-  return (LineStateCommand)m_ui8LnStCmd;
+  return static_cast<LineStateCommand>(m_ui8LnStCmd);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -129,8 +129,8 @@ KString GroupDestinationRecord::GetAsString() const {
 
   ss << "Group Destination Record"
      << "\nGroup Bit Field:       " << m_ui32GrpBtField
-     << "\nPriority:              " << (KUINT16)m_ui8DstPriority
-     << "\nLine State Command:    " << (KUINT16)m_ui8LnStCmd << "\n";
+     << "\nPriority:              " << m_ui8DstPriority
+     << "\nLine State Command:    " << m_ui8LnStCmd << "\n";
 
   return ss.str();
 }

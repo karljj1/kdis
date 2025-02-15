@@ -63,7 +63,7 @@ void CryptoSystem::SetCryptoSystemType(CryptoSystemType T) {
 //////////////////////////////////////////////////////////////////////////
 
 CryptoSystemType CryptoSystem::GetCryptoSystemType() const {
-  return (CryptoSystemType)m_ui16CryptoSystemType;
+  return static_cast<CryptoSystemType>(m_ui16CryptoSystemType);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ void CryptoSystem::SetEncryptionMode(EncryptionMode EM) {
 //////////////////////////////////////////////////////////////////////////
 
 EncryptionMode CryptoSystem::GetEncryptionMode() const {
-  return (EncryptionMode)m_ui16EncryptionMode;
+  return static_cast<EncryptionMode>(m_ui16EncryptionMode);
 }
 
 //////////////////////////////////////////////////////////////////////////

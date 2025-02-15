@@ -136,7 +136,7 @@ void EntityDestinationRecord::SetLineStateCommand(LineStateCommand LSC) {
 //////////////////////////////////////////////////////////////////////////
 
 LineStateCommand EntityDestinationRecord::GetLineStateCommand() const {
-  return (LineStateCommand)m_ui8LnStCmd;
+  return static_cast<LineStateCommand>(m_ui8LnStCmd);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -148,9 +148,9 @@ KString EntityDestinationRecord::GetAsString() const {
      << "Entity ID:\n"
      << IndentString(m_Entity.GetAsString(), 1)
      << "Device ID:           " << m_ui16DstCommsDvcID
-     << "\nLine ID:             " << (KUINT16)m_ui8DstLineID
-     << "\nPriority:            " << (KUINT16)m_ui8DstPriority
-     << "\nLine State Command:  " << (KUINT16)m_ui8LnStCmd << "\n";
+     << "\nLine ID:             " << m_ui8DstLineID
+     << "\nPriority:            " << m_ui8DstPriority
+     << "\nLine State Command:  " << m_ui8LnStCmd << "\n";
 
   return ss.str();
 }

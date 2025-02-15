@@ -88,7 +88,7 @@ KString Resupply_Offer_PDU::GetAsString() const {
 
   ss << Header::GetAsString() << "-Resupply Offer-\n"
      << IndentString(Logistics_Header::GetAsString(), 1)
-     << "\tNumber Of Supply Types: " << (KUINT16)m_ui8NumSupplyTypes;
+     << "\tNumber Of Supply Types: " << m_ui8NumSupplyTypes;
 
   // Now add supplies
   vector<Supplies>::const_iterator citr = m_vSupplies.begin();

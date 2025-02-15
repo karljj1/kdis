@@ -44,7 +44,7 @@ void SurfacePlatformAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityPaintScheme SurfacePlatformAppearance::GetEntityPaintScheme() const {
-  return (EntityPaintScheme)m_PaintScheme;
+  return static_cast<EntityPaintScheme>(m_PaintScheme);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ void SurfacePlatformAppearance::SetEntityDamage(EntityDamage ED) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityDamage SurfacePlatformAppearance::GetEntityDamage() const {
-  return (EntityDamage)m_Damage;
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,7 @@ void SurfacePlatformAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
 //////////////////////////////////////////////////////////////////////////
 
 EntitySmoke SurfacePlatformAppearance::GetEntitySmoke() const {
-  return (EntitySmoke)m_Smoke;
+  return static_cast<EntitySmoke>(m_Smoke);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ void SurfacePlatformAppearance::SetEntityTrailingEffect(
 
 EntityTrailingEffect SurfacePlatformAppearance::GetEntityTrailingEffect()
     const {
-  return (EntityTrailingEffect)m_TrailingEffect;
+  return static_cast<EntityTrailingEffect>(m_TrailingEffect);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -209,8 +209,8 @@ KBOOL SurfacePlatformAppearance::operator==(
   // Lets do a single comparison instead of checking every field.
   // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-  KUINT32 a = *(KUINT32*)this;
-  KUINT32 b = *(KUINT32*)&Value;
+  KUINT32 a = *reinterpret_cast<const KUINT32*>(this);
+  KUINT32 b = *reinterpret_cast<const KUINT32*>(&Value);
 
   if (a != b) return false;
   return true;

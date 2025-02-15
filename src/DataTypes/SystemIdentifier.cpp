@@ -71,7 +71,7 @@ void SystemIdentifier::SetSystemType(SystemType T) { m_ui16SystemType = T; }
 //////////////////////////////////////////////////////////////////////////
 
 SystemType SystemIdentifier::GetSystemType() const {
-  return (SystemType)m_ui16SystemType;
+  return static_cast<SystemType>(m_ui16SystemType);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ void SystemIdentifier::SetSystemName(SystemName N) { m_ui16SystemName = N; }
 //////////////////////////////////////////////////////////////////////////
 
 SystemName SystemIdentifier::GetSystemName() const {
-  return (SystemName)m_ui16SystemName;
+  return static_cast<SystemName>(m_ui16SystemName);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ void SystemIdentifier::SetSystemMode(SystemMode M) { m_ui8SystemMode = M; }
 //////////////////////////////////////////////////////////////////////////
 
 SystemMode SystemIdentifier::GetSystemMode() const {
-  return (SystemMode)m_ui8SystemMode;
+  return static_cast<SystemMode>(m_ui8SystemMode);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -196,12 +196,13 @@ KString SystemIdentifier::GetAsString() const {
      << GetEnumAsStringSystemType(m_ui16SystemType)
      << "\n\tName:           " << GetEnumAsStringSystemName(m_ui16SystemName)
      << "\n\tMode:           " << GetEnumAsStringSystemMode(m_ui8SystemMode)
-     << "\n\tChange/Options: " << (KBOOL)m_ui8ChangeIndicator << "\n";
+     << "\n\tChange/Options: " << static_cast<KBOOL>(m_ui8ChangeIndicator)
+     << "\n";
 
   if (m_ui16SystemType == Mark_X_XII_ATCRBS_ModeS_Interrogator ||
       m_ui16SystemType == Mark_X_XII_ATCRBS_ModeS_Transponder) {
-    ss << "\tAlt Mode 4: " << (KUINT16)m_ui8AltMode4
-       << "\n\tAlt Mode C:  " << (KUINT16)m_ui8AltModeC << "\n";
+    ss << "\tAlt Mode 4: " << static_cast<KUINT16>(m_ui8AltMode4)
+       << "\n\tAlt Mode C:  " << static_cast<KUINT16>(m_ui8AltModeC) << "\n";
   }
 
   return ss.str();
