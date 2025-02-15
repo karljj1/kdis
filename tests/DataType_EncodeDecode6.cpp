@@ -231,11 +231,15 @@ TEST(DataType_EncodeDecode6, EntityDestinationRecord) {
 
 TEST(DataType_EncodeDecode6, EnvironmentRecord) {
   KDIS::DATA_TYPE::EnvironmentRecord dtInOne;
+  EXPECT_EQ(0, dtInOne.GetLength());
   EXPECT_EQ(0, dtInOne.GetEnvironmentRecordType());
+  EXPECT_NO_THROW(dtInOne.SetIndex(28));
+  EXPECT_EQ(28, dtInOne.GetIndex());
   EXPECT_NO_THROW(dtInOne.GetAsString());
   KDIS::KDataStream streamOne;
   EXPECT_THROW(dtInOne.Decode(streamOne), KDIS::KException);  // too short
   EXPECT_NO_THROW(dtInOne.Encode(streamOne));
+  EXPECT_NO_THROW(dtInOne.Decode(streamOne));
   KDIS::DATA_TYPE::EnvironmentRecord dtInTwo;
   KDIS::KDataStream streamTwo = dtInTwo.Encode();
   KDIS::DATA_TYPE::EnvironmentRecord dtOutTwo(streamTwo);
