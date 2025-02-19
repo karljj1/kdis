@@ -336,11 +336,13 @@ Connection::Connection(const KString& SendAddress, KUINT32 Port /* = 3000 */,
                        PDU_Factory* Custom /* = 0 */,
                        KBOOL SendOnly /* = false*/,
                        KBOOL ReceiveOnly /* = false*/,
-                       const KString& InterfaceAddress /* = "" */)
+                       const KString& InterfaceAddress /* = "" */,
+                       std::unique_ptr<ISocket> Sock)
     : m_uiPort(Port),
       m_bBlockingSocket(Blocking),
       m_bSendOnly(SendOnly),
-      m_bReceiveOnly(ReceiveOnly) {
+      m_bReceiveOnly(ReceiveOnly),
+      m_sock(std::move(Sock)) {
   m_iSocket[SEND_SOCK] = 0;
   m_iSocket[RECEIVE_SOCK] = 0;
 
@@ -370,23 +372,6 @@ Connection::Connection(const KString& SendAddress, KUINT32 Port /* = 3000 */,
 Connection::~Connection() {
   shutdown();
   delete m_pPduFact;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Connection::Connection(const Connection& other) {
-  // Disallow copy constructor.
-  throw KException(ErrorCode::INVALID_OPERATION, __FUNCTION__);
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Connection& Connection::operator=(const Connection& other) {
-  if (this != &other) {
-    // Disallow copy assignment.
-    throw KException(ErrorCode::INVALID_OPERATION, __FUNCTION__);
-  }
-  return *this;
 }
 
 //////////////////////////////////////////////////////////////////////////

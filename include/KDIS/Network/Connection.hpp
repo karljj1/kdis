@@ -53,10 +53,12 @@ http://p.sf.net/kdis/UserGuide
 #include <sys/types.h>
 #endif
 
+#include <memory>
 #include <vector>
 
 #include "KDIS/Extras/PDU_Factory.hpp"
 #include "KDIS/Network/ConnectionSubscriber.hpp"
+#include "KDIS/Network/Socket.hpp"
 
 namespace KDIS {
 namespace NETWORK {
@@ -89,6 +91,8 @@ class KDIS_EXPORT Connection {
   KDataStream m_stream;
   KString m_sLastIP;
 
+  std::unique_ptr<KDIS::NETWORK::ISocket> m_sock;
+
   //************************************
   // FullName:    KDIS::NETWORK::Connection::startup
   // Description: Setup the socket.
@@ -117,29 +121,20 @@ class KDIS_EXPORT Connection {
  public:
   // Note: If using multicast you should ensure you use a correct multicast
   // address or an exception will occur.
-  Connection(const KString& SendAddress, KUINT32 Port = 3000,
-             KBOOL SendAddressIsMulticast = false, KBOOL Blocking = true,
-             KDIS::UTILS::PDU_Factory* Custom = 0, KBOOL SendOnly = false,
-             KBOOL ReceiveOnly = false, const KString& InterfaceAddress = "");
+  explicit Connection(
+      const KString& SendAddress, KUINT32 Port = 3000,
+      KBOOL SendAddressIsMulticast = false, KBOOL Blocking = true,
+      KDIS::UTILS::PDU_Factory* Custom = 0, KBOOL SendOnly = false,
+      KBOOL ReceiveOnly = false, const KString& InterfaceAddress = "",
+      std::unique_ptr<KDIS::NETWORK::ISocket> Sock =
+          std::unique_ptr<KDIS::NETWORK::ISocket>(new KDIS::NETWORK::Socket()));
 
   virtual ~Connection();
+  Connection(const Connection&) = delete;
+  Connection& operator=(const Connection&) = delete;
+  Connection(Connection&&) = delete;
+  Connection& operator=(Connection&&) = delete;
 
- private:
-  //************************************
-  // FullName:    KDIS::NETWORK::Connection::Connection copy constructor
-  // Description: Copy constructor for the Connection class.
-  // Parameter:   const Connection& other
-  //************************************
-  Connection(const Connection& other);
-
-  //************************************
-  // FullName:    KDIS::NETWORK::Connection::Connection copy assignment operator
-  // Description: Copy assignment operator for the Connection class.
-  // Parameter:   const Connection& other
-  //************************************
-  Connection& operator=(const Connection& other);
-
- public:
   //************************************
   // FullName:    KDIS::NETWORK::Connection::SetInterfaceAddress
   //              KDIS::NETWORK::Connection::GetInterfaceAddress
