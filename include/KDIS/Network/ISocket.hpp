@@ -1,13 +1,12 @@
 #pragma once
 
-#include <sys/select.h>
-#include <sys/socket.h>
-
 #if defined(WIN32) | defined(_WIN32) | defined(WIN64) | defined(_WIN64)
 #include <winsock2.h>
 #else
 #include <arpa/inet.h>
 #include <fcntl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
 #endif
 
 #include <string>
