@@ -71,7 +71,7 @@ void ExplosionDescriptor::SetExplosiveMaterial(ExplosiveMaterial EM) {
 //////////////////////////////////////////////////////////////////////////
 
 ExplosiveMaterial ExplosionDescriptor::GetExplosiveMaterial() const {
-  return (ExplosiveMaterial)m_ui16ExplMat;
+  return static_cast<ExplosiveMaterial>(m_ui16ExplMat);
 }
 
 //////////////////////////////////////////////////////////////////////////

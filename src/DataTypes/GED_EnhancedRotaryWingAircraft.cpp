@@ -153,12 +153,10 @@ KString GED_EnhancedRotaryWingAircraft::GetAsString() const {
   ss << GED_BasicRotorWingAircraft::GetAsString();
 
   ss << "GED Enhanced Rotary Wing Aircraft\n"
-     << "\tFuel Status:               " << (KUINT16)m_ui8SupFuelStatus
-     << "0 Liters\n"
-     << "\tAir Maintenance Status:    " << (KUINT16)m_ui8AirMaintStatus
-     << "0 km\n"
-     << "\tPrimary Ammunition:        " << (KUINT16)m_ui8PriAmmun << "\n"
-     << "\tSecondary Ammunition:      " << (KUINT16)m_ui8SecAmmun << "\n";
+     << "\tFuel Status:               " << m_ui8SupFuelStatus << "0 Liters\n"
+     << "\tAir Maintenance Status:    " << m_ui8AirMaintStatus << "0 km\n"
+     << "\tPrimary Ammunition:        " << m_ui8PriAmmun << "\n"
+     << "\tSecondary Ammunition:      " << m_ui8SecAmmun << "\n";
 
   return ss.str();
 }

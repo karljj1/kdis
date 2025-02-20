@@ -27,9 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/AggregateMarking.hpp"
-
 #include <string.h>
+
+#include "KDIS/DataTypes/AggregateMarking.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -73,7 +73,8 @@ void AggregateMarking::SetAggregateMarkingCharacterSet(
 
 EntityMarkingCharacterSet AggregateMarking::GetAggregateMarkingCharacterSet()
     const {
-  return (EntityMarkingCharacterSet)m_ui8AggregateMarkingCharacterSet;
+  return static_cast<EntityMarkingCharacterSet>(
+      m_ui8AggregateMarkingCharacterSet);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -99,8 +100,8 @@ KString AggregateMarking::GetAggregateMarkingString() const {
 KString AggregateMarking::GetAsString() const {
   KStringStream ss;
 
-  ss << "Aggregate Marking:" << "\n\tMaring Char Set:      "
-     << (KUINT16)m_ui8AggregateMarkingCharacterSet
+  ss << "Aggregate Marking:" << "\n\tMarking Char Set:      "
+     << m_ui8AggregateMarkingCharacterSet
      << "\n\tMarking String:       " << GetAggregateMarkingString() << "\n";
 
   return ss.str();

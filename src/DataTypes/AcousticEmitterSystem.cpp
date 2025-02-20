@@ -66,7 +66,7 @@ void AcousticEmitterSystem::SetName(AcousticSystemName ASN) {
 //////////////////////////////////////////////////////////////////////////
 
 AcousticSystemName AcousticEmitterSystem::GetName() const {
-  return (AcousticSystemName)m_ui16EmitterName;
+  return static_cast<AcousticSystemName>(m_ui16EmitterName);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,7 @@ void AcousticEmitterSystem::SetFunction(AcousticSystemFunction ASF) {
 //////////////////////////////////////////////////////////////////////////
 
 AcousticSystemFunction AcousticEmitterSystem::GetFunction() const {
-  return (AcousticSystemFunction)m_ui8Function;
+  return static_cast<AcousticSystemFunction>(m_ui8Function);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -101,7 +101,7 @@ KString AcousticEmitterSystem::GetAsString() const {
   ss << "Acoustic Emitter System:" << "\n\tName:     "
      << GetEnumAsStringAcousticSystemName(m_ui16EmitterName)
      << "\n\tFunction: " << GetEnumAsStringAcousticSystemFunction(m_ui8Function)
-     << "\n\tID:       " << (KUINT16)m_ui8EmitterIDNumber << "\n";
+     << "\n\tID:       " << m_ui8EmitterIDNumber << "\n";
 
   return ss.str();
 }

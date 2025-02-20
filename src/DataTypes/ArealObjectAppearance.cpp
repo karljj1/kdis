@@ -61,7 +61,8 @@ void ArealObjectAppearance::SetBreach(Breach2bit B) {
 //////////////////////////////////////////////////////////////////////////
 
 Breach2bit ArealObjectAppearance::GetBreach() const {
-  return (Breach2bit)m_SpecificAppearanceUnion.m_Minefield.m_ui32Breach;
+  return static_cast<Breach2bit>(
+      m_SpecificAppearanceUnion.m_Minefield.m_ui32Breach);
 }
 
 //////////////////////////////////////////////////////////////////////////////

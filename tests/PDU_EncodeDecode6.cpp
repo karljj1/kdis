@@ -15,6 +15,7 @@
 #include <KDIS/PDU/Live_Entity/LE_Detonation_PDU.hpp>
 #include <KDIS/PDU/Live_Entity/LE_Fire_PDU.hpp>
 #include <KDIS/PDU/Live_Entity/TSPI_PDU.hpp>
+#include <KDIS/PDU/Minefield/Minefield_Data_PDU.hpp>
 #include <KDIS/PDU/Radio_Communications/Intercom_Control_PDU.hpp>
 #include <KDIS/PDU/Radio_Communications/Intercom_Signal_PDU.hpp>
 #include <KDIS/PDU/Simulation_Management_With_Reliability/Acknowledge_R_PDU.hpp>
@@ -68,17 +69,18 @@ typedef ::testing::Types<
     KDIS::PDU::IsPartOf_PDU, KDIS::PDU::Transfer_Control_Request_PDU,
     KDIS::PDU::Appearance_PDU, KDIS::PDU::Articulated_Parts_PDU,
     KDIS::PDU::LE_Detonation_PDU, KDIS::PDU::LE_Fire_PDU, KDIS::PDU::TSPI_PDU,
-    KDIS::PDU::Intercom_Signal_PDU, KDIS::PDU::Intercom_Control_PDU,
-    KDIS::PDU::Acknowledge_R_PDU, KDIS::PDU::Action_Request_R_PDU,
-    KDIS::PDU::Action_Response_R_PDU, KDIS::PDU::Comment_R_PDU,
-    KDIS::PDU::Create_Entity_R_PDU, KDIS::PDU::Data_Query_R_PDU,
-    KDIS::PDU::Data_R_PDU, KDIS::PDU::Event_Report_R_PDU,
-    KDIS::PDU::Record_Query_R_PDU, KDIS::PDU::Record_R_PDU,
-    KDIS::PDU::Remove_Entity_R_PDU, KDIS::PDU::Set_Data_R_PDU,
-    KDIS::PDU::Set_Record_R_PDU, KDIS::PDU::Start_Resume_R_PDU,
-    KDIS::PDU::Stop_Freeze_R_PDU, KDIS::PDU::Areal_Object_State_PDU,
-    KDIS::PDU::Environmental_Process_PDU, KDIS::PDU::Gridded_Data_PDU,
-    KDIS::PDU::Linear_Object_State_PDU, KDIS::PDU::Point_Object_State_PDU>
+    KDIS::PDU::Minefield_Data_PDU, KDIS::PDU::Intercom_Signal_PDU,
+    KDIS::PDU::Intercom_Control_PDU, KDIS::PDU::Acknowledge_R_PDU,
+    KDIS::PDU::Action_Request_R_PDU, KDIS::PDU::Action_Response_R_PDU,
+    KDIS::PDU::Comment_R_PDU, KDIS::PDU::Create_Entity_R_PDU,
+    KDIS::PDU::Data_Query_R_PDU, KDIS::PDU::Data_R_PDU,
+    KDIS::PDU::Event_Report_R_PDU, KDIS::PDU::Record_Query_R_PDU,
+    KDIS::PDU::Record_R_PDU, KDIS::PDU::Remove_Entity_R_PDU,
+    KDIS::PDU::Set_Data_R_PDU, KDIS::PDU::Set_Record_R_PDU,
+    KDIS::PDU::Start_Resume_R_PDU, KDIS::PDU::Stop_Freeze_R_PDU,
+    KDIS::PDU::Areal_Object_State_PDU, KDIS::PDU::Environmental_Process_PDU,
+    KDIS::PDU::Gridded_Data_PDU, KDIS::PDU::Linear_Object_State_PDU,
+    KDIS::PDU::Point_Object_State_PDU>
     PduTestTypes6;
 
 TYPED_TEST_SUITE(EncodeDecodeTest6, PduTestTypes6);

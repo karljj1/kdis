@@ -69,7 +69,7 @@ void MunitionDescriptor::SetWarhead(WarheadType WT) { m_ui16Warhead = WT; }
 //////////////////////////////////////////////////////////////////////////
 
 WarheadType MunitionDescriptor::GetWarhead() const {
-  return (WarheadType)m_ui16Warhead;
+  return static_cast<WarheadType>(m_ui16Warhead);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,9 @@ void MunitionDescriptor::SetFuse(FuseType FT) { m_ui16Fuse = FT; }
 
 //////////////////////////////////////////////////////////////////////////
 
-FuseType MunitionDescriptor::GetFuse() const { return (FuseType)m_ui16Fuse; }
+FuseType MunitionDescriptor::GetFuse() const {
+  return static_cast<FuseType>(m_ui16Fuse);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

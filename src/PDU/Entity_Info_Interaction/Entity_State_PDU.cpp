@@ -27,11 +27,10 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.hpp"
-
 #include "KDIS/DataTypes/ArticulatedPart.hpp"
 #include "KDIS/DataTypes/AttachedPart.hpp"
 #include "KDIS/Extras/DeadReckoningCalculator.hpp"
+#include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.hpp"
 #include "KDIS/util/format.hpp"
 
 #if DIS_VERSION > 5
@@ -158,7 +157,9 @@ void Entity_State_PDU::SetForceID(ForceID ID) { m_ui8ForceID = ID; }
 
 //////////////////////////////////////////////////////////////////////////
 
-ForceID Entity_State_PDU::GetForceID() const { return (ForceID)m_ui8ForceID; }
+ForceID Entity_State_PDU::GetForceID() const {
+  return static_cast<ForceID>(m_ui8ForceID);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -415,8 +416,7 @@ KString Entity_State_PDU::GetAsString() const {
      << IndentString(m_EntityID.GetAsString(), 1)
      << "Force ID:                       "
      << GetEnumAsStringForceID(m_ui8ForceID) << "\n"
-     << "Number Of Variable Params:  " << (KUINT16)m_ui8NumOfVariableParams
-     << "\n"
+     << "Number Of Variable Params:  " << m_ui8NumOfVariableParams << "\n"
      << "Entity Type:                    " << m_EntityType.GetAsString()
      << "Alternative Entity Type:        " << m_AltEntityType.GetAsString()
      << "Linear Velocity:                "

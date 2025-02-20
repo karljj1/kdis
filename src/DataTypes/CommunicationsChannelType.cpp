@@ -63,7 +63,7 @@ void CommunicationsChannelType::SetType(ChannelType CT) { m_ui8Type = CT; }
 //////////////////////////////////////////////////////////////////////////
 
 ChannelType CommunicationsChannelType::GetType() const {
-  return (ChannelType)m_ui8Type;
+  return static_cast<ChannelType>(m_ui8Type);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ void CommunicationsChannelType::SetClass(ChannelClass CC) { m_ui8Class = CC; }
 //////////////////////////////////////////////////////////////////////////
 
 ChannelClass CommunicationsChannelType::GetClass() const {
-  return (ChannelClass)m_ui8Class;
+  return static_cast<ChannelClass>(m_ui8Class);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -81,8 +81,8 @@ ChannelClass CommunicationsChannelType::GetClass() const {
 KString CommunicationsChannelType::GetAsString() const {
   KStringStream ss;
 
-  ss << "Communications Channel Type:" << "\n\tType  : " << (KUINT16)m_ui8Type
-     << "\n\tClass : " << (KUINT16)m_ui8Class << "\n";
+  ss << "Communications Channel Type:" << "\n\tType  : " << m_ui8Type
+     << "\n\tClass : " << m_ui8Class << "\n";
 
   return ss.str();
 }

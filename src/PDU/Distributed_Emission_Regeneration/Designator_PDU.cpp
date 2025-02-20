@@ -135,7 +135,7 @@ void Designator_PDU::SetDesignatorCodeName(DesignatorCodeName CN) {
 //////////////////////////////////////////////////////////////////////////
 
 DesignatorCodeName Designator_PDU::GetDesignatorCodeName() const {
-  return (DesignatorCodeName)m_ui16CodeName;
+  return static_cast<DesignatorCodeName>(m_ui16CodeName);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -163,7 +163,7 @@ void Designator_PDU::SetDesignatorCode(DesignatorCode C) { m_ui16Code = C; }
 //////////////////////////////////////////////////////////////////////////
 
 DesignatorCode Designator_PDU::GetDesignatorCode() const {
-  return (DesignatorCode)m_ui16Code;
+  return static_cast<DesignatorCode>(m_ui16Code);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -231,7 +231,7 @@ void Designator_PDU::SetDeadReckoningAlgorithm(DeadReckoningAlgorithm DRA) {
 //////////////////////////////////////////////////////////////////////////
 
 DeadReckoningAlgorithm Designator_PDU::GetDeadReckoningAlgorithm() const {
-  return (DeadReckoningAlgorithm)m_ui8DeadReckoningAlgorithm;
+  return static_cast<DeadReckoningAlgorithm>(m_ui8DeadReckoningAlgorithm);
 }
 
 //////////////////////////////////////////////////////////////////////////

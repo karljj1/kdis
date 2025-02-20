@@ -60,7 +60,7 @@ void RelationshipRecord::SetNature(RelationshipNature N) { m_ui16Nature = N; }
 //////////////////////////////////////////////////////////////////////////
 
 RelationshipNature RelationshipRecord::GetNature() const {
-  return (RelationshipNature)m_ui16Nature;
+  return static_cast<RelationshipNature>(m_ui16Nature);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ void RelationshipRecord::SetPosition(RelationshipPosition P) { m_ui16Pos = P; }
 //////////////////////////////////////////////////////////////////////////
 
 RelationshipPosition RelationshipRecord::GetPosition() const {
-  return (RelationshipPosition)m_ui16Pos;
+  return static_cast<RelationshipPosition>(m_ui16Pos);
 }
 
 //////////////////////////////////////////////////////////////////////////

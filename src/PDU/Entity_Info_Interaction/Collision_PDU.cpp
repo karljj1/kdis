@@ -148,7 +148,7 @@ void Collision_PDU::SetCollisionType(CollisionType CT) {
 //////////////////////////////////////////////////////////////////////////
 
 CollisionType Collision_PDU::GetCollisionType() const {
-  return (CollisionType)m_ui8CollisionType;
+  return static_cast<CollisionType>(m_ui8CollisionType);
 }
 
 //////////////////////////////////////////////////////////////////////////

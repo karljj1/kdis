@@ -105,7 +105,7 @@ void IO_Report_PDU::SetReportType(IOReportType RT) { m_ui8RptTyp = RT; }
 //////////////////////////////////////////////////////////////////////////
 
 IOReportType IO_Report_PDU::GetReportType() const {
-  return (IOReportType)m_ui8RptTyp;
+  return static_cast<IOReportType>(m_ui8RptTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////

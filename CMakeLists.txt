@@ -938,9 +938,12 @@ set(KDIS_NETWORK_SOURCES_DIR ${KDIS_SOURCES_DIR}/Network)
 list(APPEND KDIS_HEADERS ${KDIS_NETWORK_HEADERS_DIR}/Connection.hpp
      ${KDIS_NETWORK_HEADERS_DIR}/ConnectionAddressFilter.hpp
      ${KDIS_NETWORK_HEADERS_DIR}/ConnectionSubscriber.hpp
+     ${KDIS_NETWORK_HEADERS_DIR}/ISocket.hpp
+     ${KDIS_NETWORK_HEADERS_DIR}/Socket.hpp
 )
 list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
      ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
+     ${KDIS_NETWORK_SOURCES_DIR}/Socket.cpp
 )
 
 #

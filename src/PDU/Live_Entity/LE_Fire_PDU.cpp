@@ -27,9 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/PDU/Live_Entity/LE_Fire_PDU.hpp"
-
 #include <cassert>
+
+#include "KDIS/PDU/Live_Entity/LE_Fire_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -123,7 +123,7 @@ LE_Fire_PDU::~LE_Fire_PDU() {}
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Fire_PDU::SetTargetEntityIDFlag(KBOOL F) {
-  if ((KUINT8)F == m_FireFlagUnion.m_ui8TargetId) return;
+  if (static_cast<KUINT8>(F) == m_FireFlagUnion.m_ui8TargetId) return;
 
   m_FireFlagUnion.m_ui8TargetId = F;
 
@@ -143,7 +143,7 @@ KBOOL LE_Fire_PDU::GetTargetEntityIDFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Fire_PDU::SetMunitionEntityIDFlag(KBOOL F) {
-  if ((KUINT8)F == m_FireFlagUnion.m_ui8MunitionId) return;
+  if (static_cast<KUINT8>(F) == m_FireFlagUnion.m_ui8MunitionId) return;
 
   m_FireFlagUnion.m_ui8MunitionId = F;
 
@@ -164,7 +164,7 @@ KBOOL LE_Fire_PDU::GetMunitionEntityIDFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Fire_PDU::SetMunitionEntityIDSiteAppIncludedFlag(KBOOL F) {
-  if ((KUINT8)F == m_FireFlagUnion.m_ui8MunitionSiteApp) return;
+  if (static_cast<KUINT8>(F) == m_FireFlagUnion.m_ui8MunitionSiteApp) return;
 
   m_FireFlagUnion.m_ui8MunitionSiteApp = F;
 
@@ -185,7 +185,7 @@ KBOOL LE_Fire_PDU::GetMunitionEntityIDSiteAppIncludedFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Fire_PDU::SetEventIDSiteAppIncludedFlag(KBOOL F) {
-  if ((KUINT8)F == m_FireFlagUnion.m_ui8EventSiteAppId) return;
+  if (static_cast<KUINT8>(F) == m_FireFlagUnion.m_ui8EventSiteAppId) return;
 
   m_FireFlagUnion.m_ui8EventSiteAppId = F;
 
@@ -206,7 +206,7 @@ KBOOL LE_Fire_PDU::GetEventIDSiteAppIncludedFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Fire_PDU::SetWarheadFuseFlag(KBOOL F) {
-  if ((KUINT8)F == m_FireFlagUnion.m_ui8WarheadFuse) return;
+  if (static_cast<KUINT8>(F) == m_FireFlagUnion.m_ui8WarheadFuse) return;
 
   m_FireFlagUnion.m_ui8WarheadFuse = F;
 
@@ -227,7 +227,7 @@ KBOOL LE_Fire_PDU::GetWarheadFuseFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Fire_PDU::SetQuantityRateFlag(KBOOL F) {
-  if ((KUINT8)F == m_FireFlagUnion.m_ui8QuantRate) return;
+  if (static_cast<KUINT8>(F) == m_FireFlagUnion.m_ui8QuantRate) return;
 
   m_FireFlagUnion.m_ui8QuantRate = F;
 
@@ -248,7 +248,7 @@ KBOOL LE_Fire_PDU::GetQuantityRateFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Fire_PDU::SetLocationFlag(KBOOL F) {
-  if ((KUINT8)F == m_FireFlagUnion.m_ui8Location) return;
+  if (static_cast<KUINT8>(F) == m_FireFlagUnion.m_ui8Location) return;
 
   m_FireFlagUnion.m_ui8Location = F;
 
@@ -398,19 +398,19 @@ KString LE_Fire_PDU::GetAsString() const {
   ss << LE_Header::GetAsString() << "-LE Fire PDU-\n"
      << "Optional Field Flags:\n"
      << "\tTarget ID:                            "
-     << (KUINT16)m_FireFlagUnion.m_ui8TargetId << "\n"
+     << m_FireFlagUnion.m_ui8TargetId << "\n"
      << "\tMunition ID:                          "
-     << (KUINT16)m_FireFlagUnion.m_ui8MunitionId << "\n"
+     << m_FireFlagUnion.m_ui8MunitionId << "\n"
      << "\tMunition Site & Application Included: "
-     << (KUINT16)m_FireFlagUnion.m_ui8MunitionSiteApp << "\n"
+     << m_FireFlagUnion.m_ui8MunitionSiteApp << "\n"
      << "\tEvent Site & Application Included:    "
-     << (KUINT16)m_FireFlagUnion.m_ui8EventSiteAppId << "\n"
+     << m_FireFlagUnion.m_ui8EventSiteAppId << "\n"
      << "\tWarhead & Fuse Included:              "
-     << (KUINT16)m_FireFlagUnion.m_ui8WarheadFuse << "\n"
+     << m_FireFlagUnion.m_ui8WarheadFuse << "\n"
      << "\tQuantity & Rate Included:             "
-     << (KUINT16)m_FireFlagUnion.m_ui8QuantRate << "\n"
+     << m_FireFlagUnion.m_ui8QuantRate << "\n"
      << "\tLocation:                             "
-     << (KUINT16)m_FireFlagUnion.m_ui8Location << "\n";
+     << m_FireFlagUnion.m_ui8Location << "\n";
 
   if (m_FireFlagUnion.m_ui8TargetId) {
     ss << "Target ID: " << m_TargetID.GetAsString();
@@ -488,10 +488,10 @@ void LE_Fire_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   // F4: Warhead and Fuse fields of the Munition Descriptor record
   if (m_FireFlagUnion.m_ui8WarheadFuse) {
     stream >> tmp;
-    m_MunitionDesc.SetWarhead((WarheadType)tmp);
+    m_MunitionDesc.SetWarhead(static_cast<WarheadType>(tmp));
 
     stream >> tmp;
-    m_MunitionDesc.SetFuse((FuseType)tmp);
+    m_MunitionDesc.SetFuse(static_cast<FuseType>(tmp));
   }
   // F5: Quantity and Rate fields of the Munition Descriptor record
   if (m_FireFlagUnion.m_ui8QuantRate) {
@@ -563,8 +563,8 @@ void LE_Fire_PDU::Encode(KDataStream& stream) const {
   stream << KDIS_STREAM m_MunitionDesc.GetType();
   // F4: Warhead and Fuse fields of the Munition Descriptor record
   if (m_FireFlagUnion.m_ui8WarheadFuse) {
-    stream << (KUINT16)m_MunitionDesc.GetWarhead()
-           << (KUINT16)m_MunitionDesc.GetFuse();
+    stream << static_cast<KUINT16>(m_MunitionDesc.GetWarhead())
+           << static_cast<KUINT16>(m_MunitionDesc.GetFuse());
   }
   // F5: Quantity and Rate fields of the Munition Descriptor record
   if (m_FireFlagUnion.m_ui8QuantRate) {

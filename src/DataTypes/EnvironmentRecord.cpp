@@ -27,14 +27,13 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/EnvironmentRecord.hpp"
-
 #include "KDIS/DataTypes/BoundingSphereRecord.hpp"
 #include "KDIS/DataTypes/COMBICState.hpp"
 #include "KDIS/DataTypes/ConeRecord1.hpp"
 #include "KDIS/DataTypes/ConeRecord2.hpp"
 #include "KDIS/DataTypes/EllipsoidRecord1.hpp"
 #include "KDIS/DataTypes/EllipsoidRecord2.hpp"
+#include "KDIS/DataTypes/EnvironmentRecord.hpp"
 #include "KDIS/DataTypes/FlareState.hpp"
 #include "KDIS/DataTypes/GaussianPlumeRecord.hpp"
 #include "KDIS/DataTypes/GaussianPuffRecord.hpp"
@@ -62,6 +61,10 @@ EnvironmentRecord::EnvironmentRecord()
 
 //////////////////////////////////////////////////////////////////////////
 
+EnvironmentRecord::EnvironmentRecord(KDataStream& stream) { Decode(stream); }
+
+//////////////////////////////////////////////////////////////////////////
+
 EnvironmentRecord::~EnvironmentRecord() {}
 
 //////////////////////////////////////////////////////////////////////////
@@ -71,7 +74,7 @@ KUINT16 EnvironmentRecord::GetLength() const { return m_ui16Length; }
 //////////////////////////////////////////////////////////////////////////
 
 EnvironmentRecordType EnvironmentRecord::GetEnvironmentRecordType() const {
-  return (EnvironmentRecordType)m_ui32EnvRecTyp;
+  return static_cast<EnvironmentRecordType>(m_ui32EnvRecTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,16 +94,41 @@ KString EnvironmentRecord::GetAsString() const {
      << "\tRecord Type: "
      << GetEnumAsStringEnvironmentRecordType(m_ui32EnvRecTyp) << "\n"
      << "\tLength:      " << m_ui16Length << "\n"
-     << "\tIndex:       " << (KUINT16)m_ui8Index << "\n";
+     << "\tIndex:       " << m_ui8Index << "\n";
 
   return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
+void EnvironmentRecord::Decode(KDataStream& stream) {
+  if (stream.GetBufferSize() < ENVIRONMENT_RECORD_SIZE)
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
+
+  stream >> m_ui32EnvRecTyp >> m_ui16Length >> m_ui8Index >> m_ui8Padding;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+KDataStream EnvironmentRecord::Encode() const {
+  KDataStream stream;
+
+  EnvironmentRecord::Encode(stream);
+
+  return stream;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void EnvironmentRecord::Encode(KDataStream& stream) const {
+  stream << m_ui32EnvRecTyp << m_ui16Length << m_ui8Index << m_ui8Padding;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 EnvironmentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord(
     KDataStream& stream) {
-  // We now need to "peak" at the next 4 bytes to determine the Environment
+  // We now need to "peek" at the next 4 bytes to determine the Environment
   // Record type, once we have determined the type we need to return the buffers
   // write positon as this field needs to be re-read by the decode function of
   // the derived Environment Record.

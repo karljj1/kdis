@@ -84,7 +84,7 @@ void UnderwaterAcousticFundamentalParameterData::
 ActiveEmissionParameterIndex
 UnderwaterAcousticFundamentalParameterData::GetActiveEmissionParameterIndex()
     const {
-  return (ActiveEmissionParameterIndex)m_ui16AEPI;
+  return static_cast<ActiveEmissionParameterIndex>(m_ui16AEPI);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ void UnderwaterAcousticFundamentalParameterData::SetScanPattern(
 //////////////////////////////////////////////////////////////////////////
 
 ScanPattern UnderwaterAcousticFundamentalParameterData::GetScanPattern() const {
-  return (ScanPattern)m_ui16ScanPattern;
+  return static_cast<ScanPattern>(m_ui16ScanPattern);
 }
 
 //////////////////////////////////////////////////////////////////////////
