@@ -502,17 +502,23 @@ void Connection::SetBlockingModeEnabled(KBOOL E) {
 
 #if defined(WIN32) | defined(_WIN32) | defined(WIN64) | defined(_WIN64)
 
-    // Windows non blocking //
-    unsigned long int uliIoctBlock =
-        !m_bBlockingSocket;  // 1 enable, 0 disable.
-    iResult = ioctlsocket(m_iSocket[i], FIONBIO,
-                          &uliIoctBlock);  // FIONBIO =  blocking mode
+    // 0 means "blocking" on Windows (source
+    // https://learn.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-ioctlsocket)
+    unsigned long int uliIoctBlock{0};
+    if (!m_bBlockingSocket)
+      uliIoctBlock = 1;  // 1 means "non-blocking" on Windows
+    iResult = ioctlsocket(m_iSocket[i], FIONBIO, &uliIoctBlock);
 
 #else
 
-    // Linux non blocking //
-    KINT32 uliIoctBlock = !m_bBlockingSocket;  // 1 enable, 0 disable.
-    iResult = fcntl(m_iSocket[i], F_SETFL, O_NONBLOCK | FASYNC, &uliIoctBlock);
+    // The O_NONBLOCK flag controls blocking on Linux (source `man 2 fcntl`)
+    int flags{0};
+    if (m_bBlockingSocket)
+      flags &= ~O_NONBLOCK;  // clear O_NONBLOCK
+    else
+      flags |= O_NONBLOCK;  // set O_NONBLOCK
+    flags |= FASYNC;
+    iResult = fcntl(m_iSocket[i], F_SETFL, flags);
 
 #endif
 
@@ -625,7 +631,7 @@ KINT32 Connection::Receive(KOCTET* Buffer, KUINT32 BufferSz,
   timeval pTimeout;
 
   if (!m_bBlockingSocket) {
-    // If we are using none blocking mode we need to set
+    // If we are using non-blocking mode we need to set
     // a time limit to wait for the select function.
     timeval tval;
     tval.tv_sec = 0;
