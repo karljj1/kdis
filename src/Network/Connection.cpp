@@ -27,10 +27,10 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
+#include "KDIS/Network/Connection.hpp"
+
 #include <iostream>
 #include <ostream>
-
-#include "KDIS/Network/Connection.hpp"
 
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
 #include <ws2tcpip.h>
@@ -438,7 +438,7 @@ void Connection::SetSendAddress(const KString& A,
     // Enable broadcasting on the send socket
     KINT32 yes = 1;
     KINT32 iRet = setsockopt(m_iSocket[SEND_SOCK], SOL_SOCKET, SO_BROADCAST,
-                             reinterpret_cast<const char*>(&yes), sizeof(yes));
+                             (const char*)&yes, sizeof(yes));
     if (iRet == SOCKET_ERROR) {
       THROW_ERROR;
     }
@@ -450,16 +450,14 @@ void Connection::SetSendAddress(const KString& A,
   //   interface as follows: If m_SendToAddr is empty, the connect() will fail,
   //   and loopback (127.0.0.1) will be chosen. If m_SendToAddr is already set,
   //   the first interface with a route to m_SendToAddr is chosen.
-  static_cast<void>(connect(
-      m_iSocket[SEND_SOCK], reinterpret_cast<const sockaddr*>(&m_SendToAddr),
-      sizeof(m_SendToAddr)));  // ignore return value - OK to fail
+  (void)connect(m_iSocket[SEND_SOCK], (sockaddr*)&m_SendToAddr,
+                sizeof(m_SendToAddr));  // ignore return value - OK to fail
 
   // Update the socket's (user-specified or kernel-chosen) interface address
   // info (m_InterfaceAddr)
   socklen_t addrlen = sizeof(m_InterfaceAddr);
-  static_cast<void>(getsockname(m_iSocket[SEND_SOCK],
-                                reinterpret_cast<sockaddr*>(&m_InterfaceAddr),
-                                &addrlen));
+  (void)getsockname(m_iSocket[SEND_SOCK], (sockaddr*)&m_InterfaceAddr,
+                    &addrlen);
 
   // Update string representation of interface address (m_sInterfaceAddress) too
   char buf[INET_ADDRSTRLEN];
@@ -484,9 +482,8 @@ void Connection::AddMulticastAddress(const KString& A) {
   ip_mreq mc;
   mc.imr_multiaddr.s_addr = inet_addr(m_sSendAddress.c_str());
   mc.imr_interface = m_InterfaceAddr.sin_addr;
-  KINT32 iRet =
-      setsockopt(m_iSocket[RECEIVE_SOCK], IPPROTO_IP, IP_ADD_MEMBERSHIP,
-                 reinterpret_cast<const KOCTET*>(&mc), sizeof(mc));
+  KINT32 iRet = setsockopt(m_iSocket[RECEIVE_SOCK], IPPROTO_IP,
+                           IP_ADD_MEMBERSHIP, (KOCTET*)&mc, sizeof(mc));
   if (iRet == SOCKET_ERROR) {
     THROW_ERROR;
   }
@@ -499,9 +496,8 @@ void Connection::RemoveMulticastAddress(const KString& A) {
   ip_mreq mc;
   mc.imr_multiaddr.s_addr = inet_addr(m_sSendAddress.c_str());
   mc.imr_interface = m_InterfaceAddr.sin_addr;
-  KINT32 iRet =
-      setsockopt(m_iSocket[RECEIVE_SOCK], IPPROTO_IP, IP_DROP_MEMBERSHIP,
-                 reinterpret_cast<const KOCTET*>(&mc), sizeof(mc));
+  KINT32 iRet = setsockopt(m_iSocket[RECEIVE_SOCK], IPPROTO_IP,
+                           IP_DROP_MEMBERSHIP, (KOCTET*)&mc, sizeof(mc));
   if (iRet == SOCKET_ERROR) {
     THROW_ERROR;
   }
@@ -594,8 +590,7 @@ PDU_Factory* Connection::GetPDU_Factory() { return m_pPduFact; }
 
 KINT32 Connection::Send(const KOCTET* Data, KUINT32 DataSz) {
   KINT32 iBytesSent = sendto(m_iSocket[SEND_SOCK], Data, DataSz, 0,
-                             reinterpret_cast<const sockaddr*>(&m_SendToAddr),
-                             sizeof(m_SendToAddr));
+                             (sockaddr*)&m_SendToAddr, sizeof(m_SendToAddr));
 
   if (iBytesSent == SOCKET_ERROR) {
     THROW_ERROR;
@@ -668,7 +663,7 @@ KINT32 Connection::Receive(KOCTET* Buffer, KUINT32 BufferSz,
     sockaddr_in ClientAddr;
     socklen_t iSz = sizeof(ClientAddr);
     uiErr = recvfrom(m_iSocket[RECEIVE_SOCK], Buffer, BufferSz, 0,
-                     reinterpret_cast<sockaddr*>(&ClientAddr), &iSz);
+                     (sockaddr*)&ClientAddr, &iSz);
 
     if (uiErr == SOCKET_ERROR) {
       THROW_ERROR;
