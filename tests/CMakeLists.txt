@@ -60,7 +60,8 @@ endif()
 # GoogleTest
 #
 include(GoogleTest)
-gtest_discover_tests(${PROJECT_NAME}_tests)
+gtest_discover_tests(${PROJECT_NAME}_tests
+  DISCOVERY_TIMEOUT 20)  # default is 5 seconds
 
 #
 # Coverage
