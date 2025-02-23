@@ -62,8 +62,8 @@ void LinearObjectAppearance::SetBreach(Breach2bit B) {
 //////////////////////////////////////////////////////////////////////////
 
 Breach2bit LinearObjectAppearance::GetBreach() const {
-  return (Breach2bit)
-      m_SpecificAppearanceUnion.m_TankDitchConcertinaWire.m_ui32Breach;
+  return static_cast<Breach2bit>(
+      m_SpecificAppearanceUnion.m_TankDitchConcertinaWire.m_ui32Breach);
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ KUINT8 LinearObjectAppearance::GetBreachLength() const {
 void LinearObjectAppearance::SetBreachLocation(const bitset<8>& L) {
   KUINT32 i = L.to_ulong();
   m_SpecificAppearanceUnion.m_TankDitchConcertinaWire.m_ui32BreachLoc =
-      (KUINT8)i;
+      static_cast<KUINT8>(i);
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -132,7 +132,8 @@ void LinearObjectAppearance::SetAttached(KBOOL A) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL LinearObjectAppearance::IsAttached() const {
-  return (KBOOL)m_SpecificAppearanceUnion.m_ExhaustSmoke.m_ui32Attached;
+  return static_cast<KBOOL>(
+      m_SpecificAppearanceUnion.m_ExhaustSmoke.m_ui32Attached);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -144,7 +145,8 @@ void LinearObjectAppearance::SetChemical(Chemical C) {
 //////////////////////////////////////////////////////////////////////////
 
 Chemical LinearObjectAppearance::GetChemical() const {
-  return (Chemical)m_SpecificAppearanceUnion.m_ExhaustSmoke.m_ui32Chemical;
+  return static_cast<Chemical>(
+      m_SpecificAppearanceUnion.m_ExhaustSmoke.m_ui32Chemical);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -156,8 +158,8 @@ void LinearObjectAppearance::SetVisibleSide(VisibleSide V) {
 //////////////////////////////////////////////////////////////////////////
 
 VisibleSide LinearObjectAppearance::GetVisibleSide() const {
-  return (VisibleSide)
-      m_SpecificAppearanceUnion.m_MinefieldLaneMarker.m_ui32VisibleSide;
+  return static_cast<VisibleSide>(
+      m_SpecificAppearanceUnion.m_MinefieldLaneMarker.m_ui32VisibleSide);
 }
 
 //////////////////////////////////////////////////////////////////////////

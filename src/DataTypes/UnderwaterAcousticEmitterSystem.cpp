@@ -150,8 +150,8 @@ KString UnderwaterAcousticEmitterSystem::GetAsString() const {
   KStringStream ss;
 
   ss << "Underwater Acoustic Emitter System:" << "\n\tData Length:       "
-     << (KUINT16)m_ui8EmitterSystemDataLength
-     << "\n\tNumber Of Beams:   " << (KUINT16)m_ui8NumBeams
+     << static_cast<KUINT16>(m_ui8EmitterSystemDataLength)
+     << "\n\tNumber Of Beams:   " << static_cast<KUINT16>(m_ui8NumBeams)
      << m_AES.GetAsString()
      << "\n\tLocation:          " << m_Location.GetAsString();
 

@@ -138,10 +138,8 @@ KString EmissionSystem::GetAsString() const {
   KStringStream ss;
 
   ss << "Emission System:\n\t"
-     << "System Data Length (32 bits):    " << (KUINT16)m_ui8SystemDataLength
-     << "\n\t"
-     << "Number Of Emitter Beams:         " << (KUINT16)m_ui8NumberOfBeams
-     << "\n"
+     << "System Data Length (32 bits):    " << m_ui8SystemDataLength << "\n\t"
+     << "Number Of Emitter Beams:         " << m_ui8NumberOfBeams << "\n"
      << IndentString(m_EmitterSystemRecord.GetAsString(), 1) << "\t"
      << "Location:   " << m_Location.GetAsString();
 

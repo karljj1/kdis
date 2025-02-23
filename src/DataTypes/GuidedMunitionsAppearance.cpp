@@ -44,7 +44,7 @@ void GuidedMunitionsAppearance::SetEntityDamage(EntityDamage ED) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityDamage GuidedMunitionsAppearance::GetEntityDamage() const {
-  return (EntityDamage)m_Damage;
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ void GuidedMunitionsAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
 //////////////////////////////////////////////////////////////////////////
 
 EntitySmoke GuidedMunitionsAppearance::GetEntitySmoke() const {
-  return (EntitySmoke)m_Smoke;
+  return static_cast<EntitySmoke>(m_Smoke);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ void GuidedMunitionsAppearance::SetEntityTrailingEffect(
 
 EntityTrailingEffect GuidedMunitionsAppearance::GetEntityTrailingEffect()
     const {
-  return (EntityTrailingEffect)m_TrailingEffect;
+  return static_cast<EntityTrailingEffect>(m_TrailingEffect);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -184,8 +184,8 @@ KBOOL GuidedMunitionsAppearance::operator==(
   // Lets do a single comparison instead of checking every field.
   // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-  KUINT32 a = *(KUINT32*)this;
-  KUINT32 b = *(KUINT32*)&Value;
+  KUINT32 a = *reinterpret_cast<const KUINT32*>(this);
+  KUINT32 b = *reinterpret_cast<const KUINT32*>(&Value);
 
   if (a != b) return false;
   return true;

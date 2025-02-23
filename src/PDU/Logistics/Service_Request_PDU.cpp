@@ -92,7 +92,7 @@ void Service_Request_PDU::SetServiceTypeRequested(ServiceTypeRequested STR) {
 //////////////////////////////////////////////////////////////////////////
 
 ServiceTypeRequested Service_Request_PDU::GetServiceTypeRequested() const {
-  return (ServiceTypeRequested)m_ui8ServiceTypeRequested;
+  return static_cast<ServiceTypeRequested>(m_ui8ServiceTypeRequested);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ KString Service_Request_PDU::GetAsString() const {
      << IndentString(Logistics_Header::GetAsString(), 1)
      << "\tService Type:           "
      << GetEnumAsStringServiceTypeRequested(m_ui8ServiceTypeRequested)
-     << "\tNumber Of Supply Types: " << (KUINT16)m_ui8NumSupplyTypes;
+     << "\tNumber Of Supply Types: " << m_ui8NumSupplyTypes;
 
   // Now add supplies
   vector<Supplies>::const_iterator citr = m_vSupplies.begin();

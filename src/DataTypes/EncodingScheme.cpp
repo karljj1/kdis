@@ -75,7 +75,7 @@ void EncodingScheme::SetEncodingClass(EncodingClass EC) {
 //////////////////////////////////////////////////////////////////////////
 
 EncodingClass EncodingScheme::GetEncodingClass() const {
-  return (EncodingClass)m_EncodingSchemeUnion.m_ui16Class;
+  return static_cast<EncodingClass>(m_EncodingSchemeUnion.m_ui16Class);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ void EncodingScheme::SetEncodingTypeAudio(EncodingType T) {
 //////////////////////////////////////////////////////////////////////////
 
 EncodingType EncodingScheme::GetEncodingTypeAudio() const {
-  return (EncodingType)m_EncodingSchemeUnion.m_ui16Type;
+  return static_cast<EncodingType>(m_EncodingSchemeUnion.m_ui16Type);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -109,7 +109,9 @@ void EncodingScheme::SetTDLType(TDLType T) { m_ui16TDLType = T; }
 
 //////////////////////////////////////////////////////////////////////////
 
-TDLType EncodingScheme::GetTDLType() const { return (TDLType)m_ui16TDLType; }
+TDLType EncodingScheme::GetTDLType() const {
+  return static_cast<TDLType>(m_ui16TDLType);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

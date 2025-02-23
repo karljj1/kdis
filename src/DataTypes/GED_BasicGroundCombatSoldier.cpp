@@ -298,13 +298,13 @@ KString GED_BasicGroundCombatSoldier::GetAsString() const {
      << m_i16Offsets[1] << " " << m_i16Offsets[2] << "\n"
      << IndentString(
             m_EA.GetAsString(EntityType(Lifeform, Land, 0, 0, 0, 0, 0)), 1)
-     << "\tOrientation(Psi,Theta,Phi):  " << (KINT16)m_i8Ori[0] << " "
-     << (KINT16)m_i8Ori[1] << " " << (KINT16)m_i8Ori[2] << "\n"
-     << "\tSpeed:                       " << (KINT16)m_i8Spd << "m/s\n"
-     << "\tHead Azimuth:                 " << (KINT16)m_i8HdAz << "\n"
-     << "\tHeadElevation:               " << (KINT16)m_i8HdElv << "\n"
-     << "\tHead Scan Rate:              " << (KINT16)m_i8HdScanRt << "\n"
-     << "\tHead Elevation Rate:         " << (KINT16)m_i8HdElvRt << "\n";
+     << "\tOrientation(Psi,Theta,Phi):  " << m_i8Ori[0] << " " << m_i8Ori[1]
+     << " " << m_i8Ori[2] << "\n"
+     << "\tSpeed:                       " << m_i8Spd << "m/s\n"
+     << "\tHead Azimuth:                " << m_i8HdAz << "\n"
+     << "\tHeadElevation:               " << m_i8HdElv << "\n"
+     << "\tHead Scan Rate:              " << m_i8HdScanRt << "\n"
+     << "\tHead Elevation Rate:         " << m_i8HdElvRt << "\n";
 
   return ss.str();
 }

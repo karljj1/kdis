@@ -97,7 +97,7 @@ void Receiver_PDU::SetReceiverState(TransmitState TS) {
 //////////////////////////////////////////////////////////////////////////
 
 TransmitState Receiver_PDU::GetReceiverState() const {
-  return (TransmitState)m_ui16ReceiverState;
+  return static_cast<TransmitState>(m_ui16ReceiverState);
 }
 
 //////////////////////////////////////////////////////////////////////////

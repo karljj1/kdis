@@ -96,7 +96,7 @@ void Event_Report_PDU::SetEventType(EventType ET) { m_ui32EventType = ET; }
 //////////////////////////////////////////////////////////////////////////
 
 EventType Event_Report_PDU::GetEventType() const {
-  return (EventType)m_ui32EventType;
+  return static_cast<EventType>(m_ui32EventType);
 }
 
 //////////////////////////////////////////////////////////////////////////

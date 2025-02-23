@@ -167,7 +167,7 @@ void Aggregate_State_PDU::SetForceID(ForceID ID) { m_ui8ForceID = ID; }
 //////////////////////////////////////////////////////////////////////////
 
 ForceID Aggregate_State_PDU::GetForceID() const {
-  return (ForceID)m_ui8ForceID;
+  return static_cast<ForceID>(m_ui8ForceID);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ void Aggregate_State_PDU::SetAggregateState(AggregateState AS) {
 //////////////////////////////////////////////////////////////////////////
 
 AggregateState Aggregate_State_PDU::GetAggregateState() const {
-  return (AggregateState)m_ui8AggState;
+  return static_cast<AggregateState>(m_ui8AggState);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -207,7 +207,7 @@ void Aggregate_State_PDU::SetFormation(Formation F) { m_ui32Formation = F; }
 //////////////////////////////////////////////////////////////////////////
 
 Formation Aggregate_State_PDU::GetFormation() const {
-  return (Formation)m_ui32Formation;
+  return static_cast<Formation>(m_ui32Formation);
 }
 
 //////////////////////////////////////////////////////////////////////////

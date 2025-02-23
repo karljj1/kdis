@@ -148,7 +148,7 @@ void IFF_ATC_NAVAIDS_FundamentalParameterData::SetApplicableModes(
 
 SystemMode IFF_ATC_NAVAIDS_FundamentalParameterData::GetApplicableModes()
     const {
-  return (SystemMode)m_ui8AppMode;
+  return static_cast<SystemMode>(m_ui8AppMode);
 }
 
 //////////////////////////////////////////////////////////////////////////

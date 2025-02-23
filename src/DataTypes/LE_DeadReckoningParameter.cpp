@@ -70,7 +70,7 @@ void LE_DeadReckoningParameter::SetDeadReckoningAlgorithm(
 
 DeadReckoningAlgorithm LE_DeadReckoningParameter::GetDeadReckoningAlgorithm()
     const {
-  return (DeadReckoningAlgorithm)m_ui8DeadRecknoningAlgorithm;
+  return static_cast<DeadReckoningAlgorithm>(m_ui8DeadRecknoningAlgorithm);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -28,7 +28,6 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Minefield/Minefield_Data_PDU.hpp"
-
 #include "KDIS/util/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
@@ -318,11 +317,11 @@ KString Minefield_Data_PDU::GetAsString() const {
      << Minefield_Header::GetAsString()
      << "Requesting ID: " << IndentString(m_ReqID.GetAsString(), 1)
      << "Minefield Sequence Number: " << m_SeqNumUnion.m_ui16SeqNum
-     << "Request ID: " << (KUINT16)m_ui8ReqID << "\n"
-     << "PDU Sequence Number: " << (KUINT16)m_ui8PduSeqNum << "\n"
-     << "Number Of PDU's: " << (KUINT16)m_ui8NumPdus << "\n"
-     << "Number Of Mines: " << (KUINT16)m_ui8NumMines << "\n"
-     << "Number Of Sensor Types: " << (KUINT16)m_ui8NumSensTyp << "\n"
+     << "Request ID: " << m_ui8ReqID << "\n"
+     << "PDU Sequence Number: " << m_ui8PduSeqNum << "\n"
+     << "Number Of PDU's: " << m_ui8NumPdus << "\n"
+     << "Number Of Mines: " << m_ui8NumMines << "\n"
+     << "Number Of Sensor Types: " << m_ui8NumSensTyp << "\n"
      << m_DataFilter.GetAsString() << "Mine Type: " << m_MineTyp.GetAsString()
      << "Sensor Types:\n";
 
@@ -657,7 +656,7 @@ void Minefield_Data_PDU::Encode(KDataStream& stream) const {
       map<KUINT16, vector<Vector> >::const_iterator citrWrEnd =
           citrMn->GetTripDetonationWire().end();
       for (; citrWr != citrWrEnd; ++citrWr) {
-        stream << (KUINT8)citrWr->second.size();
+        stream << static_cast<KUINT8>(citrWr->second.size());
       }
     }
   }

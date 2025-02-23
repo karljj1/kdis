@@ -85,7 +85,7 @@ void Mode5TransponderStatus::SetReply(Mode5Reply R) {
 //////////////////////////////////////////////////////////////////////////
 
 Mode5Reply Mode5TransponderStatus::GetReply() const {
-  return (Mode5Reply)m_StatusUnion.m_ui16Reply;
+  return static_cast<Mode5Reply>(m_StatusUnion.m_ui16Reply);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ void Mode5TransponderStatus::SetLineTestInProgress(KBOOL LT) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::IsLineTestInProgress() const {
-  return (KBOOL)m_StatusUnion.m_ui16LineTst;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16LineTst);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -109,7 +109,7 @@ void Mode5TransponderStatus::SetAntennaSelection(AntennaSelection AS) {
 //////////////////////////////////////////////////////////////////////////
 
 AntennaSelection Mode5TransponderStatus::GetAntennaSelection() const {
-  return (AntennaSelection)m_StatusUnion.m_ui16AntennaSel;
+  return static_cast<AntennaSelection>(m_StatusUnion.m_ui16AntennaSel);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -121,7 +121,7 @@ void Mode5TransponderStatus::SetCryptoControlPresent(KBOOL CC) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::IsCryptoControlPresent() const {
-  return (KBOOL)m_StatusUnion.m_ui16CryptoCtrl;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16CryptoCtrl);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ void Mode5TransponderStatus::SetLocationRecordPresent(KBOOL LRP) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::IsLocationRecordPresent() const {
-  return (KBOOL)m_StatusUnion.m_ui16LatLonAltSrc;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16LatLonAltSrc);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -145,7 +145,7 @@ void Mode5TransponderStatus::SetLocationErrorRecordPresent(KBOOL LERP) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::IsLocationErrorRecordPresent() const {
-  return (KBOOL)m_StatusUnion.m_ui16LocErrs;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16LocErrs);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -157,7 +157,7 @@ void Mode5TransponderStatus::SetPlatformType(PlatformType PT) {
 //////////////////////////////////////////////////////////////////////////
 
 PlatformType Mode5TransponderStatus::GetPlatformType() const {
-  return (PlatformType)m_StatusUnion.m_ui16PlatfrmTyp;
+  return static_cast<PlatformType>(m_StatusUnion.m_ui16PlatfrmTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -169,7 +169,7 @@ void Mode5TransponderStatus::SetMode5Level2Included(KBOOL M) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::IsMode5Level2Included() const {
-  return (KBOOL)m_StatusUnion.m_ui16LvlSel;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16LvlSel);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -181,7 +181,7 @@ void Mode5TransponderStatus::SetStatus(KBOOL S) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::GetStatus() const {
-  return (KBOOL)m_StatusUnion.m_ui16OnOff;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16OnOff);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -193,7 +193,7 @@ void Mode5TransponderStatus::SetDamaged(KBOOL D) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::IsDamaged() const {
-  return (KBOOL)m_StatusUnion.m_ui16Dmg;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16Dmg);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -205,7 +205,7 @@ void Mode5TransponderStatus::SetMalfunctioning(KBOOL M) {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL Mode5TransponderStatus::IsMalfunctioning() const {
-  return (KBOOL)m_StatusUnion.m_ui16MalFnc;
+  return static_cast<KBOOL>(m_StatusUnion.m_ui16MalFnc);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -215,20 +215,26 @@ KString Mode5TransponderStatus::GetAsString() const {
 
   ss << "Mode 5 Transponder Status:" << "\n\tReply:                   "
      << GetEnumAsStringMode5Reply(m_StatusUnion.m_ui16Reply)
-     << "\n\tLine Test:               " << (KBOOL)m_StatusUnion.m_ui16LineTst
+     << "\n\tLine Test:               "
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16LineTst)
      << "\n\tAntenna Selection:       "
      << GetEnumAsStringAntennaSelection(m_StatusUnion.m_ui16AntennaSel)
-     << "\n\tCrypto Control:          " << (KBOOL)m_StatusUnion.m_ui16CryptoCtrl
+     << "\n\tCrypto Control:          "
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16CryptoCtrl)
      << "\n\tLocation Included:       "
-     << (KBOOL)m_StatusUnion.m_ui16LatLonAltSrc
-     << "\n\tLocation Error Included: " << (KBOOL)m_StatusUnion.m_ui16LocErrs
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16LatLonAltSrc)
+     << "\n\tLocation Error Included: "
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16LocErrs)
      << "\n\tPlatform Type:           "
      << GetEnumAsStringPlatformType(m_StatusUnion.m_ui16PlatfrmTyp)
-     << "\n\tLevel 2 Included:        " << (KBOOL)m_StatusUnion.m_ui16LvlSel
-     << "\n\tOn/Off Status:           " << (KBOOL)m_StatusUnion.m_ui16OnOff
-     << "\n\tDamaged:                 " << (KBOOL)m_StatusUnion.m_ui16Dmg
-     << "\n\tMalfunction:             " << (KBOOL)m_StatusUnion.m_ui16MalFnc
-     << "\n";
+     << "\n\tLevel 2 Included:        "
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16LvlSel)
+     << "\n\tOn/Off Status:           "
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16OnOff)
+     << "\n\tDamaged:                 "
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16Dmg)
+     << "\n\tMalfunction:             "
+     << static_cast<KBOOL>(m_StatusUnion.m_ui16MalFnc) << "\n";
 
   return ss.str();
 }

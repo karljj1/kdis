@@ -91,8 +91,8 @@ KString LayerHeader::GetAsString() const {
   KStringStream ss;
 
   ss << "LayerHeader:" << "\n\tLayer Number:        "
-     << (KUINT16)m_ui8LayerNumber
-     << "\n\tLayer Specific Info: " << (KUINT16)m_ui8LayerSpecificInfo
+     << static_cast<KUINT16>(m_ui8LayerNumber) << "\n\tLayer Specific Info: "
+     << static_cast<KUINT16>(m_ui8LayerSpecificInfo)
      << "\n\tLayer Length:        " << m_ui16LayerLength << "\n";
 
   return ss.str();

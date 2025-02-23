@@ -27,10 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/PDU/Entity_Info_Interaction/Entity_State_Update_PDU.hpp"
-
 #include "KDIS/DataTypes/ArticulatedPart.hpp"
 #include "KDIS/DataTypes/AttachedPart.hpp"
+#include "KDIS/PDU/Entity_Info_Interaction/Entity_State_Update_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -236,8 +235,7 @@ KString Entity_State_Update_PDU::GetAsString() const {
   ss << Header::GetAsString() << "-Entity State Update PDU-\n"
      << "Entity ID:\n"
      << IndentString(m_EntityID.GetAsString(), 1)
-     << "Number Of Variable Params:      " << (KUINT16)m_ui8NumOfVariableParams
-     << "\n"
+     << "Number Of Variable Params:      " << m_ui8NumOfVariableParams << "\n"
      << "Linear Velocity:                "
      << m_EntityLinearVelocity.GetAsString()
      << "Entity Location:                " << m_EntityLocation.GetAsString()

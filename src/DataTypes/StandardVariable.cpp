@@ -59,7 +59,7 @@ StandardVariable::~StandardVariable() {}
 //////////////////////////////////////////////////////////////////////////
 
 StandardVariableType StandardVariable::GetStandardVariableType() const {
-  return (StandardVariableType)m_ui32Type;
+  return static_cast<StandardVariableType>(m_ui32Type);
 }
 
 //////////////////////////////////////////////////////////////////////////

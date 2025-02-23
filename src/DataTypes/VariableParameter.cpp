@@ -73,7 +73,7 @@ void VariableParameter::SetVariableParameterType(VariableParameterType VPT) {
 //////////////////////////////////////////////////////////////////////////
 
 VariableParameterType VariableParameter::GetVariableParameterType() const {
-  return (VariableParameterType)m_ui8VarParamType;
+  return static_cast<VariableParameterType>(m_ui8VarParamType);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -81,6 +81,8 @@ VariableParameterType VariableParameter::GetVariableParameterType() const {
 void VariableParameter::SetData(const KUINT8* D, KUINT8 DataSize) {
   if (DataSize > 15)
     throw KException(ErrorCode::DATA_TYPE_TOO_LARGE, __FUNCTION__);
+  if (!D)
+    throw KException(ErrorCode::INVALID_DATA, __FUNCTION__);
 
   // Set
   memcpy(m_Data, D, DataSize);
