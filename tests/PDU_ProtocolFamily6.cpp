@@ -245,6 +245,18 @@ TEST(PDU_ProtocolFamily6, Minefield_Data_PDU) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
             pdu.GetProtocolFamily());
   EXPECT_NO_THROW(pdu.GetAsString());
+  const KDIS::DATA_TYPE::MinefieldDataFilter mdf{
+      false, false, false, false,
+      false, false, false, true /*TripDetonationWire*/,
+      false, false, false};
+  EXPECT_NO_THROW(pdu.SetDataFilter(mdf));
+  KDIS::DATA_TYPE::Mine mn;
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_NO_THROW(pdu.AddMine(mn));
+  KDIS::KDataStream stream;
+  EXPECT_NO_THROW(pdu.Encode(stream));
 }
 
 TEST(PDU_ProtocolFamily6, Minefield_Query_PDU) {
@@ -269,6 +281,7 @@ TEST(PDU_ProtocolFamily6, Minefield_State_PDU) {
       KDIS::DATA_TYPE::ENUMS::Heartbeat};
   EXPECT_NO_THROW(pdu.SetMinefieldProtocolMode(mpm));
   EXPECT_EQ(mpm, pdu.GetMinefieldProtocolMode());
+  EXPECT_NO_THROW(pdu.GetAsString());
 }
 
 TEST(PDU_ProtocolFamily6, Intercom_Control_PDU) {
