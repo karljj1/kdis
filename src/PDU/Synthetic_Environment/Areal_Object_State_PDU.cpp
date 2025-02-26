@@ -246,7 +246,7 @@ KString Areal_Object_State_PDU::GetAsString() const {
 
   ss << Header::GetAsString() << "-Areal Object State PDU-\n"
      << Object_State_Header::GetAsString() << "Modification:\n"
-     << "\tLocation: " << (KUINT16)m_ModificationUnion.m_ui8LocBit << "\n"
+     << "\tLocation: " << m_ModificationUnion.m_ui8LocBit << "\n"
      << "Object Type: " << m_ObjTyp.GetAsString() << m_Apperance.GetAsString()
      << "Number Of Points: " << m_ui16NumPoints << "\n"
      << "Requestor ID:\n"

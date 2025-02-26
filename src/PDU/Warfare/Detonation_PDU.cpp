@@ -27,10 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/PDU/Warfare/Detonation_PDU.hpp"
-
 #include "KDIS/DataTypes/ArticulatedPart.hpp"
 #include "KDIS/DataTypes/AttachedPart.hpp"
+#include "KDIS/PDU/Warfare/Detonation_PDU.hpp"
 
 #if DIS_VERSION > 6
 #include "KDIS/DataTypes/ExpendableDescriptor.hpp"
@@ -223,7 +222,7 @@ void Detonation_PDU::SetDetonationResult(DetonationResult DR) {
 //////////////////////////////////////////////////////////////////////////
 
 DetonationResult Detonation_PDU::GetDetonationResult() const {
-  return (DetonationResult)m_ui8DetonationResult;
+  return static_cast<DetonationResult>(m_ui8DetonationResult);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -277,8 +276,7 @@ KString Detonation_PDU::GetAsString() const {
      << "Entity Location:          " << m_LocationEntityCoords.GetAsString()
      << "Detonation Result:        "
      << GetEnumAsStringDetonationResult(m_ui8DetonationResult) << "\n"
-     << "Num Articulation Params:  " << (KUINT16)m_ui8NumOfVariableParams
-     << "\n";
+     << "Num Articulation Params:  " << m_ui8NumOfVariableParams << "\n";
 
   // Add the articulated parts
   vector<VarPrmPtr>::const_iterator citr = m_vVariableParameters.begin();

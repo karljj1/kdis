@@ -308,6 +308,8 @@ TEST(PDU_FactoryDecoder5, Stop_Freeze_PDU) {
 //
 TEST(PDU_FactoryDecoder5, Detonation_PDU) {
   KDIS::PDU::Detonation_PDU pduIn;
+  EXPECT_EQ(0, pduIn.GetDetonationResult());
+  EXPECT_NO_THROW(pduIn.GetAsString());
   KDIS::KDataStream stream = pduIn.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);

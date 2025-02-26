@@ -245,8 +245,8 @@ KString Point_Object_State_PDU::GetAsString() const {
 
   ss << Header::GetAsString() << "-Point Object State PDU-\n"
      << Object_State_Header::GetAsString() << "Modification:\n"
-     << "\tLocation:     " << (KUINT16)m_ModificationUnion.m_ui8LocBit << "\n"
-     << "\tOrientation:  " << (KUINT16)m_ModificationUnion.m_ui8OriBit << "\n"
+     << "\tLocation:     " << m_ModificationUnion.m_ui8LocBit << "\n"
+     << "\tOrientation:  " << m_ModificationUnion.m_ui8OriBit << "\n"
      << "Object Type:  " << m_ObjTyp.GetAsString()
      << "Location:     " << m_Loc.GetAsString()
      << "Orientation:  " << m_Ori.GetAsString() << "Requestor ID:\n"

@@ -99,6 +99,10 @@ TEST(PDU_ProtocolFamily6, Aggregate_State_PDU) {
   EXPECT_EQ(0, pdu.GetForceID());
   EXPECT_EQ(0, pdu.GetAggregateState());
   EXPECT_EQ(0, pdu.GetFormation());
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::IEEE_1278_1A_1998,
+            pdu.GetProtocolVersion());
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::AggregateState_PDU_Type, pdu.GetPDUType());
+  EXPECT_NO_THROW(pdu.GetAsString());
 }
 
 TEST(PDU_ProtocolFamily6, IsGroupOf_PDU) {
@@ -121,6 +125,7 @@ TEST(PDU_ProtocolFamily6, Transfer_Control_Request_PDU) {
             pdu.GetProtocolFamily());
   EXPECT_EQ(0, pdu.GetRequiredReliabilityService());
   EXPECT_EQ(0, pdu.GetTransferType());
+  EXPECT_EQ(0, pdu.GetRequiredReliabilityService());
 }
 
 //
@@ -179,6 +184,9 @@ TEST(PDU_ProtocolFamily6, LE_Detonation_PDU) {
   EXPECT_NO_THROW(pdu.SetWarheadFuseFlag(true));
   EXPECT_TRUE(pdu.GetWarheadFuseFlag());
   KDIS::KDataStream stream;
+  EXPECT_NO_THROW(stream.GetBufferSize());
+  EXPECT_THROW(stream.CopyIntoBuffer(nullptr, 0, 5), KDIS::KException);
+  EXPECT_NO_THROW(stream.GetBufferPtr());
   EXPECT_NO_THROW(pdu.Encode(stream));
   EXPECT_NO_THROW(pdu.Decode(stream));
   EXPECT_NO_THROW(pdu.SetQuantityRateFlag(false));
@@ -282,6 +290,7 @@ TEST(PDU_ProtocolFamily6, Minefield_State_PDU) {
   EXPECT_NO_THROW(pdu.SetMinefieldProtocolMode(mpm));
   EXPECT_EQ(mpm, pdu.GetMinefieldProtocolMode());
   EXPECT_NO_THROW(pdu.GetAsString());
+  EXPECT_EQ(0, pdu.GetForceID());
 }
 
 TEST(PDU_ProtocolFamily6, Intercom_Control_PDU) {
@@ -358,6 +367,7 @@ TEST(PDU_ProtocolFamily6, Record_Query_R_PDU) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::
                 SimulationManagementwithReliability,
             pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetEventType());
 }
 
 TEST(PDU_ProtocolFamily6, Record_R_PDU) {
@@ -365,6 +375,7 @@ TEST(PDU_ProtocolFamily6, Record_R_PDU) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::
                 SimulationManagementwithReliability,
             pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetEventType());
 }
 
 TEST(PDU_ProtocolFamily6, Remove_Entity_R_PDU) {
@@ -409,18 +420,24 @@ TEST(PDU_ProtocolFamily6, Areal_Object_State_PDU) {
   KDIS::PDU::Areal_Object_State_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::SyntheticEnvironment,
             pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.GetAsString());
+  EXPECT_EQ(0, pdu.GetForceID());
 }
 
 TEST(PDU_ProtocolFamily6, Environmental_Process_PDU) {
   KDIS::PDU::Environmental_Process_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::SyntheticEnvironment,
             pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.GetAsString());
 }
 
 TEST(PDU_ProtocolFamily6, Gridded_Data_PDU) {
   KDIS::PDU::Gridded_Data_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::SyntheticEnvironment,
             pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetCoordinateSystem());
+  EXPECT_EQ(0, pdu.GetConstantGrid());
+  EXPECT_NO_THROW(pdu.GetAsString());
 }
 
 TEST(PDU_ProtocolFamily6, Linear_Object_State_PDU) {
@@ -433,4 +450,5 @@ TEST(PDU_ProtocolFamily6, Point_Object_State_PDU) {
   KDIS::PDU::Point_Object_State_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::SyntheticEnvironment,
             pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.GetAsString());
 }

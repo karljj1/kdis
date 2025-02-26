@@ -240,7 +240,8 @@ TEST(DataType_EncodeDecode6, EnvironmentRecord) {
   EXPECT_THROW(dtInOne.Decode(streamOne), KDIS::KException);  // too short
   EXPECT_NO_THROW(dtInOne.Encode(streamOne));
   EXPECT_NO_THROW(dtInOne.Decode(streamOne));
-  EXPECT_NO_THROW(dtInOne.FactoryDecodeEnvironmentRecord(streamOne));
+  EXPECT_THROW(dtInOne.FactoryDecodeEnvironmentRecord(streamOne),
+               KDIS::KException);  // environment record type not set
   KDIS::DATA_TYPE::EnvironmentRecord dtInTwo;
   KDIS::KDataStream streamTwo = dtInTwo.Encode();
   KDIS::DATA_TYPE::EnvironmentRecord dtOutTwo(streamTwo);

@@ -48,6 +48,7 @@ TEST(PDU_ProtocolFamily5, Directed_Energy_Fire_PDU) {
   KDIS::PDU::Directed_Energy_Fire_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Warfare,
             pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetPulseShape());
 }
 
 TEST(PDU_ProtocolFamily5, Entity_Damage_Status_PDU) {

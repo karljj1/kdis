@@ -28,7 +28,6 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Synthetic_Environment/Gridded_Data_PDU.hpp"
-
 #include "KDIS/util/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
@@ -176,7 +175,7 @@ void Gridded_Data_PDU::SetCoordinateSystem(CoordinateSystem CS) {
 //////////////////////////////////////////////////////////////////////////
 
 CoordinateSystem Gridded_Data_PDU::GetCoordinateSystem() const {
-  return (CoordinateSystem)m_ui16CordSys;
+  return static_cast<CoordinateSystem>(m_ui16CordSys);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -190,7 +189,7 @@ void Gridded_Data_PDU::SetConstantGrid(ConstantGrid CG) { m_ui8ConstGrid = CG; }
 //////////////////////////////////////////////////////////////////////////
 
 ConstantGrid Gridded_Data_PDU::GetConstantGrid() const {
-  return (ConstantGrid)m_ui8ConstGrid;
+  return static_cast<ConstantGrid>(m_ui8ConstGrid);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -331,13 +330,13 @@ KString Gridded_Data_PDU::GetAsString() const {
      << "PDU Total: " << m_ui16PDUTotal << "\n"
      << "Coordinate System: " << GetEnumAsStringCoordinateSystem(m_ui16CordSys)
      << "\n"
-     << "Number Of Axis: " << (KUINT16)m_ui8NumAxis << "\n"
+     << "Number Of Axis: " << m_ui8NumAxis << "\n"
      << "Constant Grid: " << GetEnumAsStringConstantGrid(m_ui8ConstGrid) << "\n"
      << "Environment Type: " << m_EnvType.GetAsString()
      << "Orientation: " << m_Ori.GetAsString()
      << "Sample Time: " << m_ui64SampleTime << "\n"
      << "Total Values: " << m_ui32TotalValues << "\n"
-     << "Vector Dimension: " << (KUINT16)m_ui8VecDim << "\n";
+     << "Vector Dimension: " << m_ui8VecDim << "\n";
 
   vector<GridAxisDescriptor>::const_iterator citrAxis =
       m_vpGridAxisDesc.begin();

@@ -27,11 +27,10 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/PDU/Header6.hpp"
-
 #include <iomanip>
 #include <limits>
 
+#include "KDIS/PDU/Header6.hpp"
 #include "KDIS/util/format.hpp"
 
 using namespace KDIS;
@@ -88,7 +87,7 @@ void Header6::SetProtocolVersion(ProtocolVersion PV) {
 //////////////////////////////////////////////////////////////////////////
 
 ProtocolVersion Header6::GetProtocolVersion() const {
-  return (ProtocolVersion)m_ui8ProtocolVersion;
+  return static_cast<ProtocolVersion>(m_ui8ProtocolVersion);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -105,7 +104,9 @@ void Header6::SetPDUType(PDUType Type) { m_ui8PDUType = Type; }
 
 //////////////////////////////////////////////////////////////////////////
 
-PDUType Header6::GetPDUType() const { return (PDUType)m_ui8PDUType; }
+PDUType Header6::GetPDUType() const {
+  return static_cast<PDUType>(m_ui8PDUType);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -114,7 +115,7 @@ void Header6::SetProtocolFamily(ProtocolFamily PF) { m_ui8ProtocolFamily = PF; }
 //////////////////////////////////////////////////////////////////////////
 
 ProtocolFamily Header6::GetProtocolFamily() const {
-  return (ProtocolFamily)m_ui8ProtocolFamily;
+  return static_cast<ProtocolFamily>(m_ui8ProtocolFamily);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -145,7 +146,7 @@ KString Header6::GetAsString() const {
   ss << "-PDU Header-\n"
      << "Protocol Version: "
      << GetEnumAsStringProtocolVersion(m_ui8ProtocolVersion) << "\n"
-     << "Exercise ID:      " << (KUINT16)GetExerciseID() << "\n"
+     << "Exercise ID:      " << GetExerciseID() << "\n"
      << "PDU Type:         " << GetEnumAsStringPDUType(m_ui8PDUType) << "\n"
      << "Protocol Family:  "
      << GetEnumAsStringProtocolFamily(m_ui8ProtocolFamily) << "\n"

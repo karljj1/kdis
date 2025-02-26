@@ -114,7 +114,7 @@ void Minefield_State_PDU::SetForceID(ForceID ID) { m_ui8ForceID = ID; }
 //////////////////////////////////////////////////////////////////////////
 
 ForceID Minefield_State_PDU::GetForceID() const {
-  return (ForceID)m_ui8ForceID;
+  return static_cast<ForceID>(m_ui8ForceID);
 }
 
 //////////////////////////////////////////////////////////////////////////

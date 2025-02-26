@@ -285,10 +285,10 @@ KString Environmental_Process_PDU::GetAsString() const {
      << "Environmental Process ID:\n"
      << IndentString(m_EnvProcID.GetAsString(), 1)
      << "Environment Type: " << m_EnvType.GetAsString()
-     << "Model Type:       " << (KUINT16)m_ui8ModelType << "\n"
+     << "Model Type:       " << m_ui8ModelType << "\n"
      << "Environment Status:\n"
-     << "\tLast PDU: " << (KUINT16)m_ui8EnvStatusBit0 << "\n"
-     << "\tActive: " << (KUINT16)m_ui8EnvStatusBit1 << "\n"
+     << "\tLast PDU: " << m_ui8EnvStatusBit0 << "\n"
+     << "\tActive: " << m_ui8EnvStatusBit1 << "\n"
      << "Number Of Environment Records: " << m_ui16NumEnvRec << "\n"
      << "Sequence Number: " << m_ui16SeqNum << "\n";
 

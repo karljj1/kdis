@@ -180,7 +180,7 @@ KString Minefield_Response_NACK_PDU::GetAsString() const {
   vector<KUINT8>::const_iterator citr = m_vSeqNums.begin();
   vector<KUINT8>::const_iterator citrEnd = m_vSeqNums.end();
   for (; citr != citrEnd; ++citr) {
-    ss << "\t" << (KUINT16)*citr << "\n";
+    ss << "\t" << *citr << "\n";
   }
 
   return ss.str();
