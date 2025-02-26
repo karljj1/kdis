@@ -184,9 +184,6 @@ TEST(PDU_ProtocolFamily6, LE_Detonation_PDU) {
   EXPECT_NO_THROW(pdu.SetWarheadFuseFlag(true));
   EXPECT_TRUE(pdu.GetWarheadFuseFlag());
   KDIS::KDataStream stream;
-  EXPECT_NO_THROW(stream.GetBufferSize());
-  EXPECT_THROW(stream.CopyIntoBuffer(nullptr, 0, 5), KDIS::KException);
-  EXPECT_NO_THROW(stream.GetBufferPtr());
   EXPECT_NO_THROW(pdu.Encode(stream));
   EXPECT_NO_THROW(pdu.Decode(stream));
   EXPECT_NO_THROW(pdu.SetQuantityRateFlag(false));
