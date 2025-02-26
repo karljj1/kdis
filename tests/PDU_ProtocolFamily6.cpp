@@ -125,7 +125,6 @@ TEST(PDU_ProtocolFamily6, Transfer_Control_Request_PDU) {
             pdu.GetProtocolFamily());
   EXPECT_EQ(0, pdu.GetRequiredReliabilityService());
   EXPECT_EQ(0, pdu.GetTransferType());
-  EXPECT_EQ(0, pdu.GetRequiredReliabilityService());
 }
 
 //
@@ -275,6 +274,7 @@ TEST(PDU_ProtocolFamily6, Minefield_Response_NACK_PDU) {
   KDIS::PDU::Minefield_Response_NACK_PDU pdu;
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
             pdu.GetProtocolFamily());
+  EXPECT_NO_THROW(pdu.AddMissingPDUSequenceNumber(4));
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
@@ -408,6 +408,7 @@ TEST(PDU_ProtocolFamily6, Stop_Freeze_R_PDU) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::
                 SimulationManagementwithReliability,
             pdu.GetProtocolFamily());
+  EXPECT_EQ(0, pdu.GetRequiredReliabilityService());
 }
 
 //
