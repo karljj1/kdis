@@ -91,8 +91,9 @@ KUINT16 KDataStream::GetBufferSize() const {
 
 KUINT16 KDataStream::CopyIntoBuffer(KOCTET* Buffer, KUINT16 BufferSize,
                                     KUINT16 WritePos /*= 0*/) const {
-  if (static_cast<KINT16>(BufferSize - WritePos) <
-      static_cast<KUINT16>(m_vBuffer.size())) {
+  if (!Buffer) throw KException(ErrorCode::INVALID_OPERATION);
+  if (WritePos > BufferSize) throw KException(ErrorCode::BUFFER_TOO_SMALL);
+  if ((BufferSize - WritePos) < m_vBuffer.size()) {
     throw KException(ErrorCode::BUFFER_TOO_SMALL);
   }
 
