@@ -296,11 +296,11 @@ KString GED_BasicFixedWingAircraft::GetAsString() const {
      << m_i16Offsets[1] << " " << m_i16Offsets[2] << "\n"
      << IndentString(m_EA.GetAsString(EntityType(Platform, Air, 0, 0, 0, 0, 0)),
                      1)
-     << "\tOrientation(Psi,Theta,Phi): " << (KINT16)m_i8Ori[0] << " "
-     << (KINT16)m_i8Ori[1] << " " << (KINT16)m_i8Ori[2] << "\n"
-     << "\tFuel Status:                " << (KUINT16)m_ui8FuelStatus << "\n"
-     << "\tHorizontal Deviation:       " << (KINT16)m_i8HoriDevi << "\n"
-     << "\tVertical Deviation:         " << (KINT16)m_i8VertDevi << "\n"
+     << "\tOrientation(Psi,Theta,Phi): " << m_i8Ori[0] << " " << m_i8Ori[1]
+     << " " << m_i8Ori[2] << "\n"
+     << "\tFuel Status:                " << m_ui8FuelStatus << "\n"
+     << "\tHorizontal Deviation:       " << m_i8HoriDevi << "\n"
+     << "\tVertical Deviation:         " << m_i8VertDevi << "\n"
      << "\tSpeed:                      " << m_i16Spd << "\n";
 
   return ss.str();

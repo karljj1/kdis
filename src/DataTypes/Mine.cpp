@@ -380,7 +380,7 @@ KString Mine::GetAsString() const {
     vector<KUINT8>::const_iterator citr = m_vui8SDC.begin();
     vector<KUINT8>::const_iterator citrEnd = m_vui8SDC.end();
     for (; citr != citrEnd; ++citr) {
-      ss << "\t\t" << (KUINT16)*citr << "\n";
+      ss << "\t\t" << static_cast<KUINT16>(*citr) << "\n";
     }
   }
 
@@ -389,7 +389,8 @@ KString Mine::GetAsString() const {
   }
 
   if (IsTripDetonationWire()) {
-    ss << "\tNumber Trip/Det Wires: " << (KUINT16)m_ui8NumTrpDetWrs << "\n";
+    ss << "\tNumber Trip/Det Wires: " << static_cast<KUINT16>(m_ui8NumTrpDetWrs)
+       << "\n";
 
     map<KUINT16, vector<Vector> >::const_iterator citrM = m_mvVertices.begin();
     map<KUINT16, vector<Vector> >::const_iterator citrMEnd = m_mvVertices.end();

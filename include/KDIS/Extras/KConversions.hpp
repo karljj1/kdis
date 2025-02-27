@@ -290,15 +290,15 @@ template <class Type>
 inline void DecimalToDMS(Type Decimal, Type& DegOUT, Type& MinOUT,
                          Type& SecOUT) {
   Decimal = std::abs(Decimal);  // Make sure the value is not negative
-  DegOUT = static_cast<Type>((KUINT32)Decimal);
+  DegOUT = static_cast<Type>(static_cast<KUINT32>(Decimal));
   Decimal -= DegOUT;  // Degrees
 
   MinOUT = static_cast<Type>(Decimal * 60.0);
 
-  Decimal = MinOUT - static_cast<Type>((KUINT32)MinOUT);
+  Decimal = MinOUT - static_cast<Type>(static_cast<KUINT32>(MinOUT));
 
-  MinOUT = static_cast<Type>((KUINT32)MinOUT);  // Minutes
-  SecOUT = static_cast<Type>(Decimal * 60.0);   // Seconds
+  MinOUT = static_cast<Type>(static_cast<KUINT32>(MinOUT));  // Minutes
+  SecOUT = static_cast<Type>(Decimal * 60.0);                // Seconds
 }
 
 //////////////////////////////////////////////////////////////////////////

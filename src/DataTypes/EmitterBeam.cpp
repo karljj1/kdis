@@ -169,7 +169,7 @@ void EmitterBeam::SetEmitterBeamFunction(BeamFunction EBF) {
 //////////////////////////////////////////////////////////////////////////
 
 BeamFunction EmitterBeam::GetEmitterBeamFunction() const {
-  return (BeamFunction)m_ui8BeamFunction;
+  return static_cast<BeamFunction>(m_ui8BeamFunction);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -187,7 +187,7 @@ void EmitterBeam::SetHighDensityTrackJam(HighDensityTrackJam HDTJ) {
 //////////////////////////////////////////////////////////////////////////
 
 HighDensityTrackJam EmitterBeam::GetHighDensityTrackJam() const {
-  return (HighDensityTrackJam)m_ui8HighDensityTrackJam;
+  return static_cast<HighDensityTrackJam>(m_ui8HighDensityTrackJam);
 }
 
 #if DIS_VERSION < 7
@@ -269,15 +269,14 @@ KString EmitterBeam::GetAsString() const {
   KStringStream ss;
 
   ss << "Emitter Beam:\n\t"
-     << "\n\tBeam Data Length (32bits):        " << (KUINT16)m_ui8BeamDataLength
-     << "\n\tEmitter Beam ID Number:           "
-     << (KUINT16)m_ui8EmitterBeamIDNumber
+     << "\n\tBeam Data Length (32bits):        " << m_ui8BeamDataLength
+     << "\n\tEmitter Beam ID Number:           " << m_ui8EmitterBeamIDNumber
      << "\n\tBeam Parameter Index:             " << m_ui16BeamParamIndex
      << IndentString(m_FundamentalParameterData.GetAsString(), 1)
      << "\tBeam Function:                    "
      << GetEnumAsStringEmitterFunction(m_ui8BeamFunction)
      << "\n\tNumber Of Targets Tracked/Jammed: "
-     << (KUINT16)m_ui8NumTargetInTrackJamField
+     << m_ui8NumTargetInTrackJamField
      << "\n\tHigh Density Track/Jam:           "
      << GetEnumAsStringHighDensityTrackJam(m_ui8HighDensityTrackJam)
 #if DIS_VERSION < 7

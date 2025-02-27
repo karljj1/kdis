@@ -126,7 +126,7 @@ void Mode5TransponderBasicData::SetMessageFormatsPresent(
 
 const std::bitset<32>
 Mode5TransponderBasicData::GetMessageFormatsPresentBitSet() const {
-  return bitset<32>((KINT32)m_ui32MsgFormats);
+  return bitset<32>(static_cast<KINT32>(m_ui32MsgFormats));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -190,7 +190,7 @@ void Mode5TransponderBasicData::SetNavigationSource(NavigationSource NS) {
 //////////////////////////////////////////////////////////////////////////
 
 NavigationSource Mode5TransponderBasicData::GetNavigationSource() const {
-  return (NavigationSource)m_ui8NavSrc;
+  return static_cast<NavigationSource>(m_ui8NavSrc);
 }
 
 //////////////////////////////////////////////////////////////////////////

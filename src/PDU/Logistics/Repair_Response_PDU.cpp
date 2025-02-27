@@ -95,7 +95,7 @@ void Repair_Response_PDU::SetRepairResult(RepairResult RR) {
 //////////////////////////////////////////////////////////////////////////
 
 RepairResult Repair_Response_PDU::GetRepairResult() const {
-  return (RepairResult)m_ui8RepairResult;
+  return static_cast<RepairResult>(m_ui8RepairResult);
 }
 
 //////////////////////////////////////////////////////////////////////////

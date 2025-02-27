@@ -88,7 +88,7 @@ void Record_R_PDU::SetEventType(EventType ET) { m_ui16EvntTyp = ET; }
 //////////////////////////////////////////////////////////////////////////
 
 EventType Record_R_PDU::GetEventType() const {
-  return (EventType)m_ui16EvntTyp;
+  return static_cast<EventType>(m_ui16EvntTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -83,7 +83,7 @@ TSPI_PDU::~TSPI_PDU() {}
 //////////////////////////////////////////////////////////////////////////
 
 void TSPI_PDU::SetEntityLinearVelocityFlag(KBOOL F) {
-  if ((KUINT8)F == m_TSPIFlagUnion.m_ui8LinVel) return;
+  if (static_cast<KUINT8>(F) == m_TSPIFlagUnion.m_ui8LinVel) return;
 
   m_TSPIFlagUnion.m_ui8LinVel = F;
 
@@ -103,7 +103,7 @@ KBOOL TSPI_PDU::GetEntityLinearVelocityFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void TSPI_PDU::SetEntityOrientationFlag(KBOOL F) {
-  if ((KUINT8)F == m_TSPIFlagUnion.m_ui8Ori) return;
+  if (static_cast<KUINT8>(F) == m_TSPIFlagUnion.m_ui8Ori) return;
 
   m_TSPIFlagUnion.m_ui8Ori = F;
 
@@ -123,7 +123,7 @@ KBOOL TSPI_PDU::GetEntityOrientationFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void TSPI_PDU::SetPositionErrorFlag(KBOOL F) {
-  if ((KUINT8)F == m_TSPIFlagUnion.m_ui8PosErr) return;
+  if (static_cast<KUINT8>(F) == m_TSPIFlagUnion.m_ui8PosErr) return;
 
   m_TSPIFlagUnion.m_ui8PosErr = F;
 
@@ -143,7 +143,7 @@ KBOOL TSPI_PDU::GetPositionErrorFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void TSPI_PDU::SetOrientationErrorFlag(KBOOL F) {
-  if ((KUINT8)F == m_TSPIFlagUnion.m_ui8OriErr) return;
+  if (static_cast<KUINT8>(F) == m_TSPIFlagUnion.m_ui8OriErr) return;
 
   m_TSPIFlagUnion.m_ui8OriErr = F;
 
@@ -162,7 +162,7 @@ KBOOL TSPI_PDU::GetOrientationErrorFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void TSPI_PDU::SetDeadReckoningParameterFlag(KBOOL F) {
-  if ((KUINT8)F == m_TSPIFlagUnion.m_ui8DRM) return;
+  if (static_cast<KUINT8>(F) == m_TSPIFlagUnion.m_ui8DRM) return;
 
   m_TSPIFlagUnion.m_ui8DRM = F;
 
@@ -184,7 +184,7 @@ KBOOL TSPI_PDU::GetDeadReckoningParameterFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void TSPI_PDU::SetMeasuredSpeedFlag(KBOOL F) {
-  if ((KUINT8)F == m_TSPIFlagUnion.m_ui8Spd) return;
+  if (static_cast<KUINT8>(F) == m_TSPIFlagUnion.m_ui8Spd) return;
 
   m_TSPIFlagUnion.m_ui8Spd = F;
 
@@ -204,7 +204,7 @@ KBOOL TSPI_PDU::GetMeasuredSpeedFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void TSPI_PDU::SetSystemSpecificDataFlag(KBOOL F) {
-  if ((KUINT8)F == m_TSPIFlagUnion.m_ui8Data) return;
+  if (static_cast<KUINT8>(F) == m_TSPIFlagUnion.m_ui8Data) return;
 
   m_TSPIFlagUnion.m_ui8Data = F;
 
@@ -391,20 +391,13 @@ KString TSPI_PDU::GetAsString() const {
   ss << LE_Header::GetAsString()
      << "-Time Space Position Information(TSPI) PDU-\n"
      << "Optional Field Flags:\n"
-     << "\tLinear Velocity:          " << (KUINT16)m_TSPIFlagUnion.m_ui8LinVel
-     << "\n"
-     << "\tLinear Orientation:       " << (KUINT16)m_TSPIFlagUnion.m_ui8Ori
-     << "\n"
-     << "\tPosition Error:           " << (KUINT16)m_TSPIFlagUnion.m_ui8PosErr
-     << "\n"
-     << "\tOrientation Error:        " << (KUINT16)m_TSPIFlagUnion.m_ui8OriErr
-     << "\n"
-     << "\tDead Reckoning Parameter: " << (KUINT16)m_TSPIFlagUnion.m_ui8DRM
-     << "\n"
-     << "\tMeasured Speed:           " << (KUINT16)m_TSPIFlagUnion.m_ui8Spd
-     << "\n"
-     << "\tSystem Specific Data:     " << (KUINT16)m_TSPIFlagUnion.m_ui8Data
-     << "\n"
+     << "\tLinear Velocity:          " << m_TSPIFlagUnion.m_ui8LinVel << "\n"
+     << "\tLinear Orientation:       " << m_TSPIFlagUnion.m_ui8Ori << "\n"
+     << "\tPosition Error:           " << m_TSPIFlagUnion.m_ui8PosErr << "\n"
+     << "\tOrientation Error:        " << m_TSPIFlagUnion.m_ui8OriErr << "\n"
+     << "\tDead Reckoning Parameter: " << m_TSPIFlagUnion.m_ui8DRM << "\n"
+     << "\tMeasured Speed:           " << m_TSPIFlagUnion.m_ui8Spd << "\n"
+     << "\tSystem Specific Data:     " << m_TSPIFlagUnion.m_ui8Data << "\n"
      << "Location - " << m_Loc.GetAsString();
 
   if (m_TSPIFlagUnion.m_ui8LinVel) {
@@ -433,7 +426,7 @@ KString TSPI_PDU::GetAsString() const {
 
   if (m_TSPIFlagUnion.m_ui8Data) {
     ss << "System Specific Data:\n"
-       << "\tData Length: " << (KUINT16)m_ui8SSDLen << "\n"
+       << "\tData Length: " << m_ui8SSDLen << "\n"
        << "\tData: ";
 
     vector<KOCTET>::const_iterator citr = m_vSSD.begin();

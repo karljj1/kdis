@@ -150,7 +150,7 @@ KString GridDataType0::GetAsString() const {
   vector<KUINT8>::const_iterator citr = m_vui8DataVals.begin();
   vector<KUINT8>::const_iterator citrEnd = m_vui8DataVals.end();
   for (; citr != citrEnd; ++citr) {
-    ss << " " << (KUINT16)*citr;
+    ss << " " << *citr;
   }
   ss << "\n";
 

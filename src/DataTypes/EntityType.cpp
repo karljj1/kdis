@@ -27,11 +27,10 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/EntityType.hpp"
-
-#include <cstdlib>
+#include <string>
 #include <vector>
 
+#include "KDIS/DataTypes/EntityType.hpp"
 #include "KDIS/util/format.hpp"
 
 using namespace KDIS;
@@ -93,7 +92,7 @@ void EntityType::SetEntityKind(EntityKind UI) { m_ui8EntityKind = UI; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityKind EntityType::GetEntityKind() const {
-  return (EntityKind)m_ui8EntityKind;
+  return static_cast<EntityKind>(m_ui8EntityKind);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -102,7 +101,9 @@ void EntityType::SetDomain(EntityDomain UI) { m_ui8Domain = UI; }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityDomain EntityType::GetDomain() const { return (EntityDomain)m_ui8Domain; }
+EntityDomain EntityType::GetDomain() const {
+  return static_cast<EntityDomain>(m_ui8Domain);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -110,7 +111,9 @@ void EntityType::SetCountry(Country UI) { m_ui16Country = UI; }
 
 //////////////////////////////////////////////////////////////////////////
 
-Country EntityType::GetCountry() const { return (Country)m_ui16Country; }
+Country EntityType::GetCountry() const {
+  return static_cast<Country>(m_ui16Country);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -147,22 +150,18 @@ KUINT8 EntityType::GetExtra() const { return m_ui8Extra; }
 //////////////////////////////////////////////////////////////////////////
 
 void EntityType::ReadFromTokenisedString(const KString& String,
-                                         const KString& Seperator /*= ","*/) {
+                                         KCHAR8 Separator /*= ','*/) {
   // Copy the string, we don't want to change the string we have been passed.
   KString sCopy = String;
 
   vector<KUINT16> vValues;
 
-  KCHAR8* token = strtok((KCHAR8*)sCopy.c_str(), Seperator.c_str());
-
-  while (token != NULL) {
-    KINT16 i = atoi(token);
+  KStringStream ss(String);
+  KString token;
+  while (std::getline(ss, token, Separator)) {
+    KINT16 i = std::stoi(token);
     if (i < 0) i = 0;  // If the value is less than 0 then we need to make it 0.
-
     vValues.push_back(i);
-
-    // Get next token:
-    token = strtok(NULL, Seperator.c_str());
   }
 
   // We need 7 values in total, if not we have a problem.
@@ -186,14 +185,15 @@ void EntityType::ReadFromTokenisedString(const KString& String,
 
 //////////////////////////////////////////////////////////////////////////
 
-KString EntityType::CreateTokenisedString(
-    const KString& Seperator /*= ","*/) const {
+KString EntityType::CreateTokenisedString(KCHAR8 Separator /*= ','*/) const {
   KStringStream ss;
 
-  ss << (KUINT16)m_ui8EntityKind << Seperator << (KUINT16)m_ui8Domain
-     << Seperator << m_ui16Country << Seperator << (KUINT16)m_ui8Category
-     << Seperator << (KUINT16)m_ui8SubCategory << Seperator
-     << (KUINT16)m_ui8Specific << Seperator << (KUINT16)m_ui8Extra;
+  ss << static_cast<KUINT16>(m_ui8EntityKind) << Separator
+     << static_cast<KUINT16>(m_ui8Domain) << Separator << m_ui16Country
+     << Separator << static_cast<KUINT16>(m_ui8Category) << Separator
+     << static_cast<KUINT16>(m_ui8SubCategory) << Separator
+     << static_cast<KUINT16>(m_ui8Specific) << Separator
+     << static_cast<KUINT16>(m_ui8Extra);
 
   return ss.str();
 }
@@ -265,16 +265,21 @@ KBOOL EntityType::operator<(const EntityType& Value) const {
   // bits 0-7   = Extra
   KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
 
-  ui64ThisCmpVal = (KUINT64)m_ui8EntityKind << 56 | (KUINT64)m_ui8Domain << 48 |
-                   (KUINT64)m_ui16Country << 32 | (KUINT64)m_ui8Category << 24 |
-                   (KUINT64)m_ui8SubCategory << 16 |
-                   (KUINT64)m_ui8Specific << 8 | (KUINT64)m_ui8Extra;
+  ui64ThisCmpVal = static_cast<KUINT64>(m_ui8EntityKind) << 56 |
+                   static_cast<KUINT64>(m_ui8Domain) << 48 |
+                   static_cast<KUINT64>(m_ui16Country) << 32 |
+                   static_cast<KUINT64>(m_ui8Category) << 24 |
+                   static_cast<KUINT64>(m_ui8SubCategory) << 16 |
+                   static_cast<KUINT64>(m_ui8Specific) << 8 |
+                   static_cast<KUINT64>(m_ui8Extra);
 
-  ui64OtherCmpVal =
-      (KUINT64)Value.m_ui8EntityKind << 56 | (KUINT64)Value.m_ui8Domain << 48 |
-      (KUINT64)Value.m_ui16Country << 32 | (KUINT64)Value.m_ui8Category << 24 |
-      (KUINT64)Value.m_ui8SubCategory << 16 |
-      (KUINT64)Value.m_ui8Specific << 8 | (KUINT64)Value.m_ui8Extra;
+  ui64OtherCmpVal = static_cast<KUINT64>(Value.m_ui8EntityKind) << 56 |
+                    static_cast<KUINT64>(Value.m_ui8Domain) << 48 |
+                    static_cast<KUINT64>(Value.m_ui16Country) << 32 |
+                    static_cast<KUINT64>(Value.m_ui8Category) << 24 |
+                    static_cast<KUINT64>(Value.m_ui8SubCategory) << 16 |
+                    static_cast<KUINT64>(Value.m_ui8Specific) << 8 |
+                    static_cast<KUINT64>(Value.m_ui8Extra);
 
   return ui64ThisCmpVal < ui64OtherCmpVal;
 }

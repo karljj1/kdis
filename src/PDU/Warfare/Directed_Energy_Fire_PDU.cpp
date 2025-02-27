@@ -309,7 +309,7 @@ void Directed_Energy_Fire_PDU::SetPulseShape(BeamSpotShape PS) {
 //////////////////////////////////////////////////////////////////////////
 
 BeamSpotShape Directed_Energy_Fire_PDU::GetPulseShape() const {
-  return (BeamSpotShape)m_ui8PulseShp;
+  return static_cast<BeamSpotShape>(m_ui8PulseShp);
 }
 
 //////////////////////////////////////////////////////////////////////////

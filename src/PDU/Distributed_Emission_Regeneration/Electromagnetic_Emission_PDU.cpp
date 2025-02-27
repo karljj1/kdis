@@ -170,7 +170,7 @@ void Electromagnetic_Emission_PDU::SetStateUpdateIndicator(
 
 StateUpdateIndicator Electromagnetic_Emission_PDU::GetStateUpdateIndicator()
     const {
-  return (StateUpdateIndicator)m_ui8StateUpdateIndicator;
+  return static_cast<StateUpdateIndicator>(m_ui8StateUpdateIndicator);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -235,8 +235,7 @@ KString Electromagnetic_Emission_PDU::GetAsString() const {
      << IndentString(m_EventID.GetAsString(), 1)
      << "State Update Indicator:     "
      << GetEnumAsStringStateUpdateIndicator(m_ui8StateUpdateIndicator) << "\n"
-     << "Number Of Emission Systems: " << (KUINT16)m_ui8NumberOfEmissionSystems
-     << "\n";
+     << "Number Of Emission Systems: " << m_ui8NumberOfEmissionSystems << "\n";
 
   vector<EmissionSystem>::const_iterator citr = m_vEmissionSystem.begin();
   vector<EmissionSystem>::const_iterator citrEnd = m_vEmissionSystem.end();

@@ -139,7 +139,7 @@ void Stop_Freeze_PDU::SetReason(StopFreezeReason SFR) { m_ui8Reason = SFR; }
 //////////////////////////////////////////////////////////////////////////
 
 StopFreezeReason Stop_Freeze_PDU::GetReason() const {
-  return (StopFreezeReason)m_ui8Reason;
+  return static_cast<StopFreezeReason>(m_ui8Reason);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -151,7 +151,7 @@ void Stop_Freeze_PDU::SetFrozenBehavior(FrozenBehavior FB) {
 //////////////////////////////////////////////////////////////////////////
 
 FrozenBehavior Stop_Freeze_PDU::GetFrozenBehavior() const {
-  return (FrozenBehavior)m_ui8FrozenBehaviour;
+  return static_cast<FrozenBehavior>(m_ui8FrozenBehaviour);
 }
 
 //////////////////////////////////////////////////////////////////////////

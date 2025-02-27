@@ -112,8 +112,8 @@ void ArticulatedPart::SetTypeVariantClass(ArticulatedPartsClass C) {
 //////////////////////////////////////////////////////////////////////////
 
 ArticulatedPartsClass ArticulatedPart::GetTypeVariantClass() const {
-  return (ArticulatedPartsClass)(m_ui32ParamTypeVariant -
-                                 (m_ui32ParamTypeVariant % 32));
+  return static_cast<ArticulatedPartsClass>(m_ui32ParamTypeVariant -
+                                            (m_ui32ParamTypeVariant % 32));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -126,7 +126,7 @@ void ArticulatedPart::SetTypeVariantMetric(ArticulatedPartsMetric M) {
 //////////////////////////////////////////////////////////////////////////
 
 ArticulatedPartsMetric ArticulatedPart::GetTypeVariantMetric() const {
-  return (ArticulatedPartsMetric)(m_ui32ParamTypeVariant % 32);
+  return static_cast<ArticulatedPartsMetric>(m_ui32ParamTypeVariant % 32);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ KString ArticulatedPart::GetAsString() const {
   KStringStream ss;
 
   ss << "Articulation Parameters:" << "\n\tParameter Change:     "
-     << (KUINT16)m_ui8ParmeterChange
+     << m_ui8ParmeterChange
      << "\n\tAttachement ID:       " << m_ui16AttachementID
      << "\n\tType Metric:          "
      << GetEnumAsStringArticulatedPartsMetric(GetTypeVariantMetric())

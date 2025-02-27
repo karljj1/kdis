@@ -137,7 +137,7 @@ void IsGroupOf_PDU::SetGroupedEntityCategory(GroupedEntityCategory GED) {
 //////////////////////////////////////////////////////////////////////////
 
 GroupedEntityCategory IsGroupOf_PDU::GetGroupedEntityCategory() const {
-  return (GroupedEntityCategory)m_ui8GrpdEntCat;
+  return static_cast<GroupedEntityCategory>(m_ui8GrpdEntCat);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -236,8 +236,7 @@ KString IsGroupOf_PDU::GetAsString() const {
   ss << Header::GetAsString() << "-Is Group Of PDU-\n"
      << m_GroupedEntityID.GetAsString() << "Grouped Entity Category:         "
      << GetEnumAsStringGroupedEntityCategory(m_ui8GrpdEntCat) << "\n"
-     << "Number Of Grouped Entity:        " << (KUINT16)m_ui8NumOfGroupedEnts
-     << "\n"
+     << "Number Of Grouped Entity:        " << m_ui8NumOfGroupedEnts << "\n"
      << "Group Reference Point(Lat,Lon) : " << m_f64GrpLat << " , "
      << m_f64GrpLon << "\n";
 

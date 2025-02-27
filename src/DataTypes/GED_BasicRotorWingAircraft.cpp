@@ -133,16 +133,16 @@ KString GED_BasicRotorWingAircraft::GetAsString() const {
      << m_i16Offsets[1] << " " << m_i16Offsets[2] << "\n"
      << IndentString(m_EA.GetAsString(EntityType(Platform, Air, 0, 0, 0, 0, 0)),
                      1)
-     << "\tOrientation(Psi,Theta,Phi): " << (KINT16)m_i8Ori[0] << " "
-     << (KINT16)m_i8Ori[1] << " " << (KINT16)m_i8Ori[2] << "\n"
-     << "\tFuel Status:                " << (KUINT16)m_ui8FuelStatus << "\n"
-     << "\tHorizontal Deviation:       " << (KINT16)m_i8HoriDevi << "\n"
-     << "\tVertical Deviation:         " << (KINT16)m_i8VertDevi << "\n"
-     << "\tSpeed:                      " << (KINT16)m_i16Spd << "\n"
-     << "\tTurret Azimuth:             " << (KINT16)m_i8TrrtAz << "\n"
-     << "\tGun Elevation:              " << (KINT16)m_i8GnElv << "\n"
-     << "\tTurret Slew Rate:           " << (KINT16)m_i8TrrtSlwRt << "\n"
-     << "\tGun Elevation Rate:         " << (KINT16)m_i8GnElvRt << "\n";
+     << "\tOrientation(Psi,Theta,Phi): " << m_i8Ori[0] << " " << m_i8Ori[1]
+     << " " << m_i8Ori[2] << "\n"
+     << "\tFuel Status:                " << m_ui8FuelStatus << "\n"
+     << "\tHorizontal Deviation:       " << m_i8HoriDevi << "\n"
+     << "\tVertical Deviation:         " << m_i8VertDevi << "\n"
+     << "\tSpeed:                      " << m_i16Spd << "\n"
+     << "\tTurret Azimuth:             " << m_i8TrrtAz << "\n"
+     << "\tGun Elevation:              " << m_i8GnElv << "\n"
+     << "\tTurret Slew Rate:           " << m_i8TrrtSlwRt << "\n"
+     << "\tGun Elevation Rate:         " << m_i8GnElvRt << "\n";
 
   return ss.str();
 }

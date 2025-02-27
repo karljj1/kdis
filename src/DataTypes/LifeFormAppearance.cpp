@@ -44,7 +44,7 @@ void LifeFormAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityPaintScheme LifeFormAppearance::GetEntityPaintScheme() const {
-  return (EntityPaintScheme)m_PaintScheme;
+  return static_cast<EntityPaintScheme>(m_PaintScheme);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ void LifeFormAppearance::SetEntityDamage(EntityDamage ED) { m_Damage = ED; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityDamage LifeFormAppearance::GetEntityDamage() const {
-  return (EntityDamage)m_Damage;
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ void LifeFormAppearance::SetEntityCompliance(EntityCompliance EC) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityCompliance LifeFormAppearance::GetEntityCompliance() const {
-  return (EntityCompliance)m_Compliance;
+  return static_cast<EntityCompliance>(m_Compliance);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ void LifeFormAppearance::SetEntityLifeformState(
 //////////////////////////////////////////////////////////////////////////
 
 EntityLifeformAppearance LifeFormAppearance::GetEntityLifeformState() const {
-  return (EntityLifeformAppearance)m_LifeformState;
+  return static_cast<EntityLifeformAppearance>(m_LifeformState);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -173,7 +173,7 @@ void LifeFormAppearance::SetEntityLifeformWeapon1(EntityLifeformWeapon ELW) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityLifeformWeapon LifeFormAppearance::GetEntityLifeformWeapon1() const {
-  return (EntityLifeformWeapon)m_Weapon1;
+  return static_cast<EntityLifeformWeapon>(m_Weapon1);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -185,7 +185,7 @@ void LifeFormAppearance::SetEntityLifeformWeapon2(EntityLifeformWeapon ELW) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityLifeformWeapon LifeFormAppearance::GetEntityLifeformWeapon2() const {
-  return (EntityLifeformWeapon)m_Weapon2;
+  return static_cast<EntityLifeformWeapon>(m_Weapon2);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -197,7 +197,7 @@ void LifeFormAppearance::SetEntityCamouflage(EntityCamouflage EC) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityCamouflage LifeFormAppearance::GetEntityCamouflage() const {
-  return (EntityCamouflage)m_Camouflage;
+  return static_cast<EntityCamouflage>(m_Camouflage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -261,8 +261,8 @@ KBOOL LifeFormAppearance::operator==(const LifeFormAppearance& Value) const {
   // Lets do a single comparison instead of checking every field.
   // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-  KUINT32 a = *(KUINT32*)this;
-  KUINT32 b = *(KUINT32*)&Value;
+  KUINT32 a = *reinterpret_cast<const KUINT32*>(this);
+  KUINT32 b = *reinterpret_cast<const KUINT32*>(&Value);
 
   if (a != b) return false;
   return true;

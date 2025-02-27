@@ -109,7 +109,7 @@ void Action_Response_PDU::SetRequestStatus(RequestStatus ID) {
 //////////////////////////////////////////////////////////////////////////
 
 RequestStatus Action_Response_PDU::GetRequestStatus() const {
-  return (RequestStatus)m_ui32RequestStatus;
+  return static_cast<RequestStatus>(m_ui32RequestStatus);
 }
 
 //////////////////////////////////////////////////////////////////////////

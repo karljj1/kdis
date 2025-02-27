@@ -114,7 +114,7 @@ void Minefield_State_PDU::SetForceID(ForceID ID) { m_ui8ForceID = ID; }
 //////////////////////////////////////////////////////////////////////////
 
 ForceID Minefield_State_PDU::GetForceID() const {
-  return (ForceID)m_ui8ForceID;
+  return static_cast<ForceID>(m_ui8ForceID);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -205,7 +205,8 @@ void Minefield_State_PDU::SetMinefieldProtocolMode(MinefieldProtocolMode MPM) {
 //////////////////////////////////////////////////////////////////////////
 
 MinefieldProtocolMode Minefield_State_PDU::GetMinefieldProtocolMode() const {
-  return (MinefieldProtocolMode)m_ui16ProtocolModeUnion.m_ui16ProtocolMode2;
+  return static_cast<MinefieldProtocolMode>(
+      m_ui16ProtocolModeUnion.m_ui16ProtocolMode2);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -276,7 +277,7 @@ KString Minefield_State_PDU::GetAsString() const {
      << Minefield_Header::GetAsString()
      << "Sequence Number:     " << m_SeqNumUnion.m_ui16SeqNum15 << "\n"
      << "Force ID:            " << GetEnumAsStringForceID(m_ui8ForceID) << "\n"
-     << "Number Perim Points: " << (KUINT16)m_ui8NumPerimPoints << "\n"
+     << "Number Perim Points: " << m_ui8NumPerimPoints << "\n"
      << "Minefield Type:      " << m_MinefieldType.GetAsString()
      << "Number Mine Types:   " << m_ui16NumMineTypes << "\n"
      << "Minefield Location:  " << m_Loc.GetAsString()

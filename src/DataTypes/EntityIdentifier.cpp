@@ -128,11 +128,12 @@ KBOOL EntityIdentifier::operator<(const EntityIdentifier& Value) const {
   // bits 48-63 = 0
   KUINT64 ui64ThisCmpVal = 0, ui64OtherCmpVal = 0;
 
-  ui64ThisCmpVal = m_ui16SiteID | (KUINT64)m_ui16ApplicationID << 16 |
-                   (KUINT64)m_ui16EntityID << 32;
+  ui64ThisCmpVal = m_ui16SiteID |
+                   static_cast<KUINT64>(m_ui16ApplicationID) << 16 |
+                   static_cast<KUINT64>(m_ui16EntityID) << 32;
   ui64OtherCmpVal = Value.m_ui16SiteID |
-                    (KUINT64)Value.m_ui16ApplicationID << 16 |
-                    (KUINT64)Value.m_ui16EntityID << 32;
+                    static_cast<KUINT64>(Value.m_ui16ApplicationID) << 16 |
+                    static_cast<KUINT64>(Value.m_ui16EntityID) << 32;
 
   return ui64ThisCmpVal < ui64OtherCmpVal;
 }

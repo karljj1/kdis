@@ -118,7 +118,7 @@ void Transfer_Control_Request_PDU::SetRequiredReliabilityService(
 
 RequiredReliabilityService
 Transfer_Control_Request_PDU::GetRequiredReliabilityService() const {
-  return (RequiredReliabilityService)m_ui8ReqRelSrv;
+  return static_cast<RequiredReliabilityService>(m_ui8ReqRelSrv);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -130,7 +130,7 @@ void Transfer_Control_Request_PDU::SetTransferType(TransferType TT) {
 //////////////////////////////////////////////////////////////////////////
 
 TransferType Transfer_Control_Request_PDU::GetTransferType() const {
-  return (TransferType)m_ui8TrnTyp;
+  return static_cast<TransferType>(m_ui8TrnTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////

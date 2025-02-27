@@ -124,7 +124,7 @@ void Attribute_PDU::SetExtendedPDUType(PDUType T) { m_ui8ExtPDUType = T; }
 //////////////////////////////////////////////////////////////////////////
 
 PDUType Attribute_PDU::GetExtendedPDUType() const {
-  return (PDUType)m_ui8ExtPDUType;
+  return static_cast<PDUType>(m_ui8ExtPDUType);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ void Attribute_PDU::SetExtendedProtocolVersion(ProtocolVersion PV) {
 //////////////////////////////////////////////////////////////////////////
 
 ProtocolVersion Attribute_PDU::GetExtendedProtocolVersion() const {
-  return (ProtocolVersion)m_ui8ExtProtocolVersion;
+  return static_cast<ProtocolVersion>(m_ui8ExtProtocolVersion);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -148,7 +148,7 @@ void Attribute_PDU::SetMasterAttributeRecordType(AttributeID MART) {
 //////////////////////////////////////////////////////////////////////////
 
 AttributeID Attribute_PDU::GetMasterAttributeRecordType() const {
-  return (AttributeID)m_ui32MasterRecType;
+  return static_cast<AttributeID>(m_ui32MasterRecType);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -158,7 +158,7 @@ void Attribute_PDU::SetActionCode(ActionCode AC) { m_ui8ActionCode = AC; }
 //////////////////////////////////////////////////////////////////////////
 
 ActionCode Attribute_PDU::GetActionCode() const {
-  return (ActionCode)m_ui8ActionCode;
+  return static_cast<ActionCode>(m_ui8ActionCode);
 }
 
 //////////////////////////////////////////////////////////////////////////

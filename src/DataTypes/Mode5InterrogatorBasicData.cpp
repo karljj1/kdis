@@ -103,7 +103,7 @@ void Mode5InterrogatorBasicData::SetMessageFormatsPresent(
 
 const std::bitset<32>
 Mode5InterrogatorBasicData::GetMessageFormatsPresentBitSet() const {
-  return bitset<32>((KINT32)m_ui32MsgFormats);
+  return bitset<32>(static_cast<KINT32>(m_ui32MsgFormats));
 }
 
 //////////////////////////////////////////////////////////////////////////

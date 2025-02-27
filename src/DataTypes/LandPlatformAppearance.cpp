@@ -44,7 +44,7 @@ void LandPlatformAppearance::SetEntityPaintScheme(EntityPaintScheme EPS) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityPaintScheme LandPlatformAppearance::GetEntityPaintScheme() const {
-  return (EntityPaintScheme)m_PaintScheme;
+  return static_cast<EntityPaintScheme>(m_PaintScheme);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ void LandPlatformAppearance::SetEntityDamage(EntityDamage ED) { m_Damage = ED; }
 //////////////////////////////////////////////////////////////////////////
 
 EntityDamage LandPlatformAppearance::GetEntityDamage() const {
-  return (EntityDamage)m_Damage;
+  return static_cast<EntityDamage>(m_Damage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ void LandPlatformAppearance::SetEntitySmoke(EntitySmoke ES) { m_Smoke = ES; }
 //////////////////////////////////////////////////////////////////////////
 
 EntitySmoke LandPlatformAppearance::GetEntitySmoke() const {
-  return (EntitySmoke)m_Smoke;
+  return static_cast<EntitySmoke>(m_Smoke);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ void LandPlatformAppearance::SetEntityTrailingEffect(EntityTrailingEffect ETE) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityTrailingEffect LandPlatformAppearance::GetEntityTrailingEffect() const {
-  return (EntityTrailingEffect)m_TrailingEffect;
+  return static_cast<EntityTrailingEffect>(m_TrailingEffect);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -108,7 +108,7 @@ void LandPlatformAppearance::SetEntityHatchState(EntityHatchState EHS) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityHatchState LandPlatformAppearance::GetEntityHatchState() const {
-  return (EntityHatchState)m_HatchState;
+  return static_cast<EntityHatchState>(m_HatchState);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ void LandPlatformAppearance::SetEntityCamouflage(EntityCamouflage EC) {
 //////////////////////////////////////////////////////////////////////////
 
 EntityCamouflage LandPlatformAppearance::GetEntityCamouflage() const {
-  return (EntityCamouflage)m_Camouflage;
+  return static_cast<EntityCamouflage>(m_Camouflage);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -352,8 +352,8 @@ KBOOL LandPlatformAppearance::operator==(
   // Lets do a single comparison instead of checking every field.
   // This struct is basically a KUINT32 so lets cast it to one and compare.
 
-  KUINT32 a = *(KUINT32*)this;
-  KUINT32 b = *(KUINT32*)&Value;
+  KUINT32 a = *reinterpret_cast<const KUINT32*>(this);
+  KUINT32 b = *reinterpret_cast<const KUINT32*>(&Value);
 
   if (a != b) return false;
   return true;

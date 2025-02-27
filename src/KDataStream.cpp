@@ -80,7 +80,7 @@ KUINT16 KDataStream::GetBufferSize() const {
   // positive value (undesired).
   //  Example:  (unsigned short)(8 - 16) = 65528, but (int)(8 - 16) = -8
   // Non-breaking fix:  // Throw instead of erroneously returning large +#
-  if ((KINT16)(m_vBuffer.size() - m_ui16CurrentWritePos) < 0) {
+  if (static_cast<KINT16>(m_vBuffer.size() - m_ui16CurrentWritePos) < 0) {
     throw KException(ErrorCode::BUFFER_TOO_SMALL);  // an alternate fix would be
                                                     // to return zero (0)
   }
@@ -91,7 +91,9 @@ KUINT16 KDataStream::GetBufferSize() const {
 
 KUINT16 KDataStream::CopyIntoBuffer(KOCTET* Buffer, KUINT16 BufferSize,
                                     KUINT16 WritePos /*= 0*/) const {
-  if ((KINT16)(BufferSize - WritePos) < (KUINT16)m_vBuffer.size()) {
+  if (!Buffer) throw KException(ErrorCode::INVALID_OPERATION);
+  if (WritePos > BufferSize) throw KException(ErrorCode::BUFFER_TOO_SMALL);
+  if ((BufferSize - WritePos) < m_vBuffer.size()) {
     throw KException(ErrorCode::BUFFER_TOO_SMALL);
   }
 
@@ -121,7 +123,7 @@ void KDataStream::CopyFromBuffer(
 //////////////////////////////////////////////////////////////////////////
 
 const KOCTET* KDataStream::GetBufferPtr() const {
-  return (const KOCTET*)&m_vBuffer[0];
+  return reinterpret_cast<const KOCTET*>(&m_vBuffer[0]);
 }
 
 //////////////////////////////////////////////////////////////////////////

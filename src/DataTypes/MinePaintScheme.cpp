@@ -61,7 +61,7 @@ void MinePaintScheme::SetAlgae(MineAlgae A) { m_PntScmUnion.m_ui8Alg = A; }
 //////////////////////////////////////////////////////////////////////////
 
 MineAlgae MinePaintScheme::GetAlgae() const {
-  return (MineAlgae)m_PntScmUnion.m_ui8Alg;
+  return static_cast<MineAlgae>(m_PntScmUnion.m_ui8Alg);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ void MinePaintScheme::SetPaintScheme(PaintScheme PS) {
 //////////////////////////////////////////////////////////////////////////
 
 PaintScheme MinePaintScheme::GetPaintScheme() const {
-  return (PaintScheme)m_PntScmUnion.m_ui8Scm;
+  return static_cast<PaintScheme>(m_PntScmUnion.m_ui8Scm);
 }
 
 //////////////////////////////////////////////////////////////////////////

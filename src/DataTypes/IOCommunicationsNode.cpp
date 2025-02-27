@@ -75,7 +75,7 @@ void IOCommunicationsNode::SetIOCommunicationsNodeType(
 
 IOCommunicationsNodeType IOCommunicationsNode::GetIOCommunicationsNodeType()
     const {
-  return (IOCommunicationsNodeType)m_ui8CommNodeTyp;
+  return static_cast<IOCommunicationsNodeType>(m_ui8CommNodeTyp);
 }
 
 //////////////////////////////////////////////////////////////////////////

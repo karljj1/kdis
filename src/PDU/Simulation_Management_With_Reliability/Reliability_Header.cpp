@@ -69,7 +69,7 @@ void Reliability_Header::SetRequiredReliabilityService(
 
 RequiredReliabilityService Reliability_Header::GetRequiredReliabilityService()
     const {
-  return (RequiredReliabilityService)m_ui8ReqRelSrv;
+  return static_cast<RequiredReliabilityService>(m_ui8ReqRelSrv);
 }
 
 //////////////////////////////////////////////////////////////////////////

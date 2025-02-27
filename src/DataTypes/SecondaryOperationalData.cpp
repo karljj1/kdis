@@ -91,8 +91,9 @@ KString SecondaryOperationalData::GetAsString() const {
   KStringStream ss;
 
   ss << "SecondaryOperationalData:" << "\n\tParameter 1:                   "
-     << (KUINT16)m_ui8Param1
-     << "\n\tParameter 2:                   " << (KUINT16)m_ui8Param2
+     << static_cast<KUINT16>(m_ui8Param1)
+     << "\n\tParameter 2:                   "
+     << static_cast<KUINT16>(m_ui8Param2)
      << "\n\tNumber Fundamental Param Sets: " << m_ui16NumFundParamSets << "\n";
 
   return ss.str();

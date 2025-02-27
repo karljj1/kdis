@@ -7,6 +7,8 @@ set(KDIS_TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/ConversionTests.cpp ${KDIS_TESTS_DIR}/PDU_Factory.cpp
                        ${KDIS_TESTS_DIR}/PDU_Clone.cpp
 )
+list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/Extras.cpp
+                               ${KDIS_TESTS_DIR}/KDataStreamTests.cpp)
 # DIS 5
 list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/DataType_EncodeDecode5.cpp
      ${KDIS_TESTS_DIR}/PDU_EncodeDecode5.cpp ${KDIS_TESTS_DIR}/PDU_FactoryDecoder5.cpp
@@ -59,7 +61,8 @@ endif()
 # GoogleTest
 #
 include(GoogleTest)
-gtest_discover_tests(${PROJECT_NAME}_tests)
+gtest_discover_tests(${PROJECT_NAME}_tests
+  DISCOVERY_TIMEOUT 20)  # default is 5 seconds
 
 #
 # Coverage

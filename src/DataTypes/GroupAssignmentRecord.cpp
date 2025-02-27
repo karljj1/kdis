@@ -105,10 +105,9 @@ void GroupAssignmentRecord::SetGroupBitField(KUINT8 Group,
                                              KBOOL InGroup /*= true*/) {
   if (Group > 31) throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
-  bitset<32> bits(
-      (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
-                                  // visual studio 2010 fix
+  bitset<32> bits(m_ui32GrpBtField);
   InGroup ? bits.set(Group) : bits.reset(Group);
+  m_ui32GrpBtField = static_cast<KUINT32>(bits.to_ulong());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -116,9 +115,7 @@ void GroupAssignmentRecord::SetGroupBitField(KUINT8 Group,
 KBOOL GroupAssignmentRecord::IsGroupBitSet(KUINT8 Group) const {
   if (Group > 31) throw KException(ErrorCode::OUT_OF_BOUNDS, __FUNCTION__);
 
-  const bitset<32> bits(
-      (KINT32)m_ui32GrpBtField);  // We need to cast to a signed int, this is a
-                                  // visual studio 2010 fix
+  const bitset<32> bits(m_ui32GrpBtField);
   return bits.test(Group);
 }
 
@@ -155,7 +152,7 @@ KString GroupAssignmentRecord::GetAsString() const {
      << "\nGroup Bit Field:         " << m_ui32GrpBtField << "Entity ID:\n"
      << IndentString(m_Entity.GetAsString(), 1)
      << "Communication Device ID:   " << m_ui16DstCommsDvcID
-     << "\nLine ID:                 " << (KUINT16)m_ui8DstLineID << "\n";
+     << "\nLine ID:                 " << m_ui8DstLineID << "\n";
 
   return ss.str();
 }

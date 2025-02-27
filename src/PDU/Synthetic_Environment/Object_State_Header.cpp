@@ -139,7 +139,7 @@ void Object_State_Header::SetForceID(ForceID ID) { m_ui8ForceID = ID; }
 //////////////////////////////////////////////////////////////////////////
 
 ForceID Object_State_Header::GetForceID() const {
-  return (ForceID)m_ui8ForceID;
+  return static_cast<ForceID>(m_ui8ForceID);
 }
 
 //////////////////////////////////////////////////////////////////////////

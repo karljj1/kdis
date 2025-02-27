@@ -86,7 +86,7 @@ Appearance_PDU::~Appearance_PDU() {}
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetForceIDFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8ForceId) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8ForceId) return;
 
   m_AppearanceFlag1Union.m_ui8ForceId = F;
 
@@ -106,7 +106,7 @@ KBOOL Appearance_PDU::GetForceIDFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetEntityTypeFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8Typ) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8Typ) return;
 
   m_AppearanceFlag1Union.m_ui8Typ = F;
 
@@ -126,7 +126,7 @@ KBOOL Appearance_PDU::GetEntityTypeFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetAlternateEntityTypeFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8AltTyp) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8AltTyp) return;
 
   m_AppearanceFlag1Union.m_ui8AltTyp = F;
 
@@ -146,7 +146,7 @@ KBOOL Appearance_PDU::GetAlternateEntityTypeFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetEntityMarkingFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8Mark) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8Mark) return;
 
   m_AppearanceFlag1Union.m_ui8Mark = F;
 
@@ -166,7 +166,7 @@ KBOOL Appearance_PDU::GetEntityMarkingFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetCapabilitiesFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8Cap) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8Cap) return;
 
   m_AppearanceFlag1Union.m_ui8Cap = F;
 
@@ -186,7 +186,7 @@ KBOOL Appearance_PDU::GetCapabilitiesFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetAppearanceVisualFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8Vis) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8Vis) return;
 
   m_AppearanceFlag1Union.m_ui8Vis = F;
 
@@ -206,7 +206,7 @@ KBOOL Appearance_PDU::GetAppearanceVisualFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetAppearanceIRFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8IR) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8IR) return;
 
   m_AppearanceFlag1Union.m_ui8IR = F;
 
@@ -226,7 +226,7 @@ KBOOL Appearance_PDU::GetAppearanceIRFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetFlag2Flag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag1Union.m_ui8Flag2) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag1Union.m_ui8Flag2) return;
 
   m_AppearanceFlag1Union.m_ui8Flag2 = F;
 
@@ -246,7 +246,7 @@ KBOOL Appearance_PDU::GetFlag2Flag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetAppearanceEMFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag2Union.m_ui8EM) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag2Union.m_ui8EM) return;
 
   m_AppearanceFlag2Union.m_ui8EM = F;
 
@@ -267,7 +267,7 @@ KBOOL Appearance_PDU::GetAppearanceEMFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void Appearance_PDU::SetAppearanceAudioFlag(KBOOL F) {
-  if ((KUINT8)F == m_AppearanceFlag2Union.m_ui8Audio) return;
+  if (static_cast<KUINT8>(F) == m_AppearanceFlag2Union.m_ui8Audio) return;
 
   m_AppearanceFlag2Union.m_ui8Audio = F;
 
@@ -294,7 +294,9 @@ void Appearance_PDU::SetForceID(ForceID ID) {
 
 //////////////////////////////////////////////////////////////////////////
 
-ForceID Appearance_PDU::GetForceID() const { return (ForceID)m_ui8ForceID; }
+ForceID Appearance_PDU::GetForceID() const {
+  return static_cast<ForceID>(m_ui8ForceID);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -439,32 +441,24 @@ KString Appearance_PDU::GetAsString() const {
 
   ss << LE_Header::GetAsString() << "-Appearance PDU-\n"
      << "Optional Field Flags:\n"
-     << "\tForce ID:              "
-     << (KUINT16)m_AppearanceFlag1Union.m_ui8ForceId << "\n"
-     << "\tEntity Type:           " << (KUINT16)m_AppearanceFlag1Union.m_ui8Typ
+     << "\tForce ID:              " << m_AppearanceFlag1Union.m_ui8ForceId
      << "\n"
-     << "\tAlternate Entity Type: "
-     << (KUINT16)m_AppearanceFlag1Union.m_ui8AltTyp << "\n"
-     << "\tEntity Marking:        " << (KUINT16)m_AppearanceFlag1Union.m_ui8Mark
+     << "\tEntity Type:           " << m_AppearanceFlag1Union.m_ui8Typ << "\n"
+     << "\tAlternate Entity Type: " << m_AppearanceFlag1Union.m_ui8AltTyp
      << "\n"
-     << "\tCapabilities:          " << (KUINT16)m_AppearanceFlag1Union.m_ui8Cap
-     << "\n"
-     << "\tAppearance-Visual:     " << (KUINT16)m_AppearanceFlag1Union.m_ui8Vis
-     << "\n"
-     << "\tAppearance-IR:         " << (KUINT16)m_AppearanceFlag1Union.m_ui8IR
-     << "\n"
-     << "\tFlag2:                 "
-     << (KUINT16)m_AppearanceFlag1Union.m_ui8Flag2 << "\n"
-     << "\tAppearance-EM:         " << (KUINT16)m_AppearanceFlag2Union.m_ui8EM
-     << "\n"
-     << "\tAppearance-Audio:      "
-     << (KUINT16)m_AppearanceFlag2Union.m_ui8Audio << "\n";
+     << "\tEntity Marking:        " << m_AppearanceFlag1Union.m_ui8Mark << "\n"
+     << "\tCapabilities:          " << m_AppearanceFlag1Union.m_ui8Cap << "\n"
+     << "\tAppearance-Visual:     " << m_AppearanceFlag1Union.m_ui8Vis << "\n"
+     << "\tAppearance-IR:         " << m_AppearanceFlag1Union.m_ui8IR << "\n"
+     << "\tFlag2:                 " << m_AppearanceFlag1Union.m_ui8Flag2 << "\n"
+     << "\tAppearance-EM:         " << m_AppearanceFlag2Union.m_ui8EM << "\n"
+     << "\tAppearance-Audio:      " << m_AppearanceFlag2Union.m_ui8Audio
+     << "\n";
 
   if (m_AppearanceFlag1Union.m_ui8Flag2) {
-    ss << "\tAppearance-EM:         " << (KUINT16)m_AppearanceFlag2Union.m_ui8EM
-       << "\n"
-       << "\tAppearance-Audio:      "
-       << (KUINT16)m_AppearanceFlag2Union.m_ui8Audio << "\n";
+    ss << "\tAppearance-EM:         " << m_AppearanceFlag2Union.m_ui8EM << "\n"
+       << "\tAppearance-Audio:      " << m_AppearanceFlag2Union.m_ui8Audio
+       << "\n";
   }
 
   if (m_AppearanceFlag1Union.m_ui8ForceId) {

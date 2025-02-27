@@ -241,9 +241,9 @@ KString GED_GroundLogisticsVehicle::GetAsString() const {
      << m_i16Offsets[1] << " " << m_i16Offsets[2] << "\n"
      << IndentString(m_EA.GetAsString(EntityType(Platform, Air, 0, 0, 0, 0, 0)),
                      1)
-     << "\tOrientation(Psi,Theta,Phi): " << (KINT16)m_i8Ori[0] << " "
-     << (KINT16)m_i8Ori[1] << " " << (KINT16)m_i8Ori[2] << "\n"
-     << "\tSpeed:                      " << (KINT16)m_i8Spd << "\n";
+     << "\tOrientation(Psi,Theta,Phi): " << m_i8Ori[0] << " " << m_i8Ori[1]
+     << " " << m_i8Ori[2] << "\n"
+     << "\tSpeed:                      " << m_i8Spd << "\n";
 
   return ss.str();
 }

@@ -27,9 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/PDU/Live_Entity/LE_Detonation_PDU.hpp"
-
 #include <cassert>
+
+#include "KDIS/PDU/Live_Entity/LE_Detonation_PDU.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -143,7 +143,7 @@ LE_Detonation_PDU::~LE_Detonation_PDU() {}
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetTargetEntityIDFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8TargetId) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8TargetId) return;
 
   m_DetonationFlag1Union.m_ui8TargetId = F;
 
@@ -163,7 +163,7 @@ KBOOL LE_Detonation_PDU::GetTargetEntityIDFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetMunitionEntityIDFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8MunitionId) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8MunitionId) return;
 
   m_DetonationFlag1Union.m_ui8MunitionId = F;
 
@@ -184,7 +184,8 @@ KBOOL LE_Detonation_PDU::GetMunitionEntityIDFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetMunitionEntityIDSiteAppIncludedFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8MunitionSiteApp) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8MunitionSiteApp)
+    return;
 
   m_DetonationFlag1Union.m_ui8MunitionSiteApp = F;
 
@@ -205,7 +206,8 @@ KBOOL LE_Detonation_PDU::GetMunitionEntityIDSiteAppIncludedFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetEventIDSiteAppIncludedFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8EventSiteAppId) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8EventSiteAppId)
+    return;
 
   m_DetonationFlag1Union.m_ui8EventSiteAppId = F;
 
@@ -226,7 +228,7 @@ KBOOL LE_Detonation_PDU::GetEventIDSiteAppIncludedFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetWarheadFuseFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8WarheadFuse) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8WarheadFuse) return;
 
   m_DetonationFlag1Union.m_ui8WarheadFuse = F;
 
@@ -247,7 +249,7 @@ KBOOL LE_Detonation_PDU::GetWarheadFuseFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetQuantityRateFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8QuantRate) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8QuantRate) return;
 
   m_DetonationFlag1Union.m_ui8QuantRate = F;
 
@@ -268,7 +270,7 @@ KBOOL LE_Detonation_PDU::GetQuantityRateFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetLocationInEntityCoordinatesFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8LocationTyp) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8LocationTyp) return;
 
   m_DetonationFlag1Union.m_ui8LocationTyp = F;
 
@@ -290,7 +292,7 @@ KBOOL LE_Detonation_PDU::GetLocationInEntityCoordinatesFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetFlag2Flag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag1Union.m_ui8Flag2) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag1Union.m_ui8Flag2) return;
 
   m_DetonationFlag1Union.m_ui8Flag2 = F;
 
@@ -310,7 +312,7 @@ KBOOL LE_Detonation_PDU::GetFlag2Flag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetMunitionOrientationFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag2Union.m_ui8MunitionOri) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag2Union.m_ui8MunitionOri) return;
 
   m_DetonationFlag2Union.m_ui8MunitionOri = F;
 
@@ -332,7 +334,7 @@ KBOOL LE_Detonation_PDU::GetMunitionOrientationFlag() const {
 //////////////////////////////////////////////////////////////////////////
 
 void LE_Detonation_PDU::SetEventNumberIncludedFlag(KBOOL F) {
-  if ((KUINT8)F == m_DetonationFlag2Union.m_ui8EventNum) return;
+  if (static_cast<KUINT8>(F) == m_DetonationFlag2Union.m_ui8EventNum) return;
 
   m_DetonationFlag2Union.m_ui8EventNum = F;
 
@@ -536,7 +538,7 @@ void LE_Detonation_PDU::SetDetonationResult(DetonationResult DR) {
 //////////////////////////////////////////////////////////////////////////
 
 DetonationResult LE_Detonation_PDU::GetDetonationResult() const {
-  return (DetonationResult)m_ui8DetonationResult;
+  return static_cast<DetonationResult>(m_ui8DetonationResult);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -547,27 +549,26 @@ KString LE_Detonation_PDU::GetAsString() const {
   ss << LE_Header::GetAsString() << "-LE Detonation PDU-\n"
      << "Optional Field Flags:\n"
      << "\tTarget ID:                            "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8TargetId << "\n"
+     << m_DetonationFlag1Union.m_ui8TargetId << "\n"
      << "\tMunition ID:                          "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8MunitionId << "\n"
+     << m_DetonationFlag1Union.m_ui8MunitionId << "\n"
      << "\tMunition Site & Application Included: "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8MunitionSiteApp << "\n"
+     << m_DetonationFlag1Union.m_ui8MunitionSiteApp << "\n"
      << "\tEvent Site & Application Included:    "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8EventSiteAppId << "\n"
+     << m_DetonationFlag1Union.m_ui8EventSiteAppId << "\n"
      << "\tWarhead & Fuse Included:              "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8WarheadFuse << "\n"
+     << m_DetonationFlag1Union.m_ui8WarheadFuse << "\n"
      << "\tQuantity & Rate Included:             "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8QuantRate << "\n"
+     << m_DetonationFlag1Union.m_ui8QuantRate << "\n"
      << "\tLocation In Entity Coordinates:       "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8LocationTyp << "\n"
+     << m_DetonationFlag1Union.m_ui8LocationTyp << "\n"
      << "\tFlag 2:                               "
-     << (KUINT16)m_DetonationFlag1Union.m_ui8Flag2 << "\n";
+     << m_DetonationFlag1Union.m_ui8Flag2 << "\n";
 
   if (m_DetonationFlag1Union.m_ui8Flag2) {
-    ss << "\tMunition Orientation: "
-       << (KUINT16)m_DetonationFlag2Union.m_ui8MunitionOri << "\n"
-       << "\tEvent Number: " << (KUINT16)m_DetonationFlag2Union.m_ui8EventNum
-       << "\n";
+    ss << "\tMunition Orientation: " << m_DetonationFlag2Union.m_ui8MunitionOri
+       << "\n"
+       << "\tEvent Number: " << m_DetonationFlag2Union.m_ui8EventNum << "\n";
   }
 
   if (m_DetonationFlag1Union.m_ui8TargetId) {
@@ -688,10 +689,10 @@ void LE_Detonation_PDU::Decode(KDataStream& stream,
   // F4: Warhead and Fuse fields of the Munition Descriptor record
   if (m_DetonationFlag1Union.m_ui8WarheadFuse) {
     stream >> tmp;
-    m_MunitionDesc.SetWarhead((WarheadType)tmp);
+    m_MunitionDesc.SetWarhead(static_cast<WarheadType>(tmp));
 
     stream >> tmp;
-    m_MunitionDesc.SetFuse((FuseType)tmp);
+    m_MunitionDesc.SetFuse(static_cast<FuseType>(tmp));
   }
   // F5: Quantity and Rate fields of the Munition Descriptor record
   if (m_DetonationFlag1Union.m_ui8QuantRate) {

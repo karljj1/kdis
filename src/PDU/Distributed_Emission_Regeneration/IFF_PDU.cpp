@@ -28,7 +28,6 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp"
-
 #include "KDIS/util/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
@@ -245,8 +244,8 @@ KString IFF_PDU::GetAsString() const {
 
 #if DIS_VERSION > 6
 
-  ss << "System Designator:    " << (KUINT16)m_ui8SystemDesignator << "\n"
-     << "System Specific Data: " << (KUINT16)m_ui8SystemSpecific << "\n";
+  ss << "System Designator:    " << m_ui8SystemDesignator << "\n"
+     << "System Specific Data: " << m_ui8SystemSpecific << "\n";
 
 #endif
 

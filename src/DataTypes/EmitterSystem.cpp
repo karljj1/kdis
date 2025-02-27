@@ -60,7 +60,7 @@ void EmitterSystem::SetEmitterName(EmitterName EN) { m_ui16EmitterName = EN; }
 //////////////////////////////////////////////////////////////////////////
 
 EmitterName EmitterSystem::GetEmitterName() const {
-  return (EmitterName)m_ui16EmitterName;
+  return static_cast<EmitterName>(m_ui16EmitterName);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ void EmitterSystem::SetFunction(EmitterFunction F) { m_ui8Function = F; }
 //////////////////////////////////////////////////////////////////////////
 
 EmitterFunction EmitterSystem::GetFunction() const {
-  return (EmitterFunction)m_ui8Function;
+  return static_cast<EmitterFunction>(m_ui8Function);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ KString EmitterSystem::GetAsString() const {
   ss << "Emitter System:" << "\n\tName:     "
      << GetEnumAsStringEmitterName(m_ui16EmitterName)
      << "\n\tFunction: " << GetEnumAsStringEmitterFunction(m_ui8Function)
-     << "\n\tID:       " << (KUINT16)m_ui8EmitterIDNumber << "\n";
+     << "\n\tID:       " << m_ui8EmitterIDNumber << "\n";
 
   return ss.str();
 }

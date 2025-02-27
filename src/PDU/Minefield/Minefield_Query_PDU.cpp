@@ -263,9 +263,9 @@ KString Minefield_Query_PDU::GetAsString() const {
   ss << Header::GetAsString() << "-Minefield Query PDU-\n"
      << Minefield_Header::GetAsString()
      << "Requesting ID:           " << IndentString(m_ReqID.GetAsString(), 1)
-     << "Request ID:              " << (KUINT16)m_ui8ReqID << "\n"
-     << "Number Of Permim Points: " << (KUINT16)m_ui8NumPerimPoints << "\n"
-     << "Number Of Sensor Types:  " << (KUINT16)m_ui8NumSensTyp << "\n"
+     << "Request ID:              " << m_ui8ReqID << "\n"
+     << "Number Of Permim Points: " << m_ui8NumPerimPoints << "\n"
+     << "Number Of Sensor Types:  " << m_ui8NumSensTyp << "\n"
      << m_DataFilter.GetAsString()
      << "Mine Type Filter:        " << m_MineTypFilter.GetAsString()
      << "Perimeter Points:\n";

@@ -89,7 +89,7 @@ void Mode5InterrogatorStatus::SetMode5MessageFormat(Mode5MessageFormat MF) {
 //////////////////////////////////////////////////////////////////////////
 
 Mode5MessageFormat Mode5InterrogatorStatus::GetMode5MessageFormat() const {
-  return (Mode5MessageFormat)m_StatusUnion.m_ui8MsgFrmt;
+  return static_cast<Mode5MessageFormat>(m_StatusUnion.m_ui8MsgFrmt);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -133,11 +133,13 @@ KBOOL Mode5InterrogatorStatus::HasMalfunction() const {
 KString Mode5InterrogatorStatus::GetAsString() const {
   KStringStream ss;
   ss << "Mode 5 Interrogator Status:" << "\n\tIFF Mission:    "
-     << (KUINT16)m_StatusUnion.m_ui8IffMis << "\n\tMessage Format: "
+     << static_cast<KUINT16>(m_StatusUnion.m_ui8IffMis)
+     << "\n\tMessage Format: "
      << GetEnumAsStringMode5MessageFormat(m_StatusUnion.m_ui8MsgFrmt)
-     << "\n\tOn/Off Status:  " << (KBOOL)m_StatusUnion.m_ui8OnOff
-     << "\n\tDamaged:        " << (KBOOL)m_StatusUnion.m_ui8Dmg
-     << "\n\tMalfunction:    " << (KBOOL)m_StatusUnion.m_ui8MalFnc << "\n";
+     << "\n\tOn/Off Status:  " << static_cast<KBOOL>(m_StatusUnion.m_ui8OnOff)
+     << "\n\tDamaged:        " << static_cast<KBOOL>(m_StatusUnion.m_ui8Dmg)
+     << "\n\tMalfunction:    " << static_cast<KBOOL>(m_StatusUnion.m_ui8MalFnc)
+     << "\n";
 
   return ss.str();
 }
