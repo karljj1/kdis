@@ -49,7 +49,7 @@ IOEffect::IOEffect()
       m_ui16EffDur(0),
       m_ui16Proc(0),
       m_ui16Padding(0) {
-  m_ui32Type = IOEffectRecord;
+  m_ui32Type = static_cast<KUINT32>(StandardVariableType::IOEffectRecord);
   m_ui16Length = IO_EFFECT_TYPE_SIZE;
 }
 
@@ -57,9 +57,9 @@ IOEffect::IOEffect()
 
 IOEffect::IOEffect(IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
                    KUINT16 Duration, KUINT16 Process)
-    : m_ui8Status(S),
-      m_ui8LnkTyp(LT),
-      m_ui8Eff(ET),
+    : m_ui8Status(static_cast<KUINT8>(S)),
+      m_ui8LnkTyp(static_cast<KUINT8>(LT)),
+      m_ui8Eff(static_cast<KUINT8>(ET)),
       m_ui8EffDtyCyc(0),
       m_ui16EffDur(Duration),
       m_ui16Proc(Process),
@@ -67,7 +67,7 @@ IOEffect::IOEffect(IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
   // Set duty cycle, may cause exception if the value is not valid.
   SetEffectDutyCycle(DutyCycle);
 
-  m_ui32Type = IOEffectRecord;
+  m_ui32Type = static_cast<KUINT32>(StandardVariableType::IOEffectRecord);
   m_ui16Length = IO_EFFECT_TYPE_SIZE;
 }
 
@@ -81,7 +81,7 @@ IOEffect::~IOEffect() {}
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::SetStatus(IOStatus S) { m_ui8Status = S; }
+void IOEffect::SetStatus(IOStatus S) { m_ui8Status = static_cast<KUINT8>(S); }
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -91,7 +91,9 @@ IOStatus IOEffect::GetStatus() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::SetLinkType(IOLinkType LT) { m_ui8LnkTyp = LT; }
+void IOEffect::SetLinkType(IOLinkType LT) {
+  m_ui8LnkTyp = static_cast<KUINT8>(LT);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -101,7 +103,9 @@ IOLinkType IOEffect::GetLinkType() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void IOEffect::SetEffectType(IOEffectType ET) { m_ui8Eff = ET; }
+void IOEffect::SetEffectType(IOEffectType ET) {
+  m_ui8Eff = static_cast<KUINT8>(ET);
+}
 
 //////////////////////////////////////////////////////////////////////////
 
