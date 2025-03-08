@@ -117,6 +117,16 @@ TEST(DataType_EncodeDecode6, AggregateMarking) {
   KDIS::DATA_TYPE::AggregateMarking dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+  EXPECT_NO_THROW(dtIn.SetAggregateMarkingString("on your mark,"));
+  const KDIS::KString amstr{"get set, go!"};
+  KDIS::DATA_TYPE::AggregateMarking am2{KDIS::DATA_TYPE::ENUMS::ASCII, amstr};
+  EXPECT_EQ(amstr, am2.GetAggregateMarkingString());
+  KDIS::KDataStream stream2;
+  EXPECT_THROW(am2.Decode(stream2), KDIS::KException);  // too short
+  EXPECT_NO_THROW(am2.Encode(stream2));
+  EXPECT_NO_THROW(am2.Decode(stream2));
+  EXPECT_TRUE(dtIn == dtIn);
+  EXPECT_TRUE(dtIn != am2);
 }
 
 TEST(DataType_EncodeDecode6, AggregateType) {

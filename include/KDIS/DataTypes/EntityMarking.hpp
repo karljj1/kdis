@@ -40,33 +40,30 @@ need to be made to support the other sets. size:       96 bits / 12 Octets
 #pragma once
 
 #include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/util/BoundedLengthString.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
 class KDIS_EXPORT EntityMarking : public DataTypeBase {
- protected:
-  KUINT8 m_ui8EntityMarkingCharacterSet;
+ public:
+  static constexpr KUINT16 ENTITY_MARKING_SIZE{12};
 
-  KCHAR8 m_sEntityMarkingString[12];  // Extra octet for terminator, not
-                                      // included in size
+ protected:
+  KUINT8 m_ui8EntityMarkingCharacterSet{KDIS::DATA_TYPE::ENUMS::ASCII};
+
+  KDIS::UTIL::BoundedLengthString<ENTITY_MARKING_SIZE> m_sEntityMarkingString;
 
  public:
-  static const KUINT16 ENTITY_MARKING_SIZE = 12;
-
-  EntityMarking();
+  EntityMarking() = default;
 
   EntityMarking(KDataStream& stream);
 
   EntityMarking(
       const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet,
-      const KCHAR8* MarkingText, KUINT16 TextSize);
-
-  EntityMarking(
-      const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet,
       const KString& MarkingText);
 
-  virtual ~EntityMarking();
+  virtual ~EntityMarking() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityMarking::SetEntityMarkingCharacterSet
@@ -75,18 +72,17 @@ class KDIS_EXPORT EntityMarking : public DataTypeBase {
   // Parameter:   EntityMarkingCharacterSet EMCS, void
   //************************************
   void SetEntityMarkingCharacterSet(
-      KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet EMCS);
+      const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet EMCS);
   KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet
   GetEntityMarkingCharacterSet() const;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityMarking::SetEntityMarkingString
   //              KDIS::DATA_TYPE::EntityMarking::GetEntityMarkingString
-  // Description: Marking string. entity name etc. max 11 characters.. Throws
-  // exception if string is too big. Parameter:   const KCHAR8 * EMS, const
-  // KString & EMS Parameter:   KUINT16 StringSize
+  // Description: Marking string. entity name etc. max 11 chars. Any length
+  //              beyond max will be discarded.
+  // Parameter:   const KString&, void
   //************************************
-  void SetEntityMarkingString(const KCHAR8* EMS, KUINT16 StringSize);
   void SetEntityMarkingString(const KString& EMS);
   KString GetEntityMarkingString() const;
 

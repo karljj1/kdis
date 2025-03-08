@@ -40,29 +40,27 @@ need to be made to support the other sets. size:       256 bits / 32 Octets
 #pragma once
 
 #include "KDIS/DataTypes/DataTypeBase.hpp"
+#include "KDIS/util/BoundedLengthString.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
 
 class KDIS_EXPORT AggregateMarking : public DataTypeBase {
  protected:
-  KUINT8 m_ui8AggregateMarkingCharacterSet;
+  KUINT8 m_ui8AggregateMarkingCharacterSet{KDIS::DATA_TYPE::ENUMS::ASCII};
 
-  KCHAR8 m_sAggregateMarkingString[32];  // Extra octet for terminator, not
-                                         // included in size
+  KDIS::UTIL::BoundedLengthString<32> m_sAggregateMarkingString;
 
  public:
-  static const KUINT16 AGGREGATE_MARKING_SIZE = 32;
-
-  AggregateMarking();
+  AggregateMarking() = default;
 
   AggregateMarking(KDataStream& stream);
 
   AggregateMarking(
       const KDIS::DATA_TYPE::ENUMS::EntityMarkingCharacterSet MarkingCharSet,
-      const KCHAR8* MarkingText, KUINT16 TextSize);
+      const KString& MarkingText);
 
-  virtual ~AggregateMarking();
+  virtual ~AggregateMarking() = default;
 
   //************************************
   // FullName:
@@ -79,11 +77,11 @@ class KDIS_EXPORT AggregateMarking : public DataTypeBase {
   //************************************
   // FullName:    KDIS::DATA_TYPE::AggregateMarking::SetAggregateMarkingString
   //              KDIS::DATA_TYPE::AggregateMarking::GetAggregateMarkingString
-  // Description: Marking string. entity name etc. max 31 octets/chars
-  // Parameter:   const KCHAR8 * EMS, void
-  // Parameter:   KUINT16 StringSize, void
+  // Description: Marking string. entity name etc. max 31 octets/chars. Any
+  //              length beyond max will be discarded.
+  // Parameter:   const KString&, void
   //************************************
-  void SetAggregateMarkingString(const KCHAR8* M, KUINT16 StringSize);
+  void SetAggregateMarkingString(const KString& str);
   KString GetAggregateMarkingString() const;
 
   //************************************
