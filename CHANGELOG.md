@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CMake` option `KDIS_BUILD_INSTALL` (default `PROJECT_IS_TOP_LEVEL`) to specify whether or not to build install
 - `CMake` option `KDIS_BUILD_TESTS_COVERAGE` (default `PROJECT_IS_TOP_LEVEL`) to specify whether or not to build tests coverage
 - Codecov added to the GitHub repository via #41
-- ROADMAP.md for information about our near term development priorities via #63
+- ROADMAP.md for information about our near term development priorities via #64
 
 ### Changed
 
@@ -34,8 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `KDIS_Change_Log.htm` file has been replaced with [`CHANGELOG.md`](./CHANGELOG.md) and is based on the format [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 - Improved header file installation for easier client consumption via #34
 - C-style casts in favor of C++ named casts via #54
-- `KDIS::DATA_TYPE::AggregateMarking` now uses `KString` instead of `KCHAR8*`/size pairs via #63
-- `KDIS::DATA_TYPE::EntityMarking` now only uses `KString` instead of `KCHAR8*`/size pairs via #63
+- `KDIS::DATA_TYPE::AggregateMarking` now uses `KString` instead of `KCHAR8*`/size pairs via #64
+- `KDIS::DATA_TYPE::EntityMarking` now only uses `KString` instead of `KCHAR8*`/size pairs via #64
 - Overall code and repository structure have been reworked to improve maintainability
 
 ### Deprecated
