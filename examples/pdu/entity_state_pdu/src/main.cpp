@@ -77,7 +77,7 @@ int main() {
     EulerAngles EntityOrientation(Psi, Theta, Phi);
     EntityAppearance EntEA;
     DeadReckoningParameter DRP(Static, Vector(0, 0, 0), Vector(0, 0, 0));
-    EntityMarking EntMarking(ASCII, "KARL", 4);
+    EntityMarking EntMarking(ASCII, "KARL");
     EntityCapabilities EntEC(false, false, false, false);
 
     // Create the PDU
