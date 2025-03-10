@@ -16,8 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CMake` option `KDIS_BUILD_DOCS` (default `PROJECT_IS_TOP_LEVEL`) to specify whether or not to build documentation
 - `CMake` option `KDIS_BUILD_INSTALL` (default `PROJECT_IS_TOP_LEVEL`) to specify whether or not to build install
 - `CMake` option `KDIS_BUILD_TESTS_COVERAGE` (default `PROJECT_IS_TOP_LEVEL`) to specify whether or not to build tests coverage
-- Codecov added to the GitHub repository via #41
-- ROADMAP.md for information about our near term development priorities via #64
+- Codecov added to the GitHub repository via [#41](https://github.com/karljj1/kdis/pull/41)
+- ROADMAP.md for information about our near term development priorities via [#64](https://github.com/karljj1/kdis/pull/64)
 
 ### Changed
 
@@ -32,10 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed `CMake` option from `BUILD_EXAMPLES` to `KDIS_BUILD_EXAMPLES`
 - Renamed `CMake` option from `BUILD_TESTS` to `KDIS_BUILD_TESTS`
 - `KDIS_Change_Log.htm` file has been replaced with [`CHANGELOG.md`](./CHANGELOG.md) and is based on the format [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
-- Improved header file installation for easier client consumption via #34
-- C-style casts in favor of C++ named casts via #54
-- `KDIS::DATA_TYPE::AggregateMarking` now uses `KString` instead of `KCHAR8*`/size pairs via #64
-- `KDIS::DATA_TYPE::EntityMarking` now only uses `KString` instead of `KCHAR8*`/size pairs via #64
+- Improved header file installation for easier client consumption via [#34](https://github.com/karljj1/kdis/pull/34)
+- C-style casts in favor of C++ named casts via [#54](https://github.com/karljj1/kdis/pull/54)
+- `KDIS::DATA_TYPE::AggregateMarking` now uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
+- `KDIS::DATA_TYPE::EntityMarking` now only uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
 - Overall code and repository structure have been reworked to improve maintainability
 
 ### Deprecated
@@ -50,9 +50,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Missing data member assignment in `GroupDestinationRecord::SetGroupBitField()` via #56
-- Incorrect data member assignment in `LinearObjectAppearance::SetBreachLocation()` via #60
-- Naming of the `LifeFormAppearance::Set/GetEntityCompliance()` methods via #58
+- Missing data member assignment in `GroupDestinationRecord::SetGroupBitField()` via [#56](https://github.com/karljj1/kdis/pull/56)
+- Incorrect data member assignment in `LinearObjectAppearance::SetBreachLocation()` via [#60](https://github.com/karljj1/kdis/pull/60)
+- Naming of the `LifeFormAppearance::Set/GetEntityCompliance()` methods via [#58](https://github.com/karljj1/kdis/pull/58)
 
 ### Security
 
