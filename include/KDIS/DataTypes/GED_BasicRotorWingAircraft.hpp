@@ -79,15 +79,15 @@ class KDIS_EXPORT GED_BasicRotorWingAircraft
   // Description: Identifies the derived GED class.
   //              Not part of the DIS PDU.
   //************************************
-  virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory
-  GetGroupedEntityCategory() const;
+  KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory()
+      const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_BasicRotorWingAircraft::GetLength
   // Description: Returns size of the GED in octets.
   //              Not part of the DIS PDU.
   //************************************
-  virtual KUINT8 GetLength() const;
+  KUINT8 GetLength() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_BasicRotorWingAircraft::SetTurretAzimuth
@@ -129,22 +129,22 @@ class KDIS_EXPORT GED_BasicRotorWingAircraft
   // FullName:    KDIS::DATA_TYPE::GED_BasicRotorWingAircraft::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_BasicRotorWingAircraft::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_BasicRotorWingAircraft::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const GED_BasicRotorWingAircraft& Value) const;
   KBOOL operator!=(const GED_BasicRotorWingAircraft& Value) const;

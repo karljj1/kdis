@@ -70,7 +70,7 @@ class KDIS_EXPORT Event_Report_R_PDU : public Event_Report_PDU {
   // FullName:    KDIS::PDU::Event_Report_R_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Event_Report_R_PDU& Value) const;
   KBOOL operator!=(const Event_Report_R_PDU& Value) const;

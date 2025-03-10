@@ -69,7 +69,7 @@ class KDIS_EXPORT Resupply_Offer_PDU : public Resupply_Received_PDU {
   // FullName:    KDIS::PDU::Resupply_Offer_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Resupply_Offer_PDU& Value) const;
   KBOOL operator!=(const Resupply_Offer_PDU& Value) const;

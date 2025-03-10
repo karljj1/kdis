@@ -99,22 +99,22 @@ class KDIS_EXPORT EllipsoidRecord1 : public EnvironmentRecord {
   // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EllipsoidRecord1::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const EllipsoidRecord1& Value) const;
   KBOOL operator!=(const EllipsoidRecord1& Value) const;

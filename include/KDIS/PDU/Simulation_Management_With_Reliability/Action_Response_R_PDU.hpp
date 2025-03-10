@@ -68,7 +68,7 @@ class KDIS_EXPORT Action_Response_R_PDU : public Action_Response_PDU {
   // FullName:    KDIS::PDU::Action_Response_R_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Action_Response_R_PDU& Value) const;
   KBOOL operator!=(const Action_Response_R_PDU& Value) const;

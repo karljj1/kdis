@@ -70,7 +70,7 @@ class KDIS_EXPORT Remove_Entity_PDU : public Create_Entity_PDU {
   // FullName:    KDIS::PDU::Remove_Entity_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Remove_Entity_PDU& Value) const;
   KBOOL operator!=(const Remove_Entity_PDU& Value) const;

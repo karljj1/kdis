@@ -153,7 +153,7 @@ KString IFF_Layer2::GetAsString() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer2::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
+void IFF_Layer2::Decode(KDataStream& stream, bool ignoreHeader) {
   if (stream.GetBufferSize() < IFF_LAYER2_SIZE)
     throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 

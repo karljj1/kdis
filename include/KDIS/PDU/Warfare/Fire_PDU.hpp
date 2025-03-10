@@ -164,7 +164,7 @@ class KDIS_EXPORT Fire_PDU : public Warfare_Header {
   // FullName:    KDIS::PDU::Fire_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::PDU::Fire_PDU::Decode
@@ -172,15 +172,15 @@ class KDIS_EXPORT Fire_PDU : public Warfare_Header {
   // Parameter:   KDataStream & stream
   // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
   //************************************
-  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
+  void Decode(KDataStream& stream, bool ignoreHeader = false) override;
 
   //************************************
   // FullName:    KDIS::PDU::Fire_PDU::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const Fire_PDU& Value) const;
   KBOOL operator!=(const Fire_PDU& Value) const;

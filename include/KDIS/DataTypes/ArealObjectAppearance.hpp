@@ -92,22 +92,22 @@ class KDIS_EXPORT ArealObjectAppearance : public ObjectAppearance {
   // Description: Returns a string representation of the appearance
   // Parameter:   const EntityType & EntType
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::ArealObjectAppearance::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const ArealObjectAppearance& Value) const;
   KBOOL operator!=(const ArealObjectAppearance& Value) const;

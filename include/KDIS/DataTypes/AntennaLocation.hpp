@@ -89,22 +89,22 @@ class KDIS_EXPORT AntennaLocation : public DataTypeBase {
   // FullName:    KDIS::DataTypes::AntennaLocation::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DataTypes::AntennaLocation::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DataTypes::AntennaLocation::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const AntennaLocation& Value) const;
   KBOOL operator!=(const AntennaLocation& Value) const;
