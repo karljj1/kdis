@@ -128,28 +128,28 @@ class KDIS_EXPORT GridDataType1 : public GridData {
   //              Note: This information is not encoded into the PDU, it is here
   //              for the internal calculation of the PDU length value.
   //************************************
-  virtual KUINT16 GetSize() const;
+  KUINT16 GetSize() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridDataType1::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridDataType1::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridDataType1::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const GridDataType1& Value) const;
   KBOOL operator!=(const GridDataType1& Value) const;

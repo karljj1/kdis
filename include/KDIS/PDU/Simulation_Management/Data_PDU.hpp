@@ -86,14 +86,14 @@ class KDIS_EXPORT Data_PDU : public Comment_PDU {
   // Description: Sets variable datums and updates PDU length.
   // Parameter:   const vector<VarDtmPtr> & VD
   //************************************
-  virtual void SetVariableDatum(
-      const std::vector<KDIS::DATA_TYPE::VarDtmPtr>& VD);
+  void SetVariableDatum(
+      const std::vector<KDIS::DATA_TYPE::VarDtmPtr>& VD) override;
 
   //************************************
   // FullName:    KDIS::PDU::Data_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::PDU::Data_PDU::Decode
@@ -101,15 +101,15 @@ class KDIS_EXPORT Data_PDU : public Comment_PDU {
   // Parameter:   KDataStream & stream
   // Parameter:   bool ignoreHeader = false - Decode the header from the stream?
   //************************************
-  virtual void Decode(KDataStream& stream, bool ignoreHeader = false);
+  void Decode(KDataStream& stream, bool ignoreHeader = false) override;
 
   //************************************
   // FullName:    KDIS::PDU::Data_PDU::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const Data_PDU& Value) const;
   KBOOL operator!=(const Data_PDU& Value) const;

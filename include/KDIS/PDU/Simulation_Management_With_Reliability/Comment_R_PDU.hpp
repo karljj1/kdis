@@ -67,7 +67,7 @@ class KDIS_EXPORT Comment_R_PDU : public Comment_PDU {
   // FullName:    KDIS::PDU::Comment_R_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Comment_R_PDU& Value) const;
   KBOOL operator!=(const Comment_R_PDU& Value) const;

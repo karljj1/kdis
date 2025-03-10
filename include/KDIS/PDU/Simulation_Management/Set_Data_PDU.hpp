@@ -67,7 +67,7 @@ class KDIS_EXPORT Set_Data_PDU : public Data_PDU {
   // FullName:    KDIS::PDU::Set_Data_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Set_Data_PDU& Value) const;
   KBOOL operator!=(const Set_Data_PDU& Value) const;

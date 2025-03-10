@@ -82,22 +82,22 @@ class KDIS_EXPORT PerimeterPointCoordinate : public DataTypeBase {
   // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::PerimeterPointCoordinate::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const PerimeterPointCoordinate& Value) const;
   KBOOL operator!=(const PerimeterPointCoordinate& Value) const;

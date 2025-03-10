@@ -112,8 +112,7 @@ KString IFF_Layer3Interrogator::GetAsString() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_Layer3Interrogator::Decode(KDataStream& stream,
-                                    bool ignoreHeader /*= true*/) {
+void IFF_Layer3Interrogator::Decode(KDataStream& stream, bool ignoreHeader) {
   if (stream.GetBufferSize() < IFF_LAYER3_SIZE)
     throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 

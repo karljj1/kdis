@@ -97,9 +97,9 @@ class KDIS_EXPORT Mine
   // Not Used. It is not possible to use this method of decoding/encoding as the
   // values are not all stored sequentially in the Minefield Data PDU. The PDU
   // must do all the encoding/decoding.
-  virtual void Decode(KDataStream& stream) {};
-  virtual KDataStream Encode() const { return KDataStream(); };
-  virtual void Encode(KDataStream& stream) const {};
+  void Decode(KDataStream& stream) override {};
+  KDataStream Encode() const override { return KDataStream(); };
+  void Encode(KDataStream& stream) const override {};
 
  public:
   Mine();
@@ -389,7 +389,7 @@ class KDIS_EXPORT Mine
   // FullName:    KDIS::DATA_TYPE::Mine::GetAsString
   // Description: Returns a string representation.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Mine& Value) const;
   KBOOL operator!=(const Mine& Value) const;

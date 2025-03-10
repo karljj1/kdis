@@ -92,7 +92,7 @@ class KDIS_EXPORT Acknowledge_R_PDU : public Acknowledge_PDU {
   // FullName:    KDIS::PDU::Acknowledge_R_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Acknowledge_R_PDU& Value) const;
   KBOOL operator!=(const Acknowledge_R_PDU& Value) const;

@@ -162,7 +162,7 @@ class KDIS_EXPORT UnderwaterAcousticFundamentalParameterData
   // KDIS::DATA_TYPE::UnderwaterAcousticFundamentalParameterData::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:
@@ -170,7 +170,7 @@ class KDIS_EXPORT UnderwaterAcousticFundamentalParameterData
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:
@@ -178,8 +178,8 @@ class KDIS_EXPORT UnderwaterAcousticFundamentalParameterData
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(
       const UnderwaterAcousticFundamentalParameterData& Value) const;

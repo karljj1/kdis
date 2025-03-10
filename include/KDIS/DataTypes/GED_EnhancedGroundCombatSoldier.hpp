@@ -86,15 +86,15 @@ class KDIS_EXPORT GED_EnhancedGroundCombatSoldier
   // Description: Identifies the derived GED class.
   //              Not part of the DIS PDU.
   //************************************
-  virtual KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory
-  GetGroupedEntityCategory() const;
+  KDIS::DATA_TYPE::ENUMS::GroupedEntityCategory GetGroupedEntityCategory()
+      const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetLength
   // Description: Returns size of the GED in octets.
   //              Not part of the DIS PDU.
   //************************************
-  virtual KUINT8 GetLength() const;
+  KUINT8 GetLength() const override;
 
   //************************************
   // FullName: KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::SetWaterStatus
@@ -143,22 +143,22 @@ class KDIS_EXPORT GED_EnhancedGroundCombatSoldier
   // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GED_EnhancedGroundCombatSoldier::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const GED_EnhancedGroundCombatSoldier& Value) const;
   KBOOL operator!=(const GED_EnhancedGroundCombatSoldier& Value) const;

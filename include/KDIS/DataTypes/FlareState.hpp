@@ -122,22 +122,22 @@ class KDIS_EXPORT FlareState : public EnvironmentRecord {
   // FullName:    KDIS::DATA_TYPE::FlareState::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::FlareState::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::FlareState::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const FlareState& Value) const;
   KBOOL operator!=(const FlareState& Value) const;

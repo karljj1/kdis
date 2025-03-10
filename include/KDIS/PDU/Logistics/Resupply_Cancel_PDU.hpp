@@ -67,7 +67,7 @@ class KDIS_EXPORT Resupply_Cancel_PDU : public Logistics_Header {
   // FullName:    KDIS::PDU::Resupply_Cancel_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Resupply_Cancel_PDU& Value) const;
   KBOOL operator!=(const Resupply_Cancel_PDU& Value) const;
