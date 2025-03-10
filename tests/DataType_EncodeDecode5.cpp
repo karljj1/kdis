@@ -213,11 +213,22 @@ TEST(DataType_EncodeDecode5, EntityIdentifier) {
 
 TEST(DataType_EncodeDecode5, EntityMarking) {
   KDIS::DATA_TYPE::EntityMarking dtIn;
-  EXPECT_EQ(0, dtIn.GetEntityMarkingCharacterSet());
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ASCII, dtIn.GetEntityMarkingCharacterSet());
+  EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EntityMarking dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+  EXPECT_NO_THROW(dtIn.SetEntityMarkingString("mark my words,"));
+  const KDIS::KString emstr{"mark this d"};
+  KDIS::DATA_TYPE::EntityMarking em2{KDIS::DATA_TYPE::ENUMS::ASCII, emstr};
+  EXPECT_EQ(emstr, em2.GetEntityMarkingString());
+  KDIS::KDataStream stream2;
+  EXPECT_THROW(em2.Decode(stream2), KDIS::KException);  // too short
+  EXPECT_NO_THROW(em2.Encode(stream2));
+  EXPECT_NO_THROW(em2.Decode(stream2));
+  EXPECT_TRUE(dtIn == dtIn);
+  EXPECT_TRUE(dtIn != em2);
 }
 
 TEST(DataType_EncodeDecode5, EntityType) {
