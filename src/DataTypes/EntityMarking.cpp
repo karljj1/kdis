@@ -37,46 +37,20 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::EntityMarking() : m_ui8EntityMarkingCharacterSet(0) {
-  memset(m_sEntityMarkingString, 0x00, sizeof(m_sEntityMarkingString));
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 EntityMarking::EntityMarking(KDataStream& stream) { Decode(stream); }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::EntityMarking(EntityMarkingCharacterSet MarkingCharSet,
-                             const KCHAR8* MarkingText, KUINT16 TextSize)
-    : m_ui8EntityMarkingCharacterSet(MarkingCharSet) {
-  if (TextSize > 11)
-    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
-
-  memset(m_sEntityMarkingString, 0x00, sizeof(m_sEntityMarkingString));
-  SetEntityMarkingString(MarkingText, TextSize);
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 EntityMarking::EntityMarking(const EntityMarkingCharacterSet MarkingCharSet,
-                             const KString& MarkingText)
-    : m_ui8EntityMarkingCharacterSet(MarkingCharSet) {
-  if (MarkingText.size() > 11)
-    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
-
-  memset(m_sEntityMarkingString, 0x00, sizeof(m_sEntityMarkingString));
+                             const KString& MarkingText) {
+  SetEntityMarkingCharacterSet(MarkingCharSet);
   SetEntityMarkingString(MarkingText);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-EntityMarking::~EntityMarking() {}
-
-//////////////////////////////////////////////////////////////////////////
-
 void EntityMarking::SetEntityMarkingCharacterSet(
-    EntityMarkingCharacterSet EMCS) {
+    const EntityMarkingCharacterSet EMCS) {
   m_ui8EntityMarkingCharacterSet = EMCS;
 }
 
@@ -88,29 +62,14 @@ EntityMarkingCharacterSet EntityMarking::GetEntityMarkingCharacterSet() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-void EntityMarking::SetEntityMarkingString(const KCHAR8* EMS,
-                                           KUINT16 StringSize) {
-  if (StringSize > 11)
-    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
-
-  memcpy(m_sEntityMarkingString, EMS, StringSize);
-  m_sEntityMarkingString[StringSize] = 0x0;  // Null terminate the string.
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 void EntityMarking::SetEntityMarkingString(const KString& EMS) {
-  if (EMS.size() > 11)
-    throw KException(ErrorCode::STRING_PDU_SIZE_TOO_BIG, __FUNCTION__);
-
-  memcpy(m_sEntityMarkingString, EMS.c_str(), EMS.size());
-  m_sEntityMarkingString[EMS.size()] = 0x0;  // Null terminate the string.
+  m_sEntityMarkingString.assign(EMS);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 KString EntityMarking::GetEntityMarkingString() const {
-  return m_sEntityMarkingString;
+  return m_sEntityMarkingString.str();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -118,7 +77,7 @@ KString EntityMarking::GetEntityMarkingString() const {
 KString EntityMarking::GetAsString() const {
   KStringStream ss;
 
-  ss << "Entity Marking:" << "\n\tMaring Char Set:      "
+  ss << "Entity Marking:" << "\n\tMarking Char Set:      "
      << GetEnumAsStringEntityMarkingCharacterSet(m_ui8EntityMarkingCharacterSet)
      << "\n\tMarking String:       " << GetEntityMarkingString() << "\n";
 
@@ -128,14 +87,16 @@ KString EntityMarking::GetAsString() const {
 //////////////////////////////////////////////////////////////////////////
 
 void EntityMarking::Decode(KDataStream& stream) {
-  if (stream.GetBufferSize() < ENTITY_MARKING_SIZE)
+  const std::size_t bounded_len{m_sEntityMarkingString.max_size()};
+  if (stream.GetBufferSize() < bounded_len)
     throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_ui8EntityMarkingCharacterSet;
 
-  for (KUINT16 i = 0; i < 11; ++i) {
+  for (KUINT16 i = 0; i < bounded_len - 1; ++i) {
     stream >> m_sEntityMarkingString[i];
   }
+  m_sEntityMarkingString[bounded_len - 1] = '\0';
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -153,7 +114,7 @@ KDataStream EntityMarking::Encode() const {
 void EntityMarking::Encode(KDataStream& stream) const {
   stream << m_ui8EntityMarkingCharacterSet;
 
-  for (KUINT16 i = 0; i < 11; ++i) {
+  for (KUINT16 i = 0; i < m_sEntityMarkingString.max_size() - 1; ++i) {
     stream << m_sEntityMarkingString[i];
   }
 }
@@ -163,9 +124,7 @@ void EntityMarking::Encode(KDataStream& stream) const {
 KBOOL EntityMarking::operator==(const EntityMarking& Value) const {
   if (m_ui8EntityMarkingCharacterSet != Value.m_ui8EntityMarkingCharacterSet)
     return false;
-  if (memcmp(m_sEntityMarkingString, Value.m_sEntityMarkingString, 11) != 0)
-    return false;
-  return true;
+  return (m_sEntityMarkingString == Value.m_sEntityMarkingString);
 }
 
 //////////////////////////////////////////////////////////////////////////
