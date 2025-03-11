@@ -101,7 +101,7 @@ class KDIS_EXPORT EnhancedMode1Code : public ModeXCodeRecord {
   // FullName:    KDIS::DATA_TYPE::EnhancedMode1Code::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 };
 
 }  // END namespace DATA_TYPE

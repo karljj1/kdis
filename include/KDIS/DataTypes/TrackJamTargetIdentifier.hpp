@@ -92,22 +92,22 @@ class KDIS_EXPORT TrackJamTargetIdentifier : public EntityIdentifier {
   // FullName:    KDIS::DATA_TYPE::TrackJamTargetIdentifier::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::TrackJamTargetIdentifier::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::TrackJamTargetIdentifier::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const TrackJamTargetIdentifier& Value) const;
   KBOOL operator!=(const TrackJamTargetIdentifier& Value) const;

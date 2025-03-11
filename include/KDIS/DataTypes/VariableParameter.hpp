@@ -108,22 +108,22 @@ class KDIS_EXPORT VariableParameter
   // FullName:    KDIS::DATA_TYPE::VariableParameter::GetAsString
   // Description: Returns a string representation.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::VariableParameter::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::VariableParameter::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const VariableParameter& Value) const;
   KBOOL operator!=(const VariableParameter& Value) const;

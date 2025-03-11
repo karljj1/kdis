@@ -78,7 +78,7 @@ class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3 {
   // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::Decode
@@ -94,8 +94,8 @@ class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3 {
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const IFF_Layer3Transponder& Value) const;
   KBOOL operator!=(const IFF_Layer3Transponder& Value) const;

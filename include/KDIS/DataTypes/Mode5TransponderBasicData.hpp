@@ -191,22 +191,22 @@ class KDIS_EXPORT Mode5TransponderBasicData : public DataTypeBase {
   // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::Mode5TransponderBasicData::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const Mode5TransponderBasicData& Value) const;
   KBOOL operator!=(const Mode5TransponderBasicData& Value) const;

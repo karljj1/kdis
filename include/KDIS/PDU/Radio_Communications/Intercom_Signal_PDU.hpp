@@ -69,7 +69,7 @@ class KDIS_EXPORT Intercom_Signal_PDU : public Signal_PDU {
   // FullName:    KDIS::PDU::Intercom_Signal_PDU::GetAsString
   // Description: Returns a string representation of the PDU.
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   KBOOL operator==(const Intercom_Signal_PDU& Value) const;
   KBOOL operator!=(const Intercom_Signal_PDU& Value) const;

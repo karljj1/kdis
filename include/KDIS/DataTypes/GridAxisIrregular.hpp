@@ -132,34 +132,34 @@ class KDIS_EXPORT GridAxisIrregular : public GridAxisRegular {
   // instance and can be safely
   //              up cast for access to the additional fields.
   //************************************
-  virtual KBOOL IsGridRegular() const;
+  KBOOL IsGridRegular() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridAxisIrregular::GetAsString
   // Description: Returns length in octets, used for determining the PDU length.
   //************************************
-  virtual KUINT16 GetLength();
+  KUINT16 GetLength() override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridAxisIrregular::GetAsString
   // Description: Returns a string representation
   //************************************
-  virtual KString GetAsString() const;
+  KString GetAsString() const override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridAxisIrregular::Decode
   // Description: Convert From Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual void Decode(KDataStream& stream);
+  void Decode(KDataStream& stream) override;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridAxisIrregular::Encode
   // Description: Convert To Network Data.
   // Parameter:   KDataStream & stream
   //************************************
-  virtual KDataStream Encode() const;
-  virtual void Encode(KDataStream& stream) const;
+  KDataStream Encode() const override;
+  void Encode(KDataStream& stream) const override;
 
   KBOOL operator==(const GridAxisIrregular& Value) const;
   KBOOL operator!=(const GridAxisIrregular& Value) const;
