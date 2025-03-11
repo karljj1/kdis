@@ -17,7 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CMake` option `KDIS_BUILD_INSTALL` (default `PROJECT_IS_TOP_LEVEL`) to specify whether or not to build install
 - `CMake` option `KDIS_BUILD_TESTS_COVERAGE` (default `PROJECT_IS_TOP_LEVEL`) to specify whether or not to build tests coverage
 - Codecov added to the GitHub repository via [#41](https://github.com/karljj1/kdis/pull/41)
-- ROADMAP.md for information about our near term development priorities via [#64](https://github.com/karljj1/kdis/pull/64)
 
 ### Changed
 
