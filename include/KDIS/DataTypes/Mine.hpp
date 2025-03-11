@@ -41,6 +41,7 @@ minefield data PDU, all encoding and decoding is done by the hosting PDU. size:
 #pragma once
 
 #include <map>
+#include <stdexcept>
 #include <vector>
 
 #include "KDIS/DataTypes/ClockTime.hpp"
@@ -94,19 +95,25 @@ class KDIS_EXPORT Mine
   //************************************
   std::map<KUINT16, std::vector<Vector> >::iterator getWire(KUINT16 Index);
 
-  // Not Used. It is not possible to use this method of decoding/encoding as the
-  // values are not all stored sequentially in the Minefield Data PDU. The PDU
-  // must do all the encoding/decoding.
-  void Decode(KDataStream& stream) override {};
-  KDataStream Encode() const override { return KDataStream(); };
-  void Encode(KDataStream& stream) const override {};
-
  public:
   Mine();
 
   Mine(const Vector& Location, KUINT16 ID);
 
   virtual ~Mine();
+
+  // Not Used. It is not possible to use this method of decoding/encoding as the
+  // values are not all stored sequentially in the Minefield Data PDU. The PDU
+  // must do all the encoding/decoding.
+  void Decode(KDataStream& stream) final {
+    throw std::logic_error("unsupported by this class");
+  }
+  KDataStream Encode() const final {
+    throw std::logic_error("unsupported by this class");
+  }
+  void Encode(KDataStream& stream) const final {
+    throw std::logic_error("unsupported by this class");
+  }
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::Mine::SetLocation

@@ -624,7 +624,11 @@ TEST(DataType_EncodeDecode5, Mine) {
       KDIS::DATA_TYPE::Vector(1, 2, 3)};
   EXPECT_NO_THROW(dtIn.AddTripDetonationWire(vtx));
   EXPECT_NO_THROW(dtIn.GetAsString());
-  // Mine has no Encode/Decode feature
+  // Encode/Decode are not supported by Mine
+  KDIS::KDataStream stream;
+  EXPECT_THROW(dtIn.Decode(stream), std::logic_error);
+  EXPECT_THROW(dtIn.Encode(), std::logic_error);
+  EXPECT_THROW(dtIn.Encode(stream), std::logic_error);
 }
 
 TEST(DataType_EncodeDecode6, MinefieldAppearance) {
