@@ -182,7 +182,7 @@ KString KDataStream::GetAsString() const {
 void KDataStream::ReadFromString(const KString& S) {
   KStringStream ss(S);
 
-  KUINT16 o;
+  KUOCTET o;
   while (ss >> hex >> o) {
     m_vBuffer.push_back(o);
   }

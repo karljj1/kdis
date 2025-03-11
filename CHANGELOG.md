@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing data member assignment in `GroupDestinationRecord::SetGroupBitField()` via [#56](https://github.com/karljj1/kdis/pull/56)
 - Incorrect data member assignment in `LinearObjectAppearance::SetBreachLocation()` via [#60](https://github.com/karljj1/kdis/pull/60)
 - Naming of the `LifeFormAppearance::Set/GetEntityCompliance()` methods via [#58](https://github.com/karljj1/kdis/pull/58)
+- `-Winconsistent-missing-override` warnings removed via [#65](https://github.com/karljj1/kdis/pull/65)
 
 ### Security
 

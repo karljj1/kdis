@@ -2,6 +2,7 @@
 
 #include <KDIS/KDataStream.hpp>
 #include <KDIS/KDefines.hpp>
+#include <string>
 #include <vector>
 
 TEST(KDataStream, Buffer) {
@@ -20,4 +21,12 @@ TEST(KDataStream, Buffer) {
   EXPECT_THROW(stream.CopyIntoBuffer(buf.data(), buf.size(), 3),
                KDIS::KException);
   EXPECT_NO_THROW(stream.GetBufferPtr());
+}
+
+TEST(KDataStream, ReadFromString) {
+  KDIS::KDataStream stream;
+  std::string str{""};
+  EXPECT_NO_THROW(stream.ReadFromString(str));
+  str = "3g9reay9reag@#$$%^#$@${}";
+  EXPECT_NO_THROW(stream.ReadFromString(str));
 }
