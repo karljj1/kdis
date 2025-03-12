@@ -266,6 +266,12 @@ TEST(DataType_EncodeDecode5, EnvironmentalsAppearance) {
 
 TEST(DataType_EncodeDecode5, EulerAngles) {
   KDIS::DATA_TYPE::EulerAngles dtIn;
+  EXPECT_NO_THROW(dtIn.SetPsiInRadians(5.0));
+  EXPECT_NO_THROW(dtIn.SetThetaInRadians(4.0));
+  EXPECT_NO_THROW(dtIn.SetPhiInRadians(3.0));
+  EXPECT_NO_THROW(dtIn * dtIn);
+  EXPECT_NO_THROW(dtIn * 10.0);
+  EXPECT_NO_THROW(5.0 * dtIn);
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EulerAngles dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
