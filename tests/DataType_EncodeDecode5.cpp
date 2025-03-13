@@ -44,6 +44,7 @@
 #include <KDIS/DataTypes/VariableParameter.hpp>
 #include <KDIS/DataTypes/Vector.hpp>
 #include <KDIS/DataTypes/WorldCoordinates.hpp>
+#include <array>
 #include <bitset>
 #include <cmath>
 #include <cstdint>
@@ -570,7 +571,7 @@ TEST(DataType_EncodeDecode5, VariableDatum) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-class VariableDatumLengthTest : public ::testing::Test {
+class VariableDatumTest : public ::testing::Test {
  protected:
   // Original, overly complex calculation
   KDIS::KUINT32 originalLength(KDIS::KUINT32 bitLength) {
@@ -584,9 +585,18 @@ class VariableDatumLengthTest : public ::testing::Test {
     return static_cast<std::uint32_t>(
         std::ceil(static_cast<double>(bitLength) / 64.0) * 8.0);
   }
+
+  // Reusable test data
+  static constexpr std::array<KDIS::KOCTET, 4> arr = {'a', 'z', '7', '$'};
 };
 
-TEST_F(VariableDatumLengthTest, LengthCalculationEquivalence) {
+// Definition to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). This out-of-class defition is required in C++11, but not in
+//    C++17.
+constexpr std::array<KDIS::KOCTET, 4> VariableDatumTest::arr;
+
+TEST_F(VariableDatumTest, LengthCalculationEquivalence) {
+  // This test was introduced to guide work on GitHub #43 (Compiler warnings)
   std::vector<std::uint32_t> test_lengths = {
       0,    // Empty datum
       1,    // Single bit
@@ -605,6 +615,21 @@ TEST_F(VariableDatumLengthTest, LengthCalculationEquivalence) {
     EXPECT_EQ(orig, simp) << "Mismatch at " << bits << " bits: "
                           << "original = " << orig << ", simplified = " << simp;
   }
+}
+
+TEST_F(VariableDatumTest, AlternateConstructors) {
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::VariableDatum(
+      KDIS::DATA_TYPE::ENUMS::Capability_RepairProviderID, "a string"));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::VariableDatum(
+      KDIS::DATA_TYPE::ENUMS::ConcatenatedID, arr.data(), arr.size() * 8));
+}
+
+TEST_F(VariableDatumTest, SetDatumValue) {
+  KDIS::DATA_TYPE::VariableDatum dtm;
+  EXPECT_NO_THROW(dtm.SetDatumValue(""));
+  EXPECT_NO_THROW(dtm.SetDatumValue("just a string"));
+  EXPECT_NO_THROW(dtm.SetDatumValue(nullptr, 0));
+  EXPECT_NO_THROW(dtm.SetDatumValue(arr.data(), arr.size() * 8));
 }
 
 TEST(DataType_EncodeDecode5, VariableParameter) {
