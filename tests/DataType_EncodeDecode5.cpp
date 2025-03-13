@@ -45,6 +45,8 @@
 #include <KDIS/DataTypes/Vector.hpp>
 #include <KDIS/DataTypes/WorldCoordinates.hpp>
 #include <bitset>
+#include <cmath>
+#include <cstdint>
 #include <iostream>
 #include <vector>
 
@@ -566,6 +568,43 @@ TEST(DataType_EncodeDecode5, VariableDatum) {
   KDIS::DATA_TYPE::VariableDatum dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+class VariableDatumLengthTest : public ::testing::Test {
+ protected:
+  // Original, overly complex calculation
+  KDIS::KUINT32 originalLength(KDIS::KUINT32 bitLength) {
+    // hard to decipher purpose
+    return std::ceil(std::ceil(bitLength / 8.0) / 8.0) * 8;
+  }
+
+  // Simplified, equivalent calculation
+  std::uint32_t simplifiedLength(std::uint32_t bitLength) {
+    // convert bit length to bytes, rounded up to the next 8-byte chunk
+    return static_cast<std::uint32_t>(
+        std::ceil(static_cast<double>(bitLength) / 64.0) * 8.0);
+  }
+};
+
+TEST_F(VariableDatumLengthTest, LengthCalculationEquivalence) {
+  std::vector<std::uint32_t> test_lengths = {
+      0,    // Empty datum
+      1,    // Single bit
+      8,    // One byte
+      63,   // Just under one 8-byte chunk
+      64,   // Exactly one 8-byte chunk
+      65,   // Just over one chunk
+      128,  // Two chunks
+      512,  // Eight chunks
+      513,  // Eight chunks plus a bit
+      1024  // Sixteen chunks
+  };
+  for (std::uint32_t bits : test_lengths) {
+    std::uint32_t orig = originalLength(bits);
+    std::uint32_t simp = simplifiedLength(bits);
+    EXPECT_EQ(orig, simp) << "Mismatch at " << bits << " bits: "
+                          << "original = " << orig << ", simplified = " << simp;
+  }
 }
 
 TEST(DataType_EncodeDecode5, VariableParameter) {
