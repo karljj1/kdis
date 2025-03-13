@@ -32,12 +32,14 @@ TEST(util, BoundedLengthString) {
 class NumberConversionsTest : public ::testing::Test {
  protected:
   static constexpr double infinity{std::numeric_limits<double>::infinity()};
-  static constexpr double nan{std::nan("1")};
+  static const double nan;  // not constexpr, initialized below
   static constexpr double int_max_as_double{
       static_cast<double>(std::numeric_limits<std::int32_t>::max())};
   static constexpr double int_min_as_double{
       static_cast<double>(std::numeric_limits<std::int32_t>::min())};
 };
+
+const double NumberConversionsTest::nan = std::nan("1");
 
 TEST_F(NumberConversionsTest, HandlesNaN) {
   EXPECT_THROW(KDIS::UTIL::double_to_int32(nan), std::invalid_argument);
