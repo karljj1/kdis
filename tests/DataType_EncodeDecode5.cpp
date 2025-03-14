@@ -591,7 +591,7 @@ class VariableDatumTest : public ::testing::Test {
 };
 
 // Definition to satisfy odr-use (One Definition Rule-use, e.g. taking its
-//    address). This out-of-class defition is required in C++11, but not in
+//    address). This out-of-class definition is required in C++11, but not in
 //    C++17.
 constexpr std::array<KDIS::KOCTET, 4> VariableDatumTest::arr;
 
@@ -630,6 +630,22 @@ TEST_F(VariableDatumTest, SetDatumValue) {
   EXPECT_NO_THROW(dtm.SetDatumValue("just a string"));
   EXPECT_NO_THROW(dtm.SetDatumValue(nullptr, 0));
   EXPECT_NO_THROW(dtm.SetDatumValue(arr.data(), arr.size() * 8));
+}
+
+TEST_F(VariableDatumTest, GetDatumValueCopyIntoBuffer) {
+  KDIS::DATA_TYPE::VariableDatum dtm;
+  EXPECT_NO_THROW(dtm.GetDatumValueCopyIntoBuffer(nullptr, 0));
+  EXPECT_NO_THROW(dtm.SetDatumValue("some data"));
+  EXPECT_THROW(dtm.GetDatumValueCopyIntoBuffer(nullptr, 0), KDIS::KException);
+  std::array<char, 10> buf{};  // extra char for null terminator
+  EXPECT_NO_THROW(dtm.GetDatumValueCopyIntoBuffer(buf.data(), buf.size()));
+}
+
+TEST_F(VariableDatumTest, RoundTripKString) {
+  KDIS::DATA_TYPE::VariableDatum dtm;
+  const KDIS::KString str{"in and out"};
+  EXPECT_NO_THROW(dtm.SetDatumValue(str));
+  EXPECT_EQ(str, dtm.GetDatumValueAsKString());
 }
 
 TEST(DataType_EncodeDecode5, VariableParameter) {

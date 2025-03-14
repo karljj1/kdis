@@ -94,8 +94,7 @@ KUINT32 VariableDatum::GetPDULength() const {
 //////////////////////////////////////////////////////////////////////////
 
 void VariableDatum::SetDatumValue(const KString& s) {
-  SetDatumValue(s.c_str(),
-                (s.length() + 1) * 8);  // +1 to allow for terminating NULL ...
+  SetDatumValue(s.c_str(), s.length() * 8);
 }
 
 //////////////////////////////////////////////////////////////////////////
