@@ -27,11 +27,13 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
+#include <cstdint>
+#include <functional>
+#include <sstream>
 #include <string>
 #include <vector>
 
 #include "KDIS/DataTypes/EntityType.hpp"
-#include "KDIS/util/format.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -151,36 +153,50 @@ KUINT8 EntityType::GetExtra() const { return m_ui8Extra; }
 
 void EntityType::ReadFromTokenisedString(const KString& String,
                                          KCHAR8 Separator /*= ','*/) {
-  // Copy the string, we don't want to change the string we have been passed.
-  KString sCopy = String;
-
-  vector<KUINT16> vValues;
-
   KStringStream ss(String);
   KString token;
-  while (std::getline(ss, token, Separator)) {
-    KINT16 i = std::stoi(token);
-    if (i < 0) i = 0;  // If the value is less than 0 then we need to make it 0.
-    vValues.push_back(i);
+  int nn{0};
+
+  // This logic can be simplified with auto lambda params once we move to C++14
+  for (; nn < 8 && std::getline(ss, token, Separator); nn++) {
+    if (2 == nn) {  // 3rd iteration contains a 16 bit value
+      std::int16_t tk = std::stoi(token);
+      if (tk < 0) tk = 0;  // make negative values 0
+      m_ui16Country = tk;
+    } else {  // all other iterations contain an 8 bit value
+      std::int8_t tk = std::stoi(token);
+      if (tk < 0) tk = 0;  // make negative values 0
+      switch (nn) {
+        case 0:
+          m_ui8EntityKind = tk;
+          break;
+        case 1:
+          m_ui8Domain = tk;
+          break;
+        case 3:
+          m_ui8Category = tk;
+          break;
+        case 4:
+          m_ui8SubCategory = tk;
+          break;
+        case 5:
+          m_ui8Specific = tk;
+          break;
+        case 6:
+          m_ui8Extra = tk;
+          break;
+        default:
+          break;
+      }
+    }
   }
 
-  // We need 7 values in total, if not we have a problem.
-  if (vValues.size() != 7) {
-    throw KException(
-        ErrorCode::INVALID_DATA,
-        KDIS::UTIL::format(
-            "%s | Token string must contains 7 integer values only",
-            __FUNCTION__));
+  if (7 != nn) {
+    std::stringstream ss;
+    ss << __FUNCTION__ << " | Token string [" << String
+       << "] must contain 7 integer values only";
+    throw KException(ErrorCode::INVALID_DATA, ss.str());
   }
-
-  // Set the new type.
-  m_ui8EntityKind = vValues[0];
-  m_ui8Domain = vValues[1];
-  m_ui16Country = vValues[2];
-  m_ui8Category = vValues[3];
-  m_ui8SubCategory = vValues[4];
-  m_ui8Specific = vValues[5];
-  m_ui8Extra = vValues[6];
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -257,8 +273,8 @@ KBOOL EntityType::operator!=(const EntityType& Value) const {
 //////////////////////////////////////////////////////////////////////////
 
 KBOOL EntityType::operator<(const EntityType& Value) const {
-  // We will bit shift all 7 fields into a single KUINT64, this will generate a
-  // new unique value which we can then use for comparisons. bits 56-63 =
+  // We will bit shift all 7 fields into a single KUINT64, this will generate
+  // a new unique value which we can then use for comparisons. bits 56-63 =
   // EntityKind bits 48-55 = Domain bits 32-47 = Country bits 24-31 = Category
   // bits 16-23 = SubCategory
   // bits 8-15  = Specific

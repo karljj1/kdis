@@ -28,7 +28,6 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/EulerAngles.hpp"
-
 #include "KDIS/Extras/KUtils.hpp"
 
 using namespace KDIS;
@@ -162,16 +161,6 @@ EulerAngles EulerAngles::operator*(const EulerAngles& Value) const {
   tmp.m_f32Psi *= Value.m_f32Psi;
   tmp.m_f32Theta *= Value.m_f32Theta;
   tmp.m_f32Phi *= Value.m_f32Phi;
-  return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-EulerAngles KDIS::DATA_TYPE::EulerAngles::operator*(KFLOAT64 Value) const {
-  EulerAngles tmp = *this;
-  tmp.m_f32Psi *= Value;
-  tmp.m_f32Theta *= Value;
-  tmp.m_f32Phi *= Value;
   return tmp;
 }
 

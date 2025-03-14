@@ -27,10 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
+#include <cmath>
+
 #include "KDIS/DataTypes/VariableDatum.hpp"
-
-#include <math.h>
-
 #include "KDIS/util/Endian.hpp"
 
 //////////////////////////////////////////////////////////////////////////
@@ -95,8 +94,7 @@ KUINT32 VariableDatum::GetPDULength() const {
 //////////////////////////////////////////////////////////////////////////
 
 void VariableDatum::SetDatumValue(const KString& s) {
-  SetDatumValue(s.c_str(),
-                (s.length() + 1) * 8);  // +1 to allow for terminating NULL ...
+  SetDatumValue(s.c_str(), s.length() * 8);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -104,7 +102,7 @@ void VariableDatum::SetDatumValue(const KString& s) {
 void VariableDatum::SetDatumValue(const KOCTET* data, KUINT32 sizeInBits) {
   m_v8DatumValue.clear();
 
-  KUINT32 sizeInOctets = ceil(sizeInBits / 8.0);
+  KUINT32 sizeInOctets = std::ceil(sizeInBits / 8.0);
   for (KUINT16 i = 0; i < sizeInOctets;) {
     DatumEntry de;
 
@@ -121,7 +119,7 @@ void VariableDatum::SetDatumValue(const KOCTET* data, KUINT32 sizeInBits) {
 
 void VariableDatum::GetDatumValueCopyIntoBuffer(KOCTET* Buffer,
                                                 KUINT16 BufferSize) const {
-  KUINT32 sizeInOctets = ceil(m_ui32DatumLength / 8.0);
+  KUINT32 sizeInOctets = std::ceil(m_ui32DatumLength / 8.0);
 
   if (BufferSize < sizeInOctets)
     throw KException(ErrorCode::BUFFER_TOO_SMALL, __FUNCTION__);
@@ -149,7 +147,7 @@ KString VariableDatum::GetDatumValueAsKString() const {
 
   KUINT32 i = 0;
 
-  KUINT32 ui32LengthInOctets = ceil(m_ui32DatumLength / 8.0);
+  KUINT32 ui32LengthInOctets = std::ceil(m_ui32DatumLength / 8.0);
 
   while (citr != citrEnd) {
     for (KUINT16 j = 0; i < ui32LengthInOctets && j < 8; ++j, ++i) {
@@ -172,7 +170,7 @@ vector<KUINT64> VariableDatum::GetDatumValueAsKUINT64() const {
   vector<KUINT64> m_Return;
 
   KUINT32 ui32CurrentPos = 0;
-  KUINT32 ui32LengthInOctets = ceil(m_ui32DatumLength / 8.0);
+  KUINT32 ui32LengthInOctets = std::ceil(m_ui32DatumLength / 8.0);
 
   while (citr != citrEnd) {
     if ((ui32LengthInOctets - ui32CurrentPos) < 8) break;
@@ -196,7 +194,7 @@ vector<KFLOAT64> VariableDatum::GetDatumValueAsKFLOAT64() const {
   vector<KFLOAT64> m_Return;
 
   KUINT32 ui32CurrentPos = 0;
-  KUINT32 ui32LengthInOctets = ceil(m_ui32DatumLength / 8.0);
+  KUINT32 ui32LengthInOctets = std::ceil(m_ui32DatumLength / 8.0);
 
   while (citr != citrEnd) {
     if ((ui32LengthInOctets - ui32CurrentPos) < 8) break;
@@ -240,9 +238,10 @@ void VariableDatum::Decode(KDataStream& stream) {
 
   stream >> m_ui32DatumID >> m_ui32DatumLength;
 
-  KUINT32 ui32LengthInOctets = ceil(ceil(m_ui32DatumLength / 8.0) / 8.0) * 8;
+  // convert bit length to bytes, rounded up to the next 8-byte chunk
+  auto ui32LengthInOctets = static_cast<std::uint32_t>(
+      std::ceil(static_cast<double>(m_ui32DatumLength) / 64.0) * 8.0);
 
-  // Datum length is returned in bits, so we need to convert to octets
   for (KUINT16 i = 0; i < ui32LengthInOctets;) {
     DatumEntry de;
 

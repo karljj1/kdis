@@ -44,7 +44,10 @@
 #include <KDIS/DataTypes/VariableParameter.hpp>
 #include <KDIS/DataTypes/Vector.hpp>
 #include <KDIS/DataTypes/WorldCoordinates.hpp>
+#include <array>
 #include <bitset>
+#include <cmath>
+#include <cstdint>
 #include <iostream>
 #include <vector>
 
@@ -266,6 +269,12 @@ TEST(DataType_EncodeDecode5, EnvironmentalsAppearance) {
 
 TEST(DataType_EncodeDecode5, EulerAngles) {
   KDIS::DATA_TYPE::EulerAngles dtIn;
+  EXPECT_NO_THROW(dtIn.SetPsiInRadians(5.0));
+  EXPECT_NO_THROW(dtIn.SetThetaInRadians(4.0));
+  EXPECT_NO_THROW(dtIn.SetPhiInRadians(3.0));
+  EXPECT_NO_THROW(dtIn * dtIn);
+  EXPECT_NO_THROW(dtIn * 10.0);
+  EXPECT_NO_THROW(5.0 * dtIn);
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::EulerAngles dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
@@ -560,6 +569,83 @@ TEST(DataType_EncodeDecode5, VariableDatum) {
   KDIS::DATA_TYPE::VariableDatum dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+class VariableDatumTest : public ::testing::Test {
+ protected:
+  // Original, overly complex calculation
+  KDIS::KUINT32 originalLength(KDIS::KUINT32 bitLength) {
+    // hard to decipher purpose
+    return std::ceil(std::ceil(bitLength / 8.0) / 8.0) * 8;
+  }
+
+  // Simplified, equivalent calculation
+  std::uint32_t simplifiedLength(std::uint32_t bitLength) {
+    // convert bit length to bytes, rounded up to the next 8-byte chunk
+    return static_cast<std::uint32_t>(
+        std::ceil(static_cast<double>(bitLength) / 64.0) * 8.0);
+  }
+
+  // Reusable test data
+  static constexpr std::array<KDIS::KOCTET, 4> arr = {'a', 'z', '7', '$'};
+};
+
+// Definition to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). This out-of-class definition is required in C++11, but not in
+//    C++17.
+constexpr std::array<KDIS::KOCTET, 4> VariableDatumTest::arr;
+
+TEST_F(VariableDatumTest, LengthCalculationEquivalence) {
+  // This test was introduced to guide work on GitHub #43 (Compiler warnings)
+  std::vector<std::uint32_t> test_lengths = {
+      0,    // Empty datum
+      1,    // Single bit
+      8,    // One byte
+      63,   // Just under one 8-byte chunk
+      64,   // Exactly one 8-byte chunk
+      65,   // Just over one chunk
+      128,  // Two chunks
+      512,  // Eight chunks
+      513,  // Eight chunks plus a bit
+      1024  // Sixteen chunks
+  };
+  for (std::uint32_t bits : test_lengths) {
+    std::uint32_t orig = originalLength(bits);
+    std::uint32_t simp = simplifiedLength(bits);
+    EXPECT_EQ(orig, simp) << "Mismatch at " << bits << " bits: "
+                          << "original = " << orig << ", simplified = " << simp;
+  }
+}
+
+TEST_F(VariableDatumTest, AlternateConstructors) {
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::VariableDatum(
+      KDIS::DATA_TYPE::ENUMS::Capability_RepairProviderID, "a string"));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::VariableDatum(
+      KDIS::DATA_TYPE::ENUMS::ConcatenatedID, arr.data(), arr.size() * 8));
+}
+
+TEST_F(VariableDatumTest, SetDatumValue) {
+  KDIS::DATA_TYPE::VariableDatum dtm;
+  EXPECT_NO_THROW(dtm.SetDatumValue(""));
+  EXPECT_NO_THROW(dtm.SetDatumValue("just a string"));
+  EXPECT_NO_THROW(dtm.SetDatumValue(nullptr, 0));
+  EXPECT_NO_THROW(dtm.SetDatumValue(arr.data(), arr.size() * 8));
+}
+
+TEST_F(VariableDatumTest, GetDatumValueCopyIntoBuffer) {
+  KDIS::DATA_TYPE::VariableDatum dtm;
+  EXPECT_NO_THROW(dtm.GetDatumValueCopyIntoBuffer(nullptr, 0));
+  EXPECT_NO_THROW(dtm.SetDatumValue("some data"));
+  EXPECT_THROW(dtm.GetDatumValueCopyIntoBuffer(nullptr, 0), KDIS::KException);
+  std::array<char, 10> buf{};  // extra char for null terminator
+  EXPECT_NO_THROW(dtm.GetDatumValueCopyIntoBuffer(buf.data(), buf.size()));
+}
+
+TEST_F(VariableDatumTest, RoundTripKString) {
+  KDIS::DATA_TYPE::VariableDatum dtm;
+  const KDIS::KString str{"in and out"};
+  EXPECT_NO_THROW(dtm.SetDatumValue(str));
+  EXPECT_EQ(str, dtm.GetDatumValueAsKString());
 }
 
 TEST(DataType_EncodeDecode5, VariableParameter) {
