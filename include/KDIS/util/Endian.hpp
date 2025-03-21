@@ -7,7 +7,8 @@ namespace KDIS {
 namespace UTIL {
 
 /**
- * @brief Endian.
+ * @brief This class supports querying machine endianness. It does not provide
+ *        byte swap features. For byte swap support, see KEncodersDecoders.hpp.
  */
 class KDIS_EXPORT Endian {
  public:

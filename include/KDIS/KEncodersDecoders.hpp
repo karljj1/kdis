@@ -28,13 +28,15 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 /********************************************************************
-    KDISEncodersDecoders
+    KEncodersDecoders
     created:    17/9/2008
     author:     Karl Jones
 
     purpose:    Implementation of Encoding and Decoding classes.
-                Convert an array of KOCTETs/bytes/chars etc into a
-                appropriate data type
+                Convert an array of KOCTETs/bytes/chars etc. into an
+                appropriate data type. Provides byte swapping feature
+                for endianness conversions. For machine endianness
+                checks, see Endian.hpp.
 *********************************************************************/
 
 #ifndef KDIS_KENCODERSDECORDS_HPP_
