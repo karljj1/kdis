@@ -4,8 +4,8 @@ namespace KDIS {
 namespace UTIL {
 
 Endian::Endianness Endian::endian() {
-  const short int num = 0x1;
-  const auto *numPtr = reinterpret_cast<const char *>(&num);
+  constexpr short int num = 0x1;
+  const auto* numPtr = reinterpret_cast<const char*>(&num);
   return (numPtr[0] == 1) ? Endianness::LITTLE : Endianness::BIG;
 }
 

@@ -110,7 +110,7 @@ class KDIS_EXPORT VariableDatum : public DataTypeBase,
   virtual KUINT32 GetDatumLength() const;
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::VariableDatum::GetDatumLength
+  // FullName:    KDIS::DATA_TYPE::VariableDatum::GetPDULength
   // Description: Returns length of Datum in octets that it will
   //              occupy when put into a PDU.
   //************************************
@@ -122,11 +122,9 @@ class KDIS_EXPORT VariableDatum : public DataTypeBase,
   //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKUINT64
   //              KDIS::DATA_TYPE::VariableDatum::GetDatumValueAsKFLOAT64
   //              KDIS::DATA_TYPE::VariableDatum::ClearDatumValue
-  // Description: Copy datum value into a buffer or
-  //              return as a privative data type.
-  //              primitives are returned as vectors,
-  //              If the datum length is not a multiple of
-  //              8 then the last octets are ignored.
+  // Description: Copy datum value into a buffer or return as a primitive data
+  //              type. Primitives are returned as vectors. If the datum length
+  //              is not a multiple of 8 then the last octets are ignored.
   // Parameter:   KOCTET * Buffer
   // Parameter:   KUINT16 BufferSize
   //************************************
@@ -141,6 +139,10 @@ class KDIS_EXPORT VariableDatum : public DataTypeBase,
   //************************************
   // FullName:    KDIS::DATA_TYPE::VariableDatum::SetDatumValue
   // Description: Set value from a byte array ... note that length is in bits.
+  //              If the data should be interpreted later as a multi-byte type
+  //              (e.g., KUINT64 or KFLOAT64) then this method assumes the
+  //              caller is passing the byte array in big-endian (i.e. DIS
+  //              network) order. Performs no byte swapping.
   //************************************
   virtual void SetDatumValue(const KOCTET* data, KUINT32 sizeInBits);
 

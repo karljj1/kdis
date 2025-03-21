@@ -120,7 +120,13 @@ class KDIS_EXPORT EulerAngles : public DataTypeBase {
   KBOOL operator==(const EulerAngles& Value) const;
   KBOOL operator!=(const EulerAngles& Value) const;
   EulerAngles operator*(const EulerAngles& Value) const;
-  EulerAngles operator*(KFLOAT64 Value) const;
+  friend EulerAngles operator*(const EulerAngles& lhs, KFLOAT32 rhs) {
+    return EulerAngles{lhs.m_f32Psi * rhs, lhs.m_f32Theta * rhs,
+                       lhs.m_f32Phi * rhs};
+  }
+  friend EulerAngles operator*(KFLOAT32 lhs, const EulerAngles& rhs) {
+    return rhs * lhs;
+  }
   EulerAngles operator+(const EulerAngles& Value) const;
   EulerAngles& operator+=(const EulerAngles& Value);
   EulerAngles operator-(const EulerAngles& Value) const;
