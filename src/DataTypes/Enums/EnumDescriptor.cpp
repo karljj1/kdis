@@ -77,9 +77,21 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromString(const EnumDescriptor* pArray,
       return true;
     }
   }
-
   // No match found
   return false;
 }
 
 //////////////////////////////////////////////////////////////////////////
+
+KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromString(
+    const std::vector<EnumDescriptor>& descrips, const KString& Value,
+    KINT32& ValueOut) {
+  for (const EnumDescriptor& elt : descrips) {
+    if (Value == elt.Name) {
+      ValueOut = elt.Value;
+      return true;
+    }
+  }
+  // No match found
+  return false;
+}

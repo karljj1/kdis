@@ -7,7 +7,8 @@ set(KDIS_TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/ConversionTests.cpp ${KDIS_TESTS_DIR}/PDU_Factory.cpp
                        ${KDIS_TESTS_DIR}/PDU_Clone.cpp
 )
-list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/Extras.cpp
+list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/DataType_Enums.cpp
+                               ${KDIS_TESTS_DIR}/Extras.cpp
                                ${KDIS_TESTS_DIR}/KDataStreamTests.cpp
                                ${KDIS_TESTS_DIR}/util.cpp)
 # DIS 5

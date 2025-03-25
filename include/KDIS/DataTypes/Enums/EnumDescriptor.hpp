@@ -39,6 +39,8 @@ representations.
 
 #pragma once
 
+#include <vector>
+
 #include "KDIS/KDefines.hpp"
 
 namespace KDIS {
@@ -71,9 +73,12 @@ KDIS_EXPORT KString GetEnumAsString(const EnumDescriptor* pArray,
 // Parameter:   const KString & Value
 // Parameter:   KINT32 & ValueOut - The returned value if search found one.
 //************************************
+// uncomment at >= C++14: [[deprecated("Use std::vector override, instead")]]
 KDIS_EXPORT KBOOL GetEnumFromString(const EnumDescriptor* pArray,
                                     KUINT32 NumElements, const KString& Value,
                                     KINT32& ValueOut);
+KDIS_EXPORT KBOOL GetEnumFromString(const std::vector<EnumDescriptor>& descrips,
+                                    const KString& Value, KINT32& ValueOut);
 
 }  // END namespace ENUMS
 }  // namespace DATA_TYPE
