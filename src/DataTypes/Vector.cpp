@@ -27,9 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/Vector.hpp"
-
 #include <math.h>
+
+#include "KDIS/DataTypes/Vector.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -165,16 +165,6 @@ Vector Vector::operator*(const Vector& Value) const {
   tmp.m_f32X *= Value.m_f32X;
   tmp.m_f32Y *= Value.m_f32Y;
   tmp.m_f32Z *= Value.m_f32Z;
-  return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Vector Vector::operator*(KFLOAT64 Value) const {
-  Vector tmp = *this;
-  tmp.m_f32X *= Value;
-  tmp.m_f32Y *= Value;
-  tmp.m_f32Z *= Value;
   return tmp;
 }
 

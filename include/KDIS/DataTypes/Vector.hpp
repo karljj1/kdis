@@ -178,7 +178,6 @@ class KDIS_EXPORT Vector : public DataTypeBase {
   KBOOL operator==(const Vector& Value) const;
   KBOOL operator!=(const Vector& Value) const;
   Vector operator*(const Vector& Value) const;
-  Vector operator*(KFLOAT64 Value) const;
   Vector operator*(KFLOAT32 Value) const;
   Vector operator+(const Vector& Value) const;
   Vector& operator+=(const Vector& Value);
