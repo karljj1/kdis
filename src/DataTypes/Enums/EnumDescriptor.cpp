@@ -71,7 +71,7 @@ KBOOL KDIS::DATA_TYPE::ENUMS::GetEnumFromString(const EnumDescriptor* pArray,
                                                 KUINT32 NumElements,
                                                 const KString& Value,
                                                 KINT32& ValueOut) {
-  for (KINT32 i = 0; i < NumElements; ++i) {
+  for (KUINT32 i = 0; i < NumElements; ++i) {
     if (Value == pArray[i].Name) {
       ValueOut = pArray[i].Value;
       return true;
