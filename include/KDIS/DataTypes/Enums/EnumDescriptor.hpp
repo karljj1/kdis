@@ -60,8 +60,11 @@ struct EnumDescriptor {
 // Parameter:   KUINT32 NumElements
 // Parameter:   KINT32 Value
 //************************************
+// uncomment at >= C++14: [[deprecated("Use std::vector override, instead")]]
 KDIS_EXPORT KString GetEnumAsString(const EnumDescriptor* pArray,
                                     KUINT32 NumElements, KINT32 Value);
+KDIS_EXPORT KString GetEnumAsString(const std::vector<EnumDescriptor>& descrips,
+                                    KINT32 Value);
 
 //************************************
 // FullName:    KDIS::DATA_TYPE::ENUMS::GetEnumFromString

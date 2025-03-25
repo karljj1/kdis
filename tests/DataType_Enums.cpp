@@ -21,6 +21,22 @@ const std::vector<KDIS::DATA_TYPE::ENUMS::EnumDescriptor>
         {static_cast<int>(ThreeStooges::Curly), "Curly"},
         {static_cast<int>(ThreeStooges::Moe), "Moe"}};
 
+TEST_F(EnumDescriptorTest, GetEnumAsStringCArr) {
+  EXPECT_EQ("Larry", KDIS::DATA_TYPE::ENUMS::GetEnumAsString(
+                         ThreeStoogesDescriptor, 3,
+                         static_cast<int>(ThreeStooges::Larry)));
+  EXPECT_NE("Victor", KDIS::DATA_TYPE::ENUMS::GetEnumAsString(
+                          ThreeStoogesDescriptor, 3, -12));
+}
+
+TEST_F(EnumDescriptorTest, GetEnumAsStringVector) {
+  EXPECT_EQ("Moe",
+            KDIS::DATA_TYPE::ENUMS::GetEnumAsString(
+                ThreeStoogesDescVec, static_cast<int>(ThreeStooges::Moe)));
+  EXPECT_NE("Karen",
+            KDIS::DATA_TYPE::ENUMS::GetEnumAsString(ThreeStoogesDescVec, 47));
+}
+
 TEST_F(EnumDescriptorTest, GetEnumFromStringCArr) {
   KDIS::KINT32 out{0};
   EXPECT_TRUE(KDIS::DATA_TYPE::ENUMS::GetEnumFromString(ThreeStoogesDescriptor,

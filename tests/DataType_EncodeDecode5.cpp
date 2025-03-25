@@ -85,10 +85,26 @@ TEST(DataType_EncodeDecode5, AntennaLocation) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode5, ArticulatedPart) {
+class ArticulatedPartTest : public ::testing::Test {};
+
+TEST_F(ArticulatedPartTest, ConstructDestruct) {
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::ArticulatedPart());
+  // check for reentrancy
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::ArticulatedPart());
+}
+
+TEST_F(ArticulatedPartTest, CheckDefaults) {
   KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  EXPECT_EQ(0, dtIn.GetParameterChangeIndicator());
+  EXPECT_EQ(0, dtIn.GetAttachmentID());
   EXPECT_EQ(0, dtIn.GetTypeVariantClass());
   EXPECT_EQ(0, dtIn.GetTypeVariantMetric());
+  EXPECT_EQ(0, dtIn.GetTypeVariant());
+  EXPECT_EQ(0, dtIn.GetValue());
+}
+
+TEST_F(ArticulatedPartTest, Encode) {
+  KDIS::DATA_TYPE::ArticulatedPart dtIn;
   EXPECT_NO_THROW(dtIn.GetAsString());
   KDIS::KDataStream stream = dtIn.Encode();
   KDIS::DATA_TYPE::ArticulatedPart dtOut(stream);
