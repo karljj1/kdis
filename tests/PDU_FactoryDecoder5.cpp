@@ -81,6 +81,11 @@ TEST(PDU_FactoryDecoder5, Entity_State_PDU) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+TEST(Entity_State_PDU_Test, ApplyDeadReckoning) {
+  KDIS::PDU::Entity_State_PDU pdu;
+  EXPECT_THROW(pdu.ApplyDeadReckoning(37.2), KDIS::KException);
+}
+
 //
 // Logistics
 //

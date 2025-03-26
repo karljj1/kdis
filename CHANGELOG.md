@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `-Winconsistent-missing-override` warnings removed via [#65](https://github.com/karljj1/kdis/pull/65)
 - C4244 "possible loss of data" warnings on Windows builds via [#67](https://github.com/karljj1/kdis/pull/67), [#68](https://github.com/karljj1/kdis/pull/68)
 - Spelling of `ArticulatedPart::Get/SetAttachmentID` methods via [#71](https://github.com/karljj1/kdis/pull/71)
+- Type of `Entity_State_PDU::ApplyDeadReckoning`'s parameter to KFLOAT32 via [#71](https://github.com/karljj1/kdis/pull/71)
 
 ### Security
 
