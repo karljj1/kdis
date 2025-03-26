@@ -28,8 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/IOEffect.hpp"
-
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -115,9 +114,9 @@ void IOEffect::SetEffectDutyCycle(KUINT8 EDC) {
   if (EDC > 100)
     throw KException(
         ErrorCode::INVALID_DATA,
-        KDIS::UTIL::format("%s | %u is not a valid effect duty cycle value. "
-                           "Valid values are from 0 to 100",
-                           __FUNCTION__, EDC));
+        KDIS::UTILS::format("%s | %u is not a valid effect duty cycle value. "
+                            "Valid values are from 0 to 100",
+                            __FUNCTION__, EDC));
 
   m_ui8EffDtyCyc = EDC;
 }

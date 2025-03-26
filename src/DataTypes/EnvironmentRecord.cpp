@@ -46,7 +46,7 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/DataTypes/RectangularVolumeRecord3.hpp"
 #include "KDIS/DataTypes/SphereRecord1.hpp"
 #include "KDIS/DataTypes/SphereRecord2.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -177,7 +177,7 @@ EnvironmentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord(
     case UniformGeometryRecordType:
       throw KException(
           ErrorCode::UNSUPPORTED_DATATYPE,
-          KDIS::UTIL::format(
+          KDIS::UTILS::format(
               "%s | Unable to decode UniformGeometryRecordType (%u)",
               __FUNCTION__, ui32RecType));
     case RectangularVolumeRecord1Type:
@@ -200,8 +200,8 @@ EnvironmentRecordPtr EnvironmentRecord::FactoryDecodeEnvironmentRecord(
       return new FlareState(stream);
     default:
       throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
-                       KDIS::UTIL::format("%s | Unable to decode %u",
-                                          __FUNCTION__, ui32RecType));
+                       KDIS::UTILS::format("%s | Unable to decode %u",
+                                           __FUNCTION__, ui32RecType));
   }
 }
 

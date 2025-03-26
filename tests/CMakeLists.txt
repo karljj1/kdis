@@ -10,7 +10,7 @@ set(KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/ConversionTests.cpp ${KDIS_TESTS_DIR}/P
 list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/DataType_Enums.cpp
                                ${KDIS_TESTS_DIR}/Extras.cpp
                                ${KDIS_TESTS_DIR}/KDataStreamTests.cpp
-                               ${KDIS_TESTS_DIR}/util.cpp)
+                               ${KDIS_TESTS_DIR}/utils.cpp)
 # DIS 5
 list(APPEND KDIS_TESTS_SOURCES ${KDIS_TESTS_DIR}/DataType_EncodeDecode5.cpp
      ${KDIS_TESTS_DIR}/PDU_EncodeDecode5.cpp ${KDIS_TESTS_DIR}/PDU_FactoryDecoder5.cpp

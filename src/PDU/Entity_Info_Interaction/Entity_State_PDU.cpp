@@ -31,7 +31,7 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/DataTypes/AttachedPart.hpp"
 #include "KDIS/Extras/DeadReckoningCalculator.hpp"
 #include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 #if DIS_VERSION > 5
 #include "KDIS/DataTypes/SeparationPart.hpp"
@@ -304,7 +304,7 @@ void Entity_State_PDU::InitDeadReckoning() {
 void Entity_State_PDU::ApplyDeadReckoning(KFLOAT32 totalTimeSinceDrReset) {
   if (!m_pDrCalc)
     throw KException(ErrorCode::INVALID_OPERATION,
-                     KDIS::UTIL::format(
+                     KDIS::UTILS::format(
                          "%s | Function InitDeadReckoning must be called first",
                          __FUNCTION__));
   // TBD - dependency-inject the m_pDrCalc instance for clean unit testing

@@ -46,7 +46,7 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/KExport.hpp"
 #include "KDIS/KSymbolicNames.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 // TODO(carlocorradini) Remove
 #if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
@@ -231,7 +231,7 @@ class KException : public std::runtime_error {
       : std::runtime_error(errorCodeText(errorCode)), errorCode(errorCode) {}
 
   KException(const ErrorCode errorCode, const std::string& message)
-      : std::runtime_error(KDIS::UTIL::format(
+      : std::runtime_error(KDIS::UTILS::format(
             "%s: %s", errorCodeText(errorCode), message.c_str())),
         errorCode(errorCode) {}
 
