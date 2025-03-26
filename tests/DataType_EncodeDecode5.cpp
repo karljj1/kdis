@@ -93,6 +93,13 @@ TEST_F(ArticulatedPartTest, ConstructDestruct) {
   EXPECT_NO_THROW(KDIS::DATA_TYPE::ArticulatedPart());
 }
 
+TEST_F(ArticulatedPartTest, AlternateConstructors) {
+  EXPECT_NO_THROW(
+      KDIS::DATA_TYPE::ArticulatedPart(0, 5, KDIS::DATA_TYPE::ENUMS::RightFlap,
+                                       KDIS::DATA_TYPE::ENUMS::ZRate, -14.9));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::ArticulatedPart(0, 1, 2, 3.4));
+}
+
 TEST_F(ArticulatedPartTest, CheckDefaults) {
   KDIS::DATA_TYPE::ArticulatedPart dtIn;
   EXPECT_EQ(0, dtIn.GetParameterChangeIndicator());
@@ -110,6 +117,45 @@ TEST_F(ArticulatedPartTest, Encode) {
   KDIS::DATA_TYPE::ArticulatedPart dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+TEST_F(ArticulatedPartTest, Decode) {
+  KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  KDIS::KDataStream stream;
+  EXPECT_THROW(dtIn.Decode(stream), KDIS::KException);
+}
+
+TEST_F(ArticulatedPartTest, SetValue) {
+  KDIS::DATA_TYPE::ArticulatedPart art1;
+  EXPECT_NO_THROW(art1.SetValue(12.345));
+  KDIS::DATA_TYPE::ArticulatedPart art2;
+  EXPECT_TRUE(art1 != art2);
+}
+
+TEST_F(ArticulatedPartTest, SetTypeVariant) {
+  KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  EXPECT_NO_THROW(dtIn.SetTypeVariant(7));
+}
+
+TEST_F(ArticulatedPartTest, SetTypeVariantMetric) {
+  KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  EXPECT_NO_THROW(
+      dtIn.SetTypeVariantMetric(KDIS::DATA_TYPE::ENUMS::PositionRate));
+}
+
+TEST_F(ArticulatedPartTest, SetTypeVariantClass) {
+  KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  EXPECT_NO_THROW(dtIn.SetTypeVariantClass(KDIS::DATA_TYPE::ENUMS::TailHook));
+}
+
+TEST_F(ArticulatedPartTest, SetAttachmentID) {
+  KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  EXPECT_NO_THROW(dtIn.SetAttachmentID(14));
+}
+
+TEST_F(ArticulatedPartTest, SetParameterChangeIndicator) {
+  KDIS::DATA_TYPE::ArticulatedPart dtIn;
+  EXPECT_NO_THROW(dtIn.SetParameterChangeIndicator(144));
 }
 
 TEST(DataType_EncodeDecode5, AttachedPart) {

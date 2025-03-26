@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CMake` option `EXAMPLES_USE_STATIC_OR_SHARED_LIB`. To determine whether to build a `static` or `shared` _library_, use the official [`BUILD_SHARED_LIBS`](https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html) flag option
 - `CMake` option `USE_SOLUTION_FOLDERS`
 - `KDIS_Change_Log.htm` file
+- `KFLOAT64` method from `Vector`, since it's fundamentally a `KFLOAT32` class via [#71](https://github.com/karljj1/kdis/pull/71)
 
 ### Fixed
 
@@ -54,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Naming of the `LifeFormAppearance::Set/GetEntityCompliance()` methods via [#58](https://github.com/karljj1/kdis/pull/58)
 - `-Winconsistent-missing-override` warnings removed via [#65](https://github.com/karljj1/kdis/pull/65)
 - C4244 "possible loss of data" warnings on Windows builds via [#67](https://github.com/karljj1/kdis/pull/67), [#68](https://github.com/karljj1/kdis/pull/68)
+- Spelling of `ArticulatedPart::Get/SetAttachmentID` methods via [#71](https://github.com/karljj1/kdis/pull/71)
 
 ### Security
 
