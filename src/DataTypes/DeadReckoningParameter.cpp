@@ -37,13 +37,6 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-DeadReckoningParameter::DeadReckoningParameter()
-    : m_ui8DeadRecknoningAlgorithm(0) {
-  memset(m_OtherParams, 0, 15);
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 DeadReckoningParameter::DeadReckoningParameter(KDataStream &stream) {
   Decode(stream);
 }
@@ -55,13 +48,7 @@ DeadReckoningParameter::DeadReckoningParameter(DeadReckoningAlgorithm DRA,
                                                const Vector &AngularVelocity)
     : m_ui8DeadRecknoningAlgorithm(DRA),
       m_LinearAcceleration(LinearAcceleration),
-      m_AngularVelocity(AngularVelocity) {
-  memset(m_OtherParams, 0, 15);
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-DeadReckoningParameter::~DeadReckoningParameter() {}
+      m_AngularVelocity(AngularVelocity) {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -74,7 +61,7 @@ void DeadReckoningParameter::SetDeadReckoningAlgorithm(
 
 DeadReckoningAlgorithm DeadReckoningParameter::GetDeadReckoningAlgorithm()
     const {
-  return (DeadReckoningAlgorithm)m_ui8DeadRecknoningAlgorithm;
+  return static_cast<DeadReckoningAlgorithm>(m_ui8DeadRecknoningAlgorithm);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -135,8 +122,8 @@ void DeadReckoningParameter::Decode(KDataStream &stream) {
 
   stream >> m_ui8DeadRecknoningAlgorithm;
 
-  for (KUINT16 i = 0; i < 15; ++i) {
-    stream >> m_OtherParams[i];
+  for (KOCTET &oct : m_OtherParams) {
+    stream >> oct;
   }
 
   stream >> KDIS_STREAM m_LinearAcceleration >> KDIS_STREAM m_AngularVelocity;
@@ -157,8 +144,8 @@ KDataStream DeadReckoningParameter::Encode() const {
 void DeadReckoningParameter::Encode(KDataStream &stream) const {
   stream << m_ui8DeadRecknoningAlgorithm;
 
-  for (KUINT16 i = 0; i < 15; ++i) {
-    stream << m_OtherParams[i];
+  for (KOCTET oct : m_OtherParams) {
+    stream << oct;
   }
 
   stream << KDIS_STREAM m_LinearAcceleration << KDIS_STREAM m_AngularVelocity;
@@ -172,7 +159,7 @@ KBOOL DeadReckoningParameter::operator==(
     return false;
   if (m_LinearAcceleration != Value.m_LinearAcceleration) return false;
   if (m_AngularVelocity != Value.m_AngularVelocity) return false;
-  if (memcmp(m_OtherParams, Value.m_OtherParams, 15) != 0) return false;
+  if (!(m_OtherParams == Value.m_OtherParams)) return false;
   return true;
 }
 

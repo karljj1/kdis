@@ -72,22 +72,22 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT Vector : public DataTypeBase {
  protected:
-  KFLOAT32 m_f32X;
+  KFLOAT32 m_f32X{0};
 
-  KFLOAT32 m_f32Y;
+  KFLOAT32 m_f32Y{0};
 
-  KFLOAT32 m_f32Z;
+  KFLOAT32 m_f32Z{0};
 
  public:
-  static const KUINT16 VECTOR_SIZE = 12;
+  static constexpr KUINT16 VECTOR_SIZE{12};
 
-  Vector();
+  Vector() = default;
 
   Vector(KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z);
 
   Vector(KDataStream& stream);
 
-  virtual ~Vector();
+  virtual ~Vector() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::Vector::SetX

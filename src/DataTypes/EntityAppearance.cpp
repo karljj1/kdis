@@ -27,10 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/EntityAppearance.hpp"
-
 #include "KDIS/DataTypes/AirPlatformAppearance.hpp"
 #include "KDIS/DataTypes/CulturalFeatureAppearance.hpp"
+#include "KDIS/DataTypes/EntityAppearance.hpp"
 #include "KDIS/DataTypes/EnvironmentalsAppearance.hpp"
 #include "KDIS/DataTypes/ExpendableAppearance.hpp"
 #include "KDIS/DataTypes/GuidedMunitionsAppearance.hpp"
@@ -51,10 +50,6 @@ using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
 // Public:
-//////////////////////////////////////////////////////////////////////////
-
-EntityAppearance::EntityAppearance() : m_Appearance(0) {}
-
 //////////////////////////////////////////////////////////////////////////
 
 EntityAppearance::EntityAppearance(KDataStream& stream) { Decode(stream); }
@@ -142,10 +137,6 @@ EntityAppearance::EntityAppearance(const ExpendableAppearance& A) {
 EntityAppearance::EntityAppearance(const SupplyAppearance& A) {
   m_Appearance = reinterpret_cast<const KUINT32&>(A);
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-EntityAppearance::~EntityAppearance() {}
 
 //////////////////////////////////////////////////////////////////////////
 

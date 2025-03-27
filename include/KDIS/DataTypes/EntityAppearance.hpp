@@ -62,12 +62,12 @@ struct SupplyAppearance;
 
 class KDIS_EXPORT EntityAppearance : public DataTypeBase {
  protected:
-  KUINT32 m_Appearance;
+  KUINT32 m_Appearance{0};
 
  public:
-  static const KUINT16 ENTITY_APPEARANCE_SIZE = 4;
+  static constexpr KUINT16 ENTITY_APPEARANCE_SIZE{4};
 
-  EntityAppearance();
+  EntityAppearance() = default;
 
   EntityAppearance(KDataStream& stream);
 
@@ -99,7 +99,7 @@ class KDIS_EXPORT EntityAppearance : public DataTypeBase {
 
   EntityAppearance(const SupplyAppearance& A);
 
-  virtual ~EntityAppearance();
+  virtual ~EntityAppearance() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetData

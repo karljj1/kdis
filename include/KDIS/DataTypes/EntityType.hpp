@@ -45,24 +45,24 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT EntityType : public DataTypeBase {
  protected:
-  KUINT8 m_ui8EntityKind;
+  KUINT8 m_ui8EntityKind{0};
 
-  KUINT8 m_ui8Domain;
+  KUINT8 m_ui8Domain{0};
 
-  KUINT16 m_ui16Country;
+  KUINT16 m_ui16Country{0};
 
-  KUINT8 m_ui8Category;
+  KUINT8 m_ui8Category{0};
 
-  KUINT8 m_ui8SubCategory;
+  KUINT8 m_ui8SubCategory{0};
 
-  KUINT8 m_ui8Specific;
+  KUINT8 m_ui8Specific{0};
 
-  KUINT8 m_ui8Extra;
+  KUINT8 m_ui8Extra{0};
 
  public:
-  static const KUINT16 ENTITY_TYPE_SIZE = 8;
+  static constexpr KUINT16 ENTITY_TYPE_SIZE = 8;
 
-  EntityType();
+  EntityType() = default;
 
   EntityType(KDIS::DATA_TYPE::ENUMS::EntityKind Kind, KUINT8 Domain,
              KDIS::DATA_TYPE::ENUMS::Country Country, KUINT8 Categoy,
@@ -73,7 +73,7 @@ class KDIS_EXPORT EntityType : public DataTypeBase {
 
   EntityType(KDataStream& stream);
 
-  virtual ~EntityType();
+  virtual ~EntityType() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityType::SetEntityKind

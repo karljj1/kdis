@@ -51,22 +51,22 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT WorldCoordinates : public DataTypeBase {
  protected:
-  KFLOAT64 m_f64X;
+  KFLOAT64 m_f64X{0};
 
-  KFLOAT64 m_f64Y;
+  KFLOAT64 m_f64Y{0};
 
-  KFLOAT64 m_f64Z;
+  KFLOAT64 m_f64Z{0};
 
  public:
-  static const KUINT16 WORLD_COORDINATES_SIZE = 24;
+  static constexpr KUINT16 WORLD_COORDINATES_SIZE = 24;
 
-  WorldCoordinates();
+  WorldCoordinates() = default;
 
   WorldCoordinates(KDataStream& stream);
 
   WorldCoordinates(KFLOAT64 X, KFLOAT64 Y, KFLOAT64 Z);
 
-  virtual ~WorldCoordinates();
+  virtual ~WorldCoordinates() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::WorldCoordinates::SetX
