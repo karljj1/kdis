@@ -83,17 +83,17 @@ TEST(PDU_FactoryDecoder5, Entity_State_PDU) {
 
 class Entity_State_PDU_Test : public ::testing::Test {
  protected:
-  const KDIS::DATA_TYPE::EntityIdentifier eid;
+  const KDIS::DATA_TYPE::EntityIdentifier eid{};
   const KDIS::DATA_TYPE::ENUMS::ForceID fid{KDIS::DATA_TYPE::ENUMS::Friendly7};
-  const KDIS::DATA_TYPE::EntityType ety;
-  const KDIS::DATA_TYPE::EntityType aty;
-  const KDIS::DATA_TYPE::Vector vec;
-  const KDIS::DATA_TYPE::WorldCoordinates wco;
-  const KDIS::DATA_TYPE::EulerAngles ean;
-  const KDIS::DATA_TYPE::EntityAppearance eap;
-  const KDIS::DATA_TYPE::DeadReckoningParameter drp;
-  const KDIS::DATA_TYPE::EntityMarking emk;
-  const KDIS::DATA_TYPE::EntityCapabilities ecp;
+  const KDIS::DATA_TYPE::EntityType ety{};
+  const KDIS::DATA_TYPE::EntityType aty{};
+  const KDIS::DATA_TYPE::Vector vec{};
+  const KDIS::DATA_TYPE::WorldCoordinates wco{};
+  const KDIS::DATA_TYPE::EulerAngles ean{};
+  const KDIS::DATA_TYPE::EntityAppearance eap{};
+  const KDIS::DATA_TYPE::DeadReckoningParameter drp{};
+  const KDIS::DATA_TYPE::EntityMarking emk{};
+  const KDIS::DATA_TYPE::EntityCapabilities ecp{};
 };
 
 TEST_F(Entity_State_PDU_Test, ApplyDeadReckoning) {
