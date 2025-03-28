@@ -278,20 +278,21 @@ class EntityAppearanceTest : public ::testing::Test {
 };
 
 TEST_F(EntityAppearanceTest, AlternateConstructors) {
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(lpa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(apa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(spa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(sspa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(cpa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(gma));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(lfa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(nha));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(ena));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(cfa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(sea));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(raa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(exa));
-  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(sua));
+  using eat = KDIS::DATA_TYPE::EntityAppearance;
+  EXPECT_NO_THROW(volatile eat ea = eat(lpa));  // volatile prevents elision
+  EXPECT_NO_THROW(volatile eat ea = eat(apa));
+  EXPECT_NO_THROW(volatile eat ea = eat(spa));
+  EXPECT_NO_THROW(volatile eat ea = eat(sspa));
+  EXPECT_NO_THROW(volatile eat ea = eat(cpa));
+  EXPECT_NO_THROW(volatile eat ea = eat(gma));
+  EXPECT_NO_THROW(volatile eat ea = eat(lfa));
+  EXPECT_NO_THROW(volatile eat ea = eat(nha));
+  EXPECT_NO_THROW(volatile eat ea = eat(ena));
+  EXPECT_NO_THROW(volatile eat ea = eat(cfa));
+  EXPECT_NO_THROW(volatile eat ea = eat(sea));
+  EXPECT_NO_THROW(volatile eat ea = eat(raa));
+  EXPECT_NO_THROW(volatile eat ea = eat(exa));
+  EXPECT_NO_THROW(volatile eat ea = eat(sua));
 }
 
 TEST_F(EntityAppearanceTest, SetGetData) {
