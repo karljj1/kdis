@@ -253,13 +253,13 @@ void EntityAppearance::SetAppearance(const GuidedMunitionsAppearance& A) {
 //////////////////////////////////////////////////////////////////////////
 
 const GuidedMunitionsAppearance&
-EntityAppearance::GetAppearanceAsGuidedMuntions() const {
+EntityAppearance::GetAppearanceAsGuidedMunitions() const {
   return reinterpret_cast<const GuidedMunitionsAppearance&>(m_Appearance);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-GuidedMunitionsAppearance& EntityAppearance::GetAppearanceAsGuidedMuntions() {
+GuidedMunitionsAppearance& EntityAppearance::GetAppearanceAsGuidedMunitions() {
   return reinterpret_cast<GuidedMunitionsAppearance&>(m_Appearance);
 }
 
@@ -441,7 +441,7 @@ KString EntityAppearance::GetAsString(const EntityType& EntType) const {
       }
 
     case Munition:
-      return GetAppearanceAsGuidedMuntions().GetAsString();
+      return GetAppearanceAsGuidedMunitions().GetAsString();
 
     case Lifeform: {
       if (EntType.GetCategory() >=

@@ -259,6 +259,136 @@ TEST(DataType_EncodeDecode5, EntityAppearance) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+class EntityAppearanceTest : public ::testing::Test {
+ protected:
+  const KDIS::DATA_TYPE::LandPlatformAppearance lpa{};
+  const KDIS::DATA_TYPE::AirPlatformAppearance apa{};
+  const KDIS::DATA_TYPE::SurfacePlatformAppearance spa{};
+  const KDIS::DATA_TYPE::SubSurfacePlatformAppearance sspa{};
+  const KDIS::DATA_TYPE::SpacePlatformAppearance cpa{};
+  const KDIS::DATA_TYPE::GuidedMunitionsAppearance gma{};
+  const KDIS::DATA_TYPE::LifeFormAppearance lfa{};
+  const KDIS::DATA_TYPE::NonHumanLifeFormAppearance nha{};
+  const KDIS::DATA_TYPE::EnvironmentalsAppearance ena{};
+  const KDIS::DATA_TYPE::CulturalFeatureAppearance cfa{};
+  const KDIS::DATA_TYPE::SensorEmitterAppearance sea{};
+  const KDIS::DATA_TYPE::RadioAppearance raa{};
+  const KDIS::DATA_TYPE::ExpendableAppearance exa{};
+  const KDIS::DATA_TYPE::SupplyAppearance sua{};
+};
+
+TEST_F(EntityAppearanceTest, AlternateConstructors) {
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(lpa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(apa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(spa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(sspa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(cpa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(gma));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(lfa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(nha));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(ena));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(cfa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(sea));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(raa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(exa));
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::EntityAppearance(sua));
+}
+
+TEST_F(EntityAppearanceTest, SetGetData) {
+  constexpr KDIS::KUINT32 D{42};
+  KDIS::DATA_TYPE::EntityAppearance ea;
+  EXPECT_NO_THROW(ea.SetData(D));
+  EXPECT_EQ(D, ea.GetData());
+}
+
+TEST_F(EntityAppearanceTest, SetGetAppearance) {
+  KDIS::DATA_TYPE::EntityAppearance ea;
+  const KDIS::DATA_TYPE::EntityAppearance& cea = ea;
+  EXPECT_NO_THROW(ea.SetAppearance(lpa));
+  EXPECT_EQ(lpa, cea.GetAppearanceAsLandPlatform());
+  EXPECT_EQ(lpa, ea.GetAppearanceAsLandPlatform());
+  EXPECT_NO_THROW(ea.SetAppearance(apa));
+  EXPECT_EQ(apa, cea.GetAppearanceAsAirPlatform());
+  EXPECT_EQ(apa, ea.GetAppearanceAsAirPlatform());
+  EXPECT_NO_THROW(ea.SetAppearance(spa));
+  EXPECT_EQ(spa, cea.GetAppearanceAsSurfacePlatform());
+  EXPECT_EQ(spa, ea.GetAppearanceAsSurfacePlatform());
+  EXPECT_NO_THROW(ea.SetAppearance(sspa));
+  EXPECT_EQ(sspa, cea.GetAppearanceAsSubsurfacePlatform());
+  EXPECT_EQ(sspa, ea.GetAppearanceAsSubsurfacePlatform());
+  EXPECT_NO_THROW(ea.SetAppearance(cpa));
+  EXPECT_EQ(cpa, cea.GetAppearanceAsSpacePlatform());
+  EXPECT_EQ(cpa, ea.GetAppearanceAsSpacePlatform());
+  EXPECT_NO_THROW(ea.SetAppearance(gma));
+  EXPECT_EQ(gma, cea.GetAppearanceAsGuidedMunitions());
+  EXPECT_EQ(gma, ea.GetAppearanceAsGuidedMunitions());
+  EXPECT_NO_THROW(ea.SetAppearance(lfa));
+  EXPECT_EQ(lfa, cea.GetAppearanceAsLifeForm());
+  EXPECT_EQ(lfa, ea.GetAppearanceAsLifeForm());
+  EXPECT_NO_THROW(ea.SetAppearance(nha));
+  EXPECT_EQ(nha, cea.GetAppearanceAsNonHumanLifeForm());
+  EXPECT_EQ(nha, ea.GetAppearanceAsNonHumanLifeForm());
+  EXPECT_NO_THROW(ea.SetAppearance(ena));
+  EXPECT_EQ(ena, cea.GetAppearanceEnvironmentals());
+  EXPECT_EQ(ena, ea.GetAppearanceEnvironmentals());
+  EXPECT_NO_THROW(ea.SetAppearance(cfa));
+  EXPECT_EQ(cfa, cea.GetAppearanceCultural());
+  EXPECT_EQ(cfa, ea.GetAppearanceCultural());
+  EXPECT_NO_THROW(ea.SetAppearance(sea));
+  EXPECT_EQ(sea, cea.GetSensorEmitter());
+  EXPECT_EQ(sea, ea.GetSensorEmitter());
+  EXPECT_NO_THROW(ea.SetAppearance(raa));
+  EXPECT_EQ(raa, cea.GetAppearanceAsRadio());
+  EXPECT_EQ(raa, ea.GetAppearanceAsRadio());
+  EXPECT_NO_THROW(ea.SetAppearance(exa));
+  EXPECT_EQ(exa, cea.GetAppearanceAsExpendable());
+  EXPECT_EQ(exa, ea.GetAppearanceAsExpendable());
+  EXPECT_NO_THROW(ea.SetAppearance(sua));
+  EXPECT_EQ(sua, cea.GetAppearanceAsSupply());
+  EXPECT_EQ(sua, ea.GetAppearanceAsSupply());
+}
+
+TEST_F(EntityAppearanceTest, GetAsString) {
+  const KDIS::DATA_TYPE::EntityAppearance cea;
+  KDIS::DATA_TYPE::EntityType et;
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Platform);
+  et.SetDomain(KDIS::DATA_TYPE::ENUMS::Land);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetDomain(KDIS::DATA_TYPE::ENUMS::Air);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetDomain(KDIS::DATA_TYPE::ENUMS::Surface);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetDomain(KDIS::DATA_TYPE::ENUMS::Subsurface);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetDomain(KDIS::DATA_TYPE::ENUMS::Space);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Munition);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Lifeform);
+  et.SetCategory(100);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetCategory(205);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Environmental);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Culturalfeature);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::SensorEmitter);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Radio);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Expendable);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+  et.SetEntityKind(KDIS::DATA_TYPE::ENUMS::Supply);
+  EXPECT_NO_THROW(cea.GetAsString(et));
+}
+
+TEST_F(EntityAppearanceTest, DecodeStreamTooShort) {
+  KDIS::DATA_TYPE::EntityAppearance ea;
+  KDIS::KDataStream stream;
+  EXPECT_THROW(ea.Decode(stream), KDIS::KException);  // too short
+}
+
 TEST(DataType_EncodeDecode5, EntityCapabilities) {
   KDIS::DATA_TYPE::EntityCapabilities dtIn;
   KDIS::KDataStream stream = dtIn.Encode();
