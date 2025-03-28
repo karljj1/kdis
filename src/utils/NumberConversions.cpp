@@ -1,10 +1,10 @@
 #include <cmath>
 #include <limits>
 
-#include "KDIS/util/NumberConversions.hpp"
+#include "KDIS/utils/NumberConversions.hpp"
 
 namespace KDIS {
-namespace UTIL {
+namespace UTILS {
 
 std::int32_t double_to_int32(double value) {
   if (std::isnan(value) || std::isinf(value)) {
@@ -19,5 +19,5 @@ std::int32_t double_to_int32(double value) {
   return static_cast<std::int32_t>(value);
 }
 
-}  // namespace UTIL
+}  // namespace UTILS
 }  // namespace KDIS

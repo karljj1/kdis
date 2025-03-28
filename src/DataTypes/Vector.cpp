@@ -27,9 +27,9 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/Vector.hpp"
-
 #include <math.h>
+
+#include "KDIS/DataTypes/Vector.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -38,20 +38,12 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-Vector::Vector() : m_f32X(0), m_f32Y(0), m_f32Z(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 Vector::Vector(KFLOAT32 X, KFLOAT32 Y, KFLOAT32 Z)
     : m_f32X(X), m_f32Y(Y), m_f32Z(Z) {}
 
 //////////////////////////////////////////////////////////////////////////
 
 Vector::Vector(KDataStream& stream) { Decode(stream); }
-
-//////////////////////////////////////////////////////////////////////////
-
-Vector::~Vector() {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -165,16 +157,6 @@ Vector Vector::operator*(const Vector& Value) const {
   tmp.m_f32X *= Value.m_f32X;
   tmp.m_f32Y *= Value.m_f32Y;
   tmp.m_f32Z *= Value.m_f32Z;
-  return tmp;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
-Vector Vector::operator*(KFLOAT64 Value) const {
-  Vector tmp = *this;
-  tmp.m_f32X *= Value;
-  tmp.m_f32Y *= Value;
-  tmp.m_f32Z *= Value;
   return tmp;
 }
 

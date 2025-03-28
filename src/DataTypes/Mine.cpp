@@ -28,8 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/Mine.hpp"
-
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -46,7 +45,7 @@ map<KUINT16, vector<Vector> >::iterator Mine::getWire(KUINT16 Index) {
   if (itr == m_mvVertices.end())
     throw KException(
         ErrorCode::OUT_OF_BOUNDS,
-        KDIS::UTIL::format("%s | Invalid wire index %u", __FUNCTION__, Index));
+        KDIS::UTILS::format("%s | Invalid wire index %u", __FUNCTION__, Index));
   return itr;
 }
 

@@ -61,9 +61,9 @@ class KDIS_EXPORT Entity_State_PDU : public Header {
  protected:
   KDIS::DATA_TYPE::EntityIdentifier m_EntityID;
 
-  KUINT8 m_ui8ForceID;
+  KUINT8 m_ui8ForceID{0};
 
-  KUINT8 m_ui8NumOfVariableParams;
+  KUINT8 m_ui8NumOfVariableParams{0};
 
   KDIS::DATA_TYPE::EntityType m_EntityType;
 
@@ -85,7 +85,7 @@ class KDIS_EXPORT Entity_State_PDU : public Header {
 
   std::vector<KDIS::DATA_TYPE::VarPrmPtr> m_vVariableParameters;
 
-  KDIS::UTILS::DeadReckoningCalculator* m_pDrCalc;
+  KDIS::UTILS::DeadReckoningCalculator* m_pDrCalc{nullptr};
 
   Entity_State_PDU* clone() const override;
 
@@ -275,10 +275,10 @@ class KDIS_EXPORT Entity_State_PDU : public Header {
   // time step.
   //              Throws INVALID_OPERATION exception if InitDeadReckoning has
   //              not been called first.
-  // Parameter:   KFLOAT64 totalTimeSinceDrReset the time since the DR has been
+  // Parameter:   KFLOAT32 totalTimeSinceDrReset the time since the DR has been
   // reset. Not the simulation time step.
   //************************************
-  void ApplyDeadReckoning(KFLOAT64 totalTimeSinceDrReset);
+  void ApplyDeadReckoning(KFLOAT32 totalTimeSinceDrReset);
 
   /************************************************************************/
 

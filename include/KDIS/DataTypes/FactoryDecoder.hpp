@@ -80,7 +80,7 @@ you.
 
 #include "KDIS/Extras/KRef_Ptr.hpp"
 #include "KDIS/KDataStream.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -134,8 +134,8 @@ class FactoryDecoderUser {
     if (m_mDecoders.find(EnumVal) != m_mDecoders.end()) {
       throw KException(
           ErrorCode::INVALID_OPERATION,
-          KDIS::UTIL::format("%s | A decoder for enum %d already exists",
-                             __FUNCTION__, EnumVal));
+          KDIS::UTILS::format("%s | A decoder for enum %d already exists",
+                              __FUNCTION__, EnumVal));
     }
 
     // Register the new decoder.

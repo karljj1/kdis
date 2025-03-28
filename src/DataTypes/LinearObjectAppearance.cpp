@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/LinearObjectAppearance.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -109,10 +109,11 @@ bitset<8> LinearObjectAppearance::GetBreachLocationAsBitset() {
 
 void LinearObjectAppearance::SetOpacity(KUINT8 O) {
   if (O > 100)
-    throw KException(ErrorCode::INVALID_DATA,
-                     KDIS::UTIL::format("%s | %u is not a valid opacity value. "
-                                        "Valid values are from 0 to 100",
-                                        __FUNCTION__, O));
+    throw KException(
+        ErrorCode::INVALID_DATA,
+        KDIS::UTILS::format("%s | %u is not a valid opacity value. "
+                            "Valid values are from 0 to 100",
+                            __FUNCTION__, O));
 
   m_SpecificAppearanceUnion.m_ExhaustSmoke.m_ui32Opacity = O;
 }

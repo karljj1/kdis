@@ -39,6 +39,8 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
+#include <array>
+
 #include "KDIS/DataTypes/DataTypeBase.hpp"
 #include "KDIS/DataTypes/Vector.hpp"
 
@@ -47,9 +49,9 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT DeadReckoningParameter : public DataTypeBase {
  protected:
-  KUINT8 m_ui8DeadRecknoningAlgorithm;
+  KUINT8 m_ui8DeadRecknoningAlgorithm{0};
 
-  KOCTET m_OtherParams[15];  // Undefined
+  std::array<KOCTET, 15> m_OtherParams = {};  // initialized to 0s
 
   Vector m_LinearAcceleration;
 
@@ -58,7 +60,7 @@ class KDIS_EXPORT DeadReckoningParameter : public DataTypeBase {
  public:
   static const KUINT16 DEAD_RECKONING_PARAMETER_SIZE = 40;
 
-  DeadReckoningParameter();
+  DeadReckoningParameter() = default;
 
   DeadReckoningParameter(KDataStream& stream);
 
@@ -66,7 +68,7 @@ class KDIS_EXPORT DeadReckoningParameter : public DataTypeBase {
                          const Vector& LinearAcceleration,
                          const Vector& AngularVelocity);
 
-  virtual ~DeadReckoningParameter();
+  virtual ~DeadReckoningParameter() = default;
 
   //************************************
   // FullName:

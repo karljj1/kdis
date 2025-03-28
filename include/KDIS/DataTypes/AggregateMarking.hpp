@@ -40,7 +40,7 @@ need to be made to support the other sets. size:       256 bits / 32 Octets
 #pragma once
 
 #include "KDIS/DataTypes/DataTypeBase.hpp"
-#include "KDIS/util/BoundedLengthString.hpp"
+#include "KDIS/utils/BoundedLengthString.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -49,7 +49,7 @@ class KDIS_EXPORT AggregateMarking : public DataTypeBase {
  protected:
   KUINT8 m_ui8AggregateMarkingCharacterSet{KDIS::DATA_TYPE::ENUMS::ASCII};
 
-  KDIS::UTIL::BoundedLengthString<32> m_sAggregateMarkingString;
+  KDIS::UTILS::BoundedLengthString<32> m_sAggregateMarkingString;
 
  public:
   AggregateMarking() = default;

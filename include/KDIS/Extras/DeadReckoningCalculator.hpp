@@ -190,7 +190,7 @@ class Matrix {
     return res;
   };
 
-  void inPlanceTranspose() {
+  void inPlaceTranspose() {
     if (cols != rows) return;
 
     for (KUINT16 i = 0; i < rows; ++i) {

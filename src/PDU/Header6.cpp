@@ -31,7 +31,7 @@ http://p.sf.net/kdis/UserGuide
 #include <limits>
 
 #include "KDIS/PDU/Header6.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 using namespace KDIS;
 using namespace PDU;
@@ -172,7 +172,7 @@ void Header6::Decode(KDataStream& stream, bool ignoreHeader /*= false*/) {
 
       throw KException(
           ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER,
-          KDIS::UTIL::format(
+          KDIS::UTILS::format(
               "%s | Received %u bytes. Expected minimum %u bytes\nData: %s\n",
               __FUNCTION__, stream.GetBufferSize(), HEADER6_PDU_SIZE,
               data.str().c_str()));

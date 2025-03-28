@@ -1,15 +1,14 @@
 // Inspired by
 // https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf
 
-#ifndef KDIS_UTIL_FORMAT_HPP_
-#define KDIS_UTIL_FORMAT_HPP_
+#pragma once
 
 #include <memory>
 #include <stdexcept>
 #include <string>
 
 namespace KDIS {
-namespace UTIL {
+namespace UTILS {
 
 /**
  * @brief Format args according to the format string fmt, and return the result
@@ -37,7 +36,5 @@ std::string format(const std::string& fmt, Args... args) {
   return std::string(buf.get(), buf.get() + size - 1);  // Exclude '\0'
 }
 
-}  // namespace UTIL
+}  // namespace UTILS
 }  // namespace KDIS
-
-#endif  // KDIS_UTIL_FORMAT_HPP_
