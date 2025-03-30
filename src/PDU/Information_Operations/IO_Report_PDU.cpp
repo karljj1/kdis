@@ -65,7 +65,7 @@ IO_Report_PDU::IO_Report_PDU(const EntityIdentifier& OrigID, KUINT16 SimSrc,
                              const EntityIdentifier& TgtID)
     : IO_Header(OrigID),
       m_ui16SimSrc(SimSrc),
-      m_ui8RptTyp(RT),
+      m_ui8RptTyp(static_cast<KUINT8>(RT)),
       m_ui8Padding(0),
       m_ui32Padding(0),
       m_AtkEntityID(AtkID),
@@ -100,7 +100,9 @@ KUINT16 IO_Report_PDU::GetSimulationSource() const { return m_ui16SimSrc; }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IO_Report_PDU::SetReportType(IOReportType RT) { m_ui8RptTyp = RT; }
+void IO_Report_PDU::SetReportType(IOReportType RT) {
+  m_ui8RptTyp = static_cast<KUINT8>(RT);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

@@ -96,7 +96,8 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(KDataStream& stream) {
 
   // First check for a custom decoder.
   StandardVariable* p =
-      FactoryDecode(recordHeader.GetStandardVariableType(), stream);
+      FactoryDecode(static_cast<KUINT32>(
+                        recordHeader.GetStandardVariableType()), stream);
 
   if (p) {
     return StdVarPtr(p);
@@ -104,9 +105,9 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(KDataStream& stream) {
 
   // Check for a KDIS implementation of the type.
   switch (recordHeader.GetStandardVariableType()) {
-    case IOCommunicationsNodeRecord:
+    case StandardVariableType::IOCommunicationsNodeRecord:
       return new IOCommunicationsNode(stream);
-    case IOEffectRecord:
+    case StandardVariableType::IOEffectRecord:
       return new IOEffect(stream);
 
       // TODO: DE Records

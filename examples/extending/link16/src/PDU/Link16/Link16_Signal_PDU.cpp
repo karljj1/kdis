@@ -81,7 +81,7 @@ Link16_Signal_PDU::Link16_Signal_PDU(
       m_ui8NetNumber(NN),
       m_ui8TSEC(TSEC),
       m_ui8MSEC(MSEC),
-      m_ui8MsgType(MT),
+      m_ui8MsgType(static_cast<KUINT8>(MT)),
       m_ui16Padding1(0),
       m_ui32PTTInteger(TTInteger),
       m_ui32PTTFraction(TTFraction) {
@@ -152,7 +152,7 @@ KUINT8 Link16_Signal_PDU::GetMessageSecurity() const { return m_ui8MSEC; }
 //////////////////////////////////////////////////////////////////////////
 
 void Link16_Signal_PDU::SetMessageType(Link16MessageType MT) {
-  m_ui8MsgType = MT;
+  m_ui8MsgType = static_cast<KUINT8>(MT);
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -87,9 +87,9 @@ Link16_Transmitter_PDU::Link16_Transmitter_PDU(
     : Transmitter_PDU(Type, TS, IS, AL, APT, Freq, FreqBW, Power, MT, CS,
                       ModulationParams, ModulationParamsLength, AntennaPattern,
                       AntennaPatternLength),
-      m_ui8TTPM(TTPM),
-      m_ui8TTSM(TTSM),
-      m_ui32NetworkSyncID(TTSM) {
+      m_ui8TTPM(static_cast<KUINT8>(TTPM)),
+      m_ui8TTSM(static_cast<KUINT8>(TTSM)),
+      m_ui32NetworkSyncID(static_cast<KUINT32>(TTSM)) {
   SetTimeSlotAllocationMode(TSA);
   m_ui16PDULength = LINK16_TRANSMITTER_PDU_SIZE;
   m_CryptoSystem = CryptoSystem(OtherCryptoSystem, BaseBand, 0);
@@ -105,16 +105,18 @@ Link16_Transmitter_PDU::~Link16_Transmitter_PDU() {}
 
 void Link16_Transmitter_PDU::SetTimeSlotAllocationMode(
     TimeSlotAllocationMode TSA) {
-  m_ui8TSAM = TSA;
+  m_ui8TSAM = static_cast<KUINT8>(TSA);
 
   // Sync State
-  if (TSA == TSA4)
-    m_ui8SyncState = FineSynchronization;
+  if (TSA == TimeSlotAllocationMode::TSA4)
+    m_ui8SyncState = static_cast<KUINT8>(
+                         SynchronizationState::FineSynchronization);
   else
-    m_ui8SyncState = CoarseSynchronization;
+    m_ui8SyncState = static_cast<KUINT8>(
+                         SynchronizationState::CoarseSynchronization);
 
   // Network Sync ID
-  if (TSA < TSA3)
+  if (TSA < TimeSlotAllocationMode::TSA3)
     m_ui32NetworkSyncID = 0;
   else {
     // Random number using DIS time stamp as a seed
@@ -134,7 +136,7 @@ TimeSlotAllocationMode Link16_Transmitter_PDU::GetTimeSlotAllocationMode()
 
 void Link16_Transmitter_PDU::SetTransmittingTerminalPrimaryMode(
     TransmittingTerminalPrimaryMode TTPM) {
-  m_ui8TTPM = TTPM;
+  m_ui8TTPM = static_cast<KUINT8>(TTPM);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -148,7 +150,7 @@ Link16_Transmitter_PDU::GetTransmittingTerminalPrimaryMode() const {
 
 void Link16_Transmitter_PDU::SetTransmittingTerminalSecondaryMode(
     TransmittingTerminalSecondaryMode TTSM) {
-  m_ui8TTSM = TTSM;
+  m_ui8TTSM = static_cast<KUINT8>(TTSM);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -161,7 +163,7 @@ Link16_Transmitter_PDU::GetTransmittingTerminalSecondaryMode() const {
 //////////////////////////////////////////////////////////////////////////
 
 SynchronizationState Link16_Transmitter_PDU::GetSynchronizationState() const {
-  return (SynchronizationState)m_ui8SyncState;
+  return static_cast<SynchronizationState>(m_ui8SyncState);
 }
 
 //////////////////////////////////////////////////////////////////////////
