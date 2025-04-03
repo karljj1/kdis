@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -312,7 +312,7 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
       default:
         throw KException(
             ErrorCode::UNSUPPORTED_DATATYPE,
-            KDIS::UTIL::format("%s | %u", __FUNCTION__, hdr.GetLayerNumber()));
+            KDIS::UTILS::format("%s | %u", __FUNCTION__, hdr.GetLayerNumber()));
     }
 
     if (layer) {
@@ -320,7 +320,7 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
       remainingData -= layer->GetLayerLength();
     } else {
       throw KException(ErrorCode::INVALID_OPERATION,
-                       KDIS::UTIL::format("%s | Layer is nul", __FUNCTION__));
+                       KDIS::UTILS::format("%s | Layer is nul", __FUNCTION__));
     }
   }
 }

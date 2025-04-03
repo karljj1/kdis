@@ -35,7 +35,7 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Represents an entity appearance using bit fields.
                 This class has had a significant upgrade, I have removed general
                 and specific appearance types. Each type now has a single
-appearance type. size:       32 Bits / 4 Octet
+                appearance type. size:  32 Bits / 4 Octets
 *********************************************************************/
 
 #pragma once
@@ -62,12 +62,12 @@ struct SupplyAppearance;
 
 class KDIS_EXPORT EntityAppearance : public DataTypeBase {
  protected:
-  KUINT32 m_Appearance;
+  KUINT32 m_Appearance{0};
 
  public:
-  static const KUINT16 ENTITY_APPEARANCE_SIZE = 4;
+  static constexpr KUINT16 ENTITY_APPEARANCE_SIZE{4};
 
-  EntityAppearance();
+  EntityAppearance() = default;
 
   EntityAppearance(KDataStream& stream);
 
@@ -99,17 +99,16 @@ class KDIS_EXPORT EntityAppearance : public DataTypeBase {
 
   EntityAppearance(const SupplyAppearance& A);
 
-  virtual ~EntityAppearance();
+  virtual ~EntityAppearance() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetData
   //              KDIS::DATA_TYPE::EntityAppearance::GetData
   // Description: This is the raw appearance field. Each bit is interpreted
-  // differently depending
-  //              on the appearance type.
+  //              differently depending on the appearance type.
   //              You will likely never need to touch this value unless
   //              something is missing from one of my appearance types or you
-  //              are using a field in a none standard way.
+  //              are using a field in a non-standard way.
   // Parameter:   KUINT32 D
   //************************************
   void SetData(KUINT32 D);
@@ -167,13 +166,13 @@ class KDIS_EXPORT EntityAppearance : public DataTypeBase {
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance
-  //              KDIS::DATA_TYPE::EntityAppearance::GetAppearanceAsGuidedMuntions
+  //              KDIS::DATA_TYPE::EntityAppearance::GetAppearanceAsGuidedMunitions
   // Description: Get/Set the appearance data as guided munitions.
   // Parameter:   const GuidedMunitionsAppearance & A
   //************************************
   void SetAppearance(const GuidedMunitionsAppearance& A);
-  const GuidedMunitionsAppearance& GetAppearanceAsGuidedMuntions() const;
-  GuidedMunitionsAppearance& GetAppearanceAsGuidedMuntions();
+  const GuidedMunitionsAppearance& GetAppearanceAsGuidedMunitions() const;
+  GuidedMunitionsAppearance& GetAppearanceAsGuidedMunitions();
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityAppearance::SetAppearance

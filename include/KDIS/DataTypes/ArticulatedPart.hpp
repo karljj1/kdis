@@ -51,15 +51,15 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT ArticulatedPart : public VariableParameter {
  protected:
-  KUINT8 m_ui8ParmeterChange;
+  KUINT8 m_ui8ParameterChange{0};
 
-  KUINT16 m_ui16AttachementID;
+  KUINT16 m_ui16AttachmentID{0};
 
-  KUINT32 m_ui32ParamTypeVariant;
+  KUINT32 m_ui32ParamTypeVariant{0};
 
-  KFLOAT32 m_f32ParamValue;
+  KFLOAT32 m_f32ParamValue{0};
 
-  KUINT32 m_ui32Padding;
+  KUINT32 m_ui32Padding{0};
 
  public:
   ArticulatedPart();
@@ -74,7 +74,7 @@ class KDIS_EXPORT ArticulatedPart : public VariableParameter {
   ArticulatedPart(KUINT8 ParamChangeIndicator, KUINT16 AttachID,
                   KUINT32 TypeVariant, KFLOAT32 Value);
 
-  virtual ~ArticulatedPart();
+  virtual ~ArticulatedPart() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetParameterChangeIndicator
@@ -89,16 +89,16 @@ class KDIS_EXPORT ArticulatedPart : public VariableParameter {
   KUINT8 GetParameterChangeIndicator() const;
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetAttachementID
-  //              KDIS::DATA_TYPE::ArticulatedPart::GetAttachementID
+  // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetAttachmentID
+  //              KDIS::DATA_TYPE::ArticulatedPart::GetAttachmentID
   // Description: ID field of the articulated part to which the articulation
   // parameter
   //              is attached. Field shall be 0 if the part is attached directly
   //              to the entity.
   // Parameter:   KUINT16 ID
   //************************************
-  void SetAttachementID(KUINT16 ID);
-  KUINT16 GetAttachementID() const;
+  void SetAttachmentID(KUINT16 ID);
+  KUINT16 GetAttachmentID() const;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::ArticulatedPart::SetTypeVariantClass

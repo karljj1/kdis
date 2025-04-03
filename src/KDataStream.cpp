@@ -37,20 +37,7 @@ using namespace std;
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream::KDataStream(
-    KDIS::UTIL::Endian::Endianness Network_Endian /*= Big_Endian*/)
-    : m_NetEndian(Network_Endian),
-      m_ui16CurrentWritePos(0),
-      m_MachineEndian(KDIS::UTIL::Endian::endian()) {}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream::KDataStream(
-    const KOCTET* SerialData, KUINT16 DataSize,
-    KDIS::UTIL::Endian::Endianness Network_Endian /*= Big_Endian */)
-    : m_NetEndian(Network_Endian),
-      m_ui16CurrentWritePos(0),
-      m_MachineEndian(KDIS::UTIL::Endian::endian()) {
+KDataStream::KDataStream(const KOCTET* SerialData, KUINT16 DataSize) {
   // Copy Data into vector
   for (KUINT16 i = 0; i < DataSize; ++i) {
     m_vBuffer.push_back(SerialData[i]);
@@ -59,17 +46,13 @@ KDataStream::KDataStream(
 
 //////////////////////////////////////////////////////////////////////////
 
-KDataStream::~KDataStream() {}
-
-//////////////////////////////////////////////////////////////////////////
-
-KDIS::UTIL::Endian::Endianness KDataStream::GetMachineEndian() const {
+KDIS::UTILS::Endian::Endianness KDataStream::GetMachineEndian() const {
   return m_MachineEndian;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-KDIS::UTIL::Endian::Endianness KDataStream::GetNetWorkEndian() const {
+KDIS::UTILS::Endian::Endianness KDataStream::GetNetWorkEndian() const {
   return m_NetEndian;
 }
 
@@ -111,9 +94,7 @@ KUINT16 KDataStream::CopyIntoBuffer(KOCTET* Buffer, KUINT16 BufferSize,
 
 //////////////////////////////////////////////////////////////////////////
 
-void KDataStream::CopyFromBuffer(
-    const KOCTET* SerialData, KUINT16 DataSize,
-    KDIS::UTIL::Endian::Endianness NetworkEndian /*= Big_Endian*/) {
+void KDataStream::CopyFromBuffer(const KOCTET* SerialData, KUINT16 DataSize) {
   // Copy Data into vector
   for (KUINT16 i = 0; i < DataSize; ++i) {
     m_vBuffer.push_back(SerialData[i]);

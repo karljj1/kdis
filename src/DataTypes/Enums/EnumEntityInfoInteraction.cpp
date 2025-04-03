@@ -2365,7 +2365,7 @@ const EnumDescriptor PreEntityIndicatorDescriptor[] = {
     {0, "NoStatementPreEntityIndicator"},
     {1, "Entity Id Existed Prior To Separation Without Entity State PDU"},
     {2, "Entity Id Existed Prior To Separation With Entity State PDU Issued"},
-    {2, "Entity Initially Created At Separation Event"}};
+    {3, "Entity Initially Created At Separation Event"}};
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizePreEntityIndicator() {
   return sizeof(PreEntityIndicatorDescriptor) / sizeof(PreEntityIndicator);

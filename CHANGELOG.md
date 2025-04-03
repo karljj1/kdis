@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `KDIS::DATA_TYPE::AggregateMarking` now uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
 - `KDIS::DATA_TYPE::EntityMarking` now only uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
 - Overall code and repository structure have been reworked to improve maintainability
+- Unified to `KDIS::UTILS` (plural) namespace, to eliminate a distinction without a difference via [#71](https://github.com/karljj1/kdis/pull/71)
 
 ### Deprecated
 
@@ -46,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CMake` option `EXAMPLES_USE_STATIC_OR_SHARED_LIB`. To determine whether to build a `static` or `shared` _library_, use the official [`BUILD_SHARED_LIBS`](https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html) flag option
 - `CMake` option `USE_SOLUTION_FOLDERS`
 - `KDIS_Change_Log.htm` file
+- `KFLOAT64` method from `Vector`, since it's fundamentally a `KFLOAT32` class via [#71](https://github.com/karljj1/kdis/pull/71)
 
 ### Fixed
 
@@ -54,6 +56,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Naming of the `LifeFormAppearance::Set/GetEntityCompliance()` methods via [#58](https://github.com/karljj1/kdis/pull/58)
 - `-Winconsistent-missing-override` warnings removed via [#65](https://github.com/karljj1/kdis/pull/65)
 - C4244 "possible loss of data" warnings on Windows builds via [#67](https://github.com/karljj1/kdis/pull/67), [#68](https://github.com/karljj1/kdis/pull/68)
+- Spelling of `ArticulatedPart::Get/SetAttachmentID` methods via [#71](https://github.com/karljj1/kdis/pull/71)
+- Type of `Entity_State_PDU::ApplyDeadReckoning`'s parameter to KFLOAT32 via [#71](https://github.com/karljj1/kdis/pull/71)
+- Spelling of `KDIS::UTILS::Matrix::inPlaceTranspose()` method via [#71](https://github.com/karljj1/kdis/pull/71)
+- Spelling of `KDIS::DATA_TYPE::EntityAppearance` "GuidedMunitions" methods via [#71](https://github.com/karljj1/kdis/pull/71)
+- Removed `NetworkEndian` as a user parameter on `KDataStream` via [#71](https://github.com/karljj1/kdis/pull/71). Network endianness is always big per DIS standard.
 
 ### Security
 

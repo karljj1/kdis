@@ -31,7 +31,7 @@ http://p.sf.net/kdis/UserGuide
 #include "KDIS/DataTypes/AttachedPart.hpp"
 #include "KDIS/Extras/DeadReckoningCalculator.hpp"
 #include "KDIS/PDU/Entity_Info_Interaction/Entity_State_PDU.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 #if DIS_VERSION > 5
 #include "KDIS/DataTypes/SeparationPart.hpp"
@@ -58,8 +58,7 @@ Entity_State_PDU* Entity_State_PDU::clone() const {
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_PDU::Entity_State_PDU()
-    : m_ui8NumOfVariableParams(0), m_ui8ForceID(0), m_pDrCalc(0) {
+Entity_State_PDU::Entity_State_PDU() {
   m_ui8ProtocolFamily = Entity_Information_Interaction;
   m_ui8PDUType = Entity_State_PDU_Type;
   m_ui16PDULength = ENTITY_STATE_PDU_SIZE;
@@ -68,14 +67,14 @@ Entity_State_PDU::Entity_State_PDU()
 
 //////////////////////////////////////////////////////////////////////////
 
-Entity_State_PDU::Entity_State_PDU(KDataStream& stream) : m_pDrCalc(0) {
+Entity_State_PDU::Entity_State_PDU(KDataStream& stream) {
   Decode(stream, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 Entity_State_PDU::Entity_State_PDU(const Header& H, KDataStream& stream)
-    : Header(H), m_pDrCalc(0) {
+    : Header(H) {
   Decode(stream, true);
 }
 
@@ -97,7 +96,7 @@ Entity_State_PDU::Entity_State_PDU(const Entity_State_PDU& ESPDU)
       m_EntityCapabilities(ESPDU.m_EntityCapabilities),
       m_vVariableParameters(ESPDU.m_vVariableParameters),
       m_pDrCalc(ESPDU.m_pDrCalc ? new DeadReckoningCalculator(*ESPDU.m_pDrCalc)
-                                : NULL) {}
+                                : nullptr) {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -110,7 +109,6 @@ Entity_State_PDU::Entity_State_PDU(
     const EntityCapabilities& EC)
     : m_EntityID(EI),
       m_ui8ForceID(ID),
-      m_ui8NumOfVariableParams(0),
       m_EntityType(Type),
       m_AltEntityType(AltType),
       m_EntityLinearVelocity(EntityLinearVelocity),
@@ -119,8 +117,7 @@ Entity_State_PDU::Entity_State_PDU(
       m_EntityAppearance(EA),
       m_DeadReckoningParameter(DRP),
       m_EntityMarking(EM),
-      m_EntityCapabilities(EC),
-      m_pDrCalc(0) {
+      m_EntityCapabilities(EC) {
   m_ui8ProtocolFamily = Entity_Information_Interaction;
   m_ui8PDUType = Entity_State_PDU_Type;
   m_ui16PDULength = ENTITY_STATE_PDU_SIZE;
@@ -283,7 +280,7 @@ void Entity_State_PDU::SetDeadReckoningParameter(
 void Entity_State_PDU::SetDeadReckoningCalculator(DeadReckoningCalculator* DR) {
   if (m_pDrCalc) delete m_pDrCalc;
 
-  m_pDrCalc = DR ? new DeadReckoningCalculator(*DR) : NULL;
+  m_pDrCalc = DR ? new DeadReckoningCalculator(*DR) : nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -304,12 +301,13 @@ void Entity_State_PDU::InitDeadReckoning() {
 
 //////////////////////////////////////////////////////////////////////////
 
-void Entity_State_PDU::ApplyDeadReckoning(KFLOAT64 totalTimeSinceDrReset) {
+void Entity_State_PDU::ApplyDeadReckoning(KFLOAT32 totalTimeSinceDrReset) {
   if (!m_pDrCalc)
     throw KException(ErrorCode::INVALID_OPERATION,
-                     KDIS::UTIL::format(
+                     KDIS::UTILS::format(
                          "%s | Function InitDeadReckoning must be called first",
                          __FUNCTION__));
+  // TBD - dependency-inject the m_pDrCalc instance for clean unit testing
   m_pDrCalc->RunAlgorithm(totalTimeSinceDrReset, m_EntityLocation,
                           m_EntityOrientation);
 }
@@ -548,8 +546,6 @@ Entity_State_PDU& Entity_State_PDU::operator=(const Entity_State_PDU& Other) {
     m_EntityMarking = Other.m_EntityMarking;
     m_EntityCapabilities = Other.m_EntityCapabilities;
     m_vVariableParameters = Other.m_vVariableParameters;
-    // m_pDrCalc = ( Other.m_pDrCalc ? new DeadReckoningCalculator(
-    // *Other.m_pDrCalc ) : NULL );
     SetDeadReckoningCalculator(Other.m_pDrCalc);
   }
 

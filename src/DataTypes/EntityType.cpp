@@ -44,17 +44,6 @@ using namespace std;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EntityType::EntityType()
-    : m_ui8EntityKind(0),
-      m_ui8Domain(0),
-      m_ui16Country(0),
-      m_ui8Category(0),
-      m_ui8SubCategory(0),
-      m_ui8Specific(0),
-      m_ui8Extra(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 EntityType::EntityType(EntityKind Kind, KUINT8 Domain, Country Country,
                        KUINT8 Categoy, KUINT8 SubCategory, KUINT8 Specific,
                        KUINT8 Extra)
@@ -82,10 +71,6 @@ EntityType::EntityType(KUINT8 Kind, KUINT8 Domain, KUINT16 Country,
 //////////////////////////////////////////////////////////////////////////
 
 EntityType::EntityType(KDataStream& stream) { Decode(stream); }
-
-//////////////////////////////////////////////////////////////////////////
-
-EntityType::~EntityType() {}
 
 //////////////////////////////////////////////////////////////////////////
 

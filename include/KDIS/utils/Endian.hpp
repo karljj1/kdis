@@ -1,10 +1,9 @@
-#ifndef KDIS_UTIL_ENDIAN_HPP_
-#define KDIS_UTIL_ENDIAN_HPP_
+#pragma once
 
 #include "KDIS/KDefines.hpp"
 
 namespace KDIS {
-namespace UTIL {
+namespace UTILS {
 
 /**
  * @brief This class supports querying machine endianness. It does not provide
@@ -52,7 +51,5 @@ class KDIS_EXPORT Endian {
   static bool isBigEndian();
 };
 
-}  // namespace UTIL
+}  // namespace UTILS
 }  // namespace KDIS
-
-#endif  // KDIS_UTIL_ENDIAN_HPP_

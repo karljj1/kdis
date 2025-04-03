@@ -28,8 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/Mode5TransponderBasicData.hpp"
-
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -199,9 +198,9 @@ void Mode5TransponderBasicData::SetFigureOfMerit(KUINT8 FOM) {
   if (FOM > 31)
     throw KException(
         ErrorCode::INVALID_DATA,
-        KDIS::UTIL::format("%s | %u is not a valid figure of merit value. "
-                           "Valid values are from 0 to 31",
-                           __FUNCTION__, FOM));
+        KDIS::UTILS::format("%s | %u is not a valid figure of merit value. "
+                            "Valid values are from 0 to 31",
+                            __FUNCTION__, FOM));
   m_ui8FigMerit = FOM;
 }
 

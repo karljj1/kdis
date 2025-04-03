@@ -8,7 +8,7 @@
 #include <string>
 
 namespace KDIS {
-namespace UTIL {
+namespace UTILS {
 
 // For the purposes of this class, N includes the number of readable characters
 //    AND the null terminator. So the maximum readable # of characters that can
@@ -53,5 +53,5 @@ class BoundedLengthString {
   }
 };
 
-}  // namespace UTIL
+}  // namespace UTILS
 }  // namespace KDIS

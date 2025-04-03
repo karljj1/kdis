@@ -54,13 +54,13 @@ class KDIS_EXPORT EntityCapabilities : public DataTypeBase {
       KUINT32 m_ADSB : 1;
       KUINT32 m_Unused : 27;
     };
-    KUINT32 m_ui16Data;
+    KUINT32 m_ui16Data{0};
   };
 
  public:
-  static const KUINT16 ENTITY_CAPABILITIES_SIZE = 4;
+  static constexpr KUINT16 ENTITY_CAPABILITIES_SIZE{4};
 
-  EntityCapabilities();
+  EntityCapabilities() = default;
 
   EntityCapabilities(KDataStream& stream);
 
@@ -70,7 +70,7 @@ class KDIS_EXPORT EntityCapabilities : public DataTypeBase {
   EntityCapabilities(KBOOL AmunitionSupply, KBOOL FuelSupply,
                      KBOOL RecoveryService, KBOOL RepairService, KBOOL ADSB);
 
-  virtual ~EntityCapabilities();
+  virtual ~EntityCapabilities() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityCapabilities::SetHasAmmunitionSupply
