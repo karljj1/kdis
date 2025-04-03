@@ -714,6 +714,67 @@ TEST(DataType_EncodeDecode6, ObjectAppearance) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+class ObjectAppearanceTest : public ::testing::Test {
+ protected:
+  using koa = KDIS::DATA_TYPE::ObjectAppearance;
+  static constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage od{
+      KDIS::DATA_TYPE::ENUMS::ObjectDestroyed};
+  koa oa;
+};
+
+TEST_F(ObjectAppearanceTest, AlternateConstructor) {
+  // volatile prevents elision to achieve unit test coverage
+  EXPECT_NO_THROW(volatile koa oav = koa(50, od, true, true, true, true));
+  EXPECT_THROW(volatile koa oav = koa(101, od, true, true, true, true),
+               KDIS::KException);
+}
+
+TEST_F(ObjectAppearanceTest, GeneralAppearance) {
+  constexpr KDIS::KUINT16 ga{45};
+  EXPECT_NO_THROW(oa.SetGeneralAppearance(ga));
+  EXPECT_EQ(ga, oa.GetGeneralAppearance());
+}
+
+TEST_F(ObjectAppearanceTest, PercentageComplete) {
+  constexpr KDIS::KUINT8 pcGood{49};
+  constexpr KDIS::KUINT8 pcHigh{102};
+  EXPECT_THROW(oa.SetPercentageComplete(pcHigh), KDIS::KException);
+  EXPECT_NO_THROW(oa.SetPercentageComplete(pcGood));
+  EXPECT_EQ(pcGood, oa.GetPercentageComplete());
+}
+
+TEST_F(ObjectAppearanceTest, Predistributed) {
+  EXPECT_NO_THROW(oa.SetPredistributed(false));
+  EXPECT_FALSE(oa.IsPredistributed());
+}
+
+TEST_F(ObjectAppearanceTest, State) {
+  EXPECT_NO_THROW(oa.SetState(true));
+  EXPECT_TRUE(oa.GetState());
+}
+
+TEST_F(ObjectAppearanceTest, Smoking) {
+  EXPECT_NO_THROW(oa.SetSmoking(false));
+  EXPECT_FALSE(oa.IsSmoking());
+}
+
+TEST_F(ObjectAppearanceTest, Flaming) {
+  EXPECT_NO_THROW(oa.SetFlaming(true));
+  EXPECT_TRUE(oa.IsFlaming());
+}
+
+TEST_F(ObjectAppearanceTest, DecodeStreamTooSmall) {
+  KDIS::KDataStream stream;
+  EXPECT_THROW(oa.Decode(stream), KDIS::KException);
+}
+
+TEST_F(ObjectAppearanceTest, OperatorEqFalse) {
+  koa oa2;
+  oa.SetSmoking(true);
+  oa2.SetSmoking(false);
+  EXPECT_FALSE(oa == oa2);
+}
+
 TEST(DataType_EncodeDecode6, ObjectType) {
   KDIS::DATA_TYPE::ObjectType dtIn;
   EXPECT_EQ(0, dtIn.GetDomain());
