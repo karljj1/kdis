@@ -60,6 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Type of `Entity_State_PDU::ApplyDeadReckoning`'s parameter to KFLOAT32 via [#71](https://github.com/karljj1/kdis/pull/71)
 - Spelling of `KDIS::UTILS::Matrix::inPlaceTranspose()` method via [#71](https://github.com/karljj1/kdis/pull/71)
 - Spelling of `KDIS::DATA_TYPE::EntityAppearance` "GuidedMunitions" methods via [#71](https://github.com/karljj1/kdis/pull/71)
+- Removed `NetworkEndian` as a user parameter on `KDataStream` via [#71](https://github.com/karljj1/kdis/pull/71). Network endianness is always big per DIS standard.
 
 ### Security
 

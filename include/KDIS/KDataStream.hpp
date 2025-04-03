@@ -36,8 +36,7 @@ http://p.sf.net/kdis/UserGuide
                 via a network/writing to file.
 *********************************************************************/
 
-#ifndef KDIS_KDATASTREAM_HPP_
-#define KDIS_KDATASTREAM_HPP_
+#pragma once
 
 #include <vector>
 
@@ -50,98 +49,107 @@ namespace KDIS {
 
 class KDIS_EXPORT KDataStream {
  private:
-  KDIS::UTILS::Endian::Endianness m_MachineEndian;
+  KDIS::UTILS::Endian::Endianness m_MachineEndian{
+      KDIS::UTILS::Endian::endian()};
 
-  KDIS::UTILS::Endian::Endianness m_NetEndian;
+  // All DIS data is sent in Big Endian format
+  static constexpr KDIS::UTILS::Endian::Endianness m_NetEndian{
+      KDIS::UTILS::Endian::Endianness::BIG};
 
   std::vector<KUOCTET> m_vBuffer;
-  KUINT16 m_ui16CurrentWritePos;
+  KUINT16 m_ui16CurrentWritePos{0};
 
  public:
-  // All DIS data is sent in Big Endian format
-  explicit KDataStream(KDIS::UTILS::Endian::Endianness NetworkEndian =
-                           KDIS::UTILS::Endian::Endianness::BIG);
+  explicit KDataStream() = default;
 
-  KDataStream(const KOCTET* SerialData, KUINT16 DataSize,
-              KDIS::UTILS::Endian::Endianness NetworkEndian =
-                  KDIS::UTILS::Endian::Endianness::BIG);
+  KDataStream(const KOCTET* SerialData, KUINT16 DataSize);
 
-  ~KDataStream();
+  ~KDataStream() = default;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetMachineEndian
-  // Description: Returns the machine endian. Calculated automatically.
+  // Description: Returns the machine endian.
+  // Calculated automatically.
   //************************************
   KDIS::UTILS::Endian::Endianness GetMachineEndian() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetNetWorkEndian
-  // Description: Returns the network endian, set by user in
-  //              constructor, Big_Endian by default.
+  // Description: Returns the network endian,
+  //              Big_Endian per DIS standard.
   //************************************
   KDIS::UTILS::Endian::Endianness GetNetWorkEndian() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetBufferSize
-  // Description: Returns current buffer size in Octets/Bytes
+  // Description: Returns current buffer size in
+  // Octets/Bytes
   //************************************
   KUINT16 GetBufferSize() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::CopyIntoBuffer
   // Description: Copy the stream into an Octet buffer,
-  //              Returns total bytes copied into buffer.
-  //              Throws exception if the buffer is too small.
+  //              Returns total bytes copied into
+  //              buffer. Throws exception if the
+  //              buffer is too small.
   // Parameter:   KOCTET * Buffer
   // Parameter:   KUINT16 BufferSize
-  // Parameter:   KUINT16 WritePos - Where to start writing into the buffer
+  // Parameter:   KUINT16 WritePos - Where to start
+  // writing into the buffer
   //************************************
   KUINT16 CopyIntoBuffer(KOCTET* Buffer, KUINT16 BufferSize,
                          KUINT16 WritePos = 0) const;
 
   //************************************
   // FullName:    KDIS::KDataStream::CopyFromBuffer
-  // Description: Copy data from a buffer/array into the data stream
-  // Parameter:   KOCTET * SerialData
+  // Description: Copy data from a buffer/array into
+  // the data stream Parameter:   KOCTET * SerialData
   // Parameter:   KUINT16 DataSize
-  // Parameter:   Endian NetworkEndian = Big_Endian
   //************************************
-  void CopyFromBuffer(const KOCTET* SerialData, KUINT16 DataSize,
-                      KDIS::UTILS::Endian::Endianness NetworkEndian =
-                          KDIS::UTILS::Endian::Endianness::BIG);
+  void CopyFromBuffer(const KOCTET* SerialData, KUINT16 DataSize);
 
   //************************************
   // FullName:    KDIS::KDataStream::GetBufferPtr
   // Description: Returns a pointer to the buffer.
-  //              This is a more efficient way of sending data than using
+  //              This is a more efficient way of
+  //              sending data than using
   //              CopyIntoBuffer.
   //************************************
   const KOCTET* GetBufferPtr() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetBuffer
-  // Description: Returns a constant reference to the internal buffer.
-  //              Useful if you need lower-level access to the data.
+  // Description: Returns a constant reference to the
+  // internal buffer.
+  //              Useful if you need lower-level access
+  //              to the data.
   //************************************
   const std::vector<KUOCTET>& GetBuffer() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::ResetWritePosition
-  // Description: Moves the write position back to the start of the buffer.
+  // Description: Moves the write position back to the
+  // start of the buffer.
   //************************************
   void ResetWritePosition();
 
   //************************************
-  // FullName:    KDIS::KDataStream::SetCurrentWritePosition
+  // FullName:
+  // KDIS::KDataStream::SetCurrentWritePosition
   //              KDIS::KDataStream::GetCurrentWritePosition
-  // Description: The write position is the current position in the buffer that
-  // we are reading data from.
-  //              Using these 2 functions it is possible to "peak" at data and
-  //              then restore the buffers write position. For example if we
-  //              wanted to read the next 4 bytes to determine what the next
-  //              data type is we could peak and then reset the write position
-  //              back by 4 so that the data can be re-read by the data types
-  //              decode function.
+  // Description: The write position is the current
+  // position in the buffer that we are reading data
+  // from.
+  //              Using these 2 functions it is
+  //              possible to "peak" at data and then
+  //              restore the buffers write position.
+  //              For example if we wanted to read the
+  //              next 4 bytes to determine what the
+  //              next data type is we could peak and
+  //              then reset the write position back by
+  //              4 so that the data can be re-read by
+  //              the data types decode function.
   // Parameter:   KUINT16 WP
   //************************************
   void SetCurrentWritePosition(KUINT16 WP);
@@ -155,18 +163,21 @@ class KDIS_EXPORT KDataStream {
 
   //************************************
   // FullName:    KDIS::KDataStream::GetAsString
-  // Description: Returns string representation of the stream, values are in
-  // hex.
+  // Description: Returns string representation of the
+  // stream, values are in hex.
   //************************************
   KString GetAsString() const;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetAsString
-  // Description: Read a string of hex octets and convert into
+  // Description: Read a string of hex octets and
+  // convert into
   //              a data stream.
-  //              This function works in conjunction with GetAsString, each PDU
-  //              could be saved to a file and then read back in using this
-  //              function. Good for debugging or logging data.
+  //              This function works in conjunction
+  //              with GetAsString, each PDU could be
+  //              saved to a file and then read back in
+  //              using this function. Good for
+  //              debugging or logging data.
   // Parameter:   const KString & S
   //************************************
   void ReadFromString(const KString& S);
@@ -263,5 +274,3 @@ KDataStream& KDataStream::operator>>(Type& T) {
 //////////////////////////////////////////////////////////////////////////
 
 }  // END namespace KDIS
-
-#endif  // KDIS_KDATASTREAM_HPP_
