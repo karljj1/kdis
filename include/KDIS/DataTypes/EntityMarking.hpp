@@ -40,7 +40,7 @@ need to be made to support the other sets. size:       96 bits / 12 Octets
 #pragma once
 
 #include "KDIS/DataTypes/DataTypeBase.hpp"
-#include "KDIS/util/BoundedLengthString.hpp"
+#include "KDIS/utils/BoundedLengthString.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
@@ -52,7 +52,7 @@ class KDIS_EXPORT EntityMarking : public DataTypeBase {
  protected:
   KUINT8 m_ui8EntityMarkingCharacterSet{KDIS::DATA_TYPE::ENUMS::ASCII};
 
-  KDIS::UTIL::BoundedLengthString<ENTITY_MARKING_SIZE> m_sEntityMarkingString;
+  KDIS::UTILS::BoundedLengthString<ENTITY_MARKING_SIZE> m_sEntityMarkingString;
 
  public:
   EntityMarking() = default;

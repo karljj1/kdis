@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Synthetic_Environment/Gridded_Data_PDU.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -152,8 +152,8 @@ void Gridded_Data_PDU::SetPDUNumberAndTotal(KUINT16 Num, KUINT16 Total) {
   if (Num > Total)
     throw KException(
         ErrorCode::INVALID_DATA,
-        KDIS::UTIL::format("%s | PDU number cannot be greater than PDU total",
-                           __FUNCTION__));
+        KDIS::UTILS::format("%s | PDU number cannot be greater than PDU total",
+                            __FUNCTION__));
   m_ui16PDUNum = Num;
   m_ui16PDUTotal = Total;
 }
@@ -417,8 +417,8 @@ void Gridded_Data_PDU::Decode(KDataStream& stream,
       default:
         throw KException(
             ErrorCode::UNSUPPORTED_DATATYPE,
-            KDIS::UTIL::format("%s | Unknown grid data representation",
-                               __FUNCTION__));
+            KDIS::UTILS::format("%s | Unknown grid data representation",
+                                __FUNCTION__));
     }
   }
 }

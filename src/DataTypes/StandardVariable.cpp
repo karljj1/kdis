@@ -27,13 +27,12 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/StandardVariable.hpp"
-
 #include <type_traits>
 
 #include "KDIS/DataTypes/IOCommunicationsNode.hpp"
 #include "KDIS/DataTypes/IOEffect.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/DataTypes/StandardVariable.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -129,7 +128,7 @@ StdVarPtr StandardVariable::FactoryDecodeStandardVariable(KDataStream& stream) {
   // an error.
   throw KException(
       ErrorCode::UNSUPPORTED_DATATYPE,
-      KDIS::UTIL::format(
+      KDIS::UTILS::format(
           "%s | %u is an unsupported standard variable type", __FUNCTION__,
           static_cast<std::underlying_type<
               KDIS::DATA_TYPE::ENUMS::StandardVariableType>::type>(

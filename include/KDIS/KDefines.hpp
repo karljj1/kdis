@@ -35,8 +35,7 @@ http://p.sf.net/kdis/UserGuide
     purpose:    Defines some of the core data types that KDIS uses.
 *********************************************************************/
 
-#ifndef KDIS_KDEFINES_HPP_
-#define KDIS_KDEFINES_HPP_
+#pragma once
 
 #include <cstdint>
 #include <cstring>  // TODO(carlocorradini) Remove
@@ -46,7 +45,7 @@ http://p.sf.net/kdis/UserGuide
 
 #include "KDIS/KExport.hpp"
 #include "KDIS/KSymbolicNames.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 // TODO(carlocorradini) Remove
 #if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64) || \
@@ -231,7 +230,7 @@ class KException : public std::runtime_error {
       : std::runtime_error(errorCodeText(errorCode)), errorCode(errorCode) {}
 
   KException(const ErrorCode errorCode, const std::string& message)
-      : std::runtime_error(KDIS::UTIL::format(
+      : std::runtime_error(KDIS::UTILS::format(
             "%s: %s", errorCodeText(errorCode), message.c_str())),
         errorCode(errorCode) {}
 
@@ -239,5 +238,3 @@ class KException : public std::runtime_error {
 };
 
 }  // namespace KDIS
-
-#endif  // KDIS_KDEFINES_HPP_

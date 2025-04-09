@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 #include <iomanip>
 
 #include "KDIS/DataTypes/TimeStamp.hpp"
-#include "KDIS/util/NumberConversions.hpp"
+#include "KDIS/utils/NumberConversions.hpp"
 #if defined(WIN32) || defined(WIN64)
 #include <windows.h>
 #else
@@ -113,7 +113,7 @@ void TimeStamp::CalculateTimeStamp() {
   SYSTEMTIME now;
   GetSystemTime(&now);
   KFLOAT64 f = (now.wMinute * 60) + now.wSecond + (now.wMilliseconds / 1000.0);
-  iTs = KDIS::UTIL::double_to_int32(f * UNIT_TIME_PER_SEC);
+  iTs = KDIS::UTILS::double_to_int32(f * UNIT_TIME_PER_SEC);
 
 #else
 

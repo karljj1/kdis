@@ -127,15 +127,15 @@ set(KDIS_HEADERS ${KDIS_HEADERS_DIR}/KDataStream.hpp ${KDIS_HEADERS_DIR}/KDefine
 )
 set(KDIS_SOURCES ${KDIS_SOURCES_DIR}/KDataStream.cpp)
 
-# Util
-set(KDIS_UTIL_HEADERS_DIR ${KDIS_HEADERS_DIR}/util)
-set(KDIS_UTIL_SOURCES_DIR ${KDIS_SOURCES_DIR}/util)
+# Utils
+set(KDIS_UTILS_HEADERS_DIR ${KDIS_HEADERS_DIR}/utils)
+set(KDIS_UTILS_SOURCES_DIR ${KDIS_SOURCES_DIR}/utils)
 
-list(APPEND KDIS_HEADERS ${KDIS_UTIL_HEADERS_DIR}/BoundedLengthString.hpp
-                         ${KDIS_UTIL_HEADERS_DIR}/Endian.hpp ${KDIS_UTIL_HEADERS_DIR}/format.hpp
-                         ${KDIS_UTIL_HEADERS_DIR}/NumberConversions.hpp)
-list(APPEND KDIS_SOURCES ${KDIS_UTIL_SOURCES_DIR}/Endian.cpp
-                         ${KDIS_UTIL_SOURCES_DIR}/NumberConversions.cpp)
+list(APPEND KDIS_HEADERS ${KDIS_UTILS_HEADERS_DIR}/BoundedLengthString.hpp
+                         ${KDIS_UTILS_HEADERS_DIR}/Endian.hpp ${KDIS_UTILS_HEADERS_DIR}/format.hpp
+                         ${KDIS_UTILS_HEADERS_DIR}/NumberConversions.hpp)
+list(APPEND KDIS_SOURCES ${KDIS_UTILS_SOURCES_DIR}/Endian.cpp
+                         ${KDIS_UTILS_SOURCES_DIR}/NumberConversions.cpp)
 
 # DataTypes
 set(KDIS_DATATYPES_HEADERS_DIR ${KDIS_HEADERS_DIR}/DataTypes)
