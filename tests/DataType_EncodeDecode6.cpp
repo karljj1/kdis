@@ -702,15 +702,44 @@ TEST(DataType_EncodeDecode6, NamedLocationIdentifier) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, ObjectAppearance) {
-  KDIS::DATA_TYPE::ObjectAppearance dtIn;
-  constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage od{
+class ObjectAppearanceTest : public ::testing::Test {
+ protected:
+  static constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage od{
       KDIS::DATA_TYPE::ENUMS::NoObjectDamage};
-  EXPECT_NO_THROW(dtIn.SetDamage(od));
-  EXPECT_EQ(od, dtIn.GetDamage());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::ObjectAppearance dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  KDIS::DATA_TYPE::ObjectAppearance oa;
+};
+
+// Definition to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). This out-of-class definition is required in C++11, but not in
+//    C++17.
+constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage ObjectAppearanceTest::od;
+
+TEST_F(ObjectAppearanceTest, ConstructorPerCentTooHigh) {
+  EXPECT_THROW(
+      KDIS::DATA_TYPE::ObjectAppearance(101, od, false, false, false, false),
+      KDIS::KException);
+}
+
+TEST_F(ObjectAppearanceTest, ConstructorNominal) {
+  EXPECT_NO_THROW(
+      KDIS::DATA_TYPE::ObjectAppearance(0, od, false, false, false, false));
+}
+
+TEST_F(ObjectAppearanceTest, SetGetPercentageComplete) {
+  EXPECT_THROW(oa.SetPercentageComplete(101), KDIS::KException);
+  EXPECT_NO_THROW(oa.SetPercentageComplete(47));
+  EXPECT_EQ(47, oa.GetPercentageComplete());
+}
+
+TEST_F(ObjectAppearanceTest, SetGetDamage) {
+  EXPECT_NO_THROW(oa.SetDamage(od));
+  EXPECT_EQ(od, oa.GetDamage());
+}
+
+TEST_F(ObjectAppearanceTest, Encode) {
+  KDIS::KDataStream stream = oa.Encode();
+  KDIS::DATA_TYPE::ObjectAppearance oaOut(stream);
+  EXPECT_EQ(oa, oaOut);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
