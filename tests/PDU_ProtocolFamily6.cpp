@@ -429,13 +429,41 @@ TEST(PDU_ProtocolFamily6, Environmental_Process_PDU) {
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
-TEST(PDU_ProtocolFamily6, Gridded_Data_PDU) {
+class Gridded_Data_PDU_Test : public ::testing::Test {
+ protected:
   KDIS::PDU::Gridded_Data_PDU pdu;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(Gridded_Data_PDU_Test, GetProtocolFamily) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::SyntheticEnvironment,
             pdu.GetProtocolFamily());
+}
+
+TEST_F(Gridded_Data_PDU_Test, SetPDUNumberAndTotal) {
+  EXPECT_THROW(pdu.SetPDUNumberAndTotal(5, 4), KDIS::KException);
+  EXPECT_NO_THROW(pdu.SetPDUNumberAndTotal(4, 5));
+}
+
+TEST_F(Gridded_Data_PDU_Test, GetCoordinateSystem) {
   EXPECT_EQ(0, pdu.GetCoordinateSystem());
+}
+
+TEST_F(Gridded_Data_PDU_Test, GetConstantGrid) {
   EXPECT_EQ(0, pdu.GetConstantGrid());
+}
+
+TEST_F(Gridded_Data_PDU_Test, GetAsString) {
   EXPECT_NO_THROW(pdu.GetAsString());
+}
+
+TEST_F(Gridded_Data_PDU_Test, DecodeStreamTooSmall) {
+  EXPECT_THROW(pdu.Decode(stream), KDIS::KException);
+}
+
+TEST_F(Gridded_Data_PDU_Test, EncodeDecodeRoundTrip) {
+  EXPECT_NO_THROW(pdu.Encode(stream));
+  EXPECT_NO_THROW(pdu.Decode(stream, false));
 }
 
 TEST(PDU_ProtocolFamily6, Linear_Object_State_PDU) {

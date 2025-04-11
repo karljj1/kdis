@@ -51,18 +51,7 @@ Gridded_Data_PDU* Gridded_Data_PDU::clone() const {
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Gridded_Data_PDU::Gridded_Data_PDU()
-    : m_ui16FieldNum(0),
-      m_ui16PDUNum(0),
-      m_ui16PDUTotal(0),
-      m_ui16CordSys(0),
-      m_ui8NumAxis(0),
-      m_ui8ConstGrid(0),
-      m_ui64SampleTime(0),
-      m_ui32TotalValues(0),
-      m_ui8VecDim(0),
-      m_ui16Padding1(0),
-      m_ui8Padding1(0) {
+Gridded_Data_PDU::Gridded_Data_PDU() {
   m_ui8ProtocolFamily = SyntheticEnvironment;
   m_ui8PDUType = GriddedData_PDU_Type;
   m_ui16PDULength = GRIDDED_DATA_PDU_SIZE;
@@ -93,24 +82,15 @@ Gridded_Data_PDU::Gridded_Data_PDU(
       m_ui16PDUNum(PduNum),
       m_ui16PDUTotal(PduTotal),
       m_ui16CordSys(CS),
-      m_ui8NumAxis(0),
       m_ui8ConstGrid(CG),
       m_EnvType(ET),
       m_Ori(Ori),
-      m_ui64SampleTime(SampleTime),
-      m_ui32TotalValues(0),
-      m_ui8VecDim(0),
-      m_ui16Padding1(0),
-      m_ui8Padding1(0) {
+      m_ui64SampleTime(SampleTime) {
   m_ui8ProtocolFamily = SyntheticEnvironment;
   m_ui8PDUType = GriddedData_PDU_Type;
   m_ui16PDULength = GRIDDED_DATA_PDU_SIZE;
   m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-Gridded_Data_PDU::~Gridded_Data_PDU() {}
 
 //////////////////////////////////////////////////////////////////////////
 
