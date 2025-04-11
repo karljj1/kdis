@@ -239,24 +239,67 @@ TEST(DataType_EncodeDecode6, EntityDestinationRecord) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, EnvironmentRecord) {
-  KDIS::DATA_TYPE::EnvironmentRecord dtInOne;
-  EXPECT_EQ(0, dtInOne.GetLength());
-  EXPECT_EQ(0, dtInOne.GetEnvironmentRecordType());
-  EXPECT_NO_THROW(dtInOne.SetIndex(28));
-  EXPECT_EQ(28, dtInOne.GetIndex());
-  EXPECT_NO_THROW(dtInOne.GetAsString());
-  KDIS::KDataStream streamOne;
-  EXPECT_THROW(dtInOne.Decode(streamOne), KDIS::KException);  // too short
-  EXPECT_NO_THROW(dtInOne.Encode(streamOne));
-  EXPECT_NO_THROW(dtInOne.Decode(streamOne));
-  EXPECT_THROW(dtInOne.FactoryDecodeEnvironmentRecord(streamOne),
-               KDIS::KException);  // environment record type not set
-  KDIS::DATA_TYPE::EnvironmentRecord dtInTwo;
-  KDIS::KDataStream streamTwo = dtInTwo.Encode();
-  KDIS::DATA_TYPE::EnvironmentRecord dtOutTwo(streamTwo);
-  EXPECT_EQ(dtInTwo, dtOutTwo);
-  EXPECT_EQ(0, streamTwo.GetBufferSize());
+class EnvironmentRecordTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::EnvironmentRecord er;
+  KDIS::KDataStream stream;
+  class UniformGeometryRecord : public KDIS::DATA_TYPE::EnvironmentRecord {
+   public:
+    UniformGeometryRecord() {
+      m_ui32EnvRecTyp = KDIS::DATA_TYPE::ENUMS::UniformGeometryRecordType;
+    }
+  };
+  class UnknownEnvironmentRecord : public KDIS::DATA_TYPE::EnvironmentRecord {
+   public:
+    UnknownEnvironmentRecord() { m_ui32EnvRecTyp = 0xF1F1F1F1; }
+  };
+};
+
+TEST_F(EnvironmentRecordTest, GetLength) { EXPECT_EQ(0, er.GetLength()); }
+
+TEST_F(EnvironmentRecordTest, GetEnvironmentRecordType) {
+  EXPECT_EQ(0, er.GetEnvironmentRecordType());
+}
+
+TEST_F(EnvironmentRecordTest, SetGetIndex) {
+  EXPECT_NO_THROW(er.SetIndex(28));
+  EXPECT_EQ(28, er.GetIndex());
+}
+
+TEST_F(EnvironmentRecordTest, GetAsString) {
+  EXPECT_NO_THROW(er.GetAsString());
+}
+
+TEST_F(EnvironmentRecordTest, DecodeTooShort) {
+  EXPECT_THROW(er.Decode(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, EncodeDecodeRoundTrip) {
+  EXPECT_NO_THROW(er.Encode(stream));
+  EXPECT_NO_THROW(er.Decode(stream));
+}
+
+TEST_F(EnvironmentRecordTest, FactoryDecodeEnvRecTypeNotSet) {
+  EXPECT_THROW(er.FactoryDecodeEnvironmentRecord(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, FactoryDecodeNotImplementedFromStream) {
+  auto ugr = UniformGeometryRecord();
+  stream = ugr.Encode();
+  EXPECT_THROW(er.FactoryDecodeEnvironmentRecord(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, FactoryDecodeUnknownFromStream) {
+  auto uer = UnknownEnvironmentRecord();
+  stream = uer.Encode();
+  EXPECT_THROW(er.FactoryDecodeEnvironmentRecord(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, ConstructFromStream) {
+  stream = er.Encode();
+  KDIS::DATA_TYPE::EnvironmentRecord er2(stream);
+  EXPECT_EQ(er, er2);
+  EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode6, EnvironmentType) {

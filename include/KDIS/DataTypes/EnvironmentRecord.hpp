@@ -61,22 +61,22 @@ class KDIS_EXPORT EnvironmentRecord
     : public DataTypeBase,
       public FactoryDecoderUser<EnvironmentRecord> {
  protected:
-  KUINT32 m_ui32EnvRecTyp;
+  KUINT32 m_ui32EnvRecTyp{0};
 
-  KUINT16 m_ui16Length;
+  KUINT16 m_ui16Length{0};
 
-  KUINT8 m_ui8Index;
+  KUINT8 m_ui8Index{0};
 
-  KUINT8 m_ui8Padding;
+  KUINT8 m_ui8Padding{0};
 
  public:
-  static const KUINT16 ENVIRONMENT_RECORD_SIZE = 8;
+  static constexpr KUINT16 ENVIRONMENT_RECORD_SIZE{8};
 
-  EnvironmentRecord();
+  EnvironmentRecord() = default;
 
   EnvironmentRecord(KDataStream& stream);
 
-  virtual ~EnvironmentRecord();
+  virtual ~EnvironmentRecord() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EnvironmentRecord::GetEnvironmentRecordType
@@ -126,11 +126,10 @@ class KDIS_EXPORT EnvironmentRecord
   // FullName:
   // KDIS::DATA_TYPE::EnvironmentRecord::FactoryDecodeEnvironmentRecord
   // Description: Decode method for decoding any EnvironmentRecord child
-  // classes.
-  //              First checks for a custom decode, if one can not be found then
-  //              uses one of the KDIS EnvironmentRecord data types. Throws
-  //              exception for unknown records(UNSUPPORTED_DATATYPE) or when
-  //              stream is too small(NOT_ENOUGH_DATA_IN_BUFFER).
+  //              classes. First checks for a custom decode, if one can not be
+  //              found then uses one of the KDIS EnvironmentRecord data types.
+  //              Throws exception for unknown records(UNSUPPORTED_DATATYPE) or
+  //              when stream is too small(NOT_ENOUGH_DATA_IN_BUFFER).
   // Parameter:   KDataStream & stream
   //************************************
   static EnvironmentRecordPtr FactoryDecodeEnvironmentRecord(
