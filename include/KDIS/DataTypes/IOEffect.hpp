@@ -45,22 +45,22 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT IOEffect : public StandardVariable {
  protected:
-  KUINT8 m_ui8Status;
+  KUINT8 m_ui8Status{0};
 
-  KUINT8 m_ui8LnkTyp;
+  KUINT8 m_ui8LnkTyp{0};
 
-  KUINT8 m_ui8Eff;
+  KUINT8 m_ui8Eff{0};
 
-  KUINT8 m_ui8EffDtyCyc;
+  KUINT8 m_ui8EffDtyCyc{0};
 
-  KUINT16 m_ui16EffDur;
+  KUINT16 m_ui16EffDur{0};
 
-  KUINT16 m_ui16Proc;
+  KUINT16 m_ui16Proc{0};
 
-  KUINT16 m_ui16Padding;
+  KUINT16 m_ui16Padding{0};
 
  public:
-  static const KUINT16 IO_EFFECT_TYPE_SIZE = 16;
+  static constexpr KUINT16 IO_EFFECT_TYPE_SIZE{16};
 
   IOEffect(KDIS::DATA_TYPE::ENUMS::IOStatus S,
            KDIS::DATA_TYPE::ENUMS::IOLinkType LT,
@@ -71,7 +71,7 @@ class KDIS_EXPORT IOEffect : public StandardVariable {
 
   IOEffect(KDataStream& stream);
 
-  virtual ~IOEffect();
+  virtual ~IOEffect() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::IOEffect::SetStatus

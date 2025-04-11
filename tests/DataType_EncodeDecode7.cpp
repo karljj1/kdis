@@ -96,23 +96,43 @@ TEST(DataType_EncodeDecode7, IOCommunicationsNode) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode7, IOEffect) {
-  KDIS::DATA_TYPE::IOEffect dtIn;
+class IOEffectTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::IOEffect ioe;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(IOEffectTest, SetGetStatus) {
   constexpr KDIS::DATA_TYPE::ENUMS::IOStatus ios{
       KDIS::DATA_TYPE::ENUMS::NoStatementIOStatus};
-  EXPECT_NO_THROW(dtIn.SetStatus(ios));
-  EXPECT_EQ(ios, dtIn.GetStatus());
+  EXPECT_NO_THROW(ioe.SetStatus(ios));
+  EXPECT_EQ(ios, ioe.GetStatus());
+}
+
+TEST_F(IOEffectTest, SetGetLinkType) {
   constexpr KDIS::DATA_TYPE::ENUMS::IOLinkType iolt{
       KDIS::DATA_TYPE::ENUMS::NoStatementIOLinkType};
-  EXPECT_NO_THROW(dtIn.SetLinkType(iolt));
-  EXPECT_EQ(iolt, dtIn.GetLinkType());
+  EXPECT_NO_THROW(ioe.SetLinkType(iolt));
+  EXPECT_EQ(iolt, ioe.GetLinkType());
+}
+
+TEST_F(IOEffectTest, SetGetEffectType) {
   constexpr KDIS::DATA_TYPE::ENUMS::IOEffectType ioet{
       KDIS::DATA_TYPE::ENUMS::NoStatementIOEffectType};
-  EXPECT_NO_THROW(dtIn.SetEffectType(ioet));
-  EXPECT_EQ(ioet, dtIn.GetEffectType());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::IOEffect dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_NO_THROW(ioe.SetEffectType(ioet));
+  EXPECT_EQ(ioet, ioe.GetEffectType());
+}
+
+TEST_F(IOEffectTest, SetGetDutyCycle) {
+  EXPECT_THROW(ioe.SetEffectDutyCycle(101), KDIS::KException);
+  EXPECT_NO_THROW(ioe.SetEffectDutyCycle(91));
+  EXPECT_EQ(91, ioe.GetEffectDutyCycle());
+}
+
+TEST_F(IOEffectTest, StreamConstructor) {
+  stream = ioe.Encode();
+  KDIS::DATA_TYPE::IOEffect ioe2(stream);
+  EXPECT_EQ(ioe, ioe2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
