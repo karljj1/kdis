@@ -120,7 +120,10 @@ void KDataStream::CopyFromBuffer(
 //////////////////////////////////////////////////////////////////////////
 
 const KOCTET* KDataStream::GetBufferPtr() const {
-  return reinterpret_cast<const KOCTET*>(&m_vBuffer[0]);
+  if (m_vBuffer.empty()) {
+    throw KException(ErrorCode::BUFFER_TOO_SMALL);
+  }
+  return reinterpret_cast<const KOCTET*>(m_vBuffer.data());
 }
 
 //////////////////////////////////////////////////////////////////////////

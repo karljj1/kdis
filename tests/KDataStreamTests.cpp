@@ -50,6 +50,8 @@ TEST_F(KDataStreamTest, CopyIntoBufferRejectSpaceInBufferTooSmall) {
 }
 
 TEST_F(KDataStreamTest, GetBufferPtr) {
+  EXPECT_THROW(stream.GetBufferPtr(), KDIS::KException);
+  stream << 5;
   EXPECT_NO_THROW(stream.GetBufferPtr());
 }
 
