@@ -63,13 +63,13 @@ class KDIS_EXPORT MinefieldDataFilter : public DataTypeBase {
       KUINT32 m_ui32PaintScm : 1;
       KUINT32 m_ui32Padding : 21;
     };
-    KUINT32 m_ui32Filter;
+    KUINT32 m_ui32Filter{0};
   } m_FilterUnion;
 
  public:
-  static const KUINT16 MINEFIELD_DATA_FILTER_SIZE = 4;
+  static constexpr KUINT16 MINEFIELD_DATA_FILTER_SIZE{4};
 
-  MinefieldDataFilter();
+  MinefieldDataFilter() = default;
 
   MinefieldDataFilter(KDataStream& stream);
 
@@ -80,7 +80,7 @@ class KDIS_EXPORT MinefieldDataFilter : public DataTypeBase {
                       KBOOL TripDetonationWire, KBOOL Fusing,
                       KBOOL ScalarDetectionCoefficient, KBOOL PaintScheme);
 
-  virtual ~MinefieldDataFilter();
+  virtual ~MinefieldDataFilter() = default;
 
   //************************************
   // FullName: KDIS::DATA_TYPE::MinefieldDataFilter::SetGroundBurialDepthOffset

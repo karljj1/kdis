@@ -244,24 +244,46 @@ TEST(PDU_ProtocolFamily6, TSPI_PDU) {
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
-TEST(PDU_ProtocolFamily6, Minefield_Data_PDU) {
+class Minefield_Data_PDU_Test : public ::testing::Test {
+ protected:
   KDIS::PDU::Minefield_Data_PDU pdu;
-  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
-            pdu.GetProtocolFamily());
-  EXPECT_NO_THROW(pdu.GetAsString());
+  KDIS::KDataStream stream;
+  KDIS::DATA_TYPE::Mine mn;
   const KDIS::DATA_TYPE::MinefieldDataFilter mdf{
       false, false, false, false,
       false, false, false, true /*TripDetonationWire*/,
       false, false, false};
+};
+
+TEST_F(Minefield_Data_PDU_Test, GetProtocolFamily) {
+  EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
+            pdu.GetProtocolFamily());
+}
+
+TEST_F(Minefield_Data_PDU_Test, GetAsString) {
+  EXPECT_NO_THROW(pdu.GetAsString());
+}
+
+TEST_F(Minefield_Data_PDU_Test, SetDataFilter) {
   EXPECT_NO_THROW(pdu.SetDataFilter(mdf));
-  KDIS::DATA_TYPE::Mine mn;
+}
+
+TEST_F(Minefield_Data_PDU_Test, AddMineWithTripDetonationWire) {
+  EXPECT_NO_THROW(pdu.SetDataFilter(mdf));
   const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
       KDIS::DATA_TYPE::Vector(1, 2, 3)};
   EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
   EXPECT_NO_THROW(pdu.AddMine(mn));
-  KDIS::KDataStream stream;
-  EXPECT_NO_THROW(pdu.Encode(stream));
 }
+
+TEST_F(Minefield_Data_PDU_Test, AddMineOptionalFieldsMismatch) {
+  EXPECT_NO_THROW(pdu.SetDataFilter(mdf));
+  // Don't add a trip detonation wire this time to mn, causing mismatch between
+  //    mn and pdu
+  EXPECT_THROW(pdu.AddMine(mn), KDIS::KException);
+}
+
+TEST_F(Minefield_Data_PDU_Test, Encode) { EXPECT_NO_THROW(pdu.Encode(stream)); }
 
 TEST(PDU_ProtocolFamily6, Minefield_Query_PDU) {
   KDIS::PDU::Minefield_Query_PDU pdu;

@@ -61,19 +61,19 @@ class KDIS_EXPORT Mine
  protected:
   Vector m_Loc;
 
-  KUINT16 m_ui16ID;
+  KUINT16 m_ui16ID{0};
 
-  KFLOAT32 m_f32GrndOffset;
+  KFLOAT32 m_f32GrndOffset{0};
 
-  KFLOAT32 m_f32WtrOffset;
+  KFLOAT32 m_f32WtrOffset{0};
 
-  KFLOAT32 m_f32SnwOffset;
+  KFLOAT32 m_f32SnwOffset{0};
 
   EulerAngles m_Ori;
 
-  KFLOAT32 m_f32ThrmCont;
+  KFLOAT32 m_f32ThrmCont{0};
 
-  KFLOAT32 m_f32Rflt;
+  KFLOAT32 m_f32Rflt{0};
 
   ClockTime m_MET;
 
@@ -83,10 +83,10 @@ class KDIS_EXPORT Mine
 
   KDIS::DATA_TYPE::MinePaintScheme m_MPS;
 
-  KUINT8 m_ui8NumTrpDetWrs;
+  KUINT8 m_ui8NumTrpDetWrs{0};
 
   std::map<KUINT16, std::vector<KDIS::DATA_TYPE::Vector> > m_mvVertices;
-  KUINT16 m_ui16NextIndex;
+  KUINT16 m_ui16NextIndex{0};
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::Mine::getWire
@@ -96,11 +96,11 @@ class KDIS_EXPORT Mine
   std::map<KUINT16, std::vector<Vector> >::iterator getWire(KUINT16 Index);
 
  public:
-  Mine();
+  Mine() = default;
 
   Mine(const Vector& Location, KUINT16 ID);
 
-  virtual ~Mine();
+  virtual ~Mine() = default;
 
   // Not Used. It is not possible to use this method of decoding/encoding as the
   // values are not all stored sequentially in the Minefield Data PDU. The PDU

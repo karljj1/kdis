@@ -75,16 +75,9 @@ Minefield_Data_PDU* Minefield_Data_PDU::clone() const {
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Data_PDU::Minefield_Data_PDU()
-    : m_ui8ReqID(0),
-      m_ui8PduSeqNum(0),
-      m_ui8NumPdus(0),
-      m_ui8NumMines(0),
-      m_ui8NumSensTyp(0),
-      m_ui8Padding1(0) {
+Minefield_Data_PDU::Minefield_Data_PDU() {
   m_ui8PDUType = MinefieldData_PDU_Type;
   m_ui16PDULength = MINEFIELD_DATA_PDU_SIZE;
-  m_SeqNumUnion.m_ui16SeqNum = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -112,19 +105,12 @@ Minefield_Data_PDU::Minefield_Data_PDU(
       m_ui8PduSeqNum(PduSeqNum),
       m_ui8NumPdus(NumPdus),
       m_DataFilter(DF),
-      m_MineTyp(MineType),
-      m_ui8NumMines(0),
-      m_ui8NumSensTyp(0),
-      m_ui8Padding1(0) {
+      m_MineTyp(MineType) {
   m_ui8PDUType = MinefieldData_PDU_Type;
   m_ui16PDULength = MINEFIELD_DATA_PDU_SIZE;
   m_SeqNumUnion.m_ui16SeqNum15 = SeqNum;
   m_MinefieldID = MinefieldID;
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-Minefield_Data_PDU::~Minefield_Data_PDU() {}
 
 //////////////////////////////////////////////////////////////////////////
 
