@@ -40,7 +40,6 @@ using namespace std;
 KDataStream::KDataStream(
     KDIS::UTILS::Endian::Endianness Network_Endian /*= Big_Endian*/)
     : m_NetEndian(Network_Endian),
-      m_ui16CurrentWritePos(0),
       m_MachineEndian(KDIS::UTILS::Endian::endian()) {}
 
 //////////////////////////////////////////////////////////////////////////
@@ -49,17 +48,15 @@ KDataStream::KDataStream(
     const KOCTET* SerialData, KUINT16 DataSize,
     KDIS::UTILS::Endian::Endianness Network_Endian /*= Big_Endian */)
     : m_NetEndian(Network_Endian),
-      m_ui16CurrentWritePos(0),
       m_MachineEndian(KDIS::UTILS::Endian::endian()) {
+  if (!SerialData) {
+    throw std::invalid_argument("SerialData must not be null");
+  }
   // Copy Data into vector
   for (KUINT16 i = 0; i < DataSize; ++i) {
     m_vBuffer.push_back(SerialData[i]);
   }
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-KDataStream::~KDataStream() {}
 
 //////////////////////////////////////////////////////////////////////////
 

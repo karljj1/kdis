@@ -38,6 +38,7 @@ http://p.sf.net/kdis/UserGuide
 
 #pragma once
 
+#include <stdexcept>
 #include <vector>
 
 #include "KDIS/Extras/KUtils.hpp"
@@ -54,7 +55,7 @@ class KDIS_EXPORT KDataStream {
   KDIS::UTILS::Endian::Endianness m_NetEndian;
 
   std::vector<KUOCTET> m_vBuffer;
-  KUINT16 m_ui16CurrentWritePos;
+  KUINT16 m_ui16CurrentWritePos{0};
 
  public:
   // All DIS data is sent in Big Endian format
@@ -65,7 +66,7 @@ class KDIS_EXPORT KDataStream {
               KDIS::UTILS::Endian::Endianness NetworkEndian =
                   KDIS::UTILS::Endian::Endianness::BIG);
 
-  ~KDataStream();
+  ~KDataStream() = default;
 
   //************************************
   // FullName:    KDIS::KDataStream::GetMachineEndian
