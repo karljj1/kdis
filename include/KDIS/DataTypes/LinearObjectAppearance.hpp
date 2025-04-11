@@ -67,17 +67,17 @@ class KDIS_EXPORT LinearObjectAppearance : public ObjectAppearance {
       KUINT32 m_ui32Unused : 30;
     } m_MinefieldLaneMarker;
 
-    KUINT32 m_ui32SpecificAppearance;
+    KUINT32 m_ui32SpecificAppearance{0};
   } m_SpecificAppearanceUnion;
 
  public:
-  static const KUINT16 LINEAR_OBJECT_APPEARANCE_SIZE = 6;
+  static constexpr KUINT16 LINEAR_OBJECT_APPEARANCE_SIZE{6};
 
-  LinearObjectAppearance();
+  LinearObjectAppearance() = default;
 
   LinearObjectAppearance(KDataStream& stream);
 
-  virtual ~LinearObjectAppearance();
+  virtual ~LinearObjectAppearance() = default;
 
   /************************************************************************/
   /* The following appearance values are only for linear's of the type:   */

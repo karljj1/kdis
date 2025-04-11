@@ -610,28 +610,54 @@ TEST(DataType_EncodeDecode6, LE_EulerAngles) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, LinearObjectAppearance) {
-  KDIS::DATA_TYPE::LinearObjectAppearance dtIn;
+class LinearObjectAppearanceTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::LinearObjectAppearance loa;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(LinearObjectAppearanceTest, SetGetBreach) {
   constexpr KDIS::DATA_TYPE::ENUMS::Breach2bit b2b{
       KDIS::DATA_TYPE::ENUMS::Breached2bit};
-  EXPECT_NO_THROW(dtIn.SetBreach(b2b));
-  EXPECT_EQ(b2b, dtIn.GetBreach());
+  EXPECT_NO_THROW(loa.SetBreach(b2b));
+  EXPECT_EQ(b2b, loa.GetBreach());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetBreachLocation) {
   constexpr std::bitset<8> bs8{0xFB};
-  EXPECT_NO_THROW(dtIn.SetBreachLocation(bs8));
-  EXPECT_EQ(bs8, dtIn.GetBreachLocationAsBitset());
-  EXPECT_NO_THROW(dtIn.SetAttached(false));
-  EXPECT_EQ(false, dtIn.IsAttached());
+  EXPECT_NO_THROW(loa.SetBreachLocation(bs8));
+  EXPECT_EQ(bs8, loa.GetBreachLocationAsBitset());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetOpacity) {
+  EXPECT_THROW(loa.SetOpacity(101), KDIS::KException);
+  EXPECT_NO_THROW(loa.SetOpacity(87));
+  EXPECT_EQ(87, loa.GetOpacity());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetAttached) {
+  EXPECT_NO_THROW(loa.SetAttached(false));
+  EXPECT_EQ(false, loa.IsAttached());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetChemical) {
   constexpr KDIS::DATA_TYPE::ENUMS::Chemical ch{
       KDIS::DATA_TYPE::ENUMS::Hydrochloric};
-  EXPECT_NO_THROW(dtIn.SetChemical(ch));
-  EXPECT_EQ(ch, dtIn.GetChemical());
+  EXPECT_NO_THROW(loa.SetChemical(ch));
+  EXPECT_EQ(ch, loa.GetChemical());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetVisibleSide) {
   constexpr KDIS::DATA_TYPE::ENUMS::VisibleSide vs{
       KDIS::DATA_TYPE::ENUMS::LeftSideVisible};
-  EXPECT_NO_THROW(dtIn.SetVisibleSide(vs));
-  EXPECT_EQ(vs, dtIn.GetVisibleSide());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::LinearObjectAppearance dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_NO_THROW(loa.SetVisibleSide(vs));
+  EXPECT_EQ(vs, loa.GetVisibleSide());
+}
+
+TEST_F(LinearObjectAppearanceTest, EncodeStreamConstructor) {
+  stream = loa.Encode();
+  KDIS::DATA_TYPE::LinearObjectAppearance loa2(stream);
+  EXPECT_EQ(loa, loa2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
