@@ -253,7 +253,28 @@ class Minefield_Data_PDU_Test : public ::testing::Test {
       false, false, false, false,
       false, false, false, true /*TripDetonationWire*/,
       false, false, false};
+  const KDIS::DATA_TYPE::EntityIdentifier mfid{7, 4, 44};
+  const KDIS::DATA_TYPE::SimulationIdentifier sid{53, 2};
+  const KDIS::DATA_TYPE::EntityIdentifier rsid{sid, 18};
+  const KDIS::DATA_TYPE::EntityType mineType{
+      KDIS::DATA_TYPE::ENUMS::Munition,
+      4,
+      KDIS::DATA_TYPE::ENUMS::OtherCountry,
+      4,
+      4,
+      4,
+      4};
 };
+
+TEST_F(Minefield_Data_PDU_Test, AlternateConstructors) {
+  EXPECT_NO_THROW(
+      KDIS::PDU::Minefield_Data_PDU(mfid, rsid, 14, 2, 3, 8, mdf, mineType));
+}
+
+TEST_F(Minefield_Data_PDU_Test, SetGetRequestingSimulationID) {
+  EXPECT_NO_THROW(pdu.SetRequestingSimulationID(rsid));
+  EXPECT_EQ(rsid, pdu.GetRequestingSimulationID());
+}
 
 TEST_F(Minefield_Data_PDU_Test, GetProtocolFamily) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Minefield,
@@ -283,7 +304,41 @@ TEST_F(Minefield_Data_PDU_Test, AddMineOptionalFieldsMismatch) {
   EXPECT_THROW(pdu.AddMine(mn), KDIS::KException);
 }
 
+TEST_F(Minefield_Data_PDU_Test, SetGetMines) {
+  EXPECT_NO_THROW(pdu.SetDataFilter(mdf));
+  std::vector<KDIS::DATA_TYPE::Mine> mines{mn};
+  // exception on following call because pdu's data filter doesn't match mn's
+  EXPECT_THROW(pdu.SetMines(mines), KDIS::KException);
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  std::vector<KDIS::DATA_TYPE::Mine> mines2{mn};
+  // this time, it should work
+  EXPECT_NO_THROW(pdu.SetMines(mines2));
+  EXPECT_EQ(mines2, pdu.GetMines());
+}
+
 TEST_F(Minefield_Data_PDU_Test, Encode) { EXPECT_NO_THROW(pdu.Encode(stream)); }
+
+TEST_F(Minefield_Data_PDU_Test, EncodeWithScalarDetectionException) {
+  EXPECT_NO_THROW(pdu.SetDataFilter(mdf));
+  // Make the following call to cause m_ui8NumSensTyp to change from default
+  EXPECT_NO_THROW(pdu.AddSensorType(KDIS::DATA_TYPE::ENUMS::Laser_Generic));
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_NO_THROW(pdu.AddMine(mn));
+  const KDIS::DATA_TYPE::MinefieldDataFilter mdf2{
+      false, false, false, false, false,
+      false, false, false, false, true /* ScalarDetectionCoefficient*/,
+      false};
+  // Change the PDU's MinefieldDataFilter to force the
+  //    ScalarDetectionCoefficient check
+  EXPECT_NO_THROW(pdu.SetDataFilter(mdf2));
+  // Exception expected because the mine doesn't have the correct number of SDC
+  //    values
+  EXPECT_THROW(pdu.Encode(stream), KDIS::KException);
+}
 
 TEST(PDU_ProtocolFamily6, Minefield_Query_PDU) {
   KDIS::PDU::Minefield_Query_PDU pdu;
