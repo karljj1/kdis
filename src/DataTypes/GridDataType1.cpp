@@ -38,13 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType1::GridDataType1()
-    : m_f32FieldScale(0),
-      m_f32FieldOffset(0),
-      m_ui16NumValues(0),
-      m_ui16Padding(0) {
-  m_ui16DtRep = Type1;
-}
+GridDataType1::GridDataType1() { m_ui16DtRep = Type1; }
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -53,8 +47,7 @@ GridDataType1::GridDataType1(KDataStream& stream) { Decode(stream); }
 //////////////////////////////////////////////////////////////////////////
 
 GridDataType1::GridDataType1(KUINT16 SampleType, KUINT16 DataRepresentation,
-                             KDataStream& stream)
-    : m_ui16Padding(0) {
+                             KDataStream& stream) {
   m_ui16SmpTyp = SampleType;
   m_ui16DtRep = DataRepresentation;
   stream >> m_f32FieldScale >> m_f32FieldOffset >> m_ui16NumValues;
@@ -79,15 +72,10 @@ GridDataType1::GridDataType1(KUINT16 SampleType, KFLOAT32 FieldScale,
     : m_f32FieldScale(FieldScale),
       m_f32FieldOffset(FieldOffset),
       m_ui16NumValues(Values.size()),
-      m_vui16Values(Values),
-      m_ui16Padding(0) {
+      m_vui16Values(Values) {
   m_ui16SmpTyp = SampleType;
   m_ui16DtRep = Type1;
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-GridDataType1::~GridDataType1() {}
 
 //////////////////////////////////////////////////////////////////////////
 

@@ -237,22 +237,16 @@ void Gridded_Data_PDU::AddGridAxisDescriptor(const GridAxisDescriptor& GAD) {
 void Gridded_Data_PDU::SetGridAxisDescriptors(
     const std::vector<GridAxisDescriptor>& GADS) {
   // calculate length that needs to be removed.
-  vector<GridAxisDescriptor>::const_iterator citr = m_vpGridAxisDesc.begin();
-  vector<GridAxisDescriptor>::const_iterator citrEnd = m_vpGridAxisDesc.end();
-
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength -= (*citr)->GetLength();
+  for (const auto& data : m_vpGridAxisDesc) {
+    m_ui16PDULength -= data->GetLength();
   }
 
   m_vpGridAxisDesc = GADS;
   m_ui8NumAxis = m_vpGridAxisDesc.size();
 
   // Calculate the new PDU length.
-  citr = m_vpGridAxisDesc.begin();
-  citrEnd = m_vpGridAxisDesc.end();
-
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength += (*citr)->GetLength();
+  for (const auto& data : m_vpGridAxisDesc) {
+    m_ui16PDULength += data->GetLength();
   }
 }
 
@@ -275,20 +269,16 @@ void Gridded_Data_PDU::AddGridData(const GridDataPtr& GD) {
 
 void Gridded_Data_PDU::SetGridData(const std::vector<GridDataPtr>& GD) {
   // Remove the old grid data from the PDU length.
-  std::vector<GridDataPtr>::const_iterator citr = m_vGridData.begin();
-  std::vector<GridDataPtr>::const_iterator citrEnd = m_vGridData.end();
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength -= (*citr)->GetSize();
+  for (const auto& data : m_vGridData) {
+    m_ui16PDULength -= data->GetSize();
   }
 
   m_vGridData = GD;
   m_ui8VecDim = m_vGridData.size();
 
   // Now recalculate the PDU length.
-  citr = m_vGridData.begin();
-  citrEnd = m_vGridData.end();
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength += (*citr)->GetSize();
+  for (const auto& data : m_vGridData) {
+    m_ui16PDULength += data->GetSize();
   }
 }
 
@@ -318,18 +308,12 @@ KString Gridded_Data_PDU::GetAsString() const {
      << "Total Values: " << m_ui32TotalValues << "\n"
      << "Vector Dimension: " << m_ui8VecDim << "\n";
 
-  vector<GridAxisDescriptor>::const_iterator citrAxis =
-      m_vpGridAxisDesc.begin();
-  vector<GridAxisDescriptor>::const_iterator citrAxisEnd =
-      m_vpGridAxisDesc.end();
-  for (; citrAxis != citrAxisEnd; ++citrAxis) {
-    ss << (*citrAxis)->GetAsString();
+  for (const auto& data : m_vpGridAxisDesc) {
+    ss << data->GetAsString();
   }
 
-  vector<GridDataPtr>::const_iterator citrData = m_vGridData.begin();
-  vector<GridDataPtr>::const_iterator citrDataEnd = m_vGridData.end();
-  for (; citrData != citrDataEnd; ++citrData) {
-    ss << (*citrData)->GetAsString();
+  for (const auto& data : m_vGridData) {
+    ss << data->GetAsString();
   }
 
   return ss.str();
@@ -423,18 +407,12 @@ void Gridded_Data_PDU::Encode(KDataStream& stream) const {
          << KDIS_STREAM m_EnvType << KDIS_STREAM m_Ori << m_ui64SampleTime
          << m_ui32TotalValues << m_ui8VecDim << m_ui16Padding1 << m_ui8Padding1;
 
-  vector<GridAxisDescriptor>::const_iterator citrAxis =
-      m_vpGridAxisDesc.begin();
-  vector<GridAxisDescriptor>::const_iterator citrAxisEnd =
-      m_vpGridAxisDesc.end();
-  for (; citrAxis != citrAxisEnd; ++citrAxis) {
-    (*citrAxis)->Encode(stream);
+  for (const auto& data : m_vpGridAxisDesc) {
+    data->Encode(stream);
   }
 
-  vector<GridDataPtr>::const_iterator citrData = m_vGridData.begin();
-  vector<GridDataPtr>::const_iterator citrDataEnd = m_vGridData.end();
-  for (; citrData != citrDataEnd; ++citrData) {
-    (*citrData)->Encode(stream);
+  for (const auto& data : m_vGridData) {
+    data->Encode(stream);
   }
 }
 

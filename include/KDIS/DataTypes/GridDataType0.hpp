@@ -57,14 +57,14 @@ using std::vector;
 
 class KDIS_EXPORT GridDataType0 : public GridData {
  protected:
-  KUINT16 m_ui16NumBytes;
+  KUINT16 m_ui16NumBytes{0};
 
   std::vector<KUINT8> m_vui8DataVals;
 
-  KUINT8 m_ui8Padding;
+  KUINT8 m_ui8Padding{0};
 
  public:
-  static const KUINT16 GRID_DATA_TYPE0_SIZE = 6;  // Min size
+  static constexpr KUINT16 GRID_DATA_TYPE0_SIZE{6};  // Min size
 
   GridDataType0();
 
@@ -78,7 +78,7 @@ class KDIS_EXPORT GridDataType0 : public GridData {
 
   GridDataType0(KUINT16 SampleType, KUINT8* Data, KUINT16 NumBytes);
 
-  virtual ~GridDataType0();
+  virtual ~GridDataType0() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridDataType0::Encode

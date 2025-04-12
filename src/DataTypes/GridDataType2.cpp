@@ -38,9 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType2::GridDataType2() : m_ui16NumValues(0), m_ui16Padding(0) {
-  m_ui16DtRep = Type2;
-}
+GridDataType2::GridDataType2() { m_ui16DtRep = Type2; }
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -68,14 +66,10 @@ GridDataType2::GridDataType2(KUINT16 SampleType, KUINT16 DataRepresentation,
 
 GridDataType2::GridDataType2(KUINT16 SampleType,
                              const std::vector<KFLOAT32>& Values)
-    : m_ui16NumValues(Values.size()), m_vf32Values(Values), m_ui16Padding(0) {
+    : m_ui16NumValues(Values.size()), m_vf32Values(Values) {
   m_ui16SmpTyp = SampleType;
   m_ui16DtRep = Type2;
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-GridDataType2::~GridDataType2() {}
 
 //////////////////////////////////////////////////////////////////////////
 

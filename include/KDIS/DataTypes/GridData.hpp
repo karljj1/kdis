@@ -47,18 +47,18 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT GridData : public DataTypeBase {
  protected:
-  KUINT16 m_ui16SmpTyp;
+  KUINT16 m_ui16SmpTyp{0};
 
-  KUINT16 m_ui16DtRep;
+  KUINT16 m_ui16DtRep{0};
 
  public:
-  static const KUINT16 GRID_DATA_SIZE = 4;
+  static const KUINT16 GRID_DATA_SIZE{4};
 
-  GridData();
+  GridData() = default;
 
   GridData(KDataStream& stream);
 
-  virtual ~GridData();
+  virtual ~GridData() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridData::SetSampleType

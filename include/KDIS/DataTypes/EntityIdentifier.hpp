@@ -48,12 +48,12 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT EntityIdentifier : public SimulationIdentifier {
  protected:
-  KUINT16 m_ui16EntityID;
+  KUINT16 m_ui16EntityID{0};
 
  public:
-  static const KUINT16 ENTITY_IDENTIFER_SIZE = 6;
+  static constexpr KUINT16 ENTITY_IDENTIFER_SIZE{6};
 
-  EntityIdentifier();
+  EntityIdentifier() = default;
 
   EntityIdentifier(KUINT16 SiteID, KUINT16 ApplicatonID, KUINT16 EntityID);
 
@@ -61,7 +61,7 @@ class KDIS_EXPORT EntityIdentifier : public SimulationIdentifier {
 
   EntityIdentifier(KDataStream& stream);
 
-  virtual ~EntityIdentifier();
+  virtual ~EntityIdentifier() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EntityIdentifier::SetEntityID

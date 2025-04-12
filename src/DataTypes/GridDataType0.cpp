@@ -38,9 +38,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridDataType0::GridDataType0() : m_ui16NumBytes(0), m_ui8Padding(0) {
-  m_ui16DtRep = Type0;
-}
+GridDataType0::GridDataType0() { m_ui16DtRep = Type0; }
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -49,8 +47,7 @@ GridDataType0::GridDataType0(KDataStream& stream) { Decode(stream); }
 //////////////////////////////////////////////////////////////////////////
 
 GridDataType0::GridDataType0(KUINT16 SampleType, KUINT16 DataRepresentation,
-                             KDataStream& stream)
-    : m_ui8Padding(0) {
+                             KDataStream& stream) {
   m_ui16SmpTyp = SampleType;
   m_ui16DtRep = DataRepresentation;
 
@@ -71,7 +68,7 @@ GridDataType0::GridDataType0(KUINT16 SampleType, KUINT16 DataRepresentation,
 //////////////////////////////////////////////////////////////////////////
 
 GridDataType0::GridDataType0(KUINT16 SampleType, KUINT8* Data, KUINT16 NumBytes)
-    : m_ui16NumBytes(NumBytes), m_ui8Padding(0) {
+    : m_ui16NumBytes(NumBytes) {
   m_ui16SmpTyp = SampleType;
   m_ui16DtRep = Type0;
 
@@ -79,10 +76,6 @@ GridDataType0::GridDataType0(KUINT16 SampleType, KUINT8* Data, KUINT16 NumBytes)
     m_vui8DataVals.push_back(Data[i]);
   }
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-GridDataType0::~GridDataType0() {}
 
 //////////////////////////////////////////////////////////////////////////
 

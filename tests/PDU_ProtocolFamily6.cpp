@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include <KDIS/DataTypes/GridDataType2.hpp>
 #include <KDIS/KDefines.hpp>
 #include <KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp>
 #include <KDIS/PDU/Distributed_Emission_Regeneration/SEES_PDU.hpp>
@@ -510,11 +511,24 @@ class Gridded_Data_PDU_Test : public ::testing::Test {
  protected:
   KDIS::PDU::Gridded_Data_PDU pdu;
   KDIS::KDataStream stream;
+  const KDIS::DATA_TYPE::EntityIdentifier eid;
 };
+
+TEST_F(Gridded_Data_PDU_Test, AlternateConstructors) {
+  EXPECT_NO_THROW(KDIS::PDU::Gridded_Data_PDU(
+      eid, 1, 2, 3, KDIS::DATA_TYPE::ENUMS::LatLonDepth,
+      KDIS::DATA_TYPE::ENUMS::Updated, KDIS::DATA_TYPE::EnvironmentType(),
+      KDIS::DATA_TYPE::EulerAngles(), 54));
+}
 
 TEST_F(Gridded_Data_PDU_Test, GetProtocolFamily) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::SyntheticEnvironment,
             pdu.GetProtocolFamily());
+}
+
+TEST_F(Gridded_Data_PDU_Test, SetGetEnvironmentalProcessID) {
+  EXPECT_NO_THROW(pdu.SetEnvironmentalProcessID(eid));
+  EXPECT_EQ(eid, pdu.GetEnvironmentalProcessID());
 }
 
 TEST_F(Gridded_Data_PDU_Test, SetPDUNumberAndTotal) {
@@ -541,6 +555,19 @@ TEST_F(Gridded_Data_PDU_Test, DecodeStreamTooSmall) {
 TEST_F(Gridded_Data_PDU_Test, EncodeDecodeRoundTrip) {
   EXPECT_NO_THROW(pdu.Encode(stream));
   EXPECT_NO_THROW(pdu.Decode(stream, false));
+}
+
+TEST_F(Gridded_Data_PDU_Test, EncodeDecodeBadGridData) {
+  KDIS::KDataStream stream2;
+  stream2 << 0x0000;
+  // the second parameter in the GridDataType2 c'tor will be unacceptable at the
+  //    pdu.Decode step below
+  KDIS::DATA_TYPE::GridDataPtr gdt2Bad =
+      new KDIS::DATA_TYPE::GridDataType2(0, 3, stream2);
+  // assign the malformed GridDataPtr to the PDU
+  EXPECT_NO_THROW(pdu.AddGridData(gdt2Bad));
+  EXPECT_NO_THROW(pdu.Encode(stream));
+  EXPECT_THROW(pdu.Decode(stream, false), KDIS::KException);
 }
 
 TEST(PDU_ProtocolFamily6, Linear_Object_State_PDU) {

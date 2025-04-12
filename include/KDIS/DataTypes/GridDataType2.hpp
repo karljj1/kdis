@@ -51,14 +51,14 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT GridDataType2 : public GridData {
  protected:
-  KUINT16 m_ui16NumValues;
+  KUINT16 m_ui16NumValues{0};
 
   std::vector<KFLOAT32> m_vf32Values;
 
-  KUINT16 m_ui16Padding;
+  KUINT16 m_ui16Padding{0};
 
  public:
-  static const KUINT16 GRID_DATA_TYPE2_SIZE = 8;  // Min size
+  static constexpr KUINT16 GRID_DATA_TYPE2_SIZE{8};  // Min size
 
   GridDataType2();
 
@@ -72,7 +72,7 @@ class KDIS_EXPORT GridDataType2 : public GridData {
 
   GridDataType2(KUINT16 SampleType, const std::vector<KFLOAT32>& Values);
 
-  virtual ~GridDataType2();
+  virtual ~GridDataType2() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridDataType2::SetFieldOffset
