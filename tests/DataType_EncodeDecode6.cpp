@@ -457,13 +457,24 @@ TEST(DataType_EncodeDecode6, GridAxisIrregular) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, GridAxisRegular) {
-  KDIS::DATA_TYPE::GridAxisRegular dtIn;
-  EXPECT_NO_THROW(dtIn.GetAsString());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridAxisRegular dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+class GridAxisRegularTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridAxisRegular gar;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridAxisRegularTest, GetAsString) { EXPECT_NO_THROW(gar.GetAsString()); }
+
+TEST_F(GridAxisRegularTest, EncodeStreamConstructor) {
+  stream = gar.Encode();
+  KDIS::DATA_TYPE::GridAxisRegular gar2(stream);
+  EXPECT_EQ(gar, gar2);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+TEST_F(GridAxisRegularTest, GetLength) {
+  EXPECT_EQ(KDIS::DATA_TYPE::GridAxisRegular::GridAxisRegularBytes,
+            gar.GetLength());
 }
 
 TEST(DataType_EncodeDecode6, GridDataType0) {

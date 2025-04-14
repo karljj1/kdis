@@ -262,7 +262,7 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
   //************************************
   // FullName:    KDIS::PDU::Gridded_Data_PDU::AddGridAxisDescriptor
   //              KDIS::PDU::Gridded_Data_PDU::SetGridAxisDescriptors
-  //              KDIS::PDU::Gridded_Data_PDU::GetSetGridAxisDescriptors
+  //              KDIS::PDU::Gridded_Data_PDU::GetGridAxisDescriptors
   // Description: Specifies the detailed information about the grid dimensions
   // (axes)
   //              and coordinates for environmental state variables.
@@ -275,7 +275,7 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
   void SetGridAxisDescriptors(
       const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor>& GADS);
   const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor>&
-  GetSetGridAxisDescriptors() const;
+  GetGridAxisDescriptors() const;
 
   //************************************
   // FullName:    KDIS::PDU::Gridded_Data_PDU::AddGridData

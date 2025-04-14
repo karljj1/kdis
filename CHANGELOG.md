@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - C4244 "possible loss of data" warnings on Windows builds via [#67](https://github.com/karljj1/kdis/pull/67), [#68](https://github.com/karljj1/kdis/pull/68)
 - Spelling of `KDIS::UTILS::Matrix::inPlaceTranspose()` method via [#74](https://github.com/karljj1/kdis/pull/74)
 - Unified to `KDIS::UTILS` (plural) namespace, to eliminate distinction without a difference via [#74](https://github.com/karljj1/kdis/pull/74)
+- Naming of the `Gridded_Data_PDU::GetGridAxisDescriptors()` method via [#74](https://github.com/karljj1/kdis/pull/74)
 
 ### Security
 

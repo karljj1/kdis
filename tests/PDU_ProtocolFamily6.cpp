@@ -544,7 +544,30 @@ TEST_F(Gridded_Data_PDU_Test, GetConstantGrid) {
   EXPECT_EQ(0, pdu.GetConstantGrid());
 }
 
-TEST_F(Gridded_Data_PDU_Test, GetAsString) {
+TEST_F(Gridded_Data_PDU_Test, SetGetGridAxisDescriptors) {
+  KDIS::DATA_TYPE::GridAxisDescriptor gad =
+      new KDIS::DATA_TYPE::GridAxisRegular;
+  const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> gads = {gad};
+  EXPECT_NO_THROW(pdu.SetGridAxisDescriptors(gads));
+  EXPECT_EQ(gads, pdu.GetGridAxisDescriptors());
+  // exercise GetAsString with non-empty grid axis descriptors
+  EXPECT_NO_THROW(pdu.GetAsString());
+  // exercise Encode with non-empty grid axis descriptors
+  EXPECT_NO_THROW(pdu.Encode(stream));
+}
+
+TEST_F(Gridded_Data_PDU_Test, SetGetGridData) {
+  KDIS::DATA_TYPE::GridDataPtr gdt0 = new KDIS::DATA_TYPE::GridDataType0;
+  const std::vector<KDIS::DATA_TYPE::GridDataPtr> gds = {gdt0};
+  EXPECT_NO_THROW(pdu.SetGridData(gds));
+  EXPECT_EQ(gds, pdu.GetGridData());
+  // exercise GetAsString with non-empty grid data
+  EXPECT_NO_THROW(pdu.GetAsString());
+  // exercise Encode with non-empty grid data
+  EXPECT_NO_THROW(pdu.Encode(stream));
+}
+
+TEST_F(Gridded_Data_PDU_Test, GetAsStringBasic) {
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 

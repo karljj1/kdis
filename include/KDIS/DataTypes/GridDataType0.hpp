@@ -89,12 +89,12 @@ class KDIS_EXPORT GridDataType0 : public GridData {
   KUINT16 GetNumberOfBytes() const;
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::GridDataType0::AddGridAxisDescriptor
-  //              KDIS::DATA_TYPE::GridDataType0::SetGridAxisDescriptors
-  //              KDIS::DATA_TYPE::GridDataType0::GetSetGridAxisDescriptors
+  // FullName:    KDIS::DATA_TYPE::GridDataType0::AddDataValue
+  //              KDIS::DATA_TYPE::GridDataType0::SetDataValues
+  //              KDIS::DATA_TYPE::GridDataType0::GetDataValues
   //              KDIS::DATA_TYPE::GridDataType0::ClearValues
   // Description: Specifies the environmental state variable data values. The
-  // data shall
+  //              data shall
   //              be represented as a stream of bytes, the interpretation of
   //              which shall be agreed to prior to the start of the exercise.
   // Parameter:   KUINT8 D, KUINT8 * Data,, const vector<KUINT8> & DV

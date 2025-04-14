@@ -253,7 +253,7 @@ void Gridded_Data_PDU::SetGridAxisDescriptors(
 //////////////////////////////////////////////////////////////////////////
 
 const std::vector<GridAxisDescriptor>&
-Gridded_Data_PDU::GetSetGridAxisDescriptors() const {
+Gridded_Data_PDU::GetGridAxisDescriptors() const {
   return m_vpGridAxisDesc;
 }
 
