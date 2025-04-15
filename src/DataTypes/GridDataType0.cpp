@@ -27,6 +27,8 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
+#include <stdexcept>
+
 #include "KDIS/DataTypes/GridDataType0.hpp"
 
 using namespace KDIS;
@@ -51,6 +53,9 @@ GridDataType0::GridDataType0(KUINT16 SampleType, KUINT16 DataRepresentation,
   m_ui16SmpTyp = SampleType;
   m_ui16DtRep = DataRepresentation;
 
+  if (stream.GetBufferSize() < sizeof(m_ui16NumBytes)) {
+    throw std::length_error("stream is too short");
+  }
   stream >> m_ui16NumBytes;
 
   KUINT8 tmp = 0;

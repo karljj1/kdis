@@ -44,10 +44,6 @@ using namespace UTILS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-VariableDatum::VariableDatum() : m_ui32DatumLength(0), m_ui32DatumID(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 VariableDatum::VariableDatum(DatumID ID, const KString& Value) {
   m_ui32DatumID = ID;
 
@@ -88,7 +84,7 @@ KUINT32 VariableDatum::GetDatumLength() const { return m_ui32DatumLength; }
 //////////////////////////////////////////////////////////////////////////
 
 KUINT32 VariableDatum::GetPDULength() const {
-  return VARIABLE_DATUM_SIZE + (m_v8DatumValue.size() * 8);
+  return VariableDatumMinBytes + (m_v8DatumValue.size() * 8);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -231,7 +227,7 @@ KString VariableDatum::GetAsString() const {
 //////////////////////////////////////////////////////////////////////////
 
 void VariableDatum::Decode(KDataStream& stream) {
-  if (stream.GetBufferSize() < VARIABLE_DATUM_SIZE)
+  if (stream.GetBufferSize() < VariableDatumMinBytes)
     throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_v8DatumValue.clear();

@@ -86,6 +86,7 @@
 #include <KDIS/KDefines.hpp>
 #include <bitset>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 
 TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
@@ -477,13 +478,30 @@ TEST_F(GridAxisRegularTest, GetLength) {
             gar.GetLength());
 }
 
-TEST(DataType_EncodeDecode6, GridDataType0) {
-  KDIS::DATA_TYPE::GridDataType0 dtIn;
-  EXPECT_NO_THROW(dtIn.AddDataValue(42));
-  EXPECT_NO_THROW(dtIn.GetAsString());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridDataType0 dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+class GridDataType0Test : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridDataType0 gdt0;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridDataType0Test, AlternateConstructors) {
+  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType0(5, 2, stream), std::length_error);
+  std::vector<KDIS::KUINT8> vec = {4, 44, 244};
+  EXPECT_NO_THROW(
+      gdt0 = KDIS::DATA_TYPE::GridDataType0(7, vec.data(), vec.size()));
+  EXPECT_EQ(vec.size(), gdt0.GetNumberOfBytes());
+}
+
+TEST_F(GridDataType0Test, AddDataValue) {
+  EXPECT_NO_THROW(gdt0.AddDataValue(42));
+}
+
+TEST_F(GridDataType0Test, GetAsString) { EXPECT_NO_THROW(gdt0.GetAsString()); }
+
+TEST_F(GridDataType0Test, EncodeStreamConstructor) {
+  stream = gdt0.Encode();
+  KDIS::DATA_TYPE::GridDataType0 gdt0two(stream);
+  EXPECT_EQ(gdt0, gdt0two);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

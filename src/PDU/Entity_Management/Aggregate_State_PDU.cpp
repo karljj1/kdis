@@ -463,9 +463,9 @@ void Aggregate_State_PDU::AddVariableDatum(VarDtmPtr VD) {
 
   // Calculate the size, note get datum length only returns length of the value
   // and does not include the datum id or length field so we use
-  // VARIABLE_DATUM_SIZE to get this.
+  // VariableDatumMinBytes to get this.
   m_ui16PDULength +=
-      VariableDatum::VARIABLE_DATUM_SIZE + (VD->GetDatumLength() / 8);
+      VariableDatum::VariableDatumMinBytes + (VD->GetDatumLength() / 8);
   ++m_ui32NumVariableDatum;
 }
 
@@ -480,7 +480,7 @@ void Aggregate_State_PDU::SetVariableDatumList(const vector<VarDtmPtr>& VD) {
   vector<VarDtmPtr>::const_iterator citrEnd = m_vVD.end();
   for (citr = m_vVD.begin(); citr != m_vVD.end(); ++citr) {
     m_ui16PDULength +=
-        VariableDatum::VARIABLE_DATUM_SIZE + ((*citr)->GetDatumLength() / 8);
+        VariableDatum::VariableDatumMinBytes + ((*citr)->GetDatumLength() / 8);
   }
 
   m_ui32NumVariableDatum = m_vVD.size();
@@ -494,7 +494,7 @@ void Aggregate_State_PDU::ClearVariableDatumList() {
   vector<VarDtmPtr>::const_iterator citrEnd = m_vVD.end();
   for (; citr != citrEnd; ++citr) {
     m_ui16PDULength -=
-        VariableDatum::VARIABLE_DATUM_SIZE + ((*citr)->GetDatumLength() / 8);
+        VariableDatum::VariableDatumMinBytes + ((*citr)->GetDatumLength() / 8);
   }
 
   m_vVD.clear();
