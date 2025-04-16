@@ -732,28 +732,29 @@ TEST(DataType_EncodeDecode6, LineRecord2) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode5, Mine) {
-  KDIS::DATA_TYPE::Mine dtIn;
-  EXPECT_NO_THROW(dtIn.AddScalarDetectionCoefficientValue(17));
-  EXPECT_NO_THROW(dtIn.SetGroundBurialDepthOffset(true));
-  EXPECT_NO_THROW(dtIn.SetWaterBurialDepthOffset(true));
-  EXPECT_NO_THROW(dtIn.SetSnowBurialDepthOffset(true));
-  EXPECT_NO_THROW(dtIn.SetMineOrientation(true));
-  EXPECT_NO_THROW(dtIn.SetThermalContrast(true));
-  EXPECT_NO_THROW(dtIn.SetReflectance(true));
-  EXPECT_NO_THROW(dtIn.SetMineEmplacementAge(true));
-  EXPECT_NO_THROW(dtIn.SetFusing(true));
-  EXPECT_NO_THROW(dtIn.AddScalarDetectionCoefficientValue(9));
-  EXPECT_NO_THROW(dtIn.SetPaintScheme(true));
+class MineTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::Mine mn;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(MineTest, AddScalarDetectionCoefficientValue) {
+  EXPECT_NO_THROW(mn.AddScalarDetectionCoefficientValue(17));
+}
+
+TEST_F(MineTest, AddTripDetonationWire) {
   const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
       KDIS::DATA_TYPE::Vector(1, 2, 3)};
-  EXPECT_NO_THROW(dtIn.AddTripDetonationWire(vtx));
-  EXPECT_NO_THROW(dtIn.GetAsString());
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+}
+
+TEST_F(MineTest, GetAsString) { EXPECT_NO_THROW(mn.GetAsString()); }
+
+TEST_F(MineTest, EncodeDecode) {
   // Encode/Decode are not supported by Mine
-  KDIS::KDataStream stream;
-  EXPECT_THROW(dtIn.Decode(stream), std::logic_error);
-  EXPECT_THROW(dtIn.Encode(), std::logic_error);
-  EXPECT_THROW(dtIn.Encode(stream), std::logic_error);
+  EXPECT_THROW(mn.Decode(stream), std::logic_error);
+  EXPECT_THROW(mn.Encode(), std::logic_error);
+  EXPECT_THROW(mn.Encode(stream), std::logic_error);
 }
 
 TEST(DataType_EncodeDecode6, MinefieldAppearance) {
@@ -766,6 +767,62 @@ TEST(DataType_EncodeDecode6, MinefieldAppearance) {
   KDIS::DATA_TYPE::MinefieldAppearance dtOut(stream);
   EXPECT_EQ(dtIn, dtOut);
   EXPECT_EQ(0, stream.GetBufferSize());
+}
+
+class MinefieldDataFilterTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::MinefieldDataFilter mdf;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(MinefieldDataFilterTest, SetIsGroundBurialDepthOffset) {
+  EXPECT_NO_THROW(mdf.SetGroundBurialDepthOffset(true));
+  EXPECT_TRUE(mdf.IsGroundBurialDepthOffset());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsWaterBurialDepthOffset) {
+  EXPECT_NO_THROW(mdf.SetWaterBurialDepthOffset(true));
+  EXPECT_TRUE(mdf.IsWaterBurialDepthOffset());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsSnowBurialDepthOffset) {
+  EXPECT_NO_THROW(mdf.SetSnowBurialDepthOffset(true));
+  EXPECT_TRUE(mdf.IsSnowBurialDepthOffset());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsMineOrientation) {
+  EXPECT_NO_THROW(mdf.SetMineOrientation(true));
+  EXPECT_TRUE(mdf.IsMineOrientation());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsThermalContrast) {
+  EXPECT_NO_THROW(mdf.SetThermalContrast(true));
+  EXPECT_TRUE(mdf.IsThermalContrast());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsReflectance) {
+  EXPECT_NO_THROW(mdf.SetReflectance(true));
+  EXPECT_TRUE(mdf.IsReflectance());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsMineEmplacementAge) {
+  EXPECT_NO_THROW(mdf.SetMineEmplacementAge(true));
+  EXPECT_TRUE(mdf.IsMineEmplacementAge());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsFusing) {
+  EXPECT_NO_THROW(mdf.SetFusing(true));
+  EXPECT_TRUE(mdf.IsFusing());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsScalarDetectionCoefficient) {
+  EXPECT_NO_THROW(mdf.SetScalarDetectionCoefficient(true));
+  EXPECT_TRUE(mdf.IsScalarDetectionCoefficient());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsPaintScheme) {
+  EXPECT_NO_THROW(mdf.SetPaintScheme(true));
+  EXPECT_TRUE(mdf.IsPaintScheme());
 }
 
 TEST(DataType_EncodeDecode6, MinefieldDataFilter) {
