@@ -505,11 +505,28 @@ TEST_F(GridDataType0Test, EncodeStreamConstructor) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, GridDataType1) {
-  KDIS::DATA_TYPE::GridDataType1 dtIn;
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridDataType1 dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+class GridDataType1Test : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridDataType1 gdt1;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridDataType1Test, AlternateConstructors) {
+  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType1(33, 2, stream),
+               std::length_error);
+  EXPECT_NO_THROW(
+      KDIS::DATA_TYPE::GridDataType1(0, 0, 0, std::vector<KDIS::KUINT16>()));
+}
+
+TEST_F(GridDataType1Test, SetGetFieldScale) {
+  EXPECT_NO_THROW(gdt1.SetFieldScale(33.3));
+  EXPECT_FLOAT_EQ(33.3, gdt1.GetFieldScale());
+}
+
+TEST_F(GridDataType1Test, EncodeStreamConstructor) {
+  stream = gdt1.Encode();
+  KDIS::DATA_TYPE::GridDataType1 gdt1two(stream);
+  EXPECT_EQ(gdt1, gdt1two);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

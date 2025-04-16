@@ -27,8 +27,6 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include <stdexcept>
-
 #include "KDIS/DataTypes/GridDataType0.hpp"
 
 using namespace KDIS;
