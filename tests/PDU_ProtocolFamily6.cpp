@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <KDIS/DataTypes/GridDataType2.hpp>
+#include <KDIS/DataTypes/VariableDatum.hpp>
 #include <KDIS/KDefines.hpp>
 #include <KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp>
 #include <KDIS/PDU/Distributed_Emission_Regeneration/SEES_PDU.hpp>
@@ -93,16 +94,65 @@ TEST(PDU_ProtocolFamily6, Entity_State_Update_PDU) {
 //
 // Entity Management
 //
-TEST(PDU_ProtocolFamily6, Aggregate_State_PDU) {
+class Aggregate_State_PDU_Test : public ::testing::Test {
+ protected:
   KDIS::PDU::Aggregate_State_PDU pdu;
+};
+
+TEST_F(Aggregate_State_PDU_Test, GetProtocolFamily) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::EntityManagement,
             pdu.GetProtocolFamily());
-  EXPECT_EQ(0, pdu.GetForceID());
-  EXPECT_EQ(0, pdu.GetAggregateState());
-  EXPECT_EQ(0, pdu.GetFormation());
+}
+
+TEST_F(Aggregate_State_PDU_Test, GetProtocolVersion) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::IEEE_1278_1A_1998,
             pdu.GetProtocolVersion());
+}
+
+TEST_F(Aggregate_State_PDU_Test, GetPDUType) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::AggregateState_PDU_Type, pdu.GetPDUType());
+}
+
+TEST_F(Aggregate_State_PDU_Test, SetGetForceID) {
+  EXPECT_EQ(0, pdu.GetForceID());  // default
+  constexpr KDIS::DATA_TYPE::ENUMS::ForceID fid{
+      KDIS::DATA_TYPE::ENUMS::Friendly4};
+  EXPECT_NO_THROW(pdu.SetForceID(fid));
+  EXPECT_EQ(fid, pdu.GetForceID());
+}
+
+TEST_F(Aggregate_State_PDU_Test, SetGetAggregateState) {
+  EXPECT_EQ(0, pdu.GetAggregateState());  // default
+  constexpr KDIS::DATA_TYPE::ENUMS::AggregateState as{
+      KDIS::DATA_TYPE::ENUMS::Disaggregated};
+  EXPECT_NO_THROW(pdu.SetAggregateState(as));
+  EXPECT_EQ(as, pdu.GetAggregateState());
+}
+
+TEST_F(Aggregate_State_PDU_Test, SetGetFormation) {
+  EXPECT_EQ(0, pdu.GetFormation());  // default
+  constexpr KDIS::DATA_TYPE::ENUMS::Formation form{
+      KDIS::DATA_TYPE::ENUMS::Wedge};
+  EXPECT_NO_THROW(pdu.SetFormation(form));
+  EXPECT_EQ(form, pdu.GetFormation());
+}
+
+TEST_F(Aggregate_State_PDU_Test, AddVariableDatum) {
+  KDIS::DATA_TYPE::VarDtmPtr vdp = new KDIS::DATA_TYPE::VariableDatum;
+  EXPECT_NO_THROW(pdu.AddVariableDatum(vdp));
+}
+
+TEST_F(Aggregate_State_PDU_Test, SetVariableDatumList) {
+  KDIS::DATA_TYPE::VarDtmPtr vdp = new KDIS::DATA_TYPE::VariableDatum;
+  std::vector<KDIS::DATA_TYPE::VarDtmPtr> vvdp = {vdp};
+  EXPECT_NO_THROW(pdu.SetVariableDatumList(vvdp));
+}
+
+TEST_F(Aggregate_State_PDU_Test, ClearVariableDatumList) {
+  EXPECT_NO_THROW(pdu.ClearVariableDatumList());
+}
+
+TEST_F(Aggregate_State_PDU_Test, GetAsString) {
   EXPECT_NO_THROW(pdu.GetAsString());
 }
 
@@ -300,7 +350,8 @@ TEST_F(Minefield_Data_PDU_Test, AddMineWithTripDetonationWire) {
 
 TEST_F(Minefield_Data_PDU_Test, AddMineOptionalFieldsMismatch) {
   EXPECT_NO_THROW(pdu.SetDataFilter(mdf));
-  // Don't add a trip detonation wire this time to mn, causing mismatch between
+  // Don't add a trip detonation wire this time to mn, causing mismatch
+  // between
   //    mn and pdu
   EXPECT_THROW(pdu.AddMine(mn), KDIS::KException);
 }
@@ -336,7 +387,8 @@ TEST_F(Minefield_Data_PDU_Test, EncodeWithScalarDetectionException) {
   // Change the PDU's MinefieldDataFilter to force the
   //    ScalarDetectionCoefficient check
   EXPECT_NO_THROW(pdu.SetDataFilter(mdf2));
-  // Exception expected because the mine doesn't have the correct number of SDC
+  // Exception expected because the mine doesn't have the correct number of
+  // SDC
   //    values
   EXPECT_THROW(pdu.Encode(stream), KDIS::KException);
 }
@@ -583,7 +635,8 @@ TEST_F(Gridded_Data_PDU_Test, EncodeDecodeRoundTrip) {
 TEST_F(Gridded_Data_PDU_Test, EncodeDecodeBadGridData) {
   KDIS::KDataStream stream2;
   stream2 << 0x0000;
-  // the second parameter in the GridDataType2 c'tor will be unacceptable at the
+  // the second parameter in the GridDataType2 c'tor will be unacceptable at
+  // the
   //    pdu.Decode step below
   KDIS::DATA_TYPE::GridDataPtr gdt2Bad =
       new KDIS::DATA_TYPE::GridDataType2(0, 3, stream2);
