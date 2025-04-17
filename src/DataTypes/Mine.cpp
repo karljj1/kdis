@@ -27,6 +27,8 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
+#include <stdexcept>
+
 #include "KDIS/DataTypes/Mine.hpp"
 #include "KDIS/utils/format.hpp"
 
@@ -37,16 +39,17 @@ using namespace std;
 using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
-// protected:
+// private:
 //////////////////////////////////////////////////////////////////////////
 
-map<KUINT16, vector<Vector> >::iterator Mine::getWire(KUINT16 Index) {
-  map<KUINT16, vector<Vector> >::iterator itr = m_mvVertices.find(Index);
-  if (itr == m_mvVertices.end())
+vector<Vector>& Mine::getWire(KUINT16 Index) {
+  try {
+    return m_mvVertices.at(Index);
+  } catch (const std::out_of_range&) {
     throw KException(
         ErrorCode::OUT_OF_BOUNDS,
-        KDIS::UTILS::format("%s | Invalid wire index %u", __FUNCTION__, Index));
-  return itr;
+        KDIS::UTILS::format("%s | Invalid wire index %u", __func__, Index));
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -249,39 +252,33 @@ void Mine::ClearWires() {
 //////////////////////////////////////////////////////////////////////////
 
 void Mine::AddVertexToTripDetonationWire(KUINT16 Index, const Vector& Vertex) {
-  map<KUINT16, vector<Vector> >::iterator itr = getWire(Index);
-  itr->second.push_back(Vertex);
+  getWire(Index).push_back(Vertex);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Mine::SetTripDetonationWireVertices(KUINT16 Index,
                                          const std::vector<Vector>& Vertices) {
-  map<KUINT16, vector<Vector> >::iterator itr = getWire(Index);
-  itr->second = Vertices;
+  getWire(Index) = Vertices;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Mine::RemoveTripDetonationWire(KUINT16 Index) {
-  map<KUINT16, vector<Vector> >::iterator itr = getWire(Index);
-  m_mvVertices.erase(itr);
+  getWire(Index);             // Validates the key exists, throws if not
+  m_mvVertices.erase(Index);  // Erase by key
   m_ui8NumTrpDetWrs--;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const vector<Vector>& Mine::GetWireVertices(KUINT16 Index) {
-  map<KUINT16, vector<Vector> >::iterator itr = getWire(Index);
-  return itr->second;
+  return getWire(Index);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Mine::ClearWireVertices(KUINT16 Index) {
-  map<KUINT16, vector<Vector> >::iterator itr = getWire(Index);
-  itr->second.clear();
-}
+void Mine::ClearWireVertices(KUINT16 Index) { getWire(Index).clear(); }
 
 //////////////////////////////////////////////////////////////////////////
 

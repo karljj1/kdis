@@ -52,20 +52,20 @@ class KDIS_EXPORT MinePaintScheme : public DataTypeBase {
       KUINT8 m_ui8Scm : 6;
     };
 
-    KUINT8 m_ui8PntSchm;
+    KUINT8 m_ui8PntSchm{0};
   } m_PntScmUnion;
 
  public:
-  static const KUINT16 MINE_PAINT_SCHEME_SIZE = 1;
+  static constexpr KUINT16 MINE_PAINT_SCHEME_SIZE{1};
 
-  MinePaintScheme();
+  MinePaintScheme() = default;
 
   MinePaintScheme(KDIS::DATA_TYPE::ENUMS::MineAlgae A,
                   KDIS::DATA_TYPE::ENUMS::PaintScheme PS);
 
   MinePaintScheme(KDataStream& stream);
 
-  virtual ~MinePaintScheme();
+  virtual ~MinePaintScheme() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::MinePaintScheme::SetAlgae

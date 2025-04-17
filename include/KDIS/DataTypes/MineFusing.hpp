@@ -55,13 +55,13 @@ class KDIS_EXPORT MineFusing : public DataTypeBase {
       KUINT16 m_ui16Unused : 1;
     };
 
-    KUINT16 m_ui16Fusing;
+    KUINT16 m_ui16Fusing{0};
   } m_FuseUnion;
 
  public:
-  static const KUINT16 MINE_FUSING_SIZE = 2;
+  static constexpr KUINT16 MINE_FUSING_SIZE{2};
 
-  MineFusing();
+  MineFusing() = default;
 
   MineFusing(KDIS::DATA_TYPE::ENUMS::MineFuse Primary,
              KDIS::DATA_TYPE::ENUMS::MineFuse Secondary,
@@ -69,7 +69,7 @@ class KDIS_EXPORT MineFusing : public DataTypeBase {
 
   MineFusing(KDataStream& stream);
 
-  virtual ~MineFusing();
+  virtual ~MineFusing() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::MineFusing::SetPrimaryFuse

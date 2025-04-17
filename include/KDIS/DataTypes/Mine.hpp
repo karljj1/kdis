@@ -88,12 +88,13 @@ class KDIS_EXPORT Mine
   std::map<KUINT16, std::vector<KDIS::DATA_TYPE::Vector> > m_mvVertices;
   KUINT16 m_ui16NextIndex{0};
 
+ private:
   //************************************
   // FullName:    KDIS::DATA_TYPE::Mine::getWire
   // Description: Return wire or throw exception if not found.
   // Parameter:   KUINT16 Index
   //************************************
-  std::map<KUINT16, std::vector<Vector> >::iterator getWire(KUINT16 Index);
+  std::vector<Vector>& getWire(KUINT16 Index);
 
  public:
   Mine() = default;
