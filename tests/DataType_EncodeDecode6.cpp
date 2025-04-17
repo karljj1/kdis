@@ -736,7 +736,12 @@ class MineTest : public ::testing::Test {
  protected:
   KDIS::DATA_TYPE::Mine mn;
   KDIS::KDataStream stream;
+  const KDIS::DATA_TYPE::Vector vec;
 };
+
+TEST_F(MineTest, AlternateConstructors) {
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::Mine(vec, 7));
+}
 
 TEST_F(MineTest, AddScalarDetectionCoefficientValue) {
   EXPECT_NO_THROW(mn.AddScalarDetectionCoefficientValue(17));
@@ -746,6 +751,11 @@ TEST_F(MineTest, AddTripDetonationWire) {
   const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
       KDIS::DATA_TYPE::Vector(1, 2, 3)};
   EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+}
+
+TEST_F(MineTest, AddVertexToTripDetonationWire) {
+  // Index too big
+  EXPECT_THROW(mn.AddVertexToTripDetonationWire(7, vec), KDIS::KException);
 }
 
 TEST_F(MineTest, GetAsString) { EXPECT_NO_THROW(mn.GetAsString()); }
