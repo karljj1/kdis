@@ -52,7 +52,7 @@ class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3 {
   Mode5TransponderBasicData m_BasicData;
 
  public:
-  IFF_Layer3Transponder();
+  IFF_Layer3Transponder() = default;
 
   IFF_Layer3Transponder(KDataStream& stream);
 
@@ -62,7 +62,7 @@ class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3 {
 
   IFF_Layer3Transponder(const LayerHeader& H, KDataStream& stream);
 
-  virtual ~IFF_Layer3Transponder();
+  virtual ~IFF_Layer3Transponder() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::SetBasicData

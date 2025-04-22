@@ -57,7 +57,7 @@ class KDIS_EXPORT IFF_Layer2 : public LayerHeader {
   std::vector<IFF_ATC_NAVAIDS_FundamentalParameterData> m_vFPD;
 
  public:
-  static const KUINT16 IFF_LAYER2_SIZE = 28;  // Min size
+  static constexpr KUINT16 IFF_LAYER2_SIZE{28};  // Min size
 
   IFF_Layer2();
 
@@ -68,7 +68,7 @@ class KDIS_EXPORT IFF_Layer2 : public LayerHeader {
   IFF_Layer2(const BeamData& BD, const SecondaryOperationalData& SOD,
              const std::vector<IFF_ATC_NAVAIDS_FundamentalParameterData>& FPD);
 
-  virtual ~IFF_Layer2();
+  virtual ~IFF_Layer2() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::IFF_Layer2::SetBeamData

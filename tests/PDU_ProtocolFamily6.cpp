@@ -47,12 +47,46 @@
 //
 // Distributed Emission Regeneration
 //
-TEST(PDU_ProtocolFamily6, IFF_PDU) {
+class IFF_PDU_Test : public ::testing::Test {
+ protected:
   KDIS::PDU::IFF_PDU pdu;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(IFF_PDU_Test, GetProtocolFamily) {
   EXPECT_EQ(
       KDIS::DATA_TYPE::ENUMS::ProtocolFamily::Distributed_Emission_Regeneration,
       pdu.GetProtocolFamily());
-  EXPECT_NO_THROW(pdu.GetAsString());
+}
+
+TEST_F(IFF_PDU_Test, AddLayer) {
+  KDIS::DATA_TYPE::LyrHdrPtr lhp = new KDIS::DATA_TYPE::LayerHeader;
+  EXPECT_NO_THROW(pdu.AddLayer(lhp));
+}
+
+TEST_F(IFF_PDU_Test, SetGetLayers) {
+  KDIS::DATA_TYPE::LyrHdrPtr lhp = new KDIS::DATA_TYPE::LayerHeader;
+  const std::vector<KDIS::DATA_TYPE::LyrHdrPtr> vec = {lhp};
+  EXPECT_NO_THROW(pdu.SetLayers(vec));
+  EXPECT_EQ(vec, pdu.GetLayers());
+}
+
+TEST_F(IFF_PDU_Test, ClearLayers) { EXPECT_NO_THROW(pdu.ClearLayers()); }
+
+TEST_F(IFF_PDU_Test, GetAsString) { EXPECT_NO_THROW(pdu.GetAsString()); }
+
+TEST_F(IFF_PDU_Test, EncodeDecode) {
+  EXPECT_NO_THROW(pdu.Encode(stream));
+  EXPECT_NO_THROW(pdu.Decode(stream));
+}
+
+TEST_F(IFF_PDU_Test, DecodeUnsupported) {
+  KDIS::DATA_TYPE::LyrHdrPtr lhp = new KDIS::DATA_TYPE::LayerHeader;
+  lhp->SetLayerNumber(5);  // layer number unsupported by IFF_PDU
+  EXPECT_NO_THROW(pdu.AddLayer(lhp));
+  EXPECT_NO_THROW(pdu.Encode(stream));
+  EXPECT_THROW(pdu.Decode(stream),
+               KDIS::KException);  // b/c unsupported layer #
 }
 
 TEST(PDU_ProtocolFamily6, SEES_PDU) {

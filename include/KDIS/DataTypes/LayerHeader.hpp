@@ -57,24 +57,25 @@ typedef KDIS::UTILS::KRef_Ptr<LayerHeader> LyrHdrPtr;  // Ref counter
 // typedef VaLayerHeaderLyrHdrPtr; // Weak ref
 
 class KDIS_EXPORT LayerHeader : public DataTypeBase {
+ public:
+  static constexpr KUINT16 LAYER_HEADER_SIZE{4};
+
  protected:
-  KUINT8 m_ui8LayerNumber;
+  KUINT8 m_ui8LayerNumber{0};
 
-  KUINT8 m_ui8LayerSpecificInfo;
+  KUINT8 m_ui8LayerSpecificInfo{0};
 
-  KUINT16 m_ui16LayerLength;
+  KUINT16 m_ui16LayerLength{LAYER_HEADER_SIZE};
 
  public:
-  static const KUINT16 LAYER_HEADER_SIZE = 4;
-
-  LayerHeader();
+  LayerHeader() = default;
 
   LayerHeader(KDataStream& stream);
 
   LayerHeader(KUINT8 LayerNumber, KUINT8 LayerSpecificInfo,
               KUINT16 LayerLength);
 
-  virtual ~LayerHeader();
+  virtual ~LayerHeader() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::LayerHeader::SetLayerNumber

@@ -48,17 +48,6 @@ Header6* Header6::clone() const { return new Header6(*this); }
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Header6::Header6()
-    : m_ui8ProtocolVersion(0),
-      m_ui8ExerciseID(0),
-      m_ui8PDUType(0),
-      m_ui8ProtocolFamily(0),
-      m_ui16PDULength(0),
-      m_ui8Padding1(0),
-      m_ui8Padding2(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 Header6::Header6(KDataStream& stream) { Decode(stream, false); }
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,13 +59,7 @@ Header6::Header6(ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT,
       m_ui8PDUType(PT),
       m_ui8ProtocolFamily(PF),
       m_TimeStamp(TS),
-      m_ui16PDULength(PDULength),
-      m_ui8Padding1(0),
-      m_ui8Padding2(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
-Header6::~Header6() {}
+      m_ui16PDULength(PDULength) {}
 
 //////////////////////////////////////////////////////////////////////////
 
