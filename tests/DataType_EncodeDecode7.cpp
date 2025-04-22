@@ -160,18 +160,34 @@ TEST(DataType_EncodeDecode7, Mode5InterrogatorStatus) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode7, Mode5TransponderBasicData) {
-  KDIS::DATA_TYPE::Mode5TransponderBasicData dtIn;
+class Mode5TransponderBasicDataTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::Mode5TransponderBasicData m5tbd;
+};
+
+TEST_F(Mode5TransponderBasicDataTest, SetGetMessageFormatsPresent) {
   constexpr std::bitset<32> bs32{0xABCDDCBA};
-  EXPECT_NO_THROW(dtIn.SetMessageFormatsPresent(bs32));
-  EXPECT_EQ(bs32, dtIn.GetMessageFormatsPresentBitSet());
+  EXPECT_NO_THROW(m5tbd.SetMessageFormatsPresent(bs32));
+  EXPECT_EQ(bs32, m5tbd.GetMessageFormatsPresentBitSet());
+}
+
+TEST_F(Mode5TransponderBasicDataTest, SetGetNavigationSource) {
   constexpr KDIS::DATA_TYPE::ENUMS::NavigationSource ns{
       KDIS::DATA_TYPE::ENUMS::NoStatementNavigationSource};
-  EXPECT_NO_THROW(dtIn.SetNavigationSource(ns));
-  EXPECT_EQ(ns, dtIn.GetNavigationSource());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::Mode5TransponderBasicData dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_NO_THROW(m5tbd.SetNavigationSource(ns));
+  EXPECT_EQ(ns, m5tbd.GetNavigationSource());
+}
+
+TEST_F(Mode5TransponderBasicDataTest, SetGetFigureOfMerit) {
+  EXPECT_NO_THROW(m5tbd.SetFigureOfMerit(3));
+  EXPECT_EQ(3, m5tbd.GetFigureOfMerit());
+  EXPECT_THROW(m5tbd.SetFigureOfMerit(32), KDIS::KException);
+}
+
+TEST_F(Mode5TransponderBasicDataTest, ConstructFromStream) {
+  KDIS::KDataStream stream = m5tbd.Encode();
+  KDIS::DATA_TYPE::Mode5TransponderBasicData m5tbd2(stream);
+  EXPECT_EQ(m5tbd, m5tbd2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

@@ -758,6 +758,36 @@ TEST_F(MineTest, AddVertexToTripDetonationWire) {
   EXPECT_THROW(mn.AddVertexToTripDetonationWire(7, vec), KDIS::KException);
 }
 
+TEST_F(MineTest, SetTripDetonationWireVertices) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  constexpr KDIS::KUINT16 idx{0};
+  EXPECT_EQ(idx, mn.AddTripDetonationWire(vtx));
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx2 = {vec};
+  EXPECT_NO_THROW(mn.SetTripDetonationWireVertices(idx, vtx2));
+}
+
+TEST_F(MineTest, RemoveTripDetonationWire) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_NO_THROW(mn.RemoveTripDetonationWire(0));
+}
+
+TEST_F(MineTest, GetWireVertices) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_EQ(vtx, mn.GetWireVertices(0));
+}
+
+TEST_F(MineTest, ClearWireVertices) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_NO_THROW(mn.ClearWireVertices(0));
+}
+
 TEST_F(MineTest, GetAsString) { EXPECT_NO_THROW(mn.GetAsString()); }
 
 TEST_F(MineTest, EncodeDecode) {
@@ -951,19 +981,35 @@ TEST(DataType_EncodeDecode6, PerimeterPointCoordinate) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, PointObjectAppearance) {
-  KDIS::DATA_TYPE::PointObjectAppearance dtIn;
+class PointObjectAppearanceTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::PointObjectAppearance poa;
+};
+
+TEST_F(PointObjectAppearanceTest, SetGetBreach) {
   constexpr KDIS::DATA_TYPE::ENUMS::Breach2bit b2b{
       KDIS::DATA_TYPE::ENUMS::NoBreaching2bit};
-  EXPECT_NO_THROW(dtIn.SetBreach(b2b));
-  EXPECT_EQ(b2b, dtIn.GetBreach());
+  EXPECT_NO_THROW(poa.SetBreach(b2b));
+  EXPECT_EQ(b2b, poa.GetBreach());
+}
+
+TEST_F(PointObjectAppearanceTest, SetGetOpacity) {
+  EXPECT_NO_THROW(poa.SetOpacity(7));
+  EXPECT_EQ(7, poa.GetOpacity());
+  EXPECT_THROW(poa.SetOpacity(101), KDIS::KException);
+}
+
+TEST_F(PointObjectAppearanceTest, SetGetChemical) {
   constexpr KDIS::DATA_TYPE::ENUMS::Chemical ch{
       KDIS::DATA_TYPE::ENUMS::OtherChemical};
-  EXPECT_NO_THROW(dtIn.SetChemical(ch));
-  EXPECT_EQ(ch, dtIn.GetChemical());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::PointObjectAppearance dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_NO_THROW(poa.SetChemical(ch));
+  EXPECT_EQ(ch, poa.GetChemical());
+}
+
+TEST_F(PointObjectAppearanceTest, ConstructFromStream) {
+  KDIS::KDataStream stream = poa.Encode();
+  KDIS::DATA_TYPE::PointObjectAppearance poa2(stream);
+  EXPECT_EQ(poa, poa2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

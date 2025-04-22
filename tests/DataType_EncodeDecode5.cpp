@@ -587,6 +587,7 @@ class VariableDatumTest : public ::testing::Test {
   }
 
   // Reusable test data
+  KDIS::DATA_TYPE::VariableDatum dtm;
   static constexpr std::array<KDIS::KOCTET, 4> arr = {'a', 'z', '7', '$'};
 };
 
@@ -625,7 +626,6 @@ TEST_F(VariableDatumTest, AlternateConstructors) {
 }
 
 TEST_F(VariableDatumTest, SetDatumValue) {
-  KDIS::DATA_TYPE::VariableDatum dtm;
   EXPECT_NO_THROW(dtm.SetDatumValue(""));
   EXPECT_NO_THROW(dtm.SetDatumValue("just a string"));
   EXPECT_NO_THROW(dtm.SetDatumValue(nullptr, 0));
@@ -633,7 +633,6 @@ TEST_F(VariableDatumTest, SetDatumValue) {
 }
 
 TEST_F(VariableDatumTest, GetDatumValueCopyIntoBuffer) {
-  KDIS::DATA_TYPE::VariableDatum dtm;
   EXPECT_NO_THROW(dtm.GetDatumValueCopyIntoBuffer(nullptr, 0));
   EXPECT_NO_THROW(dtm.SetDatumValue("some data"));
   EXPECT_THROW(dtm.GetDatumValueCopyIntoBuffer(nullptr, 0), KDIS::KException);
@@ -642,10 +641,22 @@ TEST_F(VariableDatumTest, GetDatumValueCopyIntoBuffer) {
 }
 
 TEST_F(VariableDatumTest, RoundTripKString) {
-  KDIS::DATA_TYPE::VariableDatum dtm;
   const KDIS::KString str{"in and out"};
   EXPECT_NO_THROW(dtm.SetDatumValue(str));
   EXPECT_EQ(str, dtm.GetDatumValueAsKString());
+}
+
+TEST_F(VariableDatumTest, GetDatumValueAsKUINT64) {
+  EXPECT_TRUE(dtm.GetDatumValueAsKUINT64().empty());
+}
+
+TEST_F(VariableDatumTest, GetDatumValueAsKFLOAT64) {
+  EXPECT_TRUE(dtm.GetDatumValueAsKFLOAT64().empty());
+}
+
+TEST_F(VariableDatumTest, DecodeStreamTooShort) {
+  KDIS::KDataStream stream;
+  EXPECT_THROW(dtm.Decode(stream), KDIS::KException);  // too short
 }
 
 TEST(DataType_EncodeDecode5, VariableParameter) {
