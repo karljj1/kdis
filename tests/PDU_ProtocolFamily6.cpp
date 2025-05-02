@@ -62,7 +62,7 @@ TEST_F(IFF_PDU_Test, GetProtocolFamily) {
 
 TEST_F(IFF_PDU_Test, AlternateConstructors) {
   KDIS::PDU::Header hdr;
-  EXPECT_NO_THROW(KDIS::PDU::IFF_PDU(hdr));
+  EXPECT_NO_THROW(auto obj = KDIS::PDU::IFF_PDU(hdr));
 }
 
 TEST_F(IFF_PDU_Test, SetGetEmittingEntityID) {
