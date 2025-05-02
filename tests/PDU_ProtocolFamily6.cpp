@@ -12,6 +12,7 @@
 #include <KDIS/PDU/Entity_Management/IsGroupOf_PDU.hpp>
 #include <KDIS/PDU/Entity_Management/IsPartOf_PDU.hpp>
 #include <KDIS/PDU/Entity_Management/Transfer_Control_Request_PDU.hpp>
+#include <KDIS/PDU/Header6.hpp>
 #include <KDIS/PDU/Live_Entity/Appearance_PDU.hpp>
 #include <KDIS/PDU/Live_Entity/Articulated_Parts_PDU.hpp>
 #include <KDIS/PDU/Live_Entity/LE_Detonation_PDU.hpp>
@@ -59,6 +60,17 @@ TEST_F(IFF_PDU_Test, GetProtocolFamily) {
       pdu.GetProtocolFamily());
 }
 
+TEST_F(IFF_PDU_Test, AlternateConstructors) {
+  KDIS::PDU::Header hdr;
+  EXPECT_NO_THROW(KDIS::PDU::IFF_PDU(hdr));
+}
+
+TEST_F(IFF_PDU_Test, SetGetEmittingEntityID) {
+  const KDIS::DATA_TYPE::EntityIdentifier eid;
+  EXPECT_NO_THROW(pdu.SetEmittingEntityID(eid));
+  EXPECT_EQ(eid, pdu.GetEmittingEntityID());
+}
+
 TEST_F(IFF_PDU_Test, AddLayer) {
   KDIS::DATA_TYPE::LyrHdrPtr lhp = new KDIS::DATA_TYPE::LayerHeader;
   EXPECT_NO_THROW(pdu.AddLayer(lhp));
@@ -77,7 +89,8 @@ TEST_F(IFF_PDU_Test, GetAsString) { EXPECT_NO_THROW(pdu.GetAsString()); }
 
 TEST_F(IFF_PDU_Test, EncodeDecode) {
   EXPECT_NO_THROW(pdu.Encode(stream));
-  EXPECT_NO_THROW(pdu.Decode(stream));
+  EXPECT_THROW(pdu.Decode(stream),
+               KDIS::KException);  // stream too small to decode
 }
 
 TEST_F(IFF_PDU_Test, DecodeUnsupported) {
@@ -133,6 +146,22 @@ class Aggregate_State_PDU_Test : public ::testing::Test {
   KDIS::PDU::Aggregate_State_PDU pdu;
 };
 
+TEST_F(Aggregate_State_PDU_Test, AlternateConstructors) {
+  const KDIS::DATA_TYPE::AggregateIdentifier ai;
+  KDIS::DATA_TYPE::ENUMS::ForceID fid{KDIS::DATA_TYPE::ENUMS::Opposing};
+  KDIS::DATA_TYPE::ENUMS::AggregateState as{
+      KDIS::DATA_TYPE::ENUMS::Disaggregated};
+  const KDIS::DATA_TYPE::AggregateType at;
+  KDIS::DATA_TYPE::ENUMS::Formation form{KDIS::DATA_TYPE::ENUMS::Vee};
+  const KDIS::DATA_TYPE::AggregateMarking am;
+  const KDIS::DATA_TYPE::Vector dim;
+  const KDIS::DATA_TYPE::EulerAngles eas;
+  const KDIS::DATA_TYPE::WorldCoordinates wcs;
+  const KDIS::DATA_TYPE::Vector vel;
+  EXPECT_NO_THROW(KDIS::PDU::Aggregate_State_PDU(ai, fid, as, at, form, am, dim,
+                                                 eas, wcs, vel));
+}
+
 TEST_F(Aggregate_State_PDU_Test, GetProtocolFamily) {
   EXPECT_EQ(KDIS::DATA_TYPE::ENUMS::ProtocolFamily::EntityManagement,
             pdu.GetProtocolFamily());
@@ -176,13 +205,15 @@ TEST_F(Aggregate_State_PDU_Test, AddVariableDatum) {
   EXPECT_NO_THROW(pdu.AddVariableDatum(vdp));
 }
 
-TEST_F(Aggregate_State_PDU_Test, SetVariableDatumList) {
+TEST_F(Aggregate_State_PDU_Test, SetClearVariableDatumList) {
   KDIS::DATA_TYPE::VarDtmPtr vdp = new KDIS::DATA_TYPE::VariableDatum;
   std::vector<KDIS::DATA_TYPE::VarDtmPtr> vvdp = {vdp};
   EXPECT_NO_THROW(pdu.SetVariableDatumList(vvdp));
+  EXPECT_NO_THROW(pdu.ClearVariableDatumList());
 }
 
 TEST_F(Aggregate_State_PDU_Test, ClearVariableDatumList) {
+  // Clear should also work even if no datum list has been set
   EXPECT_NO_THROW(pdu.ClearVariableDatumList());
 }
 
@@ -210,6 +241,28 @@ TEST(PDU_ProtocolFamily6, Transfer_Control_Request_PDU) {
             pdu.GetProtocolFamily());
   EXPECT_EQ(0, pdu.GetRequiredReliabilityService());
   EXPECT_EQ(0, pdu.GetTransferType());
+}
+
+class Header6_Test : public ::testing::Test {
+ protected:
+  KDIS::PDU::Header6 hdr6;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(Header6_Test, AlternateConstructors) {
+  constexpr KDIS::DATA_TYPE::ENUMS::ProtocolVersion pv{
+      KDIS::DATA_TYPE::ENUMS::DIS_PDU_Version_1};
+  constexpr KDIS::DATA_TYPE::ENUMS::PDUType pdut{
+      KDIS::DATA_TYPE::ENUMS::Data_PDU_Type};
+  constexpr KDIS::DATA_TYPE::ENUMS::ProtocolFamily pf{
+      KDIS::DATA_TYPE::ENUMS::LiveEntity};
+  const KDIS::DATA_TYPE::TimeStamp ts;
+  EXPECT_NO_THROW(KDIS::PDU::Header6(pv, 7, pdut, pf, ts, 9));
+}
+
+TEST_F(Header6_Test, Decode) {
+  EXPECT_THROW(hdr6.Decode(stream),
+               KDIS::KException);  // stream not long enough
 }
 
 //

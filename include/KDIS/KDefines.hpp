@@ -128,7 +128,7 @@ enum class ErrorCode : std::uint8_t {
    */
   BUFFER_TOO_SMALL,
   /**
-   * @brief Buffer does not contains enough information to decode.
+   * @brief Buffer does not contain enough information to decode.
    */
   NOT_ENOUGH_DATA_IN_BUFFER,
   /**
@@ -186,7 +186,7 @@ static const char* errorCodeText(ErrorCode errorCode) {
     case ErrorCode::BUFFER_TOO_SMALL:
       return "Buffer is too small";
     case ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER:
-      return "Buffer does not contains enough information to decode";
+      return "Buffer does not contain enough information to decode";
     case ErrorCode::STRING_PDU_SIZE_TOO_BIG:
       return "String size too big";
     case ErrorCode::DATA_TYPE_TOO_LARGE:

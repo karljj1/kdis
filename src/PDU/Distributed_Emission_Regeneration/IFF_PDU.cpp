@@ -256,28 +256,28 @@ KString IFF_PDU::GetAsString() const {
 //////////////////////////////////////////////////////////////////////////
 
 void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
-  if ((stream.GetBufferSize() + (ignoreHeader ? Header::HEADER6_PDU_SIZE : 0)) <
-      IFF_PDU_SIZE)
-    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
+  // Validate buffer size
+  KUINT16 ignoreSize = ignoreHeader ? Header::HEADER6_PDU_SIZE : 0;
+  if (stream.GetBufferSize() < IFF_PDU_SIZE - ignoreSize) {
+    throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER,
+                     KDIS::UTILS::format("%s | Buffer too small", __func__));
+  }
 
+  // Decode header
   Header::Decode(stream, ignoreHeader);
 
-  // Record the size of the stream so we can calculate how much data is left. We
-  // could just use stream.GetBufferSize() but what if this PDU was part of a
-  // PDU bundle...
-  KUINT32 streamSizeSnapshot = stream.GetBufferSize();
-
+  // Decode fixed fields
   stream >> KDIS_STREAM m_EmittingEntityID >> KDIS_STREAM m_EventID >>
       KDIS_STREAM m_Location >> KDIS_STREAM m_SystemID >>
       m_ui8SystemDesignator >> m_ui8SystemSpecific >> KDIS_STREAM m_FOD;
 
-  KUINT16 remainingData = m_ui16PDULength - HEADER6_PDU_SIZE -
-                          (streamSizeSnapshot - stream.GetBufferSize());
+  // Process layers until remaining data is exhausted
+  KUINT16 remainingData = m_ui16PDULength - Header::HEADER6_PDU_SIZE -
+                          (Header::HEADER6_PDU_SIZE - stream.GetBufferSize());
 
-  // Decode each layer
   while (remainingData) {
     LayerHeader hdr(stream);
-    LayerHeader* layer = NULL;
+    LayerHeader* layer = nullptr;
 
     switch (hdr.GetLayerNumber()) {
       case 2:
@@ -285,35 +285,35 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
         break;
 
 #if DIS_VERSION > 6
-      case 3:
-        switch (m_SystemID.GetSystemType()) {
-          case Mark_X_XII_ATCRBS_ModeS_Transponder:
-          case RRB_Transponder:
-          case Soviet_Transponder:
-            layer = new IFF_Layer3Transponder(hdr, stream);
-            break;
-
-          case Mark_X_XII_ATCRBS_ModeS_Interrogator:
-          case Soviet_Interrogator:
-            layer = new IFF_Layer3Interrogator(hdr, stream);
-            break;
+      case 3: {
+        auto systemType = m_SystemID.GetSystemType();
+        if (systemType == Mark_X_XII_ATCRBS_ModeS_Transponder ||
+            systemType == RRB_Transponder || systemType == Soviet_Transponder) {
+          layer = new IFF_Layer3Transponder(hdr, stream);
+        } else if (systemType == Mark_X_XII_ATCRBS_ModeS_Interrogator ||
+                   systemType == Soviet_Interrogator) {
+          layer = new IFF_Layer3Interrogator(hdr, stream);
         }
         break;
+      }
 #endif
 
       default:
         throw KException(
             ErrorCode::UNSUPPORTED_DATATYPE,
-            KDIS::UTILS::format("%s | %u", __FUNCTION__, hdr.GetLayerNumber()));
+            KDIS::UTILS::format("%s | Unsupported layer number: %u", __func__,
+                                hdr.GetLayerNumber()));
     }
 
-    if (layer) {
-      m_vLayers.push_back(layer);
-      remainingData -= layer->GetLayerLength();
-    } else {
-      throw KException(ErrorCode::INVALID_OPERATION,
-                       KDIS::UTILS::format("%s | Layer is nul", __FUNCTION__));
+    if (!layer) {
+      throw KException(
+          ErrorCode::INVALID_OPERATION,
+          KDIS::UTILS::format("%s | No layer created for layer number: %u",
+                              __func__, hdr.GetLayerNumber()));
     }
+
+    remainingData -= layer->GetLayerLength();
+    m_vLayers.push_back(layer);
   }
 }
 
