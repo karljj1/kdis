@@ -89,8 +89,7 @@ TEST_F(IFF_PDU_Test, GetAsString) { EXPECT_NO_THROW(pdu.GetAsString()); }
 
 TEST_F(IFF_PDU_Test, EncodeDecode) {
   EXPECT_NO_THROW(pdu.Encode(stream));
-  EXPECT_THROW(pdu.Decode(stream),
-               KDIS::KException);  // stream too small to decode
+  EXPECT_NO_THROW(pdu.Decode(stream));
 }
 
 TEST_F(IFF_PDU_Test, DecodeUnsupported) {
