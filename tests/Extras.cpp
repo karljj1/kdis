@@ -21,3 +21,16 @@ class MatrixTest : public ::testing::Test {
 TEST_F(MatrixTest, inPlaceTranspose) {
   EXPECT_NO_THROW(mtx.inPlaceTranspose());
 }
+
+class DeadReckoningCalculatorTest : public ::testing::Test {
+ protected:
+  KDIS::UTILS::DeadReckoningCalculator drc;
+};
+
+TEST_F(DeadReckoningCalculatorTest, Reset) {
+  const KDIS::DATA_TYPE::Vector vec;
+  const KDIS::DATA_TYPE::WorldCoordinates wc;
+  const KDIS::DATA_TYPE::EulerAngles ea;
+  EXPECT_NO_THROW(
+      drc.Reset(vec, vec, vec, wc, ea, vec, KDIS::DATA_TYPE::ENUMS::Static));
+}

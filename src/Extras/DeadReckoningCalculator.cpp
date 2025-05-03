@@ -565,15 +565,6 @@ void DeadReckoningCalculator::RunAlgorithm(const KFLOAT32 totalTimeSinceReset,
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-DeadReckoningCalculator::DeadReckoningCalculator()
-    : m_bQuaxAxisSet(false), m_f64Magnitude(0), m_DRA(Other_DRA) {}
-
-//////////////////////////////////////////////////////////////////////////
-
-DeadReckoningCalculator::~DeadReckoningCalculator() {}
-
-//////////////////////////////////////////////////////////////////////////
-
 void DeadReckoningCalculator::Reset(const Vector& LinearVelocity,
                                     const Vector& LinearAcceleration,
                                     const Vector& AngularVelocity,

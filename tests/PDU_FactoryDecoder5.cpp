@@ -70,14 +70,28 @@ TEST(PDU_FactoryDecoder5, Collision_PDU) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(PDU_FactoryDecoder5, Entity_State_PDU) {
-  KDIS::PDU::Entity_State_PDU pduIn;
-  EXPECT_EQ(0, pduIn.GetForceID());
-  EXPECT_NO_THROW(pduIn.GetAsString());
-  KDIS::KDataStream stream = pduIn.Encode();
+class Entity_State_PDU_Test : public ::testing::Test {
+ protected:
+  KDIS::PDU::Entity_State_PDU esp;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(Entity_State_PDU_Test, GetForceID) { EXPECT_EQ(0, esp.GetForceID()); }
+
+TEST_F(Entity_State_PDU_Test, ApplyDeadReckoning) {
+  // KException will occur because InitDeadReckoning hasn't been called yet
+  EXPECT_THROW(esp.ApplyDeadReckoning(14.2), KDIS::KException);
+}
+
+TEST_F(Entity_State_PDU_Test, GetAsString) {
+  EXPECT_NO_THROW(esp.GetAsString());
+}
+
+TEST_F(Entity_State_PDU_Test, EncodeDecode) {
+  stream = esp.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
-  EXPECT_EQ(pduIn, *dynamic_cast<KDIS::PDU::Entity_State_PDU*>(pduOut.get()));
+  EXPECT_EQ(esp, *dynamic_cast<KDIS::PDU::Entity_State_PDU*>(pduOut.get()));
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
