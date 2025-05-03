@@ -687,6 +687,8 @@ TEST_F(Gridded_Data_PDU_Test, SetGetGridAxisDescriptors) {
       new KDIS::DATA_TYPE::GridAxisRegular;
   const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> gads = {gad};
   EXPECT_NO_THROW(pdu.SetGridAxisDescriptors(gads));
+  // should be reentrant
+  EXPECT_NO_THROW(pdu.SetGridAxisDescriptors(gads));
   EXPECT_EQ(gads, pdu.GetGridAxisDescriptors());
   // exercise GetAsString with non-empty grid axis descriptors
   EXPECT_NO_THROW(pdu.GetAsString());
@@ -697,6 +699,8 @@ TEST_F(Gridded_Data_PDU_Test, SetGetGridAxisDescriptors) {
 TEST_F(Gridded_Data_PDU_Test, SetGetGridData) {
   KDIS::DATA_TYPE::GridDataPtr gdt0 = new KDIS::DATA_TYPE::GridDataType0;
   const std::vector<KDIS::DATA_TYPE::GridDataPtr> gds = {gdt0};
+  EXPECT_NO_THROW(pdu.SetGridData(gds));
+  // should be reentrant
   EXPECT_NO_THROW(pdu.SetGridData(gds));
   EXPECT_EQ(gds, pdu.GetGridData());
   // exercise GetAsString with non-empty grid data
@@ -722,8 +726,7 @@ TEST_F(Gridded_Data_PDU_Test, EncodeDecodeBadGridData) {
   KDIS::KDataStream stream2;
   stream2 << 0x0000;
   // the second parameter in the GridDataType2 c'tor will be unacceptable at
-  // the
-  //    pdu.Decode step below
+  // the pdu.Decode step below
   KDIS::DATA_TYPE::GridDataPtr gdt2Bad =
       new KDIS::DATA_TYPE::GridDataType2(0, 3, stream2);
   // assign the malformed GridDataPtr to the PDU

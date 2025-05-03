@@ -82,7 +82,7 @@ class KDIS_EXPORT GridData : public DataTypeBase {
   KDIS::DATA_TYPE::ENUMS::GridDataRepresentation GetDataRepresentation() const;
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::GridData::GetDataRepresentation
+  // FullName:    KDIS::DATA_TYPE::GridData::GetSize
   // Description: Returns size of Grid Data in octets.
   //              Note this information is not encoded into the PDU.
   //************************************

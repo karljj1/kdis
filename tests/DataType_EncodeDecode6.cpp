@@ -492,6 +492,10 @@ TEST_F(GridDataType0Test, AlternateConstructors) {
   EXPECT_EQ(vec.size(), gdt0.GetNumberOfBytes());
 }
 
+TEST_F(GridDataType0Test, GetDataRepresentation) {
+  EXPECT_NO_THROW(gdt0.GetDataRepresentation());
+}
+
 TEST_F(GridDataType0Test, AddDataValue) {
   EXPECT_NO_THROW(gdt0.AddDataValue(42));
 }
@@ -530,11 +534,21 @@ TEST_F(GridDataType1Test, EncodeStreamConstructor) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, GridDataType2) {
-  KDIS::DATA_TYPE::GridDataType2 dtIn;
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridDataType2 dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+class GridDataType2Test : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridDataType2 gdt2;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridDataType2Test, AlternateConstructors) {
+  const std::vector<KDIS::KFLOAT32> vec = {1.2, 3.4, 5.6};
+  EXPECT_NO_THROW(auto obj = KDIS::DATA_TYPE::GridDataType2(6, vec));
+}
+
+TEST_F(GridDataType2Test, EncodeStreamConstructor) {
+  stream = gdt2.Encode();
+  KDIS::DATA_TYPE::GridDataType2 gdt2two(stream);
+  EXPECT_EQ(gdt2, gdt2two);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
@@ -873,19 +887,40 @@ TEST(DataType_EncodeDecode6, MinefieldDataFilter) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, MineFusing) {
-  KDIS::DATA_TYPE::MineFusing dtIn;
-  constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf{
+class MineFusingTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::MineFusing mfg;
+  KDIS::KDataStream stream;
+  static constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf{
       KDIS::DATA_TYPE::ENUMS::NoMineFuse};
-  EXPECT_NO_THROW(dtIn.SetPrimaryFuse(mf));
-  EXPECT_EQ(mf, dtIn.GetPrimaryFuse());
-  constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf2{
+  static constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf2{
       KDIS::DATA_TYPE::ENUMS::OtherMineFuse};
-  EXPECT_NO_THROW(dtIn.SetSecondaryFuse(mf2));
-  EXPECT_EQ(mf2, dtIn.GetSecondaryFuse());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::MineFusing dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+};
+
+// Definitions to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). These out-of-class definitions are required in C++11, but not in
+//    C++17.
+constexpr KDIS::DATA_TYPE::ENUMS::MineFuse MineFusingTest::mf;
+constexpr KDIS::DATA_TYPE::ENUMS::MineFuse MineFusingTest::mf2;
+
+TEST_F(MineFusingTest, AlternateConstructors) {
+  EXPECT_NO_THROW(auto obj = KDIS::DATA_TYPE::MineFusing(mf, mf2, true));
+}
+
+TEST_F(MineFusingTest, SetGetPrimaryFuse) {
+  EXPECT_NO_THROW(mfg.SetPrimaryFuse(mf));
+  EXPECT_EQ(mf, mfg.GetPrimaryFuse());
+}
+
+TEST_F(MineFusingTest, SetGetSecondaryFuse) {
+  EXPECT_NO_THROW(mfg.SetSecondaryFuse(mf2));
+  EXPECT_EQ(mf2, mfg.GetSecondaryFuse());
+}
+
+TEST_F(MineFusingTest, EncodeStreamConstructor) {
+  stream = mfg.Encode();
+  KDIS::DATA_TYPE::MineFusing mfg2(stream);
+  EXPECT_EQ(mfg, mfg2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

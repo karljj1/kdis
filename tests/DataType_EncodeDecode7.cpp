@@ -100,25 +100,37 @@ class IOEffectTest : public ::testing::Test {
  protected:
   KDIS::DATA_TYPE::IOEffect ioe;
   KDIS::KDataStream stream;
+  static constexpr KDIS::DATA_TYPE::ENUMS::IOStatus ios{
+      KDIS::DATA_TYPE::ENUMS::NoStatementIOStatus};
+  static constexpr KDIS::DATA_TYPE::ENUMS::IOLinkType iolt{
+      KDIS::DATA_TYPE::ENUMS::NoStatementIOLinkType};
+  static constexpr KDIS::DATA_TYPE::ENUMS::IOEffectType ioet{
+      KDIS::DATA_TYPE::ENUMS::NoStatementIOEffectType};
 };
 
+// Definitions to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). These out-of-class definitions are required in C++11, but not in
+//    C++17.
+constexpr KDIS::DATA_TYPE::ENUMS::IOStatus IOEffectTest::ios;
+constexpr KDIS::DATA_TYPE::ENUMS::IOLinkType IOEffectTest::iolt;
+constexpr KDIS::DATA_TYPE::ENUMS::IOEffectType IOEffectTest::ioet;
+
+TEST_F(IOEffectTest, AlternateConstructors) {
+  EXPECT_NO_THROW(auto obj =
+                      KDIS::DATA_TYPE::IOEffect(ios, iolt, ioet, 7, 4, 2));
+}
+
 TEST_F(IOEffectTest, SetGetStatus) {
-  constexpr KDIS::DATA_TYPE::ENUMS::IOStatus ios{
-      KDIS::DATA_TYPE::ENUMS::NoStatementIOStatus};
   EXPECT_NO_THROW(ioe.SetStatus(ios));
   EXPECT_EQ(ios, ioe.GetStatus());
 }
 
 TEST_F(IOEffectTest, SetGetLinkType) {
-  constexpr KDIS::DATA_TYPE::ENUMS::IOLinkType iolt{
-      KDIS::DATA_TYPE::ENUMS::NoStatementIOLinkType};
   EXPECT_NO_THROW(ioe.SetLinkType(iolt));
   EXPECT_EQ(iolt, ioe.GetLinkType());
 }
 
 TEST_F(IOEffectTest, SetGetEffectType) {
-  constexpr KDIS::DATA_TYPE::ENUMS::IOEffectType ioet{
-      KDIS::DATA_TYPE::ENUMS::NoStatementIOEffectType};
   EXPECT_NO_THROW(ioe.SetEffectType(ioet));
   EXPECT_EQ(ioet, ioe.GetEffectType());
 }

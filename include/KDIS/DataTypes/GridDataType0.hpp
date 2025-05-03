@@ -108,7 +108,7 @@ class KDIS_EXPORT GridDataType0 : public GridData {
   void ClearValues();
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::GridDataType0::GetDataRepresentation
+  // FullName:    KDIS::DATA_TYPE::GridDataType0::GetSize
   // Description: Returns the size of the whole Grid Data type object in octets.
   //              Note: This information is not encoded into the PDU, it is here
   //              for the internal calculation of the PDU length value.
