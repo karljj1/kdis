@@ -76,7 +76,37 @@ class Entity_State_PDU_Test : public ::testing::Test {
   KDIS::KDataStream stream;
 };
 
+TEST_F(Entity_State_PDU_Test, AlternateConstructors) {
+  const KDIS::DATA_TYPE::EntityIdentifier eid;
+  constexpr KDIS::DATA_TYPE::ENUMS::ForceID fid{
+      KDIS::DATA_TYPE::ENUMS::Friendly4};
+  const KDIS::DATA_TYPE::EntityType mineType{
+      KDIS::DATA_TYPE::ENUMS::Munition,
+      4,
+      KDIS::DATA_TYPE::ENUMS::OtherCountry,
+      4,
+      4,
+      4,
+      4};
+  const KDIS::DATA_TYPE::EntityType altType;
+  const KDIS::DATA_TYPE::Vector vec;
+  const KDIS::DATA_TYPE::WorldCoordinates wc;
+  const KDIS::DATA_TYPE::EulerAngles ea;
+  const KDIS::DATA_TYPE::EntityAppearance eapp;
+  const KDIS::DATA_TYPE::DeadReckoningParameter drp;
+  const KDIS::DATA_TYPE::EntityMarking em;
+  const KDIS::DATA_TYPE::EntityCapabilities ec;
+  EXPECT_NO_THROW(auto obj = KDIS::PDU::Entity_State_PDU(eid, fid, mineType,
+                                                         altType, vec, wc, ea,
+                                                         eapp, drp, em, ec));
+}
+
 TEST_F(Entity_State_PDU_Test, GetForceID) { EXPECT_EQ(0, esp.GetForceID()); }
+
+TEST_F(Entity_State_PDU_Test, SetGetDeadReckoningCalculator) {
+  EXPECT_NO_THROW(esp.SetDeadReckoningCalculator(nullptr));
+  EXPECT_EQ(nullptr, esp.GetDeadReckoningCalculator());
+}
 
 TEST_F(Entity_State_PDU_Test, ApplyDeadReckoning) {
   // KException will occur because InitDeadReckoning hasn't been called yet
