@@ -52,7 +52,7 @@ class KDIS_EXPORT GridData : public DataTypeBase {
   KUINT16 m_ui16DtRep{0};
 
  public:
-  static const KUINT16 GRID_DATA_SIZE{4};
+  static constexpr KUINT16 GRID_DATA_SIZE{4};
 
   GridData() = default;
 

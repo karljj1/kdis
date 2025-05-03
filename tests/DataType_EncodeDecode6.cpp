@@ -485,7 +485,7 @@ class GridDataType0Test : public ::testing::Test {
 };
 
 TEST_F(GridDataType0Test, AlternateConstructors) {
-  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType0(5, 2, stream), std::length_error);
+  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType0(5, 2, stream), KDIS::KException);
   std::vector<KDIS::KUINT8> vec = {4, 44, 244};
   EXPECT_NO_THROW(
       gdt0 = KDIS::DATA_TYPE::GridDataType0(7, vec.data(), vec.size()));
@@ -516,8 +516,7 @@ class GridDataType1Test : public ::testing::Test {
 };
 
 TEST_F(GridDataType1Test, AlternateConstructors) {
-  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType1(33, 2, stream),
-               std::length_error);
+  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType1(33, 2, stream), KDIS::KException);
   EXPECT_NO_THROW(
       KDIS::DATA_TYPE::GridDataType1(0, 0, 0, std::vector<KDIS::KUINT16>()));
 }

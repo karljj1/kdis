@@ -51,11 +51,6 @@ GridDataType1::GridDataType1(KUINT16 SampleType, KUINT16 DataRepresentation,
   m_ui16SmpTyp = SampleType;
   m_ui16DtRep = DataRepresentation;
 
-  if (stream.GetBufferSize() <
-      (sizeof(m_f32FieldScale) + sizeof(m_f32FieldOffset) +
-       sizeof(m_ui16NumValues))) {
-    throw std::length_error("stream is too short");
-  }
   stream >> m_f32FieldScale >> m_f32FieldOffset >> m_ui16NumValues;
 
   KUINT16 tmp = 0;

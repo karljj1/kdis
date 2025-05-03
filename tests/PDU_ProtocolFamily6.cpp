@@ -474,8 +474,7 @@ TEST_F(Minefield_Data_PDU_Test, EncodeWithScalarDetectionException) {
   //    ScalarDetectionCoefficient check
   EXPECT_NO_THROW(pdu.SetDataFilter(mdf2));
   // Exception expected because the mine doesn't have the correct number of
-  // SDC
-  //    values
+  // SDC values
   EXPECT_THROW(pdu.Encode(stream), KDIS::KException);
 }
 

@@ -46,7 +46,6 @@ point numbers.
 
 #pragma once
 
-#include <stdexcept>
 #include <vector>
 
 #include "KDIS/DataTypes/GridData.hpp"
