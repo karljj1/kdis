@@ -38,10 +38,6 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-MinefieldDataFilter::MinefieldDataFilter() { m_FilterUnion.m_ui32Filter = 0; }
-
-//////////////////////////////////////////////////////////////////////////
-
 MinefieldDataFilter::MinefieldDataFilter(
     KBOOL GroundBurialDepthOffset, KBOOL WaterBurialDepthOffset,
     KBOOL SnowBurialDepthOffset, KBOOL MineOrientation, KBOOL ThermalContrast,
@@ -66,10 +62,6 @@ MinefieldDataFilter::MinefieldDataFilter(
 MinefieldDataFilter::MinefieldDataFilter(KDataStream& stream) {
   Decode(stream);
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-MinefieldDataFilter::~MinefieldDataFilter() {}
 
 //////////////////////////////////////////////////////////////////////////
 

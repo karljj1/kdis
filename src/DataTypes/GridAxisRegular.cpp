@@ -36,14 +36,10 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-GridAxisRegular::GridAxisRegular()
-    : m_f64DomainInitialXi(0),
-      m_f64DomainFinalXi(0),
-      m_ui16DomainPointsXi(0),
-      m_ui8InterleafFactor(0),
-      m_ui8AxisType(0),
-      m_ui16NumPoints(0),
-      m_ui16InitialIndex(0) {}
+// Definition to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). This out-of-class definition is required in C++11, but not in
+//    C++17.
+constexpr KUINT16 GridAxisRegular::GridAxisRegularBytes;
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -77,10 +73,6 @@ GridAxisRegular::GridAxisRegular(KFLOAT64 InitialXi, KFLOAT64 FinalXi,
       m_ui8AxisType(AxisType),
       m_ui16NumPoints(NumPoints),
       m_ui16InitialIndex(InitialIndexXi) {}
-
-//////////////////////////////////////////////////////////////////////////
-
-GridAxisRegular::~GridAxisRegular() {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -164,7 +156,7 @@ KBOOL GridAxisRegular::IsGridRegular() const { return true; }
 
 //////////////////////////////////////////////////////////////////////////
 
-KUINT16 GridAxisRegular::GetLength() { return GRID_AXIS_REGULAR; }
+KUINT16 GridAxisRegular::GetLength() { return GridAxisRegularBytes; }
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -186,7 +178,7 @@ KString GridAxisRegular::GetAsString() const {
 //////////////////////////////////////////////////////////////////////////
 
 void GridAxisRegular::Decode(KDataStream& stream) {
-  if (stream.GetBufferSize() < GRID_AXIS_REGULAR)
+  if (stream.GetBufferSize() < GridAxisRegularBytes)
     throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   stream >> m_f64DomainInitialXi >> m_f64DomainFinalXi >>

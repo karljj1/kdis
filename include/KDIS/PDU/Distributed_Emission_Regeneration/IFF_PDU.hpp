@@ -93,9 +93,9 @@ class KDIS_EXPORT IFF_PDU : public Header {
 
   KDIS::DATA_TYPE::SystemIdentifier m_SystemID;
 
-  KUINT8 m_ui8SystemDesignator;  // DIS 7
+  KUINT8 m_ui8SystemDesignator{0};  // DIS 7
 
-  KUINT8 m_ui8SystemSpecific;  // DIS 7
+  KUINT8 m_ui8SystemSpecific{0};  // DIS 7
 
   KDIS::DATA_TYPE::FundamentalOperationalData m_FOD;
 
@@ -104,7 +104,7 @@ class KDIS_EXPORT IFF_PDU : public Header {
   IFF_PDU* clone() const override;
 
  public:
-  static const KUINT16 IFF_PDU_SIZE = 60;
+  static constexpr KUINT16 IFF_PDU_SIZE{60};
 
   IFF_PDU();
 
@@ -120,7 +120,7 @@ class KDIS_EXPORT IFF_PDU : public Header {
           const KDIS::DATA_TYPE::SystemIdentifier& ID,
           const KDIS::DATA_TYPE::FundamentalOperationalData& FOD);
 
-  virtual ~IFF_PDU();
+  virtual ~IFF_PDU() = default;
 
   //************************************
   // FullName:    KDIS::PDU::IFF_PDU::SetEmittingEntityID

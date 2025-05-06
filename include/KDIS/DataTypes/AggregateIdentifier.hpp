@@ -47,12 +47,12 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT AggregateIdentifier : public SimulationIdentifier {
  protected:
-  KUINT16 m_ui16AggregateID;
+  KUINT16 m_ui16AggregateID{0};
 
  public:
-  static const KUINT16 AGGREGATE_IDENTIFER_SIZE = 6;
+  static constexpr KUINT16 AGGREGATE_IDENTIFER_SIZE{6};
 
-  AggregateIdentifier();
+  AggregateIdentifier() = default;
 
   AggregateIdentifier(KUINT16 SiteID, KUINT16 ApplicatonID,
                       KUINT16 AggregateID);
@@ -61,7 +61,7 @@ class KDIS_EXPORT AggregateIdentifier : public SimulationIdentifier {
 
   AggregateIdentifier(KDataStream& stream);
 
-  virtual ~AggregateIdentifier();
+  virtual ~AggregateIdentifier() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::AggregateIdentifier::SetAggregateID

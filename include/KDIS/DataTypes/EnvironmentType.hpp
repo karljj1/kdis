@@ -45,22 +45,22 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT EnvironmentType : public DataTypeBase {
  protected:
-  KUINT8 m_ui8EntityKind;  // This value should allways be Environmental(4)
+  KUINT8 m_ui8EntityKind;
 
-  KUINT8 m_ui8Domain;
+  KUINT8 m_ui8Domain{0};
 
-  KUINT16 m_ui16Class;
+  KUINT16 m_ui16Class{0};
 
-  KUINT8 m_ui8Category;
+  KUINT8 m_ui8Category{0};
 
-  KUINT8 m_ui8SubCategory;
+  KUINT8 m_ui8SubCategory{0};
 
-  KUINT8 m_ui8Specific;
+  KUINT8 m_ui8Specific{0};
 
-  KUINT8 m_ui8Extra;
+  KUINT8 m_ui8Extra{0};
 
  public:
-  static const KUINT16 ENVIROMENT_TYPE_SIZE = 8;
+  static constexpr KUINT16 ENVIROMENT_TYPE_SIZE{8};
 
   EnvironmentType();
 
@@ -76,7 +76,7 @@ class KDIS_EXPORT EnvironmentType : public DataTypeBase {
 
   EnvironmentType(KDataStream& stream);
 
-  virtual ~EnvironmentType();
+  virtual ~EnvironmentType() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::AggregateType::SetKind

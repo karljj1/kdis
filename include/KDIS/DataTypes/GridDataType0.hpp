@@ -57,14 +57,14 @@ using std::vector;
 
 class KDIS_EXPORT GridDataType0 : public GridData {
  protected:
-  KUINT16 m_ui16NumBytes;
+  KUINT16 m_ui16NumBytes{0};
 
   std::vector<KUINT8> m_vui8DataVals;
 
-  KUINT8 m_ui8Padding;
+  KUINT8 m_ui8Padding{0};
 
  public:
-  static const KUINT16 GRID_DATA_TYPE0_SIZE = 6;  // Min size
+  static constexpr KUINT16 GRID_DATA_TYPE0_SIZE{6};  // Min size
 
   GridDataType0();
 
@@ -78,7 +78,7 @@ class KDIS_EXPORT GridDataType0 : public GridData {
 
   GridDataType0(KUINT16 SampleType, KUINT8* Data, KUINT16 NumBytes);
 
-  virtual ~GridDataType0();
+  virtual ~GridDataType0() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridDataType0::Encode
@@ -89,12 +89,12 @@ class KDIS_EXPORT GridDataType0 : public GridData {
   KUINT16 GetNumberOfBytes() const;
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::GridDataType0::AddGridAxisDescriptor
-  //              KDIS::DATA_TYPE::GridDataType0::SetGridAxisDescriptors
-  //              KDIS::DATA_TYPE::GridDataType0::GetSetGridAxisDescriptors
+  // FullName:    KDIS::DATA_TYPE::GridDataType0::AddDataValue
+  //              KDIS::DATA_TYPE::GridDataType0::SetDataValues
+  //              KDIS::DATA_TYPE::GridDataType0::GetDataValues
   //              KDIS::DATA_TYPE::GridDataType0::ClearValues
   // Description: Specifies the environmental state variable data values. The
-  // data shall
+  //              data shall
   //              be represented as a stream of bytes, the interpretation of
   //              which shall be agreed to prior to the start of the exercise.
   // Parameter:   KUINT8 D, KUINT8 * Data,, const vector<KUINT8> & DV
@@ -107,7 +107,7 @@ class KDIS_EXPORT GridDataType0 : public GridData {
   void ClearValues();
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::GridDataType0::GetDataRepresentation
+  // FullName:    KDIS::DATA_TYPE::GridDataType0::GetSize
   // Description: Returns the size of the whole Grid Data type object in octets.
   //              Note: This information is not encoded into the PDU, it is here
   //              for the internal calculation of the PDU length value.

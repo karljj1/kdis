@@ -28,8 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/IOEffect.hpp"
-
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -41,14 +40,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-IOEffect::IOEffect()
-    : m_ui8Status(0),
-      m_ui8LnkTyp(0),
-      m_ui8Eff(0),
-      m_ui8EffDtyCyc(0),
-      m_ui16EffDur(0),
-      m_ui16Proc(0),
-      m_ui16Padding(0) {
+IOEffect::IOEffect() {
   m_ui32Type = IOEffectRecord;
   m_ui16Length = IO_EFFECT_TYPE_SIZE;
 }
@@ -60,10 +52,8 @@ IOEffect::IOEffect(IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
     : m_ui8Status(S),
       m_ui8LnkTyp(LT),
       m_ui8Eff(ET),
-      m_ui8EffDtyCyc(0),
       m_ui16EffDur(Duration),
-      m_ui16Proc(Process),
-      m_ui16Padding(0) {
+      m_ui16Proc(Process) {
   // Set duty cycle, may cause exception if the value is not valid.
   SetEffectDutyCycle(DutyCycle);
 
@@ -74,10 +64,6 @@ IOEffect::IOEffect(IOStatus S, IOLinkType LT, IOEffectType ET, KUINT8 DutyCycle,
 //////////////////////////////////////////////////////////////////////////
 
 IOEffect::IOEffect(KDataStream& stream) { Decode(stream); }
-
-//////////////////////////////////////////////////////////////////////////
-
-IOEffect::~IOEffect() {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -115,9 +101,9 @@ void IOEffect::SetEffectDutyCycle(KUINT8 EDC) {
   if (EDC > 100)
     throw KException(
         ErrorCode::INVALID_DATA,
-        KDIS::UTIL::format("%s | %u is not a valid effect duty cycle value. "
-                           "Valid values are from 0 to 100",
-                           __FUNCTION__, EDC));
+        KDIS::UTILS::format("%s | %u is not a valid effect duty cycle value. "
+                            "Valid values are from 0 to 100",
+                            __FUNCTION__, EDC));
 
   m_ui8EffDtyCyc = EDC;
 }

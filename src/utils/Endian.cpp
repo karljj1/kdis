@@ -1,7 +1,7 @@
-#include "KDIS/util/Endian.hpp"
+#include "KDIS/utils/Endian.hpp"
 
 namespace KDIS {
-namespace UTIL {
+namespace UTILS {
 
 Endian::Endianness Endian::endian() {
   constexpr short int num = 0x1;
@@ -13,5 +13,5 @@ bool Endian::isLittleEndian() { return Endian::endian() == Endianness::LITTLE; }
 
 bool Endian::isBigEndian() { return Endian::endian() == Endianness::BIG; }
 
-}  // namespace UTIL
+}  // namespace UTILS
 }  // namespace KDIS

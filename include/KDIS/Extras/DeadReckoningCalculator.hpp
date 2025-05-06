@@ -190,7 +190,7 @@ class Matrix {
     return res;
   };
 
-  void inPlanceTranspose() {
+  void inPlaceTranspose() {
     if (cols != rows) return;
 
     for (KUINT16 i = 0; i < rows; ++i) {
@@ -213,12 +213,12 @@ class KDIS_EXPORT DeadReckoningCalculator {
 
   KDIS::DATA_TYPE::Vector m_initLinearAcceleration;
   KDIS::DATA_TYPE::Vector m_Ab;
-  KBOOL m_bQuaxAxisSet;
+  KBOOL m_bQuaxAxisSet{false};
   KDIS::DATA_TYPE::Vector m_quatAxis;
 
   // Some algorithms are implemented as an integral form for rotation, thus
   // using the time since t0
-  KFLOAT32 m_f64Magnitude;
+  KFLOAT32 m_f64Magnitude{0};
 
   // Orientation cache
   KDIS::DATA_TYPE::EulerAngles m_initOrientation, m_initEulerAngularVelocity;
@@ -229,8 +229,9 @@ class KDIS_EXPORT DeadReckoningCalculator {
   TMATRIX m_wwMatrix;
   TMATRIX m_SkewOmegaMatrix;
 
-  KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm
-      m_DRA;  // The selected dead reckoning algorithm
+  KDIS::DATA_TYPE::ENUMS::DeadReckoningAlgorithm m_DRA{
+      KDIS::DATA_TYPE::ENUMS::Other_DRA};  // The selected dead reckoning
+                                           // algorithm
 
   void positionReset(const KDIS::DATA_TYPE::WorldCoordinates& Position);
   void orientationReset(const KDIS::DATA_TYPE::EulerAngles& Orientation);
@@ -293,9 +294,8 @@ class KDIS_EXPORT DeadReckoningCalculator {
                             const KFLOAT32 totalTimeSinceReset);
 
  public:
-  DeadReckoningCalculator();
-
-  ~DeadReckoningCalculator();
+  DeadReckoningCalculator() = default;
+  ~DeadReckoningCalculator() = default;
 
   //************************************
   // FullName:    KDIS::UTILS::DeadReckoningCalculator::Reset

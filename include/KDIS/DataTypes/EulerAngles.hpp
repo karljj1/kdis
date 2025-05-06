@@ -45,23 +45,23 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT EulerAngles : public DataTypeBase {
  protected:
-  KFLOAT32 m_f32Psi;
+  KFLOAT32 m_f32Psi{0};
 
-  KFLOAT32 m_f32Theta;
+  KFLOAT32 m_f32Theta{0};
 
-  KFLOAT32 m_f32Phi;
+  KFLOAT32 m_f32Phi{0};
 
  public:
-  static const KUINT16 EULER_ANGLES_SIZE = 12;
+  static constexpr KUINT16 EULER_ANGLES_SIZE{12};
 
-  EulerAngles();
+  EulerAngles() = default;
 
   // In Radians
   EulerAngles(KFLOAT32 Psi, KFLOAT32 Theta, KFLOAT32 Phi);
 
   EulerAngles(KDataStream& stream);
 
-  virtual ~EulerAngles();
+  virtual ~EulerAngles() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::EulerAngles::SetPsi

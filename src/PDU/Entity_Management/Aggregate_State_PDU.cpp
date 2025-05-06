@@ -69,18 +69,7 @@ Aggregate_State_PDU* Aggregate_State_PDU::clone() const {
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Aggregate_State_PDU::Aggregate_State_PDU()
-    : m_ui8ForceID(0),
-      m_ui8AggState(0),
-      m_ui32Formation(0),
-      m_ui16NumAggregates(0),
-      m_ui16NumEntities(0),
-      m_ui16NumSilentAggregateTypes(0),
-      m_ui16NumSilentEntityTypes(0),
-      m_bNeedsPadding(false),
-      m_ui16Padding1(0),
-      m_ui16NumberOfPaddingOctets(0),
-      m_ui32NumVariableDatum(0) {
+Aggregate_State_PDU::Aggregate_State_PDU() {
   m_ui8ProtocolFamily = EntityManagement;
   m_ui8PDUType = AggregateState_PDU_Type;
   m_ui16PDULength = AGGREGATE_STATE_PDU_SIZE;
@@ -116,15 +105,7 @@ Aggregate_State_PDU::Aggregate_State_PDU(
       m_Dimensions(Dimensions),
       m_Ori(Orientation),
       m_CtrOfMassLoc(CenterOfMass),
-      m_Vel(Velocity),
-      m_ui16NumAggregates(0),
-      m_ui16NumEntities(0),
-      m_ui16NumSilentAggregateTypes(0),
-      m_ui16NumSilentEntityTypes(0),
-      m_bNeedsPadding(false),
-      m_ui16Padding1(0),
-      m_ui16NumberOfPaddingOctets(0),
-      m_ui32NumVariableDatum(0) {
+      m_Vel(Velocity) {
   m_ui8ProtocolFamily = EntityManagement;
   m_ui8PDUType = AggregateState_PDU_Type;
   m_ui16PDULength = AGGREGATE_STATE_PDU_SIZE;
@@ -463,9 +444,9 @@ void Aggregate_State_PDU::AddVariableDatum(VarDtmPtr VD) {
 
   // Calculate the size, note get datum length only returns length of the value
   // and does not include the datum id or length field so we use
-  // VARIABLE_DATUM_SIZE to get this.
+  // VariableDatumMinBytes to get this.
   m_ui16PDULength +=
-      VariableDatum::VARIABLE_DATUM_SIZE + (VD->GetDatumLength() / 8);
+      VariableDatum::VariableDatumMinBytes + (VD->GetDatumLength() / 8);
   ++m_ui32NumVariableDatum;
 }
 
@@ -476,11 +457,9 @@ void Aggregate_State_PDU::SetVariableDatumList(const vector<VarDtmPtr>& VD) {
 
   m_vVD = VD;
 
-  vector<VarDtmPtr>::const_iterator citr = m_vVD.begin();
-  vector<VarDtmPtr>::const_iterator citrEnd = m_vVD.end();
-  for (citr = m_vVD.begin(); citr != m_vVD.end(); ++citr) {
+  for (const auto& data : m_vVD) {
     m_ui16PDULength +=
-        VariableDatum::VARIABLE_DATUM_SIZE + ((*citr)->GetDatumLength() / 8);
+        VariableDatum::VariableDatumMinBytes + (data->GetDatumLength() / 8);
   }
 
   m_ui32NumVariableDatum = m_vVD.size();
@@ -490,11 +469,9 @@ void Aggregate_State_PDU::SetVariableDatumList(const vector<VarDtmPtr>& VD) {
 
 void Aggregate_State_PDU::ClearVariableDatumList() {
   // Reset the PDU length
-  vector<VarDtmPtr>::const_iterator citr = m_vVD.begin();
-  vector<VarDtmPtr>::const_iterator citrEnd = m_vVD.end();
-  for (; citr != citrEnd; ++citr) {
+  for (const auto& data : m_vVD) {
     m_ui16PDULength -=
-        VariableDatum::VARIABLE_DATUM_SIZE + ((*citr)->GetDatumLength() / 8);
+        VariableDatum::VariableDatumMinBytes + (data->GetDatumLength() / 8);
   }
 
   m_vVD.clear();

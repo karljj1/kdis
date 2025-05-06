@@ -34,7 +34,8 @@ author:     Karl Jones
 
 purpose:    Implementation of a referenced smart pointer.
             Holds a counter of how many references are currently held of a
-pointer. When the final reference is released the memory is released.
+            pointer. When the final reference is released the memory is
+            released.
 
             -*How To Use:*-
 
@@ -49,10 +50,10 @@ pointer. When the final reference is released the memory is released.
 
             -*Note:*-
 
-            Be carefull of the following mistakes:
+            Be careful of the following mistakes:
 
             - MyClass * p = pObj.GetPtr(); // p is not safe. It could be deleted
-when the KRef_Ptr goes out of scope leaving you with a NULL pointer.
+when the KRef_Ptr goes out of scope leaving you with a nullptr.
 
             - KRef_Ptr<MyClass> pRef = pObj.GetPtr(); // This will create a
 second reference to the pointer which will cause problems.
@@ -77,9 +78,9 @@ class KRef_Ptr {
  private:
   typedef KRef_Ptr<Type> ThisType;
 
-  Type* m_pRef;
+  Type* m_pRef{nullptr};
 
-  RefCounter* m_piCount;
+  RefCounter* m_piCount{nullptr};
 
   //************************************
   // FullName:    KRef_Ptr<Type>::ref
@@ -100,14 +101,14 @@ class KRef_Ptr {
       if (*m_piCount == 0) {
         delete m_piCount;
         delete m_pRef;
-        m_piCount = NULL;
-        m_pRef = NULL;
+        m_piCount = nullptr;
+        m_pRef = nullptr;
       }
     }
   };
 
  public:
-  KRef_Ptr() : m_pRef(NULL), m_piCount(NULL){};
+  KRef_Ptr() = default;
 
   KRef_Ptr(Type* p) {
     m_pRef = p;
@@ -128,14 +129,14 @@ class KRef_Ptr {
   //************************************
   void Clear() {
     unRef();
-    m_pRef = NULL;
-    m_piCount = NULL;
+    m_pRef = nullptr;
+    m_piCount = nullptr;
   };
 
   //************************************
   // FullName:    KRef_Ptr<Type>::GetPtr
   // Description: Returns pointer to the current reference
-  //              or NULL if no reference exists.
+  //              or nullptr if no reference exists.
   //              Note: The returned pointer will not be safe. Avoid using this
   //              function.
   //************************************
@@ -293,7 +294,7 @@ class KRef_Ptr {
   // Description: This conversion operator allows KRef_Ptr objects to be used in
   // boolean contexts, like if(p && p->valid()) {}.
   //************************************
-  typedef Type* ThisType::*UnspecifiedBoolType;
+  typedef Type* ThisType::* UnspecifiedBoolType;
 
   operator UnspecifiedBoolType() const  // never throws
   {

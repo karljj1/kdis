@@ -27,10 +27,10 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/Extras/DeadReckoningCalculator.hpp"
-
 #include <cmath>
 #include <limits>
+
+#include "KDIS/Extras/DeadReckoningCalculator.hpp"
 
 #ifndef KDIS_PI
 #define KDIS_PI 3.14159265358979323846
@@ -171,7 +171,7 @@ void DeadReckoningCalculator::orientationReset(const EulerAngles& Orientation) {
   m_initOrientationMatrix.Data[2][2] = f32CosPhi * f32CosTheta;
 
   m_initOrientationMatrixTranspose = m_initOrientationMatrix;
-  m_initOrientationMatrixTranspose.inPlanceTranspose();
+  m_initOrientationMatrixTranspose.inPlaceTranspose();
 
   computeRotationAxis(m_initOrientationMatrix);
 }
@@ -563,15 +563,6 @@ void DeadReckoningCalculator::RunAlgorithm(const KFLOAT32 totalTimeSinceReset,
 
 //////////////////////////////////////////////////////////////////////////
 // public:
-//////////////////////////////////////////////////////////////////////////
-
-DeadReckoningCalculator::DeadReckoningCalculator()
-    : m_bQuaxAxisSet(false), m_f64Magnitude(0), m_DRA(Other_DRA) {}
-
-//////////////////////////////////////////////////////////////////////////
-
-DeadReckoningCalculator::~DeadReckoningCalculator() {}
-
 //////////////////////////////////////////////////////////////////////////
 
 void DeadReckoningCalculator::Reset(const Vector& LinearVelocity,

@@ -60,13 +60,13 @@ class KDIS_EXPORT Aggregate_State_PDU : public Header {
  protected:
   KDIS::DATA_TYPE::AggregateIdentifier m_AggregateID;
 
-  KUINT8 m_ui8ForceID;
+  KUINT8 m_ui8ForceID{0};
 
-  KUINT8 m_ui8AggState;
+  KUINT8 m_ui8AggState{0};
 
   KDIS::DATA_TYPE::AggregateType m_AggregateType;
 
-  KUINT32 m_ui32Formation;
+  KUINT32 m_ui32Formation{0};
 
   KDIS::DATA_TYPE::AggregateMarking m_AggregateMarking;
 
@@ -78,29 +78,29 @@ class KDIS_EXPORT Aggregate_State_PDU : public Header {
 
   KDIS::DATA_TYPE::Vector m_Vel;
 
-  KUINT16 m_ui16NumAggregates;
+  KUINT16 m_ui16NumAggregates{0};
 
-  KUINT16 m_ui16NumEntities;
+  KUINT16 m_ui16NumEntities{0};
 
-  KUINT16 m_ui16NumSilentAggregateTypes;
+  KUINT16 m_ui16NumSilentAggregateTypes{0};
 
-  KUINT16 m_ui16NumSilentEntityTypes;
+  KUINT16 m_ui16NumSilentEntityTypes{0};
 
   std::vector<KDIS::DATA_TYPE::AggregateIdentifier> m_vAI;
 
   std::vector<KDIS::DATA_TYPE::EntityIdentifier> m_vEI;
 
-  KBOOL m_bNeedsPadding;
+  KBOOL m_bNeedsPadding{false};
 
-  KUINT16 m_ui16Padding1;
+  KUINT16 m_ui16Padding1{0};
 
-  KUINT16 m_ui16NumberOfPaddingOctets;
+  KUINT16 m_ui16NumberOfPaddingOctets{0};
 
   std::vector<KDIS::DATA_TYPE::SilentAggregateSystem> m_vSASL;
 
   std::vector<KDIS::DATA_TYPE::SilentEntitySystem> m_vSESL;
 
-  KUINT32 m_ui32NumVariableDatum;
+  KUINT32 m_ui32NumVariableDatum{0};
 
   std::vector<KDIS::DATA_TYPE::VarDtmPtr> m_vVD;
 
@@ -127,7 +127,7 @@ class KDIS_EXPORT Aggregate_State_PDU : public Header {
   Aggregate_State_PDU* clone() const override;
 
  public:
-  static const KUINT16 AGGREGATE_STATE_PDU_SIZE = 136;  // Min size
+  static constexpr KUINT16 AGGREGATE_STATE_PDU_SIZE{136};  // Min size
 
   Aggregate_State_PDU();
 

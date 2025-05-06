@@ -27,22 +27,16 @@ Karljj1@yahoo.com
 http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
-#include "KDIS/DataTypes/ClockTime.hpp"
-
 #include <iomanip>
+
+#include "KDIS/DataTypes/ClockTime.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
 using namespace ENUMS;
 
-const KFLOAT64 ClockTime::SEC_PER_UNIT_TIME = (3600.0) / 2147483648.0;
-
 //////////////////////////////////////////////////////////////////////////
 // Public:
-//////////////////////////////////////////////////////////////////////////
-
-ClockTime::ClockTime() : m_i32Hour(0), m_ui32TimePastHour(0) {}
-
 //////////////////////////////////////////////////////////////////////////
 
 ClockTime::ClockTime(KINT32 Hour, KUINT32 TimePastHour)
@@ -51,10 +45,6 @@ ClockTime::ClockTime(KINT32 Hour, KUINT32 TimePastHour)
 //////////////////////////////////////////////////////////////////////////
 
 ClockTime::ClockTime(KDataStream& stream) { Decode(stream); }
-
-//////////////////////////////////////////////////////////////////////////
-
-ClockTime::~ClockTime() {}
 
 //////////////////////////////////////////////////////////////////////////
 

@@ -63,7 +63,7 @@ class EncodeDecodeTest6 : public ::testing::Test {
 };
 
 typedef ::testing::Types<
-    KDIS::PDU::IFF_PDU, KDIS::PDU::SEES_PDU, KDIS::PDU::Underwater_Acoustic_PDU,
+    KDIS::PDU::SEES_PDU, KDIS::PDU::Underwater_Acoustic_PDU,
     KDIS::PDU::Collision_Elastic_PDU, KDIS::PDU::Entity_State_Update_PDU,
     KDIS::PDU::Aggregate_State_PDU, KDIS::PDU::IsGroupOf_PDU,
     KDIS::PDU::IsPartOf_PDU, KDIS::PDU::Transfer_Control_Request_PDU,

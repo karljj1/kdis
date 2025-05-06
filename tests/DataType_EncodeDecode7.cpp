@@ -96,23 +96,55 @@ TEST(DataType_EncodeDecode7, IOCommunicationsNode) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode7, IOEffect) {
-  KDIS::DATA_TYPE::IOEffect dtIn;
-  constexpr KDIS::DATA_TYPE::ENUMS::IOStatus ios{
+class IOEffectTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::IOEffect ioe;
+  KDIS::KDataStream stream;
+  static constexpr KDIS::DATA_TYPE::ENUMS::IOStatus ios{
       KDIS::DATA_TYPE::ENUMS::NoStatementIOStatus};
-  EXPECT_NO_THROW(dtIn.SetStatus(ios));
-  EXPECT_EQ(ios, dtIn.GetStatus());
-  constexpr KDIS::DATA_TYPE::ENUMS::IOLinkType iolt{
+  static constexpr KDIS::DATA_TYPE::ENUMS::IOLinkType iolt{
       KDIS::DATA_TYPE::ENUMS::NoStatementIOLinkType};
-  EXPECT_NO_THROW(dtIn.SetLinkType(iolt));
-  EXPECT_EQ(iolt, dtIn.GetLinkType());
-  constexpr KDIS::DATA_TYPE::ENUMS::IOEffectType ioet{
+  static constexpr KDIS::DATA_TYPE::ENUMS::IOEffectType ioet{
       KDIS::DATA_TYPE::ENUMS::NoStatementIOEffectType};
-  EXPECT_NO_THROW(dtIn.SetEffectType(ioet));
-  EXPECT_EQ(ioet, dtIn.GetEffectType());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::IOEffect dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+};
+
+// Definitions to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). These out-of-class definitions are required in C++11, but not in
+//    C++17.
+constexpr KDIS::DATA_TYPE::ENUMS::IOStatus IOEffectTest::ios;
+constexpr KDIS::DATA_TYPE::ENUMS::IOLinkType IOEffectTest::iolt;
+constexpr KDIS::DATA_TYPE::ENUMS::IOEffectType IOEffectTest::ioet;
+
+TEST_F(IOEffectTest, AlternateConstructors) {
+  EXPECT_NO_THROW(auto obj =
+                      KDIS::DATA_TYPE::IOEffect(ios, iolt, ioet, 7, 4, 2));
+}
+
+TEST_F(IOEffectTest, SetGetStatus) {
+  EXPECT_NO_THROW(ioe.SetStatus(ios));
+  EXPECT_EQ(ios, ioe.GetStatus());
+}
+
+TEST_F(IOEffectTest, SetGetLinkType) {
+  EXPECT_NO_THROW(ioe.SetLinkType(iolt));
+  EXPECT_EQ(iolt, ioe.GetLinkType());
+}
+
+TEST_F(IOEffectTest, SetGetEffectType) {
+  EXPECT_NO_THROW(ioe.SetEffectType(ioet));
+  EXPECT_EQ(ioet, ioe.GetEffectType());
+}
+
+TEST_F(IOEffectTest, SetGetDutyCycle) {
+  EXPECT_THROW(ioe.SetEffectDutyCycle(101), KDIS::KException);
+  EXPECT_NO_THROW(ioe.SetEffectDutyCycle(91));
+  EXPECT_EQ(91, ioe.GetEffectDutyCycle());
+}
+
+TEST_F(IOEffectTest, StreamConstructor) {
+  stream = ioe.Encode();
+  KDIS::DATA_TYPE::IOEffect ioe2(stream);
+  EXPECT_EQ(ioe, ioe2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
@@ -140,18 +172,34 @@ TEST(DataType_EncodeDecode7, Mode5InterrogatorStatus) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode7, Mode5TransponderBasicData) {
-  KDIS::DATA_TYPE::Mode5TransponderBasicData dtIn;
+class Mode5TransponderBasicDataTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::Mode5TransponderBasicData m5tbd;
+};
+
+TEST_F(Mode5TransponderBasicDataTest, SetGetMessageFormatsPresent) {
   constexpr std::bitset<32> bs32{0xABCDDCBA};
-  EXPECT_NO_THROW(dtIn.SetMessageFormatsPresent(bs32));
-  EXPECT_EQ(bs32, dtIn.GetMessageFormatsPresentBitSet());
+  EXPECT_NO_THROW(m5tbd.SetMessageFormatsPresent(bs32));
+  EXPECT_EQ(bs32, m5tbd.GetMessageFormatsPresentBitSet());
+}
+
+TEST_F(Mode5TransponderBasicDataTest, SetGetNavigationSource) {
   constexpr KDIS::DATA_TYPE::ENUMS::NavigationSource ns{
       KDIS::DATA_TYPE::ENUMS::NoStatementNavigationSource};
-  EXPECT_NO_THROW(dtIn.SetNavigationSource(ns));
-  EXPECT_EQ(ns, dtIn.GetNavigationSource());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::Mode5TransponderBasicData dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_NO_THROW(m5tbd.SetNavigationSource(ns));
+  EXPECT_EQ(ns, m5tbd.GetNavigationSource());
+}
+
+TEST_F(Mode5TransponderBasicDataTest, SetGetFigureOfMerit) {
+  EXPECT_NO_THROW(m5tbd.SetFigureOfMerit(3));
+  EXPECT_EQ(3, m5tbd.GetFigureOfMerit());
+  EXPECT_THROW(m5tbd.SetFigureOfMerit(32), KDIS::KException);
+}
+
+TEST_F(Mode5TransponderBasicDataTest, ConstructFromStream) {
+  KDIS::KDataStream stream = m5tbd.Encode();
+  KDIS::DATA_TYPE::Mode5TransponderBasicData m5tbd2(stream);
+  EXPECT_EQ(m5tbd, m5tbd2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

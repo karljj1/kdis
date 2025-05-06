@@ -55,29 +55,29 @@ namespace PDU {
 
 class KDIS_EXPORT Header6 : public CloneablePDU {
  protected:
-  KUINT8 m_ui8ProtocolVersion;
-  KUINT8 m_ui8ExerciseID;
+  KUINT8 m_ui8ProtocolVersion{0};
+  KUINT8 m_ui8ExerciseID{0};
 
-  KUINT8 m_ui8PDUType;
+  KUINT8 m_ui8PDUType{0};
 
-  KUINT8 m_ui8ProtocolFamily;
+  KUINT8 m_ui8ProtocolFamily{0};
 
   KDIS::DATA_TYPE::TimeStamp m_TimeStamp;
 
-  KUINT16 m_ui16PDULength;
+  KUINT16 m_ui16PDULength{0};
 
-  KUINT8 m_ui8Padding1;  // Padding except for Live Entity family which uses it
-                         // for Sub protocol Number, if DIS version > 6 then
-                         // used for sub protocol.
+  KUINT8 m_ui8Padding1{0};  // Padding except for Live Entity family which uses
+                            // it for Sub protocol Number, if DIS version > 6
+                            // then used for sub protocol.
 
-  KUINT8 m_ui8Padding2;
+  KUINT8 m_ui8Padding2{0};
 
   Header6* clone() const override;
 
  public:
-  static const KUINT16 HEADER6_PDU_SIZE = 12;
+  static constexpr KUINT16 HEADER6_PDU_SIZE{12};
 
-  Header6();
+  Header6() = default;
 
   explicit Header6(KDataStream& stream);
 
@@ -86,7 +86,7 @@ class KDIS_EXPORT Header6 : public CloneablePDU {
           KDIS::DATA_TYPE::ENUMS::ProtocolFamily PF,
           const KDIS::DATA_TYPE::TimeStamp& TS, KUINT16 PDULength);
 
-  virtual ~Header6();
+  virtual ~Header6() = default;
 
   //************************************
   // FullName:    KDIS::PDU::Header6::SetProtocolVersion

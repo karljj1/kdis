@@ -30,7 +30,7 @@ http://p.sf.net/kdis/UserGuide
 #include <cmath>
 
 #include "KDIS/DataTypes/VariableDatum.hpp"
-#include "KDIS/util/Endian.hpp"
+#include "KDIS/utils/Endian.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,10 +42,6 @@ using namespace UTILS;
 
 //////////////////////////////////////////////////////////////////////////
 // Public:
-//////////////////////////////////////////////////////////////////////////
-
-VariableDatum::VariableDatum() : m_ui32DatumLength(0), m_ui32DatumID(0) {}
-
 //////////////////////////////////////////////////////////////////////////
 
 VariableDatum::VariableDatum(DatumID ID, const KString& Value) {
@@ -88,7 +84,7 @@ KUINT32 VariableDatum::GetDatumLength() const { return m_ui32DatumLength; }
 //////////////////////////////////////////////////////////////////////////
 
 KUINT32 VariableDatum::GetPDULength() const {
-  return VARIABLE_DATUM_SIZE + (m_v8DatumValue.size() * 8);
+  return VariableDatumMinBytes + (m_v8DatumValue.size() * 8);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -162,7 +158,7 @@ KString VariableDatum::GetDatumValueAsKString() const {
 //////////////////////////////////////////////////////////////////////////
 
 vector<KUINT64> VariableDatum::GetDatumValueAsKUINT64() const {
-  KBOOL bSwapBytes = KDIS::UTIL::Endian::isLittleEndian();
+  KBOOL bSwapBytes = KDIS::UTILS::Endian::isLittleEndian();
 
   vector<DatumEntry>::const_iterator citr = m_v8DatumValue.begin();
   vector<DatumEntry>::const_iterator citrEnd = m_v8DatumValue.end();
@@ -186,7 +182,7 @@ vector<KUINT64> VariableDatum::GetDatumValueAsKUINT64() const {
 //////////////////////////////////////////////////////////////////////////
 
 vector<KFLOAT64> VariableDatum::GetDatumValueAsKFLOAT64() const {
-  KBOOL bSwapBytes = KDIS::UTIL::Endian::isLittleEndian();
+  KBOOL bSwapBytes = KDIS::UTILS::Endian::isLittleEndian();
 
   vector<DatumEntry>::const_iterator citr = m_v8DatumValue.begin();
   vector<DatumEntry>::const_iterator citrEnd = m_v8DatumValue.end();
@@ -231,7 +227,7 @@ KString VariableDatum::GetAsString() const {
 //////////////////////////////////////////////////////////////////////////
 
 void VariableDatum::Decode(KDataStream& stream) {
-  if (stream.GetBufferSize() < VARIABLE_DATUM_SIZE)
+  if (stream.GetBufferSize() < VariableDatumMinBytes)
     throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_v8DatumValue.clear();

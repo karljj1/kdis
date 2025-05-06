@@ -31,7 +31,7 @@ http://p.sf.net/kdis/UserGuide
 #include <limits>
 
 #include "KDIS/PDU/Header6.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 using namespace KDIS;
 using namespace PDU;
@@ -48,17 +48,6 @@ Header6* Header6::clone() const { return new Header6(*this); }
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Header6::Header6()
-    : m_ui8ProtocolVersion(0),
-      m_ui8ExerciseID(0),
-      m_ui8PDUType(0),
-      m_ui8ProtocolFamily(0),
-      m_ui16PDULength(0),
-      m_ui8Padding1(0),
-      m_ui8Padding2(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 Header6::Header6(KDataStream& stream) { Decode(stream, false); }
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,13 +59,7 @@ Header6::Header6(ProtocolVersion PV, KUINT8 ExerciseID, PDUType PT,
       m_ui8PDUType(PT),
       m_ui8ProtocolFamily(PF),
       m_TimeStamp(TS),
-      m_ui16PDULength(PDULength),
-      m_ui8Padding1(0),
-      m_ui8Padding2(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
-Header6::~Header6() {}
+      m_ui16PDULength(PDULength) {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -172,7 +155,7 @@ void Header6::Decode(KDataStream& stream, bool ignoreHeader /*= false*/) {
 
       throw KException(
           ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER,
-          KDIS::UTIL::format(
+          KDIS::UTILS::format(
               "%s | Received %u bytes. Expected minimum %u bytes\nData: %s\n",
               __FUNCTION__, stream.GetBufferSize(), HEADER6_PDU_SIZE,
               data.str().c_str()));

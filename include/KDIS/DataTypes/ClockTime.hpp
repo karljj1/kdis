@@ -48,22 +48,22 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT ClockTime : public DataTypeBase {
  protected:
-  KINT32 m_i32Hour;
+  KINT32 m_i32Hour{0};
 
-  KUINT32 m_ui32TimePastHour;
+  KUINT32 m_ui32TimePastHour{0};
 
  public:
-  static const KUINT16 CLOCK_TIME_SIZE = 8;
+  static constexpr KUINT16 CLOCK_TIME_SIZE{8};
 
-  static const KFLOAT64 SEC_PER_UNIT_TIME;
+  static constexpr KFLOAT64 SEC_PER_UNIT_TIME{(3600.0) / 2147483648.0};
 
-  ClockTime();
+  ClockTime() = default;
 
   ClockTime(KINT32 Hour, KUINT32 TimePastHour);
 
   ClockTime(KDataStream& stream);
 
-  virtual ~ClockTime();
+  virtual ~ClockTime() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::ClockTime::SetHour

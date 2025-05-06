@@ -65,24 +65,24 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT GridAxisRegular : public DataTypeBase {
  protected:
-  KFLOAT64 m_f64DomainInitialXi;
+  KFLOAT64 m_f64DomainInitialXi{0};
 
-  KFLOAT64 m_f64DomainFinalXi;
+  KFLOAT64 m_f64DomainFinalXi{0};
 
-  KUINT16 m_ui16DomainPointsXi;
+  KUINT16 m_ui16DomainPointsXi{0};
 
-  KUINT8 m_ui8InterleafFactor;
+  KUINT8 m_ui8InterleafFactor{0};
 
-  KUINT8 m_ui8AxisType;
+  KUINT8 m_ui8AxisType{0};
 
-  KUINT16 m_ui16NumPoints;
+  KUINT16 m_ui16NumPoints{0};
 
-  KUINT16 m_ui16InitialIndex;
+  KUINT16 m_ui16InitialIndex{0};
 
  public:
-#define GRID_AXIS_REGULAR 24
+  static constexpr KUINT16 GridAxisRegularBytes{24};
 
-  GridAxisRegular();
+  GridAxisRegular() = default;
 
   GridAxisRegular(KDataStream& stream);
 
@@ -97,7 +97,7 @@ class KDIS_EXPORT GridAxisRegular : public DataTypeBase {
                   KUINT8 InterleafFactor, KUINT8 AxisType, KUINT16 NumPoints,
                   KUINT16 InitialIndexXi);
 
-  virtual ~GridAxisRegular();
+  virtual ~GridAxisRegular() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridAxisRegular::SetDomainInitialXi

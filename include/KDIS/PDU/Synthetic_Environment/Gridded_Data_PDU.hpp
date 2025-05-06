@@ -69,32 +69,32 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
  protected:
   KDIS::DATA_TYPE::EntityIdentifier m_EnvProcID;
 
-  KUINT16 m_ui16FieldNum;
+  KUINT16 m_ui16FieldNum{0};
 
-  KUINT16 m_ui16PDUNum;
+  KUINT16 m_ui16PDUNum{0};
 
-  KUINT16 m_ui16PDUTotal;
+  KUINT16 m_ui16PDUTotal{0};
 
-  KUINT16 m_ui16CordSys;
+  KUINT16 m_ui16CordSys{0};
 
-  KUINT8 m_ui8NumAxis;
+  KUINT8 m_ui8NumAxis{0};
 
-  KUINT8 m_ui8ConstGrid;
+  KUINT8 m_ui8ConstGrid{0};
 
   KDIS::DATA_TYPE::EnvironmentType m_EnvType;
 
   KDIS::DATA_TYPE::EulerAngles m_Ori;
 
-  KUINT64 m_ui64SampleTime;
+  KUINT64 m_ui64SampleTime{0};
 
-  KUINT32 m_ui32TotalValues;
+  KUINT32 m_ui32TotalValues{0};
 
-  KUINT8 m_ui8VecDim;
+  KUINT8 m_ui8VecDim{0};
 
   KUINT16
-  m_ui16Padding1;  // 24 bits unused for alignment of Grid Axis Descriptor
+  m_ui16Padding1{0};  // 24 bits unused for alignment of Grid Axis Descriptor
 
-  KUINT8 m_ui8Padding1;
+  KUINT8 m_ui8Padding1{0};
 
   std::vector<KDIS::DATA_TYPE::GridAxisDescriptor> m_vpGridAxisDesc;
 
@@ -103,7 +103,7 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
   Gridded_Data_PDU* clone() const override;
 
  public:
-  static const KUINT16 GRIDDED_DATA_PDU_SIZE = 64;  // Minimum size
+  static constexpr KUINT16 GRIDDED_DATA_PDU_SIZE{64};  // Minimum size
 
   Gridded_Data_PDU();
 
@@ -119,7 +119,7 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
       const KDIS::DATA_TYPE::EnvironmentType& ET,
       const KDIS::DATA_TYPE::EulerAngles& Ori, KUINT64 SampleTime);
 
-  virtual ~Gridded_Data_PDU();
+  virtual ~Gridded_Data_PDU() = default;
 
   //************************************
   // FullName:    KDIS::PDU::Gridded_Data_PDU::SetEnvironmentalProcessID
@@ -262,7 +262,7 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
   //************************************
   // FullName:    KDIS::PDU::Gridded_Data_PDU::AddGridAxisDescriptor
   //              KDIS::PDU::Gridded_Data_PDU::SetGridAxisDescriptors
-  //              KDIS::PDU::Gridded_Data_PDU::GetSetGridAxisDescriptors
+  //              KDIS::PDU::Gridded_Data_PDU::GetGridAxisDescriptors
   // Description: Specifies the detailed information about the grid dimensions
   // (axes)
   //              and coordinates for environmental state variables.
@@ -275,7 +275,7 @@ class KDIS_EXPORT Gridded_Data_PDU : public Header {
   void SetGridAxisDescriptors(
       const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor>& GADS);
   const std::vector<KDIS::DATA_TYPE::GridAxisDescriptor>&
-  GetSetGridAxisDescriptors() const;
+  GetGridAxisDescriptors() const;
 
   //************************************
   // FullName:    KDIS::PDU::Gridded_Data_PDU::AddGridData

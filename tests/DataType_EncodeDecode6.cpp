@@ -86,6 +86,7 @@
 #include <KDIS/KDefines.hpp>
 #include <bitset>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 
 TEST(DataType_EncodeDecode6, AcousticEmitterSystem) {
@@ -239,24 +240,67 @@ TEST(DataType_EncodeDecode6, EntityDestinationRecord) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, EnvironmentRecord) {
-  KDIS::DATA_TYPE::EnvironmentRecord dtInOne;
-  EXPECT_EQ(0, dtInOne.GetLength());
-  EXPECT_EQ(0, dtInOne.GetEnvironmentRecordType());
-  EXPECT_NO_THROW(dtInOne.SetIndex(28));
-  EXPECT_EQ(28, dtInOne.GetIndex());
-  EXPECT_NO_THROW(dtInOne.GetAsString());
-  KDIS::KDataStream streamOne;
-  EXPECT_THROW(dtInOne.Decode(streamOne), KDIS::KException);  // too short
-  EXPECT_NO_THROW(dtInOne.Encode(streamOne));
-  EXPECT_NO_THROW(dtInOne.Decode(streamOne));
-  EXPECT_THROW(dtInOne.FactoryDecodeEnvironmentRecord(streamOne),
-               KDIS::KException);  // environment record type not set
-  KDIS::DATA_TYPE::EnvironmentRecord dtInTwo;
-  KDIS::KDataStream streamTwo = dtInTwo.Encode();
-  KDIS::DATA_TYPE::EnvironmentRecord dtOutTwo(streamTwo);
-  EXPECT_EQ(dtInTwo, dtOutTwo);
-  EXPECT_EQ(0, streamTwo.GetBufferSize());
+class EnvironmentRecordTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::EnvironmentRecord er;
+  KDIS::KDataStream stream;
+  class UniformGeometryRecord : public KDIS::DATA_TYPE::EnvironmentRecord {
+   public:
+    UniformGeometryRecord() {
+      m_ui32EnvRecTyp = KDIS::DATA_TYPE::ENUMS::UniformGeometryRecordType;
+    }
+  };
+  class UnknownEnvironmentRecord : public KDIS::DATA_TYPE::EnvironmentRecord {
+   public:
+    UnknownEnvironmentRecord() { m_ui32EnvRecTyp = 0xF1F1F1F1; }
+  };
+};
+
+TEST_F(EnvironmentRecordTest, GetLength) { EXPECT_EQ(0, er.GetLength()); }
+
+TEST_F(EnvironmentRecordTest, GetEnvironmentRecordType) {
+  EXPECT_EQ(0, er.GetEnvironmentRecordType());
+}
+
+TEST_F(EnvironmentRecordTest, SetGetIndex) {
+  EXPECT_NO_THROW(er.SetIndex(28));
+  EXPECT_EQ(28, er.GetIndex());
+}
+
+TEST_F(EnvironmentRecordTest, GetAsString) {
+  EXPECT_NO_THROW(er.GetAsString());
+}
+
+TEST_F(EnvironmentRecordTest, DecodeTooShort) {
+  EXPECT_THROW(er.Decode(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, EncodeDecodeRoundTrip) {
+  EXPECT_NO_THROW(er.Encode(stream));
+  EXPECT_NO_THROW(er.Decode(stream));
+}
+
+TEST_F(EnvironmentRecordTest, FactoryDecodeEnvRecTypeNotSet) {
+  EXPECT_THROW(er.FactoryDecodeEnvironmentRecord(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, FactoryDecodeNotImplementedFromStream) {
+  auto ugr = UniformGeometryRecord();
+  stream = ugr.Encode();
+  EXPECT_THROW(er.FactoryDecodeEnvironmentRecord(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, FactoryDecodeUnknownFromStream) {
+  auto uer = UnknownEnvironmentRecord();
+  stream = uer.Encode();
+  EXPECT_THROW(er.FactoryDecodeEnvironmentRecord(stream), KDIS::KException);
+}
+
+TEST_F(EnvironmentRecordTest, ConstructFromStream) {
+  stream = er.Encode();
+  KDIS::DATA_TYPE::EnvironmentRecord er2(stream);
+  EXPECT_EQ(er, er2);
+  EXPECT_EQ(0, stream.GetBufferSize());
 }
 
 TEST(DataType_EncodeDecode6, EnvironmentType) {
@@ -414,38 +458,96 @@ TEST(DataType_EncodeDecode6, GridAxisIrregular) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, GridAxisRegular) {
-  KDIS::DATA_TYPE::GridAxisRegular dtIn;
-  EXPECT_NO_THROW(dtIn.GetAsString());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridAxisRegular dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+class GridAxisRegularTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridAxisRegular gar;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridAxisRegularTest, GetAsString) { EXPECT_NO_THROW(gar.GetAsString()); }
+
+TEST_F(GridAxisRegularTest, EncodeStreamConstructor) {
+  stream = gar.Encode();
+  KDIS::DATA_TYPE::GridAxisRegular gar2(stream);
+  EXPECT_EQ(gar, gar2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, GridDataType0) {
-  KDIS::DATA_TYPE::GridDataType0 dtIn;
-  EXPECT_NO_THROW(dtIn.AddDataValue(42));
-  EXPECT_NO_THROW(dtIn.GetAsString());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridDataType0 dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+TEST_F(GridAxisRegularTest, GetLength) {
+  EXPECT_EQ(KDIS::DATA_TYPE::GridAxisRegular::GridAxisRegularBytes,
+            gar.GetLength());
+}
+
+class GridDataType0Test : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridDataType0 gdt0;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridDataType0Test, AlternateConstructors) {
+  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType0(5, 2, stream), KDIS::KException);
+  std::vector<KDIS::KUINT8> vec = {4, 44, 244};
+  EXPECT_NO_THROW(
+      gdt0 = KDIS::DATA_TYPE::GridDataType0(7, vec.data(), vec.size()));
+  EXPECT_EQ(vec.size(), gdt0.GetNumberOfBytes());
+}
+
+TEST_F(GridDataType0Test, GetDataRepresentation) {
+  EXPECT_NO_THROW(gdt0.GetDataRepresentation());
+}
+
+TEST_F(GridDataType0Test, AddDataValue) {
+  EXPECT_NO_THROW(gdt0.AddDataValue(42));
+}
+
+TEST_F(GridDataType0Test, GetAsString) { EXPECT_NO_THROW(gdt0.GetAsString()); }
+
+TEST_F(GridDataType0Test, EncodeStreamConstructor) {
+  stream = gdt0.Encode();
+  KDIS::DATA_TYPE::GridDataType0 gdt0two(stream);
+  EXPECT_EQ(gdt0, gdt0two);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, GridDataType1) {
-  KDIS::DATA_TYPE::GridDataType1 dtIn;
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridDataType1 dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+class GridDataType1Test : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridDataType1 gdt1;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridDataType1Test, AlternateConstructors) {
+  EXPECT_THROW(KDIS::DATA_TYPE::GridDataType1(33, 2, stream), KDIS::KException);
+  EXPECT_NO_THROW(
+      KDIS::DATA_TYPE::GridDataType1(0, 0, 0, std::vector<KDIS::KUINT16>()));
+}
+
+TEST_F(GridDataType1Test, SetGetFieldScale) {
+  EXPECT_NO_THROW(gdt1.SetFieldScale(33.3));
+  EXPECT_FLOAT_EQ(33.3, gdt1.GetFieldScale());
+}
+
+TEST_F(GridDataType1Test, EncodeStreamConstructor) {
+  stream = gdt1.Encode();
+  KDIS::DATA_TYPE::GridDataType1 gdt1two(stream);
+  EXPECT_EQ(gdt1, gdt1two);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, GridDataType2) {
-  KDIS::DATA_TYPE::GridDataType2 dtIn;
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::GridDataType2 dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+class GridDataType2Test : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::GridDataType2 gdt2;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(GridDataType2Test, AlternateConstructors) {
+  const std::vector<KDIS::KFLOAT32> vec = {1.2, 3.4, 5.6};
+  EXPECT_NO_THROW(auto obj = KDIS::DATA_TYPE::GridDataType2(6, vec));
+}
+
+TEST_F(GridDataType2Test, EncodeStreamConstructor) {
+  stream = gdt2.Encode();
+  KDIS::DATA_TYPE::GridDataType2 gdt2two(stream);
+  EXPECT_EQ(gdt2, gdt2two);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
@@ -567,28 +669,54 @@ TEST(DataType_EncodeDecode6, LE_EulerAngles) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, LinearObjectAppearance) {
-  KDIS::DATA_TYPE::LinearObjectAppearance dtIn;
+class LinearObjectAppearanceTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::LinearObjectAppearance loa;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(LinearObjectAppearanceTest, SetGetBreach) {
   constexpr KDIS::DATA_TYPE::ENUMS::Breach2bit b2b{
       KDIS::DATA_TYPE::ENUMS::Breached2bit};
-  EXPECT_NO_THROW(dtIn.SetBreach(b2b));
-  EXPECT_EQ(b2b, dtIn.GetBreach());
+  EXPECT_NO_THROW(loa.SetBreach(b2b));
+  EXPECT_EQ(b2b, loa.GetBreach());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetBreachLocation) {
   constexpr std::bitset<8> bs8{0xFB};
-  EXPECT_NO_THROW(dtIn.SetBreachLocation(bs8));
-  EXPECT_EQ(bs8, dtIn.GetBreachLocationAsBitset());
-  EXPECT_NO_THROW(dtIn.SetAttached(false));
-  EXPECT_EQ(false, dtIn.IsAttached());
+  EXPECT_NO_THROW(loa.SetBreachLocation(bs8));
+  EXPECT_EQ(bs8, loa.GetBreachLocationAsBitset());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetOpacity) {
+  EXPECT_THROW(loa.SetOpacity(101), KDIS::KException);
+  EXPECT_NO_THROW(loa.SetOpacity(87));
+  EXPECT_EQ(87, loa.GetOpacity());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetAttached) {
+  EXPECT_NO_THROW(loa.SetAttached(false));
+  EXPECT_EQ(false, loa.IsAttached());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetChemical) {
   constexpr KDIS::DATA_TYPE::ENUMS::Chemical ch{
       KDIS::DATA_TYPE::ENUMS::Hydrochloric};
-  EXPECT_NO_THROW(dtIn.SetChemical(ch));
-  EXPECT_EQ(ch, dtIn.GetChemical());
+  EXPECT_NO_THROW(loa.SetChemical(ch));
+  EXPECT_EQ(ch, loa.GetChemical());
+}
+
+TEST_F(LinearObjectAppearanceTest, SetGetVisibleSide) {
   constexpr KDIS::DATA_TYPE::ENUMS::VisibleSide vs{
       KDIS::DATA_TYPE::ENUMS::LeftSideVisible};
-  EXPECT_NO_THROW(dtIn.SetVisibleSide(vs));
-  EXPECT_EQ(vs, dtIn.GetVisibleSide());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::LinearObjectAppearance dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_NO_THROW(loa.SetVisibleSide(vs));
+  EXPECT_EQ(vs, loa.GetVisibleSide());
+}
+
+TEST_F(LinearObjectAppearanceTest, EncodeStreamConstructor) {
+  stream = loa.Encode();
+  KDIS::DATA_TYPE::LinearObjectAppearance loa2(stream);
+  EXPECT_EQ(loa, loa2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
@@ -617,28 +745,69 @@ TEST(DataType_EncodeDecode6, LineRecord2) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode5, Mine) {
-  KDIS::DATA_TYPE::Mine dtIn;
-  EXPECT_NO_THROW(dtIn.AddScalarDetectionCoefficientValue(17));
-  EXPECT_NO_THROW(dtIn.SetGroundBurialDepthOffset(true));
-  EXPECT_NO_THROW(dtIn.SetWaterBurialDepthOffset(true));
-  EXPECT_NO_THROW(dtIn.SetSnowBurialDepthOffset(true));
-  EXPECT_NO_THROW(dtIn.SetMineOrientation(true));
-  EXPECT_NO_THROW(dtIn.SetThermalContrast(true));
-  EXPECT_NO_THROW(dtIn.SetReflectance(true));
-  EXPECT_NO_THROW(dtIn.SetMineEmplacementAge(true));
-  EXPECT_NO_THROW(dtIn.SetFusing(true));
-  EXPECT_NO_THROW(dtIn.AddScalarDetectionCoefficientValue(9));
-  EXPECT_NO_THROW(dtIn.SetPaintScheme(true));
+class MineTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::Mine mn;
+  KDIS::KDataStream stream;
+  const KDIS::DATA_TYPE::Vector vec;
+};
+
+TEST_F(MineTest, AlternateConstructors) {
+  EXPECT_NO_THROW(KDIS::DATA_TYPE::Mine(vec, 7));
+}
+
+TEST_F(MineTest, AddScalarDetectionCoefficientValue) {
+  EXPECT_NO_THROW(mn.AddScalarDetectionCoefficientValue(17));
+}
+
+TEST_F(MineTest, AddTripDetonationWire) {
   const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
       KDIS::DATA_TYPE::Vector(1, 2, 3)};
-  EXPECT_NO_THROW(dtIn.AddTripDetonationWire(vtx));
-  EXPECT_NO_THROW(dtIn.GetAsString());
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+}
+
+TEST_F(MineTest, AddVertexToTripDetonationWire) {
+  // Index too big
+  EXPECT_THROW(mn.AddVertexToTripDetonationWire(7, vec), KDIS::KException);
+}
+
+TEST_F(MineTest, SetTripDetonationWireVertices) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  constexpr KDIS::KUINT16 idx{0};
+  EXPECT_EQ(idx, mn.AddTripDetonationWire(vtx));
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx2 = {vec};
+  EXPECT_NO_THROW(mn.SetTripDetonationWireVertices(idx, vtx2));
+}
+
+TEST_F(MineTest, RemoveTripDetonationWire) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_NO_THROW(mn.RemoveTripDetonationWire(0));
+}
+
+TEST_F(MineTest, GetWireVertices) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_EQ(vtx, mn.GetWireVertices(0));
+}
+
+TEST_F(MineTest, ClearWireVertices) {
+  const std::vector<KDIS::DATA_TYPE::Vector> vtx = {
+      KDIS::DATA_TYPE::Vector(1, 2, 3)};
+  EXPECT_NO_THROW(mn.AddTripDetonationWire(vtx));
+  EXPECT_NO_THROW(mn.ClearWireVertices(0));
+}
+
+TEST_F(MineTest, GetAsString) { EXPECT_NO_THROW(mn.GetAsString()); }
+
+TEST_F(MineTest, EncodeDecode) {
   // Encode/Decode are not supported by Mine
-  KDIS::KDataStream stream;
-  EXPECT_THROW(dtIn.Decode(stream), std::logic_error);
-  EXPECT_THROW(dtIn.Encode(), std::logic_error);
-  EXPECT_THROW(dtIn.Encode(stream), std::logic_error);
+  EXPECT_THROW(mn.Decode(stream), std::logic_error);
+  EXPECT_THROW(mn.Encode(), std::logic_error);
+  EXPECT_THROW(mn.Encode(stream), std::logic_error);
 }
 
 TEST(DataType_EncodeDecode6, MinefieldAppearance) {
@@ -653,6 +822,62 @@ TEST(DataType_EncodeDecode6, MinefieldAppearance) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
+class MinefieldDataFilterTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::MinefieldDataFilter mdf;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(MinefieldDataFilterTest, SetIsGroundBurialDepthOffset) {
+  EXPECT_NO_THROW(mdf.SetGroundBurialDepthOffset(true));
+  EXPECT_TRUE(mdf.IsGroundBurialDepthOffset());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsWaterBurialDepthOffset) {
+  EXPECT_NO_THROW(mdf.SetWaterBurialDepthOffset(true));
+  EXPECT_TRUE(mdf.IsWaterBurialDepthOffset());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsSnowBurialDepthOffset) {
+  EXPECT_NO_THROW(mdf.SetSnowBurialDepthOffset(true));
+  EXPECT_TRUE(mdf.IsSnowBurialDepthOffset());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsMineOrientation) {
+  EXPECT_NO_THROW(mdf.SetMineOrientation(true));
+  EXPECT_TRUE(mdf.IsMineOrientation());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsThermalContrast) {
+  EXPECT_NO_THROW(mdf.SetThermalContrast(true));
+  EXPECT_TRUE(mdf.IsThermalContrast());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsReflectance) {
+  EXPECT_NO_THROW(mdf.SetReflectance(true));
+  EXPECT_TRUE(mdf.IsReflectance());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsMineEmplacementAge) {
+  EXPECT_NO_THROW(mdf.SetMineEmplacementAge(true));
+  EXPECT_TRUE(mdf.IsMineEmplacementAge());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsFusing) {
+  EXPECT_NO_THROW(mdf.SetFusing(true));
+  EXPECT_TRUE(mdf.IsFusing());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsScalarDetectionCoefficient) {
+  EXPECT_NO_THROW(mdf.SetScalarDetectionCoefficient(true));
+  EXPECT_TRUE(mdf.IsScalarDetectionCoefficient());
+}
+
+TEST_F(MinefieldDataFilterTest, SetIsPaintScheme) {
+  EXPECT_NO_THROW(mdf.SetPaintScheme(true));
+  EXPECT_TRUE(mdf.IsPaintScheme());
+}
+
 TEST(DataType_EncodeDecode6, MinefieldDataFilter) {
   KDIS::DATA_TYPE::MinefieldDataFilter dtIn;
   KDIS::KDataStream stream = dtIn.Encode();
@@ -661,19 +886,40 @@ TEST(DataType_EncodeDecode6, MinefieldDataFilter) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, MineFusing) {
-  KDIS::DATA_TYPE::MineFusing dtIn;
-  constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf{
+class MineFusingTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::MineFusing mfg;
+  KDIS::KDataStream stream;
+  static constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf{
       KDIS::DATA_TYPE::ENUMS::NoMineFuse};
-  EXPECT_NO_THROW(dtIn.SetPrimaryFuse(mf));
-  EXPECT_EQ(mf, dtIn.GetPrimaryFuse());
-  constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf2{
+  static constexpr KDIS::DATA_TYPE::ENUMS::MineFuse mf2{
       KDIS::DATA_TYPE::ENUMS::OtherMineFuse};
-  EXPECT_NO_THROW(dtIn.SetSecondaryFuse(mf2));
-  EXPECT_EQ(mf2, dtIn.GetSecondaryFuse());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::MineFusing dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+};
+
+// Definitions to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). These out-of-class definitions are required in C++11, but not in
+//    C++17.
+constexpr KDIS::DATA_TYPE::ENUMS::MineFuse MineFusingTest::mf;
+constexpr KDIS::DATA_TYPE::ENUMS::MineFuse MineFusingTest::mf2;
+
+TEST_F(MineFusingTest, AlternateConstructors) {
+  EXPECT_NO_THROW(auto obj = KDIS::DATA_TYPE::MineFusing(mf, mf2, true));
+}
+
+TEST_F(MineFusingTest, SetGetPrimaryFuse) {
+  EXPECT_NO_THROW(mfg.SetPrimaryFuse(mf));
+  EXPECT_EQ(mf, mfg.GetPrimaryFuse());
+}
+
+TEST_F(MineFusingTest, SetGetSecondaryFuse) {
+  EXPECT_NO_THROW(mfg.SetSecondaryFuse(mf2));
+  EXPECT_EQ(mf2, mfg.GetSecondaryFuse());
+}
+
+TEST_F(MineFusingTest, EncodeStreamConstructor) {
+  stream = mfg.Encode();
+  KDIS::DATA_TYPE::MineFusing mfg2(stream);
+  EXPECT_EQ(mfg, mfg2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
@@ -702,15 +948,44 @@ TEST(DataType_EncodeDecode6, NamedLocationIdentifier) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, ObjectAppearance) {
-  KDIS::DATA_TYPE::ObjectAppearance dtIn;
-  constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage od{
+class ObjectAppearanceTest : public ::testing::Test {
+ protected:
+  static constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage od{
       KDIS::DATA_TYPE::ENUMS::NoObjectDamage};
-  EXPECT_NO_THROW(dtIn.SetDamage(od));
-  EXPECT_EQ(od, dtIn.GetDamage());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::ObjectAppearance dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  KDIS::DATA_TYPE::ObjectAppearance oa;
+};
+
+// Definition to satisfy odr-use (One Definition Rule-use, e.g. taking its
+//    address). This out-of-class definition is required in C++11, but not in
+//    C++17.
+constexpr KDIS::DATA_TYPE::ENUMS::ObjectDamage ObjectAppearanceTest::od;
+
+TEST_F(ObjectAppearanceTest, ConstructorPerCentTooHigh) {
+  EXPECT_THROW(
+      KDIS::DATA_TYPE::ObjectAppearance(101, od, false, false, false, false),
+      KDIS::KException);
+}
+
+TEST_F(ObjectAppearanceTest, ConstructorNominal) {
+  EXPECT_NO_THROW(
+      KDIS::DATA_TYPE::ObjectAppearance(0, od, false, false, false, false));
+}
+
+TEST_F(ObjectAppearanceTest, SetGetPercentageComplete) {
+  EXPECT_THROW(oa.SetPercentageComplete(101), KDIS::KException);
+  EXPECT_NO_THROW(oa.SetPercentageComplete(47));
+  EXPECT_EQ(47, oa.GetPercentageComplete());
+}
+
+TEST_F(ObjectAppearanceTest, SetGetDamage) {
+  EXPECT_NO_THROW(oa.SetDamage(od));
+  EXPECT_EQ(od, oa.GetDamage());
+}
+
+TEST_F(ObjectAppearanceTest, Encode) {
+  KDIS::KDataStream stream = oa.Encode();
+  KDIS::DATA_TYPE::ObjectAppearance oaOut(stream);
+  EXPECT_EQ(oa, oaOut);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
@@ -740,19 +1015,35 @@ TEST(DataType_EncodeDecode6, PerimeterPointCoordinate) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(DataType_EncodeDecode6, PointObjectAppearance) {
-  KDIS::DATA_TYPE::PointObjectAppearance dtIn;
+class PointObjectAppearanceTest : public ::testing::Test {
+ protected:
+  KDIS::DATA_TYPE::PointObjectAppearance poa;
+};
+
+TEST_F(PointObjectAppearanceTest, SetGetBreach) {
   constexpr KDIS::DATA_TYPE::ENUMS::Breach2bit b2b{
       KDIS::DATA_TYPE::ENUMS::NoBreaching2bit};
-  EXPECT_NO_THROW(dtIn.SetBreach(b2b));
-  EXPECT_EQ(b2b, dtIn.GetBreach());
+  EXPECT_NO_THROW(poa.SetBreach(b2b));
+  EXPECT_EQ(b2b, poa.GetBreach());
+}
+
+TEST_F(PointObjectAppearanceTest, SetGetOpacity) {
+  EXPECT_NO_THROW(poa.SetOpacity(7));
+  EXPECT_EQ(7, poa.GetOpacity());
+  EXPECT_THROW(poa.SetOpacity(101), KDIS::KException);
+}
+
+TEST_F(PointObjectAppearanceTest, SetGetChemical) {
   constexpr KDIS::DATA_TYPE::ENUMS::Chemical ch{
       KDIS::DATA_TYPE::ENUMS::OtherChemical};
-  EXPECT_NO_THROW(dtIn.SetChemical(ch));
-  EXPECT_EQ(ch, dtIn.GetChemical());
-  KDIS::KDataStream stream = dtIn.Encode();
-  KDIS::DATA_TYPE::PointObjectAppearance dtOut(stream);
-  EXPECT_EQ(dtIn, dtOut);
+  EXPECT_NO_THROW(poa.SetChemical(ch));
+  EXPECT_EQ(ch, poa.GetChemical());
+}
+
+TEST_F(PointObjectAppearanceTest, ConstructFromStream) {
+  KDIS::KDataStream stream = poa.Encode();
+  KDIS::DATA_TYPE::PointObjectAppearance poa2(stream);
+  EXPECT_EQ(poa, poa2);
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

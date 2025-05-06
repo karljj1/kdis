@@ -67,20 +67,20 @@ class KDIS_EXPORT Minefield_Data_PDU : public Minefield_Header {
       KUINT16 m_ui16Reserved : 1;
       KUINT16 m_ui16SeqNum15 : 15;
     };
-    KUINT16 m_ui16SeqNum;
+    KUINT16 m_ui16SeqNum{0};
   } m_SeqNumUnion;
 
-  KUINT8 m_ui8ReqID;
+  KUINT8 m_ui8ReqID{0};
 
-  KUINT8 m_ui8PduSeqNum;
+  KUINT8 m_ui8PduSeqNum{0};
 
-  KUINT8 m_ui8NumPdus;
+  KUINT8 m_ui8NumPdus{0};
 
-  KUINT8 m_ui8NumMines;
+  KUINT8 m_ui8NumMines{0};
 
-  KUINT8 m_ui8NumSensTyp;
+  KUINT8 m_ui8NumSensTyp{0};
 
-  KUINT8 m_ui8Padding1;
+  KUINT8 m_ui8Padding1{0};
 
   KDIS::DATA_TYPE::MinefieldDataFilter m_DataFilter;
 
@@ -107,7 +107,7 @@ class KDIS_EXPORT Minefield_Data_PDU : public Minefield_Header {
   Minefield_Data_PDU* clone() const override;
 
  public:
-  static const KUINT16 MINEFIELD_DATA_PDU_SIZE = 44;  // Min size
+  static constexpr KUINT16 MINEFIELD_DATA_PDU_SIZE{44};  // Min size
 
   Minefield_Data_PDU();
 
@@ -122,7 +122,7 @@ class KDIS_EXPORT Minefield_Data_PDU : public Minefield_Header {
       const KDIS::DATA_TYPE::MinefieldDataFilter& DF,
       const KDIS::DATA_TYPE::EntityType& MineType);
 
-  virtual ~Minefield_Data_PDU();
+  virtual ~Minefield_Data_PDU() = default;
 
   //************************************
   // FullName:    KDIS::PDU::Minefield_Data_PDU::SetRequestingSimulationID

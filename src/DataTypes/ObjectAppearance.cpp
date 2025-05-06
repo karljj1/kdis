@@ -28,8 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/DataTypes/ObjectAppearance.hpp"
-
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 using namespace KDIS;
 using namespace DATA_TYPE;
@@ -53,10 +52,11 @@ ObjectAppearance::ObjectAppearance(KUINT8 PerCent, ObjectDamage OD,
                                    KBOOL Predist, KBOOL State, KBOOL Smoking,
                                    KBOOL Flaming) {
   if (PerCent > 100)
-    throw KException(ErrorCode::INVALID_DATA,
-                     KDIS::UTIL::format("%s | %u is not a valid percentage "
-                                        "value. Valid values are from 0 to 100",
-                                        __FUNCTION__, PerCent));
+    throw KException(
+        ErrorCode::INVALID_DATA,
+        KDIS::UTILS::format("%s | %u is not a valid percentage "
+                            "value. Valid values are from 0 to 100",
+                            __FUNCTION__, PerCent));
 
   m_GeneralAppearanceUnion.m_ui16PcComp = PerCent;
   m_GeneralAppearanceUnion.m_ui16Dmg = OD;
@@ -86,10 +86,11 @@ KUINT16 ObjectAppearance::GetGeneralAppearance() const {
 
 void ObjectAppearance::SetPercentageComplete(KUINT8 P) {
   if (P > 100)
-    throw KException(ErrorCode::INVALID_DATA,
-                     KDIS::UTIL::format("%s | %u is not a valid percentage "
-                                        "value. Valid values are from 0 to 100",
-                                        __FUNCTION__, P));
+    throw KException(
+        ErrorCode::INVALID_DATA,
+        KDIS::UTILS::format("%s | %u is not a valid percentage "
+                            "value. Valid values are from 0 to 100",
+                            __FUNCTION__, P));
 
   m_GeneralAppearanceUnion.m_ui16PcComp = P;
 }

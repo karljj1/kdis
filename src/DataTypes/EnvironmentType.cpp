@@ -37,14 +37,7 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-EnvironmentType::EnvironmentType()
-    : m_ui8EntityKind(Environmental),
-      m_ui8Domain(0),
-      m_ui16Class(0),
-      m_ui8Category(0),
-      m_ui8SubCategory(0),
-      m_ui8Specific(0),
-      m_ui8Extra(0) {}
+EnvironmentType::EnvironmentType() : m_ui8EntityKind(Environmental) {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -77,10 +70,6 @@ EnvironmentType::EnvironmentType(EntityDomain Domain, KUINT16 Class,
 //////////////////////////////////////////////////////////////////////////
 
 EnvironmentType::EnvironmentType(KDataStream& stream) { Decode(stream); }
-
-//////////////////////////////////////////////////////////////////////////
-
-EnvironmentType::~EnvironmentType() {}
 
 //////////////////////////////////////////////////////////////////////////
 

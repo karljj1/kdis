@@ -36,10 +36,6 @@ using namespace DATA_TYPE;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateIdentifier::AggregateIdentifier() : m_ui16AggregateID(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 AggregateIdentifier::AggregateIdentifier(KUINT16 SiteID, KUINT16 ApplicatonID,
                                          KUINT16 AggregateID)
     : SimulationIdentifier(SiteID, ApplicatonID),
@@ -56,10 +52,6 @@ AggregateIdentifier::AggregateIdentifier(const SimulationIdentifier& SimID,
 AggregateIdentifier::AggregateIdentifier(KDataStream& stream) {
   Decode(stream);
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-AggregateIdentifier::~AggregateIdentifier() {}
 
 //////////////////////////////////////////////////////////////////////////
 

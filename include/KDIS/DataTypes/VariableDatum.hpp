@@ -64,9 +64,9 @@ typedef KDIS::UTILS::KRef_Ptr<VariableDatum> VarDtmPtr;  // Ref counter
 class KDIS_EXPORT VariableDatum : public DataTypeBase,
                                   public FactoryDecoderUser<VariableDatum> {
  protected:
-  KUINT32 m_ui32DatumID;
+  KUINT32 m_ui32DatumID{0};
 
-  KUINT32 m_ui32DatumLength;
+  KUINT32 m_ui32DatumLength{0};
 
   struct DatumEntry {
     KOCTET Buffer[8];
@@ -79,9 +79,9 @@ class KDIS_EXPORT VariableDatum : public DataTypeBase,
   std::vector<DatumEntry> m_v8DatumValue;
 
  public:
-  static const KUINT16 VARIABLE_DATUM_SIZE = 8;  // Min Size
+  static constexpr KUINT16 VariableDatumMinBytes{8};
 
-  VariableDatum();
+  VariableDatum() = default;
 
   VariableDatum(KDIS::DATA_TYPE::ENUMS::DatumID ID, const KString& Value);
 

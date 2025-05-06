@@ -47,18 +47,18 @@ namespace DATA_TYPE {
 
 class KDIS_EXPORT GridData : public DataTypeBase {
  protected:
-  KUINT16 m_ui16SmpTyp;
+  KUINT16 m_ui16SmpTyp{0};
 
-  KUINT16 m_ui16DtRep;
+  KUINT16 m_ui16DtRep{0};
 
  public:
-  static const KUINT16 GRID_DATA_SIZE = 4;
+  static constexpr KUINT16 GRID_DATA_SIZE{4};
 
-  GridData();
+  GridData() = default;
 
   GridData(KDataStream& stream);
 
-  virtual ~GridData();
+  virtual ~GridData() = default;
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::GridData::SetSampleType
@@ -82,7 +82,7 @@ class KDIS_EXPORT GridData : public DataTypeBase {
   KDIS::DATA_TYPE::ENUMS::GridDataRepresentation GetDataRepresentation() const;
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::GridData::GetDataRepresentation
+  // FullName:    KDIS::DATA_TYPE::GridData::GetSize
   // Description: Returns size of Grid Data in octets.
   //              Note this information is not encoded into the PDU.
   //************************************

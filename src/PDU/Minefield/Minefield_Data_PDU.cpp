@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Minefield/Minefield_Data_PDU.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -75,16 +75,9 @@ Minefield_Data_PDU* Minefield_Data_PDU::clone() const {
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Minefield_Data_PDU::Minefield_Data_PDU()
-    : m_ui8ReqID(0),
-      m_ui8PduSeqNum(0),
-      m_ui8NumPdus(0),
-      m_ui8NumMines(0),
-      m_ui8NumSensTyp(0),
-      m_ui8Padding1(0) {
+Minefield_Data_PDU::Minefield_Data_PDU() {
   m_ui8PDUType = MinefieldData_PDU_Type;
   m_ui16PDULength = MINEFIELD_DATA_PDU_SIZE;
-  m_SeqNumUnion.m_ui16SeqNum = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -112,19 +105,12 @@ Minefield_Data_PDU::Minefield_Data_PDU(
       m_ui8PduSeqNum(PduSeqNum),
       m_ui8NumPdus(NumPdus),
       m_DataFilter(DF),
-      m_MineTyp(MineType),
-      m_ui8NumMines(0),
-      m_ui8NumSensTyp(0),
-      m_ui8Padding1(0) {
+      m_MineTyp(MineType) {
   m_ui8PDUType = MinefieldData_PDU_Type;
   m_ui16PDULength = MINEFIELD_DATA_PDU_SIZE;
   m_SeqNumUnion.m_ui16SeqNum15 = SeqNum;
   m_MinefieldID = MinefieldID;
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-Minefield_Data_PDU::~Minefield_Data_PDU() {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -259,7 +245,7 @@ void Minefield_Data_PDU::AddMine(const Mine& M) {
   if (M.MinefieldDataFilter::operator!=(m_DataFilter)) {
     throw KException(
         ErrorCode::INVALID_OPERATION,
-        KDIS::UTIL::format(
+        KDIS::UTILS::format(
             "%s | Mine filter does not match the PDU MinefieldDataFilter. All "
             "mines must have the same optional values set as specified "
             "by	the PDU MinefieldDataFilter. This mine has been ignored",
@@ -282,7 +268,7 @@ void Minefield_Data_PDU::SetMines(const std::vector<Mine>& M) {
     if (citr->MinefieldDataFilter::operator!=(m_DataFilter)) {
       throw KException(
           ErrorCode::INVALID_OPERATION,
-          KDIS::UTIL::format(
+          KDIS::UTILS::format(
               "%s | One or more mines do not have the correct filters. They "
               "must have the same filter as the PDU MinefieldDataFilter. This "
               "set request has been ignored",
@@ -612,7 +598,7 @@ void Minefield_Data_PDU::Encode(KDataStream& stream) const {
           citrMn->GetScalarDetectionCoefficientValues().size()) {
         throw KException(
             ErrorCode::INVALID_DATA,
-            KDIS::UTIL::format(
+            KDIS::UTILS::format(
                 "%s | Mine does not have the correct number of scalar "
                 "detection coefficient values. Each mine must have the same "
                 "number of SDC values as sensor types",

@@ -70,14 +70,58 @@ TEST(PDU_FactoryDecoder5, Collision_PDU) {
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 
-TEST(PDU_FactoryDecoder5, Entity_State_PDU) {
-  KDIS::PDU::Entity_State_PDU pduIn;
-  EXPECT_EQ(0, pduIn.GetForceID());
-  EXPECT_NO_THROW(pduIn.GetAsString());
-  KDIS::KDataStream stream = pduIn.Encode();
+class Entity_State_PDU_Test : public ::testing::Test {
+ protected:
+  KDIS::PDU::Entity_State_PDU esp;
+  KDIS::KDataStream stream;
+};
+
+TEST_F(Entity_State_PDU_Test, AlternateConstructors) {
+  const KDIS::DATA_TYPE::EntityIdentifier eid;
+  constexpr KDIS::DATA_TYPE::ENUMS::ForceID fid{
+      KDIS::DATA_TYPE::ENUMS::Friendly4};
+  const KDIS::DATA_TYPE::EntityType mineType{
+      KDIS::DATA_TYPE::ENUMS::Munition,
+      4,
+      KDIS::DATA_TYPE::ENUMS::OtherCountry,
+      4,
+      4,
+      4,
+      4};
+  const KDIS::DATA_TYPE::EntityType altType;
+  const KDIS::DATA_TYPE::Vector vec;
+  const KDIS::DATA_TYPE::WorldCoordinates wc;
+  const KDIS::DATA_TYPE::EulerAngles ea;
+  const KDIS::DATA_TYPE::EntityAppearance eapp;
+  const KDIS::DATA_TYPE::DeadReckoningParameter drp;
+  const KDIS::DATA_TYPE::EntityMarking em;
+  const KDIS::DATA_TYPE::EntityCapabilities ec;
+  EXPECT_NO_THROW(auto obj = KDIS::PDU::Entity_State_PDU(eid, fid, mineType,
+                                                         altType, vec, wc, ea,
+                                                         eapp, drp, em, ec));
+}
+
+TEST_F(Entity_State_PDU_Test, GetForceID) { EXPECT_EQ(0, esp.GetForceID()); }
+
+TEST_F(Entity_State_PDU_Test, SetGetDeadReckoningCalculator) {
+  EXPECT_NO_THROW(esp.SetDeadReckoningCalculator(nullptr));
+  EXPECT_EQ(nullptr, esp.GetDeadReckoningCalculator());
+}
+
+TEST_F(Entity_State_PDU_Test, ApplyDeadReckoning) {
+  // KException will occur because InitDeadReckoning hasn't been called yet
+  EXPECT_THROW(esp.ApplyDeadReckoning(14.2), KDIS::KException);
+}
+
+TEST_F(Entity_State_PDU_Test, GetAsString) {
+  EXPECT_NO_THROW(esp.GetAsString());
+}
+
+TEST_F(Entity_State_PDU_Test, EncodeDecode) {
+  stream = esp.Encode();
   KDIS::UTILS::PDU_Factory factory;
   std::unique_ptr<KDIS::PDU::Header> pduOut = factory.Decode(stream);
-  EXPECT_EQ(pduIn, *dynamic_cast<KDIS::PDU::Entity_State_PDU*>(pduOut.get()));
+  EXPECT_EQ(esp, *dynamic_cast<KDIS::PDU::Entity_State_PDU*>(pduOut.get()));
   EXPECT_EQ(0, stream.GetBufferSize());
 }
 

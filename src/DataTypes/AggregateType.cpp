@@ -37,17 +37,6 @@ using namespace ENUMS;
 // Public:
 //////////////////////////////////////////////////////////////////////////
 
-AggregateType::AggregateType()
-    : m_ui8Kind(0),
-      m_ui8Domain(0),
-      m_ui16Country(0),
-      m_ui8Category(0),
-      m_ui8SubCategory(0),
-      m_ui8Specific(0),
-      m_ui8Extra(0) {}
-
-//////////////////////////////////////////////////////////////////////////
-
 AggregateType::AggregateType(AggregateKind Kind, KUINT8 Domain, Country Country,
                              KUINT8 Categoy, KUINT8 SubCategory,
                              KUINT8 Specific, KUINT8 Extra)
@@ -75,10 +64,6 @@ AggregateType::AggregateType(KUINT8 Kind, KUINT8 Domain, KUINT8 Country,
 //////////////////////////////////////////////////////////////////////////
 
 AggregateType::AggregateType(KDataStream& stream) { Decode(stream); }
-
-//////////////////////////////////////////////////////////////////////////
-
-AggregateType::~AggregateType() {}
 
 //////////////////////////////////////////////////////////////////////////
 

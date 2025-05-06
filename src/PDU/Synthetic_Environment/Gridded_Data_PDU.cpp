@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Synthetic_Environment/Gridded_Data_PDU.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -51,18 +51,7 @@ Gridded_Data_PDU* Gridded_Data_PDU::clone() const {
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-Gridded_Data_PDU::Gridded_Data_PDU()
-    : m_ui16FieldNum(0),
-      m_ui16PDUNum(0),
-      m_ui16PDUTotal(0),
-      m_ui16CordSys(0),
-      m_ui8NumAxis(0),
-      m_ui8ConstGrid(0),
-      m_ui64SampleTime(0),
-      m_ui32TotalValues(0),
-      m_ui8VecDim(0),
-      m_ui16Padding1(0),
-      m_ui8Padding1(0) {
+Gridded_Data_PDU::Gridded_Data_PDU() {
   m_ui8ProtocolFamily = SyntheticEnvironment;
   m_ui8PDUType = GriddedData_PDU_Type;
   m_ui16PDULength = GRIDDED_DATA_PDU_SIZE;
@@ -93,24 +82,15 @@ Gridded_Data_PDU::Gridded_Data_PDU(
       m_ui16PDUNum(PduNum),
       m_ui16PDUTotal(PduTotal),
       m_ui16CordSys(CS),
-      m_ui8NumAxis(0),
       m_ui8ConstGrid(CG),
       m_EnvType(ET),
       m_Ori(Ori),
-      m_ui64SampleTime(SampleTime),
-      m_ui32TotalValues(0),
-      m_ui8VecDim(0),
-      m_ui16Padding1(0),
-      m_ui8Padding1(0) {
+      m_ui64SampleTime(SampleTime) {
   m_ui8ProtocolFamily = SyntheticEnvironment;
   m_ui8PDUType = GriddedData_PDU_Type;
   m_ui16PDULength = GRIDDED_DATA_PDU_SIZE;
   m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-Gridded_Data_PDU::~Gridded_Data_PDU() {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -152,8 +132,8 @@ void Gridded_Data_PDU::SetPDUNumberAndTotal(KUINT16 Num, KUINT16 Total) {
   if (Num > Total)
     throw KException(
         ErrorCode::INVALID_DATA,
-        KDIS::UTIL::format("%s | PDU number cannot be greater than PDU total",
-                           __FUNCTION__));
+        KDIS::UTILS::format("%s | PDU number cannot be greater than PDU total",
+                            __FUNCTION__));
   m_ui16PDUNum = Num;
   m_ui16PDUTotal = Total;
 }
@@ -257,29 +237,23 @@ void Gridded_Data_PDU::AddGridAxisDescriptor(const GridAxisDescriptor& GAD) {
 void Gridded_Data_PDU::SetGridAxisDescriptors(
     const std::vector<GridAxisDescriptor>& GADS) {
   // calculate length that needs to be removed.
-  vector<GridAxisDescriptor>::const_iterator citr = m_vpGridAxisDesc.begin();
-  vector<GridAxisDescriptor>::const_iterator citrEnd = m_vpGridAxisDesc.end();
-
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength -= (*citr)->GetLength();
+  for (const auto& data : m_vpGridAxisDesc) {
+    m_ui16PDULength -= data->GetLength();
   }
 
   m_vpGridAxisDesc = GADS;
   m_ui8NumAxis = m_vpGridAxisDesc.size();
 
   // Calculate the new PDU length.
-  citr = m_vpGridAxisDesc.begin();
-  citrEnd = m_vpGridAxisDesc.end();
-
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength += (*citr)->GetLength();
+  for (const auto& data : m_vpGridAxisDesc) {
+    m_ui16PDULength += data->GetLength();
   }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 const std::vector<GridAxisDescriptor>&
-Gridded_Data_PDU::GetSetGridAxisDescriptors() const {
+Gridded_Data_PDU::GetGridAxisDescriptors() const {
   return m_vpGridAxisDesc;
 }
 
@@ -295,20 +269,16 @@ void Gridded_Data_PDU::AddGridData(const GridDataPtr& GD) {
 
 void Gridded_Data_PDU::SetGridData(const std::vector<GridDataPtr>& GD) {
   // Remove the old grid data from the PDU length.
-  std::vector<GridDataPtr>::const_iterator citr = m_vGridData.begin();
-  std::vector<GridDataPtr>::const_iterator citrEnd = m_vGridData.end();
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength -= (*citr)->GetSize();
+  for (const auto& data : m_vGridData) {
+    m_ui16PDULength -= data->GetSize();
   }
 
   m_vGridData = GD;
   m_ui8VecDim = m_vGridData.size();
 
   // Now recalculate the PDU length.
-  citr = m_vGridData.begin();
-  citrEnd = m_vGridData.end();
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength += (*citr)->GetSize();
+  for (const auto& data : m_vGridData) {
+    m_ui16PDULength += data->GetSize();
   }
 }
 
@@ -338,18 +308,12 @@ KString Gridded_Data_PDU::GetAsString() const {
      << "Total Values: " << m_ui32TotalValues << "\n"
      << "Vector Dimension: " << m_ui8VecDim << "\n";
 
-  vector<GridAxisDescriptor>::const_iterator citrAxis =
-      m_vpGridAxisDesc.begin();
-  vector<GridAxisDescriptor>::const_iterator citrAxisEnd =
-      m_vpGridAxisDesc.end();
-  for (; citrAxis != citrAxisEnd; ++citrAxis) {
-    ss << (*citrAxis)->GetAsString();
+  for (const auto& data : m_vpGridAxisDesc) {
+    ss << data->GetAsString();
   }
 
-  vector<GridDataPtr>::const_iterator citrData = m_vGridData.begin();
-  vector<GridDataPtr>::const_iterator citrDataEnd = m_vGridData.end();
-  for (; citrData != citrDataEnd; ++citrData) {
-    ss << (*citrData)->GetAsString();
+  for (const auto& data : m_vGridData) {
+    ss << data->GetAsString();
   }
 
   return ss.str();
@@ -417,8 +381,8 @@ void Gridded_Data_PDU::Decode(KDataStream& stream,
       default:
         throw KException(
             ErrorCode::UNSUPPORTED_DATATYPE,
-            KDIS::UTIL::format("%s | Unknown grid data representation",
-                               __FUNCTION__));
+            KDIS::UTILS::format("%s | Unknown grid data representation",
+                                __FUNCTION__));
     }
   }
 }
@@ -443,18 +407,12 @@ void Gridded_Data_PDU::Encode(KDataStream& stream) const {
          << KDIS_STREAM m_EnvType << KDIS_STREAM m_Ori << m_ui64SampleTime
          << m_ui32TotalValues << m_ui8VecDim << m_ui16Padding1 << m_ui8Padding1;
 
-  vector<GridAxisDescriptor>::const_iterator citrAxis =
-      m_vpGridAxisDesc.begin();
-  vector<GridAxisDescriptor>::const_iterator citrAxisEnd =
-      m_vpGridAxisDesc.end();
-  for (; citrAxis != citrAxisEnd; ++citrAxis) {
-    (*citrAxis)->Encode(stream);
+  for (const auto& data : m_vpGridAxisDesc) {
+    data->Encode(stream);
   }
 
-  vector<GridDataPtr>::const_iterator citrData = m_vGridData.begin();
-  vector<GridDataPtr>::const_iterator citrDataEnd = m_vGridData.end();
-  for (; citrData != citrDataEnd; ++citrData) {
-    (*citrData)->Encode(stream);
+  for (const auto& data : m_vGridData) {
+    data->Encode(stream);
   }
 }
 

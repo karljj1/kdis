@@ -28,7 +28,7 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp"
-#include "KDIS/util/format.hpp"
+#include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -49,7 +49,7 @@ IFF_PDU* IFF_PDU::clone() const { return new IFF_PDU(*this); }
 // public:
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::IFF_PDU() : m_ui8SystemDesignator(0), m_ui8SystemSpecific(0) {
+IFF_PDU::IFF_PDU() {
   m_ui8ProtocolFamily = Distributed_Emission_Regeneration;
   m_ui8PDUType = IFF_ATC_NAVAIDS_PDU_Type;
   m_ui16PDULength = IFF_PDU_SIZE;
@@ -63,8 +63,7 @@ IFF_PDU::IFF_PDU() : m_ui8SystemDesignator(0), m_ui8SystemSpecific(0) {
 
 //////////////////////////////////////////////////////////////////////////
 
-IFF_PDU::IFF_PDU(const Header& H)
-    : Header(H), m_ui8SystemDesignator(0), m_ui8SystemSpecific(0) {}
+IFF_PDU::IFF_PDU(const Header& H) : Header(H) {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -99,10 +98,6 @@ IFF_PDU::IFF_PDU(const EntityIdentifier& EmittingID,
   m_ui8ProtocolVersion = IEEE_1278_1A_1998;
 #endif
 }
-
-//////////////////////////////////////////////////////////////////////////
-
-IFF_PDU::~IFF_PDU() {}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -312,7 +307,7 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
       default:
         throw KException(
             ErrorCode::UNSUPPORTED_DATATYPE,
-            KDIS::UTIL::format("%s | %u", __FUNCTION__, hdr.GetLayerNumber()));
+            KDIS::UTILS::format("%s | %u", __FUNCTION__, hdr.GetLayerNumber()));
     }
 
     if (layer) {
@@ -320,7 +315,7 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
       remainingData -= layer->GetLayerLength();
     } else {
       throw KException(ErrorCode::INVALID_OPERATION,
-                       KDIS::UTIL::format("%s | Layer is nul", __FUNCTION__));
+                       KDIS::UTILS::format("%s | Layer is nul", __FUNCTION__));
     }
   }
 }
