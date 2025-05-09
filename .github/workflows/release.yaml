@@ -1,46 +1,47 @@
-name: release
+name: Release KDIS
 
 on:
-    workflow_run:
-        workflows:
-            - check
-        types:
-            - completed
+  push:
+    tags: ['v*']  # Match tags like v2.11.0
 
-concurrency:
-    group: ${{ github.workflow }}
-    cancel-in-progress: true
+permissions:
+  contents: write  # For creating releases
 
 jobs:
-    release:
-        name: Release
-        runs-on: ubuntu-latest
-        if: github.event.workflow_run.conclusion == 'success' && github.ref_name == 'master' && startsWith(github.event.workflow_run.head_branch, 'v')
-        permissions:
-            contents: write
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
-                  ref: ${{ github.event.workflow_run.head_branch }}
+  release:
+    runs-on: ubuntu-latest
 
-            - name: Determine if version is prerelease
-              id: prerelease
-              run: |
-                  _prerelease=
-                  if printf "%s\n" "${{ github.event.workflow_run.head_branch }}" | grep -q -P '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$'; then
-                    _prerelease=false
-                  else
-                    _prerelease=true
-                  fi
+    steps:
+    - name: Debug event
+      run: |
+        echo "Event: ${{ github.event_name }}"
+        echo "Ref: ${{ github.ref }}"
+        echo "Tag: ${{ github.ref_name }}"
 
-                  printf 'value=%s\n' "$_prerelease" >> "$GITHUB_OUTPUT"
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # For changelog access
 
-            # TODO(carlocorradini) Changelog
+    - name: Package source
+      run: |
+        # Create .tar.gz and .zip from source (excluding .git)
+        tar --exclude='.git' -czf kdis-${{ github.ref_name }}.tar.gz .
+        zip -r kdis-${{ github.ref_name }}.zip . -x ".git/*"
 
-            - name: Release
-              uses: softprops/action-gh-release@v2
-              with:
-                  tag_name: ${{ github.event.workflow_run.head_branch }}
-                  prerelease: ${{ steps.prerelease.outputs.value == 'true' }}
+    - name: Extract changelog entry
+      run: |
+        # Extract changelog section for the tag (e.g., ## [v2.11.0])
+        awk '/^## \[${{ github.ref_name }}\]/{flag=1; next} /^## \[/ {flag=0} flag' CHANGELOG.md > release-notes.md || echo "No changelog entry for ${{ github.ref_name }}" > release-notes.md
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          kdis-${{ github.ref_name }}.tar.gz
+          kdis-${{ github.ref_name }}.zip
+        draft: false
+        prerelease: false
+        body_path: release-notes.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
