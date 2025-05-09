@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [v2.11.0]
 
 ### Added
 
@@ -36,8 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `KDIS::DATA_TYPE::AggregateMarking` now uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
 - `KDIS::DATA_TYPE::EntityMarking` now only uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
 - Overall code and repository structure have been reworked to improve maintainability
-
-### Deprecated
+- To GitHub idiomatic "v2.11.0"-style versioning via [#66](https://github.com/karljj1/kdis/issues/66)
 
 ### Removed
 
@@ -57,8 +56,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Spelling of `KDIS::UTILS::Matrix::inPlaceTranspose()` method via [#74](https://github.com/karljj1/kdis/pull/74)
 - Unified to `KDIS::UTILS` (plural) namespace, to eliminate distinction without a difference via [#74](https://github.com/karljj1/kdis/pull/74)
 - Naming of the `Gridded_Data_PDU::GetGridAxisDescriptors()` method via [#74](https://github.com/karljj1/kdis/pull/74)
-
-### Security
 
 ## 2.10.0 - 2023-10-12
 
