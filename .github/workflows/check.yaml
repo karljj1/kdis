@@ -46,6 +46,9 @@ jobs:
 
             - name: Setup Python
               uses: actions/setup-python@v5
+              with:
+                  # https://github.com/cheshirekow/cmake_format/blob/eff5df1f41c665ea7cac799396042e4f406ef09a/.travis.yml#L4
+                  python-version: '3.6'
 
             - name: Install cmakelang
               run: pip install cmakelang[YAML]
