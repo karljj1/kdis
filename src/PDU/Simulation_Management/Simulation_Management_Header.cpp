@@ -59,8 +59,8 @@ Simulation_Management_Header::Simulation_Management_Header() {
 Simulation_Management_Header::Simulation_Management_Header(
     const Simulation_Management_Header& H)
     : Header(H),
-      m_OriginatingEntityID(H.GetOriginatingEntityID()),
-      m_ReceivingEntityID(H.GetReceivingEntityID()) {}
+      m_OriginatingEntityID(H.m_OriginatingEntityID),
+      m_ReceivingEntityID(H.m_ReceivingEntityID) {}
 
 //////////////////////////////////////////////////////////////////////////
 
