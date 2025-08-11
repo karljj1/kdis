@@ -101,7 +101,19 @@ const EnumDescriptor RadioInputSourceDescriptor[] = {
     {6, "Gunner"},
     {7, "Commander"},
     {8, "DigitalDataDevice"},
-    {9, "Intercom"}};
+    {9, "Intercom"},
+#if DIS_VERSION > 6
+    {10, "AudioJammer"},
+    {11, "DataJammer"},
+    {12, "GPSJammer"},
+    {13, "GPSMeaconer"},
+    {14, "SATCOMUplinkJammer"},
+    {15, "CrewObserver1"},
+    {16, "CrewObserver2"},
+    {17, "AerialRefuelingOfficer"},
+    {18, "AerialRefuelingOfficerInstructor"},
+#endif
+};
 
 KUINT32 KDIS::DATA_TYPE::ENUMS::GetEnumSizeRadioInputSource() {
   return sizeof(RadioInputSourceDescriptor) / sizeof(EnumDescriptor);
