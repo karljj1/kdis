@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - C-style casts in favor of C++ named casts via [#54](https://github.com/karljj1/kdis/pull/54)
 - `KDIS::DATA_TYPE::AggregateMarking` now uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
 - `KDIS::DATA_TYPE::EntityMarking` now only uses `KString` instead of `KCHAR8*`/size pairs via [#64](https://github.com/karljj1/kdis/pull/64)
+- `KDIS::DATA_TYPE::ENUMS::RadioInputSource` updated to `v35` via [#81](https://github.com/karljj1/kdis/pull/81)
 - Overall code and repository structure have been reworked to improve maintainability
 
 ### Deprecated
