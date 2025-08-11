@@ -93,6 +93,11 @@ enum RadioInputSource {
   DataJammer = 11,
   GPSJammer = 12,
   GPSMeaconer = 13,
+  SATCOMUplinkJammer = 14,
+  CrewObserver1 = 15,
+  CrewObserver2 = 16,
+  AerialRefuelingOfficer = 17,
+  AerialRefuelingOfficerInstructor = 18,
 #endif
 };
 
