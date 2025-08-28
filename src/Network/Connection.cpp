@@ -103,7 +103,7 @@ void Connection::bindSocket() {
   // Bind the *sending* socket to the specified local interface
   if (!m_bReceiveOnly) {
     socklen_t addrlen = sizeof(m_InterfaceAddr);
-    iRet = bind(m_iSocket[SEND_SOCK], (sockaddr*)&m_InterfaceAddr, addrlen);
+    iRet = ::bind(m_iSocket[SEND_SOCK], (sockaddr*)&m_InterfaceAddr, addrlen);
     if (iRet == SOCKET_ERROR) {
       THROW_ERROR;
     }
@@ -119,7 +119,7 @@ void Connection::bindSocket() {
 
   // Bind the *receiving* socket to the chosen port (on all local interfaces)
   if (!m_bSendOnly) {
-    iRet = bind(m_iSocket[RECEIVE_SOCK], (sockaddr*)&Address, sizeof(Address));
+    iRet = ::bind(m_iSocket[RECEIVE_SOCK], (sockaddr*)&Address, sizeof(Address));
     if (iRet == SOCKET_ERROR) {
       THROW_ERROR;
     }
