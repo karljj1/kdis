@@ -43,6 +43,7 @@ option(
   "Enumeration descriptors. Allow enum values to be turned into their text labels. This increase the memory footprint of the library"
   ON
 )
+option(KDIS_DEPRECATED_NET "Include deprecated network headers and sources" OFF)
 option(KDIS_BUILD_INSTALL "Build install" ${PROJECT_IS_TOP_LEVEL})
 option(KDIS_BUILD_DOCS "Build documentation" ${PROJECT_IS_TOP_LEVEL})
 option(KDIS_BUILD_EXAMPLES "Build examples" ${PROJECT_IS_TOP_LEVEL})
@@ -60,6 +61,12 @@ if(NOT DIS_VERSION EQUAL 5
    AND NOT DIS_VERSION EQUAL 7
 )
   message(FATAL_ERROR "Invalid DIS version '${DIS_VERSION}'")
+endif()
+if(KDIS_BUILD_EXAMPLES OR KDIS_BUILD_TESTS)
+  set(KDIS_DEPRECATED_NET
+      ON
+      CACHE BOOL "Include deprecated network headers and sources" FORCE
+  )
 endif()
 if(KDIS_BUILD_TESTS_COVERAGE)
   # Compiler (GNU, Clang and Flang)
@@ -132,10 +139,12 @@ set(KDIS_UTILS_HEADERS_DIR ${KDIS_HEADERS_DIR}/utils)
 set(KDIS_UTILS_SOURCES_DIR ${KDIS_SOURCES_DIR}/utils)
 
 list(APPEND KDIS_HEADERS ${KDIS_UTILS_HEADERS_DIR}/BoundedLengthString.hpp
-                         ${KDIS_UTILS_HEADERS_DIR}/Endian.hpp ${KDIS_UTILS_HEADERS_DIR}/format.hpp
-                         ${KDIS_UTILS_HEADERS_DIR}/NumberConversions.hpp)
+     ${KDIS_UTILS_HEADERS_DIR}/Endian.hpp ${KDIS_UTILS_HEADERS_DIR}/format.hpp
+     ${KDIS_UTILS_HEADERS_DIR}/NumberConversions.hpp
+)
 list(APPEND KDIS_SOURCES ${KDIS_UTILS_SOURCES_DIR}/Endian.cpp
-                         ${KDIS_UTILS_SOURCES_DIR}/NumberConversions.cpp)
+     ${KDIS_UTILS_SOURCES_DIR}/NumberConversions.cpp
+)
 
 # DataTypes
 set(KDIS_DATATYPES_HEADERS_DIR ${KDIS_HEADERS_DIR}/DataTypes)
@@ -935,16 +944,18 @@ list(APPEND KDIS_SOURCES ${KDIS_EXTRAS_SOURCES_DIR}/DeadReckoningCalculator.cpp
 )
 
 # Network
-set(KDIS_NETWORK_HEADERS_DIR ${KDIS_HEADERS_DIR}/Network)
-set(KDIS_NETWORK_SOURCES_DIR ${KDIS_SOURCES_DIR}/Network)
+if(KDIS_DEPRECATED_NET)
+  set(KDIS_NETWORK_HEADERS_DIR ${KDIS_HEADERS_DIR}/Network)
+  set(KDIS_NETWORK_SOURCES_DIR ${KDIS_SOURCES_DIR}/Network)
 
-list(APPEND KDIS_HEADERS ${KDIS_NETWORK_HEADERS_DIR}/Connection.hpp
-     ${KDIS_NETWORK_HEADERS_DIR}/ConnectionAddressFilter.hpp
-     ${KDIS_NETWORK_HEADERS_DIR}/ConnectionSubscriber.hpp
-)
-list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
-     ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
-)
+  list(APPEND KDIS_HEADERS ${KDIS_NETWORK_HEADERS_DIR}/Connection.hpp
+       ${KDIS_NETWORK_HEADERS_DIR}/ConnectionAddressFilter.hpp
+       ${KDIS_NETWORK_HEADERS_DIR}/ConnectionSubscriber.hpp
+  )
+  list(APPEND KDIS_SOURCES ${KDIS_NETWORK_SOURCES_DIR}/Connection.cpp
+       ${KDIS_NETWORK_SOURCES_DIR}/ConnectionAddressFilter.cpp
+  )
+endif()
 
 #
 # Configuration file
