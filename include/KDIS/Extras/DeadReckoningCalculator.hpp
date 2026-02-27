@@ -66,6 +66,7 @@ the correct way please let me know) 9 FVB    - Position Works
 
 #pragma once
 
+#include <cstring>
 #include <vector>
 
 #include "KDIS/DataTypes/EulerAngles.hpp"
@@ -139,21 +140,39 @@ class Matrix {
   };
 
   Matrix operator*(const Matrix& Value) {
-    Matrix m = *this;
-    Type tmp = 0, tmp2 = 0, sum = 0;
+    Matrix result;
+    Type sum = 0;
 
     for (KUINT16 i = 0; i < rows; ++i) {
       for (KUINT16 j = 0; j < cols; ++j) {
-        for (KUINT16 k = 0; k < cols; ++k) {
-          tmp += m.Data[i][k] * Value.Data[k][j];
+        for (KUINT16 k = 0; k < cols; k++) {
+          sum += this->Data[i][k] * Value.Data[k][j];
         }
 
-        m.Data[i][j] = tmp;
-        tmp = 0;
+        result.Data[i][j] = sum;
+        sum = 0;
       }
     }
+    memcpy(this->Data, result.Data, sizeof(Type) * rows * cols);
+    return *this;
+  };
 
-    return m;
+  Matrix& operator*=(const Matrix& Value) {
+    Matrix result;
+    Type sum = 0;
+
+    for (KUINT16 i = 0; i < rows; ++i) {
+      for (KUINT16 j = 0; j < cols; ++j) {
+        for (KUINT16 k = 0; k < cols; k++) {
+          sum += this->Data[i][k] * Value.Data[k][j];
+        }
+
+        result.Data[i][j] = sum;
+        sum = 0;
+      }
+    }
+    memcpy(this->Data, result.Data, sizeof(Type) * rows * cols);
+    return *this;
   };
 
   template <class T>
@@ -195,9 +214,7 @@ class Matrix {
 
     for (KUINT16 i = 0; i < rows; ++i) {
       for (KUINT16 j = 0; j < i; ++j) {
-        Type aux = Data[i][j];
-        Data[i][j] = Data[j][i];
-        Data[j][i] = aux;
+        std::swap(Data[i][j], Data[j][i]);
       }
     }
   }
