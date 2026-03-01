@@ -66,7 +66,6 @@ the correct way please let me know) 9 FVB    - Position Works
 
 #pragma once
 
-#include <cstring>
 #include <utility>
 #include <vector>
 
@@ -146,7 +145,7 @@ class Matrix {
     for (KUINT16 i = 0; i < rows; ++i) {
       for (KUINT16 j = 0; j < cols; ++j) {
         Type sum = 0;
-        for (KUINT16 k = 0; k < cols; k++) {
+        for (KUINT16 k = 0; k < cols; ++k) {
           sum += this->Data[i][k] * Value.Data[k][j];
         }
         m.Data[i][j] = sum;
@@ -168,8 +167,8 @@ class Matrix {
         m.Data[i][j] = sum;
       }
     }
-    std::memcpy(this->Data, m.Data, sizeof(Type) * rows * cols);
-    return *m;
+    *this = std::move(m);
+    return *this;
   };
 
   template <class T>
