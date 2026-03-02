@@ -66,6 +66,7 @@ the correct way please let me know) 9 FVB    - Position Works
 
 #pragma once
 
+#include <utility>
 #include <vector>
 
 #include "KDIS/DataTypes/EulerAngles.hpp"
@@ -139,21 +140,35 @@ class Matrix {
   };
 
   Matrix operator*(const Matrix& Value) {
-    Matrix m = *this;
-    Type tmp = 0, tmp2 = 0, sum = 0;
+    Matrix m;
 
     for (KUINT16 i = 0; i < rows; ++i) {
       for (KUINT16 j = 0; j < cols; ++j) {
+        Type sum = 0;
         for (KUINT16 k = 0; k < cols; ++k) {
-          tmp += m.Data[i][k] * Value.Data[k][j];
+          sum += this->Data[i][k] * Value.Data[k][j];
         }
-
-        m.Data[i][j] = tmp;
-        tmp = 0;
+        m.Data[i][j] = sum;
       }
     }
 
     return m;
+  };
+
+  Matrix& operator*=(const Matrix& Value) {
+    Matrix m;
+
+    for (KUINT16 i = 0; i < rows; ++i) {
+      for (KUINT16 j = 0; j < cols; ++j) {
+        Type sum = 0;
+        for (KUINT16 k = 0; k < cols; ++k) {
+          sum += this->Data[i][k] * Value.Data[k][j];
+        }
+        m.Data[i][j] = sum;
+      }
+    }
+    *this = std::move(m);
+    return *this;
   };
 
   template <class T>
@@ -195,9 +210,7 @@ class Matrix {
 
     for (KUINT16 i = 0; i < rows; ++i) {
       for (KUINT16 j = 0; j < i; ++j) {
-        Type aux = Data[i][j];
-        Data[i][j] = Data[j][i];
-        Data[j][i] = aux;
+        std::swap(Data[i][j], Data[j][i]);
       }
     }
   }
@@ -300,11 +313,11 @@ class KDIS_EXPORT DeadReckoningCalculator {
   //************************************
   // FullName:    KDIS::UTILS::DeadReckoningCalculator::Reset
   // Author:      Robert Ioiart - 04/05/2010
-  // Description: Resets this object. For a local entity should be called before
-  // sending out
+  // Description: Resets this object. For a local entity should be called
+  // before sending out
   //              an entity state PDU so the local entity can dead-reckon
-  //              itself. For a remote entity should be called when an ES PDU is
-  //              received.
+  //              itself. For a remote entity should be called when an ES PDU
+  //              is received.
   // Parameter:   const Vector & LinearVelocity
   // Parameter:   const Vector & LinearAcceleration
   // Parameter:   const Vector & AngularVelocity - Angular velocity around the
@@ -335,8 +348,8 @@ class KDIS_EXPORT DeadReckoningCalculator {
 
   //************************************
   // FullName:    KDIS::DeadReckoningCalculator::GenerateSmoothingPoints
-  // Description: When a new update of position is received from another entity,
-  // a correction
+  // Description: When a new update of position is received from another
+  // entity, a correction
   //              in position is usually required so that the entity may be
   //              depicted in simulation as accurately as possible. The
   //              preferred method is to gradually correct the position of the
@@ -353,16 +366,16 @@ class KDIS_EXPORT DeadReckoningCalculator {
 
   //************************************
   // FullName:    KDIS::DeadReckoningCalculator::GenerateSmoothingPoints
-  // Description: When a new update of position is received from another entity,
-  // a correction
+  // Description: When a new update of position is received from another
+  // entity, a correction
   //              in position is usually required so that the entity may be
   //              depicted in simulation as accurately as possible. The
   //              preferred method is to gradually correct the position of the
   //              entity over a period of time. This is called smoothing, this
   //              function will generate the smoothing points for you.
   //
-  // Note:        This is the preferred version for generating smoothing points,
-  // because it does not
+  // Note:        This is the preferred version for generating smoothing
+  // points, because it does not
   //              incur the cost of a copy of the vector.
   //
   // Parameter:   const WorldCoordinates & StartPosition,
