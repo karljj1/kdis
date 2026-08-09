@@ -28,6 +28,10 @@ http://p.sf.net/kdis/UserGuide
 *********************************************************************/
 
 #include "KDIS/PDU/Distributed_Emission_Regeneration/IFF_PDU.hpp"
+
+#include <memory>
+
+#include "KDIS/DataTypes/Enums/EnumSystemIdentifier.hpp"
 #include "KDIS/utils/format.hpp"
 
 //////////////////////////////////////////////////////////////////////////
@@ -38,6 +42,53 @@ using namespace PDU;
 using namespace DATA_TYPE;
 using namespace ENUMS;
 using namespace UTILS;
+
+//////////////////////////////////////////////////////////////////////////
+
+namespace {
+bool IsTransponder(const KDIS::DATA_TYPE::SystemIdentifier& SI) {
+  switch (SI.GetSystemType()) {
+    case KDIS::DATA_TYPE::ENUMS::Mark_X_XII_ATCRBS_ModeS_Transponder:
+    case KDIS::DATA_TYPE::ENUMS::Soviet_Transponder:
+    case KDIS::DATA_TYPE::ENUMS::RRB_Transponder:
+#if DIS_VERSION > 6
+    case KDIS::DATA_TYPE::ENUMS::Mark_XIIA_Transponder:
+    case KDIS::DATA_TYPE::ENUMS::Mode_5_Transponder:
+    case KDIS::DATA_TYPE::ENUMS::Mode_S_Transponder:
+#endif
+      return true;
+    case KDIS::DATA_TYPE::ENUMS::Mark_X_XII_ATCRBS_ModeS_Interrogator:
+    case KDIS::DATA_TYPE::ENUMS::Soviet_Interrogator:
+#if DIS_VERSION > 6
+    case KDIS::DATA_TYPE::ENUMS::Mark_XIIA_Interrogator:
+    case KDIS::DATA_TYPE::ENUMS::Mode_5_Interrogator:
+    case KDIS::DATA_TYPE::ENUMS::Mode_S_Interrogator:
+#endif
+      return false;
+#if DIS_VERSION > 6
+    case KDIS::DATA_TYPE::ENUMS::
+        Mark_XIIA_Combined_Interrogator_Transponder_CIT:
+    case KDIS::DATA_TYPE::ENUMS::Mark_XII_Combined_Interrogator_Transponder_CIT:
+    case KDIS::DATA_TYPE::ENUMS::TCAS_ACAS_Transceiver:
+      // B.2.4 Change/Options record, section e
+      return SI.GetTransponderInterrogatorIndicator() == false;
+#endif
+    default:
+      throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
+                       KDIS::UTILS::format("Unknown System %s | %u",
+                                           __FUNCTION__, SI.GetSystemType()));
+  }
+}
+
+template <typename T>
+bool CompareSharedPtrNE(const T& lhs, const T& rhs) {
+  if (lhs == nullptr && rhs == nullptr) return false;
+  if (lhs == rhs) return false;
+  if ((lhs == nullptr) != (rhs == nullptr)) return true;
+  return *lhs != *rhs;
+}
+
+}  // namespace
 
 //////////////////////////////////////////////////////////////////////////
 // protected:
@@ -197,32 +248,126 @@ KUINT8 IFF_PDU::GetSystemSpecificData() const { return m_ui8SystemSpecific; }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::AddLayer(const LyrHdrPtr& L) {
-  m_vLayers.push_back(L);
+void IFF_PDU::SetLayer(const std::shared_ptr<KDIS::DATA_TYPE::LayerHeader>& L) {
+  switch (L->GetLayerNumber()) {
+    case 2:
+      m_pLayer2 = std::dynamic_pointer_cast<KDIS::DATA_TYPE::IFF_Layer2>(L);
+      break;
+#if DIS_VERSION > 6
+    case 3:
+      if (IsTransponder(m_SystemID)) {
+        m_pLayer3Transponder =
+            std::dynamic_pointer_cast<KDIS::DATA_TYPE::IFF_Layer3Transponder>(
+                L);
+      } else {
+        m_pLayer3Interrogator =
+            std::dynamic_pointer_cast<KDIS::DATA_TYPE::IFF_Layer3Interrogator>(
+                L);
+      }
+      break;
+    case 4:
+    case 5:
+      throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
+                       KDIS::UTILS::format("Not implemented: %s | %u",
+                                           __FUNCTION__, L->GetLayerNumber()));
+#endif
+    default:
+      throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
+                       KDIS::UTILS::format("Invalid layer number: %s | %u",
+                                           __FUNCTION__, L->GetLayerNumber()));
+  }
   m_ui16PDULength += L->GetLayerLength();
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::SetLayers(const vector<LyrHdrPtr>& L) {
-  m_vLayers = L;
-  m_ui16PDULength = IFF_PDU_SIZE;
-  vector<LyrHdrPtr>::const_iterator citr = L.begin();
-  vector<LyrHdrPtr>::const_iterator citrEnd = L.end();
-  for (; citr != citrEnd; ++citr) {
-    m_ui16PDULength += (*citr)->GetLayerLength();
+std::shared_ptr<LayerHeader> IFF_PDU::GetLayer(KUINT8 LayerNumber) {
+  switch (LayerNumber) {
+    case 2:
+      return m_pLayer2;
+#if DIS_VERSION > 6
+    case 3:
+      return IsTransponder(m_SystemID)
+                 ? std::dynamic_pointer_cast<LayerHeader>(m_pLayer3Transponder)
+                 : std::dynamic_pointer_cast<LayerHeader>(
+                       m_pLayer3Interrogator);
+    case 4:
+    case 5:
+      throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
+                       KDIS::UTILS::format("Not implemented: %s | %u",
+                                           __FUNCTION__, LayerNumber));
+#endif
+    default:
+      throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
+                       KDIS::UTILS::format("Invalid layer number: %s | %u",
+                                           __FUNCTION__, LayerNumber));
+  }
+}
+
+std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer2> IFF_PDU::GetLayer2() {
+  return m_pLayer2;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+#if DIS_VERSION > 6
+
+std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer3> IFF_PDU::GetLayer3() {
+  if (IsTransponder(m_SystemID)) {
+    return m_pLayer3Transponder;
+  } else {
+    return m_pLayer3Interrogator;
   }
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-const std::vector<LyrHdrPtr>& IFF_PDU::GetLayers() const { return m_vLayers; }
+std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer3Transponder>
+IFF_PDU::GetLayer3Transponder() {
+  return m_pLayer3Transponder;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
-void IFF_PDU::ClearLayers() {
-  m_vLayers.clear();
-  m_ui16PDULength = IFF_PDU_SIZE;
+std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer3Interrogator>
+IFF_PDU::GetLayer3Interrogator() {
+  return m_pLayer3Interrogator;
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+
+void IFF_PDU::ClearLayer(KUINT8 LayerNumber) {
+  switch (LayerNumber) {
+    case 2:
+      if (m_pLayer2) {
+        m_ui16PDULength -= m_pLayer2->GetLayerLength();
+      }
+      m_pLayer2.reset();
+      break;
+#if DIS_VERSION > 6
+    case 3:
+      if (m_pLayer3Transponder) {
+        m_ui16PDULength -= m_pLayer3Transponder->GetLayerLength();
+        m_pLayer3Transponder.reset();
+      }
+      if (m_pLayer3Interrogator) {
+        m_ui16PDULength -= m_pLayer3Interrogator->GetLayerLength();
+        m_pLayer3Interrogator.reset();
+      }
+      break;
+    case 4:
+    case 5:
+      throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
+                       KDIS::UTILS::format("Not implemented: %s | %u",
+                                           __FUNCTION__, LayerNumber));
+#endif
+    default:
+      throw KException(ErrorCode::UNSUPPORTED_DATATYPE,
+                       KDIS::UTILS::format("Invalid layer number: %s | %u",
+                                           __FUNCTION__, LayerNumber));
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -244,12 +389,18 @@ KString IFF_PDU::GetAsString() const {
 
 #endif
 
-  vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
-  vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
-  for (; citr != citrEnd; ++citr) {
-    ss << (*citr)->GetAsString();
+  if (m_pLayer2) {
+    ss << m_pLayer2->GetAsString();
+  }
+#if DIS_VERSION > 6
+  if (m_pLayer3Transponder) {
+    ss << m_pLayer3Transponder->GetAsString();
   }
 
+  if (m_pLayer3Interrogator) {
+    ss << m_pLayer3Interrogator->GetAsString();
+  }
+#endif
   return ss.str();
 }
 
@@ -277,27 +428,25 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
   // Decode each layer
   while (remainingData) {
     LayerHeader hdr(stream);
-    LayerHeader* layer = NULL;
 
     switch (hdr.GetLayerNumber()) {
       case 2:
-        layer = new IFF_Layer2(hdr, stream);
+        m_pLayer2 = std::make_shared<IFF_Layer2>(hdr, stream);
+        remainingData -= m_pLayer2->GetLayerLength();
         break;
 
 #if DIS_VERSION > 6
       case 3:
-        switch (m_SystemID.GetSystemType()) {
-          case Mark_X_XII_ATCRBS_ModeS_Transponder:
-          case RRB_Transponder:
-          case Soviet_Transponder:
-            layer = new IFF_Layer3Transponder(hdr, stream);
-            break;
-
-          case Mark_X_XII_ATCRBS_ModeS_Interrogator:
-          case Soviet_Interrogator:
-            layer = new IFF_Layer3Interrogator(hdr, stream);
-            break;
+        if (IsTransponder(m_SystemID)) {
+          m_pLayer3Transponder =
+              std::make_shared<IFF_Layer3Transponder>(hdr, stream);
+          remainingData -= m_pLayer3Transponder->GetLayerLength();
+        } else {
+          m_pLayer3Interrogator =
+              std::make_shared<IFF_Layer3Interrogator>(hdr, stream);
+          remainingData -= m_pLayer3Interrogator->GetLayerLength();
         }
+
         break;
 #endif
 
@@ -308,14 +457,6 @@ void IFF_PDU::Decode(KDataStream& stream, bool ignoreHeader /*= true*/) {
         throw KException(
             ErrorCode::UNSUPPORTED_DATATYPE,
             KDIS::UTILS::format("%s | %u", __FUNCTION__, hdr.GetLayerNumber()));
-    }
-
-    if (layer) {
-      m_vLayers.push_back(layer);
-      remainingData -= layer->GetLayerLength();
-    } else {
-      throw KException(ErrorCode::INVALID_OPERATION,
-                       KDIS::UTILS::format("%s | Layer is nul", __FUNCTION__));
     }
   }
 }
@@ -339,11 +480,17 @@ void IFF_PDU::Encode(KDataStream& stream) const {
          << KDIS_STREAM m_Location << KDIS_STREAM m_SystemID
          << m_ui8SystemDesignator << m_ui8SystemSpecific << KDIS_STREAM m_FOD;
 
-  vector<LyrHdrPtr>::const_iterator citr = m_vLayers.begin();
-  vector<LyrHdrPtr>::const_iterator citrEnd = m_vLayers.end();
-  for (; citr != citrEnd; ++citr) {
-    (*citr)->Encode(stream);
+  if (m_pLayer2) {
+    m_pLayer2->Encode(stream);
   }
+#if DIS_VERSION > 6
+  if (m_pLayer3Transponder) {
+    m_pLayer3Transponder->Encode(stream);
+  }
+  if (m_pLayer3Interrogator) {
+    m_pLayer3Interrogator->Encode(stream);
+  }
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -355,7 +502,13 @@ KBOOL IFF_PDU::operator==(const IFF_PDU& Value) const {
   if (m_Location != Value.m_Location) return false;
   if (m_SystemID != Value.m_SystemID) return false;
   if (m_FOD != Value.m_FOD) return false;
-  if (m_vLayers != Value.m_vLayers) return false;
+  if (CompareSharedPtrNE(m_pLayer2, Value.m_pLayer2)) return false;
+#if DIS_VERSION > 6
+  if (CompareSharedPtrNE(m_pLayer3Transponder, Value.m_pLayer3Transponder))
+    return false;
+  if (CompareSharedPtrNE(m_pLayer3Interrogator, Value.m_pLayer3Interrogator))
+    return false;
+#endif
   return true;
 }
 

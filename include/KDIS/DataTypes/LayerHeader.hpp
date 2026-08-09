@@ -41,20 +41,9 @@ http://p.sf.net/kdis/UserGuide
 #pragma once
 
 #include "KDIS/DataTypes/DataTypeBase.hpp"
-#include "KDIS/Extras/KRef_Ptr.hpp"
 
 namespace KDIS {
 namespace DATA_TYPE {
-
-/************************************************************************/
-// Define the type of pointer we are using for LayerHeader Records,
-// do we want a weak reference or a ref counter?
-// By default we use a ref pointer, however if you want to use a standard
-// pointer or one of your own then simply change it below.
-/************************************************************************/
-class LayerHeader;
-typedef KDIS::UTILS::KRef_Ptr<LayerHeader> LyrHdrPtr;  // Ref counter
-// typedef VaLayerHeaderLyrHdrPtr; // Weak ref
 
 class KDIS_EXPORT LayerHeader : public DataTypeBase {
  public:

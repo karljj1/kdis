@@ -74,7 +74,7 @@ class KDIS_EXPORT IFF_Layer3Interrogator : public IFF_Layer3 {
   //************************************
   void SetBasicData(const Mode5InterrogatorBasicData& BD);
   const Mode5InterrogatorBasicData& GetBasicData() const;
-  Mode5InterrogatorBasicData& GetBasicDatan();
+  Mode5InterrogatorBasicData& GetBasicData();
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::IFF_Layer3Interrogator::GetAsString

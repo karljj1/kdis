@@ -72,7 +72,7 @@ class KDIS_EXPORT IFF_Layer3Transponder : public IFF_Layer3 {
   //************************************
   void SetBasicData(const Mode5TransponderBasicData& BD);
   const Mode5TransponderBasicData& GetBasicData() const;
-  Mode5TransponderBasicData& GetBasicDatan();
+  Mode5TransponderBasicData& GetBasicData();
 
   //************************************
   // FullName:    KDIS::DATA_TYPE::IFF_Layer3Transponder::GetAsString
