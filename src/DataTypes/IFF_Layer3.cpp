@@ -104,6 +104,12 @@ const std::vector<StdVarPtr>& IFF_Layer3::GetDataRecords() const {
 
 //////////////////////////////////////////////////////////////////////////
 
+std::vector<StdVarPtr>& IFF_Layer3::GetDataRecords() {
+  return m_vStdVarRecs;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 void IFF_Layer3::ClearDataRecords() {
   // Reset the length.
   m_ui16LayerLength = IFF_LAYER3_SIZE;

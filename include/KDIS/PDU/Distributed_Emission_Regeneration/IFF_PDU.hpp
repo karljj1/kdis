@@ -99,7 +99,11 @@ class KDIS_EXPORT IFF_PDU : public Header {
 
   KDIS::DATA_TYPE::FundamentalOperationalData m_FOD;
 
-  std::vector<KDIS::DATA_TYPE::LyrHdrPtr> m_vLayers;
+  std::shared_ptr<DATA_TYPE::IFF_Layer2> m_pLayer2;
+
+  std::shared_ptr<DATA_TYPE::IFF_Layer3Transponder> m_pLayer3Transponder;
+
+  std::shared_ptr<DATA_TYPE::IFF_Layer3Interrogator> m_pLayer3Interrogator;
 
   IFF_PDU* clone() const override;
 
@@ -202,18 +206,28 @@ class KDIS_EXPORT IFF_PDU : public Header {
 #endif
 
   //************************************
-  // FullName:    KDIS::DATA_TYPE::IFF_Layer2::AddLayer
-  //              KDIS::DATA_TYPE::IFF_Layer2::SetLayers
-  //              KDIS::DATA_TYPE::IFF_Layer2::GetLayers
-  //              KDIS::DATA_TYPE::IFF_Layer2::ClearLayers
+  // FullName:    KDIS::DATA_TYPE::IFF_PDU::SetLayer
+  //              KDIS::DATA_TYPE::IFF_PDU::GetLayer
+  //              KDIS::DATA_TYPE::IFF_PDU::GetLayer2
+  //              KDIS::DATA_TYPE::IFF_PDU::GetLayer3
+  //              KDIS::DATA_TYPE::IFF_PDU::GetLayer3Transponder
+  //              KDIS::DATA_TYPE::IFF_PDU::GetLayer3Interrogator
+  //              KDIS::DATA_TYPE::IFF_PDU::ClearLayer
   // Description: Any additional layers attached to this IFF PDU.
-  // Parameter:   const KDIS::DATA_TYPE::LyrHdrPtr L, const
-  // vector<KDIS::DATA_TYPE::LyrHdrPtr> & L
+  // Parameter:   const std::shared_ptr<KDIS::DATA_TYPE::LayerHeader>& L,
+  //              KUINT8 LayerNumber
   //************************************
-  void AddLayer(const KDIS::DATA_TYPE::LyrHdrPtr& L);
-  void SetLayers(const std::vector<KDIS::DATA_TYPE::LyrHdrPtr>& L);
-  const std::vector<KDIS::DATA_TYPE::LyrHdrPtr>& GetLayers() const;
-  void ClearLayers();
+  void SetLayer(const std::shared_ptr<KDIS::DATA_TYPE::LayerHeader>& L);
+  std::shared_ptr<KDIS::DATA_TYPE::LayerHeader> GetLayer(KUINT8 LayerNumber);
+  std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer2> GetLayer2();
+#if DIS_VERSION > 6
+  std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer3> GetLayer3();
+  std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer3Transponder>
+  GetLayer3Transponder();
+  std::shared_ptr<KDIS::DATA_TYPE::IFF_Layer3Interrogator>
+  GetLayer3Interrogator();
+#endif
+  void ClearLayer(KUINT8 LayerNumber);
 
   //************************************
   // FullName:    KDIS::PDU::IFF_PDU::GetAsString

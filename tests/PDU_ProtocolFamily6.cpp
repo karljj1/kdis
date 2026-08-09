@@ -43,7 +43,6 @@
 #include <KDIS/PDU/Synthetic_Environment/Gridded_Data_PDU.hpp>
 #include <KDIS/PDU/Synthetic_Environment/Linear_Object_State_PDU.hpp>
 #include <KDIS/PDU/Synthetic_Environment/Point_Object_State_PDU.hpp>
-#include <iostream>
 
 //
 // Distributed Emission Regeneration
@@ -71,19 +70,26 @@ TEST_F(IFF_PDU_Test, SetGetEmittingEntityID) {
   EXPECT_EQ(eid, pdu.GetEmittingEntityID());
 }
 
-TEST_F(IFF_PDU_Test, AddLayer) {
-  KDIS::DATA_TYPE::LyrHdrPtr lhp = new KDIS::DATA_TYPE::LayerHeader;
-  EXPECT_NO_THROW(pdu.AddLayer(lhp));
+TEST_F(IFF_PDU_Test, SetLayer) {
+  auto l2 = std::make_shared<KDIS::DATA_TYPE::IFF_Layer2>();
+  EXPECT_NO_THROW(pdu.SetLayer(l2));
 }
 
-TEST_F(IFF_PDU_Test, SetGetLayers) {
-  KDIS::DATA_TYPE::LyrHdrPtr lhp = new KDIS::DATA_TYPE::LayerHeader;
-  const std::vector<KDIS::DATA_TYPE::LyrHdrPtr> vec = {lhp};
-  EXPECT_NO_THROW(pdu.SetLayers(vec));
-  EXPECT_EQ(vec, pdu.GetLayers());
+TEST_F(IFF_PDU_Test, SetGetLayer3) {
+  pdu.SetSystemIdentifier(
+      {KDIS::DATA_TYPE::ENUMS::Mark_XIIA_Transponder,  // See Table B.1
+       KDIS::DATA_TYPE::ENUMS::SystemName::
+           Generic_Mark_XIIA,  // Supports mode 1, 2, 3/A, C, S, 4 and 5
+       KDIS::DATA_TYPE::ENUMS::SystemMode::OffSystemMode, false});
+  auto l3 = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Transponder>();
+  EXPECT_NO_THROW(pdu.SetLayer(l3));
+  EXPECT_NO_THROW(pdu.Encode(stream));
+  EXPECT_NO_THROW(pdu.Decode(stream));
+  EXPECT_EQ(*std::dynamic_pointer_cast<KDIS::DATA_TYPE::LayerHeader>(l3),
+            *pdu.GetLayer(3));
 }
 
-TEST_F(IFF_PDU_Test, ClearLayers) { EXPECT_NO_THROW(pdu.ClearLayers()); }
+TEST_F(IFF_PDU_Test, ClearLayer) { EXPECT_NO_THROW(pdu.ClearLayer(3)); }
 
 TEST_F(IFF_PDU_Test, GetAsString) { EXPECT_NO_THROW(pdu.GetAsString()); }
 
@@ -93,10 +99,12 @@ TEST_F(IFF_PDU_Test, EncodeDecode) {
 }
 
 TEST_F(IFF_PDU_Test, DecodeUnsupported) {
-  KDIS::DATA_TYPE::LyrHdrPtr lhp = new KDIS::DATA_TYPE::LayerHeader;
+  auto lhp = std::make_shared<KDIS::DATA_TYPE::LayerHeader>();
   lhp->SetLayerNumber(5);  // layer number unsupported by IFF_PDU
-  EXPECT_NO_THROW(pdu.AddLayer(lhp));
+  EXPECT_THROW(pdu.SetLayer(lhp), KDIS::KException);
+  pdu.SetPDULength(pdu.GetPDULength() + lhp->GetLayerLength());
   EXPECT_NO_THROW(pdu.Encode(stream));
+  EXPECT_NO_THROW(lhp->Encode(stream));
   EXPECT_THROW(pdu.Decode(stream),
                KDIS::KException);  // b/c unsupported layer #
 }
