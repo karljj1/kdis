@@ -107,6 +107,7 @@ class KDIS_EXPORT IFF_Layer3 : public LayerHeader {
   void AddDataRecord(StdVarPtr DR);
   void SetDataRecords(const std::vector<StdVarPtr>& DRS);
   const std::vector<StdVarPtr>& GetDataRecords() const;
+  std::vector<StdVarPtr>& GetDataRecords();
   void ClearDataRecords();
 
   KBOOL operator==(const IFF_Layer3& Value) const;

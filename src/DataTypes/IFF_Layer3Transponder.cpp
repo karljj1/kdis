@@ -75,7 +75,7 @@ const Mode5TransponderBasicData& IFF_Layer3Transponder::GetBasicData() const {
 
 //////////////////////////////////////////////////////////////////////////
 
-Mode5TransponderBasicData& IFF_Layer3Transponder::GetBasicDatan() {
+Mode5TransponderBasicData& IFF_Layer3Transponder::GetBasicData() {
   return m_BasicData;
 }
 
@@ -105,7 +105,8 @@ KString IFF_Layer3Transponder::GetAsString() const {
 
 void IFF_Layer3Transponder::Decode(KDataStream& stream,
                                    bool ignoreHeader /*= true*/) {
-  if (stream.GetBufferSize() < IFF_LAYER3_SIZE)
+  if ((stream.GetBufferSize() + (ignoreHeader ? LAYER_HEADER_SIZE : 0)) <
+      IFF_LAYER3_SIZE)
     throw KException(ErrorCode::NOT_ENOUGH_DATA_IN_BUFFER, __FUNCTION__);
 
   m_vStdVarRecs.clear();
@@ -114,13 +115,15 @@ void IFF_Layer3Transponder::Decode(KDataStream& stream,
     LayerHeader::Decode(stream);
   }
 
+  KUINT16 numIffRecs;
   stream >> KDIS_STREAM m_RptSim >> KDIS_STREAM m_BasicData >> m_ui16Padding >>
-      m_ui16NumIffRecs;
+      numIffRecs;
+
+  m_ui16LayerLength = IFF_LAYER3_SIZE;
 
   // Use the factory decode function for each standard variable
-  for (KUINT16 i = 0; i < m_ui16NumIffRecs; ++i) {
-    m_vStdVarRecs.push_back(
-        StandardVariable::FactoryDecodeStandardVariable(stream));
+  for (KUINT16 i = 0; i < numIffRecs; ++i) {
+    AddDataRecord(StandardVariable::FactoryDecodeStandardVariable(stream));
   }
 }
 
