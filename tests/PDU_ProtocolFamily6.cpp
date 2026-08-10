@@ -77,7 +77,7 @@ TEST_F(IFF_PDU_Test, SetLayer) {
 
 #if DIS_VERSION > 6
 
-TEST_F(IFF_PDU_Test, SetGetLayer3) {
+TEST_F(IFF_PDU_Test, SetGetLayer3Transponder) {
   pdu.SetSystemIdentifier(
       {KDIS::DATA_TYPE::ENUMS::Mark_XIIA_Transponder,  // See Table B.1
        KDIS::DATA_TYPE::ENUMS::SystemName::
@@ -86,9 +86,23 @@ TEST_F(IFF_PDU_Test, SetGetLayer3) {
   auto l3 = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Transponder>();
   EXPECT_NO_THROW(pdu.SetLayer(l3));
   EXPECT_NO_THROW(pdu.Encode(stream));
-  EXPECT_NO_THROW(pdu.Decode(stream));
-  EXPECT_EQ(*std::dynamic_pointer_cast<KDIS::DATA_TYPE::LayerHeader>(l3),
-            *pdu.GetLayer(3));
+  KDIS::PDU::IFF_PDU pduOut;
+  EXPECT_NO_THROW(pduOut.Decode(stream));
+  EXPECT_EQ(pdu, pduOut);
+}
+
+TEST_F(IFF_PDU_Test, SetGetLayer3Interrogator) {
+  pdu.SetSystemIdentifier(
+      {KDIS::DATA_TYPE::ENUMS::Mark_XIIA_Interrogator,  // See Table B.1
+       KDIS::DATA_TYPE::ENUMS::SystemName::
+           Generic_Mark_XIIA,  // Supports mode 1, 2, 3/A, C, S, 4 and 5
+       KDIS::DATA_TYPE::ENUMS::SystemMode::OffSystemMode, false});
+  auto l3 = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Interrogator>();
+  EXPECT_NO_THROW(pdu.SetLayer(l3));
+  EXPECT_NO_THROW(pdu.Encode(stream));
+  KDIS::PDU::IFF_PDU pduOut;
+  EXPECT_NO_THROW(pduOut.Decode(stream));
+  EXPECT_EQ(pdu, pduOut);
 }
 
 #endif

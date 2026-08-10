@@ -62,42 +62,6 @@ class EncodeDecodeTest6 : public ::testing::Test {
   }
 };
 
-template <>
-class EncodeDecodeTest6<KDIS::PDU::IFF_PDU> : public ::testing::Test {
- public:
-  using T = KDIS::PDU::IFF_PDU;
-
-  void TestEncodeDecode() {
-    T pduIn;
-#if DIS_VERSION > 6
-    pduIn.GetSystemIdentifier().SetSystemType(
-        KDIS::DATA_TYPE::ENUMS::Mark_X_XII_ATCRBS_ModeS_Interrogator);
-    auto lhp = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Interrogator>();
-    pduIn.SetLayer(lhp);
-#endif
-    KDIS::KDataStream stream = pduIn.Encode();
-    T pduOut(stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-  }
-
-  void TestEncodeDecodeIgnoreHeader() {
-    T pduIn;
-#if DIS_VERSION > 6
-    pduIn.GetSystemIdentifier().SetSystemType(
-        KDIS::DATA_TYPE::ENUMS::Mark_X_XII_ATCRBS_ModeS_Interrogator);
-    auto lhp = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Interrogator>();
-    pduIn.SetLayer(lhp);
-#endif
-    KDIS::KDataStream stream = pduIn.Encode();
-
-    KDIS::PDU::Header hdr(stream);
-    T pduOut(hdr, stream);
-    EXPECT_EQ(pduIn, pduOut);
-    EXPECT_EQ(0, stream.GetBufferSize());
-  }
-};
-
 typedef ::testing::Types<
     KDIS::PDU::IFF_PDU, KDIS::PDU::SEES_PDU, KDIS::PDU::Underwater_Acoustic_PDU,
     KDIS::PDU::Collision_Elastic_PDU, KDIS::PDU::Entity_State_Update_PDU,
