@@ -64,9 +64,9 @@ class EncodeDecodeTest6 : public ::testing::Test {
 
 template <>
 class EncodeDecodeTest6<KDIS::PDU::IFF_PDU> : public ::testing::Test {
+ public:
   using T = KDIS::PDU::IFF_PDU;
 
- public:
   void TestEncodeDecode() {
     T pduIn;
 #if DIS_VERSION > 6
