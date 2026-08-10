@@ -85,6 +85,9 @@ TEST_F(IFF_PDU_Test, SetGetLayer3Transponder) {
        KDIS::DATA_TYPE::ENUMS::SystemMode::OffSystemMode, false});
   auto l3 = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Transponder>();
   EXPECT_NO_THROW(pdu.SetLayer(l3));
+  EXPECT_EQ(std::dynamic_pointer_cast<KDIS::DATA_TYPE::IFF_Layer3Transponder>(
+                pdu.GetLayer(3)),
+            l3);
   EXPECT_NO_THROW(pdu.Encode(stream));
   KDIS::PDU::IFF_PDU pduOut;
   EXPECT_NO_THROW(pduOut.Decode(stream));
@@ -99,6 +102,9 @@ TEST_F(IFF_PDU_Test, SetGetLayer3Interrogator) {
        KDIS::DATA_TYPE::ENUMS::SystemMode::OffSystemMode, false});
   auto l3 = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Interrogator>();
   EXPECT_NO_THROW(pdu.SetLayer(l3));
+  EXPECT_EQ(std::dynamic_pointer_cast<KDIS::DATA_TYPE::IFF_Layer3Interrogator>(
+                pdu.GetLayer(3)),
+            l3);
   EXPECT_NO_THROW(pdu.Encode(stream));
   KDIS::PDU::IFF_PDU pduOut;
   EXPECT_NO_THROW(pduOut.Decode(stream));
@@ -107,7 +113,31 @@ TEST_F(IFF_PDU_Test, SetGetLayer3Interrogator) {
 
 #endif
 
-TEST_F(IFF_PDU_Test, ClearLayer) { EXPECT_NO_THROW(pdu.ClearLayer(2)); }
+TEST_F(IFF_PDU_Test, ClearLayer) {
+  EXPECT_NO_THROW(pdu.ClearLayer(2));
+  EXPECT_THROW(pdu.ClearLayer(5), KDIS::KException);
+  EXPECT_THROW(pdu.ClearLayer(6), KDIS::KException);
+#if DIS_VERSION > 6
+  pdu.SetSystemIdentifier(
+      {KDIS::DATA_TYPE::ENUMS::Mark_XIIA_Interrogator,  // See Table B.1
+       KDIS::DATA_TYPE::ENUMS::SystemName::
+           Generic_Mark_XIIA,  // Supports mode 1, 2, 3/A, C, S, 4 and 5
+       KDIS::DATA_TYPE::ENUMS::SystemMode::OffSystemMode, false});
+  auto l3i = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Interrogator>();
+  pdu.SetLayer(l3i);
+  pdu.ClearLayer(3);
+
+  pdu.SetSystemIdentifier(
+      {KDIS::DATA_TYPE::ENUMS::Mark_XIIA_Transponder,  // See Table B.1
+       KDIS::DATA_TYPE::ENUMS::SystemName::
+           Generic_Mark_XIIA,  // Supports mode 1, 2, 3/A, C, S, 4 and 5
+       KDIS::DATA_TYPE::ENUMS::SystemMode::OffSystemMode, false});
+  auto l3t = std::make_shared<KDIS::DATA_TYPE::IFF_Layer3Transponder>();
+  pdu.SetLayer(l3t);
+  pdu.ClearLayer(3);
+
+#endif
+}
 
 TEST_F(IFF_PDU_Test, GetAsString) { EXPECT_NO_THROW(pdu.GetAsString()); }
 
